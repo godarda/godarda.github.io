@@ -17,10 +17,10 @@ class GD
         System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.get("https://godarda.com/");
+        driver.get("https://godarda.github.io/");
         
         JavascriptExecutor jse = (JavascriptExecutor)driver;
-        jse.executeScript("window.location = 'https://godarda.com/testapp/'");
+        jse.executeScript("window.location = 'https://godarda.github.io/testapp/'");
         
         jse.executeScript("alert('Navigated from home page');");
         

@@ -32,7 +32,7 @@ if sys.platform == "linux":
         baseurl = "http://localhost:4000/"
         if os.getenv("GITHUB_ACTIONS") == "true":
             githubactions = True
-            baseurl = "https://godarda.com/"
+            baseurl = "https://godarda.github.io/"
     else:
         print("Setup only works on Ubuntu Linux distribution.")
 elif sys.platform == "win32":
