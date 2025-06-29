@@ -5,14 +5,14 @@ plugins {
 
 android {
     namespace = "com.godarda"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.godarda"
         minSdk = 28
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
-        versionName = "25.5"
+        versionName = "25.6"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
