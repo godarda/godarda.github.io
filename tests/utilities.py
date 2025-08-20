@@ -3,81 +3,224 @@ Author: Shubham Darda
 Description: A standard script file contains the functionalities needed for automated testing.
 """
 
+# --- Standard library imports ---
 import os
-import sys
 import platform
-import yaml
-import shutil
-import time
 import re
+import shutil
 import subprocess
+import sys
+import time
 import unittest
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.firefox.service import Service
-from selenium.webdriver.edge.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-from webdriver_manager.firefox import GeckoDriverManager
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
-from selenium.webdriver.common.by import By
+
+from dataclasses import dataclass
+from pathlib import Path
+from typing import List, Optional, Tuple, Union
+
+# --- Third-party imports ---
+import yaml
+
 from selenium import webdriver
+from selenium.common.exceptions import (
+    WebDriverException,
+    JavascriptException,
+    NoSuchElementException,
+    TimeoutException,
+)
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
-ubuntu = False
-githubactions = False
-matched = unmatched = 0
-
-if sys.platform == "linux":
-    env = platform.freedesktop_os_release().get("ID").lower()
-    if env == "ubuntu":
-        ubuntu = True
-        baseurl = "http://localhost:4000/"
-        if os.getenv("GITHUB_ACTIONS") == "true":
-            githubactions = True
-            baseurl = "https://godarda.github.io/"
-    else:
-        print("Setup only works on Ubuntu Linux distribution.")
-elif sys.platform == "win32":
-    env = platform.system().lower()
-    baseurl = "http://localhost:4000/"
-else:
-    print("Setup only works on Windows and Ubuntu OS.")
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
 
 
-# It opens up the mentioned browser to start the automated tests.
-def open_browser(browser):
-    if browser == "chrome":
-        options = webdriver.ChromeOptions()
-        if githubactions:
-            options.add_argument('--headless')
-            print("Starting headless automated tests.")
+# It holds the base URL of the website and the environment information.
+@dataclass(frozen=True)
+class EnvironmentConfig:
+    os_platform: str
+    distribution: Optional[str]
+    is_windows: bool
+    is_ubuntu: bool
+    is_github_actions: bool
+    base_url: str
+
+
+# It tracks match/unmatch counts for automated tests.
+@dataclass
+class TestStats:
+    matched: int = 0
+    unmatched: int = 0
+
+
+def get_environment_config() -> EnvironmentConfig:
+    """
+    Detects the host operating system, enforces Windows 11 builds,
+    and sets up flags for Windows, Ubuntu, and GitHub Actions,
+    along with the appropriate base URL.
+    Returns an EnvironmentConfig.
+    """
+    os_platform = sys.platform
+    is_windows = False
+    is_ubuntu = False
+    is_github_actions = False
+    distribution = None
+    base_url = "http://localhost:4000/"
+
+    if os_platform == "linux":
+        distro_id = platform.freedesktop_os_release().get("ID", "").lower()
+        distribution = distro_id
+
+        if distro_id == "ubuntu":
+            is_ubuntu = True
         else:
-            options.add_experimental_option("excludeSwitches", ["enable-automation", "enable-logging"])
-        driver = webdriver.Chrome(options=options, service=Service(ChromeDriverManager().install()))
-    elif browser == "msedge":
-        options = webdriver.EdgeOptions()
-        options.add_experimental_option("excludeSwitches", ["enable-automation", "enable-logging"])
-        driver = webdriver.Edge(options=options, service=Service(EdgeChromiumDriverManager().install()))
-    elif browser == "firefox":
-        options = webdriver.FirefoxOptions()
-        driver = webdriver.Firefox(options=options, service=Service(GeckoDriverManager().install()))
-    return driver
+            print(f"Unsupported Linux distribution: {distro_id}. Only Ubuntu is supported.")
+            sys.exit(1)
 
+    elif os_platform == "win32":
+        is_windows = True
+        distribution = platform.system().lower()
+        _, ver, _, _ = platform.win32_ver()
 
-# It verifies the title of each page and returns the total count of matched and unmatched titles.
-def verify_title(driver, path, expected_title):
-    global matched, unmatched
-    driver.maximize_window()
-    driver.get(baseurl + path)
-    actual_title = driver.title
-    if actual_title != expected_title:
-        print("Title Unmatched: " + baseurl + path)
-        unmatched += 1
+        try:
+            build_number = int(ver.split(".")[2])
+        except (IndexError, ValueError):
+            print(f"Failed to parse Windows build from version string: {ver}")
+            sys.exit(1)
+
+        if build_number < 22000:
+            print(f"Unsupported Windows build {build_number}. Only Windows 11 (22000+) is supported.")
+            sys.exit(1)
+
     else:
-        # print("Title Matched: " + baseurl + path)
-        matched += 1
+        print(f"Unsupported OS: {os_platform}. Only Ubuntu Linux and Windows are supported.")
+        sys.exit(1)
+
+    # Common override for GitHub Actions on any OS
+    if os.getenv("GITHUB_ACTIONS", "").lower() == "true":
+        is_github_actions = True
+        base_url = "https://godarda.github.io/"
+
+    return EnvironmentConfig(
+        os_platform=os_platform,
+        distribution=distribution,
+        is_windows=is_windows,
+        is_ubuntu=is_ubuntu,
+        is_github_actions=is_github_actions,
+        base_url=base_url
+    )
+
+# Global configuration and statistics
+config = get_environment_config()
+stats = TestStats()
 
 
-# It verifies the back-to-top button is working on each segment and passes if the scroll bar is at the top.
-def verify_scrolling(driver):
+def open_browser(browser_name: str, cfg: EnvironmentConfig) -> WebDriver:
+    """
+    Launches a Selenium WebDriver for the specified browser.
+
+    Args:
+        browser_name: The browser to launch ('chrome', 'firefox', 'msedge').
+        cfg: EnvironmentConfig for toggling headless and other options.
+
+    Returns:
+        An instance of Selenium WebDriver.
+
+    Raises:
+        ValueError: If browser_name is not recognized.
+        WebDriverException: If browser fails to launch.
+    """
+    browser = browser_name.strip().lower()
+    driver = None
+
+    try:
+        if browser == "chrome":
+            options = webdriver.ChromeOptions()
+            if cfg.is_github_actions:
+                options.add_argument("--headless")
+                print("Running Chrome in headless mode for GitHub Actions.")
+            else:
+                options.add_experimental_option("excludeSwitches", ["enable-automation", "enable-logging"])
+            service = ChromeService(ChromeDriverManager().install())
+            driver = webdriver.Chrome(options=options, service=service)
+
+        elif browser == "msedge":
+            options = webdriver.EdgeOptions()
+            options.add_experimental_option("excludeSwitches", ["enable-automation", "enable-logging"])
+            service = EdgeService(EdgeChromiumDriverManager().install())
+            driver = webdriver.Edge(options=options, service=service)
+
+        elif browser == "firefox":
+            options = webdriver.FirefoxOptions()
+            if cfg.is_github_actions:
+                options.headless = True
+                print("Running Firefox in headless mode for GitHub Actions.")
+            service = FirefoxService(GeckoDriverManager().install())
+            driver = webdriver.Firefox(options=options, service=service)
+
+        else:
+            message = f"Unsupported browser: {browser_name}. Choose 'chrome', 'firefox', or 'msedge'."
+            print(message)
+            raise ValueError(message)
+        return driver
+
+    except WebDriverException as e:
+        print(f"Failed to launch browser '{browser_name}': {e}")
+        raise
+
+    except Exception as e:
+        print(f"Unexpected error during browser launch: {e}")
+        raise
+
+
+def verify_title(
+    driver: WebDriver,
+    path: str,
+    expected_title: str
+) -> Tuple[int, int]:
+    """
+    Navigate to the given path, compare the actual page title to the expected title,
+    update the global matched/unmatched counters, and return the updated totals.
+
+    Args:
+        driver: Active Selenium WebDriver instance.
+        path: URL path segment to append to the base URL.
+        expected_title: The title string expected on the loaded page.
+
+    Returns:
+        A tuple (matched_count, unmatched_count) reflecting the current totals.
+    """
+    url = f"{config.base_url}{path}"
+
+    try:
+        driver.maximize_window()
+        driver.get(url)
+        actual_title = driver.title.strip()
+        if actual_title == expected_title.strip():
+            stats.matched += 1
+        else:
+            stats.unmatched += 1
+
+    except Exception as e:
+        print(f"WebDriverException during title verification for '{url}': {str(e).splitlines()[0]}")
+        sys.exit(1)
+
+    return stats.matched, stats.unmatched
+
+
+def verify_scrolling(driver, timeout: int = 10) -> bool:
+    """
+    Scrolls to bottom, clicks the back-to-top button, and confirms
+    the page is back at the top within `timeout` seconds.
+
+    Returns True on success, False on any failure.
+    """
+
     try:
         before_scroll = driver.execute_script("return document.body.scrollHeight")
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -89,57 +232,116 @@ def verify_scrolling(driver):
         back_to_top = after_scroll = driver.execute_script("return document.body.scrollHeight")
         if back_to_top != before_scroll:
             print("Back to top: Unsuccessful")
-    except:
-        pass
+            return False
+        return True
+
+    except (TimeoutException, JavascriptException, NoSuchElementException) as exc:
+        print("verify_scrolling failed: %s", exc)
+        return False
 
 
-""" It reads the segment files from the _data folder and extracts the URLs to navigate. 
-Lastly, it returns the list of paths (which is required in compile_codes.py). """
+def extract_paths_from_yaml(
+    data_dir: Path,
+    filename: str,
+    element_name: str,
+    driver: Optional[WebDriver] = None,
+    config: Optional[EnvironmentConfig] = None
+) -> List[str]:
+    """
+    Reads data_dir/filename, looks under the `element_name` key,
+    extracts all child `url` values, optionally verifies titles & scroll.
+    """
+    config = config or get_environment_config()
+    data_dir = Path(data_dir)
+    file_path = data_dir / filename
+    if not file_path.exists():
+        print("File not found: %s", file_path)
+        return []
 
-def read_file(driver, data_path, file_name, element):
-    paths = []
-    with open(data_path + "%s" % file_name) as file:
-        document = yaml.safe_load(file)
-        try:
-            element_size = len(document[element])
-            for i in range(0, element_size):
-                parent = document[element][i]
-                if element == "sidenav":
-                    element_title = parent["parent"]
-                    element_url = parent["url"]
-                    if driver is not None:
-                        verify_title(driver, element_url, element_title)
-                        if not githubactions:
-                            verify_scrolling(driver)
-                try:
-                    children = parent["children"]
-                except KeyError:
-                    pass
-                else:
-                    for child in children:
-                        element_title = child["title"]
-                        element_url = child["url"]
-                        paths.append(element_url)
-                        if driver is not None:
-                            verify_title(driver, element_url, element_title)
-        except KeyError:
-            pass
+    with file_path.open() as f:
+        doc = yaml.safe_load(f) or {}
+
+    paths: List[str] = []
+    for entry in doc.get(element_name, []):
+        # subtree if available, else parent, else title
+        parent_title = entry.get("subtree") or entry.get("parent") or entry.get("title")
+        parent_url = entry.get("url")
+        if driver and parent_url:
+            verify_title(driver, parent_url, parent_title)
+            if not config.is_github_actions:
+                verify_scrolling(driver)
+
+        for child in entry.get("children", []):
+            url = child.get("url")
+            if not url:
+                continue
+            paths.append(url)
+            if driver:
+                verify_title(driver, url, child.get("title"))
+
     return paths
 
 
-""" It starts the test by taking the name of the browser and the location of the data folder and 
-performs automated tests such as verifying the title of each page and scrolling. 
-In the end, it returns the total count of matched and unmatched titles. """
+def start_tests(browser_name: str, data_path: str):
+    """
+    Launches a full suite of page‐title and scrolling checks.
+    
+    1. Detects environment and spins up the requested browser.
+    2. Iterates all YAML files in `data_path`, running
+       'sidenav' and 'grandparent' checks via extract_paths_from_yaml.
+    3. Verifies a set of core static pages.
+    4. Tears down the browser and returns (matched, unmatched) counts.
+    
+    Args:
+        browser_name: 'chrome' | 'firefox' | 'msedge'
+        data_path: Path to the folder containing your .yml segment files.
+    
+    Returns:
+        A tuple (matched_count, unmatched_count).
+    """
+    # ensure we have a Path object
+    data_dir = Path(data_path)
+    if not data_dir.is_dir():
+        print(f"Data folder not found or not a directory: {data_dir}")
+        return 0, 0
 
-def start_tests(browser, data_path):
-    driver = open_browser(browser)
-    for file_name in os.listdir(data_path):
-        read_file(driver, data_path, file_name, "sidenav")
-        read_file(driver, data_path, file_name, "grandparent")
-    verify_title(driver, "", "GoDarda")
-    verify_title(driver, "search/", "GoDarda's Search")
-    verify_title(driver, "404/", "404 Page Not Found")
-    verify_title(driver, "shubhamrdarda", "Shubham Darda")
-    driver.delete_all_cookies()
-    driver.quit()
-    return matched, unmatched
+    # fresh environment detection & driver launch
+    config = get_environment_config()
+    driver = open_browser(browser_name, config)
+
+    # reset counters
+    stats.matched = 0
+    stats.unmatched = 0
+
+    try:
+        # process each YAML segment file in sorted order
+        for file_path in sorted(data_dir.iterdir()):
+            if file_path.suffix.lower() not in (".yml", ".yaml"):
+                continue
+
+            # run tests for both keys
+            for section in ("sidenav", "grandparent"):
+                extract_paths_from_yaml(
+                    data_dir,
+                    file_path.name,
+                    section,
+                    driver,
+                    config
+                )
+
+        # verify core static pages
+        static_checks = [
+            ("",               "GoDarda"),
+            ("search/",        "GoDarda's Search"),
+            ("404/",           "404 Page Not Found"),
+            ("shubhamrdarda",  "Shubham Darda"),
+        ]
+        for path, expected in static_checks:
+            verify_title(driver, path, expected)
+
+    finally:
+        # ensure we always tear down the browser
+        driver.delete_all_cookies()
+        driver.quit()
+
+    return stats.matched, stats.unmatched

@@ -27,22 +27,22 @@ def is_compiled(html_input, compiler, subpath, file_name, extension, args):
                     stderr=subprocess.DEVNULL,
                 )
                 # Code compiled as it is bug-free
-                print("Compiled: " + baseurl + subpath + file_name)
+                print("Compiled: " + config.base_url + subpath + file_name)
                 passed += 1
             except:
                 # Code compilation is failed due to required resources are unfound (e.g. graphics.h)
-                print("Failed: " + baseurl + subpath + file_name)
+                print("Failed: " + config.base_url + subpath + file_name)
                 failed += 1
     except Exception as exception:
         print(exception)
 
 
 def compile_codes(source, destination, data_path):
-    if ubuntu:
+    if config.is_ubuntu:
         os.makedirs(destination, exist_ok=True)
         os.chdir(destination)
         for file_name in os.listdir(data_path):
-            paths = read_file(None, data_path, file_name, "grandparent")
+            paths = extract_paths_from_yaml(None, data_path, file_name, "grandparent")
             for i in range(0, len(paths)):
                 path = str(paths[i]).split("/")
                 subpath = path[0] + "/" + path[1] + "/"
