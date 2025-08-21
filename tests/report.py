@@ -45,14 +45,23 @@ def print_report(matched: int, unmatched: int, passed: int, failed: int, browser
         print(f"Total Titles Unmatched: {stats.unmatched}")
 
     if compiled > 0:
-        print("Code Compilation Report")
+        print("\nCode Compilation Report")
         print("-" * 100)
+        if stats.uncompiled > 0:
+            print(f"{'Status':<10} {'URL':<10}")
+            print("-" * 100)
+            for rel_url in stats.uncompiled_entries:
+                print(
+                    f"\033[91m{'Uncompiled':<10}\033[0m {rel_url:<10}"
+                )
+            print("-" * 100)
+        else:
+            print("\nAll titles matched. No discrepancies found.")
         print("Total Files Compiled:", compiled)
         print("Total Passed:", passed)
         print("Total Failed:", failed)
 
-        print("-" * 100)
-        print("Resources Version")
+        print("\nResources Version Report")
         print("-" * 100)
         versions = {
             "gcc/g++": get_version("g++ -dumpfullversion"),
@@ -72,4 +81,3 @@ def print_report(matched: int, unmatched: int, passed: int, failed: int, browser
 
         for label, output in versions.items():
             print(f"{label}: {output}")
-        print("-" * 100)

@@ -6,13 +6,9 @@ Description: A standard script file contains the functionalities needed for auto
 # --- Standard library imports ---
 import os
 import platform
-import re
-import shutil
-import subprocess
 import sys
 import time
-import unittest
-import requests
+import shutil
 
 from dataclasses import dataclass
 from pathlib import Path
@@ -59,6 +55,9 @@ class TestStats:
     matched: int = 0
     unmatched: int = 0
     unmatched_entries = []
+    compiled: int = 0
+    uncompiled: int = 0
+    uncompiled_entries = []
 
 
 def get_environment_config() -> EnvironmentConfig:
@@ -74,7 +73,7 @@ def get_environment_config() -> EnvironmentConfig:
     is_github_actions = False
     distribution = None
     base_url = "http://localhost:4000/"
-    datapath = os.path.join(os.path.dirname(__file__), "..", "_data")
+    datapath = os.path.join(os.path.dirname(__file__), "..", "_data/")
 
     if os_platform == "linux":
         distro_id = platform.freedesktop_os_release().get("ID", "").lower()
@@ -212,7 +211,7 @@ def verify_title(driver: WebDriver, path: str, expected_title: str) -> Tuple[int
             stats.matched += 1
         else:
             stats.unmatched += 1
-            stats.unmatched_entries.append({path, expected_title})
+            stats.unmatched_entries.append((path, expected_title))
 
     except Exception as e:
         print(
@@ -250,48 +249,6 @@ def verify_scrolling(driver, timeout: int = 10) -> bool:
     except (TimeoutException, JavascriptException, NoSuchElementException) as exc:
         print("verify_scrolling failed: %s", exc)
         return False
-
-
-def extract_paths_from_yaml(
-    data_dir: Path,
-    filename: str,
-    element_name: str,
-    driver: Optional[WebDriver] = None,
-    config: Optional[EnvironmentConfig] = None,
-) -> List[str]:
-    """
-    Reads data_dir/filename, looks under the `element_name` key,
-    extracts all child `url` values, optionally verifies titles & scroll.
-    """
-    config = config or get_environment_config()
-    data_dir = Path(data_dir)
-    file_path = data_dir / filename
-    if not file_path.exists():
-        print("File not found: %s", file_path)
-        return []
-
-    with file_path.open() as f:
-        doc = yaml.safe_load(f) or {}
-
-    paths: List[str] = []
-    for entry in doc.get(element_name, []):
-        # subtree if available, else parent, else title
-        parent_title = entry.get("subtree") or entry.get("parent") or entry.get("title")
-        parent_url = entry.get("url")
-        if driver and parent_url:
-            verify_title(driver, parent_url, parent_title)
-            if not config.is_github_actions:
-                verify_scrolling(driver)
-
-        for child in entry.get("children", []):
-            url = child.get("url")
-            if not url:
-                continue
-            paths.append(url)
-            if driver:
-                verify_title(driver, url, child.get("title"))
-
-    return paths
 
 
 def load_expected_data(folder_path):
@@ -368,10 +325,6 @@ def start_tests(browser_name: str, data_path: str):
     # driver launch
     driver = open_browser(browser_name, config)
 
-    # reset counters
-    stats.matched = 0
-    stats.unmatched = 0
-
     try:
         # load expected url/title pairs from _data
         expected = load_expected_data(config.datapath)
@@ -405,3 +358,18 @@ def start_tests(browser_name: str, data_path: str):
                 pass
 
     return stats.matched, stats.unmatched
+
+
+def clean_pycache(cache_path: str | None = None) -> None:
+    """
+    Remove a __pycache__ directory.
+    """
+    try:
+        p = Path(cache_path) if cache_path else Path(__file__).resolve().parent / "__pycache__"
+        # If caller passed a parent folder (not named __pycache__), remove its __pycache__ child
+        if p.name != "__pycache__":
+            p = p / "__pycache__"
+        if p.exists():
+            shutil.rmtree(p)
+    except Exception as e:
+        print(f"Cleanup warning (could not remove {cache_path or 'default'}): {e}")
