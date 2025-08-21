@@ -51,7 +51,11 @@ MIN_FREE_GIB = 2
 
 # --- helpers -----------------------------------------------------------------
 def run_cmd(
-    cmd: Sequence[str] | str, *, shell: bool = False, check: bool = False, timeout: int | None = None
+    cmd: Sequence[str] | str,
+    *,
+    shell: bool = False,
+    check: bool = False,
+    timeout: int | None = None,
 ) -> subprocess.CompletedProcess | None:
     """
     Run a command and return CompletedProcess. Returns None on unexpected exception.
@@ -133,9 +137,10 @@ def get_free_disk_gib(path: Path) -> int:
         free = shutil.disk_usage(path).free
         return free >> 30  # Convert bytes to GiB using bitwise shift
     except Exception as e:
-        logger.debug("Failed to retrieve free disk space for path '%s'. Exception: %s", path, e)
+        logger.debug(
+            "Failed to retrieve free disk space for path '%s'. Exception: %s", path, e
+        )
         return 0
-
 
 
 def command_exists(name: str) -> bool:
@@ -204,7 +209,13 @@ def show_progress(pct: int, msg: str | None = None) -> None:
 
 # --- core logic --------------------------------------------------------------
 class Setup:
-    def __init__(self, repo_root: Path, ubuntu: bool = False, github_actions: bool = False, windows: bool = False):
+    def __init__(
+        self,
+        repo_root: Path,
+        ubuntu: bool = False,
+        github_actions: bool = False,
+        windows: bool = False,
+    ):
         self.repo_root = repo_root
         self.ubuntu = ubuntu
         self.github_actions = github_actions
@@ -265,14 +276,20 @@ class Setup:
                     show_progress(15, "Installing system packages")
                     for pkg in packages.split():
                         try:
-                            run_cmd(f"sudo apt-get -y --ignore-missing install {pkg}", shell=True)
+                            run_cmd(
+                                f"sudo apt-get -y --ignore-missing install {pkg}",
+                                shell=True,
+                            )
                         except Exception as e:
                             logger.warning("Failed to install package %s: %s", pkg, e)
                     show_progress(30, "System packages installation complete")
 
                 if not self.github_actions and REPO_DIRNAME not in str(Path.cwd()):
                     try:
-                        run_cmd("git clone https://github.com/godarda/godarda.github.io.git", shell=True)
+                        run_cmd(
+                            "git clone https://github.com/godarda/godarda.github.io.git",
+                            shell=True,
+                        )
                     except Exception as e:
                         logger.warning("git clone failed: %s", e)
                     try:
@@ -284,12 +301,19 @@ class Setup:
             self.ensure_in_repo()
 
             show_progress(50, "Installing Python test requirements")
-            run_cmd("pip install --user --upgrade -r tests/requirements.txt --break-system-packages --no-warn-script-location", shell=True)
+            run_cmd(
+                "pip install --user --upgrade -r tests/requirements.txt --break-system-packages --no-warn-script-location",
+                shell=True,
+            )
 
             # Bundler / gems
             try:
                 self.ensure_in_repo()
-                sudo_prefix = "sudo " if (command_exists("sudo") and (self.ubuntu or self.windows)) else ""
+                sudo_prefix = (
+                    "sudo "
+                    if (command_exists("sudo") and (self.ubuntu or self.windows))
+                    else ""
+                )
                 gem_install_cmd = f"{sudo_prefix}gem install bundler"
 
                 gi = subprocess.run(
@@ -302,7 +326,9 @@ class Setup:
                     timeout=300,
                 )
                 if gi.returncode != 0:
-                    logger.warning("'gem install bundler' returned non-zero. Continuing if bundler exists.")
+                    logger.warning(
+                        "'gem install bundler' returned non-zero. Continuing if bundler exists."
+                    )
                     if getattr(gi, "stdout", None):
                         logger.debug(gi.stdout)
 
@@ -315,8 +341,12 @@ class Setup:
                     logger.warning("Failed to create vendor dir %s: %s", vendor_dir, e)
                 bundle_env["BUNDLE_PATH"] = str(vendor_dir)
 
-                show_progress(80, "Installing Ruby gems (this may take several minutes)")
-                bundle_cmd = "bundle install --path vendor/bundle --jobs=4 --retry=3 --no-color"
+                show_progress(
+                    80, "Installing Ruby gems (this may take several minutes)"
+                )
+                bundle_cmd = (
+                    "bundle install --path vendor/bundle --jobs=4 --retry=3 --no-color"
+                )
                 bi = subprocess.run(
                     bundle_cmd,
                     shell=True,
@@ -357,12 +387,16 @@ class Setup:
             # Pre-check in lite (non-CI) mode: give single-line exit when missing
             if not self.github_actions:
                 if not command_exists("bundle"):
-                    print("Required tool 'bundle' not found in PATH. Run 'python setup.py full' to install dependencies.")
+                    print(
+                        "Required tool 'bundle' not found in PATH. Run 'python setup.py full' to install dependencies."
+                    )
                     sys.exit(1)
 
                 check = run_cmd("bundle check", shell=True)
                 if not check or getattr(check, "returncode", 1) != 0:
-                    print("Project gems are not satisfied. Run 'python setup.py full' or 'bundle install --path vendor/bundle'.")
+                    print(
+                        "Project gems are not satisfied. Run 'python setup.py full' or 'bundle install --path vendor/bundle'."
+                    )
                     sys.exit(1)
 
             print("-" * 45)
@@ -414,7 +448,6 @@ class Setup:
         except Exception as e:
             logger.warning(f"Failed to process .gitignore: {e}")
 
-
     def full_setup(self) -> None:
         """
         Performs the full setup process:
@@ -425,8 +458,10 @@ class Setup:
         """
         try:
             if self.free_gib < MIN_FREE_GIB:
-                logger.error(f"[Setup] Insufficient disk space: {self.free_gib} GiB available, "
-                             f"{MIN_FREE_GIB} GiB required.")
+                logger.error(
+                    f"[Setup] Insufficient disk space: {self.free_gib} GiB available, "
+                    f"{MIN_FREE_GIB} GiB required."
+                )
                 return
 
             if Path.cwd().name == REPO_DIRNAME:
@@ -438,7 +473,7 @@ class Setup:
                 for cmd in [
                     "sudo apt-get clean -y",
                     "sudo apt-get autoclean -y",
-                    "sudo apt-get autoremove -y"
+                    "sudo apt-get autoremove -y",
                 ]:
                     run_cmd(cmd, shell=True)
 
@@ -474,26 +509,40 @@ def main() -> None:
                 logger.debug("Could not read freedesktop os release: %s", e)
                 env_id = ""
             try:
-                run_cmd(f"sudo kill -9 $(sudo lsof -t -i:{DEFAULT_JEKYLL_PORT}) 2>/dev/null", shell=True)
+                run_cmd(
+                    f"sudo kill -9 $(sudo lsof -t -i:{DEFAULT_JEKYLL_PORT}) 2>/dev/null",
+                    shell=True,
+                )
             except Exception as e:
                 logger.warning("Failed to free port %d: %s", DEFAULT_JEKYLL_PORT, e)
             if env_id == "ubuntu":
                 is_ubuntu = True
             else:
                 if env_id:
-                    print("Setup only works on Windows and Ubuntu OS (best-effort for other Linux).")
+                    print(
+                        "Setup only works on Windows and Ubuntu OS (best-effort for other Linux)."
+                    )
         elif sys.platform == "win32":
             build = windows_build_number()
             if build >= 22000:
                 is_windows_supported = True
             else:
-                logger.error("Unsupported Windows version. This script supports Windows 11 (build >= 22000) only.")
+                logger.error(
+                    "Unsupported Windows version. This script supports Windows 11 (build >= 22000) only."
+                )
                 return
         else:
-            logger.error("Setup only works on Windows and Ubuntu OS (best-effort for other Linux).")
+            logger.error(
+                "Setup only works on Windows and Ubuntu OS (best-effort for other Linux)."
+            )
             return
 
-        s = Setup(repo_root=repo_root, ubuntu=is_ubuntu, github_actions=is_github_actions, windows=is_windows_supported)
+        s = Setup(
+            repo_root=repo_root,
+            ubuntu=is_ubuntu,
+            github_actions=is_github_actions,
+            windows=is_windows_supported,
+        )
 
         full = False
         if len(sys.argv) > 1 and sys.argv[1].lstrip("-").lower() == "full":
@@ -506,7 +555,9 @@ def main() -> None:
                 s.start_server()
         else:
             if full:
-                logger.error("A full setup requires an internet connection. You may continue without the full option.")
+                logger.error(
+                    "A full setup requires an internet connection. You may continue without the full option."
+                )
             else:
                 s.start_server()
     except Exception as e:

@@ -12,14 +12,15 @@ import subprocess
 import sys
 import time
 import unittest
+import requests
 
 from dataclasses import dataclass
 from pathlib import Path
 from typing import List, Optional, Tuple, Union
+from concurrent.futures import ThreadPoolExecutor
 
 # --- Third-party imports ---
 import yaml
-
 from selenium import webdriver
 from selenium.common.exceptions import (
     WebDriverException,
@@ -49,6 +50,7 @@ class EnvironmentConfig:
     is_ubuntu: bool
     is_github_actions: bool
     base_url: str
+    datapath: Path
 
 
 # It tracks match/unmatch counts for automated tests.
@@ -56,6 +58,7 @@ class EnvironmentConfig:
 class TestStats:
     matched: int = 0
     unmatched: int = 0
+    unmatched_entries = []
 
 
 def get_environment_config() -> EnvironmentConfig:
@@ -71,6 +74,7 @@ def get_environment_config() -> EnvironmentConfig:
     is_github_actions = False
     distribution = None
     base_url = "http://localhost:4000/"
+    datapath = os.path.join(os.path.dirname(__file__), "..", "_data")
 
     if os_platform == "linux":
         distro_id = platform.freedesktop_os_release().get("ID", "").lower()
@@ -79,7 +83,9 @@ def get_environment_config() -> EnvironmentConfig:
         if distro_id == "ubuntu":
             is_ubuntu = True
         else:
-            print(f"Unsupported Linux distribution: {distro_id}. Only Ubuntu is supported.")
+            print(
+                f"Unsupported Linux distribution: {distro_id}. Only Ubuntu is supported."
+            )
             sys.exit(1)
 
     elif os_platform == "win32":
@@ -94,11 +100,15 @@ def get_environment_config() -> EnvironmentConfig:
             sys.exit(1)
 
         if build_number < 22000:
-            print(f"Unsupported Windows build {build_number}. Only Windows 11 (22000+) is supported.")
+            print(
+                f"Unsupported Windows build {build_number}. Only Windows 11 (22000+) is supported."
+            )
             sys.exit(1)
 
     else:
-        print(f"Unsupported OS: {os_platform}. Only Ubuntu Linux and Windows are supported.")
+        print(
+            f"Unsupported OS: {os_platform}. Only Ubuntu Linux and Windows are supported."
+        )
         sys.exit(1)
 
     # Common override for GitHub Actions on any OS
@@ -112,12 +122,9 @@ def get_environment_config() -> EnvironmentConfig:
         is_windows=is_windows,
         is_ubuntu=is_ubuntu,
         is_github_actions=is_github_actions,
-        base_url=base_url
+        base_url=base_url,
+        datapath=datapath,
     )
-
-# Global configuration and statistics
-config = get_environment_config()
-stats = TestStats()
 
 
 def open_browser(browser_name: str, cfg: EnvironmentConfig) -> WebDriver:
@@ -145,13 +152,17 @@ def open_browser(browser_name: str, cfg: EnvironmentConfig) -> WebDriver:
                 options.add_argument("--headless")
                 print("Running Chrome in headless mode for GitHub Actions.")
             else:
-                options.add_experimental_option("excludeSwitches", ["enable-automation", "enable-logging"])
+                options.add_experimental_option(
+                    "excludeSwitches", ["enable-automation", "enable-logging"]
+                )
             service = ChromeService(ChromeDriverManager().install())
             driver = webdriver.Chrome(options=options, service=service)
 
         elif browser == "msedge":
             options = webdriver.EdgeOptions()
-            options.add_experimental_option("excludeSwitches", ["enable-automation", "enable-logging"])
+            options.add_experimental_option(
+                "excludeSwitches", ["enable-automation", "enable-logging"]
+            )
             service = EdgeService(EdgeChromiumDriverManager().install())
             driver = webdriver.Edge(options=options, service=service)
 
@@ -178,11 +189,7 @@ def open_browser(browser_name: str, cfg: EnvironmentConfig) -> WebDriver:
         raise
 
 
-def verify_title(
-    driver: WebDriver,
-    path: str,
-    expected_title: str
-) -> Tuple[int, int]:
+def verify_title(driver: WebDriver, path: str, expected_title: str) -> Tuple[int, int]:
     """
     Navigate to the given path, compare the actual page title to the expected title,
     update the global matched/unmatched counters, and return the updated totals.
@@ -205,9 +212,12 @@ def verify_title(
             stats.matched += 1
         else:
             stats.unmatched += 1
+            stats.unmatched_entries.append({path, expected_title})
 
     except Exception as e:
-        print(f"WebDriverException during title verification for '{url}': {str(e).splitlines()[0]}")
+        print(
+            f"WebDriverException during title verification for '{url}': {str(e).splitlines()[0]}"
+        )
         sys.exit(1)
 
     return stats.matched, stats.unmatched
@@ -229,7 +239,9 @@ def verify_scrolling(driver, timeout: int = 10) -> bool:
         if after_scroll > before_scroll:
             driver.find_element(By.ID, "backtotop").click()
             time.sleep(1)
-        back_to_top = after_scroll = driver.execute_script("return document.body.scrollHeight")
+        back_to_top = after_scroll = driver.execute_script(
+            "return document.body.scrollHeight"
+        )
         if back_to_top != before_scroll:
             print("Back to top: Unsuccessful")
             return False
@@ -245,7 +257,7 @@ def extract_paths_from_yaml(
     filename: str,
     element_name: str,
     driver: Optional[WebDriver] = None,
-    config: Optional[EnvironmentConfig] = None
+    config: Optional[EnvironmentConfig] = None,
 ) -> List[str]:
     """
     Reads data_dir/filename, looks under the `element_name` key,
@@ -282,31 +294,78 @@ def extract_paths_from_yaml(
     return paths
 
 
+def load_expected_data(folder_path):
+    """
+    Parses all YAML files in the given folder to extract expected titles.
+    Files are read concurrently. Deduplicates entries based on (url, title)
+    pairs from both 'sidenav' and 'grandparent' sections.
+    """
+
+    folder = Path(folder_path)
+    expected = []
+    if not folder.exists() or not folder.is_dir():
+        return expected
+
+    files = [folder / f for f in os.listdir(folder) if f.endswith(".yml") or f.endswith(".yaml")]
+    if not files:
+        return expected
+
+    def parse_file(path: Path):
+        try:
+            with path.open("r", encoding="utf-8") as fh:
+                data = yaml.safe_load(fh) or {}
+        except Exception as e:
+            print(f"Warning: failed to read {path}: {e}")
+            return []
+
+        entries = []
+        # process both sections; parse child and parent entries
+        for section_name in ("sidenav", "grandparent"):
+            for section in data.get(section_name, []):
+                if "url" in section and "parent" in section:
+                    entries.append((section["url"], section["parent"]))
+                for child in section.get("children", []):
+                    if "url" in child and "title" in child:
+                        entries.append((child["url"], child["title"]))
+        return entries
+
+    # Choose a reasonable worker count
+    max_workers = min(32, max(2, (os.cpu_count() or 2) * 2))
+    results = []
+    with ThreadPoolExecutor(max_workers=max_workers) as ex:
+        for res in ex.map(parse_file, files):
+            if res:
+                results.extend(res)
+
+    seen = set()
+    out = []
+    for url, title in results:
+        key = (url, title)
+        if key not in seen:
+            out.append({"url": url, "title": title})
+            seen.add(key)
+
+    return out
+
+
+# Global configuration and statistics
+config = get_environment_config()
+stats = TestStats()
+
+
 def start_tests(browser_name: str, data_path: str):
     """
-    Launches a full suite of page‐title and scrolling checks.
-    
-    1. Detects environment and spins up the requested browser.
-    2. Iterates all YAML files in `data_path`, running
-       'sidenav' and 'grandparent' checks via extract_paths_from_yaml.
-    3. Verifies a set of core static pages.
-    4. Tears down the browser and returns (matched, unmatched) counts.
-    
+    Launches a suite of page-title and scrolling checks using titles/URLs
+    loaded from the repository's _data folder via load_expected_titles.
+
     Args:
         browser_name: 'chrome' | 'firefox' | 'msedge'
-        data_path: Path to the folder containing your .yml segment files.
-    
+        data_path: (ignored) kept for compatibility; config.datapath is used.
+
     Returns:
         A tuple (matched_count, unmatched_count).
     """
-    # ensure we have a Path object
-    data_dir = Path(data_path)
-    if not data_dir.is_dir():
-        print(f"Data folder not found or not a directory: {data_dir}")
-        return 0, 0
-
-    # fresh environment detection & driver launch
-    config = get_environment_config()
+    # driver launch
     driver = open_browser(browser_name, config)
 
     # reset counters
@@ -314,34 +373,35 @@ def start_tests(browser_name: str, data_path: str):
     stats.unmatched = 0
 
     try:
-        # process each YAML segment file in sorted order
-        for file_path in sorted(data_dir.iterdir()):
-            if file_path.suffix.lower() not in (".yml", ".yaml"):
+        # load expected url/title pairs from _data
+        expected = load_expected_data(config.datapath)
+        if not expected:
+            print(f"No expected titles found in: {config.datapath}")
+
+        for entry in expected:
+            url = entry.get("url")
+            title = entry.get("title")
+            if not url or not title:
                 continue
 
-            # run tests for both keys
-            for section in ("sidenav", "grandparent"):
-                extract_paths_from_yaml(
-                    data_dir,
-                    file_path.name,
-                    section,
-                    driver,
-                    config
-                )
+            verify_title(driver, url, title)
 
-        # verify core static pages
-        static_checks = [
-            ("",               "GoDarda"),
-            ("search/",        "GoDarda's Search"),
-            ("404/",           "404 Page Not Found"),
-            ("shubhamrdarda",  "Shubham Darda"),
-        ]
-        for path, expected in static_checks:
-            verify_title(driver, path, expected)
+        # Run scrolling only if not in GitHub Actions and URL has 0 or 1 "/"
+        slash_count = url.count("/")
+        if not config.is_github_actions and slash_count in (0, 1):
+            verify_scrolling(driver)
+
 
     finally:
         # ensure we always tear down the browser
-        driver.delete_all_cookies()
-        driver.quit()
+        if driver:
+            try:
+                driver.delete_all_cookies()
+            except Exception:
+                pass
+            try:
+                driver.quit()
+            except Exception:
+                pass
 
     return stats.matched, stats.unmatched

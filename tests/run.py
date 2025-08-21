@@ -4,59 +4,10 @@ Description: Entry point for automated browser-based testing and code compilatio
 """
 
 from utilities import *
-from compile import *
+from compile import compile_codes
+from unittesting import TitleVerificationTest
+from report import print_report
 
-def get_version(cmd: str) -> str:
-    """
-    Executes a shell command to retrieve tool version.
-    Returns the version string or a fallback message if the command fails.
-    """
-    try:
-        return subprocess.check_output(cmd, shell=True).decode("utf-8").strip()
-    except Exception:
-        return "Not installed or failed"
-
-def print_report(matched: int, unmatched: int, passed: int, failed: int, browser: str):
-    """
-    Prints a consolidated report including:
-    - Website test results
-    - Code compilation summary
-    - Toolchain and browser versions
-    """
-    visited = matched + unmatched
-    compiled = passed + failed
-
-    if visited > 0:
-        print("---------------------------------\nWebsite Report\n---------------------------------")
-        print("Total Webpages Visited:", visited)
-        print("Total Titles Matched:", matched)
-        print("Total Titles Unmatched:", unmatched)
-
-    if compiled > 0:
-        print("---------------------------------\nCode Compilation Report\n---------------------------------")
-        print("Total Files Compiled:", compiled)
-        print("Total Passed:", passed)
-        print("Total Failed:", failed)
-
-        print("---------------------------------\nResources Version\n---------------------------------")
-        versions = {
-            "gcc/g++": get_version("g++ -dumpfullversion"),
-            "Java": get_version("javac --version"),
-            "Python": get_version("python3 --version"),
-            "Rust": get_version("rustc --version"),
-            "NASM": get_version("nasm --version")
-        }
-
-        # Browser-specific version command
-        if browser == "firefox":
-            versions["Firefox"] = get_version("firefox --version")
-        elif browser == "msedge":
-            versions["Edge"] = get_version("msedge --version")
-        elif browser == "chrome":
-            versions["Chrome"] = get_version("google-chrome --version")
-
-        for label, output in versions.items():
-            print(f"{label}: {output}")
 
 def clean_pycache():
     """
@@ -69,6 +20,7 @@ def clean_pycache():
             shutil.rmtree(cache_path)
         except Exception as e:
             print(f"Cleanup warning: {e}")
+
 
 def main():
     start = time.time()
@@ -93,12 +45,13 @@ def main():
             passed, failed = compile_codes(source, destination, data_path)
             os.chdir(root)  # Reset working directory
 
-        elif config.is_windows:
-            data_path = "D:/godarda.github.io/_data/"
-            browser = "chrome"  # Alternative: "msedge"
+            # Generate consolidated report
+            print_report(stats.matched, stats.unmatched, passed, failed, browser)
 
-            matched, unmatched = start_tests(browser, data_path)
-            passed = failed = 0
+        elif config.is_windows:
+            # Instantiate and run the test
+            TitleVerificationTest().runTest()
+            print_report(stats.matched, stats.unmatched, 0, 0, browser)
 
         else:
             print("Script works on Windows and Ubuntu only.")
@@ -112,11 +65,8 @@ def main():
         print("3. Due to unsupported OS, browser and driver versions.")
         print("4. Manual interruption during execution.")
         print("5. Local code changes or misconfiguration.")
-        matched = unmatched = passed = failed = 0
+        stats.matched = stats.unmatched = passed = failed = 0
         browser = "unknown"
-
-    # Generate consolidated report
-    print_report(matched, unmatched, passed, failed, browser)
 
     # Print total execution time
     end = time.time()
@@ -124,11 +74,12 @@ def main():
     h, m = divmod(m, 60)
 
     if h or m or s:
-        print("---------------------------------")
+        print("-" * 100)
         print("Total Execution Time:", f"{h:02d}:{m:02d}:{s:02d}")
 
     # Cleanup bytecode cache
     clean_pycache()
+
 
 if __name__ == "__main__":
     main()

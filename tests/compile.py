@@ -42,7 +42,7 @@ def compile_codes(source, destination, data_path):
         os.makedirs(destination, exist_ok=True)
         os.chdir(destination)
         for file_name in os.listdir(data_path):
-            paths = extract_paths_from_yaml(None, data_path, file_name, "grandparent")
+            paths = extract_paths_from_yaml(data_path, file_name, "grandparent")
             for i in range(0, len(paths)):
                 path = str(paths[i]).split("/")
                 subpath = path[0] + "/" + path[1] + "/"

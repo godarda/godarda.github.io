@@ -12,3 +12,4 @@ scipy
 selenium
 toml
 webdriver-manager
+beautifulsoup4
