@@ -1,0 +1,47 @@
+name: Setup Environment and Automated Tests (Windows)
+
+# Triggered automatically on the 25th of every month at 11:30 UTC
+# Also supports manual execution via GitHub UI
+on:
+  schedule:
+    - cron: '30 11 25 * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 15  # Prevents hanging jobs beyond 15 minutes
+
+    steps:
+      # Step 1: Checkout the latest commit from the repository
+      - name: Checkout Code
+        uses: actions/checkout@v5
+
+      # Step 2: Setup Python 3.13 environment for test execution
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      # Step 3: Setup Oracle Java 21 for JVM-based tooling
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'oracle'
+          java-version: '21'
+
+      # Step 4: Run Windows-specific environment setup script
+      # Uses fail-fast logic to halt on any error
+      - name: Setup Environment
+        run: |
+          Write-Host "Starting environment setup..."
+          python setups/windows.py full
+        shell: pwsh
+
+      # Step 5: Execute automated test suite
+      # Designed to fail early and surface actionable diagnostics
+      - name: Run Automated Tests
+        run: |
+          Write-Host "Running tests..."
+          python tests/run.py
+        shell: pwsh

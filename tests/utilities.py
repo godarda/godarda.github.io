@@ -263,7 +263,11 @@ def load_expected_data(folder_path):
     if not folder.exists() or not folder.is_dir():
         return expected
 
-    files = [folder / f for f in os.listdir(folder) if f.endswith(".yml") or f.endswith(".yaml")]
+    files = [
+        folder / f
+        for f in os.listdir(folder)
+        if f.endswith(".yml") or f.endswith(".yaml")
+    ]
     if not files:
         return expected
 
@@ -344,15 +348,11 @@ def start_tests(browser_name: str, data_path: str):
         if not config.is_github_actions and slash_count in (0, 1):
             verify_scrolling(driver)
 
-
     finally:
         # ensure we always tear down the browser
         if driver:
             try:
                 driver.delete_all_cookies()
-            except Exception:
-                pass
-            try:
                 driver.quit()
             except Exception:
                 pass
@@ -365,7 +365,11 @@ def clean_pycache(cache_path: str | None = None) -> None:
     Remove a __pycache__ directory.
     """
     try:
-        p = Path(cache_path) if cache_path else Path(__file__).resolve().parent / "__pycache__"
+        p = (
+            Path(cache_path)
+            if cache_path
+            else Path(__file__).resolve().parent / "__pycache__"
+        )
         # If caller passed a parent folder (not named __pycache__), remove its __pycache__ child
         if p.name != "__pycache__":
             p = p / "__pycache__"

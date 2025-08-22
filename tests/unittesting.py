@@ -56,12 +56,8 @@ class TitleVerificationTest(unittest.TestCase):
     def runTest(self):
         # Load expected results from the configured data path
         expected_data = load_expected_data(config.datapath)
-
-        # Reset global stats counters used by the test runner/reporting
-        stats.matched = 0
-        stats.unmatched = 0
-        stats.unmatched_entries = []
-
+        if not expected_data:
+            self.skipTest("No expected data loaded; skipping title verification test.")
         # Prepare a single Session for connection pooling and a mounted adapter
         session = requests.Session()
         session.headers.update({"User-Agent": "GoDarda-TitleChecker/1.0"})

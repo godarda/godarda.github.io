@@ -37,7 +37,9 @@ def main() -> None:
             # Build source/destination paths from current working directory
             cwd = os.getcwd()
             source = os.path.join(cwd, "pages")  # pages/ folder containing source files
-            destination = os.path.join(cwd, "gdfied")  # output folder for compiled pages
+            destination = os.path.join(
+                cwd, "gdfied"
+            )  # output folder for compiled pages
             browser = "chrome"  # or "firefox" if preferred
 
             # Ensure source exists before invoking compilation
@@ -45,9 +47,7 @@ def main() -> None:
                 print(f"Source path not found: {source}")
                 return
 
-            print(
-                "Please wait. It may take some time to complete the tests."
-            )
+            print("Please wait. It may take some time to complete the tests.")
             # Start the automated tests
             start_tests(browser, config.datapath)
 
@@ -55,7 +55,13 @@ def main() -> None:
             compile_codes(source, destination, config.datapath)
 
             # Print consolidated report using values collected in utilities.stats
-            print_report(stats.matched, stats.unmatched, stats.compiled, stats.uncompiled, browser)
+            print_report(
+                stats.matched,
+                stats.unmatched,
+                stats.compiled,
+                stats.uncompiled,
+                browser,
+            )
 
         elif config.is_windows:
             # Run the Windows-specific unit/test entrypoint

@@ -15,7 +15,7 @@ group :jekyll_plugins do
 end
 
 # Platform-specific dependencies for Windows and JRuby
-platforms :mingw, :x64_mingw, :mswin, :jruby do
+platforms :windows, :jruby do
   # Timezone support required by certain gems and environments
   gem "tzinfo", ">= 1", "< 3"
   # Timezone data for Windows platforms
@@ -23,7 +23,7 @@ platforms :mingw, :x64_mingw, :mswin, :jruby do
 end
 
 # File system watcher for Windows platforms
-gem "wdm", "~> 0.1", platforms: [:mingw, :x64_mingw, :mswin]
+gem "wdm", "~> 0.1", platforms: [:windows]
 
 # HTTP parser for JRuby compatibility
 gem "http_parser.rb", "~> 0.6.0", platforms: [:jruby]

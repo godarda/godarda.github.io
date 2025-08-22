@@ -51,9 +51,7 @@ def print_report(matched: int, unmatched: int, passed: int, failed: int, browser
             print(f"{'Status':<10} {'URL':<10}")
             print("-" * 100)
             for rel_url in stats.uncompiled_entries:
-                print(
-                    f"\033[91m{'Uncompiled':<10}\033[0m {rel_url:<10}"
-                )
+                print(f"\033[91m{'Uncompiled':<10}\033[0m {rel_url:<10}")
             print("-" * 100)
         else:
             print("\nAll titles matched. No discrepancies found.")

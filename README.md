@@ -7,19 +7,32 @@ GoDarda's website versioning is maintained on [GitHub][gidezvdy] through [Git][g
 
 ## Development and Testing Usage
 
-[![Setup Environment and Automated Tests](https://github.com/godarda/godarda.github.io/actions/workflows/pipeline.yml/badge.svg?branch=main)](https://github.com/godarda/godarda.github.io/actions/workflows/pipeline.yml)
+[![Setup Environment and Automated Tests (macOS)](https://github.com/godarda/godarda.github.io/actions/workflows/macos.yml/badge.svg?branch=main)](https://github.com/godarda/godarda.github.io/actions/workflows/macos.yml)
 
-**Ubuntu Prerequisites:** Download the [setup.py][gidzgwel] file on the Linux Ubuntu machine.
+[![Setup Environment and Automated Tests (Ubuntu)](https://github.com/godarda/godarda.github.io/actions/workflows/ubuntu.yml/badge.svg?branch=main)](https://github.com/godarda/godarda.github.io/actions/workflows/ubuntu.yml)
+
+[![Setup Environment and Automated Tests (Windows)](https://github.com/godarda/godarda.github.io/actions/workflows/windows.yml/badge.svg?branch=main)](https://github.com/godarda/godarda.github.io/actions/workflows/windows.yml)
+
+**macOS Prerequisites:** Ensure [Git][gidzyzav] is installed. Then clone the repository and run the following commands to get started:
 ```
-Step 1: godarda@gd:~$ python3 setup.py full
-Step 2: Visit the local website at http://127.0.0.1:4000 or http://localhost:4000
+$ git clone https://github.com/godarda/godarda.github.io.git
+$ cd godarda.github.io
+$ python3 setups/macos.py full
+$ Visit the local website at http://127.0.0.1:4000 or http://localhost:4000
 ```
-**Windows Prerequisites:** [Git][gidzyzav], [Visual Studio Code][gidkcqso], [Python][gidxadth] and [Ruby][gidzrvdq] are installed on the Windows machine.
+**Ubuntu Prerequisites:** Ensure [Git][gidzyzav] is installed. Then clone the repository and run the following commands to get started:
 ```
-Step 1: PS D:\> Open Visual Studio Code -> Terminal
-Step 2: PS D:\> git clone https://github.com/godarda/godarda.github.io.git
-Step 3: PS D:\godarda.github.io> python setup.py full
-Step 4: Visit the local website at http://127.0.0.1:4000 or http://localhost:4000
+$ git clone https://github.com/godarda/godarda.github.io.git
+$ cd godarda.github.io
+$ python3 setups/ubuntu.py full
+$ Visit the local website at http://127.0.0.1:4000 or http://localhost:4000
+```
+**Windows Prerequisites:** Ensure [Git][gidzyzav], [Visual Studio Code][gidkcqso], [Python][gidxadth], and [Ruby][gidzrvdq] are installed. Then clone the repository and follow these steps:
+```
+PS D:\> Open Visual Studio Code -> Terminal  
+PS D:\> git clone https://github.com/godarda/godarda.github.io.git  
+PS D:\godarda.github.io> python setups/windows.py full  
+PS D:\> Visit the local website at http://127.0.0.1:4000 or http://localhost:4000
 ```
 
 [gidezvdy]: https://github.com
