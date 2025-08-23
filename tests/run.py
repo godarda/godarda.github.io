@@ -25,36 +25,28 @@ def main() -> None:
     start = time.time()
 
     # Python version guard (maintain original project's minimum)
-    if sys.version_info < (3, 4):
-        print("Python 3.4 or later is needed for execution.")
+    if sys.version_info < (3, 7):
+        print("Python 3.7 or later is needed for execution.")
         return
 
     try:
         print("Starting automated tests on:", platform.platform())
-
-        # OS-specific flows
-        if config.is_ubuntu:
-            # Build source/destination paths from current working directory
-            cwd = os.getcwd()
-            source = os.path.join(cwd, "pages")  # pages/ folder containing source files
-            destination = os.path.join(
-                cwd, "gdfied"
-            )  # output folder for compiled pages
-            browser = "chrome"  # or "firefox" if preferred
-
-            # Ensure source exists before invoking compilation
-            if not os.path.exists(source):
-                print(f"Source path not found: {source}")
-                return
-
-            print("Please wait. It may take some time to complete the tests.")
-            # Start the automated tests
-            start_tests(browser, config.datapath)
-
-            # Run the compilation pipeline (module: compile)
+        cwd = os.getcwd()
+        source = os.path.join(cwd, "pages")
+        destination = os.path.join(cwd, "gdfied")
+        if not os.path.exists(source):
+            print(f"Source path not found: {source}")
+            return
+        
+        # macOS-specific flow
+        if config.is_macos:
+            # browser = "safari"
+            print("Running tests on macOS. Please wait...")
+            TitleVerificationTest().runTest()
+            browser = None
+            # start_tests(browser, config.datapath)
             compile_codes(source, destination, config.datapath)
 
-            # Print consolidated report using values collected in utilities.stats
             print_report(
                 stats.matched,
                 stats.unmatched,
@@ -63,15 +55,29 @@ def main() -> None:
                 browser,
             )
 
+        # Ubuntu-specific flow
+        elif config.is_ubuntu:
+            browser = "chrome"
+            print("Running tests on Ubuntu. Please wait...")
+            start_tests(browser, config.datapath)
+            compile_codes(source, destination, config.datapath)
+
+            print_report(
+                stats.matched,
+                stats.unmatched,
+                stats.compiled,
+                stats.uncompiled,
+                browser,
+            )
+
+        # Windows-specific flow
         elif config.is_windows:
-            # Run the Windows-specific unit/test entrypoint
             TitleVerificationTest().runTest()
-            browser = None  # No browser in this path
-            # On Windows the passed/failed counters are not used here, so pass zeros
+            browser = None
             print_report(stats.matched, stats.unmatched, 0, 0, browser)
 
         else:
-            print("Script works on Windows and Ubuntu only.")
+            print("Script works on macOS, Ubuntu, and Windows only.")
             return
 
     except Exception as e:
@@ -90,12 +96,16 @@ def main() -> None:
     m, s = divmod(total_seconds, 60)
     h, m = divmod(m, 60)
 
-    if h or m or s:
-        print("-" * 100)
-        print("Total Execution Time:", f"{h:02d}:{m:02d}:{s:02d}")
+    print("-" * 100)
+    if h >= 1:
+        time_str = f"\033[91m{h:02d}:{m:02d}:{s:02d}\033[0m"  # Red for long runs
+    else:
+        time_str = f"\033[92m{h:02d}:{m:02d}:{s:02d}\033[0m"  # Green for short runs
+
+    print(f"{'Total Execution Time':<25}: {time_str}")
 
     # Attempt to remove any leftover bytecode cache
-    clean_pycache("tests/__pycache__")
+    clean_pycache()
 
 
 if __name__ == "__main__":

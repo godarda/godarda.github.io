@@ -73,7 +73,7 @@ def ensure_setup_with_cleanup():
     Validate environment and perform optional cleanup.
 
     Actions performed:
-    - Enforce minimum Python version (>= 3.4).
+    - Enforce minimum Python version (>= 3.7).
     - Verify at least 2 GB free disk space in the current working directory.
     - When executed from the repository root and a ".gitignore" exists:
         - Remove each path listed in .gitignore (files or directories). This is intended
@@ -87,8 +87,8 @@ def ensure_setup_with_cleanup():
     - Port cleanup uses shell commands and may require privileges (e.g. sudo on Unix).
     """
     # Validate minimum Python version
-    if sys.version_info < (3, 4):
-        print("Python 3.4 or later is required for setup.")
+    if sys.version_info < (3, 7):
+        print("Python 3.7 or later is required for setup.")
         return
 
     # Ensure at least 2 GB of free disk space in current working directory

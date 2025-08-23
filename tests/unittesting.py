@@ -4,7 +4,6 @@
 # requests.Session for efficiency.
 
 import os
-import yaml
 import requests
 import unittest
 import concurrent.futures
@@ -93,3 +92,12 @@ class TitleVerificationTest(unittest.TestCase):
                     stats.unmatched += 1
                     # Record the relative URL and expected title
                     stats.unmatched_entries.append((rel_url, item["title"]))
+                     # Fail-fast: abort if too many mismatches
+                    if stats.unmatched > 10:
+                        print("\n\033[91mToo many unmatched titles.\033[0m")
+                        print("This likely indicates a server down, broken selectors, or bad input.")
+                        os._exit(1)
+            
+            # Explicitly close session to release connections
+            session.close()
+
