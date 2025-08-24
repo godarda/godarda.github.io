@@ -1,0 +1,24 @@
+---
+permalink: c/functions/gdvzlki
+title: C program to print the current date and time
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+#include <time.h>
+int main()
+{
+    time_t t;
+    time(&t);
+    printf("Current Date and Time is %s", ctime(&t));
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+Current Date and Time is Thu May 31 07:44:51 2018
+godarda@gd:~$ 
+</pre></span>

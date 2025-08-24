@@ -1,0 +1,38 @@
+---
+permalink: csharp/strings/gdyyeee
+title: C# program to convert uppercase to a lowercase string
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+string s = "KODIGWINDOW";
+Console.WriteLine(s.ToLower());
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+kodigwindow
+godarda@gd:~/csharp$ 
+</pre></span>
+
+<div class="codecard">C# program to convert uppercase to a lowercase string using ASCII values</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+string s1 = "KODIGWINDOW";
+string s2 = "";
+for (int i = 0; i < s1.Length; i++)
+{
+    if (s1[i] >= 65 && s1[i] <= 92)
+        s2 += (char)(s1[i] + 32);
+    else
+        s2 += s1[i];
+}
+Console.WriteLine(s2);
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+kodigwindow
+godarda@gd:~/csharp$ 
+</pre></span>

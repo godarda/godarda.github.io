@@ -12,7 +12,52 @@ from typing import Tuple, Optional
 from utilities import config, stats, load_expected_data
 
 
-def is_compiled(html_input: str, compiler: str, subpath: str, file_name: str, extension: str, args: str) -> None:
+# Mapping of extensions to comment styles and compiler commands
+LANGUAGE_STYLES = {
+    '.asm':  {'comment': ';',    'compiler': ['nasm', '-v']},
+    '.c':    {'comment': '//',   'compiler': ['gcc', '--version']},
+    '.cpp':  {'comment': '//',   'compiler': ['g++', '--version']},
+    '.cs':   {'comment': '//',   'compiler': ['dotnet', '--version']},
+    '.fs':   {'comment': '//',   'compiler': ['dotnet', '--version']},
+    '.java': {'comment': '//',   'compiler': ['java', '-version']},
+    '.lisp': {'comment': ';',    'compiler': ['clisp', '--version']},
+    '.py':   {'comment': '#',    'compiler': [os.sys.executable, '--version']},
+    '.rs':   {'comment': '//',   'compiler': ['rustc', '--version']},
+    '.sh':   {'comment': '#',    'compiler': ['bash', '--version']},
+}
+
+
+def generate_header(file_path, file_name, extension):
+    """Generate a structured header block with original attributes."""
+    style = LANGUAGE_STYLES.get(extension)
+    cmd = LANGUAGE_STYLES.get(extension, {}).get('compiler')
+    result = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
+
+    with open(file_path, 'r', encoding='utf-8') as f:
+        lines = f.readlines()
+        if len(lines) >= 3 and lines[2].strip().startswith('title:'):
+            title = lines[2].strip().split(':', 1)[1].strip()
+
+    comment = style['comment']
+    compiler_hint = next((line for line in result.decode().splitlines() if line.strip()), '')
+
+    header_fields = {
+        'Title':     title,
+        'File Name': os.path.basename(file_name + extension),
+        'Compiled':  compiler_hint,
+        'Author':    'GoDarda',
+        'License':   'GNU General Public License',
+    }
+
+    lines = [f"{comment} " + "-" * 100]
+    for key, value in header_fields.items():
+        lines.append(f"{comment} {key:<15}: {value}")
+    lines.append(f"{comment} " + "-" * 100 + "\n")
+
+    return '\n'.join(lines)
+
+
+def is_compiled(source_file: str, html_input: str, compiler: str, subpath: str, file_name: str, extension: str, args: str) -> None:
     """
     Extract code block from provided HTML, write it to a file, remove the first line,
     and attempt to compile using the provided compiler.
@@ -26,14 +71,15 @@ def is_compiled(html_input: str, compiler: str, subpath: str, file_name: str, ex
         os.makedirs(subpath, exist_ok=True)
         file_path = os.path.join(subpath, file_name + extension)
 
+        header = generate_header(source_file, file_name, extension)
         with open(file_path, "w", encoding="utf-8") as f:
-            f.write(output)
+            f.write(header + "\n" + output)
 
         with open(file_path, "r", encoding="utf-8") as f:
             lines = f.readlines()
         if len(lines) > 0:
             with open(file_path, "w", encoding="utf-8") as f:
-                f.writelines(lines[1:])
+                f.writelines(lines[:8] + lines[9:])
 
         try:
             cmd = f"{compiler} {file_path}{args}"
@@ -80,12 +126,12 @@ def compile_codes(source: str, destination: str) -> Optional[Tuple[int, int]]:
             if '<pre class="code">{%- highlight nasm -%}' in html_input:
                 extension = ".asm"
                 compiler = "nasm -fmacho64" if config.is_macos else "nasm -felf64"
-                is_compiled(html_input, compiler, subpath, path[2], extension, args)
+                is_compiled(source_file, html_input, compiler, subpath, path[2], extension, args)
 
             elif '<pre class="code">{%- highlight c -%}' in html_input:
                 extension = ".c"
                 compiler = "gcc"
-                is_compiled(html_input, compiler, subpath, path[2], extension, args)
+                is_compiled(source_file, html_input, compiler, subpath, path[2], extension, args)
 
             elif '<pre class="code">{%- highlight cpp -%}' in html_input:
                 extension = ".cpp"
@@ -95,7 +141,7 @@ def compile_codes(source: str, destination: str) -> Optional[Tuple[int, int]]:
                 elif path[0] == "cg":
                     args = " -lgraph" if config.is_ubuntu else ""  # Skip unsupported lib on macOS
                 if not (path[0] == "cg" and path[1] != "opengl"):
-                    is_compiled(html_input, compiler, subpath, path[2], extension, args)
+                    is_compiled(source_file, html_input, compiler, subpath, path[2], extension, args)
 
             elif (
                 '<pre class="code">{%- highlight java -%}' in html_input
@@ -104,22 +150,22 @@ def compile_codes(source: str, destination: str) -> Optional[Tuple[int, int]]:
             ):
                 extension = ".java"
                 compiler = "javac"
-                is_compiled(html_input, compiler, subpath, path[2], extension, args)
+                is_compiled(source_file, html_input, compiler, subpath, path[2], extension, args)
 
             elif '<pre class="code">{%- highlight shell -%}' in html_input:
                 extension = ".sh"
                 compiler = "bash -n" if config.is_macos else "shc -f"
-                is_compiled(html_input, compiler, subpath, path[2], extension, args)
+                is_compiled(source_file, html_input, compiler, subpath, path[2], extension, args)
 
             elif '<pre class="code">{%- highlight python -%}' in html_input:
                 extension = ".py"
                 compiler = "python3 -m py_compile"
-                is_compiled(html_input, compiler, subpath, path[2], extension, args)
+                is_compiled(source_file, html_input, compiler, subpath, path[2], extension, args)
 
             elif '<pre class="code">{%- highlight rust -%}' in html_input:
                 extension = ".rs"
                 compiler = "rustc"
-                is_compiled(html_input, compiler, subpath, path[2], extension, args)
+                is_compiled(source_file, html_input, compiler, subpath, path[2], extension, args)
 
     finally:
         os.chdir(original_cwd)

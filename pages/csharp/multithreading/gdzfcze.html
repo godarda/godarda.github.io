@@ -1,0 +1,41 @@
+---
+permalink: csharp/multithreading/gdzfcze
+title: C# program to set the priorities to the threads
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+PriorityThread pt = new PriorityThread();
+Thread t1 = new Thread(new ThreadStart(pt.thread));
+Thread t2 = new Thread(new ThreadStart(pt.thread));
+Thread t3 = new Thread(new ThreadStart(pt.thread));
+t1.Name = "MongoDB";
+t2.Name = "Cassendra";
+t3.Name = "MySQL";
+t2.Priority = ThreadPriority.Highest;
+t3.Priority = ThreadPriority.Normal;
+t1.Priority = ThreadPriority.Lowest;
+t1.Start();
+t2.Start();
+t3.Start();
+
+public class PriorityThread
+{
+    public void thread()
+    {
+        Thread t = Thread.CurrentThread;
+        Console.WriteLine(t.Name + " Server Is Running");
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">Explanation: </div>
+<div class="infocard">In this program, we have created one class named PriorityThread, and in the main method, we have created the objects of PriorityThread and Thread class, and passed those objects as an argument in ThreadStart delegate. With the help of <mark>Priority</mark> property and <mark>ThreadPriority</mark> Enum, we set the priority of threads. There are five fields available to set the thread priorities: <b>AboveNormal 3, BelowNormal 1, Highest 4, Lowest 0, and Normal 2.</b><br><br> The high priority thread can be executed first. But it is uncertain that the high priority thread gets executed first as the threads are highly system dependent. Lastly, we have used the <mark>Start()</mark> method of Thread class to begin the execution. Technically, the thread will move from ready-to-run state to runnable state.</div>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+MongoDB Server Is Running
+Cassendra Server Is Running
+MySQL Server Is Running
+godarda@gd:~/csharp$ 
+</pre></span>

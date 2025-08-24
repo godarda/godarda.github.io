@@ -1,0 +1,144 @@
+---
+permalink: python/fundamentals/gdxdagf
+title: Python program to print the current date and time
+---
+
+<div class="codecard">Example 1: {{ page.title }}</div>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="code">{%- highlight python -%}
+import datetime
+print("________________________________________")
+print("Program to print the current date and time")
+print("________________________________________")
+now=datetime.datetime.now()
+print("Date And Time | %s"%now)
+print("ISO Format    | %s"%now.isoformat())
+print("Year          | %s"%now.year)
+print("Month         | %s"%now.month)
+print("Day           | %s"%now.day)
+print("DD/MM/YYYY    | %s/%s/%s"%(now.day,now.month,now.year))
+print("Hour          | %s"%now.hour)
+print("Minute        | %s"%now.minute)
+print("Second        | %s"%now.second)
+print("Microsecond   | %s"%now.microsecond)
+print("HH:MM:SS      | %s:%s:%s"%(now.hour,now.minute,now.second))
+print("________________________________________")
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runpy }}
+________________________________________
+Program to print the current date and time
+________________________________________
+Date And Time | 2019-04-29 00:01:28.561583
+ISO Format    | 2019-04-29T00:01:28.561583
+Year          | 2019
+Month         | 4
+Day           | 29
+DD/MM/YYYY    | 29/4/2019
+Hour          | 0
+Minute        | 1
+Second        | 28
+Microsecond   | 561583
+HH:MM:SS      | 0:1:28
+________________________________________
+</pre></span>
+
+<div class="codecard">Example 2: {{ page.title }}</div>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="code">{%- highlight python -%}
+import time
+print("________________________________________")
+print("Program to print the current date and time")
+print("________________________________________")
+print("Time 24Hr     |",time.strftime("%H:%M:%S"))
+print("Time 12Hr     |",time.strftime("%I:%M:%S"))
+print("DD/MM/YYYY    |",time.strftime("%d/%m/%Y"))
+print("MM/DD/YYYY    |",time.strftime("%x"))
+print("Date And Time |",time.strftime("%c"))
+print("HH:MM:SS      |",time.strftime("%X"))
+print("Weekday       |",time.strftime("%a"))
+print("Weekday       |",time.strftime("%A"))
+print("Month         |",time.strftime("%b"))
+print("Month         |",time.strftime("%B"))
+print("Day of Month  |",time.strftime("%d"))
+print("Hour 24Hr     |",time.strftime("%H"))
+print("Hour 12Hr     |",time.strftime("%I"))
+print("Day of Year   |",time.strftime("%j"))
+print("Month         |",time.strftime("%m"))
+print("Minute        |",time.strftime("%M"))
+print("AM ? PM       |",time.strftime("%p"))
+print("Week Number   |",time.strftime("%U"))
+print("Weekday       |",time.strftime("%w"))
+print("Week Number   |",time.strftime("%W"))
+print("Year Century  |",time.strftime("%Y"))
+print("Time Zone     |",time.strftime("%Z"))
+print("________________________________________")
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runpy }}
+________________________________________
+Program to print the current date and time
+________________________________________
+Time 24Hr     | 00:02:25
+Time 12Hr     | 12:02:25
+DD/MM/YYYY    | 29/04/2019
+MM/DD/YYYY    | 04/29/19
+Date And Time | Mon Apr 29 00:02:25 2019
+HH:MM:SS      | 00:02:25
+Weekday       | Mon
+Weekday       | Monday
+Month         | Apr
+Month         | April
+Day of Month  | 29
+Hour 24Hr     | 00
+Hour 12Hr     | 12
+Day of Year   | 119
+Month         | 04
+Minute        | 02
+AM ? PM       | AM
+Week Number   | 17
+Weekday       | 1
+Week Number   | 17
+Year Century  | 2019
+Time Zone     | IST
+________________________________________
+</pre></span>
+
+<div class="codecard">Example 3: {{ page.title }}</div>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="code">{%- highlight python -%}
+import time 
+print("________________________________________")
+print("Program to print the current date and time")
+print("________________________________________")
+now=time.asctime(time.localtime(time.time()))
+print("Local Time   |",now)
+now=time.localtime()
+print("Local Time   |",time.asctime(now))
+print("Local Time   |",time.ctime())
+print("DST Timezone |",time.altzone)
+print("Local Time   |",time.localtime())
+print("\nLocal Time   |",time.gmtime())
+now=time.localtime(time.time())
+print("\nLocal Time   |",now)
+print("________________________________________")
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runpy }}
+________________________________________
+Program to print the current date and time
+________________________________________
+Local Time   | Mon Apr 29 00:03:29 2019
+Local Time   | Mon Apr 29 00:03:29 2019
+Local Time   | Mon Apr 29 00:03:29 2019
+DST Timezone | -19800
+Local Time   | time.struct_time(tm_year=2019, tm_mon=4, tm_mday=29, tm_hour=0, tm_min=3, tm_sec=29, tm_wday=0, tm_yday=119, tm_isdst=0)
+
+Local Time   | time.struct_time(tm_year=2019, tm_mon=4, tm_mday=28, tm_hour=18, tm_min=33, tm_sec=29, tm_wday=6, tm_yday=118, tm_isdst=0)
+
+Local Time   | time.struct_time(tm_year=2019, tm_mon=4, tm_mday=29, tm_hour=0, tm_min=3, tm_sec=29, tm_wday=0, tm_yday=119, tm_isdst=0)
+________________________________________
+</pre></span>

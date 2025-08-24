@@ -1,0 +1,51 @@
+---
+permalink: java/multithreading/gdaedsw
+title: Java program to perform multiple tasks by multiple threads
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class task1 extends Thread
+{
+    public void run()
+    {  
+        System.out.println("\nTask-1");  
+    }
+    public void inc()
+    {
+        for(int i=100;i<=105;i++)
+        {
+            System.out.print(i+" ");     
+        }  
+    } 
+}
+class task2 extends Thread
+{
+    public void run()
+    {  
+        System.out.println("\nTask-2");  
+    } 
+}
+
+class GD 
+{  
+    public static void main(String args[])
+    {  
+        task1 t1=new task1();
+        task2 t2=new task2(); 
+        t1.inc();
+        t1.start();
+        t2.start(); 
+    }  
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+100 101 102 103 104 105 
+Task-1
+
+Task-2
+godarda@gd:~$ 
+</pre></span>

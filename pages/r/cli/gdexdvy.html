@@ -1,0 +1,63 @@
+---
+permalink: r/cli/gdexdvy
+title: R Date and Time Functions
+---
+
+<div class="terminalcard">{{ page.title }}</div>
+<span><pre>
+godarda@gd:~$ <mark>R</mark>
+...
+> <mark>Sys.Date()</mark>
+[1] "2020-06-18"
+
+> <mark>Sys.time()</mark>
+[1] "2020-06-18 17:41:48 IST"
+
+> <mark>as.Date(Sys.Date())</mark>
+[1] "2020-06-18"
+
+> <mark>as.Date('2020/06/18')</mark>
+[1] "2020-06-18"
+
+> <mark>as.Date(Sys.Date(),format='%Y-%m-%d')</mark>
+[1] "2020-06-18"
+
+> <mark>as.Date('June 18, 2020',format='%B %d, %Y')</mark>
+[1] "2020-06-18"
+
+> <mark>as.Date('18JUN20',format='%d%b%y')</mark>
+[1] "2020-06-18"
+
+> <mark>weekdays(Sys.Date())</mark>
+[1] "Thursday"
+<hr>> <mark>date1 <- Sys.Date()</mark>
+> <mark>date2 <- as.Date("2020-06-30")</mark>
+> <mark>date1-date2</mark>
+Time difference of -12 days
+  
+> <mark>date1</mark>
+[1] "2020-06-18"
+
+> <mark>date2</mark>
+[1] "2020-06-30"
+
+> <mark>date2-date1</mark>
+Time difference of 12 days
+
+> <mark>difftime(date2,date1,units="weeks")</mark>
+Time difference of 1.714286 weeks
+
+> <mark>date2 + 20</mark>
+[1] "2020-07-20"
+
+> <mark>difftime(date2+20,date1,units="weeks")</mark>
+Time difference of 4.571429 weeks
+<hr>> <mark>seq(Sys.Date(),by='days',length=12)</mark>
+ [1] "2020-06-18" "2020-06-19" "2020-06-20" "2020-06-21" "2020-06-22"
+ [6] "2020-06-23" "2020-06-24" "2020-06-25" "2020-06-26" "2020-06-27"
+[11] "2020-06-28" "2020-06-29"
+
+> <mark>seq(Sys.Date(),to=as.Date("2020-12-31"),by='4 weeks')</mark>
+[1] "2020-06-18" "2020-07-16" "2020-08-13" "2020-09-10" "2020-10-08"
+[6] "2020-11-05" "2020-12-03" "2020-12-31"
+</pre></span>

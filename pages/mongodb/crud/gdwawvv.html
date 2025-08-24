@@ -1,0 +1,199 @@
+---
+permalink: mongodb/crud/gdwawvv
+title: MongoDB Update a Document
+---
+
+<div class="terminalcard">{{ page.title }} - Set a new field value (updating first match)</div>
+<span><pre>
+godarda@gd:~$ <mark>mongosh</mark>
+...
+
+DB> <mark>show dbs</mark>
+DB       72.00 KiB
+admin    40.00 KiB
+config  108.00 KiB
+local    40.00 KiB
+
+DB> <mark>db.getCollectionNames()</mark>
+[ "holders" ]
+
+DB> <mark>db.holders.updateOne(
+... {city: 'Phoenix'},
+... {$set: {currency: 'USD'}}
+... )</mark>
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+DB> <mark>db.holders.find()</mark>
+[
+  {
+    _id: ObjectId("6515552821cddd458cbbcc91"),
+    account_no: 2562348989,
+    name: 'James Moore',
+    city: 'Phoenix',
+    DOB: ISODate("1985-05-26T00:00:00.000Z"),
+    bank: 'Barclays',
+    amount: 5000,
+    loan: [ { Personal: 5660, Home: 15000 } ],
+    currency: 'USD'
+  },
+  {
+    _id: ObjectId("6515554d21cddd458cbbcc92"),
+    account_no: 2562348990,
+    name: 'Donald Taylor',
+    city: 'Irvine',
+    DOB: ISODate("1990-08-20T00:00:00.000Z"),
+    bank: 'Citi',
+    amount: 7000,
+    loan: [ { Home: 10000, Car: 20000 } ]
+  },
+  {
+    _id: ObjectId("6515554d21cddd458cbbcc93"),
+    account_no: 2562348991,
+    name: 'Edward Parkar',
+    city: 'Irvine',
+    DOB: ISODate("1994-01-29T00:00:00.000Z"),
+    bank: 'ICICI',
+    amount: 95000,
+    loan: [ { Personal: 25000, Home: 450000, Car: 10000 } ]
+  },
+  {
+    _id: ObjectId("6515554d21cddd458cbbcc94"),
+    account_no: 2562348992,
+    name: 'Ryan Bakshi',
+    city: 'Mumbai',
+    DOB: ISODate("1982-01-14T00:00:00.000Z"),
+    bank: 'Citi',
+    amount: 50000,
+    loan: [ { Personal: null, Home: null, Car: null } ]
+  }
+]
+</pre></span>
+
+<div class="terminalcard">Set a new field value (updating all matches)</div>
+<span><pre>
+DB> <mark>db.holders.updateMany(
+... {city: 'Irvine'},
+... {$set: {currency: 'USD'}},
+... {multi: true}
+... )</mark>
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 2,
+  modifiedCount: 2,
+  upsertedCount: 0
+}
+
+DB> <mark>db.holders.find()</mark>
+[
+  {
+    _id: ObjectId("6515552821cddd458cbbcc91"),
+    account_no: 2562348989,
+    name: 'James Moore',
+    city: 'Phoenix',
+    DOB: ISODate("1985-05-26T00:00:00.000Z"),
+    bank: 'Barclays',
+    amount: 5000,
+    loan: [ { Personal: 5660, Home: 15000 } ],
+    currency: 'USD'
+  },
+  {
+    _id: ObjectId("6515554d21cddd458cbbcc92"),
+    account_no: 2562348990,
+    name: 'Donald Taylor',
+    city: 'Irvine',
+    DOB: ISODate("1990-08-20T00:00:00.000Z"),
+    bank: 'Citi',
+    amount: 7000,
+    loan: [ { Home: 10000, Car: 20000 } ],
+    currency: 'USD'
+  },
+  {
+    _id: ObjectId("6515554d21cddd458cbbcc93"),
+    account_no: 2562348991,
+    name: 'Edward Parkar',
+    city: 'Irvine',
+    DOB: ISODate("1994-01-29T00:00:00.000Z"),
+    bank: 'ICICI',
+    amount: 95000,
+    loan: [ { Personal: 25000, Home: 450000, Car: 10000 } ],
+    currency: 'USD'
+  },
+  {
+    _id: ObjectId("6515554d21cddd458cbbcc94"),
+    account_no: 2562348992,
+    name: 'Ryan Bakshi',
+    city: 'Mumbai',
+    DOB: ISODate("1982-01-14T00:00:00.000Z"),
+    bank: 'Citi',
+    amount: 50000,
+    loan: [ { Personal: null, Home: null, Car: null } ]
+  }
+]
+</pre></span>
+
+<div class="terminalcard">Unset field value (updating all matches)</div>
+<span><pre>
+DB> <mark>db.holders.updateMany(
+... {account_no: {$lte: 2562348991}},
+... {$unset: {currency:1}},
+... {multi:1}
+... )</mark>
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 3,
+  modifiedCount: 3,
+  upsertedCount: 0
+}
+
+DB> <mark>db.holders.find()</mark>
+[
+  {
+    _id: ObjectId("6515552821cddd458cbbcc91"),
+    account_no: 2562348989,
+    name: 'James Moore',
+    city: 'Phoenix',
+    DOB: ISODate("1985-05-26T00:00:00.000Z"),
+    bank: 'Barclays',
+    amount: 5000,
+    loan: [ { Personal: 5660, Home: 15000 } ]
+  },
+  {
+    _id: ObjectId("6515554d21cddd458cbbcc92"),
+    account_no: 2562348990,
+    name: 'Donald Taylor',
+    city: 'Irvine',
+    DOB: ISODate("1990-08-20T00:00:00.000Z"),
+    bank: 'Citi',
+    amount: 7000,
+    loan: [ { Home: 10000, Car: 20000 } ]
+  },
+  {
+    _id: ObjectId("6515554d21cddd458cbbcc93"),
+    account_no: 2562348991,
+    name: 'Edward Parkar',
+    city: 'Irvine',
+    DOB: ISODate("1994-01-29T00:00:00.000Z"),
+    bank: 'ICICI',
+    amount: 95000,
+    loan: [ { Personal: 25000, Home: 450000, Car: 10000 } ]
+  },
+  {
+    _id: ObjectId("6515554d21cddd458cbbcc94"),
+    account_no: 2562348992,
+    name: 'Ryan Bakshi',
+    city: 'Mumbai',
+    DOB: ISODate("1982-01-14T00:00:00.000Z"),
+    bank: 'Citi',
+    amount: 50000,
+    loan: [ { Personal: null, Home: null, Car: null } ]
+  }
+]
+</pre></span>

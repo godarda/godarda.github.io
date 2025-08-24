@@ -1,0 +1,33 @@
+---
+permalink: cluster/vbscript/gdgdpvd
+title: VBScript to perform Stack operations
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.vbsfile }}</div>
+<pre>{%- highlight vb -%}
+Set Stack = CreateObject("System.Collections.Stack") 
+Stack.Push "Apple"
+Stack.Push "Banana"
+Stack.Push "Cherry"
+Stack.Push "Durian"
+
+For Each item In Stack
+    s = s & item & " "
+Next
+print s
+print Stack.Contains("Apple") & vbCrLf
+print "Count " & Stack.Count
+print "Pop " & Stack.Pop & vbCrLf
+print "Peek " & Stack.Peek & vbCrLf 
+print Join(Stack.ToArray, ", ") & vbCrLf
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+Durian Cherry Banana Apple 
+True
+Count 4
+Pop Durian
+Peek Cherry
+Cherry, Banana, Apple
+</pre></span>

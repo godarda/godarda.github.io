@@ -1,0 +1,74 @@
+---
+permalink: linux/commands/gdaznye
+title: Linux commands to create and remove the directories/sub-directories
+---
+
+<div class="titlecard">{{ page.title }}</div>
+<div class="terminalcard">mkdir command with options</div>
+<span><pre>
+godarda@gd:~$ <mark>ls</mark>
+a.out  gd.cpp   gd.py    Documents  Music     Public     Videos
+gd.c   GD.java  Desktop  Downloads  Pictures  Templates  Weekdays
+
+godarda@gd:~$ <mark>pwd</mark>
+/home/godarda
+
+godarda@gd:~$ <mark>mkdir Linux</mark>
+godarda@gd:~$ <mark>cd Linux/</mark>
+
+godarda@gd:~/Linux$ <mark>pwd</mark>
+/home/godarda/Linux
+<hr>godarda@gd:~/Linux$ <mark>ls</mark>
+godarda@gd:~/Linux$ <mark>mkdir -p Flavours/{Ubuntu/{Ubuntu_18.04,Ubuntu_20.04},Fedora/{Fedora_31,Fedora_32}}</mark>
+godarda@gd:~/Linux$ <mark>ls</mark>
+Flavours
+
+godarda@gd:~/Linux$ <mark>cd Flavours/Ubuntu/</mark>
+godarda@gd:~/Linux/Flavours/Ubuntu$ <mark>ls</mark>
+Ubuntu_18.04  Ubuntu_20.04
+
+godarda@gd:~/Linux/Flavours/Ubuntu$ <mark>cd ..</mark>
+godarda@gd:~/Linux/Flavours$ <mark>ls</mark>
+Fedora  Ubuntu
+
+godarda@gd:~/Linux/Flavours$ <mark>mkdir -m a=r KaliLinux</mark>
+godarda@gd:~/Linux/Flavours$ <mark>ls</mark>
+Fedora  KaliLinux  Ubuntu
+
+godarda@gd:~/Linux/Flavours$ <mark>ls -l</mark>
+total 12
+drwxrwxr-x 4 godarda godarda 4096 Jun 13 12:03 Fedora
+dr--r--r-- 2 godarda godarda 4096 Jun 13 12:04 KaliLinux
+drwxrwxr-x 4 godarda godarda 4096 Jun 13 12:03 Ubuntu
+
+godarda@gd:~/Linux/Flavours$ <mark>mkdir -v CentOS LinuxMint</mark>
+mkdir: created directory 'CentOS'
+mkdir: created directory 'LinuxMint'
+
+godarda@gd:~/Linux/Flavours$ <mark>ls</mark>
+CentOS  Fedora  KaliLinux  LinuxMint  Ubuntu
+</pre></span>
+
+<div class="terminalcard">rmdir command with options</div>
+<span><pre>
+godarda@gd:~/Linux/Flavours$ <mark>rmdir CentOS/</mark>
+godarda@gd:~/Linux/Flavours$ <mark>ls</mark>
+Fedora  KaliLinux  LinuxMint  Ubuntu
+
+godarda@gd:~/Linux/Flavours$ <mark>rm -r KaliLinux/</mark>
+rm: remove write-protected directory 'KaliLinux/'? y
+
+godarda@gd:~/Linux/Flavours$ <mark>ls</mark>
+Fedora LinuxMint Ubuntu
+
+godarda@gd:~/Linux/Flavours$ <mark>cd</mark>
+godarda@gd:~$ <mark>ls</mark>
+a.out  gd.cpp   gd.py    Documents  Linux  Pictures  Templates  Weekdays
+gd.c   GD.java  Desktop  Downloads  Music  Public    Videos
+
+godarda@gd:~$ <mark>rm -rf Linux/</mark>
+godarda@gd:~$ <mark>ls</mark>
+a.out  gd.cpp   gd.py    Documents  Music     Public     Videos
+gd.c   GD.java  Desktop  Downloads  Pictures  Templates  Weekdays
+godarda@gd:~$ 
+</pre></span>

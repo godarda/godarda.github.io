@@ -4,11 +4,11 @@ grandparent:
     url: julia/cli
     children: 
       - title: Julia Arithmetic Operations
-        url: julia/cli/gidxkekw
+        url: julia/cli/gdxkekw
       - title: Julia Logical Operations
-        url: julia/cli/gidavgeq
+        url: julia/cli/gdavgeq
       - title: Julia Exponents and Logarithms
-        url: julia/cli/gidadvew
+        url: julia/cli/gdadvew
 
 sidenav:
   - parent: Julia Programming

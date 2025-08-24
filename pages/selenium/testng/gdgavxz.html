@@ -1,0 +1,129 @@
+---
+permalink: selenium/testng/gdgavxz
+title: How to use and implement TestNG Listeners
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">File: KWTestNG.java</div>
+<pre class="code">{%- highlight java -%}
+package tests;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
+
+@Listeners(tests.KWListener.class)  
+public class KWTestNG 
+{
+    WebDriver driver;
+    
+    @Test(priority = 0)
+    public void OpenBrowser()
+    {
+        System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.navigate().to("http://newtours.demoaut.com");
+    }
+    @Test(priority = 1)
+    public void Login()
+    {
+        driver.findElement(By.name("userName")).sendKeys("mercury");
+        driver.findElement(By.name("password")).sendKeys("mercury");
+        driver.findElement(By.name("login")).click();
+    }
+    @Test(priority = 2)
+    public void VerifyTitle()
+    {
+        if(driver.getTitle().equals("Find a Flight: Mercury Tours:"))
+        {
+            System.out.println("Login Successful");
+        }
+        else
+        {
+            System.out.println("Login Unsuccessful");
+        }
+        driver.close();
+    }
+}
+{%- endhighlight -%}</pre>
+
+<div class="card">File: KWListener.java</div>
+<pre class="code">{%- highlight java -%}
+package tests;
+
+import org.testng.ITestListener;
+import org.testng.ITestResult;
+
+public class KWListener implements ITestListener
+{
+    public void onTestStart(ITestResult itr)
+    {
+        System.out.println("Executing Method: "+itr.getMethod());
+    }
+    public void onTestSuccess(ITestResult itr)
+    {
+        System.out.println("Pass: "+itr.getName());
+    }
+    public void onTestFailure(ITestResult itr)
+    {
+        System.out.println("Fail: "+itr.getName());
+    }
+    public void onTestSkipped(ITestResult itr)
+    {
+
+    }
+    public void onStart(ITestResult itr)
+    {
+
+    }
+    public void onFinish(ITestResult itr)
+    {
+        
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+[RemoteTestNG] detected TestNG version 7.0.0
+Executing Method: KWTestNG.OpenBrowser()[pri:0, instance:tests.KWTestNG@52a86356]
+Pass: OpenBrowser
+Executing Method: KWTestNG.Login()[pri:1, instance:tests.KWTestNG@52a86356]
+Pass: Login
+Executing Method: KWTestNG.VerifyTitle()[pri:2, instance:tests.KWTestNG@52a86356]
+Login Successful
+Pass: VerifyTitle
+PASSED: OpenBrowser
+PASSED: Login
+PASSED: VerifyTitle
+
+===============================================
+    Default test
+    Tests run: 3, Failures: 0, Skips: 0
+===============================================
+
+===============================================
+Default suite
+Total tests run: 3, Passes: 3, Failures: 0, Skips: 0
+===============================================
+</pre></span>
+
+<div class="terminalcard">File: testng.xml</div>
+<pre class="editorcard">
+{%- highlight xml -%}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Selenium Project">
+    <listeners>
+        <listener class-name="tests.KWListener"/>
+    </listeners>
+    
+    <test name="Login">
+        <classes>
+            <class name="tests.KWTestNG"/>
+        </classes>
+    </test>
+</suite>
+{%- endhighlight -%}</pre>

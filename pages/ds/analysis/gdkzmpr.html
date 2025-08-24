@@ -1,0 +1,127 @@
+---
+permalink: ds/analysis/gdkzmpr
+title: Python Pandas to create a DataFrame from CSV file, Dictionary, etc.
+---
+
+<div class="codecard">Python Pandas to create a DataFrame from CSV file</div>
+<div class="card">{{ site.csvfile }}</div>
+<pre>
+{%- highlight viml -%}
+account_no,name,city,dob,bank,amount
+25622348989,James Moore,Phoenix,1985-05-26,Barclays,5000
+25622348990,Donald Taylor,Irvine,1990-08-20,Citi,7000
+25622348991,Edward Parkar,Irvine,1994-01-29,ICICI,95000
+25622348992,Ryan Bakshi,Mumbai,1982-01-14,Citi,50000
+25622348993,Marie Peters,Ribe,1967-01-05,DZBank,12250
+25622348994,Aanya,Delhi,1975-08-18,SBI,105000
+25622348995,James Moore,,1978-06-26,Citi,97800
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="code">{%- highlight python -%}
+import pandas as pd
+df=pd.read_csv("/home/godarda/gd.csv")
+print(df)
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runpy }}
+    account_no           name     city         dob      bank  amount
+0  25622348989    James Moore  Phoenix  1985-05-26  Barclays    5000
+1  25622348990  Donald Taylor   Irvine  1990-08-20      Citi    7000
+2  25622348991  Edward Parkar   Irvine  1994-01-29     ICICI   95000
+3  25622348992    Ryan Bakshi   Mumbai  1982-01-14      Citi   50000
+4  25622348993   Marie Peters     Ribe  1967-01-05    DZBank   12250
+5  25622348994          Aanya    Delhi  1975-08-18       SBI  105000
+6  25622348995    James Moore      NaN  1978-06-26      Citi   97800
+</pre></span>
+
+<div class="codecard">Python Pandas to create a DataFrame from Excel spreadsheet</div>
+<div class="card">{{ site.excelfile }}</div>
+<pre>
++------------+---------------+---------+------------+----------+--------+
+| account_no | name          | city    | dob        | bank     | amount |
++------------+---------------+---------+------------+----------+--------+
+| 2562348989 | James Moore   | Phoenix | 1985-05-26 | Barclays |   5000 |
+| 2562348990 | Donald Taylor | Irvine  | 1990-08-20 | Citi     |   7000 |
+| 2562348991 | Edward Parkar | Irvine  | 1994-01-29 | ICICI    |  95000 |
+| 2562348992 | Ryan Bakshi   | Mumbai  | 1982-01-14 | Citi     |  50000 |
+| 2562348993 | Marie Peters  | Ribe    | 1967-01-05 | DZ Bank  |  12250 |
+| 2562348994 | Aanya         | Delhi   | 1975-08-18 | SBI      | 105000 |
+| 2562348995 | James Moore   |         | 1978-06-26 | Citi     |  97800 |
++------------+---------------+---------+------------+----------+--------+
+</pre>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="code">{%- highlight python -%}
+import pandas as pd
+df=pd.read_excel("/home/godarda/gd.xlsx")
+print(df)
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runpy }}
+    account_no           name     city         dob      bank  amount
+0  25622348989    James Moore  Phoenix  1985-05-26  Barclays    5000
+1  25622348990  Donald Taylor   Irvine  1990-08-20      Citi    7000
+2  25622348991  Edward Parkar   Irvine  1994-01-29     ICICI   95000
+3  25622348992    Ryan Bakshi   Mumbai  1982-01-14      Citi   50000
+4  25622348993   Marie Peters     Ribe  1967-01-05    DZBank   12250
+5  25622348994          Aanya    Delhi  1975-08-18       SBI  105000
+6  25622348995    James Moore      NaN  1978-06-26      Citi   97800
+</pre></span>
+
+<div class="codecard">Python Pandas to create a DataFrame from Dictionary</div>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="code">{%- highlight python -%}
+import pandas as pd
+holders={
+"account_no": [25622348989, 25622348990, 25622348991, 25622348992, 25622348993, 25622348994, 25622348995], 
+"name": ["James Moore", "Donald Taylor", "Edward Parkar", "Ryan Bakshi", "Marie Peters", "Aanya", "James Moore"], 
+"city": ["Phoenix", "Irvine", "Irvine", "Mumbai", "Ribe", "Delhi", ""], 
+"dob": ["1985-05-26", "1990-08-20", "1994-01-29", "1982-01-14", "1967-01-05", "1975-08-18", "1978-06-26"], 
+"bank": ["Barclays", "Citi", "ICICI", "Citi", "DZBank", "SBI", "Citi"], 
+"amount": [5000, 7000, 95000, 50000, 12250, 105000, 97800]
+}
+df=pd.DataFrame(holders)
+print(df)
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runpy }}
+    account_no           name     city         dob      bank  amount
+0  25622348989    James Moore  Phoenix  1985-05-26  Barclays    5000
+1  25622348990  Donald Taylor   Irvine  1990-08-20      Citi    7000
+2  25622348991  Edward Parkar   Irvine  1994-01-29     ICICI   95000
+3  25622348992    Ryan Bakshi   Mumbai  1982-01-14      Citi   50000
+4  25622348993   Marie Peters     Ribe  1967-01-05    DZBank   12250
+5  25622348994          Aanya    Delhi  1975-08-18       SBI  105000
+6  25622348995    James Moore      NaN  1978-06-26      Citi   97800
+</pre></span>
+
+<div class="codecard">Python Pandas to create a DataFrame from List of Tuples</div>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="code">{%- highlight python -%}
+import pandas as pd
+holders=[
+(25622348989,"James Moore","Phoenix","1985-05-26","Barclays",5000),
+(25622348990,"Donald Taylor","Irvine","1990-08-20","Citi",7000),
+(25622348991,"Edward Parkar","Irvine","1994-01-29","ICICI",95000),
+(25622348992,"Ryan Bakshi","Mumbai","1982-01-14","Citi",50000),
+(25622348993,"Marie Peters","Ribe","1967-01-05","DZBank",12250),
+(25622348994,"Aanya","Delhi","1975-08-18","SBI",105000),
+(25622348995,"James Moore","","1978-06-26","Citi",97800)
+]
+df=pd.DataFrame(holders, columns=["account_no","name","city","dob","bank","amount"])
+print(df)
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runpy }}
+    account_no           name     city         dob      bank  amount
+0  25622348989    James Moore  Phoenix  1985-05-26  Barclays    5000
+1  25622348990  Donald Taylor   Irvine  1990-08-20      Citi    7000
+2  25622348991  Edward Parkar   Irvine  1994-01-29     ICICI   95000
+3  25622348992    Ryan Bakshi   Mumbai  1982-01-14      Citi   50000
+4  25622348993   Marie Peters     Ribe  1967-01-05    DZBank   12250
+5  25622348994          Aanya    Delhi  1975-08-18       SBI  105000
+6  25622348995    James Moore      NaN  1978-06-26      Citi   97800
+</pre></span>

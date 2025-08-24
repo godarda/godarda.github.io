@@ -1,0 +1,73 @@
+---
+permalink: python/arrays/gdskedg
+title: How to create arrays using the linspace() and logspace() functions
+---
+
+<div class="terminalcard">Create arrays using the linspace() function</div>
+<span><pre>
+godarda@gd:~$ <mark>python3</mark>
+...
+>>> <mark>from numpy import *</mark>
+>>> <mark>linspace(0, 24, 3)</mark>
+array([ 0., 12., 24.])
+
+>>> <mark>linspace(0, 24, 4)</mark>
+array([ 0.,  8., 16., 24.])
+
+>>> <mark>linspace(0, 24, 5)</mark>
+array([ 0.,  6., 12., 18., 24.])
+
+>>> <mark>linspace(0, 24, 6)</mark>
+array([ 0. ,  4.8,  9.6, 14.4, 19.2, 24. ])
+
+>>> <mark>arr = linspace(0, 24, 5)</mark>
+>>> <mark>arr</mark>
+array([ 0.,  6., 12., 18., 24.])
+>>> <mark>len(arr)</mark>
+5
+
+>>> <mark>min(arr)</mark>
+0.0
+
+>>> <mark>max(arr)</mark>
+24.0
+
+>>> <mark>sort(arr)</mark>
+array([ 0.,  6., 12., 18., 24.])
+
+>>> <mark>arr=append(arr, 30)</mark>
+>>> <mark>arr</mark>
+array([ 0.,  6., 12., 18., 24., 30.])
+
+>>> <mark>arr=delete(arr, 0)</mark>
+>>> <mark>arr=delete(arr, 1)</mark>
+>>> <mark>arr</mark>
+array([ 6., 18., 24., 30.])
+
+>>> <mark>arr=insert(arr, 1, 12)</mark>
+>>> <mark>arr</mark>
+array([ 6., 12., 18., 24., 30.])
+
+>>> <mark>arr.tolist()</mark>
+[6.0, 12.0, 18.0, 24.0, 30.0]
+
+>>> <mark>arr[::-1]</mark>
+array([30., 24., 18., 12.,  6.])
+</pre></span>
+
+<div class="terminalcard">Create arrays using the logspace() function</div>
+<span><pre>
+>>> <mark>from numpy import *</mark>
+>>> <mark>arr = logspace(0, 20, 5)</mark>
+>>> <mark>arr</mark>
+array([1.e+00, 1.e+05, 1.e+10, 1.e+15, 1.e+20])
+
+>>> <mark>len(arr)</mark>
+5
+
+>>> <mark>min(arr)</mark>
+1.0
+
+>>> <mark>max(arr)</mark>
+1e+20
+</pre></span>

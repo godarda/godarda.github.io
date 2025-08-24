@@ -1,0 +1,99 @@
+---
+permalink: java/exceptions/gdsshvg
+title: Java program to handle the ArrayIndexOutOfBoundsException
+---
+
+<div class="codecard">ArrayIndexOutOfBoundsException</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD
+{
+    public static void main(String args[])
+    {
+        String[] s={"Mango","Pineaple","Grapes","Banana","Apple","Strawberry"};
+        System.out.println("Array Length: "+s.length);
+        System.out.println("First Element: "+s[0]);
+        System.out.println("Last Element: "+s[5]);        
+        System.out.println(s[6]);
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Array Length: 6
+First Element: Mango
+Last Element: Strawberry
+<error>Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Index 6 out of bounds for length 6
+    at GD.main(GD.java:10)</error>
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD
+{
+    public static void main(String args[])
+    {
+        String[] s={"Mango","Pineaple","Grapes","Banana","Apple","Strawberry"};
+        System.out.println("Array Length: "+s.length);
+        System.out.println("First Element: "+s[0]);
+        System.out.println("Last Element: "+s[5]);
+        try
+        {
+            System.out.println(s[6]);
+        }
+        catch(ArrayIndexOutOfBoundsException e)
+        {
+            System.out.println("Requested element not found");
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Array Length: 6
+First Element: Mango
+Last Element: Strawberry
+Requested element not found
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java program to display exception throwable details using the printStackTrace() method</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD
+{
+    public static void main(String args[])
+    {
+        String[] s={"Mango","Pineaple","Grapes","Banana","Apple","Strawberry"};
+        System.out.println("Array Length: "+s.length);
+        System.out.println("First Element: "+s[0]);
+        System.out.println("Last Element: "+s[5]);
+        try
+        {
+            System.out.println(s[6]);
+        }
+        catch(ArrayIndexOutOfBoundsException e)
+        {
+            System.out.println("Requested element not found");
+            e.printStackTrace(); 
+            System.out.println(e);
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Array Length: 6
+First Element: Mango
+Last Element: Strawberry
+Requested element not found
+java.lang.ArrayIndexOutOfBoundsException: Index 6 out of bounds for length 6
+    at GD.main(GD.java:12)
+java.lang.ArrayIndexOutOfBoundsException: Index 6 out of bounds for length 6
+godarda@gd:~$ 
+</pre></span>

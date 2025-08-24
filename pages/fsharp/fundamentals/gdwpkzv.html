@@ -1,0 +1,39 @@
+---
+permalink: fsharp/fundamentals/gdwpkzv
+title: F# program to perform the arithmetic operations
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.fsfile }}</div>
+<pre class="code">{%- highlight fsharp -%}
+let a = float32 15f
+let b = float32 0f
+
+printfn "———————————————————————————————————————————"
+printfn "Program to perform arithmetic operations"
+printfn "———————————————————————————————————————————"
+printfn "Value of a   | %f " a
+printfn "Value of b   | %f " b
+printfn "Value of a+b | %f " (a + b)
+printfn "Value of a-b | %f " (a - b)
+printfn "Value of a*b | %f " (a * b)
+printfn "Value of a/b | %f " (a / b)
+printfn "Value of a^b | %f " (a ** b)
+printfn "———————————————————————————————————————————"
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runfs }}
+———————————————————————————————————————————
+Program to perform arithmetic operations
+———————————————————————————————————————————
+Value of a   | 15.000000 
+Value of b   | 0.000000 
+Value of a+b | 15.000000 
+Value of a-b | 15.000000 
+Value of a*b | 0.000000 
+Value of a/b | Infinity 
+Value of a^b | 1.000000 
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

@@ -1,0 +1,103 @@
+---
+permalink: dsa/sorting/gdzxlqf
+title: C progarm for Bubble Sort
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    int a[] = {12, 23, -104, -1, 0, 90};
+    int n = sizeof(a) / sizeof(a[0]);
+    for (int i = 0; i < (n - 1); i++)
+    {
+        for (int j = 0; j < n - i - 1; j++)
+        {
+            if (a[j] > a[j + 1])
+            {
+                a[j] = a[j] + a[j + 1];
+                a[j + 1] = a[j] - a[j + 1];
+                a[j] = a[j] - a[j + 1];
+            }
+        }
+    }
+    printf("Sorted element(s): ");
+    for (int i = 0; i < n; i++)
+    {
+        printf("%d ", a[i]);
+    }
+    printf("\n");
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+Sorted element(s): -104 -1 0 12 23 90 
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    void BubbleSort(int a[], int n)
+    {
+        for (int i = 0; i < (n - 1); i++)
+        {
+            for (int j = 0; j < n - i - 1; j++)
+            {
+                if (a[j] > a[j + 1])
+                {
+                    a[j] = a[j] + a[j + 1];
+                    a[j + 1] = a[j] - a[j + 1];
+                    a[j] = a[j] - a[j + 1];
+                }
+            }
+        }
+    }
+
+    int n, i;
+    printf("———————————————————————————————————————————");
+    printf("\nImplementation of a Bubble Sort\n");
+    printf("———————————————————————————————————————————");
+    printf("\nEnter the number of elements ");
+    scanf("%d", &n);
+    int a[n];
+    for (i = 0; i < n; i++)
+    {
+        scanf("%d", &a[i]);
+    }
+
+    BubbleSort(a, n);
+    printf("\nSorted element(s): ");
+    for (i = 0; i < n; i++)
+    {
+        printf("%d ", a[i]);
+    }
+    printf("\n———————————————————————————————————————————\n");
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+———————————————————————————————————————————
+Implementation of a Bubble Sort
+———————————————————————————————————————————
+Enter the number of elements 6
+12
+23
+-104
+-1
+0
+90
+
+Sorted element(s): -104 -1 0 12 23 90 
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

@@ -1,0 +1,64 @@
+---
+permalink: c/controls/gdecgzz
+title: C program to demonstrate the use of break and continue statements
+---
+
+<div class="codecard">C program to demonstrate the use of break statement</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    for (int i = 0; i < 10; i++)
+    {
+        if (i == 5)
+        {
+            break;
+        }
+        printf("%d\n", i);
+    }
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+0
+1
+2
+3
+4
+godarda@gd:~$  
+</pre></span>
+
+<div class="codecard">C program to demonstrate the use of continue statement</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    for (int i = 0; i < 10; i++)
+    {
+        if (i == 5)
+        {
+            continue;
+        }
+        printf("%d\n", i);
+    }
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+0
+1
+2
+3
+4
+6
+7
+8
+9
+godarda@gd:~$  
+</pre></span>

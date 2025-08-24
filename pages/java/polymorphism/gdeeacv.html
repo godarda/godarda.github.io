@@ -1,0 +1,69 @@
+---
+permalink: java/polymorphism/gdeeacv
+title: Implementation of Java method overloading
+---
+    
+<div class="codecard">{{ page.title }} (changing the data types)</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class Area
+{
+    static int rectangle(int a,int b)
+    {
+        return a*b;
+    }
+    static double rectangle(double a,double b)
+    {
+        return a*b;
+    }
+}
+
+class GD
+{
+    public static void main(String args[])
+    {
+        System.out.println("Area of Rectangle "+Area.rectangle(3.14,10.0)); 
+        System.out.println("Area of Rectangle "+Area.rectangle(5,10)); 
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Area of Rectangle 31.400000000000002
+Area of Rectangle 50
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }} (changing the number of arguments)</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class Area
+{
+    static int rectangle(int a,int b)
+    {
+        return a*b;
+    }
+    static int rectangle(int a)
+    {
+        return a*a;
+    }
+}
+
+class GD
+{
+    public static void main(String args[])
+    {
+        //Every square is rectangle
+        System.out.println("Area of Square "+Area.rectangle(5)); 
+        System.out.println("Area of Rectangle "+Area.rectangle(5,10)); 
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Area of Square 25
+Area of Rectangle 50
+godarda@gd:~$ 
+</pre></span>

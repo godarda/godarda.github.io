@@ -1,0 +1,35 @@
+---
+permalink: python/loops/gdggkza
+title: Python program to check whether a given number is a palindrome
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="code">{%- highlight python -%}
+print("____________________________________________")
+print("Program to check number is palindrome or not")
+print("____________________________________________")
+n=int(input("Enter the number "))
+temp=n
+r=0
+while(n>0):
+    r=(r*10)+n%10
+    n=n//10
+print("Reverse number is",r)
+if(temp==r):
+    print(temp, "is palindrome")
+else:
+    print(temp, "is not palindrome")
+print("____________________________________________")
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runpy }}
+____________________________________________
+Program to check number is palindrome or not
+____________________________________________
+Enter the number 100010001
+Reverse number is 100010001
+100010001 is palindrome
+____________________________________________
+</pre></span>

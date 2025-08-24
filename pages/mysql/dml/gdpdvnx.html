@@ -1,0 +1,134 @@
+---
+permalink: mysql/dml/gdpdvnx
+title: MySQL INSERT the VALUES into a TABLE
+---
+
+<div class="board"><div class="boardtitle">Objective and Introduction</div>
+    <p><b>Objective: </b>This segment introduces how to insert single and multiple records into a table.<br><br>
+    <b>Introduction: </b>The INSERT INTO statement used to insert new records into a table. The following are ways to insert the records.</p>
+</div>
+
+<div class="terminalcard">Show databases and tables</div>
+<span><pre>
+mysql> <mark>SHOW DATABASES;</mark>
++--------------------+
+| Database           |
++--------------------+
+| DB                 |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.07 sec)
+
+mysql> <mark>USE DB;</mark>
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> <mark>SHOW TABLES;</mark>
++--------------+
+| Tables_in_DB |
++--------------+
+| holders      |
+| loans        |
++--------------+
+2 rows in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">Database tables preview</div>
+<span><pre>
+mysql> <mark>DESC holders;</mark>                                                          
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| account_no | bigint      | NO   | PRI | NULL    |       |
+| name       | varchar(30) | NO   |     | NULL    |       |
+| city       | varchar(20) | YES  |     | NULL    |       |
+| dob        | date        | YES  |     | NULL    |       |
+| bank       | varchar(10) | YES  |     | NULL    |       |
+| amount     | bigint      | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> <mark>DESC loans;</mark>
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| loan_id     | int         | NO   | PRI | NULL    | auto_increment |
+| loan_type   | varchar(20) | NO   |     | NULL    |                |
+| loan_amount | bigint      | YES  |     | NULL    |                |
+| account_no  | bigint      | YES  | MUL | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+4 rows in set (0.01 sec)
+</pre></span>
+
+<div class="terminalcard">Inserting multiple records in a parent table</div>
+<span><pre>
+mysql> <mark>INSERT INTO holders(account_no, name, city, dob, bank, amount) VALUES
+    -> (2562348989, 'James Moore', 'Phoenix', '1985-05-26', 'Barclays', 5000),
+    -> (2562348990, 'Donald Taylor', 'Irvine', '1990-08-20', 'Citi', 7000),
+    -> (2562348991, 'Edward Parkar', 'Irvine', '1994-01-29', 'ICICI', 95000),
+    -> (2562348992, 'Ryan Bakshi', 'Mumbai', '1982-01-14', 'Citi', 50000),
+    -> (2562348993, 'Marie Peters', 'Ribe', '1967-01-05', 'DZ Bank', 12250),
+    -> (2562348994, 'Aanya', 'Delhi', '1975-08-18', 'SBI', 105000);</mark>
+
+Query OK, 6 rows affected (0.17 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> <mark>SELECT * FROM holders;</mark>
++------------+---------------+---------+------------+----------+--------+
+| account_no | name          | city    | dob        | bank     | amount |
++------------+---------------+---------+------------+----------+--------+
+| 2562348989 | James Moore   | Phoenix | 1985-05-26 | Barclays |   5000 |
+| 2562348990 | Donald Taylor | Irvine  | 1990-08-20 | Citi     |   7000 |
+| 2562348991 | Edward Parkar | Irvine  | 1994-01-29 | ICICI    |  95000 |
+| 2562348992 | Ryan Bakshi   | Mumbai  | 1982-01-14 | Citi     |  50000 |
+| 2562348993 | Marie Peters  | Ribe    | 1967-01-05 | DZ Bank  |  12250 |
+| 2562348994 | Aanya         | Delhi   | 1975-08-18 | SBI      | 105000 |
++------------+---------------+---------+------------+----------+--------+
+6 rows in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">Inserting a single record in a parent table</div>
+<span><pre>
+mysql> <mark>INSERT INTO holders VALUES(25622348995, 'James Moore', NULL, '1978-06-26', 'Citi', 97800);</mark>
+Query OK, 1 row affected (0.23 sec)
+                                            
+mysql> <mark>SELECT * FROM holders;</mark>
++-------------+---------------+---------+------------+----------+--------+
+| account_no  | name          | city    | dob        | bank     | amount |
++-------------+---------------+---------+------------+----------+--------+
+| 25622348989 | James Moore   | Phoenix | 1985-05-26 | Barclays |   5000 |
+| 25622348990 | Donald Taylor | Irvine  | 1990-08-20 | Citi     |   7000 |
+| 25622348991 | Edward Parkar | Irvine  | 1994-01-29 | ICICI    |  95000 |
+| 25622348992 | Ryan Bakshi   | Mumbai  | 1982-01-14 | Citi     |  50000 |
+| 25622348993 | Marie Peters  | Ribe    | 1967-01-05 | DZBank   |  12250 |
+| 25622348994 | Aanya         | Delhi   | 1975-08-18 | SBI      | 105000 |
+| 25622348995 | James Moore   | NULL    | 1978-06-26 | Citi     |  97800 |
++-------------+---------------+---------+------------+----------+--------+
+7 rows in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">Inserting records in a child table</div>
+<span><pre>
+mysql> <mark>INSERT INTO loans(loan_type,loan_amount,account_no) VALUES
+    -> ("Personal",5660,25622348989),
+    -> ("Home",450000,25622348992),
+    -> ("Car",600000,25622348994),
+    -> ("Home",40000,25622348995);</mark>
+Query OK, 4 rows affected (0.20 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> <mark>SELECT * FROM loans;</mark>
++---------+-----------+-------------+-------------+
+| loan_id | loan_type | loan_amount | account_no  |
++---------+-----------+-------------+-------------+
+|       1 | Personal  |        5660 | 25622348989 |
+|       2 | Home      |      450000 | 25622348992 |
+|       3 | Car       |      600000 | 25622348994 |
+|       4 | Home      |       40000 | 25622348995 |
++---------+-----------+-------------+-------------+
+4 rows in set (0.00 sec)
+</pre></span>

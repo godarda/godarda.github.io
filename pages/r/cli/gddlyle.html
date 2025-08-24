@@ -1,0 +1,43 @@
+---
+permalink: r/cli/gddlyle
+title: R Vectors
+---
+
+<div class="terminalcard">{{ page.title }}</div>
+<span><pre>
+godarda@gd:~$ <mark>R</mark>
+...
+><mark> c(1,2,3)</mark>
+[1] 1 2 3
+
+><mark> c(1,2,3) + 10</mark>
+[1] 11 12 13
+
+><mark> c(1,2,3) - 10</mark>
+[1] -9 -8 -7
+
+><mark> c(1,2,3) + c(3,2,1)</mark>
+[1] 4 4 4
+
+><mark> vector = c(1,2,4,5,9,-1.1)</mark>
+><mark> vector</mark>
+[1]  1.0  2.0  4.0  5.0  9.0 -1.1
+
+><mark> vector = 1:10</mark>
+><mark> vector1 = 1:10</mark>
+><mark> vector2 = 10:9</mark>
+><mark> vector1 + vector2</mark>
+ [1] 11 11 13 13 15 15 17 17 19 19
+
+><mark> print(c(T,T,F,F,T))</mark>
+[1]  TRUE  TRUE FALSE FALSE  TRUE
+<hr>Comparing integers
+><mark> c(1:5) == 5</mark>
+[1] FALSE FALSE FALSE FALSE  TRUE
+
+><mark> c(1:5) ^ 2</mark>
+[1]  1  4  9 16 25
+
+><mark> c(1:5) ^ 2 >= 5</mark>
+[1] FALSE FALSE  TRUE  TRUE  TRUE
+</pre></span>

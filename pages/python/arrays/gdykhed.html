@@ -1,0 +1,107 @@
+---
+permalink: python/arrays/gdykhed
+title: Python NumPy Mathematical Functions for Arrays
+---
+
+<div class="terminalcard">{{ page.title }}</div>
+<span><pre>
+godarda@gd:~$ <mark>python3</mark>
+...
+>>> <mark>from numpy import *</mark>
+>>> <mark>arr = array([25, 27, 25, 1, 0, -1, 3.14])</mark>
+
+>>> <mark>sum(arr)</mark>
+80.14
+
+>>> <mark>prod(arr)</mark>
+-0.0
+
+>>> <mark>min(arr)</mark>
+-1.0
+
+>>> <mark>max(arr)</mark>
+27.0
+
+>>> <mark>argmin(arr)</mark>
+5
+
+>>> <mark>argmax(arr)</mark>
+1
+
+>>> <mark>unique(arr)</mark>
+array([-1.  ,  0.  ,  1.  ,  3.14, 25.  , 27.  ])
+
+>>> <mark>sort(arr)</mark>
+array([-1.  ,  0.  ,  1.  ,  3.14, 25.  , 25.  , 27.  ])
+
+>>> <mark>log(arr)</mark>
+<warning>&lt;stdin>:1: RuntimeWarning: divide by zero encountered in log
+&lt;stdin>:1: RuntimeWarning: invalid value encountered in log</warning>
+array([3.21887582, 3.29583687, 3.21887582, 0.        ,       -inf,
+              nan, 1.1442228 ])
+
+>>> <mark>abs(arr)</mark>
+array([25.  , 27.  , 25.  ,  1.  ,  0.  ,  1.  ,  3.14])
+
+>>> <mark>sqrt(arr)</mark>
+<warning>&ltstdin>:1: RuntimeWarning: invalid value encountered in sqrt</warning>
+array([5.        , 5.19615242, 5.        , 1.        , 0.        ,
+              nan, 1.77200451])
+
+>>> <mark>power(arr,0)</mark>
+array([1., 1., 1., 1., 1., 1., 1.])
+
+>>> <mark>exp(arr)</mark>
+array([7.20048993e+10, 5.32048241e+11, 7.20048993e+10, 2.71828183e+00,
+       1.00000000e+00, 3.67879441e-01, 2.31038669e+01])
+
+>>> <mark>mean(arr)</mark>
+11.448571428571428
+
+>>> <mark>median(arr)</mark>
+3.14
+
+>>> <mark>var(arr)</mark>
+153.3387265306122
+
+>>> <mark>cov(arr)</mark>
+array(178.89518095)
+
+>>> <mark>std(arr)</mark>
+12.38300151540862
+<hr>>>> <mark>arr1 = array([1, -1, 3.14, "GoDarda", 'K'])</mark>
+>>> <mark>arr2 = array([0, 'W'])</mark>
+
+>>> <mark>concatenate([arr1, arr2])</mark>
+array(['1', '-1', '3.14', 'GoDarda', 'K', '0', 'W'], dtype='&lt;U32')
+</pre></span>
+
+<div class="terminalcard">Python NumPy Trigonometric Functions</div>
+<span><pre>
+>>> <mark>from numpy import *</mark>
+>>> <mark>arr = array([25, 27, 25, 1, 0, -1, 3.14])</mark>
+
+>>> <mark>sin(arr)</mark>
+array([-0.13235175,  0.95637593, -0.13235175,  0.84147098,  0.        ,
+       -0.84147098,  0.00159265])
+
+>>> <mark>cos(arr)</mark>
+array([ 0.99120281, -0.29213881,  0.99120281,  0.54030231,  1.        ,
+        0.54030231, -0.99999873])
+
+>>> <mark>tan(arr)</mark>
+array([-1.33526407e-01, -3.27370380e+00, -1.33526407e-01,  1.55740772e+00,
+        0.00000000e+00, -1.55740772e+00, -1.59265494e-03])
+
+>>> <mark>arcsin(arr)</mark>
+array([        nan,         nan,         nan,  1.57079633,  0.        ,
+       -1.57079633,         nan])
+
+>>> <mark>arccos(arr)</mark>
+array([       nan,        nan,        nan, 0.        , 1.57079633,
+       3.14159265,        nan])
+
+>>> <mark>arctan(arr)</mark>
+array([ 1.53081764,  1.53377621,  1.53081764,  0.78539816,  0.        ,
+       -0.78539816,  1.26248066])
+</pre></span>

@@ -1,0 +1,295 @@
+---
+permalink: python/networking/gdyslwy
+title: Python networking using the netaddr module
+---
+
+<div class="terminalcard">{{ page.title }}</div>
+<span><pre>
+godarda@gd:~$ <mark>su</mark>
+Password:
+root@gd:/home/godarda# <mark>apt install python3-netaddr</mark>
+...
+Setting up python3-netaddr (0.8.0-2) ...
+Processing triggers for man-db (2.11.2-1) ...
+root@gd:/home/godarda# <mark>python3</mark>
+...
+>>> <mark>from netaddr import *</mark>
+>>> <mark>ip=IPAddress('192.168.122.1')</mark>
+>>> <mark>ip.version</mark>
+4
+
+>>> <mark>ip</mark>
+IPAddress('192.168.122.1')
+</pre></span>
+
+<div class="terminalcard">Numerical Representation</div>
+<span><pre>
+>>> <mark>int(ip)</mark>
+3232266753
+
+>>> <mark>hex(ip)</mark>
+'0xc0a87a01'
+
+>>> <mark>ip.bin</mark>
+'0b11000000101010000111101000000001'
+
+>>> <mark>ip.bits()</mark>
+'11000000.10101000.01111010.00000001'
+
+>>> <mark>ip.words</mark>
+(192, 168, 122, 1)
+</pre></span>
+
+<div class="terminalcard">IPAddress Function</div>
+<span><pre>
+>>> <mark>ip=IPAddress('192.168.122.1').ipv6()</mark>
+>>> <mark>ip</mark>
+IPAddress('::ffff:192.168.122.1')
+
+>>> <mark>ip.version</mark>
+6
+
+>>> <mark>ip.is_ipv4_mapped()</mark>
+True
+
+>>> <mark>ip.bin</mark>
+'0b111111111111111111000000101010000111101000000001'
+
+>>> <mark>ip.words</mark>
+(0, 0, 0, 0, 0, 65535, 49320, 31233)
+
+>>> <mark>int(ip)</mark>
+281473914010113
+
+>>> <mark>hex(ip)</mark>
+'0xffffc0a87a01'
+
+>>> <mark>ip.bits()</mark>
+'0000000000000000:0000000000000000:0000000000000000:0000000000000000
+:0000000000000000:1111111111111111:1100000010101000:0111101000000001'
+<hr>>>> <mark>ip=IPAddress('::ffff:192.168.122.1').ipv4()</mark>
+>>> <mark>ip</mark>
+IPAddress('192.168.122.1')
+
+>>> <mark>ip.is_multicast()</mark>
+False
+
+>>> <mark>ip.is_unicast()</mark>
+True
+
+>>> <mark>ip.is_private()</mark>
+True
+
+>>> <mark>ip.is_reserved()</mark>
+False
+
+>>> <mark>ip.is_netmask()</mark>
+False
+
+>>> <mark>ip.is_hostmask()</mark>
+False
+<hr>>>> <mark>IPAddress('255.255.255.255').is_netmask()</mark>
+True
+
+>>> <mark>IPAddress('255.255.255.255').is_hostmask()</mark>
+True
+
+>>> <mark>IPAddress('255.255.255.255').is_reserved()</mark>
+True
+
+>>> <mark>IPAddress('224.0.0.0').is_multicast()</mark>
+True
+
+>>> <mark>IPAddress('127.1.1.0').is_loopback()</mark>
+True
+
+>>> <mark>IPAddress('::1').is_loopback()</mark>
+True
+
+>>> <mark>IPAddress('::1')==IPAddress('127.1.1.0')</mark>
+False
+
+>>> <mark>ip.reverse_dns</mark>
+'1.122.168.192.in-addr.arpa.'
+</pre></span>
+
+<div class="terminalcard">IPNetwork Function</div>
+<span><pre>
+>>> <mark>ip=IPNetwork('192.168.122.1/24')</mark>
+>>> <mark>ip</mark>
+IPNetwork('192.168.122.1/24')
+
+>>> <mark>ip.network</mark>
+IPAddress('192.168.122.0')
+
+>>> <mark>ip.broadcast</mark>
+IPAddress('192.168.122.255')
+
+>>> <mark>ip.netmask</mark>
+IPAddress('255.255.255.0')
+
+>>> <mark>ip.hostmask</mark>
+IPAddress('0.0.0.255')
+
+>>> <mark>ip.size</mark>
+256
+
+>>> <mark>ip.value=0</mark>
+>>> <mark>ip.prefixlen=20</mark>
+>>> <mark>ip</mark>
+IPNetwork('0.0.0.0/20')
+
+>>> <mark>ip.size</mark>
+4096
+<hr>>>> <mark>ip=IPNetwork('192.168.122.1/24')</mark>
+>>> <mark>ip</mark>
+IPNetwork('192.168.122.1/24')
+
+>>> <mark>ip.cidr</mark>
+IPNetwork('192.168.122.0/24')
+
+>>> <mark>ip.ip.bits()</mark>
+'11000000.10101000.01111010.00000001'
+
+>>> <mark>ip.network.bits()</mark>
+'11000000.10101000.01111010.00000000'
+
+>>> <mark>ip.netmask.bits()</mark>
+'11111111.11111111.11111111.00000000'
+
+>>> <mark>ip.broadcast.bits()</mark>
+'11000000.10101000.01111010.11111111'
+
+>>> <mark>ip_list=list(ip)</mark>
+>>> <mark>ip_list</mark>
+... ...
+
+>>> <mark>len(ip)</mark>
+256
+
+>>> <mark>len(ip_list)</mark>
+256
+
+>>> <mark>ip[-1]</mark>
+IPAddress('192.168.122.255')
+
+>>> <mark>ip[0]</mark>
+IPAddress('192.168.122.0')
+
+>>> <mark>ip[255]</mark>
+IPAddress('192.168.122.255')
+<hr>>>> <mark>IPNetwork('192.168.122.1/24')==IPNetwork('192.168.122.255/24')</mark>
+True
+
+>>> <mark>IPNetwork('192.168.122.1/24')==IPNetwork('192.168.122.0/24')</mark>
+True
+
+>>> <mark>IPNetwork('192.168.122.1/24').cidr&lt;IPNetwork('192.168.122.0/24').cidr</mark>
+False
+</pre></span>
+
+<div class="terminalcard">IPRange Function</div>
+<span><pre>
+>>> <mark>ip=IPRange('192.168.122.1','192.168.122.15')</mark>
+>>> <mark>ip.cidrs()</mark>
+[IPNetwork('192.168.122.1/32'), IPNetwork('192.168.122.2/31'), 
+IPNetwork('192.168.122.4/30'), IPNetwork('192.168.122.8/29')]
+
+>>> <mark>IPRange('192.168.122.0','192.168.122.255')==IPNetwork('192.168.122.1/24')</mark>
+True
+
+>>> <mark>IPRange('192.168.122.1','192.168.122.255')==IPNetwork('192.168.122.1/24')</mark>
+False
+</pre></span>
+
+<div class="terminalcard">IPSet Function</div>
+<span><pre>
+>>> <mark>IPSet()</mark>
+IPSet([])
+
+>>> <mark>IPSet(['192.168.122.1/24'])</mark>
+IPSet(['192.168.122.1/24'])
+
+>>> <mark>for ip in IPSet(['192.168.122.1/24']):</mark>
+...     <mark>print(ip)</mark>
+... 
+192.168.122.0
+192.168.122.1
+192.168.122.2
+192.168.122.3
+192.168.122.4
+192.168.122.5
+.
+.
+.
+
+>>> <mark>S1=IPSet()</mark>
+>>> <mark>S1.add('192.168.122.1/24')</mark>
+>>> <mark>S1</mark>
+IPSet(['192.168.122.1/24'])
+
+>>> <mark>S1.remove('192.168.122.1/24')</mark>
+>>> <mark>S1</mark>
+IPSet([])
+
+>>> <mark>S1.add(IPRange('192.168.122.0','192.168.122.255'))</mark>
+>>> <mark>S1</mark>
+IPSet(['192.168.122.0/24'])
+
+>>> <mark>S1.remove(IPRange('192.168.122.6','192.168.122.255'))</mark>
+>>> <mark>S1</mark>
+IPSet(['192.168.122.0/30', '192.168.122.4/31'])
+<hr>>>> <mark>S1=IPSet(['192.168.122.1','192.168.122.255'])</mark>
+>>> <mark>S2=IPSet(['192.168.122.1/24','192.168.122.255/24'])</mark>
+>>> <mark>S1</mark>
+IPSet(['192.168.122.1/32', '192.168.122.255/32'])
+>>> <mark>S2</mark>
+IPSet(['192.168.122.0/24'])
+
+>>> <mark>S1.issuperset(S2)</mark>
+False
+
+>>> <mark>S2.issuperset(S1)</mark>
+True
+
+>>> <mark>S1.issubset(S2)</mark>
+True
+
+>>> <mark>S2.issubset(S1)</mark>
+False
+
+>>> <mark>S1 | S2</mark>
+IPSet(['192.168.122.0/24'])
+
+>>> <mark>S1 & S2</mark>
+IPSet(['192.168.122.1/32', '192.168.122.255/32'])
+
+>>> <mark>S1 - S2</mark>
+IPSet([])
+
+>>> <mark>S1 ^ S2</mark>
+IPSet(['192.168.122.0/32', '192.168.122.2/31', '192.168.122.4/30', '192.168.122.8/29', 
+'192.168.122.16/28', '192.168.122.32/27', '192.168.122.64/26', '192.168.122.128/26', 
+'192.168.122.192/27', '192.168.122.224/28', '192.168.122.240/29', '192.168.122.248/30', 
+'192.168.122.252/31', '192.168.122.254/32'])
+
+>>> <mark>S1.isdisjoint(S2)</mark>
+False
+
+>>> <mark>S2.update(IPRange('192.168.123.1','192.168.123.255'))</mark>
+>>> <mark>S2</mark>
+IPSet(['192.168.122.0/24', '192.168.123.1/32', '192.168.123.2/31', 
+'192.168.123.4/30', '192.168.123.8/29', '192.168.123.16/28', 
+'192.168.123.32/27', '192.168.123.64/26', '192.168.123.128/25'])
+
+>>> <mark>S2.clear()</mark>
+>>> <mark>S2</mark>
+IPSet([])
+
+>>> <mark>S1.remove('192.168.122.1')</mark>
+>>> <mark>S1</mark>
+IPSet(['192.168.122.255/32'])
+
+>>> <mark>S1.iscontiguous()</mark>
+True
+</pre></span>

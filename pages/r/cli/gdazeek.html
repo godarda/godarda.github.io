@@ -1,0 +1,47 @@
+---
+permalink: r/cli/gdazeek
+title: R Data Frames
+---
+
+<div class="terminalcard">{{ page.title }}</div>
+<div class="infocard">A Data Frame is a list of vectors which are of equal length. Data Frame accepts different data types (numeric, character, factor, etc.)</div>
+<span><pre>
+godarda@gd:~$ <mark>R</mark>
+...
+><mark> f &lt;- c("Apple","Orange","Mango")</mark>
+><mark> c &lt;- c("Red","Orange","Yellow")</mark>
+><mark> r &lt;- c(200,100,500)</mark>
+><mark> q &lt;- c(12,12,12)</mark>
+><mark> a &lt;- c(FALSE,FALSE,TRUE)</mark>
+
+><mark> df &lt;- data.frame(f,c,r,q,a)</mark>
+><mark> df</mark>
+       f      c   r  q     a
+1  Apple    Red 200 12 FALSE
+2 Orange Orange 100 12 FALSE
+3  Mango Yellow 500 12  TRUE
+
+><mark> names(df) &lt;- c("Fruits","Colors","Rates","Quantity","Availability")</mark>
+><mark> df</mark>
+  Fruits Colors Rates Quantity Availability
+1  Apple    Red   200       12        FALSE
+2 Orange Orange   100       12        FALSE
+3  Mango Yellow   500       12         TRUE
+
+><mark> str(df)</mark>
+'data.frame':	3 obs. of  5 variables:
+ $ Fruits      : Factor w/ 3 levels "Apple","Mango",..: 1 3 2
+ $ Colors      : Factor w/ 3 levels "Orange","Red",..: 2 1 3
+ $ Rates       : num  200 100 500
+ $ Quantity    : num  12 12 12
+ $ Availability: logi  FALSE FALSE TRUE
+
+Append a column to Data Frame
+><mark> t &lt;- c("Sour","Bitter","Sweet")</mark>
+><mark> df$Taste &lt;- t</mark>
+><mark> df</mark>
+  Fruits Colors Rates Quantity Availability  Taste
+1  Apple    Red   200       12        FALSE   Sour
+2 Orange Orange   100       12        FALSE Bitter
+3  Mango Yellow   500       12         TRUE  Sweet
+</pre></span>

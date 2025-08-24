@@ -1,0 +1,31 @@
+---
+permalink: cpp/fundamentals/gddvwxm
+title: C++ Hello World program
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+using namespace std;
+int main()
+{
+    cout<<"Hello, World!\n";
+
+    cout<<(char)72<<(char)69<<(char)76<<(char)76<<(char)79<<(char)32<<(char)87<<(char)79<<(char)82<<(char)76<<(char)68<<(char)33<<"\n";
+
+    cout<<"\"Hello, World!\"\n";
+
+    cout<<"\'Hello, World!\'\n";
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+Hello, World!
+HELLO WORLD
+"Hello, World!"
+'Hello, World!'
+godarda@gd:~$ 
+</pre></span>

@@ -1,0 +1,33 @@
+---
+permalink: python/fundamentals/gdgvzwx
+title: How to compile a Python program using the py_compile module
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="code">{%- highlight python -%}
+a,b=10,20
+(a,b)=(b,a)
+print(a,b)
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+godarda@gd:~$ <mark>ls</mark>
+gd.csv  Desktop    Downloads  Pictures  Templates
+gd.py   Documents  Music      Public    Videos
+godarda@gd:~$ <mark>python3 -m py_compile gd.py</mark>
+godarda@gd:~$ <mark>ls</mark>
+gd.csv  Desktop    Downloads  Pictures  __pycache__  Videos
+gd.py   Documents  Music      Public    Templates
+godarda@gd:~$ <mark>cd __pycache__/</mark>
+godarda@gd:~/__pycache__$ <mark>ls</mark>
+gd.cpython-312.pyc
+godarda@gd:~/__pycache__$ <mark>python3 gd.cpython-312.pyc</mark>
+20 10
+godarda@gd:~/__pycache__$ <mark>cat gd.cpython-312.pyc</mark>
+�
+�!��*�d\ZZeecZZeee�y))�
+�N)�a�b�print���gd.py&lt;module>r
+s"��	���!����1��a��
+godarda@gd:~/__pycache__$ 
+</pre></span>

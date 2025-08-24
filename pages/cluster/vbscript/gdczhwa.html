@@ -1,0 +1,22 @@
+---
+permalink: cluster/vbscript/gdczhwa
+title: VBScript to count the total number of files in a folder
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.vbsfile }}</div>
+<pre>{%- highlight vb -%}
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+Set Folder = objFSO.GetFolder("D:\VBScript")
+counter = 0
+For Each File In Folder.Files
+    counter = counter + 1
+Next
+print "Total Files " & counter
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+
+Total Files 16
+
+</pre></span>

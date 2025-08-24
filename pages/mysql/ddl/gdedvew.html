@@ -1,0 +1,102 @@
+---
+permalink: mysql/ddl/gdedvew
+title: MySQL DROP a TABLE and DATABASE
+---
+
+<div class="titlecard">{{ page.title }}</div>
+<div class="terminalcard">Showing existing databases</div>
+<div class="infocard">The SHOW DATABASES statement used to retrieve the existing databases. This statement returns the databases that are currently in the MySQL server, and the results are useful to avoid the conflicts while creating a new database.</div>
+<span><pre>
+mysql> <mark>SHOW DATABASES;</mark>
++--------------------+
+| Database           |
++--------------------+
+| DB                 |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.01 sec)
+</pre></span>
+
+<div class="terminalcard">Use database and show tables</div>
+<div class="infocard">The USE statement notifies MySQL to use the mentioned database for subsequent database and table operations.</div>
+<span><pre>
+mysql> <mark>USE DB;</mark>
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> <mark>SHOW TABLES;</mark>
++--------------+
+| Tables_in_DB |
++--------------+
+| holders      |
++--------------+
+1 row in set (0.01 sec)
+
+mysql> <mark>SELECT * FROM holders;</mark>
++-------------+---------------+---------+------------+----------+--------+
+| account_no  | name          | city    | dob        | bank     | amount |
++-------------+---------------+---------+------------+----------+--------+
+| 25622348989 | James Moore   | Phoenix | 1985-05-26 | Barclays |   5000 |
+| 25622348990 | Donald Taylor | Irvine  | 1990-08-20 | Citi     |   7000 |
+| 25622348991 | Edward Parkar | Irvine  | 1994-01-29 | ICICI    |  95000 |
+| 25622348992 | Ryan Bakshi   | Mumbai  | 1982-01-14 | Citi     |  50000 |
+| 25622348993 | Marie Peters  | Ribe    | 1967-01-05 | DZBank   |  12250 |
+| 25622348994 | Aanya         | Delhi   | 1975-08-18 | SBI      | 105000 |
++-------------+---------------+---------+------------+----------+--------+
+6 rows in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">Drop table</div>
+<div class="infocard">The DESCRIBE statement used to obtain information about the table structure. The DROP TABLE statement drops a specified table and its data permanently.</div>
+<span><pre>
+mysql> <mark>DESC holders;</mark>
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| account_no | bigint(20)  | NO   | PRI | NULL    |       |
+| name       | varchar(30) | NO   |     | NULL    |       |
+| city       | varchar(20) | YES  |     | NULL    |       |
+| dob        | date        | YES  |     | NULL    |       |
+| bank       | varchar(10) | YES  |     | NULL    |       |
+| amount     | bigint(20)  | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> <mark>DROP TABLE holders;</mark>
+Query OK, 0 rows affected (0.42 sec)
+
+mysql> <mark>DROP TABLE holders;</mark>
+ERROR 1051 (42S02): Unknown table 'DB.holders'
+
+mysql> <mark>DROP TABLE IF EXISTS holders;</mark>
+Query OK, 0 rows affected, 1 warning (0.37 sec)
+
+mysql> <mark>SHOW WARNINGS;</mark>
++-------+------+----------------------------+
+| Level | Code | Message                    |
++-------+------+----------------------------+
+| Note  | 1051 | Unknown table 'DB.holders' |
++-------+------+----------------------------+
+1 row in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">Drop database</div>
+<span><pre>
+mysql> <mark>DROP DATABASE DB;</mark>
+Query OK, 0 rows affected (0.20 sec)
+
+mysql> <mark>SHOW DATABASES;</mark>
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.00 sec)
+</pre></span>

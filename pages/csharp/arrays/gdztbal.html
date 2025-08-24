@@ -1,0 +1,37 @@
+---
+permalink: csharp/arrays/gdztbal
+title: C# implementation of a jagged array
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+Console.WriteLine("———————————————————————————————————————————");
+Console.WriteLine("Program to print the jagged array");
+Console.WriteLine("———————————————————————————————————————————");
+int[][] arr = new int[3][];
+arr[0] = new int[] { 23, 34, 5, 99, 58, 14, 59 };
+arr[1] = new int[] { 23, 34, 5, 99, 58, 14 };
+arr[2] = new int[] { 23, 34, 5, 99 };
+for(int i = 0; i < arr.Length; i++)
+{
+    for(int j = 0; j < arr[i].Length; j++)
+    {
+        System.Console.Write(arr[i][j] + " ");
+    }
+    System.Console.WriteLine();
+}  
+Console.WriteLine("———————————————————————————————————————————");
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+———————————————————————————————————————————
+Program to print the jagged array
+———————————————————————————————————————————
+23 34 5 99 58 14 59 
+23 34 5 99 58 14 
+23 34 5 99 
+———————————————————————————————————————————
+godarda@gd:~/csharp$ 
+</pre></span>

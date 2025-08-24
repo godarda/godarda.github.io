@@ -1,0 +1,55 @@
+---
+permalink: cpp/strings/gdyxqgg
+title: C++ program to check whether a given string is a palindrome
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+int main()
+{
+    cout<<"———————————————————————————————————————————";
+    cout<<"\nProgram to check string is palindrome | not";
+    cout<<"\n———————————————————————————————————————————";
+    string s1, s2;
+    cout<<"\nEnter the string ";
+    getline(cin, s1);
+    s2 = s1;
+    reverse(s1.begin(), s1.end());
+    if (s1 == s2)
+    {
+        cout<<"\n"
+            <<s2<<" is a palindrome";
+    }
+    else
+    {
+        cout<<"\n"
+            <<s2<<" is not a palindrome";
+    }
+    cout<<"\n———————————————————————————————————————————\n";
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+———————————————————————————————————————————
+Program to check string is palindrome | not
+———————————————————————————————————————————
+Enter the string WAR
+
+WAR is not a palindrome
+———————————————————————————————————————————
+
+godarda@gd:~$ <mark>./a.out</mark>
+———————————————————————————————————————————
+Program to check string is palindrome | not
+———————————————————————————————————————————
+Enter the string RAR
+
+RAR is a palindrome
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

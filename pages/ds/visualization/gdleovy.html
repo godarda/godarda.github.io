@@ -1,0 +1,40 @@
+---
+permalink: ds/visualization/gdleovy
+title: Python Pandas to create a bar graph using the matplotlib module
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csvfile }}</div>
+<pre>
+{%- highlight viml -%}
+account_no,name,city,dob,bank,amount
+25622348989,James Moore,Phoenix,1985-05-26,Barclays,5000
+25622348990,Donald Taylor,Irvine,1990-08-20,Citi,7000
+25622348991,Edward Parkar,Irvine,1994-01-29,ICICI,95000
+25622348992,Ryan Bakshi,Mumbai,1982-01-14,Citi,50000
+25622348993,Marie Peters,Ribe,1967-01-05,DZBank,12250
+25622348994,Aanya,Delhi,1975-08-18,SBI,105000
+25622348995,James Moore,,1978-06-26,Citi,97800
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="code">{%- highlight python -%}
+import pandas as pd
+import matplotlib.pyplot as plot
+df=pd.read_csv("/home/godarda/gd.csv")
+
+x=df['account_no']
+y=df['amount']
+
+plot.bar(x,y, label="Bank Holders")
+plot.xlabel("Account Numbers")
+plot.ylabel("Current Amount")
+
+plot.title("New Bank Holders")
+plot.show()
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runpy }}
+
+<img src="pages/ds/images/gdgmvzw.png">
+</pre></span>

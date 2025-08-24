@@ -1,0 +1,57 @@
+---
+permalink: ds/analysis/gdwvkyk
+title: Python Pandas to fill and drop missing data in a DataFrame
+---
+
+<div class="titlecard">Fill the missing values (NaN to 0)</div>
+<div class="terminalcard">Get index and locate</div>
+<span><pre>
+godarda@gd:~$ <mark>python3</mark>
+...
+>>> <mark>import pandas as pd</mark>
+>>> <mark>df=pd.read_csv("/home/godarda/gd.csv")</mark>
+>>> <mark>df</mark>
+    account_no           name     city         dob      bank  amount
+0  25622348989    James Moore  Phoenix  1985-05-26  Barclays    5000
+1  25622348990  Donald Taylor   Irvine  1990-08-20      Citi    7000
+2  25622348991  Edward Parkar   Irvine  1994-01-29     ICICI   95000
+3  25622348992    Ryan Bakshi   Mumbai  1982-01-14      Citi   50000
+4  25622348993   Marie Peters     Ribe  1967-01-05    DZBank   12250
+5  25622348994          Aanya    Delhi  1975-08-18       SBI  105000
+6  25622348995    James Moore      NaN  1978-06-26      Citi   97800
+
+>>> <mark>df.fillna(0)</mark>
+    account_no           name     city         dob      bank  amount
+0  25622348989    James Moore  Phoenix  1985-05-26  Barclays    5000
+1  25622348990  Donald Taylor   Irvine  1990-08-20      Citi    7000
+2  25622348991  Edward Parkar   Irvine  1994-01-29     ICICI   95000
+3  25622348992    Ryan Bakshi   Mumbai  1982-01-14      Citi   50000
+4  25622348993   Marie Peters     Ribe  1967-01-05    DZBank   12250
+5  25622348994          Aanya    Delhi  1975-08-18       SBI  105000
+6  25622348995    James Moore        0  1978-06-26      Citi   97800
+</pre></span>
+
+<div class="terminalcard">Fill actual value instead of 0 (NaN to string)</div>
+<span><pre>
+>>> <mark>df.fillna({'city':'City Missing'})</mark>
+    account_no           name          city         dob      bank  amount
+0  25622348989    James Moore       Phoenix  1985-05-26  Barclays    5000
+1  25622348990  Donald Taylor        Irvine  1990-08-20      Citi    7000
+2  25622348991  Edward Parkar        Irvine  1994-01-29     ICICI   95000
+3  25622348992    Ryan Bakshi        Mumbai  1982-01-14      Citi   50000
+4  25622348993   Marie Peters          Ribe  1967-01-05    DZBank   12250
+5  25622348994          Aanya         Delhi  1975-08-18       SBI  105000
+6  25622348995    James Moore  City Missing  1978-06-26      Citi   97800
+</pre></span>
+
+<div class="terminalcard">Drop a missing value row</div>
+<span><pre>
+>>> <mark>df.dropna()</mark>
+    account_no           name     city         dob      bank  amount
+0  25622348989    James Moore  Phoenix  1985-05-26  Barclays    5000
+1  25622348990  Donald Taylor   Irvine  1990-08-20      Citi    7000
+2  25622348991  Edward Parkar   Irvine  1994-01-29     ICICI   95000
+3  25622348992    Ryan Bakshi   Mumbai  1982-01-14      Citi   50000
+4  25622348993   Marie Peters     Ribe  1967-01-05    DZBank   12250
+5  25622348994          Aanya    Delhi  1975-08-18       SBI  105000
+</pre></span>

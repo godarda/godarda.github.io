@@ -1,0 +1,93 @@
+---
+permalink: cluster/ranorex/gdwwilz
+title: How to format the Excel sheet in Ranorex
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">File: ExcelHeadRowFormatting.UserCode.cs</div>
+<pre class="editorcard">
+{%- highlight csharp -%}
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Drawing;
+using System.Threading;
+using WinForms = System.Windows.Forms;
+
+using Ranorex;
+using Ranorex.Core;
+using Ranorex.Core.Repository;
+using Ranorex.Core.Testing;
+using Microsoft.Office.Interop.Excel;
+
+namespace GlobalProjects
+{
+    public partial class ExcelHeadRowFormatting
+    {
+        private void Init()
+        {
+            HeadRowFormatting();
+        }
+        
+        Excel.Application xlapp;
+        Excel.Workbook xlworkbook;
+        Excel.Worksheet xlworksheet;
+        Excel.Range xlrange;
+        
+        public void ReleaseObject(object xl)
+        {
+            try
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(xl);
+                xl = null;
+            }
+            catch
+            {
+                xl=null;
+                Report.Info("Unable to release the object "+xl);
+            }
+            finally
+            {
+                GC.Collect();
+            }
+            
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(xlworkbook);
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(xlapp);
+        }
+        
+        public void HeadRowFormatting()
+        {
+            xlapp = new Excel.ApplicationClass();
+            xlapp.Visible = true;
+            xlapp.EnableAnimations = false;
+            
+            xlapp.WindowState = Excel.XlWindowState.xlMaximized;
+            xlworkbook = xlapp.Workbooks.Open("D:\\Ranorex\\GlobalProjects\\Data.xlsx");
+            xlworksheet = (Excel.Worksheet)xlworkbook.Sheets["Data"];
+            xlworksheet.get_Range("A1", "E2").Merge(false);
+            xlrange = xlworksheet.get_Range("A1", "E2");
+            xlrange.FormulaR1C1 = "Employee(s) Information";
+            xlrange.VerticalAlignment = 5;
+            xlrange.Font.Bold = true;
+            xlrange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Navy);
+            xlrange.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.White);
+            xlrange.Font.Size = 15;
+            
+            xlrange = xlworksheet.get_Range("A3", "E3");
+            xlrange.Font.Bold = true;
+            xlrange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Gray);
+            xlrange.Font.Size = 10;
+            
+            xlrange = xlworksheet.get_Range("E4");
+            xlrange.EntireColumn.NumberFormat = "MM/DD/YYYY";
+            xlworkbook.Save();
+            xlapp.Quit();
+            
+            ReleaseObject(xlworksheet);
+            ReleaseObject(xlworkbook);
+            ReleaseObject(xlapp);
+        }
+    }
+}
+{%- endhighlight -%}</pre>

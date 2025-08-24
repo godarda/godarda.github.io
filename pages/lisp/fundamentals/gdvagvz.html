@@ -1,0 +1,50 @@
+---
+permalink: lisp/fundamentals/gdvagvz
+title: LISP program to demonstrate the use of numeric conversion functions
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.lispfile }}</div>
+<pre class="code">{%- highlight lisp -%}
+(write-line "———————————————————————————————————————————")
+(write-line "Program to use numeric functions")
+(write-line "———————————————————————————————————————————")
+(terpri)(princ (floor 15 2))
+(terpri)(princ (ceiling 15 2))
+(terpri)(princ (round 15 2))
+(terpri)(princ (truncate 15 2))
+(terpri)(princ (ffloor 15 2))
+(terpri)(princ (fceiling 15 2))
+(terpri)(princ (fround 15 2))
+(terpri)(princ (ftruncate 15 2))
+(terpri)(princ (mod 15 2))
+(terpri)(princ (complex 2 15))
+(terpri)(setq c(complex 15 2))
+(write c)
+(terpri)(princ (realpart c))
+(terpri)(princ (imagpart c))
+(terpri)(format t "———————————————————————————————————————————")
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runlisp }}
+———————————————————————————————————————————
+Program to use numeric functions
+———————————————————————————————————————————
+
+7
+8
+8
+7
+7.0
+8.0
+8.0
+7.0
+1
+#C(2 15)
+#C(15 2)
+15
+2
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

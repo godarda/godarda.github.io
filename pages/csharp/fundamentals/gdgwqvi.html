@@ -1,0 +1,48 @@
+---
+permalink: csharp/fundamentals/gdgwqvi
+title: C# program to find the size of data types
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+Console.WriteLine("———————————————————————————————————————————");
+Console.WriteLine("Program to find the size of data types");
+Console.WriteLine("———————————————————————————————————————————");
+Console.WriteLine("Size of int      | {0}", sizeof(int));
+Console.WriteLine("Size of float    | {0}", sizeof(float));
+Console.WriteLine("Size of double   | {0}", sizeof(double));
+Console.WriteLine("Size of char     | {0}", sizeof(char));
+Console.WriteLine("Size of bool     | {0}", sizeof(bool));
+Console.WriteLine("Size of byte     | {0}", sizeof(byte));
+Console.WriteLine("Size of short    | {0}", sizeof(short));
+Console.WriteLine("Size of long     | {0}", sizeof(long));
+Console.WriteLine("Size of decimal  | {0}", sizeof(decimal));
+Console.WriteLine("Size of sbyte    | {0}", sizeof(sbyte));
+Console.WriteLine("Size of uint     | {0}", sizeof(uint));
+Console.WriteLine("Size of ulong    | {0}", sizeof(ulong));
+Console.WriteLine("Size of ushort   | {0}", sizeof(ushort));
+Console.WriteLine("———————————————————————————————————————————");
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+———————————————————————————————————————————
+Program to find the size of data types
+———————————————————————————————————————————
+Size of int      | 4
+Size of float    | 4
+Size of double   | 8
+Size of char     | 2
+Size of bool     | 1
+Size of byte     | 1
+Size of short    | 2
+Size of long     | 8
+Size of decimal  | 16
+Size of sbyte    | 1
+Size of uint     | 4
+Size of ulong    | 8
+Size of ushort   | 2
+———————————————————————————————————————————
+godarda@gd:~/csharp$ 
+</pre></span>

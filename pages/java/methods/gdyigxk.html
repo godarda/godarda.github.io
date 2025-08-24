@@ -1,0 +1,68 @@
+---
+permalink: java/methods/gdyigxk
+title: Java program to get the Operating System details
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD
+{
+    public static void main(String args[])
+    {
+        System.out.println("OS Name: "+System.getProperty("os.name"));
+        System.out.println("OS Version: "+System.getProperty("os.version"));
+        System.out.println("OS Architecture: "+System.getProperty("os.arch"));
+        
+        System.out.println("Java Version: "+System.getProperty("java.version"));
+        System.out.println("Java Vendor URL: "+System.getProperty("java.vendor.url")); 
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+OS Name: Linux
+OS Version: 6.2.0-33-generic
+OS Architecture: amd64
+Java Version: 21
+Java Vendor URL: https://java.oracle.com/
+godarda@gd:~$ 
+</pre></span>
+
+<div class="terminalcard">Equivalent Linux commands to get the Operating System details</div>
+<span><pre>
+godarda@gd:~$ <mark>uname</mark>
+Linux
+
+godarda@gd:~$ <mark>uname -s</mark>
+Linux
+
+godarda@gd:~$ <mark>uname -r</mark>
+6.2.0-33-generic
+
+godarda@gd:~$ <mark>javac --version</mark>
+javac 21
+
+godarda@gd:~$ <mark>java --version</mark>
+java 21 2023-09-19 LTS
+Java(TM) SE Runtime Environment (build 21+35-LTS-2513)
+Java HotSpot(TM) 64-Bit Server VM (build 21+35-LTS-2513, mixed mode, sharing)
+godarda@gd:~$ 
+</pre></span>
+
+<div class="terminalcard">Equivalent Windows commands to get the Operating System details</div>
+<span><pre>
+> <mark>systeminfo</mark>
+OS Name:                   Microsoft Windows 11 Home Single Language
+OS Version:                10.0.22621 N/A Build 22621
+System Type:               x64-based PC
+...
+> <mark>javac --version</mark>
+javac 21
+
+> <mark>java --version</mark>
+java 21 2023-09-19 LTS
+Java(TM) SE Runtime Environment (build 21+35-LTS-2513)
+Java HotSpot(TM) 64-Bit Server VM (build 21+35-LTS-2513, mixed mode, sharing)
+</pre></span>

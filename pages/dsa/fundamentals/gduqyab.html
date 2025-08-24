@@ -1,0 +1,181 @@
+---
+permalink: dsa/fundamentals/gduqyab
+title: C++ implementation of the stack and its operations
+---
+
+<div class="codecard">Example 1: {{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include<iostream>
+using namespace std;
+int stack[100];
+int top=-1; 
+int main()
+{
+    int n,e;
+    cout<<"———————————————————————————————————————————";
+    cout<<"\nImplementation of a stack\n";
+    cout<<"———————————————————————————————————————————";
+    cout<<"\nNumbers of elements in a Stack ";
+    cin>>n;
+    for(int i=0;i<n;i++)
+    {
+        cin>>e;
+        stack[++top] = e;
+    }
+    if(top<0) 
+    {
+        cout<<"\nStack is empty";
+    } 
+    cout<<"\nStack view\n";
+    for(int i=top;i>=0;i--)
+    {
+        cout<<"| "<<stack[i]<<" |"<<endl;
+    } 
+    cout<<"———————————————————————————————————————————\n";
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+———————————————————————————————————————————
+Implementation of a stack
+———————————————————————————————————————————
+Numbers of elements in a Stack 5
+7
+6
+5
+2 
+0
+
+Stack view
+| 0 |
+| 2 |
+| 5 |
+| 6 |
+| 7 |
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Example 2: {{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include<iostream>
+using namespace std;
+class Stack
+{
+    int stack[100];
+    int top;
+    public:
+        Stack()
+        {
+            top=-1;
+        }
+        void push(int e)
+        {
+            stack[++top] = e;
+        }
+        void pop()
+        {
+            if(top<0) 
+            {
+                cout<<"\nStack underflow";
+                return;
+            }
+            cout<<"\nTop element popped "<<stack[top--]<<endl;
+        }
+        void display()
+        {
+            cout<<"\nStack view\n";
+            for(int i=top;i>=0;i--)
+            {
+                cout<<"| "<<stack[i]<<" |"<<endl;
+            } 
+        }
+};
+       
+int main()
+{
+    int ch,n,e;
+    Stack s;
+    while(ch!=3)
+    {
+        cout<<"———————————————————————————————————————————";
+        cout<<"\nImplementation of a stack operations\n";
+        cout<<"———————————————————————————————————————————";
+        cout<<"\n1.Push\n2.Pop\n3.Exit\n";
+        cout<<"———————————————————————————————————————————";
+        cout<<"\nEnter your choice ";
+        cin>>ch;
+        switch(ch)
+        {
+            case 1:
+                cout<<"\nNumbers of elements in a Stack ";
+                cin>>n;
+                for(int i=0;i<n;i++)
+                {
+                    cin>>e;
+                    s.push(e);
+                }
+                s.display();
+                break;
+            case 2:
+                s.pop();
+                s.display();
+                break;
+            case 3:
+                exit(0);
+            default:
+                cout<<"\nWrong choice entered... Please try again!\n";
+        }
+    }
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+———————————————————————————————————————————
+Implementation of a stack operations
+———————————————————————————————————————————
+1.Push
+2.Pop
+3.Exit
+———————————————————————————————————————————
+Enter your choice 1
+
+Numbers of elements in a Stack 3
+56
+89
+14
+
+Stack view
+| 14 |
+| 89 |
+| 56 |
+———————————————————————————————————————————
+Implementation of a stack operations
+———————————————————————————————————————————
+1.Push
+2.Pop
+3.Exit
+———————————————————————————————————————————
+Enter your choice 2
+
+Top element popped 14
+
+Stack view
+| 89 |
+| 56 |
+———————————————————————————————————————————
+Implementation of a stack operations
+———————————————————————————————————————————
+1.Push
+2.Pop
+3.Exit
+———————————————————————————————————————————
+Enter your choice 3
+godarda@gd:~$ 
+</pre></span>

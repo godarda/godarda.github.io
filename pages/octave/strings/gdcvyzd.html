@@ -1,0 +1,52 @@
+---
+permalink: octave/strings/gdcvyzd
+title: Octave to check the given string is alphanumeric
+---
+
+<div class="terminalcard">{{ page.title }}</div>
+<span><pre>
+godarda@gd:~$ <mark>octave</mark>
+...
+octave> <mark>gd = "GoDarda#12"</mark>
+gd = GoDarda#12
+octave> <mark>isalpha(gd)</mark>
+ans =
+
+  1  1  1  1  1  1  1  1  1  1  1  1  0  0  0
+
+octave> <mark>isalnum(gd)</mark>
+ans =
+
+  1  1  1  1  1  1  1  1  1  1  1  1  0  1  1
+
+octave> <mark>isdigit(gd)</mark>
+ans =
+
+  0  0  0  0  0  0  0  0  0  0  0  0  0  1  1
+
+octave> <mark>isascii(gd)</mark>
+ans =
+
+  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1
+
+octave> <mark>isletter(gd)</mark>
+ans =
+
+  1  1  1  1  1  1  1  1  1  1  1  1  0  0  0
+
+octave> <mark>isupper(gd)</mark>
+ans =
+
+  1  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+
+octave> <mark>islower(gd)</mark>
+ans =
+
+  0  1  1  1  1  1  1  1  1  1  1  1  0  0  0
+
+octave> <mark>isspace(gd)</mark>
+ans =
+
+  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+
+</pre></span>

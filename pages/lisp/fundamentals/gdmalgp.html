@@ -1,0 +1,41 @@
+---
+permalink: lisp/fundamentals/gdmalgp
+title: LISP program to perform the bitwise operations
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.lispfile }}</div>
+<pre class="code">{%- highlight lisp -%}
+(write-line "———————————————————————————————————————————")
+(write-line "Program to perform the bitwise operations")
+(write-line "———————————————————————————————————————————")
+(princ "Enter the 1st number ")
+(setq a(read))
+(princ "Enter the 2nd number ")
+(setq b(read))
+(format t "~%~d AND ~d           | ~d"a b(logand a b))
+(format t "~%~d NAND ~d          | ~d"a b(lognand a b))
+(format t "~%~d INCLUSIVE OR ~d  | ~d"a b(logior a b))
+(format t "~%~d EXCLUSIVE OR ~d  | ~d"a b(logxor a b))
+(format t "~%~d NOT ~d           | ~d"a b(lognor a b))
+(format t "~%~d EQUIVALANCE ~d   | ~d"a b(logeqv a b))
+(terpri)(format t "———————————————————————————————————————————")
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runlisp }}
+———————————————————————————————————————————
+Program to perform the bitwise operations
+———————————————————————————————————————————
+Enter the 1st number 1
+Enter the 2nd number 0
+
+1 AND 0           | 0
+1 NAND 0          | -1
+1 INCLUSIVE OR 0  | 1
+1 EXCLUSIVE OR 0  | 1
+1 NOT 0           | -2
+1 EQUIVALANCE 0   | -2
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

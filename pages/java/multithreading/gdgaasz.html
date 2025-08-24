@@ -1,0 +1,27 @@
+---
+permalink: java/multithreading/gdgaasz
+title: Java program to extends the Thread class
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD extends Thread
+{  
+    public void run()
+    {  
+        System.out.println("Thread Running...");  
+    }  
+    public static void main(String args[])
+    {  
+        GD g=new GD();  
+        g.start();  
+    }  
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Thread Running...
+godarda@gd:~$ 
+</pre></span>

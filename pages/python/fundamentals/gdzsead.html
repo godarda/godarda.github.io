@@ -1,0 +1,40 @@
+---
+permalink: python/fundamentals/gdzsead
+title: Python program to demonstrate debugging of script
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="code">{%- highlight python -%}
+import pdb
+
+def add(a):
+    return a * a
+pdb.set_trace()
+a = input("A = ")
+b = input("B = ")
+c = int(a) + int(b)
+print(c)
+d = add(3)
+print(d)
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runpy }}
+> /home/godarda/gd.py(6)&lt;module&gt;()
+-> a = input("A = ")
+(Pdb) n
+A = 1
+> /home/godarda/gd.py(6)&lt;module&gt;()
+-> b = input("B = ")
+(Pdb) n
+B = 8
+> /home/godarda/gd.py(6)&lt;module&gt;()
+-> c = int(a) + int(b)
+(Pdb) n
+> /home/godarda/gd.py(6)&lt;module&gt;()
+-> print(c)
+(Pdb) c
+9
+9
+</pre></span>

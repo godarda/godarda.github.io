@@ -1,0 +1,36 @@
+---
+permalink: cluster/vbscript/gddxmey
+title: VBScript to perform SortedList operation
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.vbsfile }}</div>
+<pre>{%- highlight vb -%}
+Set SortedList = CreateObject("System.Collections.SortedList")
+SortedList.Add "Apple", 4
+SortedList.Add "Banana", 2
+SortedList.Add "Cherry", 3
+SortedList.Add "Durian", 5
+
+print "Count " & SortedList.Count
+print "Key " & SortedList("Durian")
+print "Value at Index " & CStr(SortedList.GetByIndex(0))
+print "Index of Key " & SortedList.IndexOfKey("Durian")
+SortedList.Remove "Durian"
+SortedList.RemoveAt 0 
+
+For i = 0 To SortedList.Count - 1
+    print vbCrLf & SortedList.GetKey(i) & vbTab & SortedList.GetByIndex(i)
+Next
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+Count 4
+Key 5
+Value at Index 4
+Index of Key 3
+
+Banana	2
+
+Cherry	3
+</pre></span>

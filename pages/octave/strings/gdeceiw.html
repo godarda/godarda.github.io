@@ -1,0 +1,41 @@
+---
+permalink: octave/strings/gdeceiw
+title: Octave string indexing
+---
+
+<div class="terminalcard">{{ page.title }}</div>
+<span><pre>
+godarda@gd:~$ <mark>octave</mark>
+...
+octave> <mark>gd = "GoDarda"</mark>
+gd = GoDarda
+
+octave> <mark>startsWith(gd, "KODING")</mark>
+ans = 0
+
+octave> <mark>startsWith(gd, "Koding")</mark>
+ans = 1
+
+octave> <mark>endsWith(gd, "ing")</mark>
+ans = 0
+
+octave> <mark>endsWith(gd, "dow")</mark>
+ans = 1
+
+octave> <mark>index(gd, "in")</mark>
+ans = 4
+
+octave> <mark>rindex(gd, "in")</mark>
+ans = 8
+
+octave> <mark>unicode_idx(gd)</mark>
+ans =
+
+    1    2    3    4    5    6    7    8    9   10   11   12
+
+octave> <mark>strfind(gd, "WINDOW")</mark>
+ans = [](0x0)
+
+octave> <mark>strfind(gd, "window")</mark>
+ans = 7
+</pre></span>

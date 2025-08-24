@@ -1,0 +1,82 @@
+---
+permalink: cpp/strings/gdpzcle
+title: C++ program to perform the string operations
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+#include <cstring>
+using namespace std;
+int main()
+{
+    char s1[] = "Hello";
+    string s2("\"Hello\"");
+    string s3("\'World\'");
+
+    cout<<"———————————————————————————————————————————";
+    cout<<"\nProgram for the string operations";
+    cout<<"\n———————————————————————————————————————————";
+    cout<<"\nString s1 | "<<s1;
+    cout<<"\nString s2 | "<<s2;
+    cout<<"\nString s3 | "<<s3;
+    cout<<"\n———————————————————————————————————————————";
+
+    cout<<"\nSize of string s2     | "<<s2.size();
+    cout<<"\nLength of string s1   | "<<strlen(s1);
+    cout<<"\nLength of string s3   | "<<s3.length();
+    cout<<"\nCapacity of string s2 | "<<s2.capacity();
+    cout<<"\nConcatination s1+s3   | "<<s1 + s3;
+    cout<<"\nMax size of string s2 | "<<s2.max_size();
+    cout<<"\n———————————————————————————————————————————";
+    s2.swap(s3);
+    cout<<"\nAfter swapping the strings...";
+    cout<<"\n———————————————————————————————————————————";
+    cout<<"\ns3 | "<<s3;
+    cout<<"\ns2 | "<<s2;
+    cout<<"\n———————————————————————————————————————————";
+
+    cout<<"\nInsert s3 into s2     | "<<s2.insert(3, s3);
+    s2.erase(3, 7);
+    cout<<"\nDelete inserted string| "<<s2;
+    s2.replace(0, 0, s3);
+    cout<<"\nReplace string AsItIs | "<<s2;
+    s2.append(s3);
+    cout<<"\nAppend s2 To s3       | "<<s2;
+    s2.assign(s3);
+    cout<<"\ns3 Assign string s2   | "<<s2;
+    cout<<"\n———————————————————————————————————————————\n";
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+———————————————————————————————————————————
+Program for the string operations
+———————————————————————————————————————————
+String s1 | Hello
+String s2 | "Hello"
+String s3 | 'World'
+———————————————————————————————————————————
+Size of string s2     | 7
+Length of string s1   | 5
+Length of string s3   | 7
+Capacity of string s2 | 15
+Concatination s1+s3   | Hello'World'
+Max size of string s2 | 9223372036854775807
+———————————————————————————————————————————
+After swapping the strings...
+———————————————————————————————————————————
+s3 | "Hello"
+s2 | 'World'
+———————————————————————————————————————————
+Insert s3 into s2     | 'Wo"Hello"rld'
+Delete inserted string| 'World'
+Replace string AsItIs | "Hello"'World'
+Append s2 To s3       | "Hello"'World'"Hello"
+s3 Assign string s2   | "Hello"
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

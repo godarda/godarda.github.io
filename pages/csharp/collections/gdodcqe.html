@@ -1,0 +1,41 @@
+---
+permalink: csharp/collections/gdodcqe
+title: Implementation of C# Stack class
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+using System.Collections;
+
+Stack st = new Stack();
+st.Push("Cherry");
+st.Push(65655);
+st.Push(45588);
+st.Push("Apple");
+
+Console.WriteLine("Stack elements: ");
+foreach (var s in st)
+{
+    Console.WriteLine(s);
+}
+Console.WriteLine("\nPeek element: " + st.Peek());
+Console.WriteLine("Pop: element: " + st.Pop());
+Console.WriteLine("Peek element: " + st.Peek());
+Console.WriteLine("Number of elements: " + st.Count);
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Stack elements: 
+Apple
+45588
+65655
+Cherry
+
+Peek element: Apple
+Pop: element: Apple
+Peek element: 45588
+Number of elements: 3
+godarda@gd:~/csharp$ 
+</pre></span>

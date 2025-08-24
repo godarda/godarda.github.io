@@ -1,0 +1,175 @@
+---
+permalink: java/classes/gdwegxe
+title: Java implementation of final and static keywords
+---
+
+<div class="codecard">Example 1: {{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD
+{
+    static int a=10;
+    public static void main(String args[])
+    {
+        System.out.println(GD.a);
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+10
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Example 2: {{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD
+{
+    static int a=10;
+    static
+    {
+        a=20;
+    }
+    public static void main(String args[])
+    {
+        System.out.println(GD.a);
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+20
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Example 3: {{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD
+{
+    static int a=9;
+    static
+    {
+        final int a=11;
+    }
+    public static void main(String args[])
+    {
+        System.out.println(GD.a+1);
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+10
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Example 4: {{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD
+{
+    static int i=0;
+    public GD()
+    {
+        i=i+1;
+        System.out.println(i);
+    }
+    public static void main(String args[])
+    {
+        GD g=new GD();
+        GD k1=new GD();
+        GD k2=new GD();
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+1
+2
+3
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Example 5: {{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD
+{
+    static int i=0;
+    static 
+    {
+        i=10;
+    }
+    public GD()
+    {
+        i=i+1;
+        System.out.println(i);
+    }
+    public static void main(String args[])
+    {
+        GD g=new GD();
+        GD k1=new GD();
+        GD k2=new GD();
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+11
+12
+13
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Example 6: {{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD
+{
+    final int i=0;
+    public GD(int i)
+    {
+        System.out.println(i+1);
+    }
+    public static void main(String args[])
+    {
+        GD g=new GD(1+1);
+        GD k1=new GD(20);
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+3
+21
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Example 7: {{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD
+{
+    static int a=10+1;
+    final static int b=20+1;
+    public static void main(String args[])
+    {   
+        a+=+b+1;
+        System.out.println(GD.a+1+a);
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+67
+godarda@gd:~$ 
+</pre></span>

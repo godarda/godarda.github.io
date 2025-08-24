@@ -1,0 +1,74 @@
+---
+permalink: c/strings/gdopzze
+title: C program to convert uppercase to a lowercase string
+---
+
+<div class="codecard">{{ page.title }} using ASCII values</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+#include <string.h>
+int main()
+{
+    char s[20];
+    int i;
+    printf("———————————————————————————————————————————");
+    printf("\nProgram to convert upper to a lowercase string");
+    printf("\n———————————————————————————————————————————");
+    printf("\nEnter the string ");
+    scanf("%s", s);
+    for (i = 0; i <= strlen(s); i++)
+    {
+        if (s[i] >= 65 && s[i] <= 92)
+            s[i] = s[i] + 32;
+    }
+    printf("\nThe lowercase string is %s", s);
+    printf("\n———————————————————————————————————————————\n");
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+———————————————————————————————————————————
+Program to convert upper to a lowercase string
+———————————————————————————————————————————
+Enter the string WELCOME
+
+The lowercase string is welcome
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }} using tolower() function</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    char s[20];
+    int i;
+    printf("———————————————————————————————————————————");
+    printf("\nProgram to convert upper to a lowercase string");
+    printf("\n———————————————————————————————————————————");
+    printf("\nEnter the string ");
+    scanf("%s", s);
+    for (i = 0; s[i]; i++)
+        s[i] = tolower(s[i]);
+    printf("\nThe lowercase string is %s", s);
+    printf("\n———————————————————————————————————————————\n");
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+———————————————————————————————————————————
+Program to convert upper to a lowercase string
+———————————————————————————————————————————
+Enter the string WELCOME
+
+The lowercase string is welcome
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

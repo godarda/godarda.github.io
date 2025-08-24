@@ -1,0 +1,40 @@
+---
+permalink: csharp/controls/gdxyezd
+title: C# program to check the given number is positive or negative
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+int n;
+Console.WriteLine("———————————————————————————————————————————");
+Console.WriteLine("Program to check the given number is +ve/-ve");
+Console.WriteLine("———————————————————————————————————————————");
+Console.Write("Enter a number ");
+n = Convert.ToInt32(Console.ReadLine());
+if (n < 0)
+{
+    Console.WriteLine("\nEntered number is negative");
+}
+else if (n > 0)
+{
+    Console.WriteLine("\nEntered number is positive");
+}
+else
+{
+    Console.WriteLine("\nEntered number is zero");
+}
+Console.WriteLine("———————————————————————————————————————————");
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+———————————————————————————————————————————
+Program to check the given number is +ve/-ve
+———————————————————————————————————————————
+Enter a number 0
+
+Entered number is zero
+———————————————————————————————————————————
+godarda@gd:~/csharp$ 
+</pre></span>

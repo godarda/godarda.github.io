@@ -1,0 +1,86 @@
+---
+permalink: linux/bash/gdtzyyp
+title: Bash shell script to print the current date and time
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.shfile }}</div>
+<pre class="code">{%- highlight shell -%}
+#!/bin/bash
+
+echo "———————————————————————————————————————————"
+echo "Script to print the current date and time"
+echo "———————————————————————————————————————————"
+echo -n "Today's Date       | ";date
+echo -n "Today's Day        | ";date +"%a"
+echo -n "Today's Day        | ";date +"%A"
+echo -n "Current Month      | ";date +"%b"
+echo -n "Current Month      | ";date +"%B"
+echo -n "Local Date & Time  | ";date +"%c"
+echo -n "Date Of Month      | ";date +"%d"
+echo -n "Date Of Month      | ";date +"%e"
+echo -n "Today's Date       | ";date +"%D"
+echo -n "Full Date(y-m-d)   | ";date +"%F"
+echo -n "Last Digit Of Year | ";date +"%g"
+echo -n "Year Of ISO Week No| ";date +"%G"
+echo -n "Current Month      | ";date +"%h"
+echo -n "Current Hour(00:23)| ";date +"%H"
+echo -n "Current Hour(1:12) | ";date +"%I"
+echo -n "Day Of Year(01-366)| ";date +"%j"
+echo -n "Current Month      | ";date +"%m"
+echo -n "Current Minute     | ";date +"%M"
+echo -n "NanoSecond         | ";date +"%N"
+echo -n "Now Time Is AM/PM  | ";date +"%p"
+echo -n "Now Time Is am/pm  | ";date +"%P"
+echo -n "12-Hour Clock Time | ";date +"%r"
+echo -n "24-Hour Clock Time | ";date +"%R"
+echo -n "Current Second     | ";date +"%S"
+echo -n "Current Time       | ";date +"%T"
+echo -n "Day Of Week(1-mon) | ";date +"%u"
+echo -n "Local Date         | ";date +"%x"
+echo -n "Local Time         | ";date +"%X"
+echo -n "Last Digit Of Year | ";date +"%y"
+echo -n "ISO Week Number    | ";date +"%V"
+echo -n "Alphabet Time Zone | ";date +"%Z"
+echo "———————————————————————————————————————————"
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runsh }}
+———————————————————————————————————————————
+Script to print the current date and time
+———————————————————————————————————————————
+Today's Date       | Sat Jul 29 10:01:04 AM IST 2023
+Today's Day        | Sat
+Today's Day        | Saturday
+Current Month      | Jul
+Current Month      | July
+Local Date & Time  | Sat 29 Jul 2023 10:01:04 AM IST
+Date Of Month      | 29
+Date Of Month      | 29
+Today's Date       | 07/29/23
+Full Date(y-m-d)   | 2023-07-29
+Last Digit Of Year | 23
+Year Of ISO Week No| 2023
+Current Month      | Jul
+Current Hour(00:23)| 10
+Current Hour(1:12) | 10
+Day Of Year(01-366)| 210
+Current Month      | 07
+Current Minute     | 01
+NanoSecond         | 316946074
+Now Time Is AM/PM  | AM
+Now Time Is am/pm  | am
+12-Hour Clock Time | 10:01:04 AM
+24-Hour Clock Time | 10:01
+Current Second     | 04
+Current Time       | 10:01:04
+Day Of Week(1-mon) | 6
+Local Date         | 07/29/2023
+Local Time         | 10:01:04 AM
+Last Digit Of Year | 23
+ISO Week Number    | 30
+Alphabet Time Zone | IST
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

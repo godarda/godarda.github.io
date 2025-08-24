@@ -1,0 +1,41 @@
+---
+permalink: csharp/exceptions/gdddcia
+title: C# program to handle the ArgumentException
+---
+
+<div class="codecard">C# ArgumentException</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+int i = 0;
+string s = "Hello, World!";
+Console.WriteLine(s.CompareTo(i));
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+<error>Unhandled exception. System.ArgumentException: Object must be of type String.
+    at System.String.CompareTo(Object value)
+    at Program.&lt;Main>$(String[] args) in /home/godarda/csharp/Program.cs:line 3</error>
+godarda@gd:~/csharp$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+int i = 0;
+string s = "Hello, World!";
+try
+{
+    Console.WriteLine(s.CompareTo(i));
+}
+catch(ArgumentException)
+{
+    Console.WriteLine("Something went wrong...");
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Something went wrong...
+godarda@gd:~/csharp$ 
+</pre></span>

@@ -1,0 +1,237 @@
+---
+permalink: mysql/ddl/gddwtwf
+title: MySQL ALTER TABLE (ADD, DROP, MODIFY, CHANGE, RENAME TO)
+---
+
+<div class="board"><div class="boardtitle">Objective and Introduction</div>
+    <p><b>Objective: </b>This segment introduces how to alter a MySQL table.<br><br>
+    <b>Introduction: </b>The ALTER TABLE statement used to add, drop, modify, change columns, and rename a table name. The following syntax and queries will help you to understand practically.</p>
+</div>
+
+<div class="terminalcard">Showing existing records</div>
+<span><pre>
+mysql> <mark>SHOW DATABASES;</mark>
++--------------------+
+| Database           |
++--------------------+
+| DB                 |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> <mark>USE DB;</mark>
+Database changed
+
+mysql> <mark>SHOW TABLES;</mark>
++--------------+
+| Tables_in_DB |
++--------------+
+| holders      |
++--------------+
+1 row in set (0.01 sec)
+
+mysql> <mark>SELECT * FROM holders;</mark>
++-------------+---------------+---------+------------+----------+--------+
+| account_no  | name          | city    | dob        | bank     | amount |
++-------------+---------------+---------+------------+----------+--------+
+| 25622348989 | James Moore   | Phoenix | 1985-05-26 | Barclays |   5000 |
+| 25622348990 | Donald Taylor | Irvine  | 1990-08-20 | Citi     |   7000 |
+| 25622348991 | Edward Parkar | Irvine  | 1994-01-29 | ICICI    |  95000 |
+| 25622348992 | Ryan Bakshi   | Mumbai  | 1982-01-14 | Citi     |  50000 |
+| 25622348993 | Marie Peters  | Ribe    | 1967-01-05 | DZBank   |  12250 |
+| 25622348994 | Aanya         | Delhi   | 1975-08-18 | SBI      | 105000 |
+| 25622348995 | James Moore   | NULL    | 1978-06-26 | Citi     |  97800 |
++-------------+---------------+---------+------------+----------+--------+
+7 rows in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">Drop column</div>
+<span><pre>
+mysql> <mark>ALTER TABLE holders DROP COLUMN city;</mark>
+Query OK, 0 rows affected (1.32 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> <mark>SELECT * FROM holders;</mark>
++-------------+---------------+------------+----------+--------+
+| account_no  | name          | dob        | bank     | amount |
++-------------+---------------+------------+----------+--------+
+| 25622348989 | James Moore   | 1985-05-26 | Barclays |   5000 |
+| 25622348990 | Donald Taylor | 1990-08-20 | Citi     |   7000 |
+| 25622348991 | Edward Parkar | 1994-01-29 | ICICI    |  95000 |
+| 25622348992 | Ryan Bakshi   | 1982-01-14 | Citi     |  50000 |
+| 25622348993 | Marie Peters  | 1967-01-05 | DZBank   |  12250 |
+| 25622348994 | Aanya         | 1975-08-18 | SBI      | 105000 |
+| 25622348995 | James Moore   | 1978-06-26 | Citi     |  97800 |
++-------------+---------------+------------+----------+--------+
+7 rows in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">Add single column</div>
+<span><pre>
+mysql> <mark>ALTER TABLE holders ADD COLUMN city VARCHAR(20);</mark>
+Query OK, 0 rows affected (0.43 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> <mark>SELECT * FROM holders;</mark>
++-------------+---------------+------------+----------+--------+------+
+| account_no  | name          | dob        | bank     | amount | city |
++-------------+---------------+------------+----------+--------+------+
+| 25622348989 | James Moore   | 1985-05-26 | Barclays |   5000 | NULL |
+| 25622348990 | Donald Taylor | 1990-08-20 | Citi     |   7000 | NULL |
+| 25622348991 | Edward Parkar | 1994-01-29 | ICICI    |  95000 | NULL |
+| 25622348992 | Ryan Bakshi   | 1982-01-14 | Citi     |  50000 | NULL |
+| 25622348993 | Marie Peters  | 1967-01-05 | DZBank   |  12250 | NULL |
+| 25622348994 | Aanya         | 1975-08-18 | SBI      | 105000 | NULL |
+| 25622348995 | James Moore   | 1978-06-26 | Citi     |  97800 | NULL |
++-------------+---------------+------------+----------+--------+------+
+7 rows in set (0.00 sec)
+
+mysql> <mark>ALTER TABLE holders DROP COLUMN city;</mark>
+Query OK, 0 rows affected (1.41 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+</pre></span>
+
+<div class="terminalcard">Add multiple columns</div>
+<span><pre>
+mysql> <mark>ALTER TABLE holders ADD COLUMN city VARCHAR(20) AFTER name, ADD email VARCHAR(35) FIRST;</mark>
+Query OK, 0 rows affected (3.36 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> <mark>SELECT * FROM holders;</mark>
++-------+-------------+---------------+------+------------+----------+--------+
+| email | account_no  | name          | city | dob        | bank     | amount |
++-------+-------------+---------------+------+------------+----------+--------+
+| NULL  | 25622348989 | James Moore   | NULL | 1985-05-26 | Barclays |   5000 |
+| NULL  | 25622348990 | Donald Taylor | NULL | 1990-08-20 | Citi     |   7000 |
+| NULL  | 25622348991 | Edward Parkar | NULL | 1994-01-29 | ICICI    |  95000 |
+| NULL  | 25622348992 | Ryan Bakshi   | NULL | 1982-01-14 | Citi     |  50000 |
+| NULL  | 25622348993 | Marie Peters  | NULL | 1967-01-05 | DZBank   |  12250 |
+| NULL  | 25622348994 | Aanya         | NULL | 1975-08-18 | SBI      | 105000 |
+| NULL  | 25622348995 | James Moore   | NULL | 1978-06-26 | Citi     |  97800 |
++-------+-------------+---------------+------+------------+----------+--------+
+7 rows in set (0.01 sec)
+</pre></span>
+
+<div class="terminalcard">Modify data type of single field</div>
+<span><pre>
+mysql> <mark>DESC holders;</mark>
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| email      | varchar(35) | YES  |     | NULL    |       |
+| account_no | bigint(20)  | NO   | PRI | NULL    |       |
+| name       | varchar(30) | NO   |     | NULL    |       |
+| city       | varchar(20) | YES  |     | NULL    |       |
+| dob        | date        | YES  |     | NULL    |       |
+| bank       | varchar(10) | YES  |     | NULL    |       |
+| amount     | bigint(20)  | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> <mark>ALTER TABLE holders MODIFY email VARCHAR(30);</mark>
+Query OK, 7 rows affected (1.75 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> <mark>DESC holders;</mark>
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| email      | varchar(30) | YES  |     | NULL    |       |
+| account_no | bigint(20)  | NO   | PRI | NULL    |       |
+| name       | varchar(30) | NO   |     | NULL    |       |
+| city       | varchar(20) | YES  |     | NULL    |       |
+| dob        | date        | YES  |     | NULL    |       |
+| bank       | varchar(10) | YES  |     | NULL    |       |
+| amount     | bigint(20)  | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">Modify data type of multiple fields</div>
+<span><pre>
+mysql> <mark>ALTER TABLE holders MODIFY email VARCHAR(25), MODIFY dob DATE NOT NULL;</mark>
+Query OK, 7 rows affected (1.85 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> <mark>DESC holders;</mark>                                                            
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| email      | varchar(25) | YES  |     | NULL    |       |
+| account_no | bigint(20)  | NO   | PRI | NULL    |       |
+| name       | varchar(30) | NO   |     | NULL    |       |
+| city       | varchar(20) | YES  |     | NULL    |       |
+| dob        | date        | NO   |     | NULL    |       |
+| bank       | varchar(10) | YES  |     | NULL    |       |
+| amount     | bigint(20)  | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+</pre></span>
+
+<div class="terminalcard">Change column name</div>
+<span><pre>
+mysql> <mark>ALTER TABLE holders CHANGE COLUMN name flname VARCHAR(30);</mark>
+Query OK, 0 rows affected (1.46 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> <mark>SELECT * FROM holders;</mark>
++-------+-------------+---------------+------+------------+----------+--------+
+| email | account_no  | flname        | city | dob        | bank     | amount |
++-------+-------------+---------------+------+------------+----------+--------+
+| NULL  | 25622348989 | James Moore   | NULL | 1985-05-26 | Barclays |   5000 |
+| NULL  | 25622348990 | Donald Taylor | NULL | 1990-08-20 | Citi     |   7000 |
+| NULL  | 25622348991 | Edward Parkar | NULL | 1994-01-29 | ICICI    |  95000 |
+| NULL  | 25622348992 | Ryan Bakshi   | NULL | 1982-01-14 | Citi     |  50000 |
+| NULL  | 25622348993 | Marie Peters  | NULL | 1967-01-05 | DZBank   |  12250 |
+| NULL  | 25622348994 | Aanya         | NULL | 1975-08-18 | SBI      | 105000 |
+| NULL  | 25622348995 | James Moore   | NULL | 1978-06-26 | Citi     |  97800 |
++-------+-------------+---------------+------+------------+----------+--------+
+7 rows in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">Drop multiple columns</div>
+<span><pre>
+mysql> <mark>ALTER TABLE holders DROP COLUMN email, DROP COLUMN city;</mark>
+Query OK, 0 rows affected (1.49 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> <mark>SELECT * FROM holders;</mark>
++-------------+---------------+------------+----------+--------+
+| account_no  | flname        | dob        | bank     | amount |
++-------------+---------------+------------+----------+--------+
+| 25622348989 | James Moore   | 1985-05-26 | Barclays |   5000 |
+| 25622348990 | Donald Taylor | 1990-08-20 | Citi     |   7000 |
+| 25622348991 | Edward Parkar | 1994-01-29 | ICICI    |  95000 |
+| 25622348992 | Ryan Bakshi   | 1982-01-14 | Citi     |  50000 |
+| 25622348993 | Marie Peters  | 1967-01-05 | DZBank   |  12250 |
+| 25622348994 | Aanya         | 1975-08-18 | SBI      | 105000 |
+| 25622348995 | James Moore   | 1978-06-26 | Citi     |  97800 |
++-------------+---------------+------------+----------+--------+
+7 rows in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">Rename table name</div>
+<span><pre>
+mysql> <mark>ALTER TABLE holders RENAME TO proprietor;</mark>
+Query OK, 0 rows affected (0.81 sec)
+
+mysql> <mark>SELECT * FROM holders;</mark>
+<error>ERROR 1146 (42S02): Table 'DB.holders' doesn't exist</error>
+
+mysql> <mark>SELECT * FROM proprietor;</mark>
++-------------+---------------+------------+----------+--------+
+| account_no  | flname        | dob        | bank     | amount |
++-------------+---------------+------------+----------+--------+
+| 25622348989 | James Moore   | 1985-05-26 | Barclays |   5000 |
+| 25622348990 | Donald Taylor | 1990-08-20 | Citi     |   7000 |
+| 25622348991 | Edward Parkar | 1994-01-29 | ICICI    |  95000 |
+| 25622348992 | Ryan Bakshi   | 1982-01-14 | Citi     |  50000 |
+| 25622348993 | Marie Peters  | 1967-01-05 | DZBank   |  12250 |
+| 25622348994 | Aanya         | 1975-08-18 | SBI      | 105000 |
+| 25622348995 | James Moore   | 1978-06-26 | Citi     |  97800 |
++-------------+---------------+------------+----------+--------+
+7 rows in set (0.00 sec)
+</pre></span>

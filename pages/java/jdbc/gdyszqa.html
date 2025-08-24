@@ -1,0 +1,179 @@
+---
+permalink: java/jdbc/gdyszqa
+title: Java MySQL to insert and retrieve the records from a table
+---
+
+<div class="board"><div class="boardtitle">Objective and Prerequisites</div>
+    <p><b>Objective: </b>This segment introduces implementation of how to insert (records using CSV file) and retrieve the records from a table in MySQL using Java.<br><br>
+    <b>Prerequisites: </b>MySQL setup is installed and running in the background, and the database <i><b>DB</b></i> and table <i><b>holders</b></i> are created in MySQL. If not, then refer to the <a href="java/jdbc/" class="hlink">Java Database Connectivity (JDBC)</a> segment in sequence. Also, the project has been developed and executed in Eclipse IDE (Integrated Development Environment). 
+    <br><br>To run the following program, you need to download the following jar files: 
+    <br>1. <a href="{{ site.data.url.gdamwnw }}" target="_blank" class="hlink">Download JDBC driver</a>
+    <br>2. <a href="{{ site.data.url.gdkewzg }}" target="_blank" class="hlink">Download OpenCSV</a>
+    <br>3. <a href="{{ site.data.url.gdgfzga }}" target="_blank" class="hlink">Download Apache Commons Lang</a>
+    <br>Once downloaded, you can import the library by right-clicking on your project in Eclipse -> Properties -> Java Build Path -> Libraries -> Add External JARs...</p>
+</div>
+
+<div class="terminalcard">Start MySQL</div>
+<span><pre>
+godarda@gd:~$ <mark>sudo mysql -u root -p</mark>
+Enter password: ******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.19 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> <mark>SHOW DATABASES;</mark>
++--------------------+
+| Database           |
++--------------------+
+| db                 |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> <mark>USE DB;</mark>
+Database changed
+
+mysql> <mark>SHOW TABLES;</mark>
++--------------+
+| Tables_in_db |
++--------------+
+| holders      |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>DESC holders;</mark>
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| account_no | bigint      | NO   | PRI | NULL    |       |
+| name       | varchar(30) | NO   |     | NULL    |       |
+| bank       | varchar(10) | YES  |     | NULL    |       |
+| amount     | bigint      | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.20 sec)
+</pre></span>
+
+<div class="codecard">{{ page.title }}</div>
+<div class="infocard">In the following program, we will be inserting records into a table using CSV (comma-separated values) file. Once all the records inserted, we will retrieve those records using MySQL SELECT statement and WHERE clause.</div>
+<div class="card">{{ site.csvfile }}</div>
+<pre>
+{%- highlight viml -%}
+account_no,name,bank,amount
+25622348989,James Moore,Barclays,5000
+25622348990,Donald Taylor,Citi,7000
+25622348991,Edward Parkar,ICICI,95000
+25622348992,Ryan Bakshi,Citi,50000
+25622348993,Marie Peters,DZBank,12250
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.io.FileReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
+
+class GD
+{
+    public static void main(String[] args)
+    {
+        try
+        {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/DB","root", "godarda");
+            PreparedStatement statement = con.prepareStatement("INSERT INTO holders(account_no,name,bank,amount) VALUES(?,?,?,?)");
+                    
+            CSVReader reader = new CSVReaderBuilder(new FileReader("gd.csv")).withSkipLines(1).build();
+            String[] column;
+            while((column = reader.readNext()) != null) 
+            {
+                String account_no=column[0];
+                String name=column[1];
+                String bank=column[2];
+                String amount=column[3];
+                
+                statement.setString(1,account_no);
+                statement.setString(2,name);
+                statement.setString(3,bank);
+                statement.setString(4,amount);
+                statement.addBatch();
+            }
+            statement.executeBatch();
+            System.out.println("Records inserted successfully");
+            
+            System.out.println("List of all the records");
+            ResultSet rs=statement.executeQuery("SELECT * FROM holders");  
+            while(rs.next())
+            {
+                System.out.println(rs.getLong("account_no")+", "+rs.getString("name")+", "+rs.getString("bank")+", "+rs.getDouble("amount"));
+            }
+            
+            System.out.println("\nList of the records after applying WHERE clause");
+            rs=statement.executeQuery("SELECT * FROM holders WHERE amount >= 10000");  
+            while(rs.next())
+            {
+                System.out.println(rs.getLong("account_no")+", "+rs.getString("name")+", "+rs.getString("bank")+", "+rs.getDouble("amount"));
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Records inserted successfully
+List of all the records
+25622348989, James Moore, Barclays, 5000.0
+25622348990, Donald Taylor, Citi, 7000.0
+25622348991, Edward Parkar, ICICI, 95000.0
+25622348992, Ryan Bakshi, Citi, 50000.0
+25622348993, Marie Peters, DZBank, 12250.0
+
+List of the records after applying WHERE clause
+25622348991, Edward Parkar, ICICI, 95000.0
+25622348992, Ryan Bakshi, Citi, 50000.0
+25622348993, Marie Peters, DZBank, 12250.0
+godarda@gd:~$ 
+</pre></span>
+
+<div class="terminalcard">MySQL Instance</b></div>
+<span><pre>
+mysql> <mark>SELECT * FROM holders;</mark>
++-------------+---------------+----------+--------+
+| account_no  | name          | bank     | amount |
++-------------+---------------+----------+--------+
+| 25622348989 | James Moore   | Barclays |   5000 |
+| 25622348990 | Donald Taylor | Citi     |   7000 |
+| 25622348991 | Edward Parkar | ICICI    |  95000 |
+| 25622348992 | Ryan Bakshi   | Citi     |  50000 |
+| 25622348993 | Marie Peters  | DZBank   |  12250 |
++-------------+---------------+----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> <mark>SELECT * FROM holders WHERE amount >= 10000;</mark>
++-------------+---------------+--------+--------+
+| account_no  | name          | bank   | amount |
++-------------+---------------+--------+--------+
+| 25622348991 | Edward Parkar | ICICI  |  95000 |
+| 25622348992 | Ryan Bakshi   | Citi   |  50000 |
+| 25622348993 | Marie Peters  | DZBank |  12250 |
++-------------+---------------+--------+--------+
+3 rows in set (0.00 sec)
+</pre></span>

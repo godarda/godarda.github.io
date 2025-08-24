@@ -1,0 +1,105 @@
+---
+permalink: octave/fundamentals/gdfxzpq
+title: Octave Arithmetic Operations
+---
+
+<div class="terminalcard">{{ page.title }}</div>
+<span><pre>
+godarda@gd:~$ <mark>octave</mark>
+...
+octave> <mark>10+20</mark>
+ans = 30
+
+octave> <mark>10-20</mark>
+ans = -10
+
+octave> <mark>10*20</mark>
+ans = 200
+
+octave> <mark>10/20</mark>
+ans = 0.5000
+
+octave> <mark>2^10</mark>
+ans = 1024
+
+octave> <mark>mod(-7,4)</mark>
+ans = 1
+
+octave> <mark>mod(7,4)</mark>
+ans = 3
+
+octave> <mark>rem(-7,4)</mark>
+ans = -3
+</pre></span>
+
+<div class="terminalcard">Arithmetic operations on complex numbers</div>
+<span><pre>
+octave> <mark>complex(4+5j)+complex(2+6j)</mark>
+ans =   6 + 11i
+    
+octave> <mark>c1=4+5j</mark>
+c1 =  4 + 5i
+
+octave> <mark>c2=2+6j</mark>
+c2 =  2 + 6i
+
+octave> <mark>c1+c2</mark>
+ans =   6 + 11i
+
+octave> <mark>c1-c2</mark>
+ans =  2 - 1i
+
+octave> <mark>c1*c2</mark>
+ans = -22 + 34i
+
+octave> <mark>c1/c2</mark>
+ans =  0.9500 - 0.3500i
+</pre></span>
+
+<div class="terminalcard">round(), floor(), ceil() and fix() functions</div>
+<span><pre>
+octave> <mark>round(2.3)</mark>
+ans = 2
+
+octave> <mark>round(2.8)</mark>
+ans = 3
+
+octave> <mark>round(-2.3)</mark>
+ans = -2
+
+octave> <mark>round(-2.8)</mark>
+ans = -3
+<hr>octave> <mark>floor(2.3)</mark>
+ans = 2
+
+octave> <mark>floor(2.8)</mark>
+ans = 2
+
+octave> <mark>floor(-2.3)</mark>
+ans = -3
+
+octave> <mark>floor(-2.8)</mark>
+ans = -3
+<hr>octave> <mark>ceil(2.3)</mark>
+ans = 3
+
+octave> <mark>ceil(2.8)</mark>
+ans = 3
+
+octave> <mark>ceil(-2.3)</mark>
+ans = -2
+
+octave> <mark>ceil(-2.8)</mark>
+ans = -2
+<hr>octave> <mark>fix(2.3)</mark>
+ans = 2
+
+octave> <mark>fix(2.8)</mark>
+ans = 2
+
+octave> <mark>fix(-2.3)</mark>
+ans = -2
+
+octave> <mark>fix(-2.8)</mark>
+ans = -2    
+</pre></span>

@@ -1,0 +1,47 @@
+---
+permalink: linux/bash/gdzzdvl
+title: Bash shell script to convert all uppercase letters in a file to lowercase letters
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.shfile }}</div>
+<pre class="code">{%- highlight shell -%}
+#!/bin/bash
+
+echo '___________________________________________'
+echo 'Script to convert Uppercase to Lowercase'
+echo '___________________________________________'
+echo "1.Uppercase to Lowercase"
+echo "2.Exit"
+echo '___________________________________________'
+echo -e "Enter Your Choice \c"
+read ch
+case "$ch" in
+1) echo -e "Enter The Filename \c"
+read f1
+if [ -f $f1 ]
+then
+echo "Converting Uppercase to Lowercase"
+tr '[A-Z]' '[a-z]' <$f1
+else
+echo "$f1 File Does't Exists"
+fi ;;
+2)
+exit;;
+esac
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runsh }}
+___________________________________________
+Script to convert Uppercase to Lowercase 
+___________________________________________
+1.Uppercase to Lowercase
+2.Exit
+___________________________________________
+Enter Your Choice 1
+Enter The Filename gd.txt
+Converting Uppercase to Lowercase
+shell scripting is very easy
+godarda@gd:~$ 
+</pre></span>

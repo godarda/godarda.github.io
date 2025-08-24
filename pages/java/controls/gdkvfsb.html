@@ -1,0 +1,47 @@
+---
+permalink: java/controls/gdkvfsb
+title: Java program to check the equality of given numbers
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.Scanner;
+class GD 
+{
+    public static void main(String args[])
+    {
+        float a,b;
+        Scanner sc=new Scanner(System.in);
+        System.out.println("———————————————————————————————————————————");
+        System.out.println("Program to check the equality of given numbers");
+        System.out.println("———————————————————————————————————————————");
+        System.out.print("\nEnter the 1st number ");
+        a=sc.nextFloat();
+        System.out.print("\nEnter the 2nd number ");
+        b=sc.nextFloat();
+        if(a>b)
+            System.out.println("\n"+a+" is greater than "+b);
+        else if(a<b)
+            System.out.println("\n"+a+" is less than "+b);
+        else
+            System.out.println("\n"+a+" is equal to "+b);
+        System.out.println("———————————————————————————————————————————");
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+———————————————————————————————————————————
+Program to check the equality of given numbers
+———————————————————————————————————————————
+
+Enter the 1st number -10
+
+Enter the 2nd number -50
+
+-10.0 is greater than -50.0
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

@@ -1,0 +1,141 @@
+---
+permalink: asm/32-bit/gdqnwvz
+title: ALP to print the given alphanumeric characters (32-bit)
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.asmfile }}</div>
+<pre class="code">{%- highlight nasm -%}
+section .data
+title db "———————————————————————————————————————————"
+    db 10, "ALP to print the given alphanumeric characters"
+    db 10, "———————————————————————————————————————————",10
+title_len equ $-title
+
+input db 10, "Enter characters "
+input_len equ $-input
+
+output db 10, "Given characters are "
+output_len equ $-output
+
+end db "———————————————————————————————————————————",10
+end_len equ $-end
+
+section .bss
+num resb 5
+
+section .text
+global _start
+_start:
+    mov eax,4
+    mov ebx,1
+    mov ecx,title
+    mov edx,title_len
+    int 80h
+
+    mov eax,4
+    mov ebx,1
+    mov ecx,input
+    mov edx,input_len
+    int 80h
+
+    mov eax,3
+    mov ebx,2
+    mov ecx,num
+    mov edx,51
+    int 80h
+
+    mov eax,4
+    mov ebx,1
+    mov ecx,output
+    mov edx,output_len
+    int 80h
+    
+    mov eax,4
+    mov ebx,1
+    mov ecx,num
+    mov edx,51
+    int 80h
+
+    mov eax,4
+    mov ebx,1
+    mov ecx,end
+    mov edx,end_len
+    int 80h
+
+exit:
+    mov ebx,0
+    mov eax,1
+    int 80h
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runasm }}
+———————————————————————————————————————————
+ALP to print the given alphanumeric characters
+———————————————————————————————————————————
+
+Enter characters HELLO @WORLD
+
+Given characters are HELLO @WORLD
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span></pre></span><div class="codecard">ALP to print the given alphanumeric characters using macro (32-bit)</div>
+<div class="card">{{ site.asmfile }}</div>
+<pre class="code">{%- highlight nasm -%}
+section .data
+title db "———————————————————————————————————————————"
+    db 10, "ALP to print the given alphanumeric characters"
+    db 10, "———————————————————————————————————————————",10
+title_len equ $-title
+
+input db 10, "Enter characters "
+input_len equ $-input
+
+output db 10, "Given characters are "
+output_len equ $-output
+
+end db "———————————————————————————————————————————",10
+end_len equ $-end
+
+section .bss
+num resb 1
+dispbuff resb 51
+
+%macro display 4
+    mov eax,%1
+    mov ebx,%2
+    mov ecx,%3
+    mov edx,%4
+    int 80h
+%endm
+
+section .text
+global _start
+_start:
+    display 4,1,title,title_len
+    display 4,1,input,input_len
+    display 3,2,dispbuff,51
+
+    display 4,1,output,output_len
+    display 4,1,dispbuff,51
+    display 4,1,end,end_len
+
+exit:
+    mov eax,1
+    mov ebx,0
+    int 80h
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runasm }}
+———————————————————————————————————————————
+ALP to print the given alphanumeric characters
+———————————————————————————————————————————
+
+Enter characters HELLO, @WORLD!  
+
+Given characters are HELLO, @WORLD!
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

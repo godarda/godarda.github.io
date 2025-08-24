@@ -1,0 +1,23 @@
+---
+permalink: cluster/vbscript/gdeauvd
+title: VBScript to create an empty folder
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.vbsfile }}</div>
+<pre>{%- highlight vb -%}
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+If objFSO.FolderExists("D:\FSO") Then
+    print "Folder name already exits"
+    objFSO.DeleteFolder("D:\FSO")
+Else 
+    Set objFolder = objFSO.CreateFolder("D:\FSO")
+    print "Folder created successfully!"
+End If
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+
+Folder created successfully!
+
+</pre></span>

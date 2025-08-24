@@ -1,0 +1,26 @@
+---
+permalink: python/arrays/gdeghdz
+title: Python to print the transpose of a given matrix
+---
+
+<div class="terminalcard">{{ page.title }}</div>
+<span><pre>
+godarda@gd:~$ <mark>python3</mark>
+...
+>>> <mark>from numpy import *</mark>
+>>> <mark>m = matrix("1 2 3; 4 5 6; 7 8 9")</mark>
+>>> <mark>m</mark>
+matrix([[1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]])
+
+>>> <mark>m.getT()</mark>
+matrix([[1, 4, 7],
+        [2, 5, 8],
+        [3, 6, 9]])
+
+>>> <mark>m.transpose()</mark>
+matrix([[1, 4, 7],
+        [2, 5, 8],
+        [3, 6, 9]])
+</pre></span>

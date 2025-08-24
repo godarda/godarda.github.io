@@ -1,0 +1,52 @@
+---
+permalink: csharp/strings/gdgicda
+title: C# program to reverse the given string
+---
+
+<div class="codecard">Example 1: {{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+string s = "KODINGWINDOW";
+Console.WriteLine(s.Reverse().ToArray());
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+WODNIWGNIDOK
+godarda@gd:~/csharp$ 
+</pre></span>
+
+<div class="codecard">Example 2: {{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+string s = "KODINGWINDOW";
+char[] arr = s.ToCharArray();
+Array.Reverse(arr);
+Console.WriteLine(arr);
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+WODNIWGNIDOK
+godarda@gd:~/csharp$ 
+</pre></span>
+
+<div class="codecard">Example 3: {{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+string r = "", s;
+s = "KODINGWINDOW";
+int len = s.Length - 1;
+while (len >= 0)
+{
+    r = r + s[len];
+    len--;
+}
+Console.WriteLine(r);
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+WODNIWGNIDOK
+godarda@gd:~/csharp$ 
+</pre></span>

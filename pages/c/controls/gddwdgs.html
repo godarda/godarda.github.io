@@ -1,0 +1,60 @@
+---
+permalink: c/controls/gddwdgs
+title: C program to check the equality of given numbers
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    float a, b;
+    printf("———————————————————————————————————————————");
+    printf("\nProgram to check the equality of given numbers");
+    printf("\n———————————————————————————————————————————");
+    printf("\nEnter the 1st number ");
+    scanf("%f", &a);
+    printf("\nEnter the 2nd number ");
+    scanf("%f", &b);
+    if (a < b)
+    {
+        printf("\n%f is less than %f", a, b);
+    }
+    else if (a == b)
+    {
+        printf("\n%f is equal to %f", a, b);
+    }
+    else
+    {
+        printf("\n%f is greater than %f", a, b);
+    }
+    printf("\n———————————————————————————————————————————\n");
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+———————————————————————————————————————————
+Program to check the equality of given numbers
+———————————————————————————————————————————
+Enter the 1st number -10
+
+Enter the 2nd number -50
+
+-10.000000 is greater than -50.000000
+———————————————————————————————————————————
+
+godarda@gd:~$ <mark>./a.out</mark>
+———————————————————————————————————————————
+Program to check the equality of given numbers
+———————————————————————————————————————————
+Enter the 1st number 10
+
+Enter the 2nd number 50
+
+10.000000 is less than 50.000000
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

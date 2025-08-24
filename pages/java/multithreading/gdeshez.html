@@ -1,0 +1,58 @@
+---
+permalink: java/multithreading/gdeshez
+title: Java program for join() and sleep() methods
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD extends Thread
+{  
+    public void run()
+    {  
+        for(int i=100;i<=105;i++)
+        {
+            try
+            {  
+                Thread.sleep(500);  
+            }
+            catch(Exception e)
+            {
+                System.out.println(e);
+            } 
+            System.out.print(i+" ");     
+        }  
+        System.out.println("\n———————————————————————————————————————————");
+    }  
+    public static void main(String args[])
+    {  
+        System.out.println("———————————————————————————————————————————");
+        System.out.println("Implementation of Java multithreading");
+        System.out.println("———————————————————————————————————————————");
+        GD t1=new GD();
+        GD t2=new GD(); 
+        t1.start();
+        try
+        {  
+            t1.join(500);  
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        t2.start();
+    }  
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+———————————————————————————————————————————
+Implementation of Java multithreading
+———————————————————————————————————————————
+100 100 101 101 102 102 103 103 104 104 105 
+———————————————————————————————————————————
+105 
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

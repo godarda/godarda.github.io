@@ -1,0 +1,53 @@
+---
+permalink: cpp/loops/gdvqyfg
+title: C++ program to print the square of the numbers
+---
+    
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+#include <iomanip>
+using namespace std;
+int main()
+{
+    int i, j, n;
+    cout<<"How many numbers you want to print ";
+    cin>>n;
+    cout<<"—————————————————————————————";
+    cout<<"\nNumbers |"<<" Squares\n";
+    cout<<"—————————————————————————————\n";
+    for (int i = 1; i <= n; i++)
+    {
+        j = i * i;
+        cout<<setw(3)<<i<<"     | "<<"  "<<j<<"\n";
+    }
+    cout<<"—————————————————————————————\n";
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+How many numbers you want to print 15
+—————————————————————————————
+Numbers | Squares
+—————————————————————————————
+  1     |   1
+  2     |   4
+  3     |   9
+  4     |   16
+  5     |   25
+  6     |   36
+  7     |   49
+  8     |   64
+  9     |   81
+ 10     |   100
+ 11     |   121
+ 12     |   144
+ 13     |   169
+ 14     |   196
+ 15     |   225
+—————————————————————————————
+godarda@gd:~$ 
+</pre></span>

@@ -1,0 +1,66 @@
+---
+permalink: csharp/collections/gdfqdtz
+title: Implementation of C# HashSet class
+---
+
+<div class="codecard">{{ page.title }}: Add() method</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+using System.Collections.Generic;
+
+HashSet<string> hs = new HashSet<string>();
+hs.Add("Cherry");
+hs.Add("Apple");
+hs.Add("Orange");
+hs.Add("Mango");
+hs.Add("Grapes");
+hs.Add("Cherry");
+hs.Add("Apple");
+hs.Add("Pineapple");
+hs.Add("Cherry");
+
+foreach (string s in hs)
+{
+    Console.Write(s + " ");
+}
+Console.WriteLine("\nSize: " + hs.Count);
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Cherry Apple Orange Mango Grapes Pineapple 
+Size: 6
+godarda@gd:~/csharp$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }}: Remove() and Clear() methods</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+using System.Collections.Generic;
+
+HashSet<string> hs = new HashSet<string>();
+hs.Add("Cherry");
+hs.Add("Apple");
+hs.Add("Orange");
+hs.Add("Mango");
+hs.Add("Grapes");
+hs.Add("Cherry");
+hs.Add("Apple");
+hs.Add("Pineapple");
+hs.Add("Cherry");
+
+hs.Remove("Apple");
+foreach (string s in hs)
+{
+    Console.Write(s + " ");
+}
+hs.Clear();
+Console.WriteLine("\nSize: " + hs.Count);
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Cherry Orange Mango Grapes Pineapple 
+Size: 0
+godarda@gd:~/csharp$ 
+</pre></span>

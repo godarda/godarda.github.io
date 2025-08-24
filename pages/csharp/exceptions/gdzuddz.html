@@ -1,0 +1,60 @@
+---
+permalink: csharp/exceptions/gdzuddz
+title: C# program to handle the IndexOutOfRangeException
+---
+
+<div class="codecard">C# IndexOutOfRangeException</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+using System;
+namespace GoDarda
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            string[] s = { "Mango", "Pineaple", "Grapes", "Banana", "Apple", "Strawberry" };
+            Console.WriteLine("Array Length: " + s.Length);
+            Console.WriteLine("First Element: " + s[0]);
+            Console.WriteLine("Last Element: " + s[5]);
+            Console.WriteLine(s[6]);
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Array Length: 6
+First Element: Mango
+Last Element: Strawberry
+<error>Unhandled exception. System.IndexOutOfRangeException: Index was outside the bounds of the array.
+    at Program.<Main>$(String[] args) in /home/godarda/csharp/Program.cs:line 5</error>
+godarda@gd:~/csharp$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+string[] s = { "Mango", "Pineaple", "Grapes", "Banana", "Apple", "Strawberry" };
+Console.WriteLine("Array Length: " + s.Length);
+Console.WriteLine("First Element: " + s[0]);
+Console.WriteLine("Last Element: " + s[5]);
+try
+{
+    Console.WriteLine(s[6]);
+}
+catch (IndexOutOfRangeException)
+{
+    Console.WriteLine("Requested element not found");
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Array Length: 6
+First Element: Mango
+Last Element: Strawberry
+Requested element not found 
+godarda@gd:~/csharp$ 
+</pre></span>

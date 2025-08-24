@@ -1,0 +1,126 @@
+---
+permalink: java/collections/gdtzdyt
+title: Java program to perform the Set operations
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.TreeSet;
+import java.util.Scanner;
+import java.util.Set;
+
+class GD
+{
+    public static <T> Set<T> Union(Set<T> setA, Set<T> setB)
+    {
+        Set<T> s = new TreeSet<T>(setA);
+        s.addAll(setB);
+        return s;
+    }
+
+    public static <T> Set<T> Intersection(Set<T> setA, Set<T> setB)
+    {
+        Set<T> s = new TreeSet<T>();
+        for (T x : setA)
+            if (setB.contains(x))
+                s.add(x);
+        return s;
+    }
+
+    public static <T> Set<T> Difference(Set<T> setA, Set<T> setB)
+    {
+        Set<T> s = new TreeSet<T>(setA);
+        s.removeAll(setB);
+        return s;
+    }
+
+    public static <T> Set<T> SymDifference(Set<T> setA, Set<T> setB)
+    {
+        Set<T> sA;
+        Set<T> sB;
+
+        sA = Union(setA, setB);
+        sB = Intersection(setA, setB);
+        return Difference(sA, sB);
+    }
+
+    public static void main(String args[])
+    {
+        System.out.println("———————————————————————————————————————————");
+        System.out.println("Program for the Set operations");
+        System.out.println("———————————————————————————————————————————");
+        
+        TreeSet<Character> set1 = new TreeSet<Character>();
+        TreeSet<Character> set2 = new TreeSet<Character>();
+        
+        Scanner sc = new Scanner(System.in);
+        try
+        {
+            System.out.print("Enter number of elements in Set-1 ");
+            int s1 = sc.nextInt();
+            for(int i = 1; i <= s1; i++)
+            {
+                System.out.print("Enter character-"+i+" ");
+                char ch = sc.next().charAt(0);
+                set1.add(ch);
+            }
+            
+            System.out.print("Enter number of elements in Set-2 ");
+            int s2 = sc.nextInt();
+            for(int i = 1; i <= s2; i++)
+            {
+                System.out.print("Enter character-"+i+" ");
+                char ch = sc.next().charAt(0);
+                set2.add(ch);
+            }
+            
+            System.out.println("———————————————————————————————————————————");
+            System.out.println("Result of the Set operations");
+            System.out.println("———————————————————————————————————————————");
+            System.out.println("Set-1: " + set1);
+            System.out.println("Set-2: " + set2);
+            System.out.println("Union: " + Union(set1, set2));
+            System.out.println("Intersection: " + Intersection(set1, set2));
+            System.out.println("Difference (Set-1 - Set-2): " + Difference(set1, set2));
+            System.out.println("Difference (Set-2 - Set-1): " + Difference(set2, set1));
+            System.out.println("Symmetric Difference: " + SymDifference(set1, set2));
+        }
+        catch(Exception e)
+        {
+            System.out.println("Please enter the number only");
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+———————————————————————————————————————————
+Program for the Set operations
+———————————————————————————————————————————
+Enter number of elements in Set-1 4
+Enter character-1 A
+Enter character-2 B
+Enter character-3 A
+Enter character-4 C
+Enter number of elements in Set-2 7
+Enter character-1 A
+Enter character-2 C
+Enter character-3 Z
+Enter character-4 W
+Enter character-5 #
+Enter character-6 &
+Enter character-7 100
+———————————————————————————————————————————
+Result of the Set operations
+———————————————————————————————————————————
+Set-1: [A, B, C]
+Set-2: [#, &, 1, A, C, W, Z]
+Union: [#, &, 1, A, B, C, W, Z]
+Intersection: [A, C]
+Difference (Set-1 - Set-2): [B]
+Difference (Set-2 - Set-1): [#, &, 1, W, Z]
+Symmetric Difference: [#, &, 1, B, W, Z]
+godarda@gd:~$ 
+</pre></span>

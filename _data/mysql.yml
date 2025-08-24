@@ -4,51 +4,51 @@ grandparent:
     url: mysql/fundamentals
     children: 
       - title: How to setup, install, and start MySQL on Ubuntu
-        url: mysql/fundamentals/giddayxg
+        url: mysql/fundamentals/gddayxg
       - title: MySQL Date and Time Functions
-        url: mysql/fundamentals/gidrgtrz
+        url: mysql/fundamentals/gdrgtrz
       - title: MySQL String Functions
-        url: mysql/fundamentals/gidgpzwy
+        url: mysql/fundamentals/gdgpzwy
 
   - parent: MySQL Data Definition
     subtree: DDL
     url: mysql/ddl
     children: 
       - title: MySQL CREATE a DATABASE and TABLE
-        url: mysql/ddl/giddwgvc
+        url: mysql/ddl/gddwgvc
       - title: MySQL FOREIGN KEY
-        url: mysql/ddl/giddvwtv
+        url: mysql/ddl/gddvwtv
       - title: MySQL NOT NULL Constraint
-        url: mysql/ddl/giddvvtd
+        url: mysql/ddl/gddvvtd
       - title: MySQL ALTER TABLE (ADD, DROP, MODIFY, CHANGE, RENAME TO)
-        url: mysql/ddl/giddwtwf
+        url: mysql/ddl/gddwtwf
       - title: MySQL DROP a TABLE and DATABASE
-        url: mysql/ddl/gidedvew
+        url: mysql/ddl/gdedvew
 
   - parent: MySQL Data Manipulation
     subtree: DML
     url: mysql/dml
     children: 
       - title: MySQL INSERT the VALUES into a TABLE
-        url: mysql/dml/gidpdvnx
+        url: mysql/dml/gdpdvnx
       - title: MySQL SELECT and SELECT DISTINCT Statements
-        url: mysql/dml/giduidey
+        url: mysql/dml/gduidey
       - title: MySQL WHERE Clause
-        url: mysql/dml/gidbbevd
+        url: mysql/dml/gdbbevd
       - title: MySQL UPDATE Clause
-        url: mysql/dml/gidzzcev
+        url: mysql/dml/gdzzcev
       - title: MySQL ORDER BY Clause
-        url: mysql/dml/gidvzkzw
+        url: mysql/dml/gdvzkzw
       - title: MySQL AND OR NOT Operators
-        url: mysql/dml/gidpzyig
+        url: mysql/dml/gdpzyig
       - title: MySQL IN BETWEEN LIKE Operators
-        url: mysql/dml/gidczgza
+        url: mysql/dml/gdczgza
       - title: MySQL LIMIT Clause
-        url: mysql/dml/gidpwzaz
+        url: mysql/dml/gdpwzaz
       - title: MySQL JOINS (INNER, LEFT, RIGHT)
-        url: mysql/dml/gidnhhen
+        url: mysql/dml/gdnhhen
       - title: MySQL DELETE Statement
-        url: mysql/dml/gidzsgwd
+        url: mysql/dml/gdzsgwd
 
 sidenav:
   - parent: MySQL (Relational Database)

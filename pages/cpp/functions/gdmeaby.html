@@ -1,0 +1,62 @@
+---
+permalink: cpp/functions/gdmeaby
+title: C++ program to add the members of two different classes using the friend function
+---
+    
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+using namespace std;
+class WhiteBank;
+class BlackBank
+{
+private:
+    int total_money_bb;
+
+public:
+    BlackBank() : total_money_bb(200) {}
+    friend int total_amount(WhiteBank, BlackBank);
+};
+
+class WhiteBank
+{
+private:
+    int total_money_wb;
+
+public:
+    WhiteBank() : total_money_wb(200) {}
+    friend int total_amount(WhiteBank, BlackBank);
+};
+
+int total_amount(WhiteBank wb, BlackBank bb)
+{
+    return (wb.total_money_wb + bb.total_money_bb);
+}
+
+int main()
+{
+    WhiteBank wb;
+    BlackBank bb;
+    cout<<"Total Bank Amount "<<total_amount(wb, bb)<<endl;
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+Total Bank Amount 400
+godarda@gd:~$ 
+</pre></span>
+
+<div class="board"><div class="boardtitle">Points to Remember</div>
+<p>1. The keyword friend is placed only in the function declaration of the friend function and not in the function definition because it is used to access the member of a class. In simple words, A friend function is a function that has no body inside its base class.<br><br>
+2. A friend can be a function, function template, member function, or a class, class template, in which the entire class and all of its members are friends.<br><br>
+3. Friend function can access public, private and protected data members of the class for which it is a friend.<br><br>
+4. Virtual functions and objects cannot be friends<br><br>
+5. Friend functions do not have a this pointer associated with it, because friends are not members of a class.<br><br>
+6. Friend of one class can be friend of another class or all the classes in one program, such a friend is known as global friend.<br><br>
+7. Friend can be declared anywhere (in public, private or protected section) of class<br><br>
+<b>8. Properties of friend function:</b><br>
+8.1 Symmetric - if class A is a friend of class B, class B is not automatically a friend of class A. <br>8.2 Transitive - if class A is a friend of class B, and class B is a friend of class C, class A is not automatically a friend of class C. <br>8.3 Inherited - if class Base is a friend of class X, subclass Derived is not automatically a friend of class X; and if class X is a friend of class Base, class X is not automatically a friend of subclass Derived.</p>
+</div>

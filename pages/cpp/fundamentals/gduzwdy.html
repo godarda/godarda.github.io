@@ -1,0 +1,27 @@
+---
+permalink: cpp/fundamentals/gduzwdy
+title: C++ Hello World program without using a semicolon
+---
+    
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+int main()
+{
+    if (std::cout<<"Hello, World!\n")
+    {
+    }
+
+    while (!(std::cout<<"Hello, World!\n"))
+    {
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+Hello, World!
+Hello, World!
+godarda@gd:~$ 
+</pre></span>

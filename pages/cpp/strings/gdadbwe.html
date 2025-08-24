@@ -1,0 +1,40 @@
+---
+permalink: cpp/strings/gdadbwe
+title: C++ program to find the length of a given string
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+#include <cstring>
+using namespace std;
+int main()
+{
+    cout<<strlen("GoDarda")<<"\n";
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+12
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+#include <cstring>
+using namespace std;
+int main()
+{
+    cout<<strlen("GoDarda\0")<<"\n";
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+12
+godarda@gd:~$ 
+</pre></span>

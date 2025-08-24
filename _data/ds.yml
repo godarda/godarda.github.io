@@ -4,20 +4,20 @@ grandparent:
     url: ds/analysis
     children: 
       - title: Python Pandas to create a DataFrame from CSV file, Dictionary, etc.
-        url: ds/analysis/gidkzmpr
+        url: ds/analysis/gdkzmpr
       - title: Python Pandas to extract rows and columns from a DataFrame
-        url: ds/analysis/gidvoktc
+        url: ds/analysis/gdvoktc
       - title: Python Pandas to index and sort a DataFrame
-        url: ds/analysis/gidwdghw
+        url: ds/analysis/gdwdghw
       - title: Python Pandas to fill and drop missing data in a DataFrame
-        url: ds/analysis/gidwvkyk
+        url: ds/analysis/gdwvkyk
 
   - parent: Data Visualization
     subtree: Data Visualization
     url: ds/visualization
     children: 
       - title: Python Pandas to create a bar graph using the matplotlib module
-        url: ds/visualization/gidleovy
+        url: ds/visualization/gdleovy
 
 sidenav:
   - parent: Data Science

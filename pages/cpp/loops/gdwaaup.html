@@ -1,0 +1,43 @@
+---
+permalink: cpp/loops/gdwaaup
+title: C++ program to print the addition of N numbers
+---
+    
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+using namespace std;
+int main()
+{
+    int n, sum;
+    cout<<"———————————————————————————————————————————";
+    cout<<"\nProgram to print the addition of N numbers";
+    cout<<"\n———————————————————————————————————————————";
+    cout<<"\nEnter the number ";
+    cin>>n;
+    if (n >= 0)
+    {
+        sum = (n * (n + 1) / 2);
+        cout<<"\nThe sum of first "<<n<<" natural numbers is = "<<sum;
+    }
+    else
+    {
+        cout<<"\nPlease enter +ve number ";
+    }
+    cout<<"\n———————————————————————————————————————————\n";
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+———————————————————————————————————————————
+Program to print the addition of N numbers
+———————————————————————————————————————————
+Enter the number 10
+
+The sum of first 10 natural numbers is = 55
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

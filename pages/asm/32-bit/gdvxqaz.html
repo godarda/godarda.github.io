@@ -1,0 +1,32 @@
+---
+permalink: asm/32-bit/gdvxqaz
+title: ALP to print Hello World (32-bit)
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.asmfile }}</div>
+<pre class="code">{%- highlight nasm -%}
+section .data
+msg db "Hello, World!",10
+msg_len equ $-msg
+
+section .text
+global _start
+_start:
+    mov eax,4
+    mov ebx,1
+    mov ecx,msg
+    mov edx,msg_len
+    int 80h
+
+;Exit System Call
+    mov eax,1
+    mov ebx,0
+    int 80h
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runasm }}
+Hello, World!
+godarda@gd:~$ 
+</pre></span>

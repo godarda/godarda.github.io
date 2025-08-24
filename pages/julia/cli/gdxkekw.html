@@ -1,0 +1,177 @@
+---
+permalink: julia/cli/gdxkekw
+title: Julia Arithmetic Operations
+---
+
+<div class="terminalcard">{{ page.title }}</div>
+<span><pre>
+godarda@gd:~$ <mark>julia</mark>
+...
+julia> <mark>10+20</mark>
+30
+
+julia> <mark>10-20</mark>
+-10
+
+julia> <mark>10*20</mark>
+200
+
+julia> <mark>10/20</mark>
+0.5
+
+julia> <mark>2^10</mark>
+1024
+
+julia> <mark>mod(-7,4)</mark>
+1
+
+julia> <mark>mod(7,4)</mark>
+3
+
+julia> <mark>rem(-7,4)</mark>
+-3
+
+julia> <mark>rem(7,4)</mark>
+3
+
+julia> <mark>div(-7,4)</mark>
+-1
+
+julia> <mark>div(7,4)</mark>
+1
+
+julia> <mark>divrem(-7,4)</mark>
+(-1, -3)
+
+julia> <mark>divrem(7,4)</mark>
+(1, 3)
+
+julia> <mark>2//3</mark>
+2//3
+
+julia> <mark>numerator(2//3)</mark>
+2
+
+julia> <mark>denominator(2//3)</mark>
+3
+
+julia> <mark>10//30</mark>
+1//3
+
+julia> <mark>Inf</mark>
+Inf
+
+julia> <mark>NaN</mark>
+NaN
+
+julia> <mark>Inf*0</mark>
+NaN
+
+julia> <mark>gcd(18,21)</mark>
+3
+
+julia> <mark>lcm(24,36)</mark>
+72
+</pre></span>
+
+<div class="terminalcard">Arithmetic operations on complex numbers</div>
+<span><pre>
+julia> <mark>complex(4+5im)+complex(2+6im)</mark>
+6 + 11im
+        
+julia> <mark>c1=4+5im</mark>
+4 + 5im
+
+julia> <mark>c2=2+6im</mark>
+2 + 6im
+
+julia> <mark>c1+c2</mark>
+6 + 11im
+
+julia> <mark>c1-c2</mark>
+2 - 1im
+
+julia> <mark>c1*c2</mark>
+-22 + 34im
+
+julia> <mark>c1/c2</mark>
+0.95 - 0.35000000000000003im
+
+julia> <mark>c1^2</mark>
+-9 + 40im
+
+julia> <mark>10(c1)</mark>
+40 + 50im
+</pre></span>
+
+<div class="terminalcard">round(), floor(), ceil() and trunc() functions</div>
+<span><pre>
+julia> <mark>round(2.3)</mark>
+2.0
+
+julia> <mark>round(2.8)</mark>
+3.0
+
+julia> <mark>round(-2.3)</mark>
+-2.0
+
+julia> <mark>round(-2.8)</mark>
+-3.0
+<hr>julia> <mark>floor(2.3)</mark>
+2.0
+
+julia> <mark>floor(2.8)</mark>
+2.0
+
+julia> <mark>floor(-2.3)</mark>
+-3.0
+
+julia> <mark>floor(-2.8)</mark>
+-3.0
+<hr>julia> <mark>ceil(2.3)</mark>
+3.0
+
+julia> <mark>ceil(2.8)</mark>
+3.0
+
+julia> <mark>ceil(-2.3)</mark>
+-2.0
+
+julia> <mark>ceil(-2.8)</mark>
+-2.0
+<hr>julia> <mark>trunc(2.3)</mark>
+2.0
+
+julia> <mark>trunc(2.8)</mark>
+2.0
+
+julia> <mark>trunc(-2.3)</mark>
+-2.0
+
+julia> <mark>trunc(-2.8)</mark>
+-2.0  
+</pre></span>
+
+<div class="terminalcard">typeof() function</div>
+<span><pre>
+julia> <mark>typeof(2)</mark>
+Int64
+
+julia> <mark>typeof(2.3)</mark>
+Float64
+
+julia> <mark>typeof(-1)</mark>
+Int64
+
+julia> <mark>typeof(0x02)</mark>
+UInt8
+
+julia> <mark>typeof(pi)</mark>
+Irrational{:π}
+
+julia> <mark>typeof(Inf)</mark>
+Float64
+
+julia> <mark>typeof(NaN)</mark>
+Float64
+</pre></span>

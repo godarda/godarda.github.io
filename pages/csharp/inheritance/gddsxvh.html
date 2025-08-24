@@ -1,0 +1,58 @@
+---
+permalink: csharp/inheritance/gddsxvh
+title: C# program for Hybrid Inheritance (Multilevel and Hierarchical)
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+GreenBank gb = new GreenBank();
+gb.GreenBankBonus();
+gb.WhiteBankBonus();
+
+PinkBank pb = new PinkBank();
+pb.PinkBankBonus();
+pb.WhiteBankBonus();
+
+class Bank
+{
+    public void Bonus()
+    {
+        Console.Write("Festival Bonus: ");
+    }
+}
+class WhiteBank : Bank
+{
+    public void WhiteBankBonus()
+    {
+        base.Bonus();
+        Console.WriteLine("WhiteBank 1500");
+    }
+}
+class GreenBank : WhiteBank
+{
+    public void GreenBankBonus()
+    {
+        base.Bonus();
+        Console.WriteLine("GreenBank 500");
+    }
+}
+class PinkBank : WhiteBank
+{
+    public void PinkBankBonus()
+    {
+        base.Bonus();
+        Console.WriteLine("PinkBank 1000");
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Festival Bonus: GreenBank 500
+Festival Bonus: WhiteBank 1500
+Festival Bonus: PinkBank 1000
+Festival Bonus: WhiteBank 1500
+
+godarda@gd:~/csharp$ 
+</pre></span>

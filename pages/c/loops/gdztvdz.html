@@ -1,0 +1,89 @@
+---
+permalink: c/loops/gdztvdz
+title: C program for the addition of N natural numbers
+---
+
+<div class="codecard">{{ page.title }} using if else statements</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    int n, sum;
+    printf("———————————————————————————————————————————");
+    printf("\nProgram for the addition of N numbers");
+    printf("\n———————————————————————————————————————————");
+    printf("\nEnter the number ");
+    scanf("%d", &n);
+    if (n > 0)
+    {
+        sum = (n * (n + 1) / 2);
+        printf("\nSum of %d natural numbers = %d", n, sum);
+    }
+    else
+    {
+        printf("\nPlease enter the positive natural number");
+    }
+    printf("\n———————————————————————————————————————————\n");
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+———————————————————————————————————————————
+Program for the addition of N numbers
+———————————————————————————————————————————
+Enter the number 0
+
+Please enter the positive natural number
+———————————————————————————————————————————
+
+godarda@gd:~$ <mark>./a.out</mark>
+———————————————————————————————————————————
+Program for the addition of N numbers
+———————————————————————————————————————————
+Enter the number 10
+
+Sum of 10 natural numbers = 55
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }} using while loop</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    float sum = 0, n = 1;
+    printf("———————————————————————————————————————————");
+    printf("\nProgram for the addition of N numbers");
+    printf("\n———————————————————————————————————————————");
+    printf("\nEnter the numbers\n");
+    while (n != 0)
+    {
+        sum += n;
+        scanf("%f", &n);
+    }
+    printf("Sum = %f", sum - 1);
+    printf("\n———————————————————————————————————————————\n");
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+———————————————————————————————————————————
+Program for the addition of N numbers
+———————————————————————————————————————————
+Enter the numbers
+-10
+-50
+10
+30
+0
+Sum = -20.000000
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

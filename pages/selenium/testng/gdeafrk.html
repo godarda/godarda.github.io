@@ -1,0 +1,65 @@
+---
+permalink: selenium/testng/gdeafrk
+title: How to define dependencies between groups in TestNG XML file
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">File: KWTestNG.java</div>
+<pre class="code">{%- highlight java -%}
+package tests;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
+
+public class KWTestNG 
+{
+    WebDriver driver;
+    @Test(groups = {"OpenBrowserNavigate"})
+    public void OpenBrowserNavigate()
+    {
+        System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.navigate().to("http://newtours.demoaut.com");
+    }
+    @Test(groups = {"LoginLogout"})
+    public void LoginLogout()
+    {
+        driver.findElement(By.name("userName")).sendKeys("mercury");
+        driver.findElement(By.name("password")).sendKeys("mercury");
+        driver.findElement(By.name("login")).click();
+        driver.findElement(By.linkText("SIGN-OFF")).click();
+        driver.close();
+    }
+}
+{%- endhighlight -%}</pre>
+
+<div class="card">File: testng.xml</div>
+<pre>
+{%- highlight xml -%}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Selenium Project">
+    <test name="Login">
+        <groups>
+            <dependencies>
+                <group name="LoginLogout" depends-on="OpenBrowserNavigate"></group>
+            </dependencies>
+        </groups>
+        <classes>
+            <class name="tests.KWTestNG"/>
+        </classes>
+    </test>
+</suite>
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+[RemoteTestNG] detected TestNG version 7.0.0
+
+===============================================
+Selenium Project
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+</pre></span>

@@ -1,0 +1,90 @@
+---
+permalink: selenium/testng/gdavbeq
+title: How to perform load testing using the invocationCount and threadPoolSize parameters in TestNG
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">File: KWTestNG.java</div>
+<pre class="code">{%- highlight java -%}
+package tests;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
+
+public class KWTestNG 
+{
+    //@Test(invocationCount = 100, threadPoolSize = 100) //for load testing
+    @Test(invocationCount = 5, threadPoolSize = 3)
+    public void NavigateLogin()
+    {
+        System.out.println("\nThread Name: "+Thread.currentThread().getName()+"\nThread ID: "+Thread.currentThread().getId());
+        System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.navigate().to("http://newtours.demoaut.com");
+
+        driver.findElement(By.name("userName")).sendKeys("mercury");
+        driver.findElement(By.name("password")).sendKeys("mercury");
+        driver.findElement(By.name("login")).click();
+        if(driver.getTitle().equals("Find a Flight: Mercury Tours:"))
+        {
+            System.out.println("Login Successful");
+        }
+        else
+        {
+            System.out.println("Login Unsuccessful");
+        }
+        driver.close();
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+[RemoteTestNG] detected TestNG version 7.0.0
+
+Thread Name: TestNG-methods-3
+Thread ID: 13
+
+Thread Name: TestNG-methods-2
+Thread ID: 12
+
+Thread Name: TestNG-methods-1
+Thread ID: 11
+
+Login Successful
+
+Thread Name: TestNG-methods-2
+Thread ID: 12
+
+Login Successful
+
+Thread Name: TestNG-methods-3
+Thread ID: 13
+
+Login Successful
+Login Successful
+Login Successful
+PASSED: NavigateLogin
+PASSED: NavigateLogin
+PASSED: NavigateLogin
+PASSED: NavigateLogin
+PASSED: NavigateLogin
+===============================================
+    Default test
+    Tests run: 5, Failures: 0, Skips: 0
+===============================================
+
+===============================================
+Default suite
+Total tests run: 5, Passes: 5, Failures: 0, Skips: 0
+===============================================
+
+<i>Default test ( 118.707 s)
+NavigateLogin  (24.129 s)
+NavigateLogin  (26.997 s)
+NavigateLogin  (29.213 s)
+NavigateLogin  (18.996 s)
+NavigateLogin  (19.372 s)</i>
+</pre></span>

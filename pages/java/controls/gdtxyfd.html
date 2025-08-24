@@ -1,0 +1,48 @@
+---
+permalink: java/controls/gdtxyfd
+title: Java program to check the given number is positive or negative
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.Scanner;
+class GD 
+{
+    public static void main(String args[])
+    {
+        int n;
+        Scanner sc=new Scanner(System.in);
+        System.out.println("———————————————————————————————————————————");
+        System.out.println("Program to check the given number is +ve/-ve");
+        System.out.println("———————————————————————————————————————————");
+        System.out.print("Enter a number ");
+        n=sc.nextInt();
+        if(n < 0)
+        {
+            System.out.println("\nEntered number is negative");
+        }
+        else if(n > 0)
+        {
+            System.out.println("\nEntered number is positive");
+        }
+        else
+        {
+            System.out.println("\nEntered number is zero");
+        }
+        System.out.println("———————————————————————————————————————————");
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+———————————————————————————————————————————
+Program to check the given number is +ve/-ve
+———————————————————————————————————————————
+Enter a number 0
+
+Entered number is zero
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

@@ -1,0 +1,50 @@
+---
+permalink: csharp/loops/gdkerds
+title: C# program to print the Fibonacci series
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+int f1 = 0, f2 = 1, f3 = 0;
+Console.WriteLine("———————————————————————————————————————————");
+Console.WriteLine("Program to print the Fibonacci series");
+Console.WriteLine("———————————————————————————————————————————");
+Console.Write("How many elements you want to print ");
+int n = Convert.ToInt32(Console.ReadLine());
+Console.WriteLine(f1);
+Console.WriteLine(f2);
+for(int i = 2; i < n; i++)
+{
+    f3 = f1 + f2;
+    Console.WriteLine(f3);
+    f1 = f2;
+    f2 = f3;
+}
+Console.WriteLine("———————————————————————————————————————————");
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+———————————————————————————————————————————
+Program to print the Fibonacci series
+———————————————————————————————————————————
+How many elements you want to print 15
+0
+1
+1
+2
+3
+5
+8
+13
+21
+34
+55
+89
+144
+233
+377
+———————————————————————————————————————————
+godarda@gd:~/csharp$ 
+</pre></span>

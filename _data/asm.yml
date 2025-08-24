@@ -4,48 +4,48 @@ grandparent:
     url: asm/32-bit
     children: 
       - title: ALP to print Hello World (32-bit)
-        url: asm/32-bit/gidvxqaz
+        url: asm/32-bit/gdvxqaz
       - title: ALP to print Hello World using times directive (32-bit)
-        url: asm/32-bit/gidbhdky
+        url: asm/32-bit/gdbhdky
       - title: ALP to print the stars using macro (32-bit)
-        url: asm/32-bit/gidaeavq
+        url: asm/32-bit/gdaeavq
       - title: ALP to print the stars using times directive (32-bit)
-        url: asm/32-bit/gidbqeza
+        url: asm/32-bit/gdbqeza
       - title: ALP to print the ASCII hex to hexadecimal number (32-bit)
-        url: asm/32-bit/gidzkizy
+        url: asm/32-bit/gdzkizy
       - title: ALP to print the given alphanumeric characters (32-bit)
-        url: asm/32-bit/gidqnwvz
+        url: asm/32-bit/gdqnwvz
       - title: ALP to print the length of a given string (32-bit)
-        url: asm/32-bit/gidvvdud
+        url: asm/32-bit/gdvvdud
       - title: ALP to identify the Central Processing Unit (CPU) type (32-bit)
-        url: asm/32-bit/gidvakeg
+        url: asm/32-bit/gdvakeg
       - title: ALP to print the values of registers in protected mode (32-bit)
-        url: asm/32-bit/giddmaee
+        url: asm/32-bit/gddmaee
 
   - parent: 64-bit Assembly Programming
     subtree: 64-bit
     url: asm/64-bit
     children: 
       - title: ALP to print Hello World without using macro (64-bit)
-        url: asm/64-bit/gidatnak
+        url: asm/64-bit/gdatnak
       - title: ALP to print Hello World using macro (64-bit)
-        url: asm/64-bit/gidsgpyl
+        url: asm/64-bit/gdsgpyl
       - title: ALP to print the given string using macro (64-bit)
-        url: asm/64-bit/gidwagtz
+        url: asm/64-bit/gdwagtz
       - title: ALP to print the length of a given string (64-bit)
-        url: asm/64-bit/gidcgame
+        url: asm/64-bit/gdcgame
       - title: ALP to reverse a given string (64-bit)
-        url: asm/64-bit/gidwdwaz
+        url: asm/64-bit/gdwdwaz
       - title: ALP to check whether a given string is palindrome (64-bit)
-        url: asm/64-bit/gidwzqyk
+        url: asm/64-bit/gdwzqyk
       - title: ALP menu-driven program to perform the string operations (64-bit)
-        url: asm/64-bit/gidvyzpn
+        url: asm/64-bit/gdvyzpn
       - title: ALP to convert the hexadecimal to BCD number (64-bit)
-        url: asm/64-bit/gidvnyvi
+        url: asm/64-bit/gdvnyvi
       - title: ALP to convert the Binary Coded Decimal (BCD) to hexadecimal number (64-bit)
-        url: asm/64-bit/gidvthab
+        url: asm/64-bit/gdvthab
       - title: ALP to print the addition of N hexadecimal number (64-bit)
-        url: asm/64-bit/gidgywzg
+        url: asm/64-bit/gdgywzg
 
 sidenav: 
   - parent: Assembly Programming

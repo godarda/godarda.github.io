@@ -1,0 +1,56 @@
+---
+permalink: c/fundamentals/gdfdlyz
+title: C program to calculate the area and circumference of a circle
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">Algorithm</div>
+<pre>{%- highlight vim -%}
+Step 1: Start
+Step 2: define PI 3.14
+Step 3: Declare variables R, A, and C
+Step 4: Read the value of Radius R
+Step 5: Calculate the area of a circle
+        A = PI * R * R 
+Step 6: Print the area of a circle
+Step 7: Calculate the circumference of a circle
+        C = 2 * PI * R
+Step 8: Print the circumference of a circle
+Step 9: End
+{%- endhighlight -%}</pre>
+
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+#define PI 3.14
+int main()
+{
+    float R, A, C;
+    printf("———————————————————————————————————————————");
+    printf("\nProgram to calculate the area and circumference of a circle");
+    printf("\n———————————————————————————————————————————");
+    printf("\nEnter the radius of a circle ");
+    scanf("%f", &R);
+    A = PI * R * R;
+    printf("\nThe area of a circle is %f ", A);
+
+    C = 2 * PI * R;
+    printf("\n\nThe circumference of a circle is %f ", C);
+    printf("\n———————————————————————————————————————————\n");
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+———————————————————————————————————————————
+Program to calculate the area and circumference of a circle
+———————————————————————————————————————————
+Enter the radius of a circle 10
+
+The area of a circle is 314.000000 
+
+The circumference of a circle is 62.799999 
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

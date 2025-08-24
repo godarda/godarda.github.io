@@ -1,0 +1,164 @@
+---
+permalink: java/jdbc/gdnegld
+title: Java MongoDB to insert the JSON file documents into a collection
+---
+
+<div class="board"><div class="boardtitle">Objective and Prerequisites</div>
+    <p><b>Objective: </b>This segment introduces implementation of how to insert the JSON (JavaScript Object Notation) file documents into a collection in MongoDB using Java.<br><br>
+    <b>Prerequisites: </b>MongoDB setup is installed and running in the background. Also, the project has been developed and executed in Eclipse IDE (Integrated Development Environment).<br><br> 
+    To run the following program, you need to download the MongoDB Java driver jar file <a href="{{ site.data.url.gdvrevz }}" target="_blank" class="hlink">Download MongoDB Java driver</a>. Once downloaded, you can import the library by right-clicking on your project in Eclipse -> Properties -> Java Build Path -> Libraries -> Add External JARs...</p>
+</div>
+
+<div class="terminalcard">Start MongoDB (running mongo.exe)</div>
+<span><pre>
+MongoDB shell version v4.2.3
+connecting to: mongodb://127.0.0.1:27017/
+MongoDB server version: 4.2.3
+
+<mark>> show dbs</mark>
+DB      0.000GB
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+
+<mark>> use DB</mark>
+switched to db DB
+
+<mark>> db.getCollectionNames()</mark>
+[ "holders" ]
+
+<mark>> db.holders.find().pretty()</mark>
+>
+</pre></span>
+
+<div class="codecard">{{ page.title }}</div>
+<div class="infocard">In the following program, database and collection automatically get created. If database and collection already exist in MongoDB, then new documents will get inserted into an existing collection. Furthermore, we will be inserting documents into a <b>holders</b> collection using the JSON file, and once all the documents inserted, we will retrieve those using find() method.</div>
+<div class="card">{{ site.jsonfile }}</div>
+<pre>
+{%- highlight json -%}
+{ "account_no" : 2562348989, "name" : "James Moore", "city" : "Phoenix", "DOB" : ISODate("1985-05-26T00:00:00Z"), "bank" : "Barclays", "amount" : 5000, "loan" : [ { "Personal" : 5660, "Home" : 15000 } ] }
+{ "account_no" : 2562348990, "name" : "Donald Taylor", "city" : "Irvine", "DOB" : ISODate("1990-08-20T00:00:00Z"), "bank" : "Citi", "amount" : 7000, "loan" : [ { "Home" : 10000, "Car" : 20000 } ] }
+{ "account_no" : 2562348991, "name" : "Edward Parkar", "city" : "Irvine", "DOB" : ISODate("1994-01-29T00:00:00Z"), "bank" : "ICICI", "amount" : 95000, "loan" : [ { "Personal" : 25000, "Home" : 450000, "Car" : 10000 } ] }
+{ "account_no" : 2562348992, "name" : "Ryan Bakshi", "city" : "Mumbai", "DOB" : ISODate("1982-01-14T00:00:00Z"), "bank" : "Citi", "amount" : 50000, "loan" : [ { "Personal" : null, "Home" : null, "Car" : null } ] }
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.io.BufferedReader;
+import java.io.FileReader;
+
+import org.bson.Document;
+import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
+
+class GD
+{
+    @SuppressWarnings("resource")
+    public static void main(String[] args)
+    {
+        try
+        {
+            MongoClient mc = new MongoClient("localhost", 27017);
+            MongoDatabase md = mc.getDatabase("DB");
+            MongoCollection<Document> collection = md.getCollection("holders");
+            
+            BufferedReader br = new BufferedReader(new FileReader("gd.json"));
+            String docs=null;
+            while((docs=br.readLine())!=null)
+            {
+                collection.insertOne(Document.parse(docs));
+            }
+            System.out.println("Documents inserted successfully");
+            
+            FindIterable<Document> fi=collection.find();
+            MongoCursor<Document> cursor=fi.iterator();
+            while(cursor.hasNext()) 
+            {
+                System.out.println(cursor.next());
+            }
+            mc.close();
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+Documents inserted successfully
+Document&#123;&#123;_id=5e7ca9bff19e77642089963b, account_no=2562348989, name=James Moore, city=Phoenix, DOB=Sun May 26 05:30:00 IST 1985, bank=Barclays, amount=5000, loan=[Document&#123;&#123;Personal=5660, Home=15000}}]}}
+Document&#123;&#123;_id=5e7ca9c0f19e77642089963c, account_no=2562348990, name=Donald Taylor, city=Irvine, DOB=Mon Aug 20 05:30:00 IST 1990, bank=Citi, amount=7000, loan=[Document&#123;&#123;Home=10000, Car=20000}}]}}
+Document&#123;&#123;_id=5e7ca9c0f19e77642089963d, account_no=2562348991, name=Edward Parkar, city=Irvine, DOB=Sat Jan 29 05:30:00 IST 1994, bank=ICICI, amount=95000, loan=[Document&#123;&#123;Personal=25000, Home=450000, Car=10000}}]}}
+Document&#123;&#123;_id=5e7ca9c0f19e77642089963e, account_no=2562348992, name=Ryan Bakshi, city=Mumbai, DOB=Thu Jan 14 05:30:00 IST 1982, bank=Citi, amount=50000, loan=[Document&#123;&#123;Personal=null, Home=null, Car=null}}]}}
+</pre></span>
+
+<div class="terminalcard">MongoDB Instance</b></div>
+<span><pre>
+<mark>> db.holders.find().pretty()</mark>
+{
+    "_id" : ObjectId("5e7ca9bff19e77642089963b"),
+    "account_no" : NumberLong("2562348989"),
+    "name" : "James Moore",
+    "city" : "Phoenix",
+    "DOB" : ISODate("1985-05-26T00:00:00Z"),
+    "bank" : "Barclays",
+    "amount" : 5000,
+    "loan" : [
+        {
+            "Personal" : 5660,
+            "Home" : 15000
+        }
+    ]
+}
+{
+    "_id" : ObjectId("5e7ca9c0f19e77642089963c"),
+    "account_no" : NumberLong("2562348990"),
+    "name" : "Donald Taylor",
+    "city" : "Irvine",
+    "DOB" : ISODate("1990-08-20T00:00:00Z"),
+    "bank" : "Citi",
+    "amount" : 7000,
+    "loan" : [
+        {
+            "Home" : 10000,
+            "Car" : 20000
+        }
+    ]
+}
+{
+    "_id" : ObjectId("5e7ca9c0f19e77642089963d"),
+    "account_no" : NumberLong("2562348991"),
+    "name" : "Edward Parkar",
+    "city" : "Irvine",
+    "DOB" : ISODate("1994-01-29T00:00:00Z"),
+    "bank" : "ICICI",
+    "amount" : 95000,
+    "loan" : [
+        {
+            "Personal" : 25000,
+            "Home" : 450000,
+            "Car" : 10000
+        }
+    ]
+}
+{
+    "_id" : ObjectId("5e7ca9c0f19e77642089963e"),
+    "account_no" : NumberLong("2562348992"),
+    "name" : "Ryan Bakshi",
+    "city" : "Mumbai",
+    "DOB" : ISODate("1982-01-14T00:00:00Z"),
+    "bank" : "Citi",
+    "amount" : 50000,
+    "loan" : [
+        {
+            "Personal" : null,
+            "Home" : null,
+            "Car" : null
+        }
+    ]
+}
+</pre></span>

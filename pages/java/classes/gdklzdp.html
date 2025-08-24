@@ -1,0 +1,104 @@
+---
+permalink: java/classes/gdklzdp
+title: Implementation of Java method chaining
+---
+
+<div class="board"><div class="boardtitle">Introduction to method chaining in Java</div>
+<p><b>Objective: </b>This segment introduces how to use method chaining in Java with examples.<br>
+
+Method chaining is a technique in object-oriented programming to invoke multiple methods using a single object. Here, each method returns an object, and we can call methods in a single statement using the dot(.) operator. The advantage of method chaining is that it improves the readability and less code required.</p>
+</div>
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class holders
+{
+    long haccno;
+    String hname,hcity;
+    public holders account_no(long haccno)
+    {
+        this.haccno=haccno;
+        return this;
+    }
+    public holders name(String hname)
+    {
+        this.hname=hname;
+        return this;
+    }
+    public holders city(String hcity)
+    {
+        this.hcity=hcity;
+        return this;
+    }
+    public void showrecords()
+    {
+        System.out.println(haccno+" | "+hname+" | "+hcity);
+    }
+}
+class GD
+{
+    public static void main(String[] args) 
+    {
+        holders insert=new holders();
+        insert.account_no(25622348989L).name("James Moore").city("Phoenix").showrecords();
+        insert.account_no(25622348992L).name("Ryan Bakshi").city("Mumbai").showrecords();
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+25622348989 | James Moore | Phoenix
+25622348992 | Ryan Bakshi | Mumbai
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Implementation without method chaining</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class holders
+{
+    long haccno;
+    String hname,hcity;
+    public void account_no(long haccno)
+    {
+        this.haccno=haccno;
+    }
+    public void name(String hname)
+    {
+        this.hname=hname;
+    }
+    public void city(String hcity)
+    {
+        this.hcity=hcity;
+    }
+    public void showrecords()
+    {
+        System.out.println(haccno+" | "+hname+" | "+hcity);
+    }
+}
+class GD
+{
+    public static void main(String[] args) 
+    {
+        holders insert=new holders();
+        insert.account_no(25622348989L);
+        insert.name("James Moore");
+        insert.city("Phoenix");
+        insert.showrecords();
+        
+        insert.account_no(25622348992L);
+        insert.name("Ryan Bakshi");
+        insert.city("Mumbai");
+        insert.showrecords();
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+25622348989 | James Moore | Phoenix
+25622348992 | Ryan Bakshi | Mumbai
+godarda@gd:~$ 
+</pre></span>

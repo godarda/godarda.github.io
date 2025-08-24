@@ -1,0 +1,32 @@
+---
+permalink: asm/64-bit/gdatnak
+title: ALP to print Hello World without using macro (64-bit)
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.asmfile }}</div>
+<pre class="code">{%- highlight nasm -%}
+section .data
+msg db "Hello, World!",10
+msg_len equ $-msg
+
+section .text
+global _start
+_start:
+    mov rax,1
+    mov rdi,1
+    mov rsi,msg
+    mov rdx,msg_len
+    syscall
+
+;Exit System Call
+    mov rax,60
+    mov rbx,00
+    syscall
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runasm }}
+Hello, World!
+godarda@gd:~$ 
+</pre></span>

@@ -1,0 +1,102 @@
+---
+permalink: cpp/functions/gdxybzk
+title: C++ program to demonstrate the use of math library functions
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+#include <cmath>
+using namespace std;
+int main()
+{
+    cout<<"———————————————————————————————————————————";
+    cout<<"\nProgram to use the math library functions";
+    cout<<"\n———————————————————————————————————————————";
+    cout<<"\nfabs (3.9)    | "<<fabs(3.9);
+    cout<<"\nceil (3.9)    | "<<ceil(3.9);
+    cout<<"\nfloor(3.9)    | "<<floor(3.9);
+    cout<<"\ne^0           | "<<exp(0);
+    cout<<"\npow(0,0)      | "<<pow(0, 0);
+    cout<<"\nlog(2)Natural | "<<log(2);
+    cout<<"\nlog10(2)      | "<<log10(2);
+    cout<<"\nsqrt(20)      | "<<sqrt(20);
+    cout<<"\nsin(90)radian | "<<sin(90);
+    cout<<"\ncos(90)       | "<<cos(90);
+    cout<<"\ntan(90)       | "<<tan(90);
+    cout<<"\n———————————————————————————————————————————\n";
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+———————————————————————————————————————————
+Program to use the math library functions
+———————————————————————————————————————————
+fabs (3.9)    | 3.9
+ceil (3.9)    | 4
+floor(3.9)    | 3
+e^0           | 1
+pow(0,0)      | 1
+log(2)Natural | 0.693147
+log10(2)      | 0.30103
+sqrt(20)      | 4.47214
+sin(90)radian | 0.893997
+cos(90)       | -0.448074
+tan(90)       | -1.9952
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">C++ program to demonstrate the use of math constants</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+#include <cmath>
+using namespace std;
+int main()
+{
+    cout<<"———————————————————————————————————————————";
+    cout<<"\nProgram to use the math library functions";
+    cout<<"\n———————————————————————————————————————————";
+    cout<<"\nValue of PI         | "<<M_PI;
+    cout<<"\nValue of PI/2       | "<<M_PI_2;
+    cout<<"\nValue of PI/4       | "<<M_PI_4;
+    cout<<"\nValue of 1/PI       | "<<M_1_PI;
+    cout<<"\nValue of 2/PI       | "<<M_2_PI;
+    cout<<"\nValue of log2e      | "<<M_LOG2E;
+    cout<<"\nValue of log10e     | "<<M_LOG10E;
+    cout<<"\nValue of Nlog2      | "<<M_LN2;
+    cout<<"\nValue of Nlog10     | "<<M_LN10;
+    cout<<"\nValue of sqrt(1/2)  | "<<M_SQRT2;
+    cout<<"\nValue of 1/sqrt(2)  | "<<M_SQRT1_2;
+    cout<<"\nValue of 2/sqrt(PI) | "<<M_2_SQRTPI;
+    cout<<"\nPositive Infinity   | "<<HUGE_VAL;
+    cout<<"\n———————————————————————————————————————————\n";
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+———————————————————————————————————————————
+Program to use the math library functions
+———————————————————————————————————————————
+Value of PI         | 3.14159
+Value of PI/2       | 1.5708
+Value of PI/4       | 0.785398
+Value of 1/PI       | 0.31831
+Value of 2/PI       | 0.63662
+Value of log2e      | 1.4427
+Value of log10e     | 0.434294
+Value of Nlog2      | 0.693147
+Value of Nlog10     | 2.30259
+Value of sqrt(1/2)  | 1.41421
+Value of 1/sqrt(2)  | 0.707107
+Value of 2/sqrt(PI) | 1.12838
+Positive Infinity   | inf
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

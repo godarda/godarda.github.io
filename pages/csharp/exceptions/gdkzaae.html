@@ -1,0 +1,29 @@
+---
+permalink: csharp/exceptions/gdkzaae
+title: C# program to demonstrate the use of finally blocks
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+string s = null;
+try
+{
+    Console.WriteLine("Length: " + s.Length);
+}
+catch (Exception e)
+{
+    Console.WriteLine("Exception caught");
+}
+finally
+{
+    Console.WriteLine("Finally block is always get executed");
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Exception caught
+Finally block is always get executed
+godarda@gd:~/csharp$ 
+</pre></span>

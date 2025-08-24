@@ -1,0 +1,56 @@
+---
+permalink: python/arrays/gddrehr
+title: Python indexing and slicing on an array
+---
+
+<div class="terminalcard">{{ page.title }}</div>
+<span><pre>
+godarda@gd:~$ <mark>python3</mark>
+...
+>>> <mark>from array import *</mark>
+>>> <mark>arr = array("i", [40, 96, 24, 55, 78, -111])</mark>
+>>> <mark>arr</mark>
+array('i', [40, 96, 24, 55, 78, -111])
+
+>>> <mark>for i in range(len(arr)):</mark>
+...     <mark>print(arr[i])</mark>
+... 
+40
+96
+24
+55
+78
+-111
+
+>>> <mark>arr[3:]</mark>
+array('i', [55, 78, -111])
+
+>>> <mark>arr[-3:]</mark>
+array('i', [55, 78, -111])
+
+>>> <mark>arr[:3]</mark>
+array('i', [40, 96, 24])
+
+>>> <mark>arr[:]</mark>
+array('i', [40, 96, 24, 55, 78, -111])
+<hr>>>> <mark>arr[0:6:1]</mark>
+array('i', [40, 96, 24, 55, 78, -111])
+
+>>> <mark>arr[0:6:2]</mark>
+array('i', [40, 24, 78])
+
+>>> <mark>arr[0:6:3]</mark>
+array('i', [40, 55])
+
+>>> <mark>arr[::1]</mark>
+array('i', [40, 96, 24, 55, 78, -111])
+
+>>> <mark>arr[::2]</mark>
+array('i', [40, 24, 78])
+
+>>> <mark>arr[::3]</mark>
+array('i', [40, 55])
+
+>>> <mark>arr[::-1]</mark>
+array('i', [-111, 78, 55, 24, 96, 40])
+</pre></span>

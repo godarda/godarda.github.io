@@ -1,0 +1,68 @@
+---
+permalink: python/strings/gdkgyxy
+title: Python Strings Comparison
+---
+
+<div class="terminalcard">{{ page.title }}</div>
+<span><pre>
+godarda@gd:~$ <mark>python3</mark>
+...
+>>> <mark>s1="Koding"</mark>
+>>> <mark>s2="window"</mark>
+>>> <mark>s3=s1+s2</mark>
+>>> <mark>s3</mark>
+'GoDarda'
+
+>>> <mark>s1==s2</mark>
+False
+
+>>> <mark>s1!=s2</mark>
+True
+
+>>> <mark>s1>s2</mark>
+False
+
+>>> <mark>s1&lt;s2</mark>
+True
+
+>>> <mark>s3>=s3</mark>
+True
+
+>>> <mark>s3<=s3</mark>
+True
+
+>>> <mark>s3==s3</mark>
+True
+
+>>> <mark>s3!=s3</mark>
+False
+
+>>> <mark>s3 is s3</mark>
+True
+
+>>> <mark>s3 is not s3</mark>
+False
+</pre></span>
+
+<div class="terminalcard">Strings are immutable (one can't alter the contents of the object)</div>
+<span><pre>
+>>> <mark>s1="Koding"</mark>
+>>> <mark>s2="window"</mark>
+>>> <mark>id(s1)</mark>
+140269279579312
+
+>>> <mark>id(s2)</mark>
+140269256679152
+
+>>> <mark>s1=s2</mark>
+>>> <mark>id(s1)</mark>
+140269256679152
+
+>>> <mark>id(s2)</mark>
+140269256679152
+
+>>> <mark>s2[0]="W"</mark>
+<error>Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+TypeError: 'str' object does not support item assignment</error>
+</pre></span>

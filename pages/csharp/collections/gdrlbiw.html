@@ -1,0 +1,166 @@
+---
+permalink: csharp/collections/gdrlbiw
+title: Implementation of C# List class
+---
+
+<div class="codecard">{{ page.title }}: Add() and Insert() methods</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+using System.Collections.Generic;
+
+List<string> li = new List<string>();
+li.Add("Apple");
+li.Add("Orange");
+li.Add("Mango");
+li.Add("Grapes");
+li.Add("Cherry");
+li.Add("Apple");
+
+li.Insert(0, "Pineapple");
+
+for (int i = 0; i < li.Count; i++)
+{
+    Console.Write(li[i] + " ");
+}
+Console.WriteLine("\nSize: " + li.Count);
+Console.WriteLine("Capacity: " + li.Capacity);
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Pineapple Apple Orange Mango Grapes Cherry Apple 
+Size: 7
+Capacity: 8
+godarda@gd:~/csharp$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }}: Sort() and Reverse() methods</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+using System.Collections.Generic;
+
+List<string> li = new List<string>();
+li.Add("Apple");
+li.Add("Orange");
+li.Add("Mango");
+li.Add("Grapes");
+li.Add("Cherry");
+li.Add("Apple");
+
+li.Sort();
+for (int i = 0; i < li.Count; i++)
+{
+    Console.Write(li[i] + " ");
+}
+
+Console.WriteLine();
+li.Reverse();
+for (int i = 0; i < li.Count; i++)
+{
+    Console.Write(li[i] + " ");
+}
+
+Console.WriteLine();
+li.Reverse(2, 4); //li.Reverse(int index, int count)
+for (int i = 0; i < li.Count; i++)
+{
+    Console.Write(li[i] + " ");
+}
+Console.WriteLine();
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Apple Apple Cherry Grapes Mango Orange 
+Orange Mango Grapes Cherry Apple Apple 
+Orange Mango Apple Apple Cherry Grapes 
+godarda@gd:~/csharp$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }}: Remove(), RemoveAt(), and Clear() methods</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+using System.Collections.Generic;
+
+List<string> li = new List<string>();
+li.Add("Apple");
+li.Add("Orange");
+li.Add("Mango");
+li.Add("Grapes");
+li.Add("Cherry");
+li.Add("Apple");
+
+li.Remove("Apple");
+li.RemoveAt(0);
+for (int i = 0; i < li.Count; i++)
+{
+    Console.Write(li[i] + " ");
+}
+
+li.Clear();
+if (li.Count == 0)
+{
+    Console.WriteLine("\nList is empty now");
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Mango Grapes Cherry Apple 
+List is empty now
+godarda@gd:~/csharp$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }}: IndexOf() and LastIndexOf() methods</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+using System.Collections.Generic;
+
+List<string> li = new List<string>();
+li.Add("Apple");
+li.Add("Orange");
+li.Add("Mango");
+li.Add("Grapes");
+li.Add("Cherry");
+li.Add("Apple");
+li.Add("Apple");
+
+Console.WriteLine("First match at: " + li.IndexOf("Apple"));
+Console.WriteLine("Last match at: " + li.LastIndexOf("Apple"));
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+First match at: 0
+Last match at: 6
+godarda@gd:~/csharp$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }}: IndexOf() and LastIndexOf() methods</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+using System.Collections.Generic;
+
+List<string> li1 = new List<string>();
+li1.Add("Apple");
+li1.Add("Orange");
+li1.Add("Mango");
+
+List<string> li2 = new List<string>();
+li2.Add("Grapes");
+li2.Add("Cherry");
+li2.Add("Apple");
+
+li1.AddRange(li2);
+for (int i = 0; i < li1.Count; i++)
+{
+    Console.Write(li1[i] + " ");
+}
+Console.WriteLine();
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Apple Orange Mango Grapes Cherry Apple 
+godarda@gd:~/csharp$ 
+</pre></span>

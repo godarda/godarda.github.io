@@ -1,0 +1,180 @@
+---
+permalink: linux/commands/gdasgke
+title: Linux commands to display the lists of files and directories
+---
+
+<div class="titlecard">{{ page.title }}</div>
+<div class="terminalcard">ls command with options</div>
+<span><pre>
+godarda@gd:~$ <mark>ls</mark>
+a.out  GD.class  GD.java  Desktop    Downloads	Pictures  Templates  Weekdays
+gd.c   gd.csv	 gd.py	  Documents  Music	Public	  Videos
+
+godarda@gd:~$ <mark>ls -a</mark>
+.	       gd.csv	  .mozilla	    .ssh
+..	       GD.java	  Music		    .sudo_as_admin_successful
+a.out	       gd.py	  Pictures	    Templates
+.bash_history  Desktop	  .pki		    .theano
+.bundle        Documents  Public	    Videos
+.cache	       Downloads  .python_history   Weekdays
+.config        .gnupg	  .r
+gd.c	       .keras	  .Rhistory
+GD.class       .local	  .rstudio-desktop
+
+godarda@gd:~$ <mark>ls -A</mark>
+a.out	       gd.csv	  .keras    .python_history	       .theano
+.bash_history  GD.java	  .local    .r			       Videos
+.bundle        gd.py	  .mozilla  .Rhistory		       Weekdays
+.cache	       Desktop	  Music     .rstudio-desktop
+.config        Documents  Pictures  .ssh
+gd.c	       Downloads  .pki	    .sudo_as_admin_successful
+GD.class       .gnupg	  Public    Templates
+
+godarda@gd:~$ <mark>ls -1</mark>
+a.out
+gd.c
+GD.class
+gd.csv
+GD.java
+gd.py
+Desktop
+Documents
+Downloads
+Music
+Pictures
+Public
+Templates
+Videos
+Weekdays
+godarda@gd:~$ 
+</pre></span>
+
+<div class="terminalcard">Display the permissions of files/directories</div>
+<span><pre>
+godarda@gd:~$ <mark>ls -l</mark>
+total 72
+-rwxr-xr-x 1 godarda godarda 13968 May 16  2019 a.out
+-rw-r--r-- 1 godarda godarda    90 Jun 13 11:17 gd.c
+-rw-rw-r-- 1 godarda godarda   411 Aug 28 14:42 GD.class
+-rw-rw-r-- 1 godarda godarda   404 Jul 19 11:48 gd.csv
+-rw-r--r-- 1 godarda godarda   179 Feb 24  2020 GD.java
+-rw-r--r-- 1 godarda godarda  1608 Aug 15 12:16 gd.py
+drwxr-xr-x 2 godarda godarda  4096 Apr  2  2019 Desktop
+drwxr-xr-x 2 godarda godarda  4096 Aug 28 17:08 Documents
+drwxr-xr-x 3 godarda godarda  4096 Jun 27 23:05 Downloads
+drwxr-xr-x 2 godarda godarda  4096 Jun  6 09:06 Music
+drwxr-xr-x 3 godarda godarda  4096 Aug 14 15:14 Pictures
+drwxr-xr-x 2 godarda godarda  4096 Apr  2  2019 Public
+drwxr-xr-x 2 godarda godarda  4096 Apr  2  2019 Templates
+drwxr-xr-x 2 godarda godarda  4096 Jun  4 20:38 Videos
+-rw-rw-r-- 1 godarda godarda    84 May 31 11:23 Weekdays
+</pre></span>
+
+<div class="terminalcard">Display the inode (index number) of files/directories</div>
+<span><pre>
+godarda@gd:~$ <mark>ls -li</mark>
+total 72
+3408466 -rwxr-xr-x 1 godarda godarda 13968 May 16  2019 a.out
+3408372 -rw-r--r-- 1 godarda godarda    90 Jun 13 11:17 gd.c
+3411453 -rw-rw-r-- 1 godarda godarda   411 Aug 28 14:42 GD.class
+3412502 -rw-rw-r-- 1 godarda godarda   404 Jul 19 11:48 gd.csv
+3413037 -rw-r--r-- 1 godarda godarda   179 Feb 24  2020 GD.java
+3419358 -rw-r--r-- 1 godarda godarda  1608 Aug 15 12:16 gd.py
+3407940 drwxr-xr-x 2 godarda godarda  4096 Apr  2  2019 Desktop
+3407944 drwxr-xr-x 2 godarda godarda  4096 Aug 28 17:08 Documents
+3407941 drwxr-xr-x 3 godarda godarda  4096 Jun 27 23:05 Downloads
+3407945 drwxr-xr-x 2 godarda godarda  4096 Jun  6 09:06 Music
+3407946 drwxr-xr-x 3 godarda godarda  4096 Aug 14 15:14 Pictures
+3407943 drwxr-xr-x 2 godarda godarda  4096 Apr  2  2019 Public
+3407942 drwxr-xr-x 2 godarda godarda  4096 Apr  2  2019 Templates
+3407947 drwxr-xr-x 2 godarda godarda  4096 Jun  4 20:38 Videos
+3408355 -rw-rw-r-- 1 godarda godarda    84 May 31 11:23 Weekdays
+
+godarda@gd:~$ <mark>ls -i</mark>
+3408466 a.out	  3413037 GD.java    3407941 Downloads	3407942 Templates
+3408372 gd.c	  3419358 gd.py      3407945 Music	3407947 Videos
+3411453 GD.class  3407940 Desktop    3407946 Pictures	3408355 Weekdays
+3412502 gd.csv	  3407944 Documents  3407943 Public
+</pre></span>
+
+<div class="terminalcard">Explore the ls command with man page(s)</div>
+<span><pre>
+godarda@gd:~$ <mark>man ls</mark>
+
+LS(1)                            User Commands                           LS(1)
+
+NAME
+       ls - list directory contents
+
+SYNOPSIS
+       ls [OPTION]... [FILE]...
+
+DESCRIPTION
+       List  information  about  the FILEs (the current directory by default).
+       Sort entries alphabetically if none of -cftuvSUX nor --sort  is  speci‐
+       fied.
+
+       Mandatory  arguments  to  long  options are mandatory for short options
+       too.
+
+       -a, --all
+              do not ignore entries starting with .
+
+       -A, --almost-all
+              do not list implied . and ..
+
+       --author
+              with -l, print the author of each file
+
+       -b, --escape
+              print C-style escapes for nongraphic characters
+
+       --block-size=SIZE
+              with  -l,  scale  sizes  by  SIZE  when  printing  them;   e.g.,
+              '--block-size=M'; see SIZE format below
+
+       -B, --ignore-backups
+              do not list implied entries ending with ~
+...
+</pre></span>
+
+<div class="terminalcard">Explore the ls command with info page(s)</div>
+<span><pre>
+godarda@gd:~$ <mark>info ls</mark>
+
+Next: dir invocation,  Up: Directory listing
+
+10.1 ‘ls’: List directory contents
+==================================
+
+The ‘ls’ program lists information about files (of any type, including
+directories).  Options and file arguments can be intermixed arbitrarily,
+as usual.
+
+   For non-option command-line arguments that are directories, by
+default ‘ls’ lists the contents of directories, not recursively, and
+omitting files with names beginning with ‘.’.  For other non-option
+arguments, by default ‘ls’ lists just the file name.  If no non-option
+argument is specified, ‘ls’ operates on the current directory, acting as
+if it had been invoked with a single argument of ‘.’.
+...
+</pre></span>
+
+<div class="terminalcard">Explore the ls command with help option(s)</div>
+<span><pre>
+godarda@gd:~$ <mark>ls --help</mark>
+Usage: ls [OPTION]... [FILE]...
+List information about the FILEs (the current directory by default).
+Sort entries alphabetically if none of -cftuvSUX nor --sort is specified.
+
+Mandatory arguments to long options are mandatory for short options too.
+  -a, --all                  do not ignore entries starting with .
+  -A, --almost-all           do not list implied . and ..
+      --author               with -l, print the author of each file
+  -b, --escape               print C-style escapes for nongraphic characters
+      --block-size=SIZE      with -l, scale sizes by SIZE when printing them;
+                               e.g., '--block-size=M'; see SIZE format below
+  -B, --ignore-backups       do not list implied entries ending with ~
+
+...
+</pre></span>

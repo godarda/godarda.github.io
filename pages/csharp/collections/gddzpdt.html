@@ -1,0 +1,66 @@
+---
+permalink: csharp/collections/gddzpdt
+title: Implementation of C# SortedSet class
+---
+
+<div class="codecard">{{ page.title }}: Add() method</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+using System.Collections.Generic;
+
+SortedSet<string> ss = new SortedSet<string>();
+ss.Add("Cherry");
+ss.Add("Apple");
+ss.Add("Orange");
+ss.Add("Mango");
+ss.Add("Grapes");
+ss.Add("Cherry");
+ss.Add("Apple");
+ss.Add("Pineapple");
+ss.Add("Cherry");
+
+foreach (string s in ss)
+{
+    Console.Write(s + " ");
+}
+Console.WriteLine("\nSize: " + ss.Count);
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Apple Cherry Grapes Mango Orange Pineapple 
+Size: 6
+godarda@gd:~/csharp$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }}: Remove() and Clear() methods</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+using System.Collections.Generic;
+
+SortedSet<string> ss = new SortedSet<string>();
+ss.Add("Cherry");
+ss.Add("Apple");
+ss.Add("Orange");
+ss.Add("Mango");
+ss.Add("Grapes");
+ss.Add("Cherry");
+ss.Add("Apple");
+ss.Add("Pineapple");
+ss.Add("Cherry");
+
+ss.Remove("Apple");
+foreach (string s in ss)
+{
+    Console.Write(s + " ");
+}
+ss.Clear();
+Console.WriteLine("\nSize: " + ss.Count);
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Cherry Grapes Mango Orange Pineapple 
+Size: 0
+godarda@gd:~/csharp$ 
+</pre></span>

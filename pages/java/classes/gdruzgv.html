@@ -1,0 +1,76 @@
+---
+permalink: java/classes/gdruzgv
+title: Java program to demonstrate the use of Math class methods
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.lang.Math;
+import java.util.Scanner;
+class GD 
+{
+    public static void main(String args[])
+    {
+        double degree;
+        Scanner sc=new Scanner(System.in);
+        System.out.print("Enter the angle of function ");
+        degree=sc.nextDouble();
+        double radians=Math.toRadians(degree);
+        System.out.println("———————————————————————————————————————————");
+        System.out.println("Java implementation of Math class methods");
+        System.out.println("———————————————————————————————————————————");
+        System.out.format("Value of sin(%.1f) | %.2f\n",degree,Math.sin(radians));
+        System.out.format("Value of cos(%.1f) | %.2f\n",degree,Math.cos(radians));
+        System.out.format("Value of atan(90)  | %.2f\n",Math.atan(90));
+        System.out.format("Value of log(2)    | %.2f\n",Math.log(2));
+        System.out.format("Value of abs(0.9)  | %.2f\n",Math.abs(0.9));
+        System.out.println("Value of asin(90)  | "+(Math.asin(90)));
+        System.out.println("Value of acos(90)  | "+(Math.acos(90)));
+        System.out.println("Value of 2^(20)    | "+(Math.pow(2,20)));
+        System.out.println("Value of e^(0)     | "+(Math.exp(0)));
+        System.out.println("Value of floor(0.9)| "+(Math.floor(0.9)));
+        System.out.println("Value of ceil(0.9) | "+(Math.ceil(0.9)));
+        System.out.println("Value of rint(0.9) | "+(Math.rint(0.9)));
+        System.out.println("Value of round(0.9)| "+(Math.round(0.9)));
+        System.out.println("Value of max(0,1)  | "+(Math.max(0,1)));
+        System.out.println("Value of min(0,1)  | "+(Math.min(0,1)));
+        System.out.println("Square Root of 25  | "+(Math.sqrt(25)));
+        System.out.println("Value ceil(7.999)  | "+(Math.ceil(7.999)));
+        System.out.println("Value floor(7.99)  | "+(Math.floor(7.99)));
+        System.out.printf ("Value of e Is      | %.2f\n",Math.E);
+        System.out.format ("Value of PI Is     | %.2f\n",Math.PI);
+        System.out.println("———————————————————————————————————————————");
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Enter the angle of function 90
+———————————————————————————————————————————
+Java implementation of Math class methods
+———————————————————————————————————————————
+Value of sin(90.0) | 1.00
+Value of cos(90.0) | 0.00
+Value of atan(90)  | 1.56
+Value of log(2)    | 0.69
+Value of abs(0.9)  | 0.90
+Value of asin(90)  | NaN
+Value of acos(90)  | NaN
+Value of 2^(20)    | 1048576.0
+Value of e^(0)     | 1.0
+Value of floor(0.9)| 0.0
+Value of ceil(0.9) | 1.0
+Value of rint(0.9) | 1.0
+Value of round(0.9)| 1
+Value of max(0,1)  | 1
+Value of min(0,1)  | 0
+Square Root of 25  | 5.0
+Value ceil(7.999)  | 8.0
+Value floor(7.99)  | 7.0
+Value of e Is      | 2.72
+Value of PI Is     | 3.14
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

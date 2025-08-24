@@ -1,0 +1,103 @@
+---
+permalink: python/arrays/gdeazqm
+title: Python NumPy Multi-dimensional Arrays
+---
+
+<div class="terminalcard">{{ page.title }}</div>
+<span><pre>
+>>> <mark>from numpy import *</mark>
+>>> <mark>arr = arange(1, 25, 2)</mark>
+>>> <mark>arr</mark>
+array([ 1,  3,  5,  7,  9, 11, 13, 15, 17, 19, 21, 23])
+
+>>> <mark>arr.reshape(3, 3)</mark>
+<error>Traceback (most recent call last):
+  File "&lt;stdin>", line 1, in &lt;module>
+ValueError: cannot reshape array of size 12 into shape (3,3)</error>
+
+>>> <mark>arr.reshape(3, 4)</mark>
+array([[ 1,  3,  5,  7],
+       [ 9, 11, 13, 15],
+       [17, 19, 21, 23]])
+
+>>> <mark>reshape(arr, (4, 3))</mark>
+array([[ 1,  3,  5],
+       [ 7,  9, 11],
+       [13, 15, 17],
+       [19, 21, 23]])
+       
+>>> <mark>arr = arr.reshape(4, 3)</mark>
+>>> <mark>arr</mark>
+array([[ 1,  3,  5],
+       [ 7,  9, 11],
+       [13, 15, 17],
+       [19, 21, 23]])
+
+>>> <mark>arr[1]</mark>
+array([ 7,  9, 11])
+
+>>> <mark>arr[1, 1]</mark>
+9
+
+>>> <mark>arr.ndim</mark>
+2
+
+>>> <mark>shape(arr)</mark>
+(4, 3)
+
+>>> <mark>shape(arr)[0]</mark>
+4
+
+>>> <mark>shape(arr)[1]</mark>
+3
+<hr>>>> <mark>arr</mark>
+array([[ 1,  3,  5],
+       [ 7,  9, 11],
+       [13, 15, 17],
+       [19, 21, 23]])
+
+>>> <mark>arr[0,:]</mark>
+array([1, 3, 5])
+
+>>> <mark>arr[:,0]</mark>
+array([ 1,  7, 13, 19])
+
+>>> <mark>arr[0:3]</mark>
+array([[ 1,  3,  5],
+       [ 7,  9, 11],
+       [13, 15, 17]])
+
+>>> <mark>arr[1:4]</mark>
+array([[ 7,  9, 11],
+       [13, 15, 17],
+       [19, 21, 23]])
+
+>>> <mark>arr[::-1]</mark>
+array([[19, 21, 23],
+       [13, 15, 17],
+       [ 7,  9, 11],
+       [ 1,  3,  5]])
+       
+>>> <mark>arr = arr.flatten()</mark>
+>>> <mark>arr</mark>
+array([ 1,  3,  5,  7,  9, 11, 13, 15, 17, 19, 21, 23])
+
+>>> <mark>arr.ndim</mark>
+1
+<hr>>>> <mark>zeros((4, 3), int)</mark>
+array([[0, 0, 0],
+       [0, 0, 0],
+       [0, 0, 0],
+       [0, 0, 0]])
+
+>>> <mark>ones((4, 3), int)</mark>
+array([[1, 1, 1],
+       [1, 1, 1],
+       [1, 1, 1],
+       [1, 1, 1]])
+
+>>> <mark>eye(3)</mark>
+array([[1., 0., 0.],
+       [0., 1., 0.],
+       [0., 0., 1.]])
+</pre></span>

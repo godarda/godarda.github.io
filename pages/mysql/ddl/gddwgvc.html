@@ -1,0 +1,80 @@
+---
+permalink: mysql/ddl/gddwgvc
+title: MySQL CREATE a DATABASE and TABLE
+---
+
+<div class="titlecard">{{ page.title }}</div>
+<div class="terminalcard">Showing existing databases</div>
+<div class="infocard">The SHOW DATABASES statement used to retrieve the existing databases. This statement returns the databases that are currently in the MySQL server, and the results are useful to avoid the conflicts while creating a new database.</div>
+<span><pre>
+mysql> <mark>SHOW DATABASES;</mark>
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">Creating and using a databasse</div>
+<div class="infocard">The CREATE DATABASE statement used to create a database where all the tables maintained in the DATABASE directory. The USE statement notifies MySQL to use the mentioned database for subsequent database and table operations.</div>
+<span><pre>
+mysql> <mark>CREATE DATABASE DB;</mark>
+Query OK, 1 row affected (0.11 sec)
+
+mysql> <mark>SHOW DATABASES;</mark>
++--------------------+
+| Database           |
++--------------------+
+| DB                 |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> <mark>USE DB;</mark>
+Database changed
+</pre></span>
+
+<div class="terminalcard">Creating Table</div>
+<div class="infocard">The CREATE TABLE statement used to create a table, and the DESCRIBE statement used to obtain information about the table structure. Please consult the following syntax to create a database and table.</div>
+<span><pre>
+mysql> <mark>CREATE TABLE holders(
+    -> account_no BIGINT PRIMARY KEY,
+    -> name VARCHAR(30) NOT NULL,
+    -> city VARCHAR(20),
+    -> dob DATE,
+    -> bank VARCHAR(15),
+    -> amount BIGINT NOT NULL);</mark>
+Query OK, 0 rows affected (0.52 sec)
+</pre></span>
+
+<div class="terminalcard">Show and describe a table</div>
+<span><pre>
+mysql> <mark>SHOW TABLES;</mark>
++--------------+
+| Tables_in_DB |
++--------------+
+| holders      |
++--------------+
+1 row in set (0.01 sec)
+
+mysql> <mark>DESCRIBE holders;</mark>
+mysql> <mark>DESC holders;</mark>
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| account_no | bigint(20)  | NO   | PRI | NULL    |       |
+| name       | varchar(30) | NO   |     | NULL    |       |
+| city       | varchar(20) | YES  |     | NULL    |       |
+| dob        | date        | YES  |     | NULL    |       |
+| bank       | varchar(10) | YES  |     | NULL    |       |
+| amount     | bigint(20)  | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+</pre></span>

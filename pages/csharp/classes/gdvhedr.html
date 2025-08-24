@@ -1,0 +1,52 @@
+---
+permalink: csharp/classes/gdvhedr
+title: C# program to demonstrate the use of constructor
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+Console.WriteLine("———————————————————————————————————————————");
+Console.WriteLine("Program to use a constructor");
+Console.WriteLine("———————————————————————————————————————————");
+Computer c1 = new Computer();
+Computer c2 = new Computer("Wireless", "Lenovo", 145221);
+c2.display();
+GC.Collect();
+Console.WriteLine("———————————————————————————————————————————");
+
+public class Computer
+{
+    public String mouseType = "";
+    public String mouseCmp = "";
+    public int mouseId;
+
+    public Computer()
+    {
+        Console.WriteLine("Constructor");
+    }
+    public Computer(String t, String c, int i)
+    {
+        mouseType = t;
+        mouseCmp = c;
+        mouseId = i;
+    }
+    public void display()
+    {
+        Console.WriteLine("Mouse Type: " + mouseType + "\nMouse Cmp:  " + mouseCmp + "\nMouse Id:   " + mouseId);
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+———————————————————————————————————————————
+Program to use a constructor
+———————————————————————————————————————————
+Constructor
+Mouse Type: Wireless
+Mouse Cmp:  Lenovo
+Mouse Id:   145221
+———————————————————————————————————————————
+godarda@gd:~/csharp$ 
+</pre></span>

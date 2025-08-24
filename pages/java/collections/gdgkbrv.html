@@ -1,0 +1,80 @@
+---
+permalink: java/collections/gdgkbrv
+title: Implementation of Java PriorityQueue class
+---
+
+<div class="codecard">Java PriorityQueue: add() and size() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.PriorityQueue;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //PriorityQueue class implements the Queue interface
+        PriorityQueue<String> pq=new PriorityQueue<>();
+        pq.add("Apple");
+        pq.add("Orange");
+        pq.add("Mango");
+        pq.add("Grapes");
+        pq.add("Cherry");
+        pq.add("Apple");
+        pq.add("Blueberry");
+        System.out.println(pq);
+        System.out.println("Size: "+pq.size());
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[Apple, Cherry, Apple, Orange, Grapes, Mango, Blueberry]
+Size: 7
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java PriorityQueue: peek() and poll() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.PriorityQueue;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //PriorityQueue class implements the Queue interface
+        PriorityQueue<String> pq=new PriorityQueue<>();
+        pq.add("Apple");
+        pq.add("Orange");
+        pq.add("Mango");
+        pq.add("Grapes");
+        pq.add("Cherry");
+        pq.add("Apple");
+        pq.add("Blueberry");
+        System.out.println(pq);
+        System.out.println("Head element: "+pq.element());
+        
+        pq.poll();
+        System.out.println("\n"+pq);
+        System.out.println("Peek element: "+pq.peek());
+        
+        pq.remove();
+        System.out.println("\n"+pq);
+        System.out.println("Peek element: "+pq.peek());
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[Apple, Cherry, Apple, Orange, Grapes, Mango, Blueberry]
+Head element: Apple
+
+[Apple, Cherry, Blueberry, Orange, Grapes, Mango]
+Peek element: Apple
+
+[Blueberry, Cherry, Mango, Orange, Grapes]
+Peek element: Blueberry
+godarda@gd:~$ 
+</pre></span>

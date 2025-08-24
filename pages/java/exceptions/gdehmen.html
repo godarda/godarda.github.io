@@ -1,0 +1,56 @@
+---
+permalink: java/exceptions/gdehmen
+title: Java program to handle divide by zero exception
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.io.*;
+class GD
+{
+    public static void main(String args[]) 
+    {
+        System.out.println("———————————————————————————————————————————");
+        System.out.println("Program for exceptional handling");
+        System.out.println("———————————————————————————————————————————");
+        try
+        {
+            BufferedReader r=new BufferedReader(new InputStreamReader(System.in));
+            System.out.print("Enter numerator ");
+            int n=Integer.parseInt(r.readLine());
+            
+            System.out.print("Enter denominator ");
+            int d=Integer.parseInt(r.readLine());
+            
+            System.out.println("Division "+(n/d));
+        }
+        catch(Exception e)
+        {
+            System.out.println("Please enter valid input");
+        }
+        System.out.println("———————————————————————————————————————————");
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+———————————————————————————————————————————
+Program for exceptional handling
+———————————————————————————————————————————
+Enter numerator 515
+Enter denominator 0
+Please enter valid input
+———————————————————————————————————————————
+
+godarda@gd:~$ <mark>java GD</mark>
+———————————————————————————————————————————
+Program for exceptional handling
+———————————————————————————————————————————
+Enter numerator 515
+Enter denominator 5
+Division 103
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

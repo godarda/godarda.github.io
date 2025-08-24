@@ -1,0 +1,58 @@
+---
+permalink: csharp/exceptions/gdwxaed
+title: C# program to handle the TimeZoneNotFoundException
+---
+
+<div class="codecard">C# TimeZoneNotFoundException</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+var tz = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.Local, TimeZoneInfo.FindSystemTimeZoneById("IndiaIndia Standard Time"));
+Console.WriteLine(tz);
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+<error>Unhandled exception. System.TimeZoneNotFoundException: The time zone ID 'IndiaIndia Standard Time' was not found on the local computer.
+    ---> System.TimeZoneNotFoundException: The time zone ID 'IndiaIndia Standard Time' is invalid.
+      --- End of inner exception stack trace ---
+      at System.TimeZoneInfo.FindSystemTimeZoneById(String id)
+      at Program.&lt;Main>$(String[] args) in /home/godarda/csharp/Program.cs:line 1</error>
+godarda@gd:~/csharp$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+try
+{
+    var ctz = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.Local, TimeZoneInfo.FindSystemTimeZoneById("IndiaIndia Standard Time"));
+    Console.WriteLine(ctz);
+}
+catch(TimeZoneNotFoundException e)
+{
+    Console.WriteLine(e.Message);
+    
+    Console.WriteLine("\nList of correct time zone IDs");
+    var tz = TimeZoneInfo.GetSystemTimeZones(); 
+    foreach(TimeZoneInfo tzi in tz)
+    {
+        Console.WriteLine(tzi.Id);
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+The time zone ID 'IndiaIndia Standard Time' was not found on the local computer.
+
+List of correct time zone IDs
+Dateline Standard Time
+Hawaiian Standard Time
+Marquesas Standard Time
+Alaskan Standard Time
+...
+Pacific/Fakaofo
+Pacific/Tongatapu
+Pacific/Kiritimati
+godarda@gd:~/csharp$ 
+</pre></span>

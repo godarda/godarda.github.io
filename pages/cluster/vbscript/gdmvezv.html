@@ -1,0 +1,23 @@
+---
+permalink: cluster/vbscript/gdmvezv
+title: VBScript to format the text in a Word document
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">File: cw.vbs</div>
+<pre class="editorcard">
+{%- highlight vb -%}
+Set word = CreateObject("Word.Application")
+word.Application.Visible = true
+Set doc = word.Documents.Add()
+
+Set wordSelection = word.Selection
+wordSelection.Font.Name = "Arial"
+wordSelection.Font.Size = "12"
+wordSelection.TypeText "We Are Humans!"
+wordSelection.TypeText " " & Date()
+
+doc.SaveAs("D:\VBScript\Trial.docx")
+doc.Saved = true
+word.Quit
+{%- endhighlight -%}</pre>

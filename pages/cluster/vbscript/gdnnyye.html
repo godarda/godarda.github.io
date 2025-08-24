@@ -1,0 +1,28 @@
+---
+permalink: cluster/vbscript/gdnnyye
+title: VBScript to demonstrate the use of conversion functions
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.vbsfile }}</div>
+<pre>{%- highlight vb -%}
+print "Converts the first letter in a string to ANSI code: " & Asc("A")
+print "Converts an expression to a variant of subtype Boolean: " & CBool(0) & " " & CBool(10)
+print "Converts an expression to a variant of subtype Byte: " & CByte(66.66) & " " & CByte(61.32)
+print "Converts an expression to a variant of subtype Currency: " & CCur(50.856925225858725785)
+print "Converts an expression to a variant of subtype Double: " & CDbl(508569252258587252323.78665785)
+print "Converts the specified ANSI code to a character: " & Chr(42)
+print "Returns the hexadecimal value: " & Hex(470)
+print "Returns the octal value: " & Oct(470)
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+Converts the first letter in a string to ANSI code: 65
+Converts an expression to a variant of subtype Boolean: False True
+Converts an expression to a variant of subtype Byte: 67 61
+Converts an expression to a variant of subtype Currency: 50.8569
+Converts an expression to a variant of subtype Double: 5.08569252258587E+20
+Converts the specified ANSI code to a character: *
+Returns the hexadecimal value: 1D6
+Returns the octal value: 726
+</pre></span>

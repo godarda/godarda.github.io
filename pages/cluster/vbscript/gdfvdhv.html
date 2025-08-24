@@ -1,0 +1,65 @@
+---
+permalink: cluster/vbscript/gdfvdhv
+title: VBScript implementation of Fibonacci series
+---
+
+<div class="codecard">{{ page.title }} using array</div>
+<div class="card">{{ site.vbsfile }}</div>
+<pre>{%- highlight vb -%}
+Dim arr(30)
+arr(0)=0
+arr(1)=1
+n=inputbox("How Many Elements You Want To Display")
+For i = 2 To n
+    arr(i)=arr(i-1)+arr(i-2)
+Next
+
+For i = 0 To n
+    print arr(i)
+Next
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+0
+1
+1
+2
+3
+5
+8
+13
+21
+34
+55
+</pre></span>
+
+<div class="codecard">{{ page.title }} using recursion</div>
+<div class="card">{{ site.vbsfile }}</div>
+<pre>{%- highlight vb -%}
+Function Fibonacci(n)
+    If (n < 2) Then
+        Fibonacci = n
+    Else
+        Fibonacci = Fibonacci(n-1) + Fibonacci(n-2)
+    End If
+End Function
+
+For i = 0 To 10
+    F = Fibonacci(i)
+    print F
+Next
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+0
+1
+1
+2
+3
+5
+8
+13
+21
+34
+55
+</pre></span>

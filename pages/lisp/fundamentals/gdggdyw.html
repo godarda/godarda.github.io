@@ -1,0 +1,150 @@
+---
+permalink: lisp/fundamentals/gdggdyw
+title: CLISP Command Line Interface (CLI)
+---
+
+<div class="titlecard">{{ page.title }}</div>
+<div class="terminalcard">Arithmetic operations</div>
+<span><pre>
+godarda@gd:~$ <mark>clisp</mark>
+...
+[1]> <mark>(+ 7 19)</mark>
+26
+
+[2]> <mark>(+ 7 93 100 900)</mark>
+1100 
+
+[3]> <mark>(+ 7 93)</mark>
+100 
+
+[4]> <mark>(- 7 93)</mark> 
+-86 
+
+[5]> <mark>(* 7 93)</mark>
+651 
+
+[6]> <mark>(/ 1 0)</mark>
+*** - /: division by zero 
+The following restarts are available: 
+ABORT          :R1      Abort main loop 
+[7]> <mark>:q</mark>
+
+[8]> <mark>(/ 7 93)</mark>
+7/93 
+
+[9]> <mark>(/ 7 93.0)</mark>
+0.07526882
+
+[10]> <mark>(= 100(+ 7 93))</mark>
+T
+[11]<hr>><mark> PI</mark>
+3.1415926535897932385L0 
+
+[12]> <mark>pi</mark>
+3.1415926535897932385L0
+</span></pre>
+
+<div class="terminalcard">String operations</div>
+<span><pre>
+[1]> <mark>"Hello World"</mark>
+"Hello World"
+
+[2]> <mark>(length "Hello World")</mark>
+11 
+
+[3]> <mark>(char "Hello World"0)</mark>
+#\H 
+
+[4]> <mark>(char "Hello World"10)</mark>
+#\d 
+
+[5]> <mark>'hello</mark>
+HELLO 
+
+[6]> <mark>'h\ello</mark>
+|HeLLO| 
+
+[7]> <mark>'h|ello|</mark>
+|Hello|
+</span></pre>
+
+<div class="terminalcard">type-of function</div>
+<span><pre>
+[1]> <mark>(type-of 0)</mark>
+BIT 
+
+[2]> <mark>(type-of 1)</mark>
+BIT 
+
+[3]> <mark>(type-of 2)</mark>
+(INTEGER 0 281474976710655) 
+
+[4]> <mark>(type-of '1e2)</mark>
+SINGLE-FLOAT 
+
+[5]> <mark>(type-of pi)</mark>
+LONG-FLOAT 
+
+[6]> <mark>(type-of 'pi)</mark>
+SYMBOL 
+
+[7]> <mark>(type-of +)</mark>
+CONS 
+
+[8]> <mark>(type-of -)</mark>
+CONS 
+
+[9]> <mark>(type-of *)</mark>
+SYMBOL 
+
+[10]> <mark>(type-of /)</mark>
+CONS 
+
+[11]> <mark>(type-of "Hello World")</mark>
+(SIMPLE-BASE-STRING 11) 
+
+[12]> <mark>(type-of *package*)</mark>
+PACKAGE 
+</span></pre>
+
+<div class="terminalcard">symbol-name function</div>
+<span><pre>
+[1]> <mark>(symbol-name 'hello)</mark>
+"HELLO" 
+
+[2]> <mark>(symbol-name '|hello|)</mark>
+"hello"
+
+[3]> <mark>(string=(symbol-name'h|ello|)"Hello")</mark>
+T 
+</span></pre>
+
+<div class="terminalcard">eql function</div>
+<span><pre>
+[1]> <mark>(eql'A'a)</mark>
+T 
+
+[2]> <mark>(eql 50 50.0)</mark>
+NIL 
+
+[3]> <mark>(eql 50 50)</mark>
+T 
+</span></pre>
+
+<div class="terminalcard">random function</div>
+<span><pre>
+[1]> <mark>(random 500)</mark>
+153 
+
+[2]> <mark>(random 500.0)</mark>
+497.5427 
+</span></pre>
+
+<div class="terminalcard">remove function</div>
+<span><pre>
+[1]> <mark>(remove 1'(4 1 5 1 7 2 9 1 5 2 1))</mark>
+(4 5 7 2 9 5 2) 
+
+[2]> <mark>(remove 'r'(r a d a r))</mark>
+(A D A)
+</pre></span>

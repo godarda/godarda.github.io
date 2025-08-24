@@ -4,13 +4,13 @@ grandparent:
     url: rust/fundamentals
     children: 
       - title: Rust Hello World program
-        url: rust/fundamentals/gidvwkzg
+        url: rust/fundamentals/gdvwkzg
       - title: Rust program to perform the arithmetic operations
-        url: rust/fundamentals/gidawgvo
+        url: rust/fundamentals/gdawgvo
       - title: Rust program to calculate the area and circumference of a circle
-        url: rust/fundamentals/gidvzzvi
+        url: rust/fundamentals/gdvzzvi
       - title: Rust program to accept the input from a user
-        url: rust/fundamentals/gidgzwzz
+        url: rust/fundamentals/gdgzwzz
 
 sidenav:
   - parent: Rust Programming

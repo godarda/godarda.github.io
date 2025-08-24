@@ -1,0 +1,43 @@
+---
+permalink: csharp/reflection/gdcdgkn
+title: C# program to demonstrate the use of reflection objects
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+Console.WriteLine("———————————————————————————————————————————");
+Console.WriteLine("Program to use Reflection objects");
+Console.WriteLine("———————————————————————————————————————————");
+int i = 0;
+float f = 0.0F;
+Type t1 = i.GetType();
+Type t2 = f.GetType();
+Type t3 = typeof(System.String);
+Console.WriteLine(t1);
+Console.WriteLine(t2);
+Console.WriteLine(t3.Assembly);
+Console.WriteLine(t3.FullName);
+Console.WriteLine(t3.BaseType);
+Console.WriteLine(t3.IsClass);
+Console.WriteLine(t3.IsEnum);
+Console.WriteLine(t3.IsInterface);  
+Console.WriteLine("———————————————————————————————————————————");
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+———————————————————————————————————————————
+Program to use Reflection objects
+———————————————————————————————————————————
+System.Int32
+System.Single
+System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e
+System.String
+System.Object
+True
+False
+False
+———————————————————————————————————————————
+godarda@gd:~/csharp$ 
+</pre></span>

@@ -1,0 +1,23 @@
+---
+permalink: cluster/vbscript/gdahmud
+title: VBScript to create an empty text file
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.vbsfile }}</div>
+<pre>{%- highlight vb -%}
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+If objFSO.FileExists("D:\VBScript\Trial.txt") Then
+    print "File name already exits"
+    objFSO.DeleteFile("D:\VBScript\Trial.txt")
+Else
+    Set objFile = objFSO.CreateTextFile("D:\VBScript\Trial.txt")
+    print "File created successfully!"
+End If 
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+
+File created successfully!
+
+</pre></span>

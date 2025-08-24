@@ -1,0 +1,32 @@
+---
+permalink: python/fileio/gddzeng
+title: Python program to count the lines, words, and characters from a given file
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="code">{%- highlight python -%}
+import string
+data = open('/home/godarda/Weekdays', 'r').read()
+print("Characters - %s"%(len(data)))
+print("Lines - %s"%(len(data.splitlines())))
+print("Words - %s"%(len(str.split(data))))
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+<mark>cat Weekdays</mark> 
+Monday
+Monday
+Sunday
+Wednesday
+Monday
+Monday
+Sunday
+Wednesday
+Friday
+
+{{ site.runpy }}
+Characters - 69
+Lines - 9
+Words - 9
+</pre></span>

@@ -1,0 +1,37 @@
+---
+permalink: cpp/strings/gdyyvwd
+title: C++ program to reverse a given string using predefined methods
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+int main()
+{
+    cout<<"———————————————————————————————————————————";
+    cout<<"\nProgram to reverse a given string";
+    cout<<"\n———————————————————————————————————————————";
+    string s;
+    cout<<"\nEnter the string ";
+    getline(cin, s);
+
+    reverse(s.begin(), s.end());
+    cout<<"\nThe reverse string is "<<s;
+    cout<<"\n———————————————————————————————————————————\n";
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+———————————————————————————————————————————
+Program to reverse a given string
+———————————————————————————————————————————
+Enter the string Hello, World!
+
+The reverse string is !dlroW ,olleH
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

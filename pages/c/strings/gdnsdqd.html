@@ -1,0 +1,41 @@
+---
+permalink: c/strings/gdnsdqd
+title: C program to reverse a given string
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+#include <string.h>
+int main()
+{
+    char s[50], temp;
+    printf("———————————————————————————————————————————");
+    printf("\nProgram to reverse a given string");
+    printf("\n———————————————————————————————————————————");
+    printf("\nEnter the string ");
+    scanf("%s", s);
+    for (int i = 0, j = strlen(s) - 1; i < j; i++, j--)
+    {
+        temp = s[i];
+        s[i] = s[j];
+        s[j] = temp;
+    }
+    printf("\nThe reverse string is %s", s);
+    printf("\n———————————————————————————————————————————\n");
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+———————————————————————————————————————————
+Program to reverse a given string
+———————————————————————————————————————————
+Enter the string GoDarda
+
+The reverse string is wodniwgnidoK
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

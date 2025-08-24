@@ -1,0 +1,109 @@
+---
+permalink: mysql/dml/gdpwzaz
+title: MySQL LIMIT Clause
+---
+
+<div class="board"><div class="boardtitle">Objective and Introduction</div>
+    <p><b>Objective: </b>This segment introduces how to use the LIMIT clause and retrieve the first and last three records by using it.<br><br>
+    <b>Introduction: </b>The LIMIT clause returns the number of rows based on arguments provided. It accepts one or two arguments, which must be zero or a positive integer. The following syntax and queries will help you to understand practically.</p>
+</div>
+
+<div class="terminalcard">Retrieving the existing databases and table records</div>
+<span><pre>
+mysql> <mark>SHOW DATABASES;</mark>
++--------------------+
+| Database           |
++--------------------+
+| DB                 |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> <mark>USE DB;</mark>
+Database changed
+
+mysql> <mark>SHOW TABLES;</mark>
++--------------+
+| Tables_in_DB |
++--------------+
+| holders      |
++--------------+
+1 row in set (0.01 sec)
+
+mysql> <mark>SELECT * FROM holders;</mark>
++-------------+---------------+---------+------------+----------+--------+
+| account_no  | name          | city    | dob        | bank     | amount |
++-------------+---------------+---------+------------+----------+--------+
+| 25622348989 | James Moore   | Phoenix | 1985-05-26 | Barclays |   5000 |
+| 25622348990 | Donald Taylor | Irvine  | 1990-08-20 | Citi     |   7000 |
+| 25622348991 | Edward Parkar | Irvine  | 1994-01-29 | ICICI    |  95000 |
+| 25622348992 | Ryan Bakshi   | Mumbai  | 1982-01-14 | Citi     |  50000 |
+| 25622348993 | Marie Peters  | Ribe    | 1967-01-05 | DZBank   |  12250 |
+| 25622348994 | Aanya         | Delhi   | 1975-08-18 | SBI      | 105000 |
+| 25622348995 | James Moore   | NULL    | 1978-06-26 | Citi     |  97800 |
++-------------+---------------+---------+------------+----------+--------+
+7 rows in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">Using LIMIT clause</div>
+<span><pre>
+mysql> <mark>SELECT * FROM holders LIMIT 3;</mark>
++-------------+---------------+---------+------------+----------+--------+
+| account_no  | name          | city    | dob        | bank     | amount |
++-------------+---------------+---------+------------+----------+--------+
+| 25622348989 | James Moore   | Phoenix | 1985-05-26 | Barclays |   5000 |
+| 25622348990 | Donald Taylor | Irvine  | 1990-08-20 | Citi     |   7000 |
+| 25622348991 | Edward Parkar | Irvine  | 1994-01-29 | ICICI    |  95000 |
++-------------+---------------+---------+------------+----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> <mark>SELECT * FROM holders ORDER BY dob LIMIT 3;</mark>
++-------------+--------------+-------+------------+--------+--------+
+| account_no  | name         | city  | dob        | bank   | amount |
++-------------+--------------+-------+------------+--------+--------+
+| 25622348993 | Marie Peters | Ribe  | 1967-01-05 | DZBank |  12250 |
+| 25622348994 | Aanya        | Delhi | 1975-08-18 | SBI    | 105000 |
+| 25622348995 | James Moore  | NULL  | 1978-06-26 | Citi   |  97800 |
++-------------+--------------+-------+------------+--------+--------+
+3 rows in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">Retrieving first and last three records</div>
+<span><pre>
+mysql> <mark>SELECT * FROM holders ORDER BY bank,amount;</mark>
++-------------+---------------+---------+------------+----------+--------+
+| account_no  | name          | city    | dob        | bank     | amount |
++-------------+---------------+---------+------------+----------+--------+
+| 25622348989 | James Moore   | Phoenix | 1985-05-26 | Barclays |   5000 |
+| 25622348990 | Donald Taylor | Irvine  | 1990-08-20 | Citi     |   7000 |
+| 25622348992 | Ryan Bakshi   | Mumbai  | 1982-01-14 | Citi     |  50000 |
+| 25622348995 | James Moore   | NULL    | 1978-06-26 | Citi     |  97800 |
+| 25622348993 | Marie Peters  | Ribe    | 1967-01-05 | DZBank   |  12250 |
+| 25622348991 | Edward Parkar | Irvine  | 1994-01-29 | ICICI    |  95000 |
+| 25622348994 | Aanya         | Delhi   | 1975-08-18 | SBI      | 105000 |
++-------------+---------------+---------+------------+----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> <mark>SELECT * FROM holders ORDER BY bank,amount LIMIT 3;</mark>
++-------------+---------------+---------+------------+----------+--------+
+| account_no  | name          | city    | dob        | bank     | amount |
++-------------+---------------+---------+------------+----------+--------+
+| 25622348989 | James Moore   | Phoenix | 1985-05-26 | Barclays |   5000 |
+| 25622348990 | Donald Taylor | Irvine  | 1990-08-20 | Citi     |   7000 |
+| 25622348992 | Ryan Bakshi   | Mumbai  | 1982-01-14 | Citi     |  50000 |
++-------------+---------------+---------+------------+----------+--------+
+3 rows in set (0.01 sec)
+
+mysql> <mark>SELECT * FROM holders ORDER BY account_no DESC LIMIT 3;</mark>
++-------------+--------------+-------+------------+--------+--------+
+| account_no  | name         | city  | dob        | bank   | amount |
++-------------+--------------+-------+------------+--------+--------+
+| 25622348995 | James Moore  | NULL  | 1978-06-26 | Citi   |  97800 |
+| 25622348994 | Aanya        | Delhi | 1975-08-18 | SBI    | 105000 |
+| 25622348993 | Marie Peters | Ribe  | 1967-01-05 | DZBank |  12250 |
++-------------+--------------+-------+------------+--------+--------+
+3 rows in set (0.01 sec)
+</pre></span>

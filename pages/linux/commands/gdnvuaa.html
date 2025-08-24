@@ -1,0 +1,60 @@
+---
+permalink: linux/commands/gdnvuaa
+title: Linux commands to create and remove a file
+---
+
+<div class="titlecard">{{ page.title }}</div>
+<div class="terminalcard">touch and cat commands to create the files</div>
+<span><pre>
+godarda@gd:~$ <mark>ls</mark>
+a.out  GD.class  GD.java  Desktop    Downloads	Pictures  Templates  Weekdays
+gd.c   gd.csv	 gd.py	  Documents  Music	Public	  Videos
+
+godarda@gd:~$ <mark>touch Ubuntu.txt Fedora.txt</mark>
+godarda@gd:~$ <mark>ls</mark>
+a.out	  gd.csv   Desktop    Fedora.txt  Public      Videos
+gd.c	  GD.java  Documents  Music	  Templates   Weekdays
+GD.class  gd.py    Downloads  Pictures	  Ubuntu.txt
+
+godarda@gd:~$ <mark>cat > KaliLinux</mark>
+^C
+godarda@gd:~$ <mark>ls</mark>
+a.out	  gd.csv   Desktop    Fedora.txt  Pictures   Ubuntu.txt
+gd.c	  GD.java  Documents  KaliLinux   Public     Videos
+GD.class  gd.py    Downloads  Music	  Templates  Weekdays
+
+godarda@gd:~$ <mark>file Fedora.txt gd.c gd.csv</mark>
+Fedora.txt: empty
+gd.c:       C source, ASCII text
+gd.csv:     CSV text
+</pre></span>
+
+<div class="terminalcard">rm command to remove the file(s)</div>
+<span><pre>
+godarda@gd:~$ <mark>rm KaliLinux Weekdays</mark>
+godarda@gd:~$ <mark>ls</mark>
+a.out	  gd.csv   Desktop    Fedora.txt  Public      Videos
+gd.c	  GD.java  Documents  Music	  Templates
+GD.class  gd.py    Downloads  Pictures	  Ubuntu.txt
+</pre></span>
+
+<div class="terminalcard">rm command with a regular expression to remove multiple files of the same extension</div>
+<span><pre>
+godarda@gd:~$ <mark>rm *.txt</mark>
+godarda@gd:~$ <mark>ls -1</mark>
+a.out
+gd.c
+GD.class
+gd.csv
+GD.java
+gd.py
+Desktop
+Documents
+Downloads
+Music
+Pictures
+Public
+Templates
+Videos
+godarda@gd:~$ 
+</pre></span>

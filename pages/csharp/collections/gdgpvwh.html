@@ -1,0 +1,92 @@
+---
+permalink: csharp/collections/gdgpvwh
+title: Implementation of C# LinkedList class
+---
+
+<div class="codecard">{{ page.title }}: AddLast() and AddFirst() methods</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+using System.Collections.Generic;
+
+LinkedList<string> ll = new LinkedList<string>();
+ll.AddLast("Apple");
+ll.AddLast("Orange");
+ll.AddLast("Mango");
+ll.AddLast("Grapes");
+ll.AddLast("Cherry");
+ll.AddLast("Apple");
+ll.AddFirst("Pineapple");
+foreach (string s in ll)
+{
+    Console.Write(s + " ");
+}
+Console.WriteLine("\nSize: " + ll.Count);
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Pineapple Apple Orange Mango Grapes Cherry Apple 
+Size: 7
+godarda@gd:~/csharp$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }}: AddAfter() and AddBefore() methods</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+using System.Collections.Generic;
+
+LinkedList<string> ll = new LinkedList<string>();
+ll.AddLast("Apple");
+ll.AddLast("Orange");
+ll.AddLast("Mango");
+ll.AddLast("Grapes");
+ll.AddLast("Cherry");
+ll.AddLast("Apple");
+
+ll.AddAfter(ll.Find("Apple")!, "Blueberry");
+ll.AddBefore(ll.Find("Orange")!, "Pineapple");
+foreach (string s in ll)
+{
+    Console.Write(s + " ");
+}
+Console.WriteLine("\n" + ll.Contains("Pineapple"));
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Apple Blueberry Pineapple Orange Mango Grapes Cherry Apple 
+True
+godarda@gd:~/csharp$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }}: RemoveFirst() and RemoveLast() methods</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+using System.Collections.Generic;
+
+LinkedList<string> ll = new LinkedList<string>();
+ll.AddLast("Apple");
+ll.AddLast("Orange");
+ll.AddLast("Mango");
+ll.AddLast("Grapes");
+ll.AddLast("Cherry");
+ll.AddLast("Apple");
+ll.AddLast("Apple");
+
+ll.RemoveFirst();
+ll.Remove("Orange");
+ll.RemoveLast();
+foreach (string s in ll)
+{
+    Console.Write(s + " ");
+}
+ll.Clear();
+Console.WriteLine("\nSize: " + ll.Count);
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Mango Grapes Cherry Apple  
+Size: 0
+godarda@gd:~/csharp$ 
+</pre></span>

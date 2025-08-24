@@ -1,0 +1,33 @@
+---
+permalink: cluster/vbscript/gdfaydi
+title: VBScript to perform Queue operations
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.vbsfile }}</div>
+<pre>{%- highlight vb -%}
+Set Queue = CreateObject("System.Collections.Queue") 
+Queue.Enqueue "Apple"
+Queue.Enqueue "Banana"
+Queue.Enqueue "Cherry"
+Queue.Enqueue "Durian"
+
+For Each item In Queue
+    q = q & item & " "
+Next
+print q
+print "Count " & Queue.Count
+print Queue.Contains("Apple") & vbCrLf 
+print "Dequeue " & Queue.Dequeue & vbCrLf
+print "Peek " & Queue.Peek & vbCrLf 
+print Join(Queue.ToArray, ", ") & vbCrLf 
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+Apple Banana Cherry Durian 
+Count 4
+True
+Dequeue Apple
+Peek Banana
+Banana, Cherry, Durian
+</pre></span>

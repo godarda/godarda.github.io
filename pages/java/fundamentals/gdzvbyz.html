@@ -1,0 +1,94 @@
+---
+permalink: java/fundamentals/gdzvbyz
+title: Java program to swap the given numbers
+---
+
+<div class="codecard">{{ page.title }} using only two variables</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.Scanner;
+class GD
+{
+    public static void main(String args[])
+    {
+        float a,b;
+        Scanner sc=new Scanner(System.in);
+        System.out.println("———————————————————————————————————————————");
+        System.out.println("Program to swap the given numbers");
+        System.out.println("———————————————————————————————————————————");
+        System.out.print("a = ");
+        a=sc.nextFloat();
+        System.out.print("b = ");
+        b=sc.nextFloat();
+        System.out.println("——————————————————————————");
+        System.out.println("After swapping...");
+        System.out.println("——————————————————————————");
+        a+=b; 
+        b=a-b;
+        a-=b;
+        System.out.println("a = "+a+"\nb = "+b);
+        System.out.println("———————————————————————————————————————————");
+    }       
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+———————————————————————————————————————————
+Program to swap the given numbers
+———————————————————————————————————————————
+a = 10
+b = -0.25
+——————————————————————————
+After swapping...
+——————————————————————————
+a = -0.25
+b = 10.0
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }} using three variables</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.Scanner;
+class GD
+{
+    public static void main(String args[])
+    {
+        float a,b,c=0;
+        Scanner sc=new Scanner(System.in);
+        System.out.println("———————————————————————————————————————————");
+        System.out.println("Program to swap the given numbers");
+        System.out.println("———————————————————————————————————————————");
+        System.out.print("a = ");
+        a=sc.nextFloat();
+        System.out.print("b = ");
+        b=sc.nextFloat();
+        System.out.println("——————————————————————————");
+        System.out.println("After swapping...");
+        System.out.println("——————————————————————————");
+        c=a; 
+        a=b;
+        b=c;;
+        System.out.println("a = "+a+"\nb = "+b);
+        System.out.println("———————————————————————————————————————————");
+    }       
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+———————————————————————————————————————————
+Program to swap the given numbers
+———————————————————————————————————————————
+a = 25
+b = -3.1428
+——————————————————————————
+After swapping...
+——————————————————————————
+a = -3.1428
+b = 25.0
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

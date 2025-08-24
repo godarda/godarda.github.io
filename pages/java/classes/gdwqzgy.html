@@ -1,0 +1,96 @@
+---
+permalink: java/classes/gdwqzgy
+title: Java implementation of Scanner close method
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="infocard">In the following program, a Scanner object closed and once it closed a System stream cannot be re-opened. Hence, after entered string, the control directly printed the default value of int n=0.</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.Scanner;
+class GD
+{
+    public void action()
+    {
+        stringScanner();
+        intScanner();
+    }
+    
+    public void stringScanner()
+    {
+        String s="";
+        Scanner sc=new Scanner(System.in);
+        System.out.print("Enter the string ");
+        if(sc.hasNext())
+        {
+            s=sc.nextLine();
+        }
+        sc.close();
+        System.out.println("\nString "+s);
+    }
+    
+    public void intScanner()
+    {
+        int n=0;
+        Scanner sc=new Scanner(System.in);
+        System.out.print("\nEnter the number ");
+        if(sc.hasNext())
+        {
+            n=sc.nextInt();
+        }
+        sc.close();
+        System.out.println("\nNumber "+n);
+    }
+    
+    public static void main(String args[])
+    {
+        System.out.println("———————————————————————————————————————————");
+        System.out.println("Java implementation of Scanner close method");
+        System.out.println("———————————————————————————————————————————");
+        GD g=new GD();
+        g.stringScanner();
+        g.intScanner();
+        System.out.println("———————————————————————————————————————————");
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+———————————————————————————————————————————
+Java implementation of Scanner close method
+———————————————————————————————————————————
+Enter the string GODARDA
+
+String GODARDA
+
+Enter the number 
+Number 0
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Example 2: {{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.Scanner;
+class GD
+{
+    public static void main(String args[])
+    {
+        String s="Hello, World!";
+        Scanner sc=new Scanner(s);
+        System.out.print(sc.nextLine());
+        sc.close();
+        System.out.println("\n\nScanner closed");     
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Hello, World!
+
+Scanner closed
+godarda@gd:~$ 
+</pre></span>

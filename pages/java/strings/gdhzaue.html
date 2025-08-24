@@ -1,0 +1,151 @@
+---
+permalink: java/strings/gdhzaue
+title: Java program to count the number of holes in a given string and number
+---
+
+<div class="codecard">Java program to count the number of holes in a given string</div>
+<div class="card">{{ site.javafile }}</div>
+<pre>
+<b>Some of the examples are: </b>
+8 has 2 holes
+W has no holes
+# has 1 hole
+% has 2 holes
+合作 is non-ASCII char
+——————————————————————————————————
+{%- highlight java -%}
+import java.util.Scanner;
+class GD
+{
+    public static void main(String args[])
+    {
+        System.out.println("———————————————————————————————————————————");
+        System.out.println("Program to find number of holes in a string");
+        System.out.println("———————————————————————————————————————————");
+        char[] singlehole={'a','A','b','d','D','e','g','o','O','p','P','q','Q','R','0','4','6','9','@','#'};
+        char[] doublehole={'B','8','&','%'};
+        String s="";
+        Scanner sc=new Scanner(System.in);
+        System.out.print("Enter any string ");
+        s=sc.nextLine();
+        
+        s=s.replaceAll("[^\\p{ASCII}]","");
+        System.out.print("\nKeyboard characters "+s);
+        
+        int count=0;
+        char[] ch=s.toCharArray(); 
+        for(int i=0;i<ch.length;i++)
+        {
+            for(int j=0;j<singlehole.length;j++)
+            {
+                if(ch[i]==singlehole[j])
+                {
+                    count+=1;
+                }
+            }
+            
+            for(int j=0;j<doublehole.length;j++)
+            {
+                if(ch[i]==doublehole[j])
+                {
+                    count+=2;
+                }
+            }
+        }
+        System.out.println("\n\nNumber of holes in keyboard characters "+count);
+        System.out.println("———————————————————————————————————————————");
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+———————————————————————————————————————————
+Program to find number of holes in a string
+———————————————————————————————————————————
+Enter any string KODINGWINDOW
+
+Keyboard characters KODINGWINDOW
+
+Number of holes in keyboard characters 4
+———————————————————————————————————————————
+
+godarda@gd:~$ java GD
+———————————————————————————————————————————
+Program to find number of holes in a string
+———————————————————————————————————————————
+Enter any string 编码合作WINDOW
+
+Keyboard characters WINDOW
+
+Number of holes in keyboard characters 2
+———————————————————————————————————————————
+godarda@gd:~$ 
+
+//Removed non-ASCII characters
+</pre></span>
+
+<div class="codecard">Java program to count the number of holes in a given number</div>
+<div class="card">File: GD.java (count holes in a number)</div>
+<pre class="code">{%- highlight java -%}
+import java.util.Scanner;
+class GD
+{
+    public static void main(String args[])
+    {
+        System.out.println("———————————————————————————————————————————");
+        System.out.println("Program to find number of holes in a number");
+        System.out.println("———————————————————————————————————————————");
+        String s="";
+        Scanner sc=new Scanner(System.in);
+        System.out.print("Enter any number ");
+        s=sc.nextLine();
+
+        int count=0,holes=0;
+        for(int i=0;i<s.length();i++) 
+        {
+            if(s.charAt(i)==('0')||s.charAt(i)==('4')||s.charAt(i)==('6')||s.charAt(i)==('9'))
+            {
+                count++;
+                holes=1;
+                System.out.println("Hole in  "+s.charAt(i)+" - "+holes);
+            }               
+            else if(s.charAt(i)==('8'))
+            {
+                count+=2;
+                holes=2;
+                System.out.println("Holes in "+s.charAt(i)+" - "+holes);
+            }
+            else
+            {
+                holes=0;
+                System.out.println("Hole in  "+s.charAt(i)+" - "+holes);
+            }
+        }
+        System.out.println("\nTotal number of holes in given number is "+count);
+        System.out.println("———————————————————————————————————————————");
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+———————————————————————————————————————————
+Program to find number of holes in a number
+———————————————————————————————————————————
+Enter any number 8789522453
+Holes in 8 - 2
+Hole in  7 - 0
+Holes in 8 - 2
+Hole in  9 - 1
+Hole in  5 - 0
+Hole in  2 - 0
+Hole in  2 - 0
+Hole in  4 - 1
+Hole in  5 - 0
+Hole in  3 - 0
+
+Total number of holes in given number is 6
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

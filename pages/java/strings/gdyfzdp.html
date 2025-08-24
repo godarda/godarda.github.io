@@ -1,0 +1,52 @@
+---
+permalink: java/strings/gdyfzdp
+title: Java program to reverse a given string using an array
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.Scanner;
+class GD
+{
+    public static void main(String args[])
+    {
+        String s,r="";
+        System.out.println("———————————————————————————————————————————");
+        System.out.println("Program to reverse the given string");
+        System.out.println("———————————————————————————————————————————");
+        Scanner sc=new Scanner(System.in);
+        System.out.print("Enter the string ");
+        s=sc.nextLine();
+        
+        char sarr[]=s.toCharArray();
+        int len=0;
+        for(char chr:sarr)
+        {
+            len++;
+        }
+        System.out.println("\nThe length of a given string is "+len);
+        
+        for(int i=len-1;i>=0;i--)
+        {
+            r=r+sarr[i];
+        }
+        System.out.println("\nThe everse string is "+r);
+        System.out.println("———————————————————————————————————————————");
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+———————————————————————————————————————————
+Program to reverse the given string
+———————————————————————————————————————————
+Enter the string Hello, World!
+
+The length of a given string is 13
+
+The reverse string is !dlroW ,olleH
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

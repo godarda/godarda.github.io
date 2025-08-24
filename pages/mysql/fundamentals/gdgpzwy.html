@@ -1,0 +1,321 @@
+---
+permalink: mysql/fundamentals/gdgpzwy
+title: MySQL String Functions
+---
+
+<div class="titlecard">{{ page.title }}</div>
+<div class="terminalcard">ASCII and ORD Functions</div>
+<span><pre>
+mysql> <mark>SELECT ASCII('A');</mark>
++------------+
+| ASCII('A') |
++------------+
+|         65 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT ASCII('a');</mark>
++------------+
+| ASCII('a') |
++------------+
+|         97 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT ORD('A');</mark>
++----------+
+| ORD('A') |
++----------+
+|       65 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT ORD('a');</mark>
++----------+
+| ORD('a') |
++----------+
+|       97 |
++----------+
+1 row in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">LENGHT and CHAR_LENGTH Functions</div>
+<span><pre>
+mysql> <mark>SELECT LENGTH("GoDarda") AS Length;</mark>
++--------+
+| Length |
++--------+
+|     12 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT CHAR_LENGTH("GoDarda") AS Length;</mark>
++--------+
+| Length |
++--------+
+|     12 |
++--------+
+1 row in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">CONCAT Function</div>
+<span><pre>
+mysql> <mark>SELECT CONCAT("Koding","Window") AS Concatenation;</mark>
++---------------+
+| Concatenation |
++---------------+
+| GoDarda  |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT CONCAT("Koding","Window"," Experiments") AS Concatenation;</mark>
++--------------------------+
+| Concatenation            |
++--------------------------+
+| GoDarda Experiments |
++--------------------------+
+1 row in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">LCASE and UCASE Functions</div>
+<span><pre>
+mysql> <mark>SELECT LOWER("KoDiNgWiNdOw") AS Lowercase;</mark>
++--------------+
+| Lowercase    |
++--------------+
+| godarda |
++--------------+
+1 row in set (0.12 sec)
+
+mysql> <mark>SELECT UPPER("GoDarda") AS Uppercase;</mark>
++--------------+
+| Uppercase    |
++--------------+
+| KODINGWINDOW |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT LCASE("KoDiNgWiNdOw") AS Lowercase;</mark>
++--------------+
+| Lowercase    |
++--------------+
+| godarda |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT UCASE("GoDarda") AS Uppdercase;</mark>
++--------------+
+| Uppdercase   |
++--------------+
+| KODINGWINDOW |
++--------------+
+1 row in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">LEFT and RIGHT Functions</div>
+<span><pre>
+mysql> <mark>SELECT LEFT("GoDarda",6) AS Extraction;</mark>
++------------+
+| Extraction |
++------------+
+| Koding     |
++------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT RIGHT("GoDarda",6) AS Extraction;</mark>
++------------+
+| Extraction |
++------------+
+| Window     |
++------------+
+1 row in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">LOCATE and POSITION Functions</div>
+<span><pre>
+mysql> <mark>SELECT LOCATE("O","KODINGWINDOW") AS Locate;</mark>
++--------+
+| Locate |
++--------+
+|      2 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT LOCATE("window","KODINGWINDOW") AS Locate;</mark>
++--------+
+| Locate |
++--------+
+|      7 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT POSITION("O" IN "KODINGWINDOW") AS Position;</mark>
++----------+
+| Position |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT POSITION("window" IN "KODINGWINDOW") AS Position;</mark>
++----------+
+| Position |
++----------+
+|        7 |
++----------+
+1 row in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">SUBSTR and MID Functions</div>
+<span><pre>
+mysql> <mark>SELECT SUBSTR("GoDarda",7,12) AS Substring;</mark>
++-----------+
+| Substring |
++-----------+
+| Window    |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT SUBSTRING("GoDarda",7,12) AS Substring;</mark>
++-----------+
+| Substring |
++-----------+
+| Window    |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT MID("GoDarda",7,12) AS Substring;</mark>
++-----------+
+| Substring |
++-----------+
+| Window    |
++-----------+
+1 row in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">LTRIM, RTRIM, and TRIM Functions</div>
+<span><pre>
+mysql> <mark>SELECT LTRIM("  GoDarda   ") AS "Left Trim";</mark>
++-----------------+
+| Left Trim       |
++-----------------+
+| GoDarda    |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT RTRIM("  GoDarda   ") AS "Right Trim";</mark>
++----------------+
+| Right Trim     |
++----------------+
+|   GoDarda |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT TRIM("  GoDarda   ") AS "Trim";</mark>
++--------------+
+| Trim         |
++--------------+
+| GoDarda |
++--------------+
+1 row in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">REPEAT, REPLACE, and REVERSE Functions</div>
+<span><pre>
+mysql> <mark>SELECT REPEAT(2,10) AS "Repeat";</mark>
++------------+
+| Repeat     |
++------------+
+| 2222222222 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT REPEAT("GD",5) AS "Repeat";</mark>
++------------+
+| Repeat     |
++------------+
+| KWKWKWKWKW |
++------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT REPLACE("GoDarda","Koding","Learning") AS "Replace";</mark>
++----------------+
+| Replace        |
++----------------+
+| LearningWindow |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT REVERSE("GoDarda") AS "Reverse";</mark>
++--------------+
+| Reverse      |
++--------------+
+| wodniWgnidoK |
++--------------+
+1 row in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">LPAD and RPAD Functions</div>
+<span><pre>
+mysql> <mark>SELECT LPAD("K",10,"W") AS "Left Padding";</mark>
++--------------+
+| Left Padding |
++--------------+
+| WWWWWWWWWK   |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT LPAD(152212,10,0) AS "Left Padding";</mark>
++--------------+
+| Left Padding |
++--------------+
+| 0000152212   |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT RPAD("K",10,"W") AS "Right Padding";</mark>
++---------------+
+| Right Padding |
++---------------+
+| KWWWWWWWWW    |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT RPAD("K",10,"Z") AS "Right Padding";</mark>
++---------------+
+| Right Padding |
++---------------+
+| KZZZZZZZZZ    |
++---------------+
+1 row in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">SPACE Function</div>
+<span><pre>
+mysql> <mark>SELECT SPACE(50);</mark>
++----------------------------------------------------+
+| SPACE(50)                                          |
++----------------------------------------------------+
+|                                                    |
++----------------------------------------------------+
+1 row in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">FORMAT Function</div>
+<span><pre>
+mysql> <mark>SELECT FORMAT(15247892233,1);</mark>
++-----------------------+
+| FORMAT(15247892233,1) |
++-----------------------+
+| 15,247,892,233.0      |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT FORMAT(15247892233,2);</mark>
++-----------------------+
+| FORMAT(15247892233,2) |
++-----------------------+
+| 15,247,892,233.00     |
++-----------------------+
+1 row in set (0.00 sec)
+</pre>

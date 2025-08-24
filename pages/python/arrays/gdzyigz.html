@@ -1,0 +1,100 @@
+---
+permalink: python/arrays/gdzyigz
+title: Python NumPy Arrays
+---
+
+<div class="terminalcard">{{ page.title }}</div>
+<span><pre>
+godarda@gd:~$ <mark>python3</mark>
+...
+>>> <mark>from numpy import *</mark>
+>>> <mark>arr1 = array([40, 96, 24, 55, 78, -111])</mark>
+>>> <mark>arr2 = array(['x','y','z'])</mark>
+>>> <mark>arr3 = array(["Orange", "Pineapple", "Banana", "Blueberry", "Grapes", "Fig"])</mark>
+
+>>> <mark>arr1.size, arr2.size, arr3.size</mark>
+(6, 3, 6)
+
+>>> <mark>arr1.dtype, arr2.dtype, arr3.dtype</mark>
+(dtype('int64'), dtype('&lt;U1'), dtype('&lt;U9'))
+
+<comment># memory size of an element stored in the array</comment>
+>>> <mark>arr1.itemsize, arr2.itemsize, arr3.itemsize</mark>
+(8, 4, 36)
+
+<comment># total memory size of the array</comment>
+>>> <mark>arr1.nbytes, arr2.nbytes, arr3.nbytes</mark>
+(48, 12, 216)
+
+<comment># number of dimensions of the array</comment>
+>>> <mark>arr1.ndim, arr2.ndim, arr3.ndim</mark>
+(1, 1, 1)
+
+>>> <mark>arr1[0], arr2[0], arr3[0]</mark>
+(40, 'x', 'Orange')
+
+>>> <mark>for i in arr1:</mark>
+...     <mark>print(i)</mark>
+... 
+40
+96
+24
+55
+78
+-111
+
+>>> <mark>for s in arr3:</mark>
+...     <mark>print(s)</mark>
+... 
+Orange
+Pineapple
+Banana
+Blueberry
+Grapes
+Fig
+</pre></span>
+
+<div class="terminalcard">Python NumPy Array Methods</div>
+<span><pre>
+>>> <mark>from numpy import *</mark>
+>>> <mark>arr1 = array([40, 96, 24, 55, 78, -111])</mark>
+>>> <mark>arr2 = array(['x','y','z'])</mark>
+>>> <mark>arr3 = array(["Orange", "Pineapple", "Banana", "Blueberry", "Grapes", "Fig"])</mark>
+
+>>> <mark>len(arr1), len(arr2), len(arr3)</mark>
+(6, 3, 6)
+
+>>> <mark>min(arr1), min(arr2), min(arr3)</mark>
+(-111, 'x', 'Banana')
+
+>>> <mark>max(arr1), max(arr2), max(arr3)</mark>
+(96, 'z', 'Pineapple')
+
+>>> <mark>sort(arr1)</mark>
+array([-111,   24,   40,   55,   78,   96])
+
+>>> <mark>sort(arr2)</mark>
+array(['x', 'y', 'z'], dtype='&lt;U1')
+
+>>> <mark>sort(arr3)</mark>
+array(['Banana', 'Blueberry', 'Fig', 'Grapes', 'Orange', 'Pineapple'], dtype='&lt;U9')
+
+>>> <mark>arr2 = append(arr2, 'w')</mark>
+>>> <mark>arr2</mark>
+array(['x', 'y', 'z', 'w'], dtype='&lt;U1')
+
+>>> <mark>arr2 = delete(arr2, 3)</mark>
+>>> <mark>arr2</mark>
+array(['x', 'y', 'z'], dtype='&lt;U1')
+
+>>> <mark>arr3 = insert(arr3, 0, "Cherry")</mark>
+>>> <mark>arr3</mark>
+array(['Cherry', 'Orange', 'Pineapple', 'Banana', 'Blueberry', 'Grapes', 'Fig'], dtype='&lt;U9')
+
+>>> <mark>arr3 = delete(arr3, 0)</mark>
+>>> <mark>arr3</mark>
+array(['Orange', 'Pineapple', 'Banana', 'Blueberry', 'Grapes', 'Fig'], dtype='&lt;U9')
+
+>>> <mark>arr1.tolist()</mark>
+[40, 96, 24, 55, 78, -111]
+</pre></span>

@@ -4,57 +4,57 @@ grandparent:
     url: lisp/fundamentals
     children: 
       - title: CLISP Command Line Interface (CLI)
-        url: lisp/fundamentals/gidggdyw
+        url: lisp/fundamentals/gdggdyw
       - title: Maxima Command Line Interface (CLI)
-        url: lisp/fundamentals/gidggadz
+        url: lisp/fundamentals/gdggadz
       - title: LISP Hello World program
-        url: lisp/fundamentals/gidydkmw
+        url: lisp/fundamentals/gdydkmw
       - title: LISP program to perform the arithmetic operations
-        url: lisp/fundamentals/gidvwwue
+        url: lisp/fundamentals/gdvwwue
       - title: LISP program to perform the bitwise operations
-        url: lisp/fundamentals/gidmalgp
+        url: lisp/fundamentals/gdmalgp
       - title: LISP program to demonstrate the use of trigonometric functions
-        url: lisp/fundamentals/gidzedbg
+        url: lisp/fundamentals/gdzedbg
       - title: LISP program to demonstrate the use of numeric conversion functions
-        url: lisp/fundamentals/gidvagvz
+        url: lisp/fundamentals/gdvagvz
       - title: LISP program to calculate the square and cube of numbers
-        url: lisp/fundamentals/gidiewcv
+        url: lisp/fundamentals/gdiewcv
       - title: LISP program to find the min and max of two numbers
-        url: lisp/fundamentals/gidddysa
+        url: lisp/fundamentals/gdddysa
       - title: LISP program to swap the given numbers
-        url: lisp/fundamentals/gidgoauk
+        url: lisp/fundamentals/gdgoauk
 
   - parent: LISP Control Statements
     subtree: Controls
     url: lisp/controls
     children: 
       - title: LISP program for the positive-negative test of a given number
-        url: lisp/controls/gidkdena
+        url: lisp/controls/gdkdena
       - title: LISP program for the arithmetic operations using the case statements
-        url: lisp/controls/giduepzv
+        url: lisp/controls/gduepzv
 
   - parent: LISP Loops
     subtree: Loops
     url: lisp/loops
     children: 
       - title: LISP program to print the even and odd numbers
-        url: lisp/loops/gidzzzay
+        url: lisp/loops/gdzzzay
 
   - parent: LISP Strings
     subtree: Strings
     url: lisp/strings
     children: 
       - title: LISP program to perform the string operations
-        url: lisp/strings/gidtrkke
+        url: lisp/strings/gdtrkke
       - title: LISP program to check whether a given string is a palindrome
-        url: lisp/strings/gidzygzo
+        url: lisp/strings/gdzygzo
 
   - parent: LISP Functions
     subtree: Functions
     url: lisp/functions
     children: 
       - title: LISP program to find the area of a circle using a function
-        url: lisp/functions/giduzcrz
+        url: lisp/functions/gduzcrz
 
 sidenav:
   - parent: LISP Programming

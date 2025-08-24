@@ -1,0 +1,196 @@
+---
+permalink: dsa/searching/gdecgzp
+title: C++ implementation of Binary Search
+---
+
+<div class="codecard">{{ page.title }} without using sort function</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include<iostream>
+using namespace std;
+void BinarySearch(int a[],int num,int first,int last)
+{
+    if(first>last)
+    {
+        cout<<"\nElement not found!"<<endl;
+        cout<<"———————————————————————————————————————————\n";
+    }
+    else
+    {
+        int mid;
+        mid=(first+last)/2;
+        if(a[mid]==num)
+        {
+            cout<<"\nElement found at index "<<mid+1<<endl;
+            cout<<"———————————————————————————————————————————\n";
+        }
+        else if(a[mid]>num)
+        {
+            BinarySearch(a,num,first,mid-1);
+        }
+        else
+        {
+            BinarySearch(a,num,mid+1,last);
+        }
+    }
+}
+
+int main()
+{
+    int n,i,j,num,end,beg,temp;
+    cout<<"———————————————————————————————————————————";
+    cout<<"\nImplementation of a Binary Search";
+    cout<<"\n———————————————————————————————————————————";
+    try
+    {
+        cout<<"\nHow many numbers you want to enter ";
+        cin>>n;
+        if(cin.fail()) throw "";
+        int a[n];
+        for(i=0;i<n;i++)
+        {
+            cout<<"Enter Number "<<i+1<<" | ";
+            cin>>a[i];
+        }
+        for(i=0;i<n;i++)            
+        {
+            for(j=i+1;j<n;j++)
+            {
+                if(a[i]>a[j])
+                {
+                    temp=a[i];                     
+                    a[i]=a[j];
+                    a[j]=temp;
+                }
+            }
+        }
+        cout<<"\nSorted numbers ";
+        for(i=0;i<n;i++)
+        {
+            cout<<a[i]<<" ";
+        }
+        beg=0;
+        end=n-1;
+        cout<<"\nEnter a number to be searched ";
+        cin>>num;
+        BinarySearch(a,num,beg,end);
+    }
+    catch(...)
+    {
+        cout<<"\nEnter the number please"<<endl;
+        cout<<"———————————————————————————————————————————\n";
+    }
+    return(0);
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+———————————————————————————————————————————
+Implementation of a Binary Search
+———————————————————————————————————————————
+How many numbers you want to enter 9
+Enter Number 1 | 55
+Enter Number 2 | -23
+Enter Number 3 | -78
+Enter Number 4 | 48
+Enter Number 5 | 96
+Enter Number 6 | 236
+Enter Number 7 | 45
+Enter Number 8 | 12
+Enter Number 9 | -1024
+
+Sorted numbers -1024 -78 -23 12 45 48 55 96 236 
+Enter a number to be searched -23
+
+Element found at index 3
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }} using sort function</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include<iostream>
+#include<algorithm>
+using namespace std;
+void BinarySearch(int a[],int num,int first,int last)
+{
+    if(first>last)
+    {
+        cout<<"\nElement not found!"<<endl;
+        cout<<"———————————————————————————————————————————\n";
+    }
+    else
+    {
+        int mid;
+        mid=(first+last)/2;
+        if(a[mid]==num)
+        {
+            cout<<"\nElement found at index "<<mid+1<<endl;
+            cout<<"———————————————————————————————————————————\n";
+        }
+        else if(a[mid]>num)
+        {
+            BinarySearch(a,num,first,mid-1);
+        }
+        else
+        {
+            BinarySearch(a,num,mid+1,last);
+        }
+    }
+}
+
+int main()
+{
+    int n,i,j,num,end,beg,temp;
+    cout<<"———————————————————————————————————————————";
+    cout<<"\nImplementation of a Binary Search";
+    cout<<"\n———————————————————————————————————————————";
+    cout<<"\nHow many numbers you want to enter ";
+    cin>>n;
+    int a[n];
+    for(i=0;i<n;i++)
+    {
+        cout<<"Enter Number "<<i+1<<" | ";
+        cin>>a[i];
+    }
+    sort(a,a+n);
+  
+    cout<<"\nSorted numbers ";
+    for(i=0;i<n;i++)
+    {
+        cout<<a[i]<<" ";
+    }
+    beg=0;
+    end=n-1;
+    cout<<"\nEnter a number to be searched ";
+    cin>>num;
+    BinarySearch(a,num,beg,end);
+    return(0);
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+———————————————————————————————————————————
+Implementation of a Binary Search
+———————————————————————————————————————————
+How many numbers you want to enter 9
+Enter Number 1 | 55
+Enter Number 2 | -23
+Enter Number 3 | -78
+Enter Number 4 | 48
+Enter Number 5 | 96
+Enter Number 6 | 236
+Enter Number 7 | 45
+Enter Number 8 | 12
+Enter Number 9 | -1024
+
+Sorted numbers -1024 -78 -23 12 45 48 55 96 236 
+Enter a number to be searched -23
+
+Element found at index 3
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

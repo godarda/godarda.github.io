@@ -1,0 +1,50 @@
+---
+permalink: java/classes/gdgefay
+title: Java implementation of Calendar class
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.Calendar;
+class GD
+{
+    public static void main(String args[])
+    {
+        Calendar c=Calendar.getInstance();
+        System.out.println("———————————————————————————————————————————");
+        System.out.println("Java implementation of Calendar class");
+        System.out.println("———————————————————————————————————————————");
+        System.out.println("Year          | "+c.get(Calendar.YEAR));
+        System.out.println("Month         | "+c.get(Calendar.MONTH));
+        System.out.println("Day of Month  | "+c.get(Calendar.DAY_OF_MONTH));
+        System.out.println("Day of Week   | "+c.get(Calendar.DAY_OF_WEEK)); 
+        System.out.println("Week of Month | "+c.get(Calendar.WEEK_OF_MONTH));
+        System.out.println("DOW in Month  | "+c.get(Calendar.DAY_OF_WEEK_IN_MONTH));
+        System.out.println("Hour          | "+c.get(Calendar.HOUR));
+        System.out.println("Minute        | "+c.get(Calendar.MINUTE));
+        System.out.println("Seconds       | "+c.get(Calendar.SECOND));
+        System.out.println("Time AM-0/PM-1| "+c.get(Calendar.AM_PM));
+        System.out.println("———————————————————————————————————————————");
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+———————————————————————————————————————————
+Java implementation of Calendar class
+———————————————————————————————————————————
+Year          | 2019
+Month         | 3
+Day of Month  | 28
+Day of Week   | 1
+Week of Month | 5
+DOW in Month  | 4
+Hour          | 11
+Minute        | 48
+Seconds       | 58
+Time AM-0/PM-1| 0
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

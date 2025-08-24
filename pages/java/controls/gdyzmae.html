@@ -1,0 +1,45 @@
+---
+permalink: java/controls/gdyzmae
+title: Java program to check the given number is even or odd
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.Scanner;
+class GD 
+{
+    public static void main(String args[])
+    {
+        int x;
+        Scanner sc=new Scanner(System.in);
+        System.out.println("———————————————————————————————————————————");
+        System.out.println("Program for even-odd test of a given number");
+        System.out.println("———————————————————————————————————————————");
+        System.out.print("Enter a number ");
+        x=sc.nextInt();
+        //if((x>>1)<<1==x)
+        if(x%2==0)
+        {
+            System.out.println("\nEntered number is EVEN");
+        }
+        else
+        {
+            System.out.println("\nEntered number is ODD");
+        }
+        System.out.println("———————————————————————————————————————————");
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+———————————————————————————————————————————
+Program for even-odd test of a given number
+———————————————————————————————————————————
+Enter a number -5005
+
+Entered number is ODD
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

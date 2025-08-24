@@ -59,7 +59,7 @@ $ python3 setups/macos.py full
 ```
 $ python3 setups/ubuntu.py full
 ```
-#### **[Windows:](#windows)** Ensure [Visual Studio Code][gidkcqso], [Python][gidxadth], and [Ruby][gidzrvdq] are installed. Then clone the repository and follow these steps:
+#### **[Windows:](#windows)** Ensure [Visual Studio Code][gdkcqso], [Python][gdxadth], and [Ruby][gdzrvdq] are installed. Then clone the repository and follow these steps:
 ```
 PS D:\> Open Visual Studio Code -> Terminal  
 PS D:\godarda.github.io> python setups/windows.py full  
@@ -67,7 +67,7 @@ PS D:\godarda.github.io> python setups/windows.py full
 
 ### 📦 [Additional Notes](#additional-notes)
 ---
-- All setup scripts are located in the [`setups/`][gidzgwel] directory and are platform-specific (`macos.py`, `ubuntu.py`, `windows.py`).
+- All setup scripts are located in the [`setups/`][gdzgwel] directory and are platform-specific (`macos.py`, `ubuntu.py`, `windows.py`).
 - CI workflows validate setup logic and ensure platform-specific compatibility.
 - The site runs locally on port `4000` by default. You can access it via `http://127.0.0.1:4000` or `http://localhost:4000`.
 - To contribute:
@@ -77,13 +77,13 @@ PS D:\godarda.github.io> python setups/windows.py full
   - Submit a pull request with a clear description of the changes and rationale.
 - If you encounter permission issues or missing dependencies, check your platform-specific prerequisites and ensure Python and Ruby are correctly installed and accessible.
 
-[gidezvdy]: https://github.com
-[gidzuddz]: https://getbootstrap.com
-[gidddcia]: https://jquery.com
-[gidwwvga]: https://jekyllrb.com
-[gidzyzav]: https://git-scm.com
-[gidxadth]: https://www.python.org
-[gidzrvdq]: https://rubyinstaller.org/downloads
-[gidkcqso]: https://code.visualstudio.com
-[gidzdngz]: https://github.com/godarda/godarda.github.io?tab=MIT-1-ov-file
-[gidzgwel]: https://github.com/godarda/godarda.github.io/tree/main/setups
+[gdezvdy]: https://github.com
+[gdzuddz]: https://getbootstrap.com
+[gdddcia]: https://jquery.com
+[gdwwvga]: https://jekyllrb.com
+[gdzyzav]: https://git-scm.com
+[gdxadth]: https://www.python.org
+[gdzrvdq]: https://rubyinstaller.org/downloads
+[gdkcqso]: https://code.visualstudio.com
+[gdzdngz]: https://github.com/godarda/godarda.github.io?tab=MIT-1-ov-file
+[gdzgwel]: https://github.com/godarda/godarda.github.io/tree/main/setups

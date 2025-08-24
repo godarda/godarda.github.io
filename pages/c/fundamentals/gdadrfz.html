@@ -1,0 +1,54 @@
+---
+permalink: c/fundamentals/gdadrfz
+title: C program to perform the arithmetic operations
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">Algorithm</div>
+<pre>{%- highlight vim -%}
+Step 1: Start
+Step 2: Initialize a = 0 and b = 1 
+Step 3: Print the values of a and b
+Step 4: Print the results of arithmetic operations
+        (a + b), (a - b), (a * b), (a / b), a++, and ++a 
+Step 5: End
+{%- endhighlight -%}</pre>
+
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    int a = 0, b = 1;
+    printf("———————————————————————————————————————————");
+    printf("\nProgram to perform arithmetic operations");
+    printf("\n———————————————————————————————————————————");
+    printf("\nValue of a   | %d ", a);
+    printf("\nValue of b   | %d ", b);
+    printf("\nValue of %d/%d | %d ", a, b, (a / b));
+    printf("\nValue of %d+%d | %d ", a, b, (a + b));
+    printf("\nValue of %d-%d | %d ", a, b, (a - b));
+    printf("\nValue of %d*%d | %d ", a, b, (a * b));
+    printf("\nValue of a++ | %d ", a++);
+    printf("\nValue of ++a | %d ", ++a);
+    printf("\n———————————————————————————————————————————\n");
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+———————————————————————————————————————————
+Program to perform arithmetic operations
+———————————————————————————————————————————
+Value of a   | 0 
+Value of b   | 1 
+Value of 0/1 | 0 
+Value of 0+1 | 1 
+Value of 0-1 | -1 
+Value of 0*1 | 0 
+Value of a++ | 0 
+Value of ++a | 2 
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

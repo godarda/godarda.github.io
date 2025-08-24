@@ -1,0 +1,29 @@
+---
+permalink: cluster/vbscript/gdzdzhz
+title: VBScript to generate the random numbers
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.vbsfile }}</div>
+<pre>{%- highlight vb -%}
+Dim ran_num(10)
+Dim arr(10)
+For i = 1 To 10 Step 1
+    Randomize
+    ran_num(i) = Int((100 * Rnd))
+    print ran_num(i)
+Next
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+4
+96
+94
+34
+15
+97
+24
+44
+11
+10
+</pre></span>

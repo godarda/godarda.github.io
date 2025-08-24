@@ -1,0 +1,50 @@
+---
+permalink: c/controls/gdcheqs
+title: C program to check the given number is even or odd
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    int n, a;
+    printf("———————————————————————————————————————————");
+    printf("\nProgram for even-odd test of a given number");
+    printf("\n———————————————————————————————————————————");
+    printf("\nEnter a number ");
+    scanf("%d", &n);
+    if (n % 2 == 0)
+    {
+        printf("\n%d is EVEN number", n);
+    }
+    else
+    {
+        printf("\n%d is ODD number", n);
+    }
+    printf("\n———————————————————————————————————————————\n");
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+———————————————————————————————————————————
+Program for even-odd test of a given number
+———————————————————————————————————————————
+Enter a number -5005
+
+-5005 is ODD number
+———————————————————————————————————————————
+
+godarda@gd:~$ <mark>./a.out</mark>
+———————————————————————————————————————————
+Program for even-odd test of a given number
+———————————————————————————————————————————
+Enter a number 5050
+
+5050 is EVEN number
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

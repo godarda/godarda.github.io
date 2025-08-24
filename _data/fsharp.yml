@@ -4,22 +4,22 @@ grandparent:
     url: fsharp/fundamentals
     children: 
       - title: F# Hello World program
-        url: fsharp/fundamentals/gidegsem
+        url: fsharp/fundamentals/gdegsem
       - title: F# program to perform the arithmetic operations
-        url: fsharp/fundamentals/gidwpkzv
+        url: fsharp/fundamentals/gdwpkzv
       - title: F# program to perform the boolean operations
-        url: fsharp/fundamentals/gidewzhw
+        url: fsharp/fundamentals/gdewzhw
       - title: F# program to calculate the area and circumference of a circle
-        url: fsharp/fundamentals/gidxmvyy
+        url: fsharp/fundamentals/gdxmvyy
 
   - parent: F# Control Statements
     subtree: Controls
     url: fsharp/controls
     children: 
       - title: F# program to check the given number is even or odd
-        url: fsharp/controls/gidzegce
+        url: fsharp/controls/gdzegce
       - title: F# program to check the given number is positive or negative
-        url: fsharp/controls/gidhadwu
+        url: fsharp/controls/gdhadwu
 
 sidenav: 
   - parent: F# Programming

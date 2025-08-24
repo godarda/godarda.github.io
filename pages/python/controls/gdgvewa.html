@@ -1,0 +1,36 @@
+---
+permalink: python/controls/gdgvewa
+title: Python program to check the given number is even or odd
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="code">{%- highlight python -%}
+print("__________________________________________")
+print("Program for even-odd test of a given number")
+print("__________________________________________")
+n=int(input("Enter a number "))
+if(n%2==0):
+    print(n,"is EVEN number")
+else:
+    print(n,"is ODD number")
+print("__________________________________________")
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runpy }}
+__________________________________________
+Program for even-odd test of a given number
+__________________________________________
+Enter a number -5005
+-5005 is ODD number 
+__________________________________________
+
+{{ site.runpy }}
+__________________________________________
+Program for even-odd test of a given number
+__________________________________________
+Enter a number 5050
+5050 is EVEN number
+__________________________________________
+</pre></span>

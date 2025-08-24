@@ -1,0 +1,38 @@
+---
+permalink: csharp/exceptions/gdwsayv
+title: C# program to handle the DivideByZeroException
+---
+
+<div class="codecard">C# DivideByZeroException</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+int n = 515, d = 0, result = 0;
+Console.WriteLine(result = n / d);
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+<error>Unhandled exception. System.DivideByZeroException: Attempted to divide by zero.
+    at Program.&lt;Main>$(String[] args) in /home/godarda/csharp/Program.cs:line 2</error>
+godarda@gd:~/csharp$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+int n = 515, d = 0, result = 0;
+try
+{
+    Console.WriteLine(result = n / d);
+}
+catch (DivideByZeroException e)
+{
+    Console.WriteLine(e.Message);
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Attempted to divide by zero.
+godarda@gd:~/csharp$ 
+</pre></span>

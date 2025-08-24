@@ -1,0 +1,123 @@
+---
+permalink: linux/commands/gdyzygf
+title: Linux commands for sorting and searching information
+---
+
+<div class="titlecard">{{ page.title }}</div>
+<div class="terminalcard">sort tsort and grep commands with options</div>
+<span><pre>
+godarda@gd:~$ <mark>ls</mark>
+a.out  gd.cpp   gd.py    Documents  Music     Public     Videos
+gd.c   GD.java  Desktop  Downloads  Pictures  Templates
+
+godarda@gd:~$ <mark>touch Weekdays</mark>
+godarda@gd:~$ <mark>ls</mark>
+a.out  gd.cpp   gd.py    Documents  Music     Public     Videos
+gd.c   GD.java  Desktop  Downloads  Pictures  Templates  Weekdays
+
+godarda@gd:~$ <mark>cat Weekdays</mark>
+Weekdays
+Monday
+Tuesday
+Wednesday
+Thursday
+Friday
+Monday
+Tuesday
+Wednesday
+Thursday
+Friday
+
+godarda@gd:~$ <mark>sort Weekdays</mark>
+Friday
+Friday
+Monday
+Monday
+Thursday
+Thursday
+Tuesday
+Tuesday
+Wednesday
+Wednesday
+Weekdays
+
+godarda@gd:~$ <mark>sort Weekdays | uniq</mark>
+Friday
+Monday
+Thursday
+Tuesday
+Wednesday
+Weekdays
+<hr>godarda@gd:~$ <mark>tsort Weekdays</mark>
+<error>tsort: Weekdays: input contains an odd number of tokens</error>
+
+godarda@gd:~$ <mark>cat Weekdays</mark> 
+Weekdays
+Monday
+Tuesday
+Wednesday
+Thursday
+Friday
+Monday
+Tuesday
+Wednesday
+Thursday
+
+godarda@gd:~$ <mark>tsort Weekdays</mark>
+Weekdays
+Monday
+Tuesday
+Wednesday
+Thursday
+Friday
+
+godarda@gd:~$ <mark>tac Weekdays</mark> 
+Thursday
+Wednesday
+Tuesday
+Monday
+Friday
+Thursday
+Wednesday
+Tuesday
+Monday
+Weekdays
+<hr>godarda@gd:~$ <mark>cat Weekdays | grep day</mark>
+Weekdays
+Monday
+Tuesday
+Wednesday
+Thursday
+Friday
+Monday
+Tuesday
+Wednesday
+Thursday
+
+godarda@gd:~$ <mark>grep day Weekdays</mark>
+Weekdays
+Monday
+Tuesday
+Wednesday
+Thursday
+Friday
+Monday
+Tuesday
+Wednesday
+Thursday
+
+godarda@gd:~$ <mark>grep -v days Weekdays</mark> 
+Monday
+Tuesday
+Wednesday
+Thursday
+Friday
+Monday
+Tuesday
+Wednesday
+Thursday
+
+godarda@gd:~$ <mark>grep -i days Weekdays</mark> 
+Weekdays
+godarda@gd:~$ 
+</pre></span>

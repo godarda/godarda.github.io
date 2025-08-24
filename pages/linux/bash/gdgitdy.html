@@ -1,0 +1,29 @@
+---
+permalink: linux/bash/gdgitdy
+title: Bash shell script to print Hello World
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.shfile }}</div>
+<pre class="code">{%- highlight shell -%}
+#!/bin/bash
+
+echo "Hello World"
+expr "Hello World"
+printf "Hello World\n"
+echo "\"Hello World"\"
+print="Hello World"
+echo $print
+echo "$0 is a file name"
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runsh }}
+Hello World
+Hello World
+Hello World
+"Hello World"
+Hello World
+gd.sh is a file name
+godarda@gd:~$ 
+</pre></span>

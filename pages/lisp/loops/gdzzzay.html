@@ -1,0 +1,48 @@
+---
+permalink: lisp/loops/gdzzzay
+title: LISP program to print the even and odd numbers
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.lispfile }}</div>
+<pre class="code">{%- highlight lisp -%}
+(write-line "———————————————————————————————————————————")
+(write-line "Program to print the even and odd numbers")
+(write-line "———————————————————————————————————————————")
+(setq a 0)
+(princ a)
+(loop
+(setq a(+ a 2))
+(terpri)(princ a)
+(when(>= a 10)(return a)))
+
+(terpri)(terpri)
+(setq a 1)
+(write a)(terpri)
+(loop
+(setq a(+ a 2))
+(when(> a 10)(return a))
+(princ a)(terpri))
+(format t "———————————————————————————————————————————")
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runlisp }}
+———————————————————————————————————————————
+Program to print the even and odd numbers
+———————————————————————————————————————————
+0
+2
+4
+6
+8
+10
+
+1
+3
+5
+7
+9
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

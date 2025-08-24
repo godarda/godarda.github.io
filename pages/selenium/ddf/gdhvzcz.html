@@ -1,0 +1,123 @@
+---
+permalink: selenium/ddf/gdhvzcz
+title: How to read an Excel file using Apache POI
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class ReadExcel 
+{
+    public static void main(String[] args)
+    {
+        try 
+        {
+            FileInputStream fis = new FileInputStream(new File("D://Selenium//Workbook-1.xlsx"));
+            XSSFWorkbook workbook = new XSSFWorkbook(fis);
+            XSSFSheet sheet = workbook.getSheetAt(0);
+            int rowcnt = sheet.getLastRowNum();
+            for(int i=0;i<=rowcnt;i++) 
+            {
+                Row r = sheet.getRow(i);
+                for(int j=0;j<r.getLastCellNum();j++)
+                {
+                    System.out.print(r.getCell(j).toString()+" ");
+                }
+                System.out.println();
+            }
+            
+            System.out.println("Number of Columns: "+sheet.getRow(0).getLastCellNum());
+            System.out.println("Number of Rows: "+sheet.getLastRowNum());
+        } 
+        catch (IOException e) 
+        {
+            e.printStackTrace();
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+ID Name 
+1.0 Thomson 
+2.0 Ronaldo 
+3.0 Thomson 
+Number of Columns: 2
+Number of Rows: 3
+</pre></span>
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Iterator;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class ReadExcel 
+{
+    public static void main(String[] args)
+    {
+        try 
+        {
+            FileInputStream fis = new FileInputStream(new File("D://Selenium//Workbook-1.xlsx"));
+            XSSFWorkbook workbook = new XSSFWorkbook(fis);
+            XSSFSheet sheet = workbook.getSheetAt(0);
+            Iterator<Row> ri = sheet.iterator();
+            
+            while(ri.hasNext())
+            {
+                Row r = ri.next();
+                Iterator<Cell> ci = r.cellIterator();
+                while(ci.hasNext())
+                {
+                    Cell c = ci.next();
+                    switch (c.getCellType()) 
+                    {
+                        case STRING:
+                            System.out.print(c.getStringCellValue()+" ");
+                            break;
+                        case NUMERIC:
+                            System.out.print(c.getNumericCellValue()+" ");
+                            break;
+                        case BOOLEAN:
+                            System.out.print(c.getBooleanCellValue()+" ");
+                            break;
+                    }
+                }
+                System.out.println();
+            }
+            
+            System.out.println("Number of Columns: "+sheet.getRow(0).getLastCellNum());
+            System.out.println("Number of Rows: "+sheet.getLastRowNum());
+        } 
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+ID Name 
+1.0 Thomson 
+2.0 Ronaldo 
+3.0 Thomson 
+Number of Columns: 2
+Number of Rows: 3
+</pre></span>

@@ -4,292 +4,292 @@ grandparent:
     url: java/fundamentals
     children:
       - title: Java Hello World program
-        url: java/fundamentals/gidmgeee
+        url: java/fundamentals/gdmgeee
       - title: Java Hello World program without using a semicolon
-        url: java/fundamentals/gidlnfzw
+        url: java/fundamentals/gdlnfzw
       - title: Java program to perform the arithmetic operations
-        url: java/fundamentals/giddyagw
+        url: java/fundamentals/gddyagw
       - title: Java program to perform the boolean operations
-        url: java/fundamentals/gidnozez
+        url: java/fundamentals/gdnozez
       - title: Java program to perform the relational operations
-        url: java/fundamentals/gidywvwa
+        url: java/fundamentals/gdywvwa
       - title: Java program to perform the assignment operations
-        url: java/fundamentals/gidyazyl
+        url: java/fundamentals/gdyazyl
       - title: Java program to find the size of primitive data types
-        url: java/fundamentals/gidqewdt
+        url: java/fundamentals/gdqewdt
       - title: Java program to calculate the area of a circle
-        url: java/fundamentals/gidpgsbg
+        url: java/fundamentals/gdpgsbg
       - title: Java program to perform the division of two numbers
-        url: java/fundamentals/gidgypqx
+        url: java/fundamentals/gdgypqx
       - title: Java program to swap the given numbers
-        url: java/fundamentals/gidzvbyz
+        url: java/fundamentals/gdzvbyz
 
   - parent: Java Control Statements
     subtree: Controls
     url: java/controls
     children: 
       - title: Java program to check the equality of given numbers
-        url: java/controls/gidkvfsb
+        url: java/controls/gdkvfsb
       - title: Java program to check the given number is positive or negative
-        url: java/controls/gidtxyfd
+        url: java/controls/gdtxyfd
       - title: Java program to check the given number is even or odd
-        url: java/controls/gidyzmae
+        url: java/controls/gdyzmae
 
   - parent: Java Loops
     subtree: Loops
     url: java/loops
     children: 
       - title: Java program to print the even and odd numbers
-        url: java/loops/gidgvwnz
+        url: java/loops/gdgvwnz
       - title: Java program to print the numbers using for loop
-        url: java/loops/gidivyne
+        url: java/loops/gdivyne
       - title: Java program to print the star pyramid patterns
-        url: java/loops/gidwzoda
+        url: java/loops/gdwzoda
       - title: Java program to find the factorial of a given number
-        url: java/loops/gidaabyy
+        url: java/loops/gdaabyy
 
   - parent: Java Strings
     subtree: Strings
     url: java/strings
     children: 
       - title: Java program to concatenate the given strings
-        url: java/strings/gidwazdq
+        url: java/strings/gdwazdq
       - title: Java implementation of the indexOf method
-        url: java/strings/gidgswzo
+        url: java/strings/gdgswzo
       - title: Java implementation of the Character class
-        url: java/strings/giddeyyd
+        url: java/strings/gddeyyd
       - title: Java implementation of the charAt method
-        url: java/strings/gidayluk
+        url: java/strings/gdayluk
       - title: Java program to find the length of a given string
-        url: java/strings/gidvdkzc
+        url: java/strings/gdvdkzc
       - title: How to find the length of a string without using the length method in java
-        url: java/strings/gidlggbd
+        url: java/strings/gdlggbd
       - title: Java program to reverse a given string using the reverse method
-        url: java/strings/gidvvbei
+        url: java/strings/gdvvbei
       - title: Java program to reverse a given string using charAt method
-        url: java/strings/gidcdaer
+        url: java/strings/gdcdaer
       - title: Java program to reverse a given string using an array
-        url: java/strings/gidyfzdp
+        url: java/strings/gdyfzdp
       - title: Java program to check whether a given string is a palindrome
-        url: java/strings/gidymyew
+        url: java/strings/gdymyew
       - title: Java program to perform the string operations
-        url: java/strings/gidoazqw
+        url: java/strings/gdoazqw
       - title: Java implementation of the contentEquals method
-        url: java/strings/gidpyedz
+        url: java/strings/gdpyedz
       - title: Java implementation of the equals method
-        url: java/strings/gidpvwaw
+        url: java/strings/gdpvwaw
       - title: Java implementation of the compareTo and equals methods
-        url: java/strings/gidveqwz
+        url: java/strings/gdveqwz
       - title: Java implementation of the string split method
-        url: java/strings/gidvdavw
+        url: java/strings/gdvdavw
       - title: Java program to count the number of holes in a given string and number
-        url: java/strings/gidhzaue
+        url: java/strings/gdhzaue
       - title: Java program to find the unique characters from a given string
-        url: java/strings/gidrmyed
+        url: java/strings/gdrmyed
       - title: How to create multiline strings using Java text blocks
-        url: java/strings/gidygaza
+        url: java/strings/gdygaza
 
   - parent: Java Arrays
     subtree: Arrays
     url: java/arrays
     children: 
       - title: Java program to print the sum of all numbers in a given array
-        url: java/arrays/gidtgkdg
+        url: java/arrays/gdtgkdg
       - title: Java program to find the min and max number from a given array
-        url: java/arrays/gidzeyvr
+        url: java/arrays/gdzeyvr
       - title: Java program to print the length of all strings from a given array
-        url: java/arrays/gidzyydd
+        url: java/arrays/gdzyydd
       - title: Java program to print the transpose of a given matrix
-        url: java/arrays/gidzapdy
+        url: java/arrays/gdzapdy
 
   - parent: Java Classes
     subtree: Classes
     url: java/classes
     children: 
       - title: Java program to demonstrate the use of Math class methods
-        url: java/classes/gidruzgv
+        url: java/classes/gdruzgv
       - title: Java program to demonstrate the use of constructor
-        url: java/classes/gidkogzp
+        url: java/classes/gdkogzp
       - title: Java implementation of final and static keywords
-        url: java/classes/gidwegxe
+        url: java/classes/gdwegxe
       - title: Java implementation of Scanner close method
-        url: java/classes/gidwqzgy
+        url: java/classes/gdwqzgy
       - title: Java implementation of a call by value
-        url: java/classes/gidweevd
+        url: java/classes/gdweevd
       - title: Implementation of Java method chaining
-        url: java/classes/gidklzdp
+        url: java/classes/gdklzdp
       - title: Java program to print the current date and time
-        url: java/classes/gidzvwdm
+        url: java/classes/gdzvwdm
       - title: Java implementation of Calendar class
-        url: java/classes/gidgefay
+        url: java/classes/gdgefay
 
   - parent: Java Methods
     subtree: Methods
     url: java/methods
     children: 
       - title: Java program to get the Operating System details
-        url: java/methods/gidyigxk
+        url: java/methods/gdyigxk
       - title: How to get the size of heap in Java
-        url: java/methods/gidzgzzw
+        url: java/methods/gdzgzzw
       - title: Java program to format the text blocks strings using formatted() method
-        url: java/methods/gidwgehl
+        url: java/methods/gdwgehl
 
   - parent: Java Inheritance
     subtree: Inheritance
     url: java/inheritance
     children: 
       - title: Java program for Single Inheritance
-        url: java/inheritance/gidzpasd
+        url: java/inheritance/gdzpasd
       - title: Java program for Multilevel Inheritance
-        url: java/inheritance/gidaghaa
+        url: java/inheritance/gdaghaa
       - title: Java program for Hierarchical Inheritance
-        url: java/inheritance/gidvsmdk
+        url: java/inheritance/gdvsmdk
       - title: Java program for Hybrid Inheritance (Multilevel and Hierarchical)
-        url: java/inheritance/giddfehy
+        url: java/inheritance/gddfehy
 
   - parent: Java Polymorphism
     subtree: Polymorphism
     url: java/polymorphism
     children: 
       - title: Implementation of Java method overloading
-        url: java/polymorphism/gideeacv
+        url: java/polymorphism/gdeeacv
       - title: How to overload the main() method in Java
-        url: java/polymorphism/gidawfyd
+        url: java/polymorphism/gdawfyd
       - title: Implementation of Java method overriding
-        url: java/polymorphism/gidazeyz
+        url: java/polymorphism/gdazeyz
 
   - parent: Java Abstraction
     subtree: Abstraction
     url: java/abstraction
     children: 
       - title: Java program for Abstract class
-        url: java/abstraction/gidaalaw
+        url: java/abstraction/gdaalaw
       - title: Java program for Interface
-        url: java/abstraction/gidddxgp
+        url: java/abstraction/gdddxgp
       - title: How to achieve multiple inheritance in Java using interfaces
-        url: java/abstraction/gidreodh
+        url: java/abstraction/gdreodh
       - title: How to achieve multiple inheritance in Java using interfaces and default methods
-        url: java/abstraction/gidaedbv
+        url: java/abstraction/gdaedbv
 
   - parent: Java Collections
     subtree: Collections
     url: java/collections
     children: 
       - title: Implementation of Java ArrayList class
-        url: java/collections/gidsadac
+        url: java/collections/gdsadac
       - title: Implementation of Java LinkedList class
-        url: java/collections/gidddweg
+        url: java/collections/gdddweg
       - title: Implementation of Java HashSet class
-        url: java/collections/gidsftmv
+        url: java/collections/gdsftmv
       - title: Implementation of Java LinkedHashSet class
-        url: java/collections/gidsnzag
+        url: java/collections/gdsnzag
       - title: Implementation of Java TreeSet class
-        url: java/collections/gidrezey
+        url: java/collections/gdrezey
       - title: Implementation of Java HashMap class
-        url: java/collections/gideydav
+        url: java/collections/gdeydav
       - title: Implementation of Java LinkedHashMap class
-        url: java/collections/giderzgx
+        url: java/collections/gderzgx
       - title: Implementation of Java ArrayDeque class
-        url: java/collections/gidvpvwx
+        url: java/collections/gdvpvwx
       - title: Implementation of Java PriorityQueue class
-        url: java/collections/gidgkbrv
+        url: java/collections/gdgkbrv
       - title: Implementation of Java Stack class
-        url: java/collections/gidwdaie
+        url: java/collections/gdwdaie
       - title: Java program to perform the Set operations
-        url: java/collections/gidtzdyt
+        url: java/collections/gdtzdyt
 
   - parent: Java Exception Handling
     subtree: Exceptions
     url: java/exceptions
     children: 
       - title: Java program to demonstrate the use of try and catch blocks
-        url: java/exceptions/gidvolqb
+        url: java/exceptions/gdvolqb
       - title: Java program to demonstrate the use of finally block
-        url: java/exceptions/gidvvvvh
+        url: java/exceptions/gdvvvvh
       - title: Java program to demonstrate the use of nested try, catch, and finally blocks
-        url: java/exceptions/gidvgwaz
+        url: java/exceptions/gdvgwaz
       - title: Java program to handle the ArithmeticException
-        url: java/exceptions/giddzvkd
+        url: java/exceptions/gddzvkd
       - title: Java program to handle the NullPointerException
-        url: java/exceptions/gidocuey
+        url: java/exceptions/gdocuey
       - title: Java program to handle the StringIndexOutOfBoundsException
-        url: java/exceptions/gidpdygw
+        url: java/exceptions/gdpdygw
       - title: Java program to handle the ArrayIndexOutOfBoundsException
-        url: java/exceptions/gidsshvg
+        url: java/exceptions/gdsshvg
       - title: Java program to handle the NegativeArraySizeException
-        url: java/exceptions/gidddsgd
+        url: java/exceptions/gdddsgd
       - title: Java program to handle the OutOfMemoryError exception
-        url: java/exceptions/gidxyawz
+        url: java/exceptions/gdxyawz
       - title: Java program to handle divide by zero exception
-        url: java/exceptions/gidehmen
+        url: java/exceptions/gdehmen
 
   - parent: Java Regular Expressions
     subtree: RE
     url: java/re
     children: 
       - title: Implementation of Java Regular Expressions
-        url: java/re/gidwdgez
+        url: java/re/gdwdgez
       - title: Java program to accept a valid blood group using regex
-        url: java/re/gidbcega
+        url: java/re/gdbcega
 
   - parent: Java Multithreading
     subtree: Multithreading
     url: java/multithreading
     children: 
       - title: Java program to extends the Thread class
-        url: java/multithreading/gidgaasz
+        url: java/multithreading/gdgaasz
       - title: Java program for Runnable interface
-        url: java/multithreading/gidrccyh
+        url: java/multithreading/gdrccyh
       - title: Java program for getName(), getId() and getPriority() methods
-        url: java/multithreading/gidmdczr
+        url: java/multithreading/gdmdczr
       - title: Java program for join() and sleep() methods
-        url: java/multithreading/gideshez
+        url: java/multithreading/gdeshez
       - title: Java program for priority thread
-        url: java/multithreading/gidegzvz
+        url: java/multithreading/gdegzvz
       - title: Java program for a daemon thread
-        url: java/multithreading/gidadcnb
+        url: java/multithreading/gdadcnb
       - title: Java program to perform a single task by multiple threads
-        url: java/multithreading/gidyiztd
+        url: java/multithreading/gdyiztd
       - title: Java program to perform multiple tasks by multiple threads
-        url: java/multithreading/gidaedsw
+        url: java/multithreading/gdaedsw
 
   - parent: Java AWT and Swing Graphics
     subtree: AWT
     url: java/awt
     children: 
       - title: Java program to draw a Line using Graphics2D class
-        url: java/awt/gidyvqli
+        url: java/awt/gdyvqli
       - title: Java program to draw a Curve using Graphics2D class
-        url: java/awt/gidpgzzw
+        url: java/awt/gdpgzzw
       - title: Java program to draw a Circle using Graphics2D class
-        url: java/awt/gidamhed
+        url: java/awt/gdamhed
       - title: Java program to draw a Rectangle using Graphics2D class
-        url: java/awt/gidzyehx
+        url: java/awt/gdzyehx
       - title: Java program to create an empty frame as an instance
-        url: java/awt/gidzwhgg
+        url: java/awt/gdzwhgg
       - title: Java program to print Hello World on a frame
-        url: java/awt/gidixzwy
+        url: java/awt/gdixzwy
       - title: Java program to create an input field on a frame
-        url: java/awt/gidqoivp
+        url: java/awt/gdqoivp
 
   - parent: Java Database Connectivity (JDBC)
     subtree: JDBC
     url: java/jdbc
     children: 
       - title: Java MySQL to connect, create database, and table
-        url: java/jdbc/gidpuuhg
+        url: java/jdbc/gdpuuhg
       - title: Java MySQL to insert and retrieve the records from a table
-        url: java/jdbc/gidyszqa
+        url: java/jdbc/gdyszqa
       - title: Java MySQL to update the table records
-        url: java/jdbc/gidqkpvm
+        url: java/jdbc/gdqkpvm
       - title: Java MySQL to perform JDBC CRUD operations
-        url: java/jdbc/gidbylyk
+        url: java/jdbc/gdbylyk
       - title: Java MongoDB to create database and collection
-        url: java/jdbc/gidvhaug
+        url: java/jdbc/gdvhaug
       - title: Java MongoDB to insert and retrieve the documents from a collection
-        url: java/jdbc/gidaknae
+        url: java/jdbc/gdaknae
       - title: Java MongoDB to insert the JSON file documents into a collection
-        url: java/jdbc/gidnegld
+        url: java/jdbc/gdnegld
 
 sidenav:
   - parent: Java Programming

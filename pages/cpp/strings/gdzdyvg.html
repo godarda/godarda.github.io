@@ -1,0 +1,49 @@
+---
+permalink: cpp/strings/gdzdyvg
+title: C++ program to swap the given strings
+---
+    
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+#include <cstring>
+using namespace std;
+int main()
+{
+    string s1, s2, s3;
+    cout<<"———————————————————————————————————————————";
+    cout<<"\nProgram to swap the given strings";
+    cout<<"\n———————————————————————————————————————————";
+    cout<<"\ns1=";
+    getline(cin, s1);
+    cout<<"s2=";
+    getline(cin, s2);
+    s3 = s1;
+    s1 = s2;
+    s2 = s3;
+    cout<<"———————————————————————————————————————————";
+    cout<<"\nAfter swapping...";
+    cout<<"\n———————————————————————————————————————————";
+    cout<<"\ns1="<<s1;
+    cout<<"\ns2="<<s2;
+    cout<<"\n———————————————————————————————————————————\n";
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+———————————————————————————————————————————
+Program to swap the given strings
+———————————————————————————————————————————
+s1=Hi There!
+s2=How are you today?
+———————————————————————————————————————————
+After swapping...
+———————————————————————————————————————————
+s1=How are you today?
+s2=Hi There!
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

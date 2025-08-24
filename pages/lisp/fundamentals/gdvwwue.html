@@ -1,0 +1,38 @@
+---
+permalink: lisp/fundamentals/gdvwwue
+title: LISP program to perform the arithmetic operations
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.lispfile }}</div>
+<pre class="code">{%- highlight lisp -%}
+(write-line "———————————————————————————————————————————")
+(write-line "Program to perform the arithmetic operations")
+(write-line "———————————————————————————————————————————")
+(format t "Enter the 1st number ")
+(setq a(read))
+(format t "Enter the 2nd number ")
+(setq b(read))
+(princ "—————————————————————————")
+(format t "~%Addition       | ~d"(+ a b))
+(format t "~%Subtraction    | ~d"(- a b))
+(format t "~%Multiplication | ~d"(* a b))
+(format t "~%Division       | ~d"(/ a b))
+(terpri)(format t "———————————————————————————————————————————")
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runlisp }}
+———————————————————————————————————————————
+Program to perform the arithmetic operations
+———————————————————————————————————————————
+Enter the 1st number 50
+Enter the 2nd number -10
+—————————————————————————
+Addition       | 40
+Subtraction    | 60
+Multiplication | -500
+Division       | -5
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

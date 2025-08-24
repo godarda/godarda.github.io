@@ -1,0 +1,30 @@
+---
+permalink: cluster/vbscript/gdauerk
+title: VBScript to sort the Array elements using Bubble sort
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.vbsfile }}</div>
+<pre>{%- highlight vb -%}
+arr = Array(1000,900,800,700,600,500,400,300,200,100)
+For i = LBound(arr) to UBound(arr)
+    For j = LBound(arr) to UBound(arr) - 1
+        If arr(j) > arr(j + 1) Then
+            temp = arr(j + 1)
+            arr(j + 1) = arr(j)
+            arr(j) = temp
+        End If
+    Next
+Next
+
+For i = LBound(arr) To UBound(arr)
+    sorted = sorted & arr(i)&" "
+Next
+print "Sorted Array Is "&sorted
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+
+Sorted Array Is 100 200 300 400 500 600 700 800 900 1000 
+
+</pre></span>

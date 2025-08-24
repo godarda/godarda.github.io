@@ -1,0 +1,106 @@
+---
+permalink: octave/fundamentals/gdgeiev
+title: Octave Exponents and Logarithms
+---
+
+<div class="terminalcard">Exponents</div>
+<span><pre>
+godarda@gd:~$ <mark>octave</mark>
+...
+octave> <mark>e</mark>
+ans = 2.7183
+
+octave> <mark>exp(0)</mark>
+ans = 1
+
+octave> <mark>expm1(0)</mark>
+ans = 0
+
+octave> <mark>exp(1)</mark>
+ans = 2.7183
+
+octave> <mark>expm1(1)</mark>
+ans = 1.7183
+
+octave> <mark>exp(2)</mark>
+ans = 7.3891
+
+octave> <mark>expm1(2)</mark>
+ans = 6.3891
+</pre></span>
+
+<div class="terminalcard">Logarithms</div>
+<span><pre>
+octave> <mark>log(0)</mark>
+ans = -Inf
+
+octave> <mark>log(1)</mark>
+ans = 0
+
+octave> <mark>log1p(0)</mark>
+ans = 0
+
+octave> <mark>log1p(1)</mark>
+ans = 0.6931
+
+octave> <mark>log(-1)</mark>
+ans =       0 + 3.1416i
+
+octave> <mark>reallog(0)</mark>
+ans = -Inf
+
+octave> <mark>reallog(1)</mark>
+ans = 0
+
+octave> <mark>reallog(-1)</mark>
+error: reallog: produced complex result
+
+octave> <mark>log10(0)</mark>
+ans = -Inf
+
+octave> <mark>log10(1)</mark>
+ans = 0
+
+octave> <mark>log10(2)</mark>
+ans = 0.3010
+
+octave> <mark>log2(0)</mark>
+ans = -Inf
+
+octave> <mark>log2(1)</mark>
+ans = 0
+
+octave> <mark>log2(2)</mark>
+ans = 1
+</pre></span>
+
+<div class="terminalcard">Power, Square root and Cube root functions</div>
+<span><pre>
+octave> <mark>pow2(10)</mark>
+ans = 1024
+
+octave:80> realpow(2,10)</mark>
+ans = 1024
+
+octave> <mark>sqrt(100)</mark>
+ans = 10
+
+octave> <mark>sqrt(-1)</mark>
+ans =  0 + 1i
+
+octave> <mark>realsqrt(10)</mark>
+ans = 3.1623
+
+octave> <mark>realsqrt(-1)</mark>
+error: realsqrt: produced complex result
+
+octave> <mark>cbrt(27)</mark>
+ans = 3.0000
+
+octave> <mark>nthroot(1,2)</mark>
+ans = 1
+
+octave> <mark>nthroot(4,2)</mark>
+ans = 2
+(4) ^ (1 / 2)
+</pre></span>

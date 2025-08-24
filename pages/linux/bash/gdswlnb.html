@@ -1,0 +1,43 @@
+---
+permalink: linux/bash/gdswlnb
+title: Bash shell script to check a given number is positive or negative
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.shfile }}</div>
+<pre class="code">{%- highlight shell -%}
+#!/bin/bash
+
+echo "———————————————————————————————————————————"
+echo "Script to check a given number is +ve or -ve "
+echo "———————————————————————————————————————————"
+echo "Enter the number \c"; read a
+b=0
+if [ $a -gt $b ];then
+    echo "Entered number is positive"
+elif [ $a -eq $b ];then
+    echo "Entered number is zero"
+else
+    echo "Entered number is negative"
+fi
+echo "———————————————————————————————————————————"
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runsh }}
+———————————————————————————————————————————
+Script to check a given number is +ve or -ve 
+———————————————————————————————————————————
+Enter the number -50
+Entered number is negative
+———————————————————————————————————————————
+
+godarda@gd:~$ sh gd.sh
+———————————————————————————————————————————
+Script to check a given number is +ve or -ve 
+———————————————————————————————————————————
+Enter the number 0
+Entered number is zero
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

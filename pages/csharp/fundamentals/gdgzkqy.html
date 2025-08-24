@@ -1,0 +1,34 @@
+---
+permalink: csharp/fundamentals/gdgzkqy
+title: C# program to calculate the area and circumference of a circle
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+double r, AREA;
+const double PI = 3.14;    
+Console.WriteLine("———————————————————————————————————————————");
+Console.WriteLine("Program to calculate the area and circumference of a circle");
+Console.WriteLine("———————————————————————————————————————————");
+Console.Write("Enter the radius of circle ");
+r = Convert.ToDouble(Console.ReadLine());
+AREA = PI * r * r;
+Console.WriteLine("\nThe area of circle is {0} when radius is {1}", AREA, r);
+Console.WriteLine("\nThe circumference of circle is {0}", 2 * PI * r);          
+Console.WriteLine("———————————————————————————————————————————");
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+———————————————————————————————————————————
+Program to calculate the area and circumference of a circle
+———————————————————————————————————————————
+Enter the radius of a circle 10
+
+The area of a circle is 314 when radius is 10
+
+The circumference of a circle is 62.8
+———————————————————————————————————————————
+godarda@gd:~/csharp$ 
+</pre></span>

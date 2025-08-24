@@ -1,0 +1,151 @@
+---
+permalink: linux/commands/gdrrasp
+title: Linux commands to view the history and file content
+---
+
+<div class="titlecard">{{ page.title }}</div>
+<div class="terminalcard">cat and wc commands with options</div>
+<span><pre>
+godarda@gd:~$ <mark>cat gd.c</mark>
+#include&lt;stdio.h&gt;
+int main()
+{
+    fork();
+    printf("Hello, World!\n");
+    return 0;
+}
+
+godarda@gd:~$ <mark>head -1 gd.c | wc -c</mark>
+18
+
+godarda@gd:~$ <mark>wc gd.c</mark>
+ 7 10 90 gd.c
+
+godarda@gd:~$ <mark>wc -c gd.c</mark>
+90 gd.c
+
+godarda@gd:~$ <mark>wc -l gd.c</mark>
+7 gd.c
+
+godarda@gd:~$ <mark>wc -L gd.c</mark>
+30 gd.c
+
+godarda@gd:~$ <mark>wc -m gd.c</mark>
+90 gd.c
+
+godarda@gd:~$ <mark>wc -mw gd.c</mark>
+10 90 gd.c
+
+godarda@gd:~$ <mark>wc -w gd.c</mark>
+10 gd.c
+<hr>godarda@gd:~$ <mark>nl gd.c</mark>
+     1  #include&lt;stdio.h&gt;
+     2  int main()
+     3  {
+     4      fork();
+     5      printf("Hello, World!\n");
+     6      return 0;
+     7  }
+</pre></span>
+
+<div class="terminalcard">less, more, od, and xxd commands</div>
+<span><pre>
+godarda@gd:~$ <mark>less gd.c</mark>
+godarda@gd:~$ <mark>more gd.c</mark>
+#include&lt;stdio.h&gt;
+int main()
+{
+    fork();
+    printf("Hello, World!\n");
+    return 0;
+}
+<hr>godarda@gd:~$ <mark>od gd.c</mark>
+0000000 064443 061556 072554 062544 071474 062164 067551 064056
+0000020 005076 067151 020164 060555 067151 024450 075412 020012
+0000040 020040 063040 071157 024153 035451 020012 020040 070040
+0000060 064562 072156 024146 044042 066145 067554 020054 067527
+0000100 066162 020544 067134 024442 005073 020040 020040 062562
+0000120 072564 067162 030040 005073 005175
+0000132
+
+godarda@gd:~$ <mark>xxd gd.c</mark>
+00000000: 2369 6e63 6c75 6465 3c73 7464 696f 2e68  #include&lt;stdio.h
+00000010: 3e0a 696e 7420 6d61 696e 2829 0a7b 0a20  >.int main().{. 
+00000020: 2020 2066 6f72 6b28 293b 0a20 2020 2070     fork();.    p
+00000030: 7269 6e74 6628 2248 656c 6c6f 2c20 576f  rintf("Hello, Wo
+00000040: 726c 6421 5c6e 2229 3b0a 2020 2020 7265  rld!\n");.    re
+00000050: 7475 726e 2030 3b0a 7d0a                 turn 0;.}.
+</pre></span>
+
+<div class="terminalcard">cat command with options</div>
+<span><pre>
+godarda@gd:~$ <mark>cat gd.c</mark>
+#include&lt;stdio.h&gt;
+int main()
+{
+    fork();
+    printf("Hello, World!\n");
+    return 0;
+}
+
+godarda@gd:~$ <mark>cat -E gd.c</mark>
+#include&lt;stdio.h&gt;$
+int main()$
+{$
+    fork();$
+    printf("Hello, World!\n");$
+    return 0;$
+}$
+
+godarda@gd:~$ <mark>cat -n gd.c</mark>
+     1  #include&lt;stdio.h&gt;
+     2  int main()
+     3  {
+     4      fork();
+     5      printf("Hello, World!\n");
+     6      return 0;
+     7  }
+
+godarda@gd:~$ <mark>cat -b gd.c</mark>
+     1  #include&lt;stdio.h&gt;
+     2  int main()
+     3  {
+     4      fork();
+     5      printf("Hello, World!\n");
+     6      return 0;
+     7  }
+</pre></span>
+
+<div class="terminalcard">history, tty, stty, mtools commands</div>
+<span><pre>
+godarda@gd:~$ <mark>history | tail -6</mark>
+  127  xxd gd.c
+  128  cat gd.c
+  129  cat -E gd.c
+  130  cat -n gd.c
+  131  cat -b gd.c
+  132  history | tail -6
+
+godarda@gd:~$ <mark>!132</mark>
+history | tail -6
+  128  cat gd.c
+  129  cat -E gd.c
+  130  cat -n gd.c
+  131  cat -b gd.c
+  132  history | tail -6
+  133  history | tail -6
+<hr>godarda@gd:~$ <mark>tty</mark>
+/dev/pts/3
+
+godarda@gd:~$ <mark>stty</mark>
+speed 38400 baud; line = 0;
+-brkint -imaxbel iutf8
+
+godarda@gd:~$ <mark>mtools</mark>
+Supported commands:
+mattrib, mbadblocks, mcat, mcd, mclasserase, mcopy, mdel, mdeltree
+mdir, mdoctorfat, mdu, mformat, minfo, mlabel, mmd, mmount
+mpartition, mrd, mread, mmove, mren, mshowfat, mshortname, mtoolstest
+mtype, mwrite, mzip
+godarda@gd:~$ 
+</pre></span>

@@ -1,0 +1,60 @@
+---
+permalink: csharp/polymorphism/gdfzldx
+title: Implementation of C# method overloading
+---
+
+<div class="codecard">Example 1: {{ page.title }} (static polymorphism)</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+Console.WriteLine("Area of Rectangle " + Shape.Rectangle(5, 10));
+Console.WriteLine("Area of Rectangle {0}", Shape.Rectangle(3.14, 10));
+
+class Shape
+{
+    public static int Rectangle(int a, int b)
+    {
+        return a * b;
+    }
+    public static double Rectangle(double a, double b)
+    {
+        return a * b;
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Area of Rectangle 50
+Area of Rectangle 31.400000000000002 
+godarda@gd:~/csharp$ 
+</pre></span>
+
+<div class="codecard">Example 2: {{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+Shape s = new Shape();
+double area = s.Square(10);
+Console.WriteLine("Area of Square " + area);
+
+area = s.Rectangle(3.14, 10);
+Console.WriteLine("Area of Rectangle {0}", area);
+
+class Shape
+{
+    public double Square(int a)
+    {
+        return a * a;
+    }
+    public double Rectangle(double a, double b)
+    {
+        return a * b;
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Area of Square 100
+Area of Rectangle 31.400000000000002 
+godarda@gd:~/csharp$ 
+</pre></span>

@@ -1,0 +1,121 @@
+---
+permalink: python/fundamentals/gdlvgqy
+title: How to use Python help utility
+---
+
+<div class="titlecard">{{ page.title }}</div>
+<div class="terminalcard">Python help modules</div>
+<span><pre>
+godarda@gd:~$ <mark>python3</mark>
+...
+>>> <mark>help('modules')</mark>
+
+Please wait a moment while I gather a list of all available modules...
+
+__future__          _thread             glob                sched
+__hello__           _threading_local    graphlib            secrets
+__phello__          _tokenize           grp                 select
+_abc                _tracemalloc        gzip                selectors
+_aix_support        _typing             hashlib             shelve
+_ast                _warnings           heapq               shlex
+_asyncio            _weakref            hmac                shutil
+_bisect             _weakrefset         html                signal
+_blake2             _xxinterpchannels   http                site
+_bz2                _xxsubinterpreters  idlelib             smtplib
+_codecs             _xxtestfuzz         imaplib             sndhdr
+_codecs_cn          _zoneinfo           imghdr              socket
+_codecs_hk          abc                 importlib           socketserver
+_codecs_iso2022     aifc                inspect             spwd
+_codecs_jp          antigravity         io                  sqlite3
+_codecs_kr          argparse            ipaddress           sre_compile
+_codecs_tw          array               itertools           sre_constants
+...
+Enter any module name to get more help.  Or, type "modules spam" to search
+for modules whose name or summary contain the string "spam".
+</pre></span>
+
+<div class="terminalcard">Python help utility</div>
+<span><pre>
+>>> <mark>help()</mark>
+
+Welcome to Python 3.12's help utility!
+
+If this is your first time using Python, you should definitely check out
+the tutorial on the internet at https://docs.python.org/3.12/tutorial/.
+
+Enter the name of any module, keyword, or topic to get help on writing
+Python programs and using Python modules.  To quit this help utility and
+return to the interpreter, just type "quit".
+
+To get a list of available modules, keywords, symbols, or topics, type
+"modules", "keywords", "symbols", or "topics".  Each module also comes
+with a one-line summary of what it does; to list the modules whose name
+or summary contain a given string such as "spam", type "modules spam".
+</pre></span>
+
+<div class="terminalcard">Python help on topics</div>
+<span><pre>
+help> <mark>topics</mark>
+
+Here is a list of available topics.  Enter any topic name to get more help.
+
+ASSERTION           DELETION            LOOPING             SHIFTING
+ASSIGNMENT          DICTIONARIES        MAPPINGMETHODS      SLICINGS
+ATTRIBUTEMETHODS    DICTIONARYLITERALS  MAPPINGS            SPECIALATTRIBUTES
+ATTRIBUTES          DYNAMICFEATURES     METHODS             SPECIALIDENTIFIERS
+AUGMENTEDASSIGNMENT ELLIPSIS            MODULES             SPECIALMETHODS
+BASICMETHODS        EXCEPTIONS          NAMESPACES          STRINGMETHODS
+BINARY              EXECUTION           NONE                STRINGS
+BITWISE             EXPRESSIONS         NUMBERMETHODS       SUBSCRIPTS
+BOOLEAN             FLOAT               NUMBERS             TRACEBACKS
+CALLABLEMETHODS     FORMATTING          OBJECTS             TRUTHVALUE
+CALLS               FRAMEOBJECTS        OPERATORS           TUPLELITERALS
+CLASSES             FRAMES              PACKAGES            TUPLES
+CODEOBJECTS         FUNCTIONS           POWER               TYPEOBJECTS
+COMPARISON          IDENTIFIERS         PRECEDENCE          TYPES
+COMPLEX             IMPORTING           PRIVATENAMES        UNARY
+CONDITIONAL         INTEGER             RETURNING           UNICODE
+CONTEXTMANAGERS     LISTLITERALS        SCOPING             
+CONVERSIONS         LISTS               SEQUENCEMETHODS     
+DEBUGGING           LITERALS            SEQUENCES           
+
+help> <mark>DEBUGGING</mark>
+:wq
+help> <mark>Ctrl + C</mark>
+
+You are now leaving help and returning to the Python interpreter.
+If you want to ask for help on a particular object directly from the
+interpreter, you can type "help(object)".  Executing "help('string')"
+has the same effect as typing a particular string at the help> prompt.
+</pre></span>
+
+<div class="terminalcard">Python help on package</div>
+<span><pre>
+>>> <mark>help('socket')</mark>
+
+Help on module socket:
+
+NAME
+    socket
+
+MODULE REFERENCE
+    https://docs.python.org/3.12/library/socket.html
+
+    The following documentation is automatically generated from the Python
+    source files.  It may be incomplete, incorrect or include features that
+    are considered implementation detail and may vary between Python
+    implementations.  When in doubt, consult the module reference at the
+    location listed above.
+
+DESCRIPTION
+    This module provides socket operations and some related functions.
+    On Unix, it supports IP (Internet Protocol) and Unix domain sockets.
+    On other systems, it only supports IP. Functions specific for a
+    socket are available as methods of the socket object.
+
+    Functions:
+
+    socket() -- create a new socket object
+    socketpair() -- create a pair of new socket objects [*]
+...
+</pre></span>

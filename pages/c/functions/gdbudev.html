@@ -1,0 +1,65 @@
+---
+permalink: c/functions/gdbudev
+title: C program to find the factorial of a given number
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int facto(int);
+int main()
+{
+    int n, a;
+    printf("———————————————————————————————————————————");
+    printf("\nProgram to find the factorial of a given number");
+    printf("\n———————————————————————————————————————————");
+    printf("\nEnter the number ");
+    scanf("%d", &n);
+    if (n < 0)
+    {
+        printf("Please enter a positive number or zero");
+    }
+    else if (n > 15)
+    {
+        printf("\nPlease enter a number less than 16");
+    }
+    else
+    {
+        a = facto(n);
+        printf("\nThe factorial of %d is %d", n, a);
+    }
+    printf("\n———————————————————————————————————————————\n");
+    return 0;
+}
+int facto(int n)
+{
+    int i, factorial = 1;
+    for (i = 1; i <= n; i++)
+    {
+        factorial = factorial * i;
+    }
+    return (factorial);
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+———————————————————————————————————————————
+Program to find the factorial of a given number
+———————————————————————————————————————————
+Enter the number 0
+
+The factorial of 0 is 1
+———————————————————————————————————————————
+
+godarda@gd:~$ <mark>./a.out</mark>
+———————————————————————————————————————————
+Program to find the factorial of a given number
+———————————————————————————————————————————
+Enter the number 25
+
+Please enter a number less than 16
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

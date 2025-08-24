@@ -1,0 +1,39 @@
+---
+permalink: octave/strings/gduaulz
+title: Octave basic string operations
+---
+
+<div class="terminalcard">{{ page.title }}</div>
+<span><pre>
+godarda@gd:~$ <mark>octave</mark>
+...
+octave> <mark>gd = "Koding"</mark>
+gd = Koding
+
+octave> <mark>gd = [gd, "window"]</mark>
+gd = GoDarda
+
+octave> <mark>typeinfo(gd)</mark>
+ans = string
+
+octave> <mark>gd(6)</mark>
+ans = g
+
+octave> <mark>gd(2:11)</mark>
+ans = odingwindo
+
+octave> <mark>length(gd)</mark>
+ans = 12
+
+octave> <mark>fliplr(gd)</mark>
+ans = wodniwgnidoK
+
+octave> <mark>toupper(gd)</mark>
+ans = KODINGWINDOW
+
+octave> <mark>tolower(gd)</mark>
+ans = godarda
+
+octave> <mark>sort(gd)</mark>
+ans = Kddgiinnooww
+</pre></span>

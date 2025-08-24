@@ -1,0 +1,67 @@
+---
+permalink: python/networking/gdgzlzd
+title: Python program for two way communication using socket programming
+---
+
+<div class="codecard">{{ page.title }} (client-server chat)</div>
+<div class="card">File: server.py</div>
+<pre class="code">{%- highlight python -%}
+import socket
+
+server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+host=socket.gethostname()
+port=5001
+
+server_socket.bind((host,port))
+server_socket.listen(5)
+client_socket,address=server_socket.accept()
+
+while True:
+    client=client_socket.recv(2048)
+    print("Client> ",client)
+    client_socket.sendall(bytearray(input("You> "),"utf-8"))
+client_socket.close()   
+server_socket.close()
+{%- endhighlight -%}</pre>
+<div class="card">File: client.py</div>
+<pre class="code">{%- highlight python -%}
+import socket
+
+client_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+host=socket.gethostname()
+port=5001
+
+client_socket.connect((host,port))
+
+while True:
+    print("You> ",end='')
+    server=(bytearray(input(),"utf-8"))
+    client_socket.sendall(server)
+    server=client_socket.recv(2048)
+    print("Server> ",server)
+client_socket.close()
+{%- endhighlight -%}</pre>
+<div class="card">Output (Terminal-1)</div>
+<span><pre>
+godarda@gd:~$ <mark>python3 server.py</mark>
+Client>  b'Hi Server'
+You> Hello Client 
+Client>  b'How are you?'
+You> Thank You. I am fine. How about you?
+Client>  b'I am good.'
+You> Bye. Catch you later.
+Client>  b'Okay. Bye'
+You> 
+</pre></span>
+
+<div class="terminalcard">Output (Terminal-2)</div>
+<span><pre>
+godarda@gd:~$ <mark>python3 client.py</mark>
+You> Hi Server
+Server>  b'Hello Client'
+You> How are you? 
+Server>  b'Thank You. I am fine. How about you?'
+You> I am good.
+Server>  b'Bye. Catch you later.'
+You> Okay. Bye
+</pre></span>

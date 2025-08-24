@@ -1,0 +1,45 @@
+---
+permalink: c/fundamentals/gdmwpsv
+title: C program to find the size of data types
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    printf("———————————————————————————————————————————");
+    printf("\nProgram to find the size of data types");
+    printf("\n———————————————————————————————————————————");
+    printf("\nvoid       | %ld byte", sizeof(void));
+    printf("\nint        | %ld bytes", sizeof(int));
+    printf("\nchar       | %ld bytes", sizeof(char));
+    printf("\nfloat      | %ld bytes", sizeof(float));
+    printf("\ndouble     | %ld bytes", sizeof(double));
+    printf("\nlong       | %ld bytes", sizeof(long));
+    printf("\nshort      | %ld bytes", sizeof(short));
+    printf("\nNULL       | %ld bytes", sizeof(NULL));
+    printf("\nbool       | %ld bytes", sizeof(long double));
+    printf("\n———————————————————————————————————————————\n");
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+———————————————————————————————————————————
+Program to find the size of data types
+———————————————————————————————————————————
+void       | 1 byte
+int        | 4 bytes
+char       | 1 bytes
+float      | 4 bytes
+double     | 8 bytes
+long       | 8 bytes
+short      | 2 bytes
+NULL       | 8 bytes
+bool       | 16 bytes
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

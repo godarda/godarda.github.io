@@ -1,0 +1,66 @@
+---
+permalink: csharp/classes/gdagiga
+title: C# implementation of accessors properties
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+Fruit f = new Fruit();
+f.FruitName = "Apple";
+f.FruitColor = "Red";
+Console.WriteLine("———————————————————————————————————————————");
+Console.WriteLine("Program to use the accessors properties");
+Console.WriteLine("———————————————————————————————————————————");
+Console.WriteLine("Fruit Name - " + f.FruitName);
+Console.WriteLine("Fruit Color - " + f.FruitColor);
+Console.WriteLine(f);
+Console.WriteLine("———————————————————————————————————————————");
+
+public class Fruit
+{
+    private string fname = "";
+    private string fcolor = "";
+    public string FruitName
+    {
+        get
+        {
+            return fname;
+        }
+        set
+        {
+            fname = value;
+        }
+    }
+
+    public string FruitColor
+    {
+        get
+        {
+            return fcolor;
+        }
+        set
+        {
+            fcolor = value;
+        }
+    }
+
+    public override string ToString()
+    {
+        return "Fruit Name - " + FruitName + "\nFruit Color - " + FruitColor;
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+———————————————————————————————————————————
+Program to use the accessors properties
+———————————————————————————————————————————
+Fruit Name - Apple
+Fruit Color - Red
+Fruit Name - Apple
+Fruit Color - Red
+———————————————————————————————————————————
+godarda@gd:~/csharp$ 
+</pre></span>

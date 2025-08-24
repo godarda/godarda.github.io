@@ -1,0 +1,163 @@
+---
+permalink: java/jdbc/gdpuuhg
+title: Java MySQL to connect, create database, and table
+---
+
+<div class="board"><div class="boardtitle">Objective and Prerequisites</div>
+    <p><b>Objective: </b>This segment introduces implementation of how to create a database and table in MySQL using Java.<br><br>
+    <b>Prerequisites: </b>MySQL setup is installed and running in the background. Also, the project has been developed and executed in Eclipse IDE (Integrated Development Environment). <br><br>To run the following program, you need to download the JDBC driver jar file <a href="https://mvnrepository.com/artifact/mysql/mysql-connector-java" target="_blank" class="hlink">Download JDBC driver</a>. Once downloaded, you can import the library by right-clicking on your project in Eclipse -> Properties -> Java Build Path -> Libraries -> Add External JARs...</p>
+</div>
+
+<div class="terminalcard">Start MySQL</div>
+<span><pre>
+godarda@gd:~$ <mark>sudo mysql -u root -p</mark>
+Enter password: ******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.19 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> <mark>ALTER USER 'root'@'localhost' IDENTIFIED BY 'godarda';</mark>
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> <mark>SHOW DATABASES;</mark>
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.03 sec)
+</pre></span>
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+
+class GD
+{
+    public static void main(String[] args) 
+    {
+        String dbname="DB";
+        try
+        {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306","root", "godarda");
+            System.out.println("Connection Established Successfully");
+            Statement st = con.createStatement();
+            st.executeUpdate("DROP DATABASE IF EXISTS "+ dbname + "");
+            st.executeUpdate("CREATE DATABASE "+ dbname + "");
+            System.out.println("Database Created");
+            
+            con.close();
+            System.out.println("Connection Released Successfully");
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+godarda@gd:~$ <mark>javac GD.java</mark>
+godarda@gd:~$ <mark>java -cp mysql-connector-java-8.0.30.jar: GD</mark>
+Connection Established Successfully
+Database Created
+Connection Released Successfully
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+class GD
+{
+    public static void main(String[] args) 
+    {
+        try
+        {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/DB","root", "godarda");
+            Statement st = con.createStatement();
+            st.executeUpdate("DROP TABLE IF EXISTS holders");
+            st.executeUpdate("CREATE TABLE holders(account_no BIGINT PRIMARY KEY, name VARCHAR(30) NOT NULL, bank VARCHAR(10), amount BIGINT NOT NULL)");
+            System.out.println("Table Created");
+            
+            ResultSet rs=st.executeQuery("SHOW TABLES");  
+            System.out.println("List of Tables");
+            while(rs.next())
+            {
+                System.out.println(rs.getString("tables_in_db"));
+            }
+            con.close();
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+godarda@gd:~$ <mark>javac GD.java</mark>
+godarda@gd:~$ <mark>java -cp mysql-connector-java-8.0.30.jar: GD</mark>
+Table Created
+List of Tables
+holders
+godarda@gd:~$ 
+</pre></span>
+
+<div class="terminalcard">MySQL Instance</b></div>
+<span><pre>
+mysql> <mark>SHOW DATABASES;</mark>
++--------------------+
+| Database           |
++--------------------+
+| db                 |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> <mark>USE DB;</mark>
+Database changed
+
+mysql> <mark>SHOW TABLES;</mark>
++--------------+
+| Tables_in_db |
++--------------+
+| holders      |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>DESC holders;</mark>
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| account_no | bigint      | NO   | PRI | NULL    |       |
+| name       | varchar(30) | NO   |     | NULL    |       |
+| bank       | varchar(10) | YES  |     | NULL    |       |
+| amount     | bigint      | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.33 sec)
+</pre></span>

@@ -1,0 +1,27 @@
+---
+permalink: csharp/controls/gdvevfk
+title: C# program to check the given number is even or odd
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+int n;
+Console.Write("Enter a number ");
+n = Convert.ToInt32(Console.ReadLine());
+if (n % 2 == 0)
+{
+    Console.WriteLine(n + " is an EVEN number");
+}
+else
+{
+    Console.WriteLine(n + " is an ODD number");
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Enter a number 9
+9 is an ODD number
+godarda@gd:~/csharp$ 
+</pre></span>

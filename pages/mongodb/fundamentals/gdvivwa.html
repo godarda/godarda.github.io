@@ -1,0 +1,163 @@
+---
+permalink: mongodb/fundamentals/gdvivwa
+title: MongoDB Getting started with the mongosh
+---
+
+<div class="terminalcard">{{ page.title }}</div>
+<span><pre>
+godarda@gd:~$ <mark>mongosh</mark>
+...
+
+test> <mark>db.version()</mark>
+7.0.9
+
+test> <mark>version()</mark>
+2.2.5
+<hr>test> <mark>db.runCommand({whatsmyuri:1})</mark>
+{ you: '127.0.0.1:57612', ok: 1 }
+
+test> <mark>db.getMongo()</mark>
+mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.5
+
+<hr>test> <mark>"Hello World"</mark>
+Hello World
+
+test> <mark>"Hello World".replace("World","Learners")</mark>
+Hello Learners
+</pre></span>
+
+<div class="terminalcard">Arithmetic Operations</div>
+<span><pre>
+test> <mark>a=1000</mark>
+1000
+
+test> <mark>b=30</mark>
+30
+
+test> <mark>a+b</mark>
+1030
+
+test> <mark>a*b</mark>
+30000
+
+test> <mark>a-b</mark>
+970
+
+test> <mark>b-a</mark>
+-970
+
+test> <mark>(a+b)*a</mark>
+1030000
+
+test> <mark>a/b</mark>
+33.333333333333336
+
+test> <mark>a=1</mark>
+1
+test> <mark>b=0</mark>
+0
+test> <mark>a/b</mark>
+Infinity
+</pre></span>
+
+<div class="terminalcard">Date and Time Functions</div>
+<span><pre>
+test> <mark>Date()</mark>
+Thu Sep 28 2023 15:15:51 GMT+0530 (India Standard Time)
+
+test> <mark>new Date()</mark>
+ISODate("2023-09-28T09:46:17.052Z")
+
+test> <mark>new Date().getTime()</mark>
+1695894392513
+
+test> <mark>new Date().getTimezoneOffset()</mark>
+-330
+</pre></span>
+
+<div class="terminalcard">db.hostInfo() Function</div>
+<span><pre>
+test> <mark>db.hostInfo()</mark>
+{
+    system: {
+      currentTime: ISODate("2023-09-28T09:46:58.600Z"),
+      hostname: 'gd',
+      cpuAddrSize: 64,
+      memSizeMB: Long("7717"),
+      memLimitMB: Long("7717"),
+      numCores: 4,
+      numPhysicalCores: 2,
+      numCpuSockets: 1,
+      cpuArch: 'x86_64',
+      numaEnabled: false,
+      numNumaNodes: 1
+    },
+    os: { type: 'Linux', name: 'Ubuntu', version: '23.04' },
+    ...
+}
+</pre></span>
+
+<div class="terminalcard">Running Hosts and Services</div>
+<span><pre>
+godarda@gd:~$ <mark>su</mark>
+Password: 
+root@gd:/home/godarda# <mark>apt-get install nmap</mark>
+
+godarda@gd:~$ <mark>nmap -p- localhost</mark>
+Starting Nmap 7.93 ( https://nmap.org ) at 2023-09-28 15:18 IST
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.0000020s latency).
+Not shown: 65531 closed tcp ports (reset)
+PORT      STATE SERVICE
+631/tcp   open  ipp
+3306/tcp  open  mysql
+27017/tcp open  mongod
+33060/tcp open  mysqlx
+
+Nmap done: 1 IP address (1 host up) scanned in 0.43 seconds
+</pre></span>
+
+<div class="terminalcard">db.isMaster Function</div>
+<span><pre>
+isMaster returns a document that describes the role of the mongod instance.
+test> <mark>db.isMaster()</mark>
+{
+  ismaster: true,
+  topologyVersion: {
+    processId: ObjectId("6515445845ade65bfa7a393f"),
+    counter: Long("0")
+  },
+  maxBsonObjectSize: 16777216,
+  maxMessageSizeBytes: 48000000,
+  maxWriteBatchSize: 100000,
+  localTime: ISODate("2023-09-28T09:49:39.204Z"),
+  logicalSessionTimeoutMinutes: 30,
+  connectionId: 4,
+  minWireVersion: 0,
+  maxWireVersion: 21,
+  readOnly: false,
+  ok: 1,
+  isWritablePrimary: true
+}
+</pre></span>
+
+<div class="terminalcard">db.stats() Function</div>
+<span><pre>
+test> <mark>db.stats()</mark>
+{
+  db: 'test',
+  collections: Long("0"),
+  views: Long("0"),
+  objects: Long("0"),
+  avgObjSize: 0,
+  dataSize: 0,
+  storageSize: 0,
+  indexes: Long("0"),
+  indexSize: 0,
+  totalSize: 0,
+  scaleFactor: Long("1"),
+  fsUsedSize: 0,
+  fsTotalSize: 0,
+  ok: 1
+}
+</pre></span>

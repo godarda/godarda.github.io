@@ -1,0 +1,172 @@
+---
+permalink: mysql/dml/gdczgza
+title: MySQL IN BETWEEN LIKE Operators
+---
+
+<div class="titlecard">{{ page.title }}</div>
+
+<div class="terminalcard">Retrieving all the records</div>
+<span><pre>
+mysql> <mark>SHOW DATABASES;</mark>
++--------------------+
+| Database           |
++--------------------+
+| DB                 |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> <mark>USE DB;</mark>
+Database changed
+
+mysql> <mark>SHOW TABLES;</mark>
++--------------+
+| Tables_in_DB |
++--------------+
+| holders      |
++--------------+
+1 row in set (0.01 sec)
+
+mysql> <mark>SELECT * FROM holders;</mark>                                                  
++-------------+---------------+---------+------------+----------+--------+
+| account_no  | name          | city    | dob        | bank     | amount |
++-------------+---------------+---------+------------+----------+--------+
+| 25622348989 | James Moore   | Phoenix | 1985-05-26 | Barclays |   5000 |
+| 25622348990 | Donald Taylor | Irvine  | 1990-08-20 | Citi     |   7000 |
+| 25622348991 | Edward Parkar | Irvine  | 1994-01-29 | ICICI    |  95000 |
+| 25622348992 | Ryan Bakshi   | Mumbai  | 1982-01-14 | Citi     |  50000 |
+| 25622348993 | Marie Peters  | Ribe    | 1967-01-05 | DZBank   |  12250 |
+| 25622348994 | Aanya         | Delhi   | 1975-08-18 | SBI      | 105000 |
+| 25622348995 | James Moore   | NULL    | 1978-06-26 | Citi     |  97800 |
++-------------+---------------+---------+------------+----------+--------+
+7 rows in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">Using IN operator</div>
+<div class="infocard">The IN operator is used to specify multiple OR conditions.</div>
+<span><pre>
+mysql> <mark>SELECT * FROM holders WHERE city IN ('Mumbai','Irvine');</mark>
++-------------+---------------+--------+------------+-------+--------+
+| account_no  | name          | city   | dob        | bank  | amount |
++-------------+---------------+--------+------------+-------+--------+
+| 25622348990 | Donald Taylor | Irvine | 1990-08-20 | Citi  |   7000 |
+| 25622348991 | Edward Parkar | Irvine | 1994-01-29 | ICICI |  95000 |
+| 25622348992 | Ryan Bakshi   | Mumbai | 1982-01-14 | Citi  |  50000 |
++-------------+---------------+--------+------------+-------+--------+
+3 rows in set (0.00 sec)
+
+mysql> <mark>SELECT * FROM holders WHERE city NOT IN ('Mumbai','Irvine');</mark>
++-------------+--------------+---------+------------+----------+--------+
+| account_no  | name         | city    | dob        | bank     | amount |
++-------------+--------------+---------+------------+----------+--------+
+| 25622348989 | James Moore  | Phoenix | 1985-05-26 | Barclays |   5000 |
+| 25622348993 | Marie Peters | Ribe    | 1967-01-05 | DZBank   |  12250 |
+| 25622348994 | Aanya        | Delhi   | 1975-08-18 | SBI      | 105000 |
++-------------+--------------+---------+------------+----------+--------+
+3 rows in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">Using BETWEEN operator</div>
+<div class="infocard">The BETWEEN operator used to select values in a specified range and often used in the WHERE clause of SELECT and UPDATE statements. The following syntax and queries will help you to understand practically.</div>
+<span><pre>
+mysql> <mark>SELECT * FROM holders WHERE amount BETWEEN 70000 AND 150000;</mark>
++-------------+---------------+--------+------------+-------+--------+
+| account_no  | name          | city   | dob        | bank  | amount |
++-------------+---------------+--------+------------+-------+--------+
+| 25622348991 | Edward Parkar | Irvine | 1994-01-29 | ICICI |  95000 |
+| 25622348994 | Aanya         | Delhi  | 1975-08-18 | SBI   | 105000 |
+| 25622348995 | James Moore   | NULL   | 1978-06-26 | Citi  |  97800 |
++-------------+---------------+--------+------------+-------+--------+
+3 rows in set (0.00 sec)
+
+mysql> <mark>SELECT account_no, name FROM holders WHERE amount BETWEEN 70000 AND 150000;</mark>
++-------------+---------------+
+| account_no  | name          |
++-------------+---------------+
+| 25622348991 | Edward Parkar |
+| 25622348994 | Aanya         |
+| 25622348995 | James Moore   |
++-------------+---------------+
+3 rows in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">Using LIKE operator (percentage wildcard)</div>
+<div class="infocard">The LIKE operator with percentage wildcard often used with the WHERE clause to retrieve specific records by specifying the pattern. The percentage wildcard represents zero, one, or multiple characters, whereas the underscore represents a single character. If you observe the following queries, we have used <b>LIKE j%</b>, which means the name must start with j character, and <b>LIKE %r</b>, which means the name must end with r character. Lastly, we used <b>LIKE %ar%</b>, which means the name must contain ar characters in between.</div>
+<span><pre>
+mysql> <mark>SELECT * FROM holders;</mark>                                               
++-------------+---------------+---------+------------+----------+--------+
+| account_no  | name          | city    | dob        | bank     | amount |
++-------------+---------------+---------+------------+----------+--------+
+| 25622348989 | James Moore   | Phoenix | 1985-05-26 | Barclays |   5000 |
+| 25622348990 | Donald Taylor | Irvine  | 1990-08-20 | Citi     |   7000 |
+| 25622348991 | Edward Parkar | Irvine  | 1994-01-29 | ICICI    |  95000 |
+| 25622348992 | Ryan Bakshi   | Mumbai  | 1982-01-14 | Citi     |  50000 |
+| 25622348993 | Marie Peters  | Ribe    | 1967-01-05 | DZBank   |  12250 |
+| 25622348994 | Aanya         | Delhi   | 1975-08-18 | SBI      | 105000 |
+| 25622348995 | James Moore   | NULL    | 1978-06-26 | Citi     |  97800 |
++-------------+---------------+---------+------------+----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> <mark>SELECT * FROM holders WHERE name LIKE 'j%';</mark>
++-------------+-------------+---------+------------+----------+--------+
+| account_no  | name        | city    | dob        | bank     | amount |
++-------------+-------------+---------+------------+----------+--------+
+| 25622348989 | James Moore | Phoenix | 1985-05-26 | Barclays |   5000 |
+| 25622348995 | James Moore | NULL    | 1978-06-26 | Citi     |  97800 |
++-------------+-------------+---------+------------+----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> <mark>SELECT * FROM holders WHERE name LIKE '%r';</mark>
++-------------+---------------+--------+------------+-------+--------+
+| account_no  | name          | city   | dob        | bank  | amount |
++-------------+---------------+--------+------------+-------+--------+
+| 25622348990 | Donald Taylor | Irvine | 1990-08-20 | Citi  |   7000 |
+| 25622348991 | Edward Parkar | Irvine | 1994-01-29 | ICICI |  95000 |
++-------------+---------------+--------+------------+-------+--------+
+2 rows in set (0.00 sec)
+
+mysql> <mark>SELECT * FROM holders WHERE name LIKE '%ar%';</mark>
++-------------+---------------+--------+------------+--------+--------+
+| account_no  | name          | city   | dob        | bank   | amount |
++-------------+---------------+--------+------------+--------+--------+
+| 25622348991 | Edward Parkar | Irvine | 1994-01-29 | ICICI  |  95000 |
+| 25622348993 | Marie Peters  | Ribe   | 1967-01-05 | DZBank |  12250 |
++-------------+---------------+--------+------------+--------+--------+
+2 rows in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">Using LIKE operator (underscore wildcard)</div>
+<div class="infocard">In the following queries, we have used LIKE operator with underscore wildcard <b>LIKE _a%</b>, which means the name's second character must be a. In the second query, we have given five times underscore, which means we want a bank name with exactly five characters in it. Lastly, we have used <b>%_____</b> which means the bank name should at least contain five characters.</div>
+<span><pre>
+mysql> <mark>SELECT * FROM holders WHERE name LIKE '_a%';</mark>
++-------------+--------------+---------+------------+----------+--------+
+| account_no  | name         | city    | dob        | bank     | amount |
++-------------+--------------+---------+------------+----------+--------+
+| 25622348989 | James Moore  | Phoenix | 1985-05-26 | Barclays |   5000 |
+| 25622348993 | Marie Peters | Ribe    | 1967-01-05 | DZBank   |  12250 |
+| 25622348994 | Aanya        | Delhi   | 1975-08-18 | SBI      | 105000 |
+| 25622348995 | James Moore  | NULL    | 1978-06-26 | Citi     |  97800 |
++-------------+--------------+---------+------------+----------+--------+
+4 rows in set (0.00 sec)
+
+mysql> <mark>SELECT * FROM holders WHERE bank LIKE '_____';</mark>
++-------------+---------------+--------+------------+-------+--------+
+| account_no  | name          | city   | dob        | bank  | amount |
++-------------+---------------+--------+------------+-------+--------+
+| 25622348991 | Edward Parkar | Irvine | 1994-01-29 | ICICI |  95000 |
++-------------+---------------+--------+------------+-------+--------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT * FROM holders WHERE bank LIKE '%_____';</mark>
++-------------+---------------+---------+------------+----------+--------+
+| account_no  | name          | city    | dob        | bank     | amount |
++-------------+---------------+---------+------------+----------+--------+
+| 25622348989 | James Moore   | Phoenix | 1985-05-26 | Barclays |   5000 |
+| 25622348991 | Edward Parkar | Irvine  | 1994-01-29 | ICICI    |  95000 |
+| 25622348993 | Marie Peters  | Ribe    | 1967-01-05 | DZBank   |  12250 |
++-------------+---------------+---------+------------+----------+--------+
+3 rows in set (0.01 sec)
+</pre></span>

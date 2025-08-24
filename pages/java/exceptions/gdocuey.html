@@ -1,0 +1,50 @@
+---
+permalink: java/exceptions/gdocuey
+title: Java program to handle the NullPointerException
+---
+
+<div class="codecard">NullPointerException</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD
+{
+    public static void main(String args[])
+    {
+        String s=null;
+        System.out.println("Length: "+s.length());
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+<error>Exception in thread "main" java.lang.NullPointerException
+    at GD.main(GD.java:6)</error>
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD
+{
+    public static void main(String args[])
+    {
+        String s=null;
+        try
+        {
+            System.out.println("Length: "+s.length());
+        }
+        catch(NullPointerException e)
+        {
+            System.out.println("String is null, hence, Unable to find the length.");
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+String is null, hence, Unable to find the length.
+godarda@gd:~$ 
+</pre></span>

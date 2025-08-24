@@ -1,0 +1,99 @@
+---
+permalink: csharp/collections/gdvmztp
+title: Implementation of C# SortedDictionary class
+---
+
+<div class="codecard">{{ page.title }}: Add() method</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+using System.Collections.Generic;
+
+SortedDictionary<long, string> sd = new SortedDictionary<long, string>();
+sd.Add(25622348991, "Edward Parkar");
+sd.Add(25622348990, "Donald Taylor");
+sd.Add(25622348992, "Ryan Bakshi");
+sd.Add(25622348989, "James Moore");
+
+foreach (KeyValuePair<long, string> kv in sd)
+{
+    Console.WriteLine("Account No: {0}, Name: {1}", kv.Key, kv.Value);
+}
+Console.WriteLine("Size: " + sd.Count);
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Account No: 25622348989, Name: James Moore
+Account No: 25622348990, Name: Donald Taylor
+Account No: 25622348991, Name: Edward Parkar
+Account No: 25622348992, Name: Ryan Bakshi
+Size: 4
+godarda@gd:~/csharp$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }}: Keys and Values properties</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+using System.Collections.Generic;
+
+SortedDictionary<long, string> sd = new SortedDictionary<long, string>();
+sd.Add(25622348991, "Edward Parkar");
+sd.Add(25622348990, "Donald Taylor");
+sd.Add(25622348992, "Ryan Bakshi");
+sd.Add(25622348989, "James Moore");
+
+SortedDictionary<long, string>.KeyCollection kc1 = sd.Keys;
+foreach (long accno in kc1)
+{
+    Console.WriteLine("Account No: " + accno);
+}
+
+SortedDictionary<long, string>.ValueCollection kc2 = sd.Values;
+foreach (string name in kc2)
+{
+    Console.WriteLine("Name: " + name);
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Account No: 25622348989
+Account No: 25622348990
+Account No: 25622348991
+Account No: 25622348992
+Name: James Moore
+Name: Donald Taylor
+Name: Edward Parkar
+Name: Ryan Bakshi
+godarda@gd:~/csharp$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }}: Remove() and Clear() methods</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+using System.Collections.Generic;
+
+SortedDictionary<long, string> sd = new SortedDictionary<long, string>();
+sd.Add(25622348991, "Edward Parkar");
+sd.Add(25622348990, "Donald Taylor");
+sd.Add(25622348992, "Ryan Bakshi");
+sd.Add(25622348989, "James Moore");
+
+sd.Remove(25622348989);
+foreach (KeyValuePair<long, string> kv in sd)
+{
+    Console.WriteLine("Account No: {0}, Name: {1}", kv.Key, kv.Value);
+}
+
+sd.Clear();
+Console.WriteLine("Size: " + sd.Count);
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Account No: 25622348990, Name: Donald Taylor
+Account No: 25622348991, Name: Edward Parkar
+Account No: 25622348992, Name: Ryan Bakshi
+Size: 0
+godarda@gd:~/csharp$ 
+</pre></span>

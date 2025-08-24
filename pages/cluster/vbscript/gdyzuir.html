@@ -1,0 +1,74 @@
+---
+permalink: cluster/vbscript/gdyzuir
+title: VBScript to perform the string operations
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.vbsfile }}</div>
+<pre>{%- highlight vb -%}
+Str = "Hello World"
+print "Original String: "&Str
+print "Length: " &Len(Str)
+print "Lower Case: " &LCase(Str)
+print "Upper Case: " &UCase(Str)
+print "Left: " &Left(Str,4)
+print "Right: " &Right(Str,4)
+print "Mid: " &Mid(Str,4,5)
+print "Replace: " &Replace(Str,"World","Friends")
+print "Original String: "&Str
+print "Replace: " &Replace(Str,"L","L",1,8,0)
+print "Replace: " &Replace(Str,"L","L",1,8,1)
+print "Reverse: " &StrReverse(Str)
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+Original String: Hello World
+Length: 11
+Lower Case: hello world
+Upper Case: HELLO WORLD
+Left: Hell
+Right: orld
+Mid: lo Wo
+Replace: Hello Friends
+Original String: Hello World
+Replace: Hello World
+Replace: HeLLo WorLd
+Reverse: dlroW olleH
+</pre></span>
+
+<div class="codecard">Example 2</div>
+<div class="card">{{ site.vbsfile }}</div>
+<pre>{%- highlight vb -%}
+s1="hello world"
+s2="        HELLO WORLD        "
+
+print "Position "&InStr(1,s1,"world",1)
+print "Reverse Position "&InStrRev(s2,"world",-1,1)
+
+If StrComp(s1, s2, 1) <> 1 Then
+    print "Strings Are Equal"
+Else
+    print "Strings Are Not Equal"
+End If
+
+print s2&"\0"
+print Ltrim(s2)&"\0"
+print Rtrim(s2)&"\0"
+print Trim(s2)&"\0"
+s = Split(s1," ")
+For Each str in s
+print str
+Next
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+Position 7
+Reverse Position 15
+Strings Are Not Equal
+HELLO WORLD        \0
+HELLO WORLD        \0
+HELLO WORLD\0
+HELLO WORLD\0
+hello
+world
+</pre></span>

@@ -1,0 +1,79 @@
+---
+permalink: cluster/ranorex/gdgyvzz
+title: How to read the Excel specific row and column data in Ranorex
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">File: ReadSpecificDataExcel.UserCode.cs</div>
+<pre class="editorcard">
+{%- highlight csharp -%}
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Drawing;
+using System.Threading;
+using WinForms = System.Windows.Forms;
+
+using Ranorex;
+using Ranorex.Core;
+using Ranorex.Core.Repository;
+using Ranorex.Core.Testing;
+using Microsoft.Office.Interop.Excel;
+
+namespace GlobalProjects
+{
+    public partial class ReadSpecificDataExcel
+    {
+
+        private void Init()
+        {
+            ReadData();
+        }
+        
+        Excel.Application xlapp;
+        Excel.Workbook xlworkbook;
+        Excel.Worksheet xlworksheet;
+        Excel.Range xlrange;
+        
+        public Excel.Range OpenExcelWorksheet(string sheetname, string startrange, string endrange)
+        {
+            xlapp = new Excel.ApplicationClass();
+            xlapp.Visible = true;
+            xlapp.WindowState = Excel.XlWindowState.xlMaximized;
+            xlworkbook = xlapp.Workbooks.Open("D:\\Ranorex\\GlobalProjects\\Data.xlsx");
+            xlworksheet = (Excel.Worksheet)xlworkbook.Sheets[sheetname];
+            xlrange = xlworksheet.get_Range(startrange, endrange);
+            return xlrange;
+        }
+        
+        public void ReadData()
+        {
+            try
+            {
+                xlrange = OpenExcelWorksheet("Data","B1","C3");
+                Delay.Seconds(2);
+                string values;
+                for(int rowcnt=1; rowcnt<=xlrange.Rows.Count; rowcnt++)
+                {
+                    for(int colcnt=1; colcnt<=xlrange.Columns.Count; colcnt++)
+                    {
+                        values = ((xlrange.Cells[rowcnt, colcnt] as Excel.Range).Value2).ToString();
+                        Report.Info(values);
+                    }
+                }
+                Report.Success("Data read successfully. Status: Pass");
+                
+                xlworkbook.Close();
+                xlapp.Quit();
+
+                GC.Collect();
+            }
+            catch
+            {
+                Report.Info("Not able to read the Excel data. Status: Failed");
+            }         
+        }
+    }
+}
+{%- endhighlight -%}</pre>

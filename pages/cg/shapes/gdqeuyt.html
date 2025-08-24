@@ -1,0 +1,24 @@
+---
+permalink: cg/shapes/gdqeuyt
+title: C++ program to draw a color-filled square using the bar function
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <graphics.h>
+int main()
+{
+    int gd = 0, gm = 9;
+    initgraph(&gd, &gm, NULL);
+    setcolor(15);
+    bar(50, 50, 200, 200);
+    delay(5000);
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcg }}
+<img src="pages/cg/images/gdokmya.png" loading="lazy">
+</pre></span>

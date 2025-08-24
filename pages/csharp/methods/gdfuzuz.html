@@ -1,0 +1,56 @@
+---
+permalink: csharp/methods/gdfuzuz
+title: C# program to demonstrate the use of math library methods
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+Console.WriteLine("———————————————————————————————————————————");
+Console.WriteLine("Program to use the math library methods");
+Console.WriteLine("———————————————————————————————————————————");
+Console.WriteLine("Value of PI   | " + Math.PI);
+Console.WriteLine("Value of e    | " + Math.E);
+Console.WriteLine("Max of (-4,3) | " + Math.Max(-4, 3));
+Console.WriteLine("Min of (-4,3) | " + Math.Min(-4, 3));
+Console.WriteLine("Abs(-2.3)     | " + Math.Abs(2.3));
+Console.WriteLine("Floor(2.3)    | " + Math.Floor(2.3));
+Console.WriteLine("Ceiling(2.3)  | " + Math.Ceiling(2.3));
+Console.WriteLine("Round(2.3)    | " + Math.Round(2.3));
+Console.WriteLine("e^0           | " + Math.Exp(0));
+Console.WriteLine("Pow(0,0)      | " + Math.Pow(0, 0));
+Console.WriteLine("Log(2)Natural | " + Math.Log(2));
+Console.WriteLine("Log10(2)      | " + Math.Log10(2));
+Console.WriteLine("Sqrt(25)      | " + Math.Sqrt(25));
+Console.WriteLine("Cbrt(90)      | " + Math.Cbrt(27));
+Console.WriteLine("Sin(90)radian | " + Math.Sin(90));
+Console.WriteLine("Cos(90)       | " + Math.Cos(90));
+Console.WriteLine("Tan(90)       | " + Math.Tan(90));
+Console.WriteLine("———————————————————————————————————————————");
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+———————————————————————————————————————————
+Program to use the math library methods
+———————————————————————————————————————————
+Value of PI   | 3.141592653589793
+Value of e    | 2.718281828459045
+Max of (-4,3) | 3
+Min of (-4,3) | -4
+Abs(-2.3)     | 2.3
+Floor(2.3)    | 2
+Ceiling(2.3)  | 3
+Round(2.3)    | 2
+e^0           | 1
+Pow(0,0)      | 1
+Log(2)Natural | 0.6931471805599453
+Log10(2)      | 0.3010299956639812
+Sqrt(25)      | 5
+Cbrt(90)      | 3
+Sin(90)radian | 0.8939966636005579
+Cos(90)       | -0.4480736161291701
+Tan(90)       | -1.995200412208242
+———————————————————————————————————————————
+godarda@gd:~/csharp$ 
+</pre></span>

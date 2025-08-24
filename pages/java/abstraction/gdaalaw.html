@@ -1,0 +1,182 @@
+---
+permalink: java/abstraction/gdaalaw
+title: Java program for Abstract class
+---
+
+<div class="codecard">Example 1: {{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+abstract class Arithmetic
+{
+    int add(int a,int b)
+    {
+        int c=a+b;
+        return c;
+    }
+    void display(int c)
+    {
+        System.out.println("Addition "+c);
+    }
+}
+
+class GD extends Arithmetic
+{
+    public static void main(String[] args) 
+    {
+        GD g=new GD();
+        int addition=g.add(10,10);
+        g.display(addition);
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Addition 20
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Example 2: {{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+abstract class Fruit
+{
+    abstract void cutting();
+}
+
+class Mango extends Fruit
+{
+    void cutting()
+    {
+        System.out.println("Cutting Mango");
+    }
+}
+
+class Apple extends Fruit
+{
+    void cutting()
+    {
+        System.out.println("Cutting Apple");
+    }
+}
+
+class GD
+{
+    public static void main(String[] args) 
+    {
+        Mango m=new Mango();
+        m.cutting();
+        Apple a=new Apple();
+        a.cutting();
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Cutting Fruit Mango
+Cutting Fruit Apple
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Example 3: {{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+abstract class Shape
+{
+    abstract void display();
+    abstract void area(float b,float h);
+}
+
+class Triangle extends Shape
+{
+    void display() 
+    {
+        System.out.print("Area of Triangle ");
+    }
+    void area(float b, float h) 
+    {
+        System.out.println((b*h)/2);
+    }
+}
+
+class Rectangle extends Shape
+{
+    void display() 
+    {
+        System.out.print("Area of Rectangle ");
+    }
+    void area(float b, float h) 
+    {
+        System.out.println(b*h);
+    }
+}
+
+class GD
+{
+    GD(float a)
+    {
+        System.out.println("Area of Square "+(a*a));
+    }
+
+    public static void main(String[] args) 
+    {
+        Triangle t=new Triangle();
+        t.display();
+        t.area(10,20);
+        Rectangle r=new Rectangle();
+        r.display();
+        r.area(10,20);
+        GD g=new GD(10);
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Area of Triangle 100.0
+Area of Rectangle 200.0
+Area of Square 100.0
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Example 4: {{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+abstract class Server
+{
+    String name;
+    Server(String name)
+    { 
+        this.name = name; 
+    }
+    public abstract void start();
+}
+
+class Mongodb extends Server
+{
+    Mongodb(String name)
+    {
+        super(name);
+    }
+    public void start() 
+    { 
+        System.out.println( this.name + " Started Successfully"); 
+    }
+}
+
+class GD
+{
+    public static void main(String[] args) 
+    {
+        Server s=new Mongodb("MongoDB Server");
+        s.start();
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+MongoDB Server Started Successfully
+godarda@gd:~$ 
+</pre></span>

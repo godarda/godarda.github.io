@@ -1,0 +1,55 @@
+---
+permalink: java/loops/gdaabyy
+title: Java program to find the factorial of a given number
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.Scanner;
+class GD
+{
+    public static void main(String args[])
+    {
+        System.out.println("———————————————————————————————————————————");
+        System.out.println("Program to find the factorial of a given number");
+        System.out.println("———————————————————————————————————————————");
+        long i,fact=1,n;
+        Scanner sc=new Scanner(System.in);
+        System.out.print("Enter the number ");
+        n=sc.nextInt();
+        if(n>20||n<0)
+        {
+            System.out.println("OOP's can't find "+n+"!");
+        }
+        else
+        {
+            for(i=1;i<=n;i++)
+            {
+                fact=fact*i;
+            }
+            System.out.println(n+"! = "+fact);
+        }
+        System.out.println("———————————————————————————————————————————");
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+———————————————————————————————————————————
+Program to find the factorial of a given number
+———————————————————————————————————————————
+Enter the number 20
+20! = 2432902008176640000
+———————————————————————————————————————————
+
+godarda@gd:~$ <mark>java GD</mark>
+———————————————————————————————————————————
+Program to find the factorial of a given number
+———————————————————————————————————————————
+Enter the number 50
+OOP's can't find 50!
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

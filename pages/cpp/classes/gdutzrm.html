@@ -1,0 +1,136 @@
+---
+permalink: cpp/classes/gdutzrm
+title: C++ program to demonstrate the use of class and object
+---
+
+<div class="codecard">Example 1: {{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+using namespace std;
+class gd
+{
+public:
+    void add()
+    {
+        cout<<"The addition of 10+10="<<10 + 10<<"\n";
+    }
+};
+int main()
+{
+    gd g;
+    g.add();
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+The addition of 10+10=20
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Example 2: {{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+using namespace std;
+class gd
+{
+public:
+    int add(int a, int b)
+    {
+        return a + b;
+    }
+};
+int main()
+{
+    gd g;
+    cout<<g.add(10, 10)<<endl;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+20
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Example 3: {{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+using namespace std;
+class gd
+{
+public:
+    void add();
+};
+void gd::add()
+{
+    cout<<"The addition of 10+10="<<10 + 10<<"\n";
+}
+int main()
+{
+    gd g;
+    g.add();
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+The addition of 10+10=20
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Example 4: {{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+using namespace std;
+class gd
+{
+private:
+    int a, b;
+
+public:
+    void getdata();
+    void add();
+};
+void gd::getdata()
+{
+    cout<<"Enter the 1st number ";
+    cin>>a;
+    cout<<"\nEnter the 2nd number ";
+    cin>>b;
+}
+void gd::add()
+{
+    if (b < 0)
+    {
+        cout<<"\nThe addition of "<<a<<b<<" = "<<(a + b)<<"\n";
+    }
+    else
+    {
+        cout<<"\nThe addition of "<<a<<"+"<<b<<" = "<<(a + b)<<"\n";
+    }
+}
+int main()
+{
+    gd g;
+    g.getdata();
+    g.add();
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+Enter the 1st number 10
+
+Enter the 2nd number -50
+
+The addition of 10-50 = -40
+godarda@gd:~$ 
+</pre></span>

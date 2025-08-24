@@ -1,0 +1,113 @@
+---
+permalink: python/ds/gdcgaye
+title: Python Tuples
+---
+
+<div class="terminalcard">{{ page.title }}</div>
+<span><pre>
+godarda@gd:~$ <mark>python3</mark>
+...
+>>> <mark>days = ('Sunday','Monday','Tuesday','Wednesday','Thursday','Sunday','Friday','Saturday')</mark>
+>>> <mark>days[0]</mark>
+'Sunday'
+
+>>> <mark>days[0:3]</mark>
+('Sunday', 'Monday', 'Tuesday', 'Wednesday')
+
+>>> <mark>days[-1]</mark>
+'Saturday'
+
+>>> <mark>sorted(days)</mark>
+['Friday', 'Monday', 'Saturday', 'Sunday', 'Sunday', 'Thursday', 'Tuesday', 'Wednesday']
+
+>>> <mark>max(days)</mark>
+'Wednesday'
+
+>>> <mark>min(days)</mark>
+'Friday'
+
+>>> <mark>len(days)</mark>
+8
+
+>>> <mark>days.count('Sunday')</mark>
+2
+
+>>> <mark>days.index('Sunday')</mark>
+0
+
+>>> <mark>days.index('Sunday',1,7)</mark>    <comment># Skipped the first occurrence</comment>
+5
+
+>>> <mark>days.index('Sunday',1,)</mark>
+5
+
+>>> <mark>del days</mark>
+
+>>> <mark>days</mark>
+<error>Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+NameError: name 'days' is not defined</error>
+</pre></span>
+
+<div class="terminalcard">Unpacking a Tuple</div>
+<span><pre>
+>>> <mark>days = ('Sunday','Monday','Tuesday','Wednesday','Thursday','Sunday','Friday','Saturday')</mark>
+
+>>> <mark>(day0,day1,day2,day3,day4,day5,day6,day7)=days</mark>
+>>> <mark>day3</mark>
+'Wednesday'
+
+>>> <mark>day7</mark>
+'Saturday'
+</pre></span>
+
+<div class="terminalcard">Concatenate two or more Tuples</div>
+<span><pre>
+>>> <mark>tuple1 = ('Monday', 'Tuesday', 'Wednesday', 'Thursday')</mark>
+>>> <mark>tuple2 = (4, 3, 6, 8, 3.14)</mark>
+>>> <mark>tuple1 + tuple2</mark>
+('Monday', 'Tuesday', 'Wednesday', 'Thursday', 4, 3, 6, 8, 3.14)
+
+>>> <mark>tuple3 = ('Sunday', -2, -9.87, 'M', 'F')</mark>
+
+>>> <mark>tuple1 + tuple2 + tuple3</mark>
+('Monday', 'Tuesday', 'Wednesday', 'Thursday', 4, 3, 6, 8, 3.14, 'Sunday', -2, -9.87, 'M', 'F')
+</pre></span>
+
+<div class="terminalcard">Convert a List into Tuple using tuple() function</div>
+<span><pre>
+>>> <mark>days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday']</mark>
+>>> <mark>dayslist = ['Monday', 'Tuesday', 'Wednesday', 'Thursday']</mark>
+>>> <mark>dayslist[0]</mark>
+'Monday'
+
+>>> <mark>dayslist.append('Sunday')</mark>
+>>> <mark>dayslist</mark>
+['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Sunday']
+
+>>> <mark>daystuple = tuple(dayslist)</mark>
+>>> <mark>daystuple</mark>
+('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Sunday')
+
+>>> <mark>daystuple.append('Sunday')</mark>    <comment>#Tuples are immutable</comment>
+<error>Traceback (most recent call last):
+  File "&lt;stdin>", line 1, in &lt;module>
+AttributeError: 'tuple' object has no attribute 'append'</error>
+</pre></span>
+
+<div class="terminalcard">Convert a Dictionary into Tuple using tuple() function</div>
+<span><pre>
+>>> <mark>KV={'s1':'Linus','s2':'Thomson','s3':'Edison'}</mark>
+>>> <mark>KV</mark>
+{'s1': 'Linus', 's2': 'Thomson', 's3': 'Edison'}
+>>> <mark>KV['s1']</mark>
+'Linus'
+
+>>> <mark>KVtuple = tuple(KV)</mark>
+>>> <mark>KVtuple</mark>
+('s1', 's2', 's3')
+
+>>> <mark>KVtuple = tuple(KV.items())</mark>
+>>> <mark>KVtuple</mark>
+(('s1', 'Linus'), ('s2', 'Thomson'), ('s3', 'Edison'))
+</pre></span>

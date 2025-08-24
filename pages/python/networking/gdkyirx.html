@@ -1,0 +1,62 @@
+---
+permalink: python/networking/gdkyirx
+title: Python program for file sharing using socket programming
+---
+
+<div class="codecard">{{ page.title }} (client-server file sharing)</div>
+<div class="card">File: server.py</div>
+<pre class="code">{%- highlight python -%}
+import socket,os
+
+server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM,0)
+server_socket.bind(("192.168.122.1",5000))
+server_socket.listen(5)
+print("TCP server waiting for client on port 5000")
+
+while 1:
+    client_socket,address=server_socket.accept()
+    print("Connection established at",address)
+    name=input("Enter text-file name to send ")
+    path=os.path.join(os.getcwd(),name)
+    file1=open(path,'rb')
+    data=file1.read(1024)
+    while data:
+        client_socket.send(data)
+        data=file1.read(1024)
+        client_socket.close()
+    print("File sent!")
+    break;
+{%- endhighlight -%}</pre>
+<div class="card">File: client.py</div>
+<pre class="code">{%- highlight python -%}
+import socket
+client_socket=socket.socket(socket.AF_INET, socket.SOCK_STREAM,0)
+client_socket.connect(("192.168.122.1",5000))
+while 1:
+    data=client_socket.recv(1024)
+    while data:
+        print(data)
+        data=client_socket.recv(1024)
+        client_socket.close()
+    print("\nFile received!")
+    break;
+{%- endhighlight -%}</pre>
+<div class="card">Output (Terminal-1)</div>
+<span><pre>
+godarda@gd:~$ <mark>hostname -i | awk '{print $3}'</mark>
+192.168.43.44
+
+godarda@gd:~$ <mark>python3 server.py</mark>
+TCP server waiting for client on port 5000
+Connection established at ('192.168.43.44', 47058)
+Enter text-file name to send gd.py
+File sent!
+</pre></span>
+
+<div class="terminalcard">Output (Terminal-2)</div>
+<span><pre>
+godarda@gd:~$ <mark>python3 client.py</mark>
+b'print("Hello, World!")\n'
+
+File received!
+</pre></span>
