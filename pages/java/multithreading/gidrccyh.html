@@ -15,7 +15,7 @@ class GD implements Runnable
     public static void main(String args[])
     {  
         GD g=new GD();
-        Thread t1=new Thread(k); 
+        Thread t1=new Thread(g); 
         //t1.run();  
         System.out.println(t1.isAlive()); 
         t1.start(); 

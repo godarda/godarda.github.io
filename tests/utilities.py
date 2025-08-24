@@ -238,7 +238,13 @@ def verify_title(driver: WebDriver, path: str, expected_title: str) -> Tuple[int
         else:
             stats.unmatched += 1
             stats.unmatched_entries.append((path, expected_title))
-
+        
+        # Run scrolling only if not in GitHub Actions and URL has 0 or 1 "/"
+        # Use the last processed url as representative (this is consistent with previous behavior)
+        slash_count = path.count("/")
+        if not config.is_github_actions and slash_count in (0, 1):
+            verify_scrolling(driver)
+            
     except Exception as e:
         # Keep the logged message compact for CI readability while preserving cause
         print(
@@ -249,7 +255,7 @@ def verify_title(driver: WebDriver, path: str, expected_title: str) -> Tuple[int
     return stats.matched, stats.unmatched
 
 
-def verify_scrolling(driver, timeout: int = 10) -> bool:
+def verify_scrolling(driver) -> bool:
     """
     Validate scrolling behavior:
       - Scroll to the bottom of the page.
@@ -356,13 +362,12 @@ config = get_environment_config()
 stats = TestStats()
 
 
-def start_tests(browser_name: str, data_path: str):
+def start_tests(browser_name: str):
     """
     Run the suite of title verifications and a single scrolling check.
 
     Args:
       browser_name: 'chrome' | 'safari'
-      data_path: (ignored) retained for compatibility; uses config.datapath
 
     Returns:
       (matched_count, unmatched_count)
@@ -388,12 +393,6 @@ def start_tests(browser_name: str, data_path: str):
                 continue
 
             verify_title(driver, url, title)
-
-        # Run scrolling only if not in GitHub Actions and URL has 0 or 1 "/"
-        # Use the last processed url as representative (this is consistent with previous behavior)
-        slash_count = url.count("/")
-        if not config.is_github_actions and slash_count in (0, 1):
-            verify_scrolling(driver)
 
     finally:
         # ensure we always tear down the browser to avoid zombie driver processes

@@ -44,8 +44,8 @@ def main() -> None:
             print("Running tests on macOS. Please wait...")
             TitleVerificationTest().runTest()
             browser = None
-            # start_tests(browser, config.datapath)
-            compile_codes(source, destination, config.datapath)
+            # start_tests(browser)
+            compile_codes(source, destination)
 
             print_report(
                 stats.matched,
@@ -59,8 +59,9 @@ def main() -> None:
         elif config.is_ubuntu:
             browser = "chrome"
             print("Running tests on Ubuntu. Please wait...")
-            start_tests(browser, config.datapath)
-            compile_codes(source, destination, config.datapath)
+            
+            start_tests(browser)
+            compile_codes(source, destination)
 
             print_report(
                 stats.matched,
@@ -72,6 +73,10 @@ def main() -> None:
 
         # Windows-specific flow
         elif config.is_windows:
+            # browser = "chrome"
+            # print("Running tests on Windows. Please wait...")
+            # start_tests(browser)
+
             TitleVerificationTest().runTest()
             browser = None
             print_report(stats.matched, stats.unmatched, 0, 0, browser)

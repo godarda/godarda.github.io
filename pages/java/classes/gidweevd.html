@@ -39,15 +39,15 @@ class GD
     int a=100,b=100;
     public void add(GD g)
     {
-        k.a=k.a+k.b+500;
+        g.a=g.a+g.b+500;
     }
     public static void main(String args[])
     {
         GD g=new GD();
-        k.a=k.a+k.b;
-        System.out.println(k.a);
-        k.add(c);
-        System.out.println(k.a);
+        g.a=g.a+g.b;
+        System.out.println(g.a);
+        g.add(g);
+        System.out.println(g.a);
     }
 }
 {%- endhighlight -%}</pre>

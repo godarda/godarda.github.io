@@ -1,4 +1,4 @@
-name: Setup Environment and Automated Tests (macOS)
+name: TestHarness (macOS)
 
 # Triggered automatically on the 5th of every month at 11:30 UTC
 # Also supports manual execution via GitHub UI

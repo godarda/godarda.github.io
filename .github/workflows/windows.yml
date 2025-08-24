@@ -1,4 +1,4 @@
-name: Setup Environment and Automated Tests (Windows)
+name: TestHarness (Windows)
 
 # Triggered automatically on the 25th of every month at 11:30 UTC
 # Also supports manual execution via GitHub UI

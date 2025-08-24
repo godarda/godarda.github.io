@@ -47,7 +47,7 @@ def is_compiled(html_input: str, compiler: str, subpath: str, file_name: str, ex
         print(exc)
 
 
-def compile_codes(source: str, destination: str, data_path: str) -> Optional[Tuple[int, int]]:
+def compile_codes(source: str, destination: str) -> Optional[Tuple[int, int]]:
     """
     Walk through expected data paths, extract code snippets from HTML pages and try to compile them.
     Returns a tuple (passed, failed) when running on supported platforms.

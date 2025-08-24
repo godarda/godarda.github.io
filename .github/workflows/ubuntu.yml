@@ -1,4 +1,4 @@
-name: Setup Environment and Automated Tests (Ubuntu)
+name: TestHarness (Ubuntu)
 
 # Triggered automatically on the 15th of every month at 11:30 UTC
 # Also supports manual execution via GitHub UI

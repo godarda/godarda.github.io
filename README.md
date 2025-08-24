@@ -3,8 +3,8 @@
 A robust, cross-platform static site powered by Jekyll, Bootstrap, and jQuery. Maintained since 2018.
 
 
-## 📚 Table of Contents
-
+### 📚 Table of Contents
+---
 - [License](#license)
 - [Design Frameworks](#design-frameworks)
 - [Development & Testing](#development--testing)
@@ -14,24 +14,21 @@ A robust, cross-platform static site powered by Jekyll, Bootstrap, and jQuery. M
   - [Windows](#windows)
 - [Additional Notes](#additional-notes)
 
-
-## 📝 License
-
+### 📝 [License](#license)
+---
 This project is licensed under the [MIT License](https://github.com/godarda/godarda.github.io?tab=MIT-1-ov-file)  
 © GoDarda, Since 2018.
 
+### 🧱 [Design Frameworks](#design-frameworks)
 ---
-
-## 🧱 Design Frameworks
-
 GoDarda's website is version-controlled via [GitHub](https://github.com) using [Git](https://git-scm.com), and built with:
 
 - [Jekyll](https://jekyllrb.com) — Static site generator  
 - [Bootstrap](https://getbootstrap.com) — Responsive UI framework  
 - [jQuery](https://jquery.com) — DOM manipulation and scripting
 
-## ⚙️ Development & Testing
-
+### ⚙️ [Development & Testing](#development--testing)
+---
 Automated CI workflows are available for macOS, Ubuntu, and Windows:
 
 | Platform | Status Badge |
@@ -40,10 +37,8 @@ Automated CI workflows are available for macOS, Ubuntu, and Windows:
 | Ubuntu   | [![Ubuntu CI](https://github.com/godarda/godarda.github.io/actions/workflows/ubuntu.yml/badge.svg?branch=main)](https://github.com/godarda/godarda.github.io/actions/workflows/ubuntu.yml) |
 | Windows  | [![Windows CI](https://github.com/godarda/godarda.github.io/actions/workflows/windows.yml/badge.svg?branch=main)](https://github.com/godarda/godarda.github.io/actions/workflows/windows.yml) |
 
+### 🚀 [Setup Instructions](#setup-instructions)
 ---
-
-## 🚀 Setup Instructions
-
 **Prerequisite for all platforms:**  
 [Git](https://git-scm.com) must be installed and available in your system path.
 
@@ -56,22 +51,22 @@ git clone https://github.com/godarda/godarda.github.io.git
 cd godarda.github.io
 ```
 
-#### **macOS:** Run the following commands to get started:
+#### **[macOS:](#macos)** Run the following commands to get started:
 ```
 $ python3 setups/macos.py full
 ```
-#### **Ubuntu:** Run the following commands to get started:
+#### **[Ubuntu:](#ubuntu)** Run the following commands to get started:
 ```
 $ python3 setups/ubuntu.py full
 ```
-#### **Windows:** Ensure [Visual Studio Code][gidkcqso], [Python][gidxadth], and [Ruby][gidzrvdq] are installed. Then clone the repository and follow these steps:
+#### **[Windows:](#windows)** Ensure [Visual Studio Code][gidkcqso], [Python][gidxadth], and [Ruby][gidzrvdq] are installed. Then clone the repository and follow these steps:
 ```
 PS D:\> Open Visual Studio Code -> Terminal  
 PS D:\godarda.github.io> python setups/windows.py full  
 ```
 
-## 📦 Additional Notes
-
+### 📦 [Additional Notes](#additional-notes)
+---
 - All setup scripts are located in the [`setups/`][gidzgwel] directory and are platform-specific (`macos.py`, `ubuntu.py`, `windows.py`).
 - CI workflows validate setup logic and ensure platform-specific compatibility.
 - The site runs locally on port `4000` by default. You can access it via `http://127.0.0.1:4000` or `http://localhost:4000`.
