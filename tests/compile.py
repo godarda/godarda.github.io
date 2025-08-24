@@ -7,7 +7,6 @@ import os
 import re
 import shutil
 import subprocess
-import platform
 from typing import Tuple, Optional
 from utilities import config, stats, load_expected_data
 
@@ -154,7 +153,7 @@ def compile_codes(source: str, destination: str) -> Optional[Tuple[int, int]]:
 
             elif '<pre class="code">{%- highlight shell -%}' in html_input:
                 extension = ".sh"
-                compiler = "bash -n" if config.is_macos else "shc -f"
+                compiler = "bash -n"
                 is_compiled(source_file, html_input, compiler, subpath, path[2], extension, args)
 
             elif '<pre class="code">{%- highlight python -%}' in html_input:
