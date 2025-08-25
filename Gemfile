@@ -23,7 +23,7 @@ platforms :windows, :jruby do
 end
 
 # File system watcher for Windows platforms
-gem "wdm", "~> 0.1", platforms: [:windows]
+gem 'wdm', '~> 0.2.0' if Gem.win_platform? && ENV['CI'].nil?
 
 # HTTP parser for JRuby compatibility
 gem "http_parser.rb", "~> 0.6.0", platforms: [:jruby]

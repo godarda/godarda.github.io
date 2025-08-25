@@ -4,7 +4,7 @@ name: TestHarness (Windows)
 # Also supports manual execution via GitHub UI
 on:
   schedule:
-    - cron: '30 11 25 * *'
+    - cron: '30 14 25 * *'
   workflow_dispatch:
 
 jobs:

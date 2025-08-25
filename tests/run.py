@@ -72,12 +72,13 @@ def main() -> None:
 
         # Windows-specific flow
         elif config.is_windows:
-            # browser = "chrome"
-            # print("Running tests on Windows. Please wait...")
-            # start_tests(browser)
-
-            TitleVerificationTest().runTest()
-            browser = None
+            print("Running tests on Windows. Please wait...")
+            if config.is_github_actions:
+                browser = "chrome"
+                start_tests(browser)
+            else:
+                TitleVerificationTest().runTest()
+                browser = None
             print_report(stats.matched, stats.unmatched, 0, 0, browser)
 
         else:
