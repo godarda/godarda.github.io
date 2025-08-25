@@ -115,7 +115,7 @@ def get_environment_config() -> EnvironmentConfig:
             print(f"Unsupported Linux distribution: {distro_id}. Only Ubuntu is supported.")
             sys.exit(1)
 
-    # On Windows ensure at least Windows 11 (build 22000+) to avoid incompatible behavior
+    # On Windows ensure at least Windows Server 2022 (build 20348) or Windows 11 (build 22000+) to avoid incompatible behavior
     if is_windows:
         _, ver, _, _ = platform.win32_ver()
         try:
@@ -123,8 +123,8 @@ def get_environment_config() -> EnvironmentConfig:
         except (IndexError, ValueError):
             print(f"Failed to parse Windows build from version string: {ver}")
             sys.exit(1)
-        if build_number < 22000:
-            print(f"Unsupported Windows build {build_number}. Only Windows 11 (22000+) is supported.")
+        if build_number < 20348:
+            print(f"Unsupported Windows build {build_number}. Requires Server 2022 (20348+) or Windows 11 (22000+).")
             sys.exit(1)
 
     # Only macOS, Ubuntu (Linux) and Windows are supported by the test harness
