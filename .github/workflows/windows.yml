@@ -1,16 +1,14 @@
 name: TestHarness (Windows)
 
-# Triggered automatically on the 25th of every month at 11:30 UTC
-# Also supports manual execution via GitHub UI
 on:
   schedule:
-    - cron: '30 14 25 * *'
+    - cron: '30 15 25 * *'
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: windows-latest
-    timeout-minutes: 15  # Prevents hanging jobs beyond 15 minutes
+    timeout-minutes: 15   # Prevents hanging jobs beyond 15 minutes
 
     steps:
       # Step 1: Checkout the latest commit from the repository
@@ -23,6 +21,10 @@ jobs:
         with:
           python-version: '3.13'
 
+      # Step 2.5: Install Python dependencies from requirements.txt
+      - name: Install Python Dependencies
+        run: pip install -r setups/requirements.txt
+
       # Step 3: Setup Oracle Java 21 for JVM-based tooling
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -30,16 +32,30 @@ jobs:
           distribution: 'oracle'
           java-version: '21'
 
-      # Step 4: Run Windows-specific environment setup script
-      # Uses fail-fast logic to halt on any error
-      - name: Setup Environment
-        run: |
-          Write-Host "Starting environment setup..."
-          python setups/windows.py full
-        shell: pwsh
+      # Step 4: Setup Ruby 3.2 with Bundler caching
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
 
-      # Step 5: Execute automated test suite
-      # Designed to fail early and surface actionable diagnostics
+      # Step 5: Install MSYS2 toolchain for native gem compilation
+      - name: Install MSYS2 Toolchain
+        run: ridk install 3
+
+      # Step 6: Configure Bundler to prefer pure-Ruby gems
+      - name: Configure Bundler
+        run: bundle config set force_ruby_platform true
+
+      # Step 7: Install Ruby dependencies
+      - name: Install Ruby Gems
+        run: bundle install
+
+      # Step 8: Build Jekyll site
+      - name: Build site
+        run: bundle exec jekyll build
+
+      # Step 9: Execute automated test suite
       - name: Run Automated Tests
         run: |
           Write-Host "Running tests..."
