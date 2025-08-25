@@ -1,25 +1,58 @@
-# Welcome to GoDarda
+# -----------------------------------------------------------------------------
+# GoDarda — Jekyll site configuration (production)
+# Maintainer: Shubham Darda
+#
+# Purpose:
+#   Primary configuration for the GoDarda static site. This file controls site
+#   metadata, asset references, runtime templates, and build-time includes/excludes.
+#
+# Guidelines & Safety:
+#   - Treat this file as a production configuration: prefer non-breaking edits.
+#   - When updating external CDN URLs or SRI hashes, verify in a browser and CI.
+#   - Avoid exposing secrets or private tokens in this file. Use environment
+#     variables or CI secrets for runtime credentials.
+# -----------------------------------------------------------------------------
+
+# Site meta
 title: GoDarda
-url: https://godarda.github.io
+url: https://godarda.github.io      # Production site canonical URL
 tagline: Let's learn and celebrate success together
 founder: Shubham Darda
 
-# Resources
+# --------------------------------------------------------------------------
+# Asset references
+# Keep third-party CDN links and local asset paths here so templates can
+# reference them consistently. When using integrity hashes (SRI) update both
+# the resource URL and its corresponding 'i' entry below.
+# --------------------------------------------------------------------------
 gd_css: assets/css/gd.css
 gd_js: assets/js/gd.js
+
+# Bootstrap (CSS + JS) served via CDN — update carefully
 bs_css: https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css
 bs_cssi: sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr
 bs_js: https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js
 bs_jsi: sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q
+
+# Optional icon/font libraries and client-side helpers
 bs_icons: https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css
 jquery: https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js
+
+# Open Graph / favicon / logos
 og: https://raw.githubusercontent.com/godarda/godarda.github.io/master/assets/images/godarda.png
 icon: assets/images/icon.png
 logo: assets/images/logo.png
 advertise: assets/images/advertise.png
+
+# Analytics snippet (load asynchronously in templates)
 analytics: https://www.googletagmanager.com/gtag/js?id=G-6JTSG3QWRJ
 
-# Filename
+# --------------------------------------------------------------------------
+# Presentation defaults and file-type labels
+# These values are injected into templates to render language/file badges,
+# run-example hints, and default output captions. They are HTML fragments;
+# keep them safe and intentional.
+# --------------------------------------------------------------------------
 highlighter: rouge
 cfile: "<span class='bi bi-file-code'> gd.c</span>"
 cppfile: "<span class='bi bi-file-code'> gd.cpp</span>"
@@ -38,7 +71,7 @@ csvfile: "<span class='bi bi-filetype-csv'> gd.csv</span>"
 jsonfile: "<span class='bi bi-filetype-json'> gd.json</span>"
 excelfile: "<span class='bi bi-filetype-xlsx'> gd.xlsx</span>"
 
-# Execution
+# Execution/help text for code blocks (rendered in templates)
 runc: "godarda@gd:~$ <mark>gcc gd.c</mark><br>godarda@gd:~$ <mark>./a.out</mark>"
 runcpp: "godarda@gd:~$ <mark>g++ gd.cpp</mark><br>godarda@gd:~$ <mark>./a.out</mark>"
 runjava: "godarda@gd:~$ <mark>javac GD.java</mark><br>godarda@gd:~$ <mark>java GD</mark>"
@@ -54,6 +87,10 @@ runopengl: "godarda@gd:~$ <mark>g++ gd.cpp -lGL -lGLU -lglut</mark><br>godarda@g
 runasm: "godarda@gd:~$ <mark>nasm -felf64 gd.asm</mark><br>godarda@gd:~$ <mark>ld gd.o && ./a.out</mark>"
 output: "<span class='bi bi-terminal'> Output</span>"
 
+# --------------------------------------------------------------------------
+# Defaults: tell Jekyll how to treat files by path scope.
+# Use these to force 'layout: none' for raw assets or 404 pages.
+# --------------------------------------------------------------------------
 defaults:
   -
    scope:
@@ -71,18 +108,29 @@ defaults:
    values:
       layout: "modern"
 
+# --------------------------------------------------------------------------
+# Plugins
+# Minimal plugin list for production; enable only trusted plugins.
+# --------------------------------------------------------------------------
 plugins:
    - jekyll-sitemap
 
+# --------------------------------------------------------------------------
+# Includes: folders explicitly included in the site build (non-default)
+# --------------------------------------------------------------------------
 include: ['pages']
 
-# Exclude from processing
+# --------------------------------------------------------------------------
+# Exclude: files and folders that must not be processed by Jekyll.
+# Keep the list lean and avoid excluding files necessary for build.
+# --------------------------------------------------------------------------
 exclude:
    - _site
    - .bundle
    - .jekyll-cache
    - android
    - tests
+   - setups
    - vendor
    - .gitignore
    - .jekyll-metadata
@@ -92,4 +140,11 @@ exclude:
    - Gemfile.lock
    - LICENSE
    - README.md
-   - setup.py
+
+# -----------------------------------------------------------------------------
+# End of configuration.
+# Notes:
+#  - For environment-specific overrides (e.g. development vs. production) prefer
+#    using config/_*.yml files and pass --config on build/serve commands.
+#  - When changing the URL, update canonical links, sitemap generation, and any
+#    analytics settings that depend on the domain.

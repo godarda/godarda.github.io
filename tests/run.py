@@ -7,8 +7,7 @@ import os
 import sys
 import time
 import platform
-import shutil
-from compile import compile_codes
+from compile import compile_snippets
 from unittesting import TitleVerificationTest
 from report import print_report
 from utilities import config, stats, start_tests, clean_pycache
@@ -33,7 +32,7 @@ def main() -> None:
         print("Starting automated tests on:", platform.platform())
         cwd = os.getcwd()
         source = os.path.join(cwd, "pages")
-        destination = os.path.join(cwd, "gdfied")
+        destination = os.path.join(cwd, "codes")
         if not os.path.exists(source):
             print(f"Source path not found: {source}")
             return
@@ -45,7 +44,7 @@ def main() -> None:
             TitleVerificationTest().runTest()
             browser = None
             # start_tests(browser)
-            compile_codes(source, destination)
+            compile_snippets(source, destination)
 
             print_report(
                 stats.matched,
@@ -61,7 +60,7 @@ def main() -> None:
             print("Running tests on Ubuntu. Please wait...")
             
             start_tests(browser)
-            compile_codes(source, destination)
+            compile_snippets(source, destination)
 
             print_report(
                 stats.matched,
