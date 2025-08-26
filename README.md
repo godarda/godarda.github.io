@@ -76,32 +76,37 @@ PS D:\godarda.github.io> python setups/windows.py full
 
 ## Technology Stack
 
-GoDarda's website is version-controlled via [GitHub](https://github.com) using [Git](https://git-scm.com), and built with:
+GoDarda's website and Android app are version-controlled via [GitHub](https://github.com) using [Git](https://git-scm.com), and built with:
 
-### 🖥️ Frontend
-- [Jekyll](https://jekyllrb.com) — Static site generator  
-- [Bootstrap](https://getbootstrap.com) — Responsive UI framework  
-- [jQuery](https://jquery.com) — DOM manipulation and scripting  
-- [Font Awesome](https://fontawesome.com) — Icon toolkit for UI clarity  
-- [Google Fonts](https://fonts.google.com) — Typography customization  
-- [HTML5 & CSS3](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5) — Semantic structure and styling  
-- [Liquid](https://shopify.github.io/liquid/) — Templating engine used by Jekyll for dynamic content  
-- [Markdown](https://www.markdownguide.org) — Lightweight markup for documentation and contributor guides  
+#### 🖥️ Web & Mobile Platforms
 
-### ⚙️ Build System & Dependencies
-- [Ruby](https://www.ruby-lang.org) — Core language powering Jekyll and its plugin ecosystem  
-- [Bundler](https://bundler.io) — Dependency manager for Ruby gems used in site generation  
-- [YAML](https://yaml.org) — Declarative configuration for workflows, metadata, and site settings  
+- [Jekyll](https://jekyllrb.com) - Static site generator  
+- [Bootstrap](https://getbootstrap.com) - Responsive UI framework  
+- [jQuery](https://jquery.com) - DOM manipulation and scripting  
+- [Font Awesome](https://fontawesome.com) - Icon toolkit for UI clarity  
+- [Google Fonts](https://fonts.google.com) - Typography customization  
+- [HTML5 & CSS3](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5) - Semantic structure and styling  
+- [Liquid](https://shopify.github.io/liquid/) - Templating engine used by Jekyll  
+- [Markdown](https://www.markdownguide.org) - Lightweight markup for documentation  
+- [Kotlin](https://kotlinlang.org) - Native language for Android development   
+- [Gradle](https://gradle.org) - Build automation and dependency management  
 
-### 🚀 Automation & CI
-- [GitHub Actions](https://github.com/features/actions) — CI/CD workflows for cross-platform validation and automated deployment  
-- [CI Badges](https://shields.io) — Status indicators for build health and contributor clarity  
-- [Shell scripting (Bash, PowerShell)] — Platform-aware setup and automation logic  
+#### ⚙️ Build, Automation & Diagnostics
+- [Ruby](https://www.ruby-lang.org) + [Bundler](https://bundler.io) - Site generation and gem management  
+- [YAML](https://yaml.org) - Declarative configuration  
+- [GitHub Actions](https://github.com/features/actions) - CI/CD workflows 
+- [Python](https://www.python.org) - Platform-aware automation, Diagnostics and reporting  
+  - `requests`, `BeautifulSoup` - Web scraping utilities  
+- [CI Badges](https://shields.io) - Build status indicators  
 
-### 🐍 Diagnostics & Reporting
-- [Python](https://www.python.org) — Used for resource versioning, diagnostics, and reporting  
-  - `requests`, `BeautifulSoup` — Web scraping and test reporting utilities  
-- [JSON](https://www.json.org) — Structured data for resource versioning and diagnostics
+#### 🌐 Engagement & Insights
+- [Giscus](https://giscus.app) - GitHub-powered comment system for page-level feedback  
+- [Google Analytics 4 (GA4)](https://analytics.google.com) - Real-time traffic tracing and usage insights
+
+#### 🧰 IDE & Development Environment
+- [Visual Studio Code](https://code.visualstudio.com) - Lightweight, extensible editor for web and automation workflows  
+- [GitHub Codespaces](https://github.com/features/codespaces) - Cloud-based dev environment for instant onboarding and contribution  
+- [Android Studio](https://developer.android.com/studio) - Official IDE for building and testing the Android app  
 
 This stack reflects GoDarda’s commitment to clarity, automation, and contributor empowerment. Every tool is chosen to support maintainability, cross-platform resilience, and a welcoming onboarding experience.
 
