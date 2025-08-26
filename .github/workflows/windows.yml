@@ -2,7 +2,7 @@ name: TestHarness (Windows)
 
 on:
   schedule:
-    - cron: '00 16 25 * *'
+    - cron: '30 11 15 * *'
   workflow_dispatch:
 
 jobs:
@@ -22,8 +22,10 @@ jobs:
           python-version: '3.13'
 
       # Step 2.5: Install Python dependencies from requirements.txt
-      - name: Install Python Dependencies
-        run: pip install -r setups/requirements.txt
+      - name: Install Minimal Python Dependencies for CI
+        run: |
+          pip install pip
+          pip install selenium PyYAML webdriver-manager beautifulsoup4
 
       # Step 3: Setup Oracle Java 21 for JVM-based tooling
       - name: Setup Java
