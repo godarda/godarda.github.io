@@ -15,7 +15,7 @@ class GD
     {   
         System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
         WebDriver driver = new ChromeDriver();
-        driver.get("https://godarda.github.io/testapp/");
+        driver.get("https://godarda.in/testapp/");
         String currentURL = driver.getCurrentUrl();
         System.out.println(currentURL);
         driver.close();

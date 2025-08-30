@@ -135,7 +135,7 @@ def get_environment_config() -> EnvironmentConfig:
     # Common override for GitHub Actions: use the public GitHub Pages URL for tests
     if os.getenv("GITHUB_ACTIONS", "").lower() == "true":
         is_github_actions = True
-        base_url = "https://godarda.github.io/"
+        base_url = "https://godarda.in/"
 
     return EnvironmentConfig(
         is_windows=is_windows,

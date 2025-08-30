@@ -10,12 +10,12 @@ Welcome to the curated index of Rust programming. This page is part of the GoDar
 
 ## Rust Fundamentals
 
-- [Rust Hello World program](https://godarda.github.io/rust/fundamentals/gdvwkzg)  
-- [Rust program to perform the arithmetic operations](https://godarda.github.io/rust/fundamentals/gdawgvo)  
-- [Rust program to calculate the area and circumference of a circle](https://godarda.github.io/rust/fundamentals/gdvzzvi)  
-- [Rust program to accept the input from a user](https://godarda.github.io/rust/fundamentals/gdgzwzz)
+- [Rust Hello World program](https://godarda.in/rust/fundamentals/gdvwkzg)  
+- [Rust program to perform the arithmetic operations](https://godarda.in/rust/fundamentals/gdawgvo)  
+- [Rust program to calculate the area and circumference of a circle](https://godarda.in/rust/fundamentals/gdvzzvi)  
+- [Rust program to accept the input from a user](https://godarda.in/rust/fundamentals/gdgzwzz)
 
 ## 🤝 Contribute
 
 This index is maintained as part of the [GoDarda](https://github.com/godarda) project.  
-We welcome contributions—whether it's fixing a typo, adding a new example, or improving documentation. Please refer to the [Contribution Guide](https://github.com/godarda/godarda.github.io/blob/main/CONTRIBUTING.md)
+We welcome contributions—whether it's fixing a typo, adding a new example, or improving documentation. Please refer to the [Contribution Guide](https://github.com/godarda/godarda.in/blob/main/CONTRIBUTING.md)

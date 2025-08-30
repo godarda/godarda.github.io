@@ -17,7 +17,7 @@ class GD
         System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.get("https://godarda.github.io/testapp/");
+        driver.get("https://godarda.in/testapp/");
         
         JavascriptExecutor jse = (JavascriptExecutor)driver;
         String domain = jse.executeScript("return document.domain;").toString();

@@ -3,19 +3,14 @@ package com.godarda
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
-import android.net.Network
-import android.net.NetworkCapabilities
-import android.net.NetworkRequest
+import android.graphics.Color
+import android.net.*
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.WindowInsetsController
 import android.view.WindowManager
-import android.webkit.WebResourceError
-import android.webkit.WebResourceRequest
-import android.webkit.WebResourceResponse
-import android.webkit.WebSettings
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.LinearLayout
@@ -24,40 +19,125 @@ import androidx.core.net.toUri
 import androidx.core.view.isVisible
 
 class MainActivity : BaseActivity() {
+
     private lateinit var webview: WebView
     private lateinit var noInternetLayout: LinearLayout
+    private lateinit var tryAgainBtn: Button
     private lateinit var connectivityManager: ConnectivityManager
     private lateinit var networkCallback: ConnectivityManager.NetworkCallback
 
     private fun isInternetAvailable(): Boolean {
-        val connectivityManager =
-            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val network = connectivityManager.activeNetwork ?: return false
-        val networkCapabilities =
-            connectivityManager.getNetworkCapabilities(network) ?: return false
-        return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+        val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = cm.activeNetwork ?: return false
+        val capabilities = cm.getNetworkCapabilities(network) ?: return false
+        return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    private fun configureWebView() = webview.settings.apply {
+        safeBrowsingEnabled = true
+        domStorageEnabled = true
+        useWideViewPort = false
+        displayZoomControls = false
+        builtInZoomControls = false
+        allowFileAccess = false
+        allowContentAccess = false
+        setSupportZoom(false)
+        textZoom = 100
+        cacheMode = WebSettings.LOAD_DEFAULT
+        javaScriptEnabled = true
+        loadsImagesAutomatically = true
+        userAgentString += "GoDarda"
+    }
+
+    private fun showNoInternet() {
+        noInternetLayout.isVisible = true
+        webview.isVisible = false
+    }
+
+    private fun showWebView() {
+        noInternetLayout.isVisible = false
+        webview.isVisible = true
+    }
+
+    private fun showAppDown() {
+        setContentView(R.layout.app_down)
+    }
+
+    private fun handleCustomUrl(url: String): Boolean {
+        return when {
+            url.startsWith("share") -> {
+                val shareUrl = url.removePrefix("share:").removeSuffix(".html")
+                val intent = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_TITLE, webview.title)
+                    putExtra(Intent.EXTRA_TEXT, shareUrl)
+                }
+                startActivity(Intent.createChooser(intent, title))
+                true
+            }
+            url.startsWith("clear:") -> {
+                webview.clearHistory()
+                webview.clearCache(true)
+                webview.clearFormData()
+                true
+            }
+            url.startsWith(Urls.GISCUS) ||
+                    url.startsWith(Urls.GITHUB_LOGIN) ||
+                    url.startsWith(Urls.GITHUB_SESSION) -> {
+                webview.loadUrl(url)
+                true
+            }
+            !url.startsWith(Urls.BASE) -> {
+                startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
+                true
+            }
+            else -> false
+        }
+    }
+
+    private fun handleBackNavigation() {
+        val homeUrl = "${Urls.BASE}/"
+        val currentUrl = webview.url ?: ""
+        when {
+            webview.canGoBack() && currentUrl != homeUrl -> webview.goBack()
+            currentUrl != homeUrl -> webview.loadUrl(homeUrl)
+            else -> finishAffinity()
+        }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         val rootLayout = findViewById<FrameLayout>(R.id.webViewContainer)
         applyWindowInsetsTo(rootLayout)
+
         webview = findViewById(R.id.webView)
         noInternetLayout = findViewById(R.id.noInternetLayout)
-        val tryAgainBtn = findViewById<Button>(R.id.tryagain)
+        tryAgainBtn = findViewById(R.id.tryagain)
 
-        fun showNoInternet() {
-            noInternetLayout.visibility = View.VISIBLE
-            webview.visibility = View.GONE
-        }
-        fun showWebView() {
-            noInternetLayout.visibility = View.GONE
-            webview.visibility = View.VISIBLE
-        }
-        fun showAppDown() {
-            setContentView(R.layout.app_down)
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+        configureWebView()
+
+        // Force black status bar and white text in light mode
+        window.statusBarColor = Color.BLACK
+        val isLightMode = resources.configuration.uiMode and
+                android.content.res.Configuration.UI_MODE_NIGHT_MASK ==
+                android.content.res.Configuration.UI_MODE_NIGHT_NO
+
+        if (isLightMode) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                window.insetsController?.setSystemBarsAppearance(
+                    0,
+                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+                )
+            } else {
+                @Suppress("DEPRECATION")
+                window.decorView.systemUiVisibility =
+                    window.decorView.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+            }
         }
 
         if (!isInternetAvailable()) {
@@ -66,108 +146,43 @@ class MainActivity : BaseActivity() {
             return
         } else {
             showWebView()
-            webview.loadUrl("https://godarda.github.io")
+            webview.loadUrl(Urls.BASE)
         }
 
-        webview.settings.apply {
-            safeBrowsingEnabled = true
-            domStorageEnabled = true
-            useWideViewPort = false
-            displayZoomControls = false
-            builtInZoomControls = false
-            allowFileAccess = false
-            allowContentAccess = false
-            setSupportZoom(false)
-            textZoom = 100
-            cacheMode = WebSettings.LOAD_DEFAULT
-            javaScriptEnabled = true
-            loadsImagesAutomatically = true
-            userAgentString += "GoDarda"
-        }
-        webview.isVerticalScrollBarEnabled = false
-        webview.isHorizontalScrollBarEnabled = false
-        webview.overScrollMode = View.OVER_SCROLL_NEVER
-        webview.isHapticFeedbackEnabled = false
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+        webview.apply {
+            isVerticalScrollBarEnabled = false
+            isHorizontalScrollBarEnabled = false
+            overScrollMode = View.OVER_SCROLL_NEVER
+            isHapticFeedbackEnabled = false
+            webViewClient = object : WebViewClient() {
+                override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
+                    if (!isInternetAvailable()) {
+                        showNoInternet()
+                        tryAgainBtn.setOnClickListener { recreate() }
+                        return true
+                    }
+                    val url = request.url.toString()
+                    return handleCustomUrl(url) || "$url/" == webview.url
+                }
 
-        webview.webViewClient = object : WebViewClient() {
-            override fun shouldOverrideUrlLoading(
-                view: WebView,
-                request: WebResourceRequest
-            ): Boolean {
-                if (!isInternetAvailable()) {
-                    showNoInternet()
-                    tryAgainBtn.setOnClickListener { recreate() }
-                    return true
+                override fun onReceivedError(view: WebView, request: WebResourceRequest, error: WebResourceError) {
+                    super.onReceivedError(view, request, error)
+                    if (request.isForMainFrame && request.url.toString().startsWith(Urls.BASE)) {
+                        showAppDown()
+                    }
                 }
-                val url = request.url.toString()
-                if (url.startsWith("https://godarda.github.io")) {
-                    return "$url/" == webview.url
-                }
-                if (url.startsWith("share")) {
-                    val shareUrl = url.replace("share:", "").replace(".html", "")
-                    val shareIntent = Intent(Intent.ACTION_SEND)
-                    shareIntent.type = "text/plain"
-                    shareIntent.putExtra(Intent.EXTRA_TITLE, view.title.toString())
-                    shareIntent.putExtra(Intent.EXTRA_TEXT, shareUrl)
-                    startActivity(Intent.createChooser(shareIntent, title))
-                    return true
-                }
-                if (url.startsWith("clear:")) {
-                    webview.clearHistory()
-                    webview.clearCache(true)
-                    webview.clearFormData()
-                    return true
-                }
-                if (url.startsWith("https://giscus.app/") ||
-                    url.startsWith("https://github.com/login") ||
-                    url.startsWith("https://github.com/session")
-                ) {
-                    webview.loadUrl(url)
-                    return true
-                }
-                if (!url.startsWith("https://godarda.github.io")) {
-                    startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
-                    return true
-                }
-                return true
-            }
 
-            override fun onReceivedError(
-                view: WebView,
-                request: WebResourceRequest,
-                error: WebResourceError
-            ) {
-                super.onReceivedError(view, request, error)
-                if (request.isForMainFrame && request.url.toString().startsWith("https://godarda.github.io")) {
-                    showAppDown()
-                }
-            }
-
-            override fun onReceivedHttpError(
-                view: WebView,
-                request: WebResourceRequest,
-                errorResponse: WebResourceResponse
-            ) {
-                super.onReceivedHttpError(view, request, errorResponse)
-                if (request.isForMainFrame && request.url.toString().startsWith("https://godarda.github.io")) {
-                    showAppDown()
+                override fun onReceivedHttpError(view: WebView, request: WebResourceRequest, errorResponse: WebResourceResponse) {
+                    super.onReceivedHttpError(view, request, errorResponse)
+                    if (request.isForMainFrame && request.url.toString().startsWith(Urls.BASE)) {
+                        showAppDown()
+                    }
                 }
             }
         }
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                val homeUrl = "https://godarda.github.io/"
-                val currentUrl = webview.url ?: ""
-                if (webview.canGoBack() && currentUrl != homeUrl) {
-                    webview.goBack()
-                } else if (currentUrl != homeUrl) {
-                    webview.loadUrl(homeUrl)
-                } else {
-                    finishAffinity()
-                }
-            }
+            override fun handleOnBackPressed() = handleBackNavigation()
         })
 
         connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -179,9 +194,8 @@ class MainActivity : BaseActivity() {
             override fun onAvailable(network: Network) {
                 runOnUiThread {
                     if (noInternetLayout.isVisible) {
-                        noInternetLayout.visibility = View.GONE
-                        webview.visibility = View.VISIBLE
-                        webview.loadUrl("https://godarda.github.io")
+                        showWebView()
+                        webview.loadUrl(Urls.BASE)
                     }
                 }
             }
@@ -191,7 +205,6 @@ class MainActivity : BaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        networkCallback?.let { connectivityManager.unregisterNetworkCallback(it) }
+        connectivityManager.unregisterNetworkCallback(networkCallback)
     }
 }

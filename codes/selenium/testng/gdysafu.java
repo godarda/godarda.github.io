@@ -44,7 +44,7 @@ public class GD
         ExtentTest et = er.createTest("VerifyHomePageTitle");
         et.log(Status.INFO, "Chrome Browser Launched");
         
-        driver.navigate().to("https://godarda.github.io/testapp/");
+        driver.navigate().to("https://godarda.in/testapp/");
         et.log(Status.INFO,"Successfully Navigated to the URL");
         
         String actual = driver.getTitle();

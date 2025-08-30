@@ -14,30 +14,30 @@ Welcome to the curated index of Data Structures and Algorithms. This page is par
 
 ## Data Structures Fundamentals
 
-- [C++ implementation of the stack and its operations](https://godarda.github.io/dsa/fundamentals/gduqyab)
+- [C++ implementation of the stack and its operations](https://godarda.in/dsa/fundamentals/gduqyab)
 
 ## Searching Algorithms
 
-- [C++ implementation of Binary Search](https://godarda.github.io/dsa/searching/gdecgzp)  
-- [Python implementation of Binary Search](https://godarda.github.io/dsa/searching/gdwzavz)
+- [C++ implementation of Binary Search](https://godarda.in/dsa/searching/gdecgzp)  
+- [Python implementation of Binary Search](https://godarda.in/dsa/searching/gdwzavz)
 
 ## Sorting Algorithms
 
-- [C program for Bubble Sort](https://godarda.github.io/dsa/sorting/gdzxlqf)  
-- [C++ program for Bubble Sort](https://godarda.github.io/dsa/sorting/gdwzsgz)  
-- [C++ program for optimized Bubble Sort](https://godarda.github.io/dsa/sorting/gdvvavg)  
-- [Python program for Bubble Sort](https://godarda.github.io/dsa/sorting/gdyezyi)  
-- [More …](https://godarda.github.io/dsa/sorting)
+- [C program for Bubble Sort](https://godarda.in/dsa/sorting/gdzxlqf)  
+- [C++ program for Bubble Sort](https://godarda.in/dsa/sorting/gdwzsgz)  
+- [C++ program for optimized Bubble Sort](https://godarda.in/dsa/sorting/gdvvavg)  
+- [Python program for Bubble Sort](https://godarda.in/dsa/sorting/gdyezyi)  
+- [More …](https://godarda.in/dsa/sorting)
 
 ## Shortest Path Algorithms
 
-- [C++ implementation of Prim's spanning tree algorithm](https://godarda.github.io/dsa/trees/gdbuzge)
+- [C++ implementation of Prim's spanning tree algorithm](https://godarda.in/dsa/trees/gdbuzge)
 
 ## Applications of Data Structures
 
-- [C++ program for Tic-Tac-Toe game](https://godarda.github.io/dsa/applications/gdzdguw)
+- [C++ program for Tic-Tac-Toe game](https://godarda.in/dsa/applications/gdzdguw)
 
 ## 🤝 Contribute
 
 This index is maintained as part of the [GoDarda](https://github.com/godarda) project.  
-We welcome contributions—whether it's fixing a typo, adding a new example, or improving documentation. Please refer to the [Contribution Guide](https://github.com/godarda/godarda.github.io/blob/main/CONTRIBUTING.md)
+We welcome contributions—whether it's fixing a typo, adding a new example, or improving documentation. Please refer to the [Contribution Guide](https://github.com/godarda/godarda.in/blob/main/CONTRIBUTING.md)

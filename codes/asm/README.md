@@ -11,21 +11,21 @@ Welcome to the curated index of Assembly programming. This page is part of the G
 
 ## 32-bit Assembly Programming
 
-- [ALP to print Hello World (32-bit)](https://godarda.github.io/asm/32-bit/gdvxqaz)  
-- [ALP to print Hello World using times directive (32-bit)](https://godarda.github.io/asm/32-bit/gdbhdky)  
-- [ALP to print the stars using macro (32-bit)](https://godarda.github.io/asm/32-bit/gdaeavq)  
-- [ALP to print the stars using times directive (32-bit)](https://godarda.github.io/asm/32-bit/gdbqeza)  
-- [More …](https://godarda.github.io/asm/32-bit)
+- [ALP to print Hello World (32-bit)](https://godarda.in/asm/32-bit/gdvxqaz)  
+- [ALP to print Hello World using times directive (32-bit)](https://godarda.in/asm/32-bit/gdbhdky)  
+- [ALP to print the stars using macro (32-bit)](https://godarda.in/asm/32-bit/gdaeavq)  
+- [ALP to print the stars using times directive (32-bit)](https://godarda.in/asm/32-bit/gdbqeza)  
+- [More …](https://godarda.in/asm/32-bit)
 
 ## 64-bit Assembly Programming
 
-- [ALP to print Hello World without using macro (64-bit)](https://godarda.github.io/asm/64-bit/gdatnak)  
-- [ALP to print Hello World using macro (64-bit)](https://godarda.github.io/asm/64-bit/gdsgpyl)  
-- [ALP to print the given string using macro (64-bit)](https://godarda.github.io/asm/64-bit/gdwagtz)  
-- [ALP to print the length of a given string (64-bit)](https://godarda.github.io/asm/64-bit/gdcgame)  
-- [More …](https://godarda.github.io/asm/64-bit)
+- [ALP to print Hello World without using macro (64-bit)](https://godarda.in/asm/64-bit/gdatnak)  
+- [ALP to print Hello World using macro (64-bit)](https://godarda.in/asm/64-bit/gdsgpyl)  
+- [ALP to print the given string using macro (64-bit)](https://godarda.in/asm/64-bit/gdwagtz)  
+- [ALP to print the length of a given string (64-bit)](https://godarda.in/asm/64-bit/gdcgame)  
+- [More …](https://godarda.in/asm/64-bit)
 
 ## 🤝 Contribute
 
 This index is maintained as part of the [GoDarda](https://github.com/godarda) project.  
-We welcome contributions—whether it's fixing a typo, adding a new example, or improving documentation. Please refer to the [Contribution Guide](https://github.com/godarda/godarda.github.io/blob/main/CONTRIBUTING.md)
+We welcome contributions—whether it's fixing a typo, adding a new example, or improving documentation. Please refer to the [Contribution Guide](https://github.com/godarda/godarda.in/blob/main/CONTRIBUTING.md)

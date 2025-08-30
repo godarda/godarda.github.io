@@ -106,7 +106,7 @@ gtag('js', new Date());
 gtag('config', 'G-6JTSG3QWRJ', {
     ignore_referrer: 'true',
     'linker': {
-        'domains': ['godarda.github.io']
+        'domains': ['godarda.in']
     }
 });
 
