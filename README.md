@@ -11,12 +11,11 @@ A robust, cross-platform static site powered by Jekyll, Bootstrap, and jQuery. M
   - Ubuntu
   - Windows
 - [Technology Stack](#technology-stack)
-- [Additional Notes](#additional-notes)
-- [License](#license)
 - [Contributors](#contributors)
 - [Contributor Recognition](#contributor-recognition)
 - [Why Recognition Matters](#why-recognition-matters)
 - [Support Guide](SUPPORT.md)
+- [License](#license)
 
 ## Project Status
 
@@ -41,9 +40,8 @@ Real-time indicators of GoDarda’s health, activity, and platform coverage:
 ![Pull Requests](https://img.shields.io/github/issues-pr/godarda/godarda.github.io?color=cyan&logo=github)
 ![Discussions](https://img.shields.io/github/discussions/godarda/godarda.github.io?color=gold&logo=github)
 
-
 ## Cross-Platform CI Status
-Automated CI workflows are available for macOS, Ubuntu, and Windows:
+Automated CI workflows are available for macOS, Ubuntu, and Windows. It validates the setup logic and ensure platform-specific compatibility.
 
 | Platform | Status Badge |
 |----------|--------------|
@@ -76,58 +74,21 @@ $ python3 setups/ubuntu.py full
 PS D:\> Open Visual Studio Code -> Terminal  
 PS D:\godarda.github.io> python setups/windows.py full  
 ```
+- All setup scripts are located in the [`setups/`][gdzgwel] directory and are platform-specific (`macos.py`, `ubuntu.py`, `windows.py`).
+- The site runs locally on port `4000` by default. You can access it via `http://127.0.0.1:4000` or `http://localhost:4000`.
 
 ## Technology Stack
 
 GoDarda's website and Android app are version-controlled via [GitHub](https://github.com) using [Git](https://git-scm.com), and built with:
 
-#### 🖥️ Web & Mobile Platforms
-
-- [Jekyll](https://jekyllrb.com) - Static site generator  
-- [Bootstrap](https://getbootstrap.com) - Responsive UI framework  
-- [jQuery](https://jquery.com) - DOM manipulation and scripting  
-- [Font Awesome](https://fontawesome.com) - Icon toolkit for UI clarity  
-- [Google Fonts](https://fonts.google.com) - Typography customization  
-- [HTML5 & CSS3](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5) - Semantic structure and styling  
-- [Liquid](https://shopify.github.io/liquid/) - Templating engine used by Jekyll  
-- [Markdown](https://www.markdownguide.org) - Lightweight markup for documentation  
-- [Kotlin](https://kotlinlang.org) - Native language for Android development   
-- [Gradle](https://gradle.org) - Build automation and dependency management  
-
-#### ⚙️ Build, Automation & Diagnostics
-- [Ruby](https://www.ruby-lang.org) + [Bundler](https://bundler.io) - Site generation and gem management  
-- [YAML](https://yaml.org) - Declarative configuration  
-- [GitHub Actions](https://github.com/features/actions) - CI/CD workflows 
-- [Python](https://www.python.org) - Platform-aware automation, Diagnostics and reporting  
-  - `requests`, `BeautifulSoup` - Web scraping utilities  
-- [CI Badges](https://shields.io) - Build status indicators  
-
-#### 🌐 Engagement & Insights
-- [Giscus](https://giscus.app) - GitHub-powered comment system for page-level feedback  
-- [Google Analytics 4 (GA4)](https://analytics.google.com) - Real-time traffic tracing and usage insights
-
-#### 🧰 IDE & Development Environment
-- [Visual Studio Code](https://code.visualstudio.com) - Lightweight, extensible editor for web and automation workflows  
-- [GitHub Codespaces](https://github.com/features/codespaces) - Cloud-based dev environment for instant onboarding and contribution  
-- [Android Studio](https://developer.android.com/studio) - Official IDE for building and testing the Android app  
+| Category | Tools & Technologies |
+|----------|----------------------|
+| 🖥️ Web & Mobile Platforms | [Jekyll](https://jekyllrb.com), [Bootstrap](https://getbootstrap.com), [jQuery](https://jquery.com), [Font Awesome](https://fontawesome.com), [Google Fonts](https://fonts.google.com), [HTML5 & CSS3](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5), [Liquid](https://shopify.github.io/liquid/), [Markdown](https://www.markdownguide.org), [Kotlin](https://kotlinlang.org), [Gradle](https://gradle.org) |
+| ⚙️ Build, Automation & Diagnostics | [Ruby](https://www.ruby-lang.org), [Bundler](https://bundler.io), [YAML](https://yaml.org), [GitHub Actions](https://github.com/features/actions), [Python](https://www.python.org), `requests`, `BeautifulSoup`, [CI Badges](https://shields.io) |
+| 🌐 Engagement & Insights | [Giscus](https://giscus.app), [Google Analytics 4 (GA4)](https://analytics.google.com) |
+| 🧰 IDE & Development Environment | [Visual Studio Code](https://code.visualstudio.com), [GitHub Codespaces](https://github.com/features/codespaces), [Android Studio](https://developer.android.com/studio) |
 
 This stack reflects GoDarda’s commitment to clarity, automation, and contributor empowerment. Every tool is chosen to support maintainability, cross-platform resilience, and a welcoming onboarding experience.
-
-## Additional Notes
-
-- All setup scripts are located in the [`setups/`][gdzgwel] directory and are platform-specific (`macos.py`, `ubuntu.py`, `windows.py`).
-- CI workflows validate setup logic and ensure platform-specific compatibility.
-- The site runs locally on port `4000` by default. You can access it via `http://127.0.0.1:4000` or `http://localhost:4000`.
-- To contribute:
-  - Fork this repository to your GitHub account.
-  - Create a new branch for your changes.
-  - Make your updates and ensure they pass all CI checks.
-  - Submit a pull request with a clear description of the changes and rationale.
-- If you encounter permission issues or missing dependencies, check your platform-specific prerequisites and ensure Python and Ruby are correctly installed and accessible.
-
-## License
-This project is licensed under the [GPL-3.0 license](https://github.com/godarda/godarda.github.io/blob/main/LICENSE)  
-© GoDarda, Since 2018.
 
 ## Contributors
 
@@ -153,7 +114,7 @@ We offer visual badges to recognize contributors across key areas:
 | 🧪 **Bug Hunter** | For identifying and reporting reproducible issues |
 | 🧭 **Maintainer’s Choice** | Special recognition for contributions that go above and beyond |
 
-To request a badge, [submit a badge request here](https://github.com/godarda/godarda.github.io/issues/new?template=badge-request.yml).
+To request a badge, [submit a badge request here](https://github.com/godarda/godarda.github.io/issues/new?template=badge.yml).
 
 ## Why Recognition Matters
 
@@ -163,6 +124,10 @@ Badges aren’t just visual flair — they reflect the spirit of open-source col
 - Inspire others to contribute meaningfully
 
 We review badge requests with care and gratitude. Every contribution helps GoDarda grow into a more inclusive, scalable, and inspiring space.
+
+## License
+This project is licensed under the [GPL-3.0 license](https://github.com/godarda/godarda.github.io/blob/main/LICENSE)  
+© GoDarda, Since 2018.
 
 [gdezvdy]: https://github.com
 [gdzuddz]: https://getbootstrap.com
