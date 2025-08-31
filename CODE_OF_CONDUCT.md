@@ -1,4 +1,26 @@
-# Contributor Covenant Code of Conduct
+# Code of Conduct Guide
+
+At GoDarda, we believe that great code is built on great collaboration — and that begins with a respectful, inclusive environment.
+
+This Code of Conduct outlines the standards we uphold to ensure every contributor feels safe, valued, and empowered. Whether you're submitting a pull request, joining a discussion, or simply exploring the project, you're part of a community that prioritizes kindness, clarity, and mutual respect.
+
+We welcome contributors from all backgrounds and skill levels. Together, we’re building not just software, but a space where learning and contribution thrive.
+
+Please read this guide carefully before participating. By engaging with GoDarda, you agree to uphold these principles.
+
+## 📚 Table of Contents
+
+- [Our Pledge](#our-pledge)
+- [Our Standards](#our-standards)
+- [Enforcement Responsibilities](#enforcement-responsibilities)
+- [Scope](#scope)
+- [Enforcement](#enforcement)
+- [Enforcement Guidelines](#enforcement-guidelines)
+  - [1. Correction](#1-correction)
+  - [2. Warning](#2-warning)
+  - [3. Temporary Ban](#3-temporary-ban)
+  - [4. Permanent Ban](#4-permanent-ban)
+- [Attribution](#attribution)
 
 ## Our Pledge
 
