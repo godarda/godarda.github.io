@@ -1,4 +1,4 @@
-# GoDarda 
+# GoDarda Guide
 
 A robust, cross-platform static site powered by Jekyll, Bootstrap, and jQuery. Maintained since 2018.
 
@@ -12,10 +12,10 @@ A robust, cross-platform static site powered by Jekyll, Bootstrap, and jQuery. M
   - Windows
 - [Technology Stack](#technology-stack)
 - [Contributors](#contributors)
-- [Contributor Recognition](#contributor-recognition)
-- [Why Recognition Matters](#why-recognition-matters)
+- [Contribution Guide](CONTRIBUTING.md)
 - [Support Guide](SUPPORT.md)
 - [License](#license)
+- [Thank You](#thank-you)
 
 ## Project Status
 
@@ -98,36 +98,18 @@ We celebrate every contributor who helps make GoDarda better. Here's a snapshot 
 
 > Want to see your avatar here? Fork the repo, make a meaningful contribution, and submit a pull request!
 
-## Contributor Recognition
-
-At **GoDarda**, we believe every thoughtful contribution deserves to be seen and celebrated. Whether you've refactored code, improved documentation, designed UI elements, or supported others in Discussions — your impact matters.
-
-We offer visual badges to recognize contributors across key areas:
-
-| Badge | Description |
-|-------|-------------|
-| 🛠️ **Code Contributor** | For meaningful code contributions, refactors, or feature implementations |
-| 📖 **Documentation Contributor** | For improving clarity, onboarding, or contributor guides |
-| 🎨 **Design Contributor** | For UI/UX enhancements, badge layouts, or visual polish |
-| 💡 **Idea Contributor** | For proposing impactful features or architectural improvements |
-| 🌱 **Community Builder** | For supporting others, improving contributor experience, or fostering inclusivity |
-| 🧪 **Bug Hunter** | For identifying and reporting reproducible issues |
-| 🧭 **Maintainer’s Choice** | Special recognition for contributions that go above and beyond |
-
-To request a badge, [submit a badge request here](https://github.com/godarda/godarda.github.io/issues/new?template=badge.yml).
-
-## Why Recognition Matters
-
-Badges aren’t just visual flair — they reflect the spirit of open-source collaboration. They help contributors:
-- Build a visible portfolio of impact  
-- Feel valued and empowered  
-- Inspire others to contribute meaningfully
-
-We review badge requests with care and gratitude. Every contribution helps GoDarda grow into a more inclusive, scalable, and inspiring space.
-
 ## License
 This project is licensed under the [GPL-3.0 license](https://github.com/godarda/godarda.github.io/blob/main/LICENSE)  
 © GoDarda, Since 2018.
+
+## Thank You!
+GoDarda isn’t just code - it’s a shared vision. Every contributor, every suggestion, every line of thoughtful markup helps shape a space where clarity meets creativity.
+
+Whether you fixed a typo, refactored a snippet, improved onboarding, or simply explored the repo - thank you. Your presence here means the mission is working.
+
+We believe in recognition without noise, collaboration without ego, and learning without limits. So from the first `git clone` to your latest pull request:  **You’re part of something that’s built to empower.**
+
+Keep Learning, Keep Building, Keep Inspiring
 
 [gdezvdy]: https://github.com
 [gdzuddz]: https://getbootstrap.com
