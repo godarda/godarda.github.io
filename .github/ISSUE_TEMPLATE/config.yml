@@ -1,0 +1,41 @@
+# GitHub Issue Forms configuration for GoDarda
+# Controls visibility, ordering, and contact links for contributors
+
+blank_issues_enabled: false
+
+contact_links:
+  - name: 📬 Private Questions or Sensitive Reports
+    url: https://github.com/godarda/godarda.github.io/discussions
+    about: Use Discussions for private questions, sensitive issues, or general support.
+
+  - name: 💡 Share Ideas or Feedback
+    url: https://github.com/godarda/godarda.github.io/discussions
+    about: Suggest improvements or share your thoughts with the community.
+
+  - name: 📖 Contributor Guide
+    url: https://github.com/godarda/godarda.github.io/blob/main/CONTRIBUTING.md
+    about: Learn how to contribute effectively to GoDarda.
+
+  - name: 🛡️ Code of Conduct
+    url: https://github.com/godarda/godarda.github.io/blob/main/CODE_OF_CONDUCT.md
+    about: Understand the values and expectations for participating in the GoDarda community.
+
+  - name: 🔐 Security Policy
+    url: https://github.com/godarda/godarda.github.io/blob/main/SECURITY.md
+    about: Report vulnerabilities or review our responsible disclosure guidelines.
+
+  - name: 🏅 Contributor Recognition
+    url: https://github.com/godarda/godarda.github.io/discussions
+    about: Learn how we celebrate meaningful contributions to GoDarda.
+
+issue_templates:
+  - name: 🐞 Bug Report
+    file: bug.yml
+  - name: ✨ Feature Request
+    file: feature.yml
+  - name: ❓ Question
+    file: question.yml
+  - name: 📄 Documentation Improvement
+    file: documentation.yml
+  - name: 🏅 Badge Request
+    file: badge.yml

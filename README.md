@@ -14,6 +14,9 @@ A robust, cross-platform static site powered by Jekyll, Bootstrap, and jQuery. M
 - [Additional Notes](#additional-notes)
 - [License](#license)
 - [Contributors](#contributors)
+- [Contributor Recognition](#contributor-recognition)
+- [Why Recognition Matters](#why-recognition-matters)
+- [Support Guide](SUPPORT.md)
 
 ## Project Status
 
@@ -133,6 +136,33 @@ We celebrate every contributor who helps make GoDarda better. Here's a snapshot 
 ![Contributors](https://contrib.rocks/image?repo=godarda/godarda.github.io)
 
 > Want to see your avatar here? Fork the repo, make a meaningful contribution, and submit a pull request!
+
+## Contributor Recognition
+
+At **GoDarda**, we believe every thoughtful contribution deserves to be seen and celebrated. Whether you've refactored code, improved documentation, designed UI elements, or supported others in Discussions — your impact matters.
+
+We offer visual badges to recognize contributors across key areas:
+
+| Badge | Description |
+|-------|-------------|
+| 🛠️ **Code Contributor** | For meaningful code contributions, refactors, or feature implementations |
+| 📖 **Documentation Contributor** | For improving clarity, onboarding, or contributor guides |
+| 🎨 **Design Contributor** | For UI/UX enhancements, badge layouts, or visual polish |
+| 💡 **Idea Contributor** | For proposing impactful features or architectural improvements |
+| 🌱 **Community Builder** | For supporting others, improving contributor experience, or fostering inclusivity |
+| 🧪 **Bug Hunter** | For identifying and reporting reproducible issues |
+| 🧭 **Maintainer’s Choice** | Special recognition for contributions that go above and beyond |
+
+To request a badge, [submit a badge request here](https://github.com/godarda/godarda.github.io/issues/new?template=badge-request.yml).
+
+## Why Recognition Matters
+
+Badges aren’t just visual flair — they reflect the spirit of open-source collaboration. They help contributors:
+- Build a visible portfolio of impact  
+- Feel valued and empowered  
+- Inspire others to contribute meaningfully
+
+We review badge requests with care and gratitude. Every contribution helps GoDarda grow into a more inclusive, scalable, and inspiring space.
 
 [gdezvdy]: https://github.com
 [gdzuddz]: https://getbootstrap.com

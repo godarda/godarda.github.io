@@ -1,0 +1,45 @@
+---
+name: 📄 Documentation Improvement
+description: Suggest updates or improvements to GoDarda's documentation, guides, or contributor experience
+labels: [documentation, needs-triage]
+assignees:
+  - shubhamrdarda
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Help us keep GoDarda's documentation clear, helpful, and inspiring for every contributor.
+
+  - type: textarea
+    id: area
+    attributes:
+      label: What part of the documentation needs improvement?
+      placeholder: CONTRIBUTING.md, README.md, badge guide, etc.
+    validations:
+      required: true
+
+  - type: textarea
+    id: issue
+    attributes:
+      label: What's unclear or missing?
+      placeholder: Describe the confusion, gap, or outdated info you encountered.
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: What would you suggest?
+      placeholder: Share your proposed wording, structure, or visual improvement.
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: How would this help other contributors?
+      placeholder: Explain how your suggestion improves clarity, onboarding, or accessibility.
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Include screenshots, links, or examples that support your suggestion.

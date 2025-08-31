@@ -1,0 +1,42 @@
+name: ✨ Feature Request
+description: Suggest an enhancement or new idea for GoDarda
+labels: [enhancement, needs-triage]
+assignees:
+  - shubhamrdarda
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Got an idea to improve GoDarda? Let us know how it helps contributors and users.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Is your feature request related to a problem?
+      placeholder: "I'm always frustrated when..."
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Describe the solution you'd like
+      placeholder: A clear and concise description of what you want to happen.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Describe alternatives you've considered
+      placeholder: Other approaches or tools you’ve thought about.
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Community impact
+      placeholder: How would this feature help other contributors or users?
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Include mockups, screenshots, or references.
