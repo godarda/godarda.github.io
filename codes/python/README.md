@@ -22,7 +22,7 @@ Welcome to the curated index of Python programming. This page is part of the GoD
 - [Python Logical Operations](https://godarda.in/python/fundamentals/gdexazw)  
 - [Python Built-in Functions](https://godarda.in/python/fundamentals/gdgzwzz)  
 - [Python Mathematical Functions](https://godarda.in/python/fundamentals/gdtgvee)  
-- [More …](https://godarda.in/python/fundamentals)
+- [Show More »](https://godarda.in/python/fundamentals)
 
 ## Python Control Statements
 
@@ -37,7 +37,7 @@ Welcome to the curated index of Python programming. This page is part of the GoD
 - [Python program to print the ASCII values](https://godarda.in/python/loops/gdwauzw)  
 - [Python program to print the prime numbers](https://godarda.in/python/loops/gdwbtvh)  
 - [Python program to find the factorial of a given number](https://godarda.in/python/loops/gdagzvl)  
-- [More …](https://godarda.in/python/loops)
+- [Show More »](https://godarda.in/python/loops)
 
 ## Python Strings
 
@@ -45,7 +45,7 @@ Welcome to the curated index of Python programming. This page is part of the GoD
 - [Python Strings Comparison](https://godarda.in/python/strings/gdkgyxy)  
 - [Python String Slicing](https://godarda.in/python/strings/gdkwdvv)  
 - [Python to check the given string is alphanumeric](https://godarda.in/python/strings/gdozvev)  
-- [More …](https://godarda.in/python/strings)
+- [Show More »](https://godarda.in/python/strings)
 
 ## Python Data Structures
 
@@ -60,7 +60,7 @@ Welcome to the curated index of Python programming. This page is part of the GoD
 - [Python indexing and slicing on an array](https://godarda.in/python/arrays/gddrehr)  
 - [Python NumPy Arrays](https://godarda.in/python/arrays/gdzyigz)  
 - [Python to create a view() and copy() of NumPy arrays](https://godarda.in/python/arrays/gddeqlk)  
-- [More …](https://godarda.in/python/arrays)
+- [Show More »](https://godarda.in/python/arrays)
 
 ## Python File Handling
 
@@ -79,7 +79,7 @@ Welcome to the curated index of Python programming. This page is part of the GoD
 - [Python MySQL to connect, create a database, and table](https://godarda.in/python/dbc/gdvdwzz)  
 - [Python MySQL to insert and retrieve the records from a table](https://godarda.in/python/dbc/gdtyalw)  
 - [Python MySQL to update the table records](https://godarda.in/python/dbc/gdswyzn)  
-- [More …](https://godarda.in/python/dbc)
+- [Show More »](https://godarda.in/python/dbc)
 
 ## 🤝 Contribute
 

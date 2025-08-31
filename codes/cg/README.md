@@ -18,7 +18,7 @@ Welcome to the curated index of Computer Graphics programs. This page is part of
 - [C++ program to draw a Pixel by accepting coordinates from the user](https://godarda.in/cg/line/gdgwavy)  
 - [C++ program to draw Pixels using for loop](https://godarda.in/cg/line/gddwydv)  
 - [C++ program to draw a line with given coordinates](https://godarda.in/cg/line/gdyvzde)  
-- [More …](https://godarda.in/cg/line)
+- [Show More »](https://godarda.in/cg/line)
 
 ## Circle Drawing Programs
 
@@ -26,7 +26,7 @@ Welcome to the curated index of Computer Graphics programs. This page is part of
 - [C++ program to draw circles using for loop](https://godarda.in/cg/circle/gdmqler)  
 - [C++ program to draw concentric circles using for loop](https://godarda.in/cg/circle/gdmgezv)  
 - [C++ program to draw concentric circles from a fixed point](https://godarda.in/cg/circle/gdekhai)  
-- [More …](https://godarda.in/cg/circle)
+- [Show More »](https://godarda.in/cg/circle)
 
 ## Geometric Shapes
 
@@ -34,7 +34,7 @@ Welcome to the curated index of Computer Graphics programs. This page is part of
 - [C++ program to draw a clockwise spiral using the arc function](https://godarda.in/cg/shapes/gddqonb)  
 - [C++ program to draw a counter-clockwise spiral using the arc function](https://godarda.in/cg/shapes/gddkwaa)  
 - [C++ program to draw a wheel using the arc, pieslice, and setcolor function](https://godarda.in/cg/shapes/gdseage)  
-- [More …](https://godarda.in/cg/shapes)
+- [Show More »](https://godarda.in/cg/shapes)
 
 ## Computer Graphics Algorithms
 
@@ -42,7 +42,7 @@ Welcome to the curated index of Computer Graphics programs. This page is part of
 - [C++ program for Bresenham's line drawing algorithm](https://godarda.in/cg/algorithms/gdevpys)  
 - [C++ program for DDA circle drawing algorithm](https://godarda.in/cg/algorithms/gdfcwdy)  
 - [C++ program for Bresenham's circle drawing algorithm](https://godarda.in/cg/algorithms/gdzzahy)  
-- [More …](https://godarda.in/cg/algorithms)
+- [Show More »](https://godarda.in/cg/algorithms)
 
 ## OpenGL
 
@@ -50,7 +50,7 @@ Welcome to the curated index of Computer Graphics programs. This page is part of
 - [C++ program for DDA line drawing algorithm using OpenGL](https://godarda.in/cg/opengl/gdyulza)  
 - [C++ program for Bresenham's line drawing algorithm using OpenGL](https://godarda.in/cg/opengl/gdhdyuk)  
 - [C++ program for DDA circle drawing algorithm using OpenGL](https://godarda.in/cg/opengl/gdwgeyh)  
-- [More …](https://godarda.in/cg/opengl)
+- [Show More »](https://godarda.in/cg/opengl)
 
 ## 🤝 Contribute
 

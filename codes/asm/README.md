@@ -15,7 +15,7 @@ Welcome to the curated index of Assembly programming. This page is part of the G
 - [ALP to print Hello World using times directive (32-bit)](https://godarda.in/asm/32-bit/gdbhdky)  
 - [ALP to print the stars using macro (32-bit)](https://godarda.in/asm/32-bit/gdaeavq)  
 - [ALP to print the stars using times directive (32-bit)](https://godarda.in/asm/32-bit/gdbqeza)  
-- [More …](https://godarda.in/asm/32-bit)
+- [Show More »](https://godarda.in/asm/32-bit)
 
 ## 64-bit Assembly Programming
 
@@ -23,7 +23,7 @@ Welcome to the curated index of Assembly programming. This page is part of the G
 - [ALP to print Hello World using macro (64-bit)](https://godarda.in/asm/64-bit/gdsgpyl)  
 - [ALP to print the given string using macro (64-bit)](https://godarda.in/asm/64-bit/gdwagtz)  
 - [ALP to print the length of a given string (64-bit)](https://godarda.in/asm/64-bit/gdcgame)  
-- [More …](https://godarda.in/asm/64-bit)
+- [Show More »](https://godarda.in/asm/64-bit)
 
 ## 🤝 Contribute
 

@@ -14,7 +14,7 @@ Welcome to the curated index of Bash shell scripting. This page is part of the G
 - [Bash shell script to print the current date and time](https://godarda.in/linux/bash/gdtzyyp)  
 - [Bash shell script to perform the arithmetic and relational operations](https://godarda.in/linux/bash/gdldisa)  
 - [Bash shell script to calculate the area and circumference of a circle](https://godarda.in/linux/bash/gdpwgqv)  
-- [More …](https://godarda.in/linux/bash)
+- [Show More »](https://godarda.in/linux/bash)
 
 ## 🤝 Contribute
 

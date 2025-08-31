@@ -20,7 +20,7 @@ Welcome to the curated index of C++ programming. This page is part of the GoDard
 - [C++ Hello World program without using a semicolon](https://godarda.in/cpp/fundamentals/gduzwdy)  
 - [C++ program to perform the arithmetic operations](https://godarda.in/cpp/fundamentals/gduagbm)  
 - [C++ program to perform the boolean operations](https://godarda.in/cpp/fundamentals/gdzmzav)  
-- [More …](https://godarda.in/cpp/fundamentals)
+- [Show More »](https://godarda.in/cpp/fundamentals)
 
 ## C++ Control Statements
 
@@ -35,7 +35,7 @@ Welcome to the curated index of C++ programming. This page is part of the GoDard
 - [C++ program to print the ASCII values](https://godarda.in/cpp/loops/gdvzpzf)  
 - [C++ program to print the natural numbers](https://godarda.in/cpp/loops/gdvydev)  
 - [C++ program to print the addition of N numbers](https://godarda.in/cpp/loops/gdwaaup)  
-- [More …](https://godarda.in/cpp/loops)
+- [Show More »](https://godarda.in/cpp/loops)
 
 ## C++ Strings
 
@@ -43,7 +43,7 @@ Welcome to the curated index of C++ programming. This page is part of the GoDard
 - [C++ program to find the length of a given string](https://godarda.in/cpp/strings/gdadbwe)  
 - [C++ program to reverse a given string using loops](https://godarda.in/cpp/strings/gdecfeo)  
 - [C++ program to reverse a given string using predefined methods](https://godarda.in/cpp/strings/gdyyvwd)  
-- [More …](https://godarda.in/cpp/strings)
+- [Show More »](https://godarda.in/cpp/strings)
 
 ## C++ Arrays
 
@@ -64,7 +64,7 @@ Welcome to the curated index of C++ programming. This page is part of the GoDard
 - [C++ program for call by value and call by reference](https://godarda.in/cpp/functions/gdzddye)  
 - [C++ program to add the members of two different classes using the friend function](https://godarda.in/cpp/functions/gdmeaby)  
 - [C++ program to demonstrate the use of math library functions](https://godarda.in/cpp/functions/gdxybzk)  
-- [More …](https://godarda.in/cpp/functions)
+- [Show More »](https://godarda.in/cpp/functions)
 
 ## 🤝 Contribute
 

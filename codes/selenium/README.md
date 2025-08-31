@@ -21,7 +21,7 @@ Welcome to the curated index of Selenium WebDriver programs. This page is part o
 - [How to launch the browser using Selenium Python](https://godarda.in/selenium/fundamentals/gdureze)  
 - [How to launch the Chromium browser using Selenium Java](https://godarda.in/selenium/fundamentals/gdzzegt)  
 - [Selenium Java to maximize the browser window and get its properties](https://godarda.in/selenium/fundamentals/gdavaga)  
-- [More …](https://godarda.in/selenium/fundamentals)
+- [Show More »](https://godarda.in/selenium/fundamentals)
 
 ## Selenium Locators
 
@@ -29,7 +29,7 @@ Welcome to the curated index of Selenium WebDriver programs. This page is part o
 - [Selenium Java to get the title of a given webpage using the getAttribute() method](https://godarda.in/selenium/locators/gdzezzd)  
 - [Selenium Java to get the current date and time using sendKeys](https://godarda.in/selenium/locators/gdlwmed)  
 - [Selenium Java to clear and enter the value in an input field](https://godarda.in/selenium/locators/gddzedv)  
-- [More …](https://godarda.in/selenium/locators)
+- [Show More »](https://godarda.in/selenium/locators)
 
 ## Selenium XPath
 
@@ -37,7 +37,7 @@ Welcome to the curated index of Selenium WebDriver programs. This page is part o
 - [Selenium Java to locate a web element using the contains() and starts-with() methods](https://godarda.in/selenium/xpath/gdxddhz)  
 - [Selenium Java to locate a web element using the text() method](https://godarda.in/selenium/xpath/gdyazdw)  
 - [Selenium Java to locate a web element using the last() method](https://godarda.in/selenium/xpath/gdzwqle)  
-- [More …](https://godarda.in/selenium/xpath)
+- [Show More »](https://godarda.in/selenium/xpath)
 
 ## Classes in Selenium
 
@@ -45,7 +45,7 @@ Welcome to the curated index of Selenium WebDriver programs. This page is part o
 - [Selenium Java to get the browser details using Capabilities](https://godarda.in/selenium/classes/gdspasn)  
 - [Selenium Java to select dropdown choice using selectByVisibleText() method](https://godarda.in/selenium/classes/gdaiwex)  
 - [Selenium Java to select dropdown choice using selectByIndex() method](https://godarda.in/selenium/classes/gdzfnwc)  
-- [More …](https://godarda.in/selenium/classes)
+- [Show More »](https://godarda.in/selenium/classes)
 
 ## Interfaces in Selenium
 
@@ -71,7 +71,7 @@ Welcome to the curated index of Selenium WebDriver programs. This page is part o
 - [How to use priority and dependencies in TestNG](https://godarda.in/selenium/testng/gdeeaqo)  
 - [How to define dependencies between groups in TestNG XML file](https://godarda.in/selenium/testng/gdeafrk)  
 - [How to run the same method multiple times using the invocationCount in TestNG](https://godarda.in/selenium/testng/gdxxztd)  
-- [More …](https://godarda.in/selenium/testng)
+- [Show More »](https://godarda.in/selenium/testng)
 
 ## 🤝 Contribute
 

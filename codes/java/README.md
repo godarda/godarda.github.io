@@ -29,7 +29,7 @@ Welcome to the curated index of Java programming. This page is part of the GoDar
 - [Java Hello World program without using a semicolon](https://godarda.in/java/fundamentals/gdlnfzw)  
 - [Java program to perform the arithmetic operations](https://godarda.in/java/fundamentals/gddyagw)  
 - [Java program to perform the boolean operations](https://godarda.in/java/fundamentals/gdnozez)  
-- [More …](https://godarda.in/java/fundamentals)
+- [Show More »](https://godarda.in/java/fundamentals)
 
 ## Java Control Statements
 
@@ -50,7 +50,7 @@ Welcome to the curated index of Java programming. This page is part of the GoDar
 - [Java implementation of the indexOf method](https://godarda.in/java/strings/gdgswzo)  
 - [Java implementation of the Character class](https://godarda.in/java/strings/gddeyyd)  
 - [Java implementation of the charAt method](https://godarda.in/java/strings/gdayluk)  
-- [More …](https://godarda.in/java/strings)
+- [Show More »](https://godarda.in/java/strings)
 
 ## Java Arrays
 
@@ -65,7 +65,7 @@ Welcome to the curated index of Java programming. This page is part of the GoDar
 - [Java program to demonstrate the use of constructor](https://godarda.in/java/classes/gdkogzp)  
 - [Java implementation of final and static keywords](https://godarda.in/java/classes/gdwegxe)  
 - [Java implementation of Scanner close method](https://godarda.in/java/classes/gdwqzgy)  
-- [More …](https://godarda.in/java/classes)
+- [Show More »](https://godarda.in/java/classes)
 
 ## Java Methods
 
@@ -99,7 +99,7 @@ Welcome to the curated index of Java programming. This page is part of the GoDar
 - [Implementation of Java LinkedList class](https://godarda.in/java/collections/gdddweg)  
 - [Implementation of Java HashSet class](https://godarda.in/java/collections/gdsftmv)  
 - [Implementation of Java LinkedHashSet class](https://godarda.in/java/collections/gdsnzag)  
-- [More …](https://godarda.in/java/collections)
+- [Show More »](https://godarda.in/java/collections)
 
 ## Java Exception Handling
 
@@ -107,7 +107,7 @@ Welcome to the curated index of Java programming. This page is part of the GoDar
 - [Java program to demonstrate the use of finally block](https://godarda.in/java/exceptions/gdvvvvh)  
 - [Java program to demonstrate the use of nested try, catch, and finally blocks](https://godarda.in/java/exceptions/gdvgwaz)  
 - [Java program to handle the ArithmeticException](https://godarda.in/java/exceptions/gddzvkd)  
-- [More …](https://godarda.in/java/exceptions)
+- [Show More »](https://godarda.in/java/exceptions)
 
 ## Java Regular Expressions
 
@@ -120,7 +120,7 @@ Welcome to the curated index of Java programming. This page is part of the GoDar
 - [Java program for Runnable interface](https://godarda.in/java/multithreading/gdrccyh)  
 - [Java program for getName(), getId() and getPriority() methods](https://godarda.in/java/multithreading/gdmdczr)  
 - [Java program for join() and sleep() methods](https://godarda.in/java/multithreading/gdeshez)  
-- [More …](https://godarda.in/java/multithreading)
+- [Show More »](https://godarda.in/java/multithreading)
 
 ## Java AWT and Swing Graphics
 
@@ -128,7 +128,7 @@ Welcome to the curated index of Java programming. This page is part of the GoDar
 - [Java program to draw a Curve using Graphics2D class](https://godarda.in/java/awt/gdpgzzw)  
 - [Java program to draw a Circle using Graphics2D class](https://godarda.in/java/awt/gdamhed)  
 - [Java program to draw a Rectangle using Graphics2D class](https://godarda.in/java/awt/gdzyehx)  
-- [More …](https://godarda.in/java/awt)
+- [Show More »](https://godarda.in/java/awt)
 
 ## Java Database Connectivity (JDBC)
 
@@ -136,7 +136,7 @@ Welcome to the curated index of Java programming. This page is part of the GoDar
 - [Java MySQL to insert and retrieve the records from a table](https://godarda.in/java/jdbc/gdyszqa)  
 - [Java MySQL to update the table records](https://godarda.in/java/jdbc/gdqkpvm)  
 - [Java MySQL to perform JDBC CRUD operations](https://godarda.in/java/jdbc/gdbylyk)  
-- [More …](https://godarda.in/java/jdbc)
+- [Show More »](https://godarda.in/java/jdbc)
 
 ## 🤝 Contribute
 

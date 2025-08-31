@@ -27,7 +27,7 @@ Welcome to the curated index of Data Structures and Algorithms. This page is par
 - [C++ program for Bubble Sort](https://godarda.in/dsa/sorting/gdwzsgz)  
 - [C++ program for optimized Bubble Sort](https://godarda.in/dsa/sorting/gdvvavg)  
 - [Python program for Bubble Sort](https://godarda.in/dsa/sorting/gdyezyi)  
-- [More …](https://godarda.in/dsa/sorting)
+- [Show More »](https://godarda.in/dsa/sorting)
 
 ## Shortest Path Algorithms
 

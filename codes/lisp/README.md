@@ -18,7 +18,7 @@ Welcome to the curated index of LISP programming. This page is part of the GoDar
 - [Maxima Command Line Interface (CLI)](https://godarda.in/lisp/fundamentals/gdggadz)  
 - [LISP Hello World program](https://godarda.in/lisp/fundamentals/gdydkmw)  
 - [LISP program to perform the arithmetic operations](https://godarda.in/lisp/fundamentals/gdvwwue)  
-- [More …](https://godarda.in/lisp/fundamentals)
+- [Show More »](https://godarda.in/lisp/fundamentals)
 
 ## LISP Control Statements
 

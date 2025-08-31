@@ -31,7 +31,7 @@ Welcome to the curated index of C# programming. This page is part of the GoDarda
 - [C# program to perform the arithmetic operations](https://godarda.in/csharp/fundamentals/gdezexv)  
 - [C# program to perform the addition of two numbers](https://godarda.in/csharp/fundamentals/gdwvdgv)  
 - [C# program to calculate the area and circumference of a circle](https://godarda.in/csharp/fundamentals/gdgzkqy)  
-- [More …](https://godarda.in/csharp/fundamentals)
+- [Show More »](https://godarda.in/csharp/fundamentals)
 
 ## C# Control Statements
 
@@ -46,7 +46,7 @@ Welcome to the curated index of C# programming. This page is part of the GoDarda
 - [C# program to print the even and odd numbers](https://godarda.in/csharp/loops/gdvyqsg)  
 - [C# program to print the star pyramid patterns](https://godarda.in/csharp/loops/gdpaavv)  
 - [C# program to print the star diamond pattern](https://godarda.in/csharp/loops/gdpcakz)  
-- [More …](https://godarda.in/csharp/loops)
+- [Show More »](https://godarda.in/csharp/loops)
 
 ## C# Strings
 
@@ -54,7 +54,7 @@ Welcome to the curated index of C# programming. This page is part of the GoDarda
 - [C# program to convert lowercase to an uppercase string](https://godarda.in/csharp/strings/gdqdfzd)  
 - [C# program to convert uppercase to a lowercase string](https://godarda.in/csharp/strings/gdyyeee)  
 - [C# program to concatenate the given strings](https://godarda.in/csharp/strings/gdywhul)  
-- [More …](https://godarda.in/csharp/strings)
+- [Show More »](https://godarda.in/csharp/strings)
 
 ## C# Arrays
 
@@ -67,7 +67,7 @@ Welcome to the curated index of C# programming. This page is part of the GoDarda
 - [C# implementation of structure](https://godarda.in/csharp/classes/gdchztk)  
 - [C# implementation of class and object](https://godarda.in/csharp/classes/gdhlvdk)  
 - [C# program to demonstrate the use of constructor](https://godarda.in/csharp/classes/gdvhedr)  
-- [More …](https://godarda.in/csharp/classes)
+- [Show More »](https://godarda.in/csharp/classes)
 
 ## C# Methods
 
@@ -105,7 +105,7 @@ Welcome to the curated index of C# programming. This page is part of the GoDarda
 - [Implementation of C# LinkedList class](https://godarda.in/csharp/collections/gdgpvwh)  
 - [Implementation of C# Dictionary class](https://godarda.in/csharp/collections/gdgekwc)  
 - [Implementation of C# SortedDictionary class](https://godarda.in/csharp/collections/gdvmztp)  
-- [More …](https://godarda.in/csharp/collections)
+- [Show More »](https://godarda.in/csharp/collections)
 
 ## C# Exception Handling
 
@@ -113,7 +113,7 @@ Welcome to the curated index of C# programming. This page is part of the GoDarda
 - [C# program to catch all the exceptions using Exception class](https://godarda.in/csharp/exceptions/gdtgvee)  
 - [C# program to demonstrate the use of nested try and catch blocks](https://godarda.in/csharp/exceptions/gdkwdvv)  
 - [C# program to demonstrate the use of finally blocks](https://godarda.in/csharp/exceptions/gdkzaae)  
-- [More …](https://godarda.in/csharp/exceptions)
+- [Show More »](https://godarda.in/csharp/exceptions)
 
 ## C# File Handling
 
@@ -129,7 +129,7 @@ Welcome to the curated index of C# programming. This page is part of the GoDarda
 - [C# implementation of Multithreading](https://godarda.in/csharp/multithreading/gdaycye)  
 - [C# program to demonstrate two threads working concurrently](https://godarda.in/csharp/multithreading/gdziyve)  
 - [C# program to set the priorities to the threads](https://godarda.in/csharp/multithreading/gdzfcze)  
-- [More …](https://godarda.in/csharp/multithreading)
+- [Show More »](https://godarda.in/csharp/multithreading)
 
 ## C# Reflection
 

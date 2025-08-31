@@ -103,7 +103,7 @@ window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 
-gtag('config', 'G-6JTSG3QWRJ', {
+gtag('config', 'G-8ZJLP1KH1R', {
     ignore_referrer: 'true',
     'linker': {
         'domains': ['godarda.in']

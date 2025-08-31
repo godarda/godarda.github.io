@@ -20,7 +20,7 @@ Welcome to the curated index of C programming. This page is part of the GoDarda 
 - [C Hello World program without using a semicolon](https://godarda.in/c/fundamentals/gdvfzhl)
 - [C program to perform the arithmetic operations](https://godarda.in/c/fundamentals/gdadrfz)
 - [C program to perform the boolean operations](https://godarda.in/c/fundamentals/gdzevtw)
-- [More …](https://godarda.in/c/fundamentals)
+- [Show More »](https://godarda.in/c/fundamentals)
 
 ## C Control Statements
 
@@ -28,7 +28,7 @@ Welcome to the curated index of C programming. This page is part of the GoDarda 
 - [C program to check the equality of given numbers](https://godarda.in/c/controls/gddwdgs)
 - [C program to demonstrate the use of goto statement](https://godarda.in/c/controls/gdwagwy)
 - [C program to demonstrate the use of break and continue statements](https://godarda.in/c/controls/gdecgzz)
-- [More …](https://godarda.in/c/controls)
+- [Show More »](https://godarda.in/c/controls)
 
 ## C Loops
 
@@ -36,7 +36,7 @@ Welcome to the curated index of C programming. This page is part of the GoDarda 
 - [C program to print the star pyramid patterns](https://godarda.in/c/loops/gdzxwzt)
 - [C program to print the star diamond pattern](https://godarda.in/c/loops/gddysru)
 - [C program to print the alphabets diamond pattern](https://godarda.in/c/loops/gdzsayg)
-- [More …](https://godarda.in/c/loops)
+- [Show More »](https://godarda.in/c/loops)
 
 ## C Strings
 
@@ -44,7 +44,7 @@ Welcome to the curated index of C programming. This page is part of the GoDarda 
 - [C program to concatenate the given strings](https://godarda.in/c/strings/gdozdow)
 - [C program to copy the given string](https://godarda.in/c/strings/gdtwwpw)
 - [C program to compare the given strings](https://godarda.in/c/strings/gdgdpvh)
-- [More …](https://godarda.in/c/strings)
+- [Show More »](https://godarda.in/c/strings)
 
 ## C Arrays
 
@@ -52,7 +52,7 @@ Welcome to the curated index of C programming. This page is part of the GoDarda 
 - [C program to print the length of a given array](https://godarda.in/c/arrays/gdzzdyp)
 - [C program to print the sum of all numbers in a given array](https://godarda.in/c/arrays/gdavnal)
 - [C program to find the min and max number from a given array](https://godarda.in/c/arrays/gdmqyew)
-- [More …](https://godarda.in/c/arrays)
+- [Show More »](https://godarda.in/c/arrays)
 
 ## C Functions
 
@@ -60,7 +60,7 @@ Welcome to the curated index of C programming. This page is part of the GoDarda 
 - [C menu-driven program for the arithmetic operations](https://godarda.in/c/functions/gdvdeeg)
 - [C program to perform the Set operations (Union and Intersection)](https://godarda.in/c/functions/gdvbrva)
 - [C program for the Tower of Hanoi](https://godarda.in/c/functions/gdcgdie)
-- [More …](https://godarda.in/c/functions)
+- [Show More »](https://godarda.in/c/functions)
 
 ## C Pointers
 

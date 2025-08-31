@@ -1,11 +1,20 @@
 {%- if path[3] != nil -%}
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header"><h5 class="modal-title" id="staticBackdropLabel"><i class="bi bi-clipboard-heart"></i> Thank You</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
-            <div class="modal-body">Dear User, <br>Thank you for visitng GoDarda. If you are interested in technical articles, latest technologies, and our journey further, please follow us on LinkedIn.<br><br><div>Regards,<br><a href="shubhamrdarda" class="hlink">{{ site.founder }}</a><br>Founder and Architect</div></div>
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><i class="bi bi-clipboard-heart"></i> Thank You</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">Dear User, <br>Thank you for visitng GoDarda. If you are interested in technical
+                articles, latest technologies, and our journey further, please follow us on LinkedIn.<br><br>
+                <div>Regards,<br><a href="shubhamrdarda" class="hlink">{{ site.founder }}</a><br>Founder and Architect
+                </div>
+            </div>
             <div class="modal-footer justify-content-center">
-                <a href="{{ site.data.url.linkedin }}" class="btn" title="LinkedIn" target="_blank"><i class="bi bi-linkedin"></i> LinkedIn</a>
+                <a href="{{ site.data.url.linkedin }}" class="btn" title="LinkedIn" target="_blank"><i
+                        class="bi bi-linkedin"></i> LinkedIn</a>
             </div>
         </div>
     </div>
@@ -15,26 +24,31 @@
 {%- if path[1] == "about" and path[2] == nil -%}{%- assign about_section = "about_home_true" -%}
 {%- elsif path[1] == "about" and path[2] != nil -%}{%- assign about_section = "about_home_false" -%}{%- endif -%}
 <div id="app" class="container {{ about_section }}" style="display: none;">
-    <div class="board"><div class="boardtitle"><i class="bi bi-info-circle"></i> About</div>
+    <div class="board">
+        <div class="boardtitle"><i class="bi bi-info-circle"></i> About</div>
         <a class="card" href="about/faqs">Frequently Asked Questions</a>
+        <a class="card" href="about/contribute">Contributing to GoDarda</a>
         <a class="card" href="about/terms">Terms of Use</a>
         <a class="card" href="about/privacy">Privacy Policy</a>
         <a class="card" href="about/disclaimer">Disclaimer</a>
-        <a class="card" href="{{ site.data.url.linkedin }}">Message Us</a>
     </div>
-    <div class="board"><div class="boardtitle"><i class="bi bi-link"></i> Social Handles</div>
+    <div class="board">
+        <div class="boardtitle"><i class="bi bi-link"></i> Social Handles</div>
         <a class="card" href="{{ site.data.url.linkedin }}">LinkedIn</a>
         <a class="card" href="{{ site.data.url.github }}">GitHub</a>
         <a class="card" href="{{ site.data.url.discord }}">Discord</a>
     </div>
-    <div class="board"><div class="boardtitle"><i class="bi bi-gear-wide-connected"></i> App Settings</div>
+    <div class="board">
+        <div class="boardtitle"><i class="bi bi-gear-wide-connected"></i> App Settings</div>
         <a id="cache" class="card" href="clear:">Clear: Cache and History</a>
         <a class="card disabled">Theme: System Default</a>
     </div>
 </div>
 
 {%- if path[1] == "search" or path[1] == "testapp" -%}{%- assign flag = "block_webfooter" -%}{%- endif -%}
-<div id="backtotop" class="text-center" style="display: none; padding-top: 15px; margin-bottom: 15px;"><a class="back-to-top" style="cursor: pointer;" title="Back to top"><i class="svgicon bi bi-arrow-bar-up"></i></a></div>
+<div id="backtotop" class="text-center" style="display: none; padding-top: 15px; margin-bottom: 15px;"><a
+        class="back-to-top" style="cursor: pointer;" title="Back to top"><i class="svgicon bi bi-arrow-bar-up"></i></a>
+</div>
 
 <footer class="isWebsite {{ flag }}" id="isWebsite" style="display: block; padding-top: 15px;">
     <div class="footer">
@@ -42,116 +56,158 @@
             <div class="row">
                 <div class="col-6 col-md-3" style="padding-bottom: 50px;">
                     <h6>What's new</h6>
-                    <a href="python/"><div><i class="bi bi-rocket"></i> Python</div></a>
-                    <a href="ds/"><div><i class="bi bi-pie-chart"></i> Data Science</div></a>
-                    <a href="mongodb/"><div><i class="bi bi-database"></i> MongoDB</div></a>
+                    <a href="python/">
+                        <div><i class="bi bi-rocket"></i> Python</div>
+                    </a>
+                    <a href="ds/">
+                        <div><i class="bi bi-pie-chart"></i> Data Science</div>
+                    </a>
+                    <a href="mongodb/">
+                        <div><i class="bi bi-database"></i> MongoDB</div>
+                    </a>
                 </div>
                 <div class="col-6 col-md-3" style="padding-bottom: 50px;">
                     <h6>GoDarda</h6>
-                    <a href="about"><div><i class="bi bi-question-circle"></i> About Us</div></a>
-                    <a href="about/faqs"><div><i class="bi bi-star"></i> FAQs</div></a>
-                    <a href="shubhamrdarda"><div><i class="bi bi-person-square"></i> Meet Founder</div></a>
+                    <a href="about">
+                        <div><i class="bi bi-question-circle"></i> About Us</div>
+                    </a>
+                    <a href="about/faqs">
+                        <div><i class="bi bi-star"></i> FAQs</div>
+                    </a>
+                    <a href="shubhamrdarda">
+                        <div><i class="bi bi-person-square"></i> Meet Founder</div>
+                    </a>
                 </div>
                 <div class="col-6 col-md-3" style="padding-bottom: 50px;">
-                    <h6>Useful Links</h6> 
-                    <a href="about/terms"><div><i class="bi bi-card-text"></i> Terms</div></a>
-                    <a href="about/privacy"><div><i class="bi bi-shield-check"></i> Privacy</div></a>
-                    <a href="about/disclaimer"><div><i class="bi bi-exclamation-triangle"></i> Disclaimer</div></a>
+                    <h6>Useful Links</h6>
+                    <a href="about/terms">
+                        <div><i class="bi bi-card-text"></i> Terms</div>
+                    </a>
+                    <a href="about/privacy">
+                        <div><i class="bi bi-shield-check"></i> Privacy</div>
+                    </a>
+                    <a href="about/disclaimer">
+                        <div><i class="bi bi-exclamation-triangle"></i> Disclaimer</div>
+                    </a>
                 </div>
                 <div class="col-6 col-md-3" style="padding-bottom: 50px;">
                     <h6>Social Handles</h6>
-                    <a href="{{ site.data.url.linkedin }}" target="_blank"><div><i class="bi bi-linkedin"></i> LinkedIn</div></a>
-                    <a href="{{ site.data.url.github }}" target="_blank"><div><i class="bi bi-github"></i> GitHub</div></a>
-                    <a href="{{ site.data.url.discord }}"><div><i class="bi bi-discord"></i></i> Discord</div></a>
+                    <a href="{{ site.data.url.linkedin }}" target="_blank">
+                        <div><i class="bi bi-linkedin"></i> LinkedIn</div>
+                    </a>
+                    <a href="{{ site.data.url.github }}" target="_blank">
+                        <div><i class="bi bi-github"></i> GitHub</div>
+                    </a>
+                    <a href="{{ site.data.url.discord }}">
+                        <div><i class="bi bi-discord"></i></i> Discord</div>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="appmodal" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="appmodalLabel" aria-hidden="true">
+    <div class="modal fade" id="appmodal" data-bs-backdrop="static" data-bs-keyboard="false"
+        aria-labelledby="appmodalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header"><h5 class="modal-title" id="appmodalLabel"><i class="bi bi-android2"></i> GoDarda Android App</h5></div>
-                <div class="modal-body">Dear User, <br>We are grateful for your interest in the GoDarda Android app. We intend to soon make it available on the Google Play Store. Currently, you need to install apk manually. Would you like to get the app?<br>Minimum Requirement(s): Android 10</div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="appmodalLabel"><i class="bi bi-android2"></i> GoDarda Android App</h5>
+                </div>
+                <div class="modal-body">Dear User, <br>We are grateful for your interest in the GoDarda Android app. We
+                    intend to soon make it available on the Google Play Store. Currently, you need to install apk
+                    manually. Would you like to get the app?<br>Minimum Requirement(s): Android 10</div>
                 <div class="modal-footer justify-content-center">
-                    <a style="cursor: pointer; border: 1px solid #e63636;" class="btn" data-bs-dismiss="modal"><i class="bi bi-cloud-slash"></i> No</a>
-                    <a href="{{ site.data.url.android_app }}" style="border: 1px solid #00b050;" class="btn" onclick="$('#appmodal').modal('hide');"><i class="bi bi-cloud-arrow-down"></i> Yes</a>
+                    <a style="cursor: pointer; border: 1px solid #e63636;" class="btn" data-bs-dismiss="modal"><i
+                            class="bi bi-cloud-slash"></i> No</a>
+                    <a href="{{ site.data.url.android_app }}" style="border: 1px solid #00b050;" class="btn"
+                        onclick="$('#appmodal').modal('hide');"><i class="bi bi-cloud-arrow-down"></i> Yes</a>
                 </div>
             </div>
         </div>
     </div>
-    <div class="d-flex justify-content-center" style="background-color: #16181d; padding: 15px; margin: 0px;"> 
-        <img style="border-radius: 50px;" alt="" src="{{ site.logo }}" width="25" height="25"><span style="padding-top: 2px; padding-left: 5px; color: #ffffff;">Developed by <a class="hlink" href="shubhamrdarda">{{ site.founder }}</span></a>
+    <div class="d-flex justify-content-center" style="background-color: #16181d; padding: 15px; margin: 0px;">
+        <img style="border-radius: 50px;" alt="" src="{{ site.logo }}" width="25" height="25"><span
+            style="padding-top: 2px; padding-left: 5px; color: #ffffff;">Developed by <a class="hlink"
+                href="shubhamrdarda">{{ site.founder }}</span></a>
     </div>
 </footer>
 
 <footer class="isWebView" id="isWebView" style="display: none;">
     {%- assign display="false" -%}
     {%- if path[1] == nil -%}
-        {%- assign f_home="wvnav-item-active" -%}
+    {%- assign f_home="wvnav-item-active" -%}
     {%- elsif path[1] == "search" -%}
-        {%- assign f_search="wvnav-item-active" -%}
+    {%- assign f_search="wvnav-item-active" -%}
     {%- elsif path[1] == "about" or path[1] == "shubhamrdarda" -%}
-        {%- assign f_about="wvnav-item-active" -%}
+    {%- assign f_about="wvnav-item-active" -%}
     {%- else -%}
-        {%- assign f_learn="wvnav-item-active" -%}
-        {%- assign display="true" -%}
+    {%- assign f_learn="wvnav-item-active" -%}
+    {%- assign display="true" -%}
     {%- endif -%}
 
     <div class="d-flex justify-content-between wvnav">
-        <a class="wvnav-item {{ f_home }}" href="{{ site.url }}"><i class="wvsvg {{ f_home }}- bi bi-house-door"></i><div class="text-center">Home</div></a>
-        <a class="wvnav-item {{ f_search }}" href="{{ site.url }}/search"><i class="wvsvg {{ f_search }}- bi bi-search"></i><div class="text-center">Search</div></a>
-        {%- if display == "true" -%}<a class="wvnav-item {{ f_learn }}" href="{{ site.url }}/{{ path[1] }}"><i class="wvsvg {{ f_learn }}-{{ path[1] }} bi bi-code-square"></i><div class="text-center">Learning</div></a>{%- endif -%}
-        <a class="wvnav-item" href="share:{{ site.url }}{{ page.url }}"><i class="wvsvg bi bi-share"></i><div class="text-center">Share</div></a>
-        <a class="wvnav-item {{ f_about }}" href="{{ site.url }}/about"><i class="wvsvg {{ f_about }}-about bi bi-info-circle"></i><div class="text-center">About</div></a>
+        <a class="wvnav-item {{ f_home }}" href="{{ site.url }}"><i class="wvsvg {{ f_home }}- bi bi-house-door"></i>
+            <div class="text-center">Home</div>
+        </a>
+        <a class="wvnav-item {{ f_search }}" href="{{ site.url }}/search"><i
+                class="wvsvg {{ f_search }}- bi bi-search"></i>
+            <div class="text-center">Search</div>
+        </a>
+        {%- if display == "true" -%}<a class="wvnav-item {{ f_learn }}" href="{{ site.url }}/{{ path[1] }}"><i
+                class="wvsvg {{ f_learn }}-{{ path[1] }} bi bi-code-square"></i>
+            <div class="text-center">Learning</div>
+        </a>{%- endif -%}
+        <a class="wvnav-item" href="share:{{ site.url }}{{ page.url }}"><i class="wvsvg bi bi-share"></i>
+            <div class="text-center">Share</div>
+        </a>
+        <a class="wvnav-item {{ f_about }}" href="{{ site.url }}/about"><i
+                class="wvsvg {{ f_about }}-about bi bi-info-circle"></i>
+            <div class="text-center">About</div>
+        </a>
     </div>
 </footer>
 
 <script type="text/javascript">
-const webfooter = document.getElementById("isWebsite");
-const about_section = document.getElementById("app");
+    const webfooter = document.getElementById("isWebsite");
+    const about_section = document.getElementById("app");
 
-if (isWebview && userAgent.includes("GoDarda")) {
-    document.getElementById("rsidebar").style.display = "none";
-    document.getElementById("isWebsite").style.display = "none";
-    document.getElementById("isWebView").style.display = "block";
-    document.getElementById("backtotop").style.marginBottom = "100px";
-    onselectstart = (e) => { e.preventDefault() }
-    $('body').on('contextmenu', function () { return false; });
+    if (isWebview && userAgent.includes("GoDarda")) {
+        document.getElementById("rsidebar").style.display = "none";
+        document.getElementById("isWebsite").style.display = "none";
+        document.getElementById("isWebView").style.display = "block";
+        document.getElementById("backtotop").style.marginBottom = "100px";
+        onselectstart = (e) => { e.preventDefault() }
+        $('body').on('contextmenu', function () { return false; });
 
-    var lastScrollTop = 0;
-    $(window).on('scroll', function () {
-        scrollTop = $(this).scrollTop();
-        if ((document.body.scrollHeight - 150) <= (window.scrollY + window.innerHeight)) {
-            $("#isWebView").fadeIn();
-        }
-        else if(scrollTop > lastScrollTop && document.body.scrollHeight >= 1500) {
-            $("#isWebView").fadeOut();
-        }
-        else {
-            $("#isWebView").fadeIn();
-        }
-        lastScrollTop = scrollTop;
+        var lastScrollTop = 0;
+        $(window).on('scroll', function () {
+            scrollTop = $(this).scrollTop();
+            if ((document.body.scrollHeight - 150) <= (window.scrollY + window.innerHeight)) {
+                $("#isWebView").fadeIn();
+            }
+            else if (scrollTop > lastScrollTop && document.body.scrollHeight >= 1500) {
+                $("#isWebView").fadeOut();
+            }
+            else {
+                $("#isWebView").fadeIn();
+            }
+            lastScrollTop = scrollTop;
+        });
+    }
+    else if (!isWebview && webfooter.classList.contains("block_webfooter")) {
+        document.getElementById("isWebsite").style.display = "none";
+    }
+    if (isWebview && userAgent.includes("GoDarda") && about_section.classList.contains("about_home_true")) {
+        document.getElementById("app").style.display = "block";
+        document.getElementById("navbar-brand").style.marginLeft = "0px";
+        document.getElementById("lsidebar").style.display = "none";
+        document.getElementById("leftsidebar").style.display = "none";
+    }
+    else if (isWebview && userAgent.includes("GoDarda") && about_section.classList.contains("about_home_false")) {
+        document.getElementById("navbar-brand").style.marginLeft = "0px";
+        document.getElementById("lsidebar").style.display = "none";
+    }
+    $("#cache").click(function () {
+        $(this).html("Cleared: Cache and History");
+        $(this).css("color", "#00b050");
     });
-}
-else if (!isWebview && webfooter.classList.contains("block_webfooter"))
-{
-    document.getElementById("isWebsite").style.display = "none";
-}
-if(isWebview && userAgent.includes("GoDarda") && about_section.classList.contains("about_home_true"))
-{
-    document.getElementById("app").style.display = "block";
-    document.getElementById("navbar-brand").style.marginLeft = "0px";
-    document.getElementById("lsidebar").style.display = "none";
-    document.getElementById("leftsidebar").style.display = "none";
-}
-else if(isWebview && userAgent.includes("GoDarda") && about_section.classList.contains("about_home_false"))
-{
-    document.getElementById("navbar-brand").style.marginLeft = "0px";
-    document.getElementById("lsidebar").style.display = "none";
-}
-$("#cache").click(function () 
-{
-    $(this).html("Cleared: Cache and History");
-    $(this).css("color", "#00b050");
-});
 </script>
