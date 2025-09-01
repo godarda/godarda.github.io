@@ -35,8 +35,6 @@ The mission of GoDarda is to inspire learners by providing a comprehensive and p
 Every contribution you make brings us closer to that vision.  
 Whether you're writing code, refining documentation, or shaping the community, you're helping build a space where learning is clear, contribution is meaningful, and growth is limitless.
 
-Thank you for being part of GoDarda.
-
 ## Ways to Contribute
 
 - Improve documentation (README, example descriptions, formatting)

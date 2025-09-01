@@ -1,6 +1,6 @@
 # Support Guide
 
-Welcome to **GoDarda** - a community-driven project focused on clarity, accessibility, and meaningful contribution. Whether you're reporting a bug, suggesting a feature, or seeking help, we’re here to support you.
+Welcome to **GoDarda** - a community-driven project focused on clarity, accessibility, and meaningful contribution. Whether you're reporting a bug, suggesting a feature, or seeking help, we're here to support you.
 
 ## 📚 Table of Contents
 

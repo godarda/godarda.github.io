@@ -2,7 +2,7 @@ grandparent:
   - parent: Frequently Asked Questions
     subtree: FAQs
     url: about/faqs
-  - parent: Contributing to GoDarda
+  - parent: Contribution Guide
     subtree: Contribute
     url: about/contribute
   - parent: Terms of Use
@@ -21,7 +21,7 @@ sidenav:
     children: 
       - title: Frequently Asked Questions
         url: about/faqs
-      - title: Contributing to GoDarda
+      - title: Contribution Guide
         url: about/contribute
       - title: Terms of Use
         url: about/terms

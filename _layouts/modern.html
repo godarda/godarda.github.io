@@ -7,18 +7,18 @@
         <div class="container-fluid">
             {%- if path[1] == nil -%}
             <div class="navbar-brand" style="margin-left: 0px;">
-                <a><img id="logo" alt="Logo" src="{{ site.logo | relative_url }}"></a>
+                <a><img id="logo" alt="Logo" src="{{ site.icon | relative_url }}"></a>
                 <a id="fc-{{ path[1] }}"> {{ parent }}</a>
             </div>
             {%- elsif path[1] == "search" or path[1] == "testapp" or path[1] == "shubhamrdarda" -%}
             <div class="navbar-brand" style="margin-left: 0px;">
-                <a href=""><img id="logo" alt="Logo" src="{{ site.logo | relative_url }}"></a>
+                <a href=""><img id="logo" alt="Logo" src="{{ site.icon | relative_url }}"></a>
                 <a id="fc-{{ path[1] }}" href="{{ path[1] }}"> / {{ path[1] | capitalize }}</a>
                 {%- if path[2] != nil -%}<a id="fc-{{ path[1] }}" href="{{ path[1] }}/{{ path[2] }}">{{ path[2] | capitalize }}</a>{%- endif -%}
             </div>
             {%- else -%}
             <div id="navbar-brand" class="navbar-brand">
-                <a href=""><img id="logo" alt="Logo" src="{{ site.logo | relative_url }}"></a>
+                <a href=""><img id="logo" alt="Logo" src="{{ site.icon | relative_url }}"></a>
                 <a id="fc-{{ path[1] }}" href="{{ path[1] }}">{{ parent }}</a>
                 {%- if path[2] != nil -%}<a id="fc-{{ path[1] }}" href="{{ path[1] }}/{{ path[2] }}">{{ child }} / </a>{%- endif -%}
             </div>

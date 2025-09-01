@@ -1,6 +1,6 @@
 # Code of Conduct Guide
 
-At GoDarda, we believe that great code is built on great collaboration — and that begins with a respectful, inclusive environment.
+At GoDarda, we believe that great code is built on great collaboration - and that begins with a respectful, inclusive environment.
 
 This Code of Conduct outlines the standards we uphold to ensure every contributor feels safe, valued, and empowered. Whether you're submitting a pull request, joining a discussion, or simply exploring the project, you're part of a community that prioritizes kindness, clarity, and mutual respect.
 
