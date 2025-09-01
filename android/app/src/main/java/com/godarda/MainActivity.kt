@@ -7,15 +7,15 @@ import android.graphics.Color
 import android.net.*
 import android.os.Build
 import android.os.Bundle
-import android.view.View
-import android.view.WindowInsetsController
-import android.view.WindowManager
+import android.view.*
 import android.webkit.*
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.activity.OnBackPressedCallback
+import androidx.annotation.RequiresApi
 import androidx.core.net.toUri
+import androidx.core.view.WindowCompat
 import androidx.core.view.isVisible
 
 class MainActivity : BaseActivity() {
@@ -106,13 +106,21 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val rootLayout = findViewById<FrameLayout>(R.id.webViewContainer)
-        applyWindowInsetsTo(rootLayout)
+
+        // Modern insets handling
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        rootLayout.setOnApplyWindowInsetsListener { v, insets ->
+            val systemBars = insets.getInsets(WindowInsets.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            WindowInsets.CONSUMED
+        }
 
         webview = findViewById(R.id.webView)
         noInternetLayout = findViewById(R.id.noInternetLayout)
@@ -121,24 +129,13 @@ class MainActivity : BaseActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
         configureWebView()
 
-        // Force black status bar and white text in light mode
         window.statusBarColor = Color.BLACK
-        val isLightMode = resources.configuration.uiMode and
-                android.content.res.Configuration.UI_MODE_NIGHT_MASK ==
-                android.content.res.Configuration.UI_MODE_NIGHT_NO
 
-        if (isLightMode) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                window.insetsController?.setSystemBarsAppearance(
-                    0,
-                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
-                )
-            } else {
-                @Suppress("DEPRECATION")
-                window.decorView.systemUiVisibility =
-                    window.decorView.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
-            }
-        }
+        // Always use light icons (never set APPEARANCE_LIGHT_STATUS_BARS)
+        window.insetsController?.setSystemBarsAppearance(
+            0,
+            WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+        )
 
         if (!isInternetAvailable()) {
             showNoInternet()

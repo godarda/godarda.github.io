@@ -126,8 +126,8 @@ div#KSE_input-{{ s }}
         --bg_jumbotron: #c5cbd3;
         --hover_jumbotron: #99a4b2;
         --hover_sideitem: #c5cbd3;
-        --wvnav: #ffffff;
-        --wvnav-item-active: #e2e5e9;
+        --wvnav: #000000;
+        --wvnav-item-active: #21252c;
         
         --c1: #24292f;
         --c2: #cf222e;
