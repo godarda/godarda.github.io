@@ -82,8 +82,6 @@ div#KSE_input-{{ s }}
         --bg_jumbotron: #050514;
         --hover_jumbotron: #000000;
         --hover_sideitem: #16181d;
-        --wvnav: #000000;
-        --wvnav-item-active: #21252c;
 
         --c1: #c9d1d9;
         --c2: #ff7b72;
@@ -126,8 +124,6 @@ div#KSE_input-{{ s }}
         --bg_jumbotron: #c5cbd3;
         --hover_jumbotron: #99a4b2;
         --hover_sideitem: #c5cbd3;
-        --wvnav: #000000;
-        --wvnav-item-active: #21252c;
         
         --c1: #24292f;
         --c2: #cf222e;
@@ -839,8 +835,8 @@ div.wvnav {
     height: 68px;
     bottom: 0;
     width: 100%;
-    border-top: 1px solid var(--color1);
-    background-color: var(--wvnav);
+    border-top: 1px solid #373d49;
+    background-color: #000000;
     padding: 8px;
 }
 
@@ -849,7 +845,7 @@ a.wvnav-item>i {
 }
 
 a.wvnav-item>div {
-    color: var(--bnw);
+    color: #ffffff;
     font-size: 13px;
 }
 
@@ -866,7 +862,7 @@ a.wvnav-item>i.wvsvg {
 }
 
 .wvnav-item-active>i {
-    background-color: var(--wvnav-item-active);
+    background-color: #21252c;
     border-radius: 25px;
 }
 
