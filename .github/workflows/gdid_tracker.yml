@@ -1,0 +1,44 @@
+name: GDID Tracker
+
+on:
+  push:
+    branches:
+      - main  # Trigger on every push to main
+
+jobs:
+  track-gdid:
+    name: Track GDID Usage
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Run GDID Tracker
+        run: python assets/gdid.py  # Updates gdid.txt
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Detect changes in gdid.txt
+        run: |
+          if [ ! -f assets/gdid.txt ]; then
+            echo "gdid.txt not found so skipping trigger"
+            exit 0
+          fi
+
+          git add assets/gdid.txt
+          if git diff --cached --quiet; then
+            echo "No changes to gdid.txt so no trigger needed"
+          else
+            echo "trigger" > .trigger-pr
+            git add .trigger-pr
+            git commit -m "Trigger PR for gdid.txt update"
+            git push

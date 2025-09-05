@@ -1,0 +1,32 @@
+name: GDID PR Creator
+
+on:
+  push:
+    paths:
+      - .trigger-pr  # Trigger only when .trigger-pr is pushed
+
+jobs:
+  create-pr:
+    name: Create Pull Request
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: Auto-update gdid.txt
+          title: Auto-update gdid.txt
+          body: |
+            This PR was created automatically by the GDID Tracker workflow.
+            It includes updates to gdid.txt based on new usage references.
+            If everything looks good, feel free to merge and the branch will auto-delete.
+          branch: gdid-update-${{ github.run_id }}
+          delete-branch: true
