@@ -6,12 +6,25 @@ on:
       - main  # Trigger workflow on every push to the main branch
 
 jobs:
-  track-and-pr:
-    runs-on: ubuntu-latest  # Use latest Ubuntu runner
+  track-gdid:
+    name: Track GDID Usage
+    runs-on: ubuntu-latest
+
+    # Expose whether gdid.csv was modified so downstream jobs can act conditionally
+    outputs:
+      changed: ${{ steps.detect.outputs.changed }}
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5  # Fetch the latest code from the main branch
+
+      - name: Set up Python
+        uses: actions/setup-python@v5  # Ensure Python is available in the runner
+        with:
+          python-version: '3.13'  # Use the latest stable Python version
+
       - name: Run GDID Tracker
-        run: assets/gdid.py  # Execute the Python script that updates gdid.csv
+        run: python assets/gdid.py  # Execute the Python script that updates gdid.csv
 
       - name: Configure Git
         run: |
@@ -22,22 +35,26 @@ jobs:
         id: detect_changes
         run: |
           git add gdid.csv  # Stage gdid.csv for diff check
+          # If no changes, mark output as false; otherwise, mark as true
           if git diff --cached --quiet; then
-            echo "changed=false" >> $GITHUB_OUTPUT  # No changes detected
+            echo "changed=false" >> $GITHUB_OUTPUT
           else
-            echo "changed=true" >> $GITHUB_OUTPUT  # Changes detected
+            echo "changed=true" >> $GITHUB_OUTPUT
 
-      - name: Commit and push changes
-        if: steps.detect_changes.outputs.changed == 'true'
-        run: |
-          git commit -m "Auto-update gdid.csv"  # Commit updated gdid.csv
-          git push origin HEAD  # Push changes to current branch
+  create-pr:
+    name: Create Pull Request
+    needs: track-gdid  # Run only after GDID tracking job completes
+    if: needs.track-gdid.outputs.changed == 'true'  # Trigger only if gdid.csv was modified
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5  # Required again because each job runs in a fresh environment
 
       - name: Create Pull Request
-        if: steps.detect_changes.outputs.changed == 'true'
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v5  # Automate PR creation for updated gdid.csv
         with:
-          commit-message: Auto-update gdid.csv
+          commit-message: Auto-update gdid.csv 
           title: Auto-update gdid.csv
-          body: This PR was created automatically due to changes in gdid.csv.
+          body: This PR was created automatically due to changes in gdid.csv
           branch: gdid-update-${{ github.run_id }}
