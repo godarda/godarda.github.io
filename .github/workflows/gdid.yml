@@ -34,13 +34,24 @@ jobs:
       - name: Detect changes in gdid.txt
         id: detect_changes
         run: |
-          git add assets/gdid.txt  # Stage gdid.txt for diff check
+          # Skip PR creation if gdid.txt doesn't exist
+          if [ ! -f assets/gdid.txt ]; then
+            echo "gdid.txt not found — skipping PR creation"
+            echo "changed=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Stage gdid.txt and check for changes
+          git add assets/gdid.txt
           echo "Staged diff for gdid.txt:"
-          git diff --cached -- assets/gdid.txt  # Show what changed
+          git diff --cached -- assets/gdid.txt
+
+          # Set output flag based on whether changes were detected
           if git diff --cached --quiet; then
             echo "changed=false" >> $GITHUB_OUTPUT
           else
             echo "changed=true" >> $GITHUB_OUTPUT
+          fi
 
   create-pr:
     name: Create Pull Request
@@ -57,5 +68,9 @@ jobs:
         with:
           commit-message: Auto-update gdid.txt
           title: Auto-update gdid.txt
-          body: This PR was created automatically due to changes in gdid.txt
+          body: |
+            This PR was created automatically by the GDID Tracker workflow.
+            It includes updates to gdid.txt based on new usage references.
+            If everything looks good, feel free to merge and the branch will auto-delete.
           branch: gdid-update-${{ github.run_id }}
+          delete-branch: true  # Clean up branch after merge or close

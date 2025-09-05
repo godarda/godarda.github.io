@@ -5,14 +5,14 @@ from collections import defaultdict
 
 # This script scans the repository for valid GDID usage in filenames and Markdown content,
 # identifies nonstandard IDs in the pages/ directory, and updates gdid.txt with usage details.
-# It respects .gitignore entries and is optimized for clarity and contributor onboarding.
+# It normalizes paths for cross-platform consistency and is optimized for contributor clarity.
 
 SCRIPT_PATH = Path(__file__).resolve()
 REPO_PATH = SCRIPT_PATH.parents[1]
 TXT_PATH = SCRIPT_PATH.parent / "gdid.txt"
 GITIGNORE_PATH = REPO_PATH / ".gitignore"
 
-# Load .gitignore entries to exclude ignored paths
+# Load .gitignore entries to exclude ignored paths during scanning
 def load_gitignore():
     ignored = set()
     if GITIGNORE_PATH.exists():
@@ -33,50 +33,53 @@ def load_gdids_and_init_usage():
     usage = defaultdict(list)
     return valid_ids, usage
 
-# Concurrent file scanning for GDID usage and nonstandard IDs
+# Concurrently scan repository for GDID usage and nonstandard IDs
 def scan_repository(valid_ids, usage, ignored):
     files = [f for f in REPO_PATH.rglob("*") if f.is_file()]
     nonstandard_ids = []
 
     def process_file(file):
-        rel_path = file.relative_to(REPO_PATH)
+        # Normalize path to POSIX format for cross-platform consistency
+        rel_path = file.relative_to(REPO_PATH).as_posix()
 
-        if rel_path == Path("assets/gdid.txt") or ".git" in rel_path.parts:
+        # Skip internal files and ignored paths
+        if rel_path == "assets/gdid.txt" or ".git" in rel_path:
             return [], None
-        if any(part in ignored for part in rel_path.parts):
+        if any(part in ignored for part in Path(rel_path).parts):
             return [], None
 
         local_usage = []
         local_nonstandard = None
 
-        name = file.name
-        stem = file.stem.strip()
+        name = Path(rel_path).name
+        stem = Path(rel_path).stem.strip()
 
         # Track valid GDIDs in filenames
         candidates = [word for word in re.findall(r'\b[a-z]{7}\b', name) if word.startswith('gd')]
         for word in candidates:
             if word in valid_ids:
-                local_usage.append((word, str(rel_path)))
+                local_usage.append((word, rel_path))
 
-        # Detect nonstandard IDs in pages/ directory
-        if "pages" in rel_path.parts and name != "index.html":
+        # Detect nonstandard filenames in pages/ directory
+        if "pages" in rel_path and name != "index.html":
             if not stem.startswith("gd") or len(stem) != 7:
                 local_nonstandard = f"{stem},{rel_path}"
 
         # Scan Markdown content for bracketed GDID references
-        if file.suffix == ".md":
+        if rel_path.endswith(".md"):
             try:
-                lines = file.read_text(encoding='utf-8', errors='ignore').splitlines()
+                lines = Path(REPO_PATH / rel_path).read_text(encoding='utf-8', errors='ignore').splitlines()
                 for i, line in enumerate(lines, 1):
                     bracketed = re.findall(r'\[([^\]]+)\]', line)
                     for token in bracketed:
                         if token.startswith("gd") and len(token) == 7 and token in valid_ids:
                             local_usage.append((token, f"{rel_path} (line {i})"))
             except:
-                pass
+                pass  # Gracefully skip unreadable files
 
         return local_usage, local_nonstandard
 
+    # Use threads to scan files concurrently for speed
     with ThreadPoolExecutor() as executor:
         futures = [executor.submit(process_file, file) for file in files]
         for future in as_completed(futures):
@@ -88,14 +91,17 @@ def scan_repository(valid_ids, usage, ignored):
 
     return nonstandard_ids
 
-# Write updated GDID usage and nonstandard entries to TXT
+# Write updated GDID usage and nonstandard entries to gdid.txt
 def write_txt(unused, used, nonstandard_ids):
     with open(TXT_PATH, 'w', encoding='utf-8') as f:
+        # Write unused GDIDs (no usage found)
         for gid in unused:
-            f.write(f"{gid}\n")  # Write unused GDID with trailing newline
+            f.write(f"{gid}\n")
+        # Write used GDIDs with semicolon-separated usage references
         for gid in used:
             usage_str = '; '.join(used[gid])
-            f.write(f"{gid} - {usage_str}\n")  # Write used GDID with usage string
+            f.write(f"{gid} - {usage_str}\n")
+        # Append nonstandard IDs found in pages/ directory
         if nonstandard_ids:
             f.write("\n" + "-"*100 + "\n")
             f.write("# Nonstandard IDs found in pages (which are not in gdid.txt):\n")
@@ -113,10 +119,11 @@ def main():
     for gid in usage:
         usage[gid].sort()
 
+    # Separate unused and used GDIDs
     unused = [gid for gid in original_ids if not usage[gid]]
     used = {gid: usage[gid] for gid in original_ids if usage[gid]}
 
-    # Sort used GDIDs by their first usage reference
+    # Sort used GDIDs by their first usage reference path
     sorted_used = dict(sorted(used.items(), key=lambda item: item[1][0]))
 
     write_txt(unused, sorted_used, nonstandard_ids)
