@@ -12,7 +12,7 @@ jobs:
 
     # Expose whether gdid.csv was modified so downstream jobs can act conditionally
     outputs:
-      changed: ${{ steps.detect.outputs.changed }}
+      changed: ${{ steps.detect_changes.outputs.changed }}
 
     steps:
       - name: Checkout repository
@@ -34,7 +34,7 @@ jobs:
       - name: Detect changes in gdid.csv
         id: detect_changes
         run: |
-          git add gdid.csv  # Stage gdid.csv for diff check
+          git add assets/gdid.csv  # Stage assets/gdid.csv for diff check
           # If no changes, mark output as false; otherwise, mark as true
           if git diff --cached --quiet; then
             echo "changed=false" >> $GITHUB_OUTPUT

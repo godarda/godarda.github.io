@@ -40,6 +40,7 @@
         --color3:              #16181d; /* Third color variable */
         --color4:              #16181d; /* Fourth color variable */
         --hlink:               #4d94ff; /* Hyperlink color */
+        --hover_jumbotron:     #000000; /* Hover color for jumbotron */
         --hover_sideitem:      #16181d; /* Hover color for sidebar items */
         --infocard:            #0b0c0e; /* Info card background color */
         --pre-bg:              #0b0c0f; /* Preformatted text background color */
@@ -105,6 +106,7 @@
         --color3:              #99a4b2; /* Third color variable */
         --color4:              #c5cbd3; /* Fourth color variable */
         --hlink:               #1a75ff; /* Hyperlink color */
+        --hover_jumbotron:     #99a4b2; /* Hover color for jumbotron */
         --hover_sideitem:      #c5cbd3; /* Hover color for sidebar items */
         --infocard:            #b6bfc8; /* Info card background color */
         --pre-bg:              #e2e6e9; /* Preformatted text background color */
