@@ -29,11 +29,13 @@ jobs:
 
       - name: Detect changes in gdid.txt
         run: |
+          # Check if gdid.txt exists
           if [ ! -f assets/gdid.txt ]; then
             echo "gdid.txt not found so skipping trigger"
             exit 0
           fi
 
+          # Stage gdid.txt and check for changes
           git add assets/gdid.txt
           if git diff --cached --quiet; then
             echo "No changes to gdid.txt so no trigger needed"
@@ -42,3 +44,4 @@ jobs:
             git add .trigger-pr
             git commit -m "Trigger PR for gdid.txt update"
             git push
+          fi
