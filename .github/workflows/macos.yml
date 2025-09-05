@@ -4,7 +4,7 @@ name: TestHarness (macOS)
 # Also supports manual execution via GitHub UI
 on:
   schedule:
-    - cron: '30 11 5 * *'
+    - cron: '30 15 5 * *'
   workflow_dispatch:
 
 jobs:

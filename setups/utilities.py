@@ -273,7 +273,7 @@ def start_server():
         print("---------------------------------------------")
 
         # Build in CI, serve locally otherwise.
-        if os_name.lower() == "linux" and githubactions:
+        if os_name.lower() in ["linux", "darwin"] and githubactions:
             subprocess.run("bundle exec jekyll build", shell=True, check=True)
         else:
             subprocess.run("bundle exec jekyll serve", shell=True, check=True)

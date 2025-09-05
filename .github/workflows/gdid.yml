@@ -1,0 +1,43 @@
+name: GDID Tracker  # Runs GDID tracking script and auto-generates PR if gdid.csv changes
+
+on:
+  push:
+    branches:
+      - main  # Trigger workflow on every push to the main branch
+
+jobs:
+  track-and-pr:
+    runs-on: ubuntu-latest  # Use latest Ubuntu runner
+
+    steps:
+      - name: Run GDID Tracker
+        run: assets/gdid.py  # Execute the Python script that updates gdid.csv
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"  # Set bot identity for commits
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Detect changes in gdid.csv
+        id: detect_changes
+        run: |
+          git add gdid.csv  # Stage gdid.csv for diff check
+          if git diff --cached --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT  # No changes detected
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT  # Changes detected
+
+      - name: Commit and push changes
+        if: steps.detect_changes.outputs.changed == 'true'
+        run: |
+          git commit -m "Auto-update gdid.csv"  # Commit updated gdid.csv
+          git push origin HEAD  # Push changes to current branch
+
+      - name: Create Pull Request
+        if: steps.detect_changes.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: Auto-update gdid.csv
+          title: Auto-update gdid.csv
+          body: This PR was created automatically due to changes in gdid.csv.
+          branch: gdid-update-${{ github.run_id }}
