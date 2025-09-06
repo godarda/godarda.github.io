@@ -33,3 +33,7 @@ jobs:
           branch: gdid-update-${{ github.run_id }}
           base: develop
           labels: automated, gdid-update
+
+      - name: Cleanup trigger file
+        if: always()
+        run: rm -f .trigger-pr
