@@ -21,12 +21,19 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Remove trigger file before PR
+      - name: Remove trigger file and push cleanup
         run: |
+          # Remove from disk
           rm -f .trigger-pr
-          git rm -f .trigger-pr || true
-          git commit -m "Cleanup trigger file before PR" || echo "No commit needed"
-          git push origin develop
+
+          # Remove from Git index if present
+          if git ls-files --error-unmatch .trigger-pr > /dev/null 2>&1; then
+            git rm .trigger-pr
+            git commit -m "Clean up trigger file before PR"
+            git push origin develop
+          else
+            echo "Trigger file already removed or not tracked"
+          fi
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
