@@ -21,6 +21,13 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+      - name: Remove trigger file before PR
+        run: |
+          rm -f .trigger-pr
+          git rm -f .trigger-pr || true
+          git commit -m "Cleanup trigger file before PR" || echo "No commit needed"
+          git push origin develop
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
@@ -33,7 +40,3 @@ jobs:
           branch: gdid-update-${{ github.run_id }}
           base: develop
           labels: automated, gdid-update
-
-      - name: Cleanup trigger file
-        if: always()
-        run: rm -f .trigger-pr
