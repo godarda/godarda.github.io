@@ -4,13 +4,13 @@ grandparent:
     url: python/fundamentals
     children: 
       - title: Python Arithmetic Operations
-        url: python/fundamentals/gdawgvo
+        url: python/fundamentals/gdvyafu
       - title: Python Logical Operations
         url: python/fundamentals/gdexazw
       - title: Python Built-in Functions
         url: python/fundamentals/gdzexcz
       - title: Python Mathematical Functions
-        url: python/fundamentals/gdtgvee
+        url: python/fundamentals/gdwwvga
       - title: Python Trigonometric Functions
         url: python/fundamentals/gddveuh
       - title: How to use Python help utility
@@ -79,7 +79,7 @@ grandparent:
       - title: Python Strings Comparison
         url: python/strings/gdkgyxy
       - title: Python String Slicing
-        url: python/strings/gdkwdvv
+        url: python/strings/gdzdngz
       - title: Python to check the given string is alphanumeric
         url: python/strings/gdozvev
       - title: Python Strings Methods
@@ -90,13 +90,13 @@ grandparent:
     url: python/ds
     children: 
       - title: Python Lists
-        url: python/ds/gdkzaae
+        url: python/ds/gdzyzav
       - title: Python Tuples
         url: python/ds/gdcgaye
       - title: Python Sets
-        url: python/ds/gdvzzvi
+        url: python/ds/gdxpzmp
       - title: Python Dictionary
-        url: python/ds/gdvwkzg
+        url: python/ds/gdwkwvz
 
   - parent: Python Arrays
     subtree: Arrays

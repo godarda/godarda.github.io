@@ -18,10 +18,10 @@ Welcome to the curated index of Python programming. This page is part of the GoD
 
 ## Python Fundamentals
 
-- [Python Arithmetic Operations](https://godarda.in/python/fundamentals/gdawgvo)  
+- [Python Arithmetic Operations](https://godarda.in/python/fundamentals/gdvyafu)  
 - [Python Logical Operations](https://godarda.in/python/fundamentals/gdexazw)  
 - [Python Built-in Functions](https://godarda.in/python/fundamentals/gdzexcz)  
-- [Python Mathematical Functions](https://godarda.in/python/fundamentals/gdtgvee)  
+- [Python Mathematical Functions](https://godarda.in/python/fundamentals/gdwwvga)  
 - [Show More »](https://godarda.in/python/fundamentals)
 
 ## Python Control Statements
@@ -43,16 +43,16 @@ Welcome to the curated index of Python programming. This page is part of the GoD
 
 - [Python Basic String Operations](https://godarda.in/python/strings/gddduzz)  
 - [Python Strings Comparison](https://godarda.in/python/strings/gdkgyxy)  
-- [Python String Slicing](https://godarda.in/python/strings/gdkwdvv)  
+- [Python String Slicing](https://godarda.in/python/strings/gdzdngz)  
 - [Python to check the given string is alphanumeric](https://godarda.in/python/strings/gdozvev)  
 - [Show More »](https://godarda.in/python/strings)
 
 ## Python Data Structures
 
-- [Python Lists](https://godarda.in/python/ds/gdkzaae)  
+- [Python Lists](https://godarda.in/python/ds/gdzyzav)  
 - [Python Tuples](https://godarda.in/python/ds/gdcgaye)  
-- [Python Sets](https://godarda.in/python/ds/gdvzzvi)  
-- [Python Dictionary](https://godarda.in/python/ds/gdvwkzg)
+- [Python Sets](https://godarda.in/python/ds/gdxpzmp)  
+- [Python Dictionary](https://godarda.in/python/ds/gdwkwvz)
 
 ## Python Arrays
 
