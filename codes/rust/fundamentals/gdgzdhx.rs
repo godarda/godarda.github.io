@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------------------------------
 // Title          : Rust program to accept the input from a user
-// File Name      : gdgzwzz.rs
+// File Name      : gdgzdhx.rs
 // Compiled       : rustc 1.84.1 (e71f9a9a9 2025-01-27) (built from a source tarball)
 // Author         : GoDarda
 // License        : GNU General Public License

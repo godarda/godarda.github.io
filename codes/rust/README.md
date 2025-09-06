@@ -13,7 +13,7 @@ Welcome to the curated index of Rust programming. This page is part of the GoDar
 - [Rust Hello World program](https://godarda.in/rust/fundamentals/gdvwkzg)  
 - [Rust program to perform the arithmetic operations](https://godarda.in/rust/fundamentals/gdawgvo)  
 - [Rust program to calculate the area and circumference of a circle](https://godarda.in/rust/fundamentals/gdvzzvi)  
-- [Rust program to accept the input from a user](https://godarda.in/rust/fundamentals/gdgzwzz)
+- [Rust program to accept the input from a user](https://godarda.in/rust/fundamentals/gdgzdhx)
 
 ## 🤝 Contribute
 
