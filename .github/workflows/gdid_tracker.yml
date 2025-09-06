@@ -8,6 +8,10 @@ on:
     branches:
       - develop
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   gdid-status-check:
     name: GDID Status Check
