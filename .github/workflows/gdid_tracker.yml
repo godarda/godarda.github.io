@@ -47,6 +47,7 @@ jobs:
           else
             echo "Changes detected"
             echo "changed=true" >> $GITHUB_OUTPUT
+          fi
 
       - name: Push changes to new branch
         if: steps.detect.outputs.changed == 'true'
