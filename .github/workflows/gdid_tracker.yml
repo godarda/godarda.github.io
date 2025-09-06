@@ -3,12 +3,15 @@ name: GDID Tracker
 on:
   push:
     branches:
-      - develop  # Only run on develop branch
+      - develop  # Trigger workflow on every push to develop
 
 jobs:
   track-gdid:
     name: Track GDID Usage
     runs-on: ubuntu-latest
+
+    outputs:
+      changed: ${{ steps.detect.outputs.changed }}
 
     steps:
       - name: Checkout repository
@@ -31,16 +34,39 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Detect changes in GDID sets
+        id: detect
         run: |
-          # Stage all GDID set files and invalid.txt
           git add assets/gdid_sets/gdid_set*.txt assets/gdid_sets/invalid.txt
+          echo "Staged diff:"
+          git diff --cached
 
-          # Check if any changes are staged
           if git diff --cached --quiet; then
-            echo "No changes to GDID sets or invalid.txt — skipping PR trigger"
+            echo "No changes detected"
+            echo "changed=false" >> $GITHUB_OUTPUT
           else
-            echo "trigger" > .trigger-pr
-            git add .trigger-pr
-            git commit -m "Trigger PR for GDID set updates"
-            git push origin develop
-          fi
+            echo "Changes detected"
+            echo "changed=true" >> $GITHUB_OUTPUT
+
+  create-pr:
+    name: Create Pull Request
+    needs: track-gdid
+    if: needs.track-gdid.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: Auto-update GDID sets
+          title: Auto-update GDID sets
+          body: |
+            This PR was created automatically by the GDID Tracker workflow.
+            It includes updates to gdid_set*.txt and invalid.txt based on new usage references.
+            Please review and merge manually into develop.
+          branch: gdid-update-${{ github.run_id }}
+          base: develop
+          delete-branch: true
+          labels: automated, gdid-update
