@@ -6,16 +6,15 @@ on:
       - develop
 
 jobs:
-  track-gdid:
-    name: Track GDID Usage
+  track-and-pr:
+    name: Track GDID Usage and Create PR
     runs-on: ubuntu-latest
-
-    outputs:
-      changed: ${{ steps.detect.outputs.changed }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0  # Ensure full history and branches
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -33,49 +32,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Detect changes
-        id: detect
-        run: |
-          git add assets/gdid_sets/gdid_set*.txt assets/gdid_sets/invalid.txt
-          if git diff --cached --quiet; then
-            echo "changed=false" >> $GITHUB_OUTPUT
-          else
-            echo "changed=true" >> $GITHUB_OUTPUT
-          fi
-
-  create-pr:
-    name: Create and Merge Pull Request
-    needs: track-gdid
-    if: needs.track-gdid.outputs.changed == 'true'
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-
-      - name: Configure Git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Create and push PR branch
-        run: |
-          timestamp=$(date +%s)
-          branch="gdid-update-${timestamp}"
-          git checkout -b "$branch"
-          git add assets/gdid_sets/gdid_set*.txt assets/gdid_sets/invalid.txt
-
-          if git diff --cached --quiet; then
-            echo "No changes to commit — skipping PR"
-            exit 0
-          fi
-
-          git commit -m "Auto-update GDID sets"
-          git push origin "$branch"
-          echo "branch=$branch" >> $GITHUB_ENV
-
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v5
@@ -85,13 +41,14 @@ jobs:
           body: |
             This PR was created automatically by the GDID Tracker workflow.
             It includes updates to gdid_set*.txt and invalid.txt based on new usage references.
-          branch: ${{ env.branch }}
+          branch: gdid-update-${{ github.run_id }}
           base: develop
           delete-branch: true
           labels: automated, gdid-update
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Enable Auto-Merge
+        if: steps.cpr.outputs.pull-request-number != ''
         uses: peter-evans/enable-pull-request-automerge@v2
         with:
           pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
