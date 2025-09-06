@@ -4279,13 +4279,6 @@ gdblzek
 gdzxhaz
 gdzenyy
 gdoqavd
-gdzzbcw
-gdxpzmp
-gdwkwvz
-gdvyafu
-gdwwvga
-gdzyzav
-gdzdngz
 gdaepzd - README.md (line 102); README.md (line 157)
 gdzgezt - README.md (line 114); README.md (line 82)
 gdzhvyv - README.md (line 115); README.md (line 3); README.md (line 86)
@@ -4523,10 +4516,10 @@ gdraazt - codes/csharp/dbc/gdraazt.cs; pages/csharp/dbc/gdraazt.html
 gdddcia - codes/csharp/exceptions/gdddcia.cs; pages/csharp/exceptions/gdddcia.html
 gdezvdy - codes/csharp/exceptions/gdezvdy.cs; pages/csharp/exceptions/gdezvdy.html
 gdgzwzz - codes/csharp/exceptions/gdgzwzz.cs; pages/csharp/exceptions/gdgzwzz.html
-gdkwdvv - codes/csharp/exceptions/gdkwdvv.cs; pages/csharp/exceptions/gdkwdvv.html; pages/python/strings/gdkwdvv.html
-gdkzaae - codes/csharp/exceptions/gdkzaae.cs; pages/csharp/exceptions/gdkzaae.html; pages/python/ds/gdkzaae.html
+gdkwdvv - codes/csharp/exceptions/gdkwdvv.cs; pages/csharp/exceptions/gdkwdvv.html
+gdkzaae - codes/csharp/exceptions/gdkzaae.cs; pages/csharp/exceptions/gdkzaae.html
 gdlgamz - codes/csharp/exceptions/gdlgamz.cs; pages/csharp/exceptions/gdlgamz.html
-gdtgvee - codes/csharp/exceptions/gdtgvee.cs; pages/csharp/exceptions/gdtgvee.html; pages/python/fundamentals/gdtgvee.html
+gdtgvee - codes/csharp/exceptions/gdtgvee.cs; pages/csharp/exceptions/gdtgvee.html
 gdwsayv - codes/csharp/exceptions/gdwsayv.cs; pages/csharp/exceptions/gdwsayv.html
 gdwxaed - codes/csharp/exceptions/gdwxaed.cs; pages/csharp/exceptions/gdwxaed.html
 gdzuddz - codes/csharp/exceptions/gdzuddz.cs; pages/csharp/exceptions/gdzuddz.html
@@ -4754,10 +4747,10 @@ gdwauzw - codes/python/loops/gdwauzw.py; pages/python/loops/gdwauzw.html
 gdwbtvh - codes/python/loops/gdwbtvh.py; pages/python/loops/gdwbtvh.html
 gdgzlzd - codes/python/networking/gdgzlzd.py; pages/python/networking/gdgzlzd.html
 gdkyirx - codes/python/networking/gdkyirx.py; pages/python/networking/gdkyirx.html
-gdawgvo - codes/rust/fundamentals/gdawgvo.rs; pages/python/fundamentals/gdawgvo.html; pages/rust/fundamentals/gdawgvo.html
+gdawgvo - codes/rust/fundamentals/gdawgvo.rs; pages/rust/fundamentals/gdawgvo.html
 gdgzdhx - codes/rust/fundamentals/gdgzdhx.rs; pages/rust/fundamentals/gdgzdhx.html
-gdvwkzg - codes/rust/fundamentals/gdvwkzg.rs; pages/python/ds/gdvwkzg.html; pages/rust/fundamentals/gdvwkzg.html
-gdvzzvi - codes/rust/fundamentals/gdvzzvi.rs; pages/python/ds/gdvzzvi.html; pages/rust/fundamentals/gdvzzvi.html
+gdvwkzg - codes/rust/fundamentals/gdvwkzg.rs; pages/rust/fundamentals/gdvwkzg.html
+gdvzzvi - codes/rust/fundamentals/gdvzzvi.rs; pages/rust/fundamentals/gdvzzvi.html
 gdspasn - codes/selenium/classes/gdspasn.java; pages/selenium/classes/gdspasn.html
 gdhvzcz - codes/selenium/ddf/gdhvzcz.java; pages/selenium/ddf/gdhvzcz.html
 gdlevgg - codes/selenium/ddf/gdlevgg.java; pages/selenium/ddf/gdlevgg.html
@@ -4766,7 +4759,7 @@ gdeevem - codes/selenium/fundamentals/gdeevem.java; pages/selenium/fundamentals/
 gdlarzw - codes/selenium/fundamentals/gdlarzw.java; pages/selenium/fundamentals/gdlarzw.html
 gdzgvwt - codes/selenium/fundamentals/gdzgvwt.java; pages/selenium/fundamentals/gdzgvwt.html
 gdmweyz - codes/selenium/interfaces/gdmweyz.java; pages/selenium/interfaces/gdmweyz.html
-gdavegp - codes/selenium/locators/gdavegp.java; pages/selenium/fundamentals/gdavegp.html; pages/selenium/locators/gdavegp.html
+gdavegp - codes/selenium/locators/gdavegp.java; pages/selenium/locators/gdavegp.html
 gdlwmed - codes/selenium/locators/gdlwmed.java; pages/selenium/locators/gdlwmed.html
 gdzezzd - codes/selenium/locators/gdzezzd.java; pages/selenium/locators/gdzezzd.html
 gddyzek - codes/selenium/pom/gddyzek.java; pages/selenium/pom/gddyzek.html
@@ -4947,15 +4940,21 @@ gdzxhny - pages/python/arrays/gdzxhny.html
 gdzyigz - pages/python/arrays/gdzyigz.html
 gdwdnax - pages/python/dbc/gdwdnax.html
 gdcgaye - pages/python/ds/gdcgaye.html
+gdwkwvz - pages/python/ds/gdwkwvz.html
+gdxpzmp - pages/python/ds/gdxpzmp.html
+gdzyzav - pages/python/ds/gdzyzav.html
 gddveuh - pages/python/fundamentals/gddveuh.html
 gdexazw - pages/python/fundamentals/gdexazw.html
 gdlvgqy - pages/python/fundamentals/gdlvgqy.html
+gdvyafu - pages/python/fundamentals/gdvyafu.html
+gdwwvga - pages/python/fundamentals/gdwwvga.html
 gdzexcz - pages/python/fundamentals/gdzexcz.html
 gdyslwy - pages/python/networking/gdyslwy.html
 gddduzz - pages/python/strings/gddduzz.html
 gdkgyxy - pages/python/strings/gdkgyxy.html
 gdozvev - pages/python/strings/gdozvev.html
 gdyqzaz - pages/python/strings/gdyqzaz.html
+gdzdngz - pages/python/strings/gdzdngz.html
 gdadmvw - pages/r/cli/gdadmvw.html
 gdarfve - pages/r/cli/gdarfve.html
 gdazeek - pages/r/cli/gdazeek.html
@@ -4975,6 +4974,7 @@ gdzvzvy - pages/selenium/classes/gdzvzvy.html
 gdecmzw - pages/selenium/fundamentals/gdecmzw.html
 gdrvyfv - pages/selenium/fundamentals/gdrvyfv.html
 gdureze - pages/selenium/fundamentals/gdureze.html
+gdzzbcw - pages/selenium/fundamentals/gdzzbcw.html
 gdzzegt - pages/selenium/fundamentals/gdzzegt.html
 gdzzyzd - pages/selenium/fundamentals/gdzzyzd.html
 gdawzee - pages/selenium/images/gdawzee.png
