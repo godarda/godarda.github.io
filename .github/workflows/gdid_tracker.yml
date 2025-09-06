@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
+      branch: ${{ steps.push_branch.outputs.branch }}
       changed: ${{ steps.detect.outputs.changed }}
 
     steps:
@@ -46,7 +47,18 @@ jobs:
           else
             echo "Changes detected"
             echo "changed=true" >> $GITHUB_OUTPUT
-          fi
+
+      - name: Push changes to new branch
+        if: steps.detect.outputs.changed == 'true'
+        id: push_branch
+        run: |
+          timestamp=$(date +%s)
+          branch="gdid-update-${timestamp}"
+          git checkout -b "$branch"
+          git add assets/gdid_sets/gdid_set*.txt assets/gdid_sets/invalid.txt
+          git commit -m "Auto-update GDID sets"
+          git push origin "$branch"
+          echo "branch=$branch" >> $GITHUB_OUTPUT
 
   create-pr:
     name: Create Pull Request
@@ -67,7 +79,7 @@ jobs:
             This PR was created automatically by the GDID Tracker workflow.
             It includes updates to gdid_set*.txt and invalid.txt based on new usage references.
             Please review and merge manually into develop.
-          branch: gdid-update-${{ github.run_id }}
+          branch: ${{ needs.track-gdid.outputs.branch }}
           base: develop
           delete-branch: true
           labels: automated, gdid-update
