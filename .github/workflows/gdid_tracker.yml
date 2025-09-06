@@ -40,4 +40,5 @@ jobs:
             git add .trigger-pr
             git commit -m "Trigger PR for GDID set updates"
             git push origin develop
+            rm .trigger-pr
           fi
