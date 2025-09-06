@@ -3,7 +3,7 @@ name: GDID Tracker
 on:
   push:
     branches:
-      - develop  # Trigger workflow on every push to develop
+      - develop
 
 jobs:
   track-gdid:
@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      branch: ${{ steps.push_branch.outputs.branch }}
       changed: ${{ steps.detect.outputs.changed }}
 
     steps:
@@ -34,35 +33,18 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Detect changes in GDID sets
+      - name: Detect changes
         id: detect
         run: |
           git add assets/gdid_sets/gdid_set*.txt assets/gdid_sets/invalid.txt
-          echo "Staged diff:"
-          git diff --cached
-
           if git diff --cached --quiet; then
-            echo "No changes detected"
             echo "changed=false" >> $GITHUB_OUTPUT
           else
-            echo "Changes detected"
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
 
-      - name: Push changes to new branch
-        if: steps.detect.outputs.changed == 'true'
-        id: push_branch
-        run: |
-          timestamp=$(date +%s)
-          branch="gdid-update-${timestamp}"
-          git checkout -b "$branch"
-          git add assets/gdid_sets/gdid_set*.txt assets/gdid_sets/invalid.txt
-          git commit -m "Auto-update GDID sets"
-          git push origin "$branch"
-          echo "branch=$branch" >> $GITHUB_OUTPUT
-
   create-pr:
-    name: Create Pull Request
+    name: Create and Merge Pull Request
     needs: track-gdid
     if: needs.track-gdid.outputs.changed == 'true'
     runs-on: ubuntu-latest
@@ -71,13 +53,31 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
         with:
-          fetch-depth: 0  # Important: fetch all history and branches
+          fetch-depth: 0
 
-      - name: Fetch pushed branch
+      - name: Configure Git
         run: |
-          git fetch origin ${{ needs.track-gdid.outputs.branch }}
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Create and push PR branch
+        run: |
+          timestamp=$(date +%s)
+          branch="gdid-update-${timestamp}"
+          git checkout -b "$branch"
+          git add assets/gdid_sets/gdid_set*.txt assets/gdid_sets/invalid.txt
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit — skipping PR"
+            exit 0
+          fi
+
+          git commit -m "Auto-update GDID sets"
+          git push origin "$branch"
+          echo "branch=$branch" >> $GITHUB_ENV
 
       - name: Create Pull Request
+        id: cpr
         uses: peter-evans/create-pull-request@v5
         with:
           commit-message: Auto-update GDID sets
@@ -85,8 +85,15 @@ jobs:
           body: |
             This PR was created automatically by the GDID Tracker workflow.
             It includes updates to gdid_set*.txt and invalid.txt based on new usage references.
-            Please review and merge manually into develop.
-          branch: ${{ needs.track-gdid.outputs.branch }}
+          branch: ${{ env.branch }}
           base: develop
           delete-branch: true
           labels: automated, gdid-update
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Enable Auto-Merge
+        uses: peter-evans/enable-pull-request-automerge@v2
+        with:
+          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
+          merge-method: squash
+          token: ${{ secrets.GITHUB_TOKEN }}
