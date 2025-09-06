@@ -2,8 +2,10 @@ name: GDID PR Creator
 
 on:
   push:
+    branches:
+      - develop
     paths:
-      - .trigger-pr  # Trigger only when .trigger-pr is pushed
+      - .trigger-pr
 
 jobs:
   create-pr:
@@ -22,11 +24,12 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
-          commit-message: Auto-update gdid.txt
-          title: Auto-update gdid.txt
+          commit-message: Auto-update GDID sets
+          title: Auto-update GDID sets
           body: |
             This PR was created automatically by the GDID Tracker workflow.
-            It includes updates to gdid.txt based on new usage references.
-            If everything looks good, feel free to merge and the branch will auto-delete.
+            It includes updates to gdid_set*.txt and invalid.txt based on new usage references.
+            Please review and merge manually into develop.
           branch: gdid-update-${{ github.run_id }}
-          delete-branch: true
+          base: develop
+          labels: automated, gdid-update
