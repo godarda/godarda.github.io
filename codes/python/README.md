@@ -20,7 +20,7 @@ Welcome to the curated index of Python programming. This page is part of the GoD
 
 - [Python Arithmetic Operations](https://godarda.in/python/fundamentals/gdawgvo)  
 - [Python Logical Operations](https://godarda.in/python/fundamentals/gdexazw)  
-- [Python Built-in Functions](https://godarda.in/python/fundamentals/gdgzwzz)  
+- [Python Built-in Functions](https://godarda.in/python/fundamentals/gdzexcz)  
 - [Python Mathematical Functions](https://godarda.in/python/fundamentals/gdtgvee)  
 - [Show More »](https://godarda.in/python/fundamentals)
 

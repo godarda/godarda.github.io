@@ -10,7 +10,7 @@ grandparent:
       - title: Rust program to calculate the area and circumference of a circle
         url: rust/fundamentals/gdvzzvi
       - title: Rust program to accept the input from a user
-        url: rust/fundamentals/gdgzwzz
+        url: rust/fundamentals/gdgzdhx
 
 sidenav:
   - parent: Rust Programming
