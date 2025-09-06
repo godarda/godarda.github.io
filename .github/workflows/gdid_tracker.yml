@@ -4,17 +4,20 @@ on:
   push:
     branches:
       - develop
+  pull_request:
+    branches:
+      - develop
 
 jobs:
   track-and-pr:
-    name: Track GDID Usage and Create PR
+    name: GDID Status Check
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
         with:
-          fetch-depth: 0  # Ensure full history and branches
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -33,6 +36,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Create Pull Request
+        if: github.event_name == 'push'
         id: cpr
         uses: peter-evans/create-pull-request@v5
         with:
