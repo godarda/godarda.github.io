@@ -4522,7 +4522,7 @@ gdqzgqw - codes/csharp/dbc/gdqzgqw.cs; pages/csharp/dbc/gdqzgqw.html
 gdraazt - codes/csharp/dbc/gdraazt.cs; pages/csharp/dbc/gdraazt.html
 gdddcia - codes/csharp/exceptions/gdddcia.cs; pages/csharp/exceptions/gdddcia.html
 gdezvdy - codes/csharp/exceptions/gdezvdy.cs; pages/csharp/exceptions/gdezvdy.html
-gdgzwzz - codes/csharp/exceptions/gdgzwzz.cs; codes/rust/fundamentals/gdgzwzz.rs; pages/csharp/exceptions/gdgzwzz.html
+gdgzwzz - codes/csharp/exceptions/gdgzwzz.cs; pages/csharp/exceptions/gdgzwzz.html
 gdkwdvv - codes/csharp/exceptions/gdkwdvv.cs; pages/csharp/exceptions/gdkwdvv.html; pages/python/strings/gdkwdvv.html
 gdkzaae - codes/csharp/exceptions/gdkzaae.cs; pages/csharp/exceptions/gdkzaae.html; pages/python/ds/gdkzaae.html
 gdlgamz - codes/csharp/exceptions/gdlgamz.cs; pages/csharp/exceptions/gdlgamz.html
@@ -4755,6 +4755,7 @@ gdwbtvh - codes/python/loops/gdwbtvh.py; pages/python/loops/gdwbtvh.html
 gdgzlzd - codes/python/networking/gdgzlzd.py; pages/python/networking/gdgzlzd.html
 gdkyirx - codes/python/networking/gdkyirx.py; pages/python/networking/gdkyirx.html
 gdawgvo - codes/rust/fundamentals/gdawgvo.rs; pages/python/fundamentals/gdawgvo.html; pages/rust/fundamentals/gdawgvo.html
+gdgzdhx - codes/rust/fundamentals/gdgzdhx.rs; pages/rust/fundamentals/gdgzdhx.html
 gdvwkzg - codes/rust/fundamentals/gdvwkzg.rs; pages/python/ds/gdvwkzg.html; pages/rust/fundamentals/gdvwkzg.html
 gdvzzvi - codes/rust/fundamentals/gdvzzvi.rs; pages/python/ds/gdvzzvi.html; pages/rust/fundamentals/gdvzzvi.html
 gdspasn - codes/selenium/classes/gdspasn.java; pages/selenium/classes/gdspasn.html
@@ -4963,7 +4964,6 @@ gdegdgz - pages/r/cli/gdegdgz.html
 gdexavz - pages/r/cli/gdexavz.html
 gdexdvy - pages/r/cli/gdexdvy.html
 gdgebwv - pages/r/cli/gdgebwv.html
-gdgzdhx - pages/rust/fundamentals/gdgzdhx.html
 gdaiwex - pages/selenium/classes/gdaiwex.html
 gdezzgb - pages/selenium/classes/gdezzgb.html
 gdgezvd - pages/selenium/classes/gdgezvd.html
