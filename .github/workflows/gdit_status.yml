@@ -1,21 +1,18 @@
-name: GDID Status Check
+name: GDID Status Check Proxy
 
 on:
-  pull_request:
-    branches:
-      - develop
-
-permissions:
-  contents: read
+  workflow_run:
+    workflows: ["GDID Tracker"]
+    types:
+      - completed
 
 jobs:
-  gdid-status-check:
+  report-status:
     name: GDID Status Check
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Run dummy check
+      - name: Report dummy status
         run: echo "GDID check passed"
