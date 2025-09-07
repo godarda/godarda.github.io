@@ -1,0 +1,19 @@
+{
+    // Git & Branch Protection
+    "git.branchProtection": ["main"],            // Warns or blocks direct commits to 'main'
+    "git.branchProtectionPrompt": "alwaysPrompt",// Always prompt before committing to protected branches
+    "git.enableSmartCommit": false,              // Prevents accidental commits from the Source Control panel
+    "git.confirmSync": true,                     // Asks for confirmation before syncing changes
+    "git.autofetch": true,                       // Keeps your repo updated in the background
+    "git.allowForcePush": false,                 // Blocks force pushes from VS Code UI
+    "git.pullRebase": true,                      // Ensures clean history by rebasing instead of merging when pulling
+
+    // Editor Clarity
+    "editor.wordWrap": "on",                     // Wrap long lines for readability
+
+    // Python Linting & IntelliSense
+    "python.linting.enabled": true,              // Enables linting in VS Code
+    "python.linting.pylintEnabled": true,        // Uses Pylint for linting
+    "python.formatting.provider": "black",       // Uses Black for consistent formatting
+    "python.analysis.typeCheckingMode": "basic"  // Enables basic type checking
+}
