@@ -5,7 +5,7 @@ on:
     branches:
       - develop
     paths:
-      - .trigger-pr
+      - assets/gdid_sets/.trigger-pr
 
 jobs:
   create-pr:
