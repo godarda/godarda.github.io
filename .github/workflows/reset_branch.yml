@@ -17,7 +17,7 @@ jobs:
       - name: Checkout main
         uses: actions/checkout@v5
         with:
-          ref: main
+          fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Configure Git
@@ -26,12 +26,12 @@ jobs:
           git config user.email "bot@godarda.dev"
 
       - name: Fetch all branches
-        run: git fetch origin
+        run: git fetch --all
 
       - name: Reset develop to match main
         run: |
-          git checkout develop || git checkout -b develop
-          git reset --hard origin/main
+          git checkout origin/develop
+          git branch -f develop origin/main
           git push origin develop --force-with-lease
 
       - name: Log reset message
