@@ -1,0 +1,11 @@
+{
+    "git.branchProtection": ["main"],
+    "git.branchProtectionPrompt": "alwaysPrompt",
+    "git.enableSmartCommit": false,
+    "git.confirmSync": true,
+    "git.autofetch": true,
+    "git.allowForcePush": false,
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "files.trimTrailingWhitespace": true
+}

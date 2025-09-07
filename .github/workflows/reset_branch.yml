@@ -1,0 +1,29 @@
+name: Auto Reset Develop After Squash Merge
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  reset-develop:
+    if: github.event.pull_request.merged == true && github.event.pull_request.head.ref == 'develop'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config user.name "GoDarda Bot"
+          git config user.email "bot@godarda.dev"
+
+      - name: Force-push main to develop
+        run: |
+          git fetch origin
+          git checkout main
+          git push origin main:develop --force-with-lease

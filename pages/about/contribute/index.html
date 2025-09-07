@@ -99,23 +99,33 @@ title: Contribution Guide
 <div class="board">
     <div class="boardtitle">🧑‍💻 Getting Started</div>
     <p>
-        1. Fork the repository: <a href="https://github.com/godarda/godarda.github.io"
-            target="_blank">godarda.github.io</a><br>
+        1. Fork the repository:
+        <a href="https://github.com/godarda/godarda.github.io" target="_blank">godarda.github.io</a><br>
         2. Clone your fork:<br>
         <code>git clone https://github.com/&lt;your-username&gt;/godarda.github.io</code><br>
-        3. Create a new branch:<br>
+        3. Switch to the <code>develop</code> branch (this is where all contributions should begin):<br>
+        <code>git checkout develop</code><br>
+        4. Create a new feature branch off <code>develop</code>:<br>
         <code>git checkout -b feature/my-contribution</code><br>
-        4. Make your changes<br>
-        5. Commit and push:<br>
+        5. Make your changes<br>
+        6. Commit and push your branch:<br>
         <code>git commit -m "Add: new Python example for loops"</code><br>
         <code>git push origin feature/my-contribution</code><br>
-        6. Open a Pull Request and describe your changes clearly
+        7. Open a Pull Request targeting <code>develop</code> and describe your changes clearly
+    </p>
+    <p>
+        <strong>⚠️ Important:</strong><br>
+        Please do not open pull requests directly to <code>main</code>.<br>
+        The <code>main</code> branch is protected and reserved for monthly squash merges by admins to maintain a clean,
+        readable history.<br>
+        All contributions should flow through <code>develop</code>, where they’ll be reviewed, refined, and eventually
+        merged into <code>main</code> during the monthly sync.
     </p>
     <p>
         Once submitted, your contribution will go through a review process.<br>
         Maintainers may suggest improvements, ask questions, or request changes to ensure clarity, originality, and
         alignment with GoDarda's philosophy.<br>
-        This collaborative review helps maintain the quality and professionalism of the project-and it's a great way to
+        This collaborative review helps maintain the quality and professionalism of the project—and it's a great way to
         learn and grow together.
     </p>
 </div>
@@ -182,19 +192,6 @@ title: Contribution Guide
     <p>
         To request a badge, <a href="https://github.com/godarda/godarda.github.io/issues/new?template=badge.yml"
             target="_blank">submit a badge request here</a>.
-    </p>
-</div>
-
-<div class="board">
-    <div class="boardtitle">🎯 Why Recognition Matters</div>
-    <p>
-        Badges aren't just visual flair-they reflect the spirit of open-source collaboration. They help
-        contributors:<br>
-        • Build a visible portfolio of impact<br>
-        • Feel valued and empowered<br>
-        • Inspire others to contribute meaningfully<br><br>
-        We review badge requests with care and gratitude. Every contribution helps GoDarda grow into a more inclusive,
-        scalable, and inspiring space.
     </p>
 </div>
 
