@@ -3,45 +3,21 @@ name: GDID Tracker
 on:
   push:
     branches:
-      - develop
-  pull_request:
-    branches:
-      - develop
-
-permissions:
-  contents: write
-  pull-requests: write
+      - develop  # Only run on develop branch
 
 jobs:
-  gdid-status-check:
-    name: GDID Status Check
+  track-gdid:
+    name: Track GDID Usage
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
-
-      - name: Run dummy check
-        run: echo "GDID check passed"
-
-  create-pr:
-    name: Create and Merge GDID PR
-    if: github.event_name == 'push'
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-
-      - name: Install dependencies
-        run: pip install pyyaml
 
       - name: Run GDID Tracker
         run: python assets/gdid_sets/gdid.py
@@ -51,25 +27,17 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Create Pull Request
-        id: cpr
-        uses: peter-evans/create-pull-request@v5
-        with:
-          commit-message: Auto-update GDID sets
-          title: Auto-update GDID sets
-          body: |
-            This PR was created automatically by the GDID Tracker workflow.
-            It includes updates to gdid_set*.txt and invalid.txt based on new usage references.
-          branch: gdid-update-${{ github.run_id }}
-          base: develop
-          delete-branch: true
-          labels: automated, gdid-update
-          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Detect changes in GDID sets
+        run: |
+          # Stage all GDID set files and invalid.txt
+          git add assets/gdid_sets/gdid_set*.txt assets/gdid_sets/invalid.txt
 
-      - name: Enable Auto-Merge
-        if: steps.cpr.outputs.pull-request-number != ''
-        uses: peter-evans/enable-pull-request-automerge@v2
-        with:
-          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
-          merge-method: squash
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # Check if any changes are staged
+          if git diff --cached --quiet; then
+            echo "No changes to GDID sets or invalid.txt — skipping PR trigger"
+          else
+            echo "trigger" > assets/gdid_sets/.trigger-pr
+            git add assets/gdid_sets/.trigger-pr
+            git commit -m "Trigger PR for GDID set updates"
+            git push origin develop
+          fi
