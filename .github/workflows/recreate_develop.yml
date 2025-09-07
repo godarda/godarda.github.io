@@ -1,0 +1,76 @@
+name: Recreate Develop After Squash Merge
+
+# Trigger this workflow when a pull request to 'main' is closed
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  recreate-develop:
+    # Only run if:
+    # - The PR was merged
+    # - The source branch was 'develop'
+    # - The PR was created by shubhamrdarda
+    if: github.event.pull_request.merged == true &&
+        github.event.pull_request.head.ref == 'develop' &&
+        github.event.pull_request.user.login == 'shubhamrdarda'
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the latest 'main' branch with full history
+      - name: Checkout main branch
+        uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Set Git identity for pushing changes
+      - name: Configure Git
+        run: |
+          git config user.name "GoDarda Bot"
+          git config user.email "bot@godarda.dev"
+
+      # Fetch all remote branches and tags
+      - name: Fetch all refs
+        run: git fetch --all
+
+      # Try up to 5 times to confirm that the squash commit has landed on main
+      - name: Wait for squash commit to appear
+        id: wait_for_commit
+        run: |
+          EXPECTED_COMMIT="${{ github.event.pull_request.merge_commit_sha }}"
+          echo "Expected squash commit: $EXPECTED_COMMIT"
+
+          for i in {1..5}; do
+            git fetch origin main
+            ACTUAL_COMMIT=$(git rev-parse origin/main)
+            echo "Attempt $i: main is at $ACTUAL_COMMIT"
+
+            if [ "$ACTUAL_COMMIT" = "$EXPECTED_COMMIT" ]; then
+              echo "Squash commit confirmed on main."
+              echo "commit_ready=true" >> $GITHUB_OUTPUT
+              break
+            fi
+
+            echo "Waiting for GitHub to sync..."
+            sleep 30
+          done
+
+      # Delete the remote 'develop' branch to remove old commit history
+      - name: Delete remote 'develop'
+        run: git push origin --delete develop || echo "No remote develop branch to delete"
+
+      # Create a fresh 'develop' branch from whatever is currently in main
+      - name: Create new 'develop' from 'main'
+        run: |
+          git checkout -b develop
+          git push origin develop
+
+      # Log confirmation message
+      - name: Log reset message
+        run: |
+          echo "'develop' has been recreated from 'main'."
+          echo "Note: squash commit confirmation status: ${{ steps.wait_for_commit.outputs.commit_ready || 'not confirmed' }}"
