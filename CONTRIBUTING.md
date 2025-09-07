@@ -16,7 +16,6 @@ We're building a cross-platform, community-driven learning experience around pro
 - [Getting Started](#getting-started)
 - [Pull Request Checklist](#pull-request-checklist)
 - [Contributor Recognition](#contributor-recognition)
-- [Why Recognition Matters](#why-recognition-matters)
 - [Questions or Suggestions](#questions-or-suggestions)
 - [Thank You](#thank-you)
 
@@ -79,22 +78,33 @@ If you're inspired by a resource, feel free to reference it in your Pull Request
 
 ## Getting Started
 
-1. Fork the repository: [godarda.github.io](https://github.com/godarda/godarda.github.io)  
-2. Clone your fork:
+We’re thrilled to have you contribute. To keep our workflow clean and contributor-friendly, please follow the steps below.
+
+1. **Fork the repository**: [godarda.github.io](https://github.com/godarda/godarda.github.io)  
+2. **Clone your fork**:
    ```bash
    git clone https://github.com/<your-username>/godarda.github.io
    ```
-3. Create a new branch:
+3. Switch to the develop branch (this is where all contributions should begin):
+
+   ```bash
+   git checkout develop
+   ```
+4. Create a new branch of develop:
    ```bash
    git checkout -b feature/my-contribution
    ```
-4. Make your changes  
-5. Commit and push:
+5. Make your changes  
+6. Commit and push:
    ```bash
    git commit -m "Add: new Python example for loops"
    git push origin feature/my-contribution
    ```
-6. Open a Pull Request and describe your changes clearly
+7. Open a Pull Request targeting develop, and describe your changes clearly
+
+⚠️ Important: Please do not open pull requests directly to main. 
+The main branch is protected and reserved for monthly squash merges by admins to maintain a clean, readable history.
+All contributions should flow through develop, where they’ll be reviewed, refined, and eventually merged into main during the monthly sync.
 
 Once submitted, your contribution will go through a review process.  
 Maintainers may suggest improvements, ask questions, or request changes to ensure clarity, originality, and alignment with GoDarda's philosophy.  
@@ -126,15 +136,6 @@ We offer visual badges to recognize contributors across key areas:
 | 🧭 **Maintainer’s Choice** | Special recognition for contributions that go above and beyond |
 
 To request a badge, [submit a badge request here](https://github.com/godarda/godarda.github.io/issues/new?template=badge.yml).
-
-## Why Recognition Matters
-
-Badges aren’t just visual flair - they reflect the spirit of open-source collaboration. They help contributors:
-- Build a visible portfolio of impact  
-- Feel valued and empowered  
-- Inspire others to contribute meaningfully
-
-We review badge requests with care and gratitude. Every contribution helps GoDarda grow into a more inclusive, scalable, and inspiring space.
 
 ## Questions or Suggestions
 
