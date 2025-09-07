@@ -8,11 +8,14 @@ on:
 
 jobs:
   reset-develop:
-    if: github.event.pull_request.merged == true && github.event.pull_request.head.ref == 'develop'
+    if: github.event.pull_request.merged == true &&
+        github.event.pull_request.head.ref == 'develop' &&
+        github.event.pull_request.user.login == 'shubhamrdarda'
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout main
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: main
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -22,8 +25,14 @@ jobs:
           git config user.name "GoDarda Bot"
           git config user.email "bot@godarda.dev"
 
-      - name: Force-push main to develop
+      - name: Fetch all branches
+        run: git fetch origin
+
+      - name: Reset develop to match main
         run: |
-          git fetch origin
-          git checkout main
-          git push origin main:develop --force-with-lease
+          git checkout develop || git checkout -b develop
+          git reset --hard origin/main
+          git push origin develop --force-with-lease
+
+      - name: Log reset message
+        run: echo "GoDarda squash complete. 'develop' has been reset to match 'main'."
