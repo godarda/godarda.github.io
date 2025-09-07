@@ -33,8 +33,8 @@ jobs:
           git config user.name "GoDarda Bot"
           git config user.email "bot@godarda.dev"
 
-      # Fetch all remote branches and tags
-      - name: Fetch all refs
+      # Fetch all branches
+      - name: Fetch all branches
         run: git fetch --all
 
       # Try up to 5 times to confirm that the squash commit has landed on main
