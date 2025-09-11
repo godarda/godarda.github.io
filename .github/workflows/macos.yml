@@ -3,9 +3,6 @@ name: TestHarness (macOS)
 # Triggered automatically on the last day of each month
 # Also supports manual execution via GitHub UI
 on:
-  push:
-    branches:
-      - develop
   schedule:
     # Run on the 31st of months with 31 days (Jan, Mar, May, Jul, Aug, Oct, Dec)
     - cron: '0 0 31 1,3,5,7,8,10,12 *'
