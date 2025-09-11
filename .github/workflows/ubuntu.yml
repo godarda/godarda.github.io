@@ -3,6 +3,9 @@ name: TestHarness (Ubuntu)
 # Triggered automatically on the last day of each month
 # Also supports manual execution via GitHub UI
 on:
+  push:
+    branches:
+      - develop
   schedule:
     # Run on the 31st of months with 31 days (Jan, Mar, May, Jul, Aug, Oct, Dec)
     - cron: '0 0 31 1,3,5,7,8,10,12 *'
@@ -33,8 +36,8 @@ jobs:
       # Step 3: Install Python dependencies from setups/requirements.txt
       - name: Install Python Dependencies
         run: |
-          python3 -m pip install --upgrade pip
-          pip install -r setups/requirements.txt
+          python3 -m pip install --upgrade pip --quiet
+          pip install --disable-pip-version-check --no-cache-dir --quiet -r setups/requirements.txt
         shell: bash
 
       # Step 4: Setup Oracle Java 21 for JVM-based tooling
@@ -47,31 +50,39 @@ jobs:
       # Step 5: Install Rust, FreeGLUT, and NASM
       - name: Install Rust, FreeGLUT, and NASM
         run: |
-          sudo apt-get update
-          sudo apt-get install -y rustc freeglut3-dev nasm
+          sudo apt-get -qq update
+          sudo apt-get -qq install -y rustc freeglut3-dev nasm
         shell: bash
 
       # Step 6: Install Google Chrome browser
       - name: Install Google Chrome
         run: |
+          # Add Google’s signing key and Chrome repo
           wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
           sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-          sudo apt-get update
-          sudo apt-get install -y google-chrome-stable
+          sudo apt-get -qq update
+          sudo apt-get -qq install -y google-chrome-stable
         shell: bash
 
       # Step 7: Start Jekyll server and execute automated test suite
       - name: Start Jekyll Server and Run Tests
         run: |
-          sudo apt-get install -y ruby-full build-essential zlib1g-dev curl
+          # Install Ruby and build tools required for native gems
+          sudo apt-get -qq install -y ruby-full build-essential zlib1g-dev curl
+
+          # Configure local gem path to avoid sudo
           export GEM_HOME="$HOME/.gem"
           export PATH="$GEM_HOME/bin:$PATH"
-          gem install bundler
-          bundle config set --local path vendor/bundle
-          bundle install
 
+          # Install bundler and project gems quietly
+          gem install bundler --quiet
+          bundle config set --local path vendor/bundle
+          bundle install --quiet
+
+          # Start Jekyll server in background
           nohup bundle exec jekyll serve &
 
+          # Wait for server to become available
           for i in {1..60}; do
             if curl -s http://localhost:4000 > /dev/null; then
               echo "Jekyll server is up!"
@@ -81,10 +92,21 @@ jobs:
             sleep 1
           done
 
+          # Final check before running tests
           if ! curl -s http://localhost:4000 > /dev/null; then
             echo "Server failed to start within timeout. Aborting tests."
             exit 1
           fi
 
+          # Execute Python test suite
           python3 tests/run.py
+
+          # Ruby Toolchain Version Report
+          echo ""
+          echo "Ruby Toolchain Version Report"
+          echo "----------------------------------------------------------------------------------------------------"
+          echo "Ruby: $(ruby -v)"
+          echo "Gem:  $(gem -v)"
+          echo "Jekyll: $(bundle exec jekyll -v)"
+          echo "Bundler: $(bundler -v)"
         shell: bash

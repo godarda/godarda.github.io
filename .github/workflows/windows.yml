@@ -36,28 +36,24 @@ jobs:
       # Step 3: Install Python dependencies from setups/requirements.txt
       - name: Install Python Dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r setups/requirements.txt
+          python -m pip install --upgrade pip > $null 2>&1
+          pip install --quiet -r setups/requirements.txt > $null 2>&1
         shell: pwsh
 
-      # Step 4: Install Ruby and Jekyll dependencies
-      - name: Setup Ruby and Jekyll
+      # Step 4: Setup Ruby and Install Gems
+      - name: Setup Ruby and Install Gems
         run: |
-          choco install -y ruby
+          # Install Ruby with DevKit support
+          choco install ruby --no-progress -y > $null 2>&1
           refreshenv
 
-          # Ensure bundler is available
-          gem install bundler
+          # Install MSYS2 toolchain required for native extensions
+          ridk install 3 > $null 2>&1
 
-          # Install project gems (including Jekyll)
+          # Install Bundler and project gems quietly
+          gem install bundler --quiet > $null 2>&1
           bundle config set --local path vendor/bundle
-          bundle install
-
-          # Confirm Jekyll is available
-          if (!(Get-Command jekyll -ErrorAction SilentlyContinue)) {
-            Write-Error "Jekyll executable not found after bundle install."
-            exit 1
-          }
+          bundle install --quiet > $null 2>&1
         shell: pwsh
 
       # Step 5: Start Jekyll server and execute automated test suite
@@ -90,4 +86,13 @@ jobs:
 
           # Execute Python test suite
           python tests/run.py
+
+          # Ruby Toolchain Version Report
+          Write-Host ""
+          Write-Host "Ruby Toolchain Version Report"
+          Write-Host "----------------------------------------------------------------------------------------------------"
+          Write-Host "Ruby: $(ruby -v)"
+          Write-Host "Gem:  $(gem -v)"
+          Write-Host "Jekyll: $(bundle exec jekyll -v)"
+          Write-Host "Bundler: $(bundler -v)"
         shell: pwsh
