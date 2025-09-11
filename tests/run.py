@@ -73,12 +73,9 @@ def main() -> None:
         # Windows-specific flow
         elif config.is_windows:
             print("Running tests on Windows. Please wait...")
-            if config.is_github_actions:
-                browser = "chrome"
-                start_tests(browser)
-            else:
-                TitleVerificationTest().runTest()
-                browser = ""
+
+            TitleVerificationTest().runTest()
+            browser = ""
             print_report(stats.matched, stats.unmatched, 0, 0, browser)
 
         else:

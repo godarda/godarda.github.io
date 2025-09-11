@@ -1,80 +1,54 @@
 import subprocess
 import platform
-import shutil
 from utilities import stats
 
 
 def get_version(cmd: str) -> str:
     """
-    Execute a shell command to retrieve a tool’s version.
+    Execute a shell command to retrieve a tool's version.
     Returns the trimmed stdout on success or a standardized error message on failure.
     """
+    if not cmd:
+        return "Not applicable"
     try:
-        raw_output = subprocess.check_output(cmd, shell=True, stderr=subprocess.STDOUT)
-        return raw_output.decode("utf-8").strip().splitlines()[0]
+        result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+        output = result.stdout.strip() or result.stderr.strip()
+        return (
+            output.splitlines()[0]
+            if result.returncode == 0 and output
+            else "Not installed"
+        )
     except Exception:
         return "Not installed or retrieval failed"
 
 
-def get_browser_version(browser: str, os_name: str) -> str:
+def get_all_versions(os_name: str) -> dict:
     """
-    Determine the installed browser version using platform-aware probing.
-    Supports Firefox, Chrome, Edge, and Safari (macOS only).
-    """
-    browser_cmds = {
-        "firefox": ["firefox --version"],
-        "chrome": [
-        "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome --version",
-        "chrome --version",
-        r'"C:\Program Files\Google\Chrome\Application\chrome.exe" --version'
-        ],
-        "msedge": [
-            "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge --version",
-            "msedge --version",
-            "microsoft-edge --version",
-            "microsoft-edge-stable --version",
-            r'"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --version'
-        ],
-        "safari": [
-            "defaults read /Applications/Safari.app/Contents/Info CFBundleShortVersionString"
-        ] if os_name == "Darwin" else []
-    }
-
-    for cmd in browser_cmds.get(browser, []):
-        if shutil.which(cmd.split()[0].strip('"')) or os_name == "Darwin":
-            version = get_version(cmd)
-            if "Not installed" not in version:
-                return version
-
-    return "Not installed or retrieval failed"
-
-
-def get_all_versions(browser: str, os_name: str) -> dict:
-    """
-    Retrieve versions of common development tools and browsers across platforms.
+    Retrieve versions of common development tools and browsers across Ubuntu and macOS.
     """
     tools = {
         "gcc/g++": "g++ --version",
         "Rust": "rustc --version",
         "NASM": "nasm --version",
         "Java": "javac --version",
-        "Python": "python --version" if os_name == "Windows" else "python3 --version",
+        "Python": "python3 --version",
+        "Chrome": (
+            "google-chrome --version"
+            if os_name == "Linux"
+            else "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome --version"
+        ),
+        "Safari": (
+            "defaults read /Applications/Safari.app/Contents/Info CFBundleShortVersionString"
+            if os_name == "Darwin"
+            else None
+        ),
     }
 
-    versions = {tool: get_version(cmd) for tool, cmd in tools.items()}
-
-    if browser:
-        versions[browser.capitalize()] = get_browser_version(browser, os_name)
-
-    return versions
+    return {tool: get_version(cmd) for tool, cmd in tools.items()}
 
 
 def print_report(
-    matched: int,
-    unmatched: int,
-    passed: int,
-    failed: int,
-    browser: str
+    matched: int, unmatched: int, passed: int, failed: int, browser: str
 ) -> None:
     """
     Generate and print a consolidated report including:
@@ -106,7 +80,6 @@ def print_report(
         print(f"{'Titles Matched':<25}: \033[92m{stats.matched}\033[0m")
         print(f"{'Titles Unmatched':<25}: \033[91m{stats.unmatched}\033[0m")
 
-
     # --------------------------------------------------------------------------
     # Code Compilation Report
     # --------------------------------------------------------------------------
@@ -130,11 +103,11 @@ def print_report(
     # --------------------------------------------------------------------------
     # Toolchain & Browser Version Report
     # --------------------------------------------------------------------------
-    print("\nResource Versions Report")
-    print("-" * 100)
+    if total_files:
+        print("\nResource Versions Report")
+        print("-" * 100)
 
-    versions = get_all_versions(browser, os_name)
-
-    for tool, ver in versions.items():
-        if "Not installed" not in ver:
-            print(f"{tool:<25}: {ver}")
+        versions = get_all_versions(os_name)
+        for tool, ver in versions.items():
+            if "Not installed" not in ver:
+                print(f"{tool:<25}: {ver}")
