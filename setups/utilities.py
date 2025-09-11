@@ -238,9 +238,7 @@ def start_server():
 
     Behavior:
         - Cleans local __pycache__ directory.
-        - Prints versions for ruby/gem/bundler/jekyll to aid debugging.
-        - If running inside GitHub Actions on Linux, performs 'bundle exec jekyll build'.
-        - Otherwise runs 'bundle exec jekyll serve' to start a local dev server.
+        - Runs 'bundle exec jekyll serve' to start a local dev server.
 
     Error handling:
         - KeyboardInterrupt is swallowed to allow graceful Ctrl-C.
@@ -249,10 +247,6 @@ def start_server():
     """
     clean_pycache()
     try:
-        print("---------------------------------------------")
-        print("The following versions are getting used")
-        print("---------------------------------------------")
-
         def run_cmd(cmd):
             """
             Helper to run a command and return its stdout decoded to UTF-8.
@@ -265,18 +259,7 @@ def start_server():
             except Exception:
                 print("Run this script with 'full' to install all resources - make sure you're connected to the internet.")
                 sys.exit(1)
-
-        print(run_cmd("ruby -v"))
-        print("Gem", run_cmd("gem -v"))
-        print(run_cmd("bundle exec jekyll -v"))
-        print(run_cmd("bundler -v"))
-        print("---------------------------------------------")
-
-        # Build in CI, serve locally otherwise.
-        if os_name.lower() in ["linux", "darwin"] and githubactions:
-            subprocess.run("bundle exec jekyll build", shell=True, check=True)
-        else:
-            subprocess.run("bundle exec jekyll serve", shell=True, check=True)
+        subprocess.run("bundle exec jekyll serve", shell=True, check=True)
 
     except KeyboardInterrupt:
         # Allow clean exit on Ctrl-C during local serve

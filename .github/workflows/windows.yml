@@ -82,15 +82,6 @@ jobs:
             Write-Error "Server failed to start within timeout. Aborting tests."
             exit 1
           }
-
-          # Ruby Toolchain Version Report
-          Write-Host ""
-          Write-Host "Ruby Toolchain Version Report"
-          Write-Host "----------------------------------------------------------------------------------------------------"
-          Write-Host "Ruby: $(ruby -v)"
-          Write-Host "Gem:  $(gem -v)"
-          Write-Host "Jekyll: $(bundle exec jekyll -v)"
-          Write-Host "Bundler: $(bundler -v)"
           
           # Execute Python test suite
           python tests/run.py

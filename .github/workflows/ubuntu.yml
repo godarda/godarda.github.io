@@ -97,15 +97,6 @@ jobs:
             exit 1
           fi
 
-          # Ruby Toolchain Version Report
-          echo ""
-          echo "Ruby Toolchain Version Report"
-          echo "----------------------------------------------------------------------------------------------------"
-          echo "Ruby: $(ruby -v)"
-          echo "Gem:  $(gem -v)"
-          echo "Jekyll: $(bundle exec jekyll -v)"
-          echo "Bundler: $(bundler -v)"
-
           # Execute Python test suite
           python3 tests/run.py
         shell: bash

@@ -8,8 +8,6 @@ def get_version(cmd: str) -> str:
     Execute a shell command to retrieve a tool's version.
     Returns the trimmed stdout on success or a standardized error message on failure.
     """
-    if not cmd:
-        return "Not applicable"
     try:
         result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
         output = result.stdout.strip() or result.stderr.strip()
@@ -32,6 +30,10 @@ def get_all_versions(os_name: str) -> dict:
         "NASM": "nasm --version",
         "Java": "javac --version",
         "Python": "python3 --version",
+        "Ruby": "ruby -v",
+        "Gem": "gem -v",
+        "Bundler": "bundler -v",
+        "Jekyll": "bundle exec jekyll -v",
         "Chrome": (
             "google-chrome --version"
             if os_name == "Linux"
@@ -103,11 +105,10 @@ def print_report(
     # --------------------------------------------------------------------------
     # Toolchain & Browser Version Report
     # --------------------------------------------------------------------------
-    if total_files:
-        print("\nResource Versions Report")
-        print("-" * 100)
+    print("\nResource Versions Report")
+    print("-" * 100)
 
-        versions = get_all_versions(os_name)
-        for tool, ver in versions.items():
-            if "Not installed" not in ver:
-                print(f"{tool:<25}: {ver}")
+    versions = get_all_versions(os_name)
+    for tool, ver in versions.items():
+        if "Not installed" not in ver:
+            print(f"{tool:<25}: {ver}")
