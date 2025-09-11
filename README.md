@@ -23,22 +23,15 @@ Real-time indicators of GoDarda’s health, activity, and platform coverage:
 
 #### 🖥️ Platform & Availability
 
-![Platform Support][gdcdhdg]  
-![GoDarda Android App][gdyzyvk]
+![Platform Support][gdcdhdg] ![GoDarda Android App][gdyzyvk]
 
 #### 📦 Repository Metadata
 
-![License][gdycyiw]  
-![Repo Size][gdypvzk]  
-![Contributors][gdpgpdw]
+![License][gdycyiw] ![Repo Size][gdypvzk] ![Contributors][gdpgpdw]
 
 #### 📈 Activity & Health
 
-![Commits Last Month][gdkgddy]  
-![Last Commit][gdzveyt]  
-![Issues][gddaakl]  
-![Pull Requests][gdwgvye]  
-![Discussions][gdgnlyl]
+![Commits Last Month][gdkgddy] ![Last Commit][gdzveyt] ![Issues][gddaakl] ![Pull Requests][gdwgvye] ![Discussions][gdgnlyl]
 
 ## Cross-Platform CI Status
 Automated CI workflows are available for macOS, Ubuntu, and Windows. It validates the setup logic and ensure platform-specific compatibility.
@@ -69,7 +62,7 @@ $ python3 setups/macos.py full
 ```
 $ python3 setups/ubuntu.py full
 ```
-#### **[Windows:](#windows)** Ensure [Visual Studio Code][gdkcqso], [Python][gdxadth], and [Ruby][gdzrvdq] are installed and then follow these steps:
+#### **[Windows:](#windows)** Ensure [Visual Studio Code][gdwyygg], [Python][gdkweoz], and [Ruby][gdkwzyw] are installed and then follow these steps:
 ```
 PS D:\> Open Visual Studio Code -> Terminal  
 PS D:\godarda.github.io> python setups/windows.py full  
@@ -83,10 +76,10 @@ GoDarda's website and Android app are version-controlled via [GitHub][gdzgezt] u
 
 | Category | Tools & Technologies |
 |----------|----------------------|
-| 🖥️ Web & Mobile Platforms | [Jekyll][gdarema], [Bootstrap][gdzhvyv], [jQuery][gdhzgdv], [Font Awesome][gdabvvg], [Google Fonts][gdexzgv], [HTML5 & CSS3][gddbwdz], [Liquid][gddiwhy], [Markdown][gdysbav], [Kotlin][gdqoawz], [Gradle][gdgguvy] |
-| ⚙️ Build, Automation & Diagnostics | [Ruby][gdzezdk], [Bundler][gdezesc], [YAML][gdvzuav], [GitHub Actions][gdzagzz], [Python][gdkweoz], `requests`, `BeautifulSoup`, [CI Badges][gdwezyg] |
-| 🌐 Engagement & Insights | [Giscus][gdksnhv], [Google Analytics 4 (GA4)][gdkzvva] |
-| 🧰 IDE & Development Environment | [Visual Studio Code][gdwyygg], [GitHub Codespaces][gdwiezg], [Android Studio][gdpvhmu] |
+| Web & Mobile Platforms | [Jekyll][gdarema], [Bootstrap][gdzhvyv], [jQuery][gdhzgdv], [Font Awesome][gdabvvg], [Google Fonts][gdexzgv], [HTML5 & CSS3][gddbwdz], [Liquid][gddiwhy], [Markdown][gdysbav], [Kotlin][gdqoawz], [Gradle][gdgguvy] |
+| Build, Automation & Diagnostics | [Ruby][gdzezdk], [Bundler][gdezesc], [YAML][gdvzuav], [GitHub Actions][gdzagzz], [Python][gdkweoz], [CI Badges][gdwezyg] |
+| Engagement & Insights | [Giscus][gdksnhv], [Google Analytics 4 (GA4)][gdkzvva] |
+| IDE & Development Environment | [Visual Studio Code][gdwyygg], [GitHub Codespaces][gdwiezg], [Android Studio][gdpvhmu] |
 
 This stack reflects GoDarda’s commitment to clarity, automation, and contributor empowerment. Every tool is chosen to support maintainability, cross-platform resilience, and a welcoming onboarding experience.
 
@@ -147,11 +140,11 @@ Keep Learning, Keep Building, Keep Inspiring
 [gddaakl]: https://img.shields.io/github/issues/godarda/godarda.github.io?color=purple&logo=github  
 [gdwgvye]: https://img.shields.io/github/issues-pr/godarda/godarda.github.io?color=cyan&logo=github  
 [gdgnlyl]: https://img.shields.io/github/discussions/godarda/godarda.github.io?color=gold&logo=github
-[gdzytwa]: https://github.com/godarda/godarda.github.io/actions/workflows/macos.yml/badge.svg?branch=main  
+[gdzytwa]: https://github.com/godarda/godarda.github.io/actions/workflows/macos.yml/badge.svg?branch=develop 
 [gdzynzx]: https://github.com/godarda/godarda.github.io/actions/workflows/macos.yml  
-[gdkvdbh]: https://github.com/godarda/godarda.github.io/actions/workflows/ubuntu.yml/badge.svg?branch=main  
+[gdkvdbh]: https://github.com/godarda/godarda.github.io/actions/workflows/ubuntu.yml/badge.svg?branch=develop  
 [gdiagyq]: https://github.com/godarda/godarda.github.io/actions/workflows/ubuntu.yml  
-[gdwwzzn]: https://github.com/godarda/godarda.github.io/actions/workflows/windows.yml/badge.svg?branch=main  
+[gdwwzzn]: https://github.com/godarda/godarda.github.io/actions/workflows/windows.yml/badge.svg?branch=develop  
 [gdabdte]: https://github.com/godarda/godarda.github.io/actions/workflows/windows.yml
 [gddndwy]: https://contrib.rocks/image?repo=godarda/godarda.github.io
 [gdaepzd]: https://github.com/godarda/godarda.github.io/blob/main/LICENSE
