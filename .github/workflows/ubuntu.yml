@@ -68,6 +68,8 @@ jobs:
       - name: Start Jekyll Server and Run Tests
         run: |
           sudo apt-get install -y ruby-full build-essential zlib1g-dev curl
+          export GEM_HOME="$HOME/.gem"
+          export PATH="$GEM_HOME/bin:$PATH"
           gem install bundler
           bundle config set --local path vendor/bundle
           bundle install
