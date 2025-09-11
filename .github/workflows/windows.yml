@@ -84,9 +84,6 @@ jobs:
             exit 1
           }
 
-          # Execute Python test suite
-          python tests/run.py
-
           # Ruby Toolchain Version Report
           Write-Host ""
           Write-Host "Ruby Toolchain Version Report"
@@ -95,4 +92,7 @@ jobs:
           Write-Host "Gem:  $(gem -v)"
           Write-Host "Jekyll: $(bundle exec jekyll -v)"
           Write-Host "Bundler: $(bundler -v)"
+          
+          # Execute Python test suite
+          python tests/run.py
         shell: pwsh

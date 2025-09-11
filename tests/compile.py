@@ -110,7 +110,7 @@ def attempt_compilation(source_file: str, html_input: str, compiler: str, subpat
                 subprocess.run(cmd, shell=True, check=True, stderr=subprocess.DEVNULL)
                 stats.compiled += 1
             except subprocess.CalledProcessError:
-                stats.uncompiled_entries.append(config.base_url + subpath + file_name)
+                stats.uncompiled_entries.append(subpath + file_name)
                 stats.uncompiled += 1
 
     except Exception as exc:

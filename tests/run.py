@@ -46,7 +46,7 @@ def main() -> None:
             else:
                 browser = "safari"
                 start_tests(browser)
-                compile_snippets(source, destination)
+            compile_snippets(source, destination)
 
             print_report(
                 stats.matched,
@@ -78,7 +78,7 @@ def main() -> None:
                 TitleVerificationTest().runTest()
                 browser = ""
             else:
-                browser = "safari"
+                browser = "chrome"
                 start_tests(browser)
             print_report(stats.matched, stats.unmatched, 0, 0, browser)
 

@@ -75,16 +75,13 @@ jobs:
               break
             fi
             echo "Waiting for server... ($i)"
-            sleep 1
+            sleep 5
           done
 
           if ! curl -s http://localhost:4000 > /dev/null; then
             echo "Server failed to start within timeout. Aborting tests."
             exit 1
           fi
-
-          # Execute Python test suite
-          python3 tests/run.py
 
           # Ruby Toolchain Version Report
           echo ""
@@ -94,4 +91,7 @@ jobs:
           echo "Gem:  $(gem -v)"
           echo "Jekyll: $(bundle exec jekyll -v)"
           echo "Bundler: $(bundler -v)"
+
+          # Execute Python test suite
+          python3 tests/run.py
         shell: bash

@@ -50,34 +50,34 @@ jobs:
       # Step 5: Install Rust, FreeGLUT, and NASM
       - name: Install Rust, FreeGLUT, and NASM
         run: |
-          sudo apt-get -qq update
-          sudo apt-get -qq install -y rustc freeglut3-dev nasm
+          sudo apt-get -qq update > /dev/null
+          sudo apt-get -qq install -y rustc freeglut3-dev nasm > /dev/null
         shell: bash
 
       # Step 6: Install Google Chrome browser
       - name: Install Google Chrome
         run: |
-          # Add Google’s signing key and Chrome repo
+          # Add Google's signing key and Chrome repo
           wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
           sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-          sudo apt-get -qq update
-          sudo apt-get -qq install -y google-chrome-stable
+          sudo apt-get -qq update > /dev/null
+          sudo apt-get -qq install -y google-chrome-stable > /dev/null
         shell: bash
 
       # Step 7: Start Jekyll server and execute automated test suite
       - name: Start Jekyll Server and Run Tests
         run: |
           # Install Ruby and build tools required for native gems
-          sudo apt-get -qq install -y ruby-full build-essential zlib1g-dev curl
+          sudo apt-get -qq install -y ruby-full build-essential zlib1g-dev curl > /dev/null
 
           # Configure local gem path to avoid sudo
           export GEM_HOME="$HOME/.gem"
           export PATH="$GEM_HOME/bin:$PATH"
 
-          # Install bundler and project gems quietly
-          gem install bundler --quiet
+          # Install bundler and project gems
+          gem install bundler --quiet --no-document > /dev/null
           bundle config set --local path vendor/bundle
-          bundle install --quiet
+          bundle install --quiet --no-progress > /dev/null
 
           # Start Jekyll server in background
           nohup bundle exec jekyll serve &
@@ -89,7 +89,7 @@ jobs:
               break
             fi
             echo "Waiting for server... ($i)"
-            sleep 1
+            sleep 5
           done
 
           # Final check before running tests
@@ -97,9 +97,6 @@ jobs:
             echo "Server failed to start within timeout. Aborting tests."
             exit 1
           fi
-
-          # Execute Python test suite
-          python3 tests/run.py
 
           # Ruby Toolchain Version Report
           echo ""
@@ -109,4 +106,7 @@ jobs:
           echo "Gem:  $(gem -v)"
           echo "Jekyll: $(bundle exec jekyll -v)"
           echo "Bundler: $(bundler -v)"
+
+          # Execute Python test suite
+          python3 tests/run.py
         shell: bash
