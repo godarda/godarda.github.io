@@ -5,6 +5,7 @@ Description: Compiles most of the GoDarda website's code snippets from HTML sour
 
 import os
 import re
+import sys
 import subprocess
 from typing import Tuple, Optional
 from utilities import config, stats, load_expected_data
@@ -18,7 +19,7 @@ LANGUAGE_STYLES = {
     '.fs':   {'comment': '//',   'compiler': ['dotnet', '--version']},
     '.java': {'comment': '//',   'compiler': ['java', '-version']},
     '.lisp': {'comment': ';',    'compiler': ['clisp', '--version']},
-    '.py':   {'comment': '#',    'compiler': [os.sys.executable, '--version']},
+    '.py':   {'comment': '#',    'compiler': [sys.executable, '--version']},
     '.rs':   {'comment': '//',   'compiler': ['rustc', '--version']},
     '.sh':   {'comment': '#',    'compiler': ['bash', '--version']},
 }
@@ -56,7 +57,7 @@ def get_compiler(extension: str, path: list) -> Tuple[str, str]:
 
 def build_header_block(file_path: str, file_name: str, extension: str) -> str:
     style = LANGUAGE_STYLES.get(extension)
-    cmd = style.get('compiler', [])
+    cmd = style.get('compiler', []) if style else []
     result = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
 
     title = ""
@@ -66,7 +67,7 @@ def build_header_block(file_path: str, file_name: str, extension: str) -> str:
                 title = line.strip().split(':', 1)[1].strip()
                 break
 
-    comment = style['comment']
+    comment = style['comment'] if style else None
     compiler_hint = next((line for line in result.decode().splitlines() if line.strip()), '')
 
     header_fields = {
@@ -109,7 +110,7 @@ def attempt_compilation(source_file: str, html_input: str, compiler: str, subpat
                 subprocess.run(cmd, shell=True, check=True, stderr=subprocess.DEVNULL)
                 stats.compiled += 1
             except subprocess.CalledProcessError:
-                stats.uncompiled_entries.append(config.base_url + subpath + file_name)
+                stats.uncompiled_entries.append(subpath + file_name)
                 stats.uncompiled += 1
 
     except Exception as exc:

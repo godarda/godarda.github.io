@@ -36,14 +36,16 @@ def main() -> None:
         if not os.path.exists(source):
             print(f"Source path not found: {source}")
             return
-        
+
         # macOS-specific flow
         if config.is_macos:
-            # browser = "safari"
             print("Running tests on macOS. Please wait...")
-            TitleVerificationTest().runTest()
-            browser = None
-            # start_tests(browser)
+            if config.is_github_actions:
+                TitleVerificationTest().runTest()
+                browser = ""
+            else:
+                browser = "safari"
+                start_tests(browser)
             compile_snippets(source, destination)
 
             print_report(
@@ -58,7 +60,6 @@ def main() -> None:
         elif config.is_ubuntu:
             browser = "chrome"
             print("Running tests on Ubuntu. Please wait...")
-            
             start_tests(browser)
             compile_snippets(source, destination)
 
@@ -74,11 +75,11 @@ def main() -> None:
         elif config.is_windows:
             print("Running tests on Windows. Please wait...")
             if config.is_github_actions:
+                TitleVerificationTest().runTest()
+                browser = ""
+            else:
                 browser = "chrome"
                 start_tests(browser)
-            else:
-                TitleVerificationTest().runTest()
-                browser = None
             print_report(stats.matched, stats.unmatched, 0, 0, browser)
 
         else:

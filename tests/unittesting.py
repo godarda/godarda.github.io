@@ -8,7 +8,7 @@ import requests
 import unittest
 import concurrent.futures
 import urllib.parse
-from pathlib import Path
+from requests.adapters import HTTPAdapter
 from bs4 import BeautifulSoup
 from utilities import config, stats, load_expected_data
 
@@ -36,7 +36,10 @@ def _fetch_title_session(
         resp.raise_for_status()
         # Parse HTML and extract <title>
         soup = BeautifulSoup(resp.text, "html.parser")
-        return relative_url, (soup.title.string.strip() if soup.title else None)
+        title_text = (
+            soup.title.string.strip() if soup.title and soup.title.string else None
+        )
+        return relative_url, title_text
     except requests.RequestException:
         # Any network or HTTP error -> treat as missing title
         return relative_url, None
@@ -60,7 +63,7 @@ class TitleVerificationTest(unittest.TestCase):
         # Prepare a single Session for connection pooling and a mounted adapter
         session = requests.Session()
         session.headers.update({"User-Agent": "GoDarda-TitleChecker/1.0"})
-        adapter = requests.adapters.HTTPAdapter(pool_maxsize=20, max_retries=1)
+        adapter = HTTPAdapter(pool_maxsize=20, max_retries=1)
         session.mount("http://", adapter)
         session.mount("https://", adapter)
 
@@ -92,12 +95,13 @@ class TitleVerificationTest(unittest.TestCase):
                     stats.unmatched += 1
                     # Record the relative URL and expected title
                     stats.unmatched_entries.append((rel_url, item["title"]))
-                     # Fail-fast: abort if too many mismatches
+                    # Fail-fast: abort if too many mismatches
                     if stats.unmatched > 10:
                         print("\n\033[91mToo many unmatched titles.\033[0m")
-                        print("This likely indicates a server down, broken selectors, or bad input.")
+                        print(
+                            "This likely indicates a server down, broken selectors, or bad input."
+                        )
                         os._exit(1)
-            
+
             # Explicitly close session to release connections
             session.close()
-
