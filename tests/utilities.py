@@ -93,7 +93,6 @@ def get_environment_config() -> EnvironmentConfig:
     Notes:
       - On Linux, only Ubuntu is supported by the test harness; other distros exit.
       - On Windows, a minimum build number (22000) is required (Windows 11).
-      - In GitHub Actions the base_url is overridden to the GitHub Pages URL.
     """
     system_name = platform.system()
     is_windows = system_name == "Windows"
@@ -132,18 +131,13 @@ def get_environment_config() -> EnvironmentConfig:
         print(f"Unsupported OS: {system_name}. Only macOS, Ubuntu, and Windows are supported.")
         sys.exit(1)
 
-    # Common override for GitHub Actions: use the public GitHub Pages URL for tests
-    if os.getenv("GITHUB_ACTIONS", "").lower() == "true":
-        is_github_actions = True
-        base_url = "https://godarda.in/"
-
     return EnvironmentConfig(
         is_windows=is_windows,
         is_ubuntu=is_ubuntu,
         is_macos=is_macos,
         is_github_actions=is_github_actions,
         base_url=base_url,
-        datapath=datapath,
+        datapath=Path(datapath),
     )
 
 

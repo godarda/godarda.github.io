@@ -42,7 +42,7 @@ def main() -> None:
             # browser = "safari"
             print("Running tests on macOS. Please wait...")
             TitleVerificationTest().runTest()
-            browser = None
+            browser = ""
             # start_tests(browser)
             compile_snippets(source, destination)
 
@@ -78,7 +78,7 @@ def main() -> None:
                 start_tests(browser)
             else:
                 TitleVerificationTest().runTest()
-                browser = None
+                browser = ""
             print_report(stats.matched, stats.unmatched, 0, 0, browser)
 
         else:
