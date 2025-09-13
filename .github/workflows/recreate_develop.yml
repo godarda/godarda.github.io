@@ -58,11 +58,7 @@ jobs:
             echo "Waiting for GitHub to sync..."
             sleep 30
           done
-
-      # Delete the remote 'develop' branch to remove old commit history
-      - name: Delete remote 'develop'
-        run: git push origin --delete develop || echo "No remote develop branch to delete"
-
+          
       # Create a fresh 'develop' branch from whatever is currently in main
       - name: Create new 'develop' from 'main'
         run: |
