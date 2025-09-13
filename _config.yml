@@ -40,9 +40,9 @@ bs_icons: https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-ico
 jquery: https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js
 
 # Open Graph / favicon / logos
-og: https://raw.githubusercontent.com/godarda/godarda.github.io/master/assets/images/logo.jpeg
+og: https://raw.githubusercontent.com/godarda/godarda.github.io/master/assets/images/logo.jpg
 icon: assets/images/icon.png
-logo: assets/images/logo.jpeg
+logo: assets/images/logo.jpg
 advertise: assets/images/advertise.png
 
 # Analytics snippet (load asynchronously in templates)
