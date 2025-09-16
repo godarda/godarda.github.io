@@ -152,6 +152,7 @@
                 class="wvsvg {{ f_search }}- bi bi-search"></i>
             <div class="text-center">Search</div>
         </a>
+        {% if path[1] == nil or path[1] == "search" or path[1] == "about" or path[1] == "shubhamrdarda" %}<a class="wvnav-item" href="{{ site.data.url.sponsor }}"><i class="wvsvg bi bi-suit-heart"></i><div class="text-center">Sponsor</div></a>{% endif %}
         {%- if display == "true" -%}<a class="wvnav-item {{ f_learn }}" href="{{ site.url }}/{{ path[1] }}"><i
                 class="wvsvg {{ f_learn }}-{{ path[1] }} bi bi-code-square"></i>
             <div class="text-center">Learning</div>
