@@ -56,6 +56,7 @@
                     {%- if path[1] == "about" -%}{%- else -%}<li class="nav-item"><a class="nav-link" href="about"><i class="navsvg bi bi-info-circle"></i> About Us</a></li>{%- endif -%}
                     <li class="nav-item"><a class="nav-link" disabled title="System Default"><i class="bi bi-brilliance"></i> Theme</a></li>
                     <li class="nav-item"><a style="cursor: pointer;" class="nav-link" data-bs-toggle="modal" data-bs-target="#appmodal"><i class="navsvg bi bi-android2"></i> Android App</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ site.data.url.sponsor }}" target="_blank"><i class="navsvg bi bi-suit-heart"></i> Sponsor</a></li>
                 </ul>
             </div>
         </div>
@@ -67,7 +68,7 @@
             {{ content }}
         </main>
         {%- include footer.html -%}
-        {%- elsif path[1] == "search" -%}
+        {%- elsif path[1] == "search" or path[1] == "404" -%}
         <main role="main">
             <div class="container">{{ content }}</div>
         </main>
