@@ -1,6 +1,6 @@
 # GoDarda Guide
 
-A robust, cross-platform static site powered by [Jekyll][gdarema], [Bootstrap][gdzhvyv], and [jQuery][gdhzgdv]. Maintained since 2018.
+The front door to GoDarda's open-source universe. Built for clarity, contributor joy, and cross-platform elegance. Powered by [Jekyll][gdarema], [Bootstrap][gdzhvyv], and [jQuery][gdhzgdv] - refined since 2018 to make onboarding feel like momentum.
 
 ## 📚 Table of Contents
 
@@ -19,7 +19,7 @@ A robust, cross-platform static site powered by [Jekyll][gdarema], [Bootstrap][g
 
 ## Project Status
 
-Real-time indicators of GoDarda’s health, activity, and platform coverage:
+Real-time indicators of GoDarda's health, activity, and platform coverage:
 
 #### 🖥️ Platform & Availability
 
@@ -67,7 +67,7 @@ $ python3 setups/ubuntu.py full
 PS D:\> Open Visual Studio Code -> Terminal  
 PS D:\godarda.github.io> python setups/windows.py full  
 ```
-- All setup scripts are located in the [`setups/`][gdzgwel] directory and are platform-specific (`macos.py`, `ubuntu.py`, `windows.py`).
+- All setup scripts are located in the [`setups/`][gdgggza] directory and are platform-specific (`macos.py`, `ubuntu.py`, `windows.py`).
 - The site runs locally on port `4000` by default. You can access it via `http://127.0.0.1:4000` or `http://localhost:4000`.
 
 ## Technology Stack
@@ -81,7 +81,7 @@ GoDarda's website and Android app are version-controlled via [GitHub][gdzgezt] u
 | Engagement & Insights | [Giscus][gdksnhv], [Google Analytics 4 (GA4)][gdkzvva] |
 | IDE & Development Environment | [Visual Studio Code][gdwyygg], [GitHub Codespaces][gdwiezg], [Android Studio][gdpvhmu] |
 
-This stack reflects GoDarda’s commitment to clarity, automation, and contributor empowerment. Every tool is chosen to support maintainability, cross-platform resilience, and a welcoming onboarding experience.
+This stack reflects GoDarda's commitment to clarity, automation, and contributor empowerment. Every tool is chosen to support maintainability, cross-platform resilience, and a welcoming onboarding experience.
 
 ## Contributors
 
@@ -96,11 +96,11 @@ This project is licensed under the [GPL-3.0 license][gdaepzd]
 © GoDarda, Since 2018.
 
 ## Thank You!
-GoDarda isn’t just code - it’s a shared vision. Every contributor, every suggestion, every line of thoughtful markup helps shape a space where clarity meets creativity.
+GoDarda isn't just code - it's a shared vision. Every contributor, every suggestion, every line of thoughtful markup helps shape a space where clarity meets creativity.
 
 Whether you fixed a typo, refactored a snippet, improved onboarding, or simply explored the repo - thank you. Your presence here means the mission is working.
 
-We believe in recognition without noise, collaboration without ego, and learning without limits. So from the first `git clone` to your latest pull request:  **You’re part of something that’s built to empower.**
+We believe in recognition without noise, collaboration without ego, and learning without limits. So from the first `git clone` to your latest pull request:  **You're part of something that's built to empower.**
 
 Keep Learning, Keep Building, Keep Inspiring
 
