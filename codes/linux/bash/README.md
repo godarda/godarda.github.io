@@ -19,4 +19,4 @@ Welcome to the curated index of Bash shell scripting. This page is part of the G
 ## 🤝 Contribute
 
 This index is maintained as part of the [GoDarda](https://github.com/godarda) project.  
-We welcome contributions—whether it's fixing a typo, adding a new example, or improving documentation. Please refer to the [Contribution Guide](https://github.com/godarda/godarda.in/blob/main/CONTRIBUTING.md)
+We welcome contributions - whether it's fixing a typo, adding a new example, or improving documentation. Please refer to the [Contribution Guide](https://github.com/godarda/godarda.github.io/blob/main/CONTRIBUTING.md)

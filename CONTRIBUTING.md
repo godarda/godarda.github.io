@@ -102,7 +102,7 @@ We’re thrilled to have you contribute. To keep our workflow clean and contribu
    ```
 7. Open a Pull Request targeting develop, and describe your changes clearly
 
-⚠️ Important: Please do not open pull requests directly to main. 
+Important: Please do not open pull requests directly to main. 
 The main branch is protected and reserved for monthly squash merges by admins to maintain a clean, readable history.
 All contributions should flow through develop, where they’ll be reviewed, refined, and eventually merged into main during the monthly sync.
 
@@ -127,21 +127,20 @@ We offer visual badges to recognize contributors across key areas:
 
 | Badge | Description |
 |-------|-------------|
-| 🛠️ **Code Contributor** | For meaningful code contributions, refactors, or feature implementations |
-| 📖 **Documentation Contributor** | For improving clarity, onboarding, or contributor guides |
-| 🎨 **Design Contributor** | For UI/UX enhancements, badge layouts, or visual polish |
-| 💡 **Idea Contributor** | For proposing impactful features or architectural improvements |
-| 🌱 **Community Builder** | For supporting others, improving contributor experience, or fostering inclusivity |
-| 🧪 **Bug Hunter** | For identifying and reporting reproducible issues |
-| 🧭 **Maintainer’s Choice** | Special recognition for contributions that go above and beyond |
+| **Code Contributor** | For meaningful code contributions, refactors, or feature implementations |
+| **Documentation Contributor** | For improving clarity, onboarding, or contributor guides |
+| **Design Contributor** | For UI/UX enhancements, badge layouts, or visual polish |
+| **Idea Contributor** | For proposing impactful features or architectural improvements |
+| **Community Builder** | For supporting others, improving contributor experience, or fostering inclusivity |
+| **Bug Hunter** | For identifying and reporting reproducible issues |
+| **Maintainer’s Choice** | Special recognition for contributions that go above and beyond |
 
 To request a badge, [submit a badge request here](https://github.com/godarda/godarda.github.io/issues/new?template=badge.yml).
 
 ## Questions or Suggestions
 
-- Open an [Issue](https://github.com/godarda/godarda.github.io/issues)  
-- Start a [Discussion](https://github.com/godarda/godarda.github.io/discussions)  
-- Reach out via [GitHub profile](https://github.com/godarda)
+- Open an [Issue](https://github.com/godarda/godarda.github.io/issues)
+- Start a [Discussion](https://github.com/godarda/godarda.github.io/discussions)
 
 ## Thank You!
 Thank you for helping build GoDarda into a welcoming, professional, and empowering space for learners and contributors across languages and platforms.
