@@ -1,6 +1,28 @@
+#!/usr/bin/env python3
 """
 Author: Shubham Darda
-Description: Compiles most of the GoDarda website's code snippets from HTML sources.
+
+Purpose:
+    Extract highlighted code blocks from generated HTML pages and perform a
+    best-effort compile or syntax-check for supported languages during CI runs.
+
+Description:
+    This test helper is used by the GoDarda site's automated tooling. It:
+      - Parses generated HTML produced by the static site generator.
+      - Writes highlighted code blocks to temporary source files with a small
+        comment header (including detected toolchain version and page title).
+      - Attempts compilation or syntax-only checks on macOS and Ubuntu CI
+        runners, recording outcomes in utilities.stats for consolidated reports.
+
+    The compilation step is intentionally lightweight and non-destructive.
+    Compiler selection and comment styles are driven by LANGUAGE_STYLES and
+    heuristics defined in the module.
+
+Guidelines:
+    - Keep functions focused, readable and deterministic for CI logs.
+    - Use utilities.config and utilities.stats for shared configuration and counters.
+    - Avoid side-effects outside the provided destination directory.
+    - Prefer minimal, stable external calls when probing toolchain versions.
 """
 
 import os
@@ -10,7 +32,9 @@ import subprocess
 from typing import Tuple, Optional
 from utilities import config, stats, load_expected_data
 
-# Mapping of extensions to comment styles and compiler commands
+# Mapping of extensions to comment styles and a lightweight "version" check
+# command used when building file headers. Keep this mapping in sync with the
+# languages supported by the site's code highlighter.
 LANGUAGE_STYLES = {
     '.asm':  {'comment': ';',    'compiler': ['nasm', '-v']},
     '.c':    {'comment': '//',   'compiler': ['gcc', '--version']},
@@ -26,11 +50,25 @@ LANGUAGE_STYLES = {
 
 
 def extract_code_block(html: str) -> Optional[str]:
+    """
+    Extract the raw code block text from an HTML file.
+
+    The site's templates wrap highlighted code in:
+      <pre class="code">{%- highlight <lang> -%}} ... {%- endhighlight -%}</pre>
+
+    Returns the inner text when found, otherwise None.
+    """
     match = re.search(r'<pre class="code">(.+?){%- endhighlight -%}</pre>', html, flags=re.DOTALL)
     return match.group(1) if match else None
 
 
 def get_compiler(extension: str, path: list) -> Tuple[str, str]:
+    """
+    Return (compiler_command, extra_args) appropriate for the file extension.
+
+    The `path` parameter is the split URL path from the site's expected data
+    and is used for language-specific heuristics (for example, OpenGL linking).
+    """
     args = ""
     if extension == ".asm":
         compiler = "nasm -fmacho64" if config.is_macos else "nasm -felf64"
@@ -56,6 +94,13 @@ def get_compiler(extension: str, path: list) -> Tuple[str, str]:
 
 
 def build_header_block(file_path: str, file_name: str, extension: str) -> str:
+    """
+    Construct a small comment header that is prepended to generated source files.
+
+    The header includes a detected compiler/tool version, the original page title,
+    author and license metadata. The comment style is selected based on the
+    file extension using LANGUAGE_STYLES.
+    """
     style = LANGUAGE_STYLES.get(extension)
     cmd = style.get('compiler', []) if style else []
     result = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
@@ -85,6 +130,13 @@ def build_header_block(file_path: str, file_name: str, extension: str) -> str:
 
 
 def attempt_compilation(source_file: str, html_input: str, compiler: str, subpath: str, file_name: str, extension: str, args: str) -> None:
+    """
+    Write extracted code to disk with a header and attempt to compile or syntax-check it.
+
+    Successful compilations increment stats.compiled; failures are recorded in
+    stats.uncompiled_entries and increment stats.uncompiled. All exceptions are
+    caught and printed so the caller can continue processing other entries.
+    """
     try:
         output = extract_code_block(html_input)
         if not output:
@@ -97,7 +149,7 @@ def attempt_compilation(source_file: str, html_input: str, compiler: str, subpat
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(header + "\n" + output)
 
-        # Remove first non-header line
+        # Remove first non-header line (preserves header and rest of file)
         with open(file_path, "r", encoding="utf-8") as f:
             lines = f.readlines()
         header_end = next((i for i, line in enumerate(lines) if line.strip() == ""), 0)
@@ -118,6 +170,13 @@ def attempt_compilation(source_file: str, html_input: str, compiler: str, subpat
 
 
 def compile_snippets(source: str, destination: str) -> Optional[Tuple[int, int]]:
+    """
+    Main entry point to scan expected site pages and attempt compilation for
+    supported languages.
+
+    Returns a tuple (compiled_count, uncompiled_count) when run on supported OSes,
+    otherwise returns None.
+    """
     if not (config.is_macos or config.is_ubuntu):
         print("Code compilation only supported on macOS or Ubuntu Linux.")
         return None

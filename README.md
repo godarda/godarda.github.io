@@ -28,28 +28,28 @@ This repository is intended for:
 - maintainers who want a clear, testable site that can be served locally and on GitHub Pages.
 
 Key repo entry points:
-- content and site pages: [pages](pages/)
-- source examples grouped by language: [codes](codes/)
-- static assets & ID maps: [assets](assets/)
-- local setup scripts: [setups](setups/)
-- templates & includes: [_layouts](_layouts/)
-- CI and automation: [.github](.github/)
-- Android app sources: [android](android/)
-- tests and verification: [tests](tests/)
+- Content & Site Pages: [`pages`](pages/)
+- Source Examples (Grouped by Language): [`codes`](codes/)
+- Static Assets & ID Maps: [`assets`](assets/)
+- Local Setup Scripts: [`setups`](setups/)
+- Layouts & Includes: [`_layouts`](_layouts/) & [`_includes`](_includes/)
+- CI & Automation: [`.github`](.github/)
+- Android App Sources: [`android`](android/)
+- Tests & Verification: [`tests`](tests/)
 
 ## Project Status
 
 Real-time indicators of GoDarda's health, activity, and platform coverage:
 
-#### 🖥️ Platform & Availability
+> 🖥️ Platform & Availability
 
 ![Platform Support][gdcdhdg] ![GoDarda Android App][gdyzyvk]
 
-#### 📦 Repository Metadata
+> 📦 Repository Metadata
 
 ![License][gdycyiw] ![Repo Size][gdypvzk] ![Contributors][gdpgpdw]
 
-#### 📈 Activity & Health
+> 📈 Activity & Health
 
 ![Commits Last Month][gdkgddy] ![Last Commit][gdzveyt] ![Issues][gddaakl] ![Pull Requests][gdwgvye] ![Discussions][gdgnlyl]
 
@@ -72,8 +72,6 @@ GoDarda's website and Android app are version-controlled via [GitHub][gdzgezt] u
 | Build, Automation & Diagnostics | [Ruby][gdzezdk], [Bundler][gdezesc], [YAML][gdvzuav], [GitHub Actions][gdzagzz], [Python][gdkweoz], [CI Badges][gdwezyg] |
 | Engagement & Insights | [Giscus][gdksnhv], [Google Analytics 4 (GA4)][gdkzvva] |
 | IDE & Development Environment | [Visual Studio Code][gdwyygg], [GitHub Codespaces][gdwiezg], [Android Studio][gdpvhmu] |
-
-This stack reflects GoDarda's commitment to clarity, automation, and contributor empowerment. Every tool is chosen to support maintainability, cross-platform resilience, and a welcoming onboarding experience.
 
 ## Contributors
 

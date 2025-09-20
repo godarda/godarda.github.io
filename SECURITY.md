@@ -15,6 +15,7 @@ Security is part of our culture-not just our codebase. We appreciate your vigila
 ## Introduction
 
 This guide outlines how to report vulnerabilities, what qualifies as a responsible disclosure, and how we handle security-related issues.  
+
 We aim to respond quickly to valid reports and maintain clear communication throughout the process.
 
 Whether you're a contributor, researcher, or curious developer, your input helps protect GoDarda's integrity and ensures a safer experience for all.

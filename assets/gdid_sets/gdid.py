@@ -1,3 +1,24 @@
+#!/usr/bin/env python3
+"""
+Author:  GoDarda Site Automation
+Purpose:
+    Maintain and reconcile GDID sets used across the repository.
+
+Description:
+    This module provides utilities to:
+      - Locate the repository root dynamically from the script location.
+      - Load GDID identifiers from gdid_set*.txt files.
+      - Scan markdown, yaml, and other repository files for usages of GDIDs.
+      - Detect non-standard page filenames and write them to an invalid.txt file.
+      - Extract title and permalink metadata from generated HTML and update
+        the corresponding YAML navigation data.
+      - Update gdid_set*.txt files with usage references and trigger YAML updates.
+
+Guidelines:
+    - Keep functions small and focused; prefer explicit error messages to aid CI/debugging.
+    - Concurrency is used for IO-bound scans to improve performance on large repos.
+    - Avoid destructive operations; updates are limited to known metadata and set files.
+"""
 import re
 import yaml
 from pathlib import Path
@@ -9,6 +30,16 @@ from collections import defaultdict
 # Resolve repo root dynamically
 # ------------------------------------------------------------
 def find_repo_root(start_path: Path) -> Path:
+    """
+    Ascend the filesystem from start_path until a repository sentinel is found.
+
+    Behavior:
+      - Recognizes repository root by presence of a .git folder or an index.html file.
+      - Raises RuntimeError if no repo root is found up to filesystem root.
+
+    Notes:
+      - Using Path.resolve() upstream is recommended so symlinks are handled.
+    """
     current = start_path
     while current != current.parent:
         if (current / ".git").exists() or (current / "index.html").exists():
@@ -25,10 +56,14 @@ INVALID_FILE = SETS_DIR / "invalid.txt"
 URL_YML_FILE = REPO_ROOT / "_data" / "url.yml"
 
 
-# ------------------------------------------------------------
-# Load .gitignore entries
-# ------------------------------------------------------------
 def load_gitignore() -> set:
+    """
+    Read the repository .gitignore and return a set of top-level ignored paths.
+
+    Behavior:
+      - Strips comments and trailing slashes.
+      - Returns an empty set if .gitignore is missing.
+    """
     ignored = set()
     if GITIGNORE_FILE.exists():
         for line in GITIGNORE_FILE.read_text().splitlines():
@@ -38,10 +73,17 @@ def load_gitignore() -> set:
     return ignored
 
 
-# ------------------------------------------------------------
-# Load GDIDs from gdid_set*.txt files
-# ------------------------------------------------------------
 def load_gdids_by_file() -> dict:
+    """
+    Parse gdid_set*.txt files in the assets/gdid_sets directory.
+
+    Returns:
+      dict mapping Path -> list of GDID tokens found in the file.
+
+    Notes:
+      - Tokens are validated to match the expected 'gd' prefix and length.
+      - Non-matching lines are ignored (comments/blank lines preserved elsewhere).
+    """
     gdid_map = defaultdict(list)
     for txt_file in sorted(SETS_DIR.glob("gdid_set*.txt")):
         for line in txt_file.read_text(encoding="utf-8").splitlines():
@@ -51,10 +93,18 @@ def load_gdids_by_file() -> dict:
     return gdid_map
 
 
-# ------------------------------------------------------------
-# Scan markdown files for GDID usage
-# ------------------------------------------------------------
 def scan_markdown_files(all_gdids: set) -> dict:
+    """
+    Concurrently scan all markdown (.md) files in the repo for referenced GDIDs.
+
+    Returns:
+      defaultdict(list) mapping gdid -> list of "relative_path (line N)" references.
+
+    Implementation notes:
+      - Uses a regex to locate bracketed tokens like [gdxxxxx].
+      - Skips binary/unreadable files by ignoring read errors.
+      - ThreadPoolExecutor is used to parallelize IO-bound scanning.
+    """
     usage = defaultdict(list)
     md_files = list(REPO_ROOT.rglob("*.md"))
 
@@ -85,10 +135,17 @@ def scan_markdown_files(all_gdids: set) -> dict:
     return usage
 
 
-# ------------------------------------------------------------
-# Scan url.yml for GDID usage
-# ------------------------------------------------------------
 def scan_url_yml(all_gdids: set) -> dict:
+    """
+    Scan the _data/url.yml file for GDID keys.
+
+    Returns:
+      defaultdict(list) mapping gdid -> list of "url.yml (line N)" references.
+
+    Notes:
+      - Only checks top-level YAML keys in "key: value" lines for GDID-like keys.
+      - Returns empty mapping if file doesn't exist.
+    """
     usage = defaultdict(list)
     if not URL_YML_FILE.exists():
         return usage
@@ -114,10 +171,21 @@ def scan_url_yml(all_gdids: set) -> dict:
     return usage
 
 
-# ------------------------------------------------------------
-# Scan repo files for GDID usage and detect nonstandard filenames
-# ------------------------------------------------------------
 def scan_repo_files(all_gdids: set, ignored: set) -> dict:
+    """
+    Scan non-markdown repo files for GDID usage and collect non-standard page IDs.
+
+    Returns:
+      defaultdict(list) mapping gdid -> list of relative path references.
+
+    Side-effects:
+      - Writes a list of non-standard IDs and their paths to assets/gdid_sets/invalid.txt.
+
+    Behavior:
+      - Skips files under .git and paths matching .gitignore entries.
+      - Looks for gd-prefixed 7-letter tokens in filenames.
+      - Flags pages/* files whose stem does not match the expected gdxxxxxx pattern.
+    """
     usage = defaultdict(list)
     nonstandard_ids = []
 
@@ -169,10 +237,20 @@ def scan_repo_files(all_gdids: set, ignored: set) -> dict:
     return usage
 
 
-# ------------------------------------------------------------
-# Extract metadata from HTML file
-# ------------------------------------------------------------
 def extract_metadata_from_html(html_path: Path) -> tuple:
+    """
+    Extract permalink and title metadata lines from a generated HTML file.
+
+    Returns:
+      (permalink, title)
+
+    Raises:
+      ValueError if either permalink or title cannot be found.
+
+    Notes:
+      - Assumes YAML front-matter style lines like "permalink: /path" and "title: My Title".
+      - Stops early once both values are discovered.
+    """
     permalink, title = None, None
     for line in html_path.read_text(encoding="utf-8").splitlines():
         line = line.strip()
@@ -187,10 +265,21 @@ def extract_metadata_from_html(html_path: Path) -> tuple:
     return permalink, title
 
 
-# ------------------------------------------------------------
-# Update YAML file with metadata from HTML
-# ------------------------------------------------------------
 def update_yaml(html_path: Path):
+    """
+    Given a path to a generated HTML page under pages/, insert its title/permalink
+    into the appropriate section YAML file under _data.
+
+    Behavior:
+      - Normalizes permalink (removes trailing .html for matching).
+      - Locates a YAML file named <section_key>.yml under _data.
+      - Searches 'grandparent' sections for a matching parent URL and appends a child.
+      - Writes back the YAML preserving key order (sort_keys=False).
+
+    Raises:
+      FileNotFoundError if the expected YAML file is missing.
+      ValueError if the permalink format is unexpected or the matching section isn't found.
+    """
     permalink, title = extract_metadata_from_html(html_path)
     normalized_permalink = permalink.rstrip('.html')
     parts = normalized_permalink.split('/')
@@ -229,10 +318,19 @@ def update_yaml(html_path: Path):
     raise ValueError(f"No matching section found for path: {section_key}/{subsection_key} in {yml_path}")
 
 
-# ------------------------------------------------------------
-# Update gdid_set*.txt files with usage info and trigger YAML updates
-# ------------------------------------------------------------
 def update_set_files(gdid_map: dict, usage: dict):
+    """
+    Reconcile each gdid_set*.txt file with discovered usage information.
+
+    Behavior:
+      - Preserves comment lines and originally unrelated lines.
+      - Collects unused GDIDs and used GDIDs with reference lists.
+      - For used GDIDs that reference pages/*.html entries, attempts to update YAML navigation.
+      - Writes back the file with unused entries first then used entries sorted by first usage.
+
+    Concurrency:
+      - Processes each set file concurrently using ThreadPoolExecutor.
+    """
     def process_file(txt_file: Path, gdids: list):
         original_lines = txt_file.read_text(encoding="utf-8").splitlines()
         comments, unused, used_entries = [], [], []
@@ -294,10 +392,19 @@ def update_set_files(gdid_map: dict, usage: dict):
             future.result()
 
 
-# ------------------------------------------------------------
-# Main execution flow
-# ------------------------------------------------------------
 def main():
+    """
+    Orchestrate the full GDID reconciliation run.
+
+    Steps:
+      1. Load .gitignore patterns to exclude irrelevant paths.
+      2. Load GDIDs from set files.
+      3. Scan markdown, url.yml, and other repo files concurrently for usage.
+      4. Merge usage maps and update set files (and YAML nav files as needed).
+
+    Notes:
+      - This function is intentionally simple: most work is delegated to helpers.
+    """
     ignored = load_gitignore()
     gdid_map = load_gdids_by_file()
     all_gdids = {gid for gid_list in gdid_map.values() for gid in gid_list}
