@@ -1,21 +1,41 @@
-# GoDarda Guide
+# Repository Guide
 
-The front door to GoDarda's open-source universe. Built for clarity, contributor joy, and cross-platform elegance. Powered by [Jekyll][gdarema], [Bootstrap][gdzhvyv], and [jQuery][gdhzgdv] - refined since 2018 to make onboarding feel like momentum.
+Welcome to GoDarda!  
+Whether you're here to contribute, need support, or just exploring how things work, this guide is your starting point.
+
+It’s designed to help you navigate GoDarda’s architecture, workflows, and contributor resources with clarity and confidence.
+
+From onboarding to CI pipelines, from tech stack insights to contributor recognition, every step is crafted to be cross-platform, intentional, and empowering.
 
 ## 📚 Table of Contents
 
+- [Introduction](#introduction) 
 - [Project Status](#project-status)
 - [Cross-Platform CI Status](#cross-platform-ci-status)
-- [Setup Instructions](#setup-instructions)
-  - macOS
-  - Ubuntu
-  - Windows
 - [Technology Stack](#technology-stack)
-- [Contributors](#contributors)
 - [Contribution Guide](CONTRIBUTING.md)
 - [Support Guide](SUPPORT.md)
+- [Contributors](#contributors)
 - [License](#license)
-- [Thank You](#thank-you)
+
+## Introduction
+
+GoDarda is an educational, Jekyll-powered website and companion Android app that provides concise programming examples, tutorials, and curated learning paths across many languages and domains. The repo groups runnable example code under language-specific folders and pairs each example with a documentation page so contributors and learners can quickly find, run, and improve samples.
+
+This repository is intended for:
+- learners looking for minimal, runnable examples;
+- contributors who add examples, fix documentation, or improve CI/setup scripts;
+- maintainers who want a clear, testable site that can be served locally and on GitHub Pages.
+
+Key repo entry points:
+- content and site pages: [pages](pages/)
+- source examples grouped by language: [codes](codes/)
+- static assets & ID maps: [assets](assets/)
+- local setup scripts: [setups](setups/)
+- templates & includes: [_layouts](_layouts/)
+- CI and automation: [.github](.github/)
+- Android app sources: [android](android/)
+- tests and verification: [tests](tests/)
 
 ## Project Status
 
@@ -42,34 +62,6 @@ Automated CI workflows are available for macOS, Ubuntu, and Windows. It validate
 | Ubuntu   | [![Ubuntu CI][gdkvdbh]][gdiagyq] |
 | Windows  | [![Windows CI][gdwwzzn]][gdabdte] |
 
-## Setup Instructions
-**Prerequisite for all platforms:** [Git][gdkbvgy] must be installed and available in your system path.
-
-**Common setup steps:**
-```bash
-# Clone the repository
-git clone https://github.com/godarda/godarda.github.io.git
-
-# Navigate into the project directory
-cd godarda.github.io
-```
-
-#### **macOS:** Run the following commands to get started:
-```
-$ python3 setups/macos.py full
-```
-#### **Ubuntu:** Run the following commands to get started:
-```
-$ python3 setups/ubuntu.py full
-```
-#### **[Windows:](#windows)** Ensure [Visual Studio Code][gdwyygg], [Python][gdkweoz], and [Ruby][gdkwzyw] are installed and then follow these steps:
-```
-PS D:\> Open Visual Studio Code -> Terminal  
-PS D:\godarda.github.io> python setups/windows.py full  
-```
-- All setup scripts are located in the [`setups/`][gdgggza] directory and are platform-specific (`macos.py`, `ubuntu.py`, `windows.py`).
-- The site runs locally on port `4000` by default. You can access it via `http://127.0.0.1:4000` or `http://localhost:4000`.
-
 ## Technology Stack
 
 GoDarda's website and Android app are version-controlled via [GitHub][gdzgezt] using [Git][gdkbvgy], and built with:
@@ -89,13 +81,15 @@ We celebrate every contributor who helps make GoDarda better. Here's a snapshot 
 
 ![Contributors][gddndwy]
 
-> Want to see your avatar here? Fork the repo, make a meaningful contribution, and submit a pull request!
+> Want to see your avatar here? Fork the repo, make a meaningful contribution, and submit a pull request! 
+
+> Not sure where to start? Check out our [Contribution Guide](CONTRIBUTING.md) for everything you need—from setup to submission.
 
 ## License
 This project is licensed under the [GPL-3.0 license][gdaepzd]
 © GoDarda, Since 2018.
 
-## Thank You!
+# Thank You!
 GoDarda isn't just code - it's a shared vision. Every contributor, every suggestion, every line of thoughtful markup helps shape a space where clarity meets creativity.
 
 Whether you fixed a typo, refactored a snippet, improved onboarding, or simply explored the repo - thank you. Your presence here means the mission is working.
@@ -113,7 +107,6 @@ Keep Learning, Keep Building, Keep Inspiring
 [gdkwzyw]: https://rubyinstaller.org/downloads
 [gdwyygg]: https://code.visualstudio.com
 [gdzwfwc]: https://github.com/godarda/godarda.github.io?tab=MIT-1-ov-file
-[gdgggza]: https://github.com/godarda/godarda.github.io/tree/main/setups
 [gdabvvg]: https://fontawesome.com
 [gdexzgv]: https://fonts.google.com
 [gddbwdz]: https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5
