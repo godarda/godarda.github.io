@@ -96,8 +96,8 @@ We're thrilled to have you contribute! This guide walks you through the full onb
    PS D:\> Open Visual Studio Code -> Terminal  
    PS D:\godarda.github.io> python setups/windows.py full  
    ```
-- All setup scripts are located in the [`setups/`][gdgggza] directory and are platform-specific (`macos.py`, `ubuntu.py`, `windows.py`).
-- The site runs locally on port `4000` by default. You can access it via `http://127.0.0.1:4000` or `http://localhost:4000`.
+   - All setup scripts are located in the [`setups/`][gdgggza] directory and are platform-specific (`macos.py`, `ubuntu.py`, `windows.py`).
+   - The site runs locally on port `4000` by default. You can access it via `http://127.0.0.1:4000` or `http://localhost:4000`.
 6. Make your changes  
 7. Commit and push:
 

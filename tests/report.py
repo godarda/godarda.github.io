@@ -1,3 +1,27 @@
+#!/usr/bin/env python3
+"""
+Author: Shubham Darda
+
+Purpose:
+    Reporting helpers used by the automated test suite for the GoDarda website.
+
+Description:
+    This module centralizes functionality that prints consolidated, human-readable
+    reports for CI and local runs. Reports include:
+      - Title verification results (matched / unmatched)
+      - Code compilation outcomes (passed / failed)
+      - Installed toolchain and browser versions
+
+    Reports are intentionally concise and formatted for readability in CI logs.
+    Keep output deterministic and avoid side-effects beyond printing.
+
+Guidelines:
+    - Keep functions focused and easy to read.
+    - Use the utilities.stats object for shared test counters.
+    - Prefer stable, minimal external calls when probing the environment (used
+      by get_all_versions).
+"""
+
 import subprocess
 import platform
 from utilities import stats

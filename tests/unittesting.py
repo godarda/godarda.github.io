@@ -1,7 +1,23 @@
-# Module: Title verification unit test
-# Purpose: Fetch pages from the site and verify their <title> matches expected values.
-# This test is intended to be run as part of the test suite; it uses a thread pool and a
-# requests.Session for efficiency.
+#!/usr/bin/env python3
+"""
+Author: Shubham Darda
+Purpose:
+    Title verification unit test for the GoDarda static site.
+
+Description:
+    This module performs concurrent HTTP fetches of site pages and validates that
+    each page's <title> element matches the expected value loaded from the
+    repository _data YAML files. It is optimized for CI-friendly output and
+    efficient network use by reusing a single requests.Session and a bounded
+    ThreadPoolExecutor.
+
+Guidelines:
+    - Reuse a single requests.Session to leverage connection pooling and reduce
+      test runtime.
+    - Bound the thread pool size to avoid oversubscribing small CI runners.
+    - Fail-fast on excessive mismatches to surface server-wide problems early.
+    - Keep printed output concise for readability in CI logs.
+"""
 
 import os
 import requests
