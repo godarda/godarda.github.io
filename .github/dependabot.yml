@@ -13,7 +13,6 @@ updates:
     # Check for updates monthly
     schedule:
       interval: "monthly"
-      day: "5"              # Runs on the 5th of every month
 
     # Customize commit messages for clarity
     commit-message:
