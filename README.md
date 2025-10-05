@@ -64,14 +64,14 @@ Automated CI workflows are available for macOS, Ubuntu, and Windows. It validate
 
 ## Technology Stack
 
-GoDarda's website and Android app are version-controlled via [GitHub][gdzgezt] using [Git][gdkbvgy], and built with:
+GoDarda's website and Android app are version-controlled via GitHub using Git, and built with:
 
-| Category | Tools & Technologies |
-|----------|----------------------|
-| Web & Mobile Platforms | [Jekyll][gdarema], [Bootstrap][gdzhvyv], [jQuery][gdhzgdv], [Font Awesome][gdabvvg], [Google Fonts][gdexzgv], [HTML5 & CSS3][gddbwdz], [Liquid][gddiwhy], [Markdown][gdysbav], [Kotlin][gdqoawz], [Gradle][gdgguvy] |
-| Build, Automation & Diagnostics | [Ruby][gdzezdk], [Bundler][gdezesc], [YAML][gdvzuav], [GitHub Actions][gdzagzz], [Python][gdkweoz], [CI Badges][gdwezyg] |
-| Engagement & Insights | [Giscus][gdksnhv], [Google Analytics 4 (GA4)][gdkzvva] |
-| IDE & Development Environment | [Visual Studio Code][gdwyygg], [GitHub Codespaces][gdwiezg], [Android Studio][gdpvhmu] |
+| Category                     | Tools & Technologies                                                                 |
+|-----------------------------|----------------------------------------------------------------------------------------|
+| Web & Mobile Platforms      | Jekyll, Bootstrap, jQuery, Font Awesome, Google Fonts, HTML5 & CSS3, Liquid, Markdown, Kotlin, Gradle |
+| Build, Automation & Diagnostics | Ruby, Bundler, YAML, GitHub Actions, Python, CI Badges                             |
+| Engagement & Insights       | Giscus, Google Analytics 4 (GA4)                                                      |
+| IDE & Development Environment | Visual Studio Code, GitHub Codespaces, Android Studio                               |
 
 ## Contributors
 
@@ -79,12 +79,10 @@ We celebrate every contributor who helps make GoDarda better. Here's a snapshot 
 
 ![Contributors][gddndwy]
 
-> Want to see your avatar here? Fork the repo, make a meaningful contribution, and submit a pull request! 
-
-> Not sure where to start? Check out our [Contribution Guide](CONTRIBUTING.md) for everything you need—from setup to submission.
+> Want to see your avatar here? Fork the repo, make a meaningful contribution, and submit a pull request!  Not sure where to start? Check out our [Contribution Guide](CONTRIBUTING.md) for everything you need from setup to submission.
 
 ## License
-This project is licensed under the [GPL-3.0 license][gdaepzd]
+This project is licensed under the [GPL-3.0 license][gdaepzd]<br>
 © GoDarda, Since 2018.
 
 # Thank You!
@@ -96,31 +94,7 @@ We believe in recognition without noise, collaboration without ego, and learning
 
 Keep Learning, Keep Building, Keep Inspiring
 
-[gdzgezt]: https://github.com
-[gdzhvyv]: https://getbootstrap.com
-[gdhzgdv]: https://jquery.com
-[gdarema]: https://jekyllrb.com
-[gdkbvgy]: https://git-scm.com
-[gdkweoz]: https://www.python.org
-[gdkwzyw]: https://rubyinstaller.org/downloads
-[gdwyygg]: https://code.visualstudio.com
 [gdzwfwc]: https://github.com/godarda/godarda.github.io?tab=MIT-1-ov-file
-[gdabvvg]: https://fontawesome.com
-[gdexzgv]: https://fonts.google.com
-[gddbwdz]: https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5
-[gddiwhy]: https://shopify.github.io/liquid
-[gdysbav]: https://www.markdownguide.org
-[gdqoawz]: https://kotlinlang.org
-[gdgguvy]: https://gradle.org
-[gdzezdk]: https://www.ruby-lang.org
-[gdezesc]: https://bundler.io
-[gdvzuav]: https://yaml.org
-[gdzagzz]: https://github.com/features/actions
-[gdwezyg]: https://shields.io
-[gdksnhv]: https://giscus.app
-[gdkzvva]: https://analytics.google.com
-[gdwiezg]: https://github.com/features/codespaces
-[gdpvhmu]: https://developer.android.com/studio
 [gdcdhdg]: https://img.shields.io/badge/platforms-macOS%2C%20Ubuntu%2C%20Windows-blueviolet?logo=microsoft  
 [gdyzyvk]: https://img.shields.io/badge/GoDarda-Android%20App-bluegreen?logo=android  
 [gdycyiw]: https://img.shields.io/github/license/godarda/godarda.github.io?color=blue&logo=open-source-initiative  

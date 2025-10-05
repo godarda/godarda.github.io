@@ -126,27 +126,22 @@ include: ['pages']
 # Keep the list lean and avoid excluding files necessary for build.
 # --------------------------------------------------------------------------
 exclude:
-exclude:
   - .bundle
   - .github
   - .gitignore
   - .jekyll-cache
   - .jekyll-metadata
   - .vscode
-  - _site
   - android
   - codes
-  - CNAME
   - CODE_OF_CONDUCT.md
   - CONTRIBUTING.md
   - Gemfile
   - Gemfile.lock
-  - giscus.json
   - LICENSE
   - README.md
   - SECURITY.md
   - SUPPORT.md
-  - robots.txt
   - setups
   - tests
   - vendor
