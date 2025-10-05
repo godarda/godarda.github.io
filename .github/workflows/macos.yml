@@ -16,15 +16,15 @@ on:
 
 jobs:
   build:
-    # Restrict execution to develop branch
-    if: github.ref == 'refs/heads/develop'
     runs-on: macos-latest
     timeout-minutes: 15
 
     steps:
-      # Step 1: Checkout the latest commit from the repository
-      - name: Checkout Code
+      # Step 1: Checkout develop branch
+      - name: Checkout develop branch
         uses: actions/checkout@v5
+        with:
+          ref: develop
 
       # Step 2: Setup Python 3.13 environment for test execution
       - name: Setup Python

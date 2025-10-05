@@ -1,4 +1,4 @@
-name: Recreate Develop After Squash Merge
+name: Sync Develop After Squash Merge
 
 # Trigger this workflow when a pull request to 'main' is closed
 on:
@@ -8,7 +8,7 @@ on:
       - main
 
 jobs:
-  recreate-develop:
+  sync-develop:
     # Only run if:
     # - The PR was merged
     # - The source branch was 'develop'
@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the latest 'main' branch with full history
+      # Step 1: Checkout the latest 'main' branch with full history
       - name: Checkout main branch
         uses: actions/checkout@v5
         with:
@@ -27,17 +27,17 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      # Set Git identity for pushing changes
+      # Step 2: Configure Git identity
       - name: Configure Git
         run: |
           git config user.name "GoDarda Bot"
           git config user.email "bot@godarda.dev"
 
-      # Fetch all branches
+      # Step 3: Fetch all branches
       - name: Fetch all branches
         run: git fetch --all
 
-      # Try up to 5 times to confirm that the squash commit has landed on main
+      # Step 4: Confirm squash commit landed on main
       - name: Wait for squash commit to appear
         id: wait_for_commit
         run: |
@@ -58,15 +58,33 @@ jobs:
             echo "Waiting for GitHub to sync..."
             sleep 30
           done
-          
-      # Create a fresh 'develop' branch from whatever is currently in main
-      - name: Create new 'develop' from 'main'
-        run: |
-          git checkout -b develop
-          git push origin develop
 
-      # Log confirmation message
-      - name: Log reset message
+      # Step 5: Force-push main into develop
+      - name: Sync develop from main
         run: |
-          echo "'develop' has been recreated from 'main'."
+          git push origin main:develop --force
+
+      # Step 6: Unfreeze develop branch for contributors
+      - name: Unfreeze develop branch
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = context.repo;
+            const branch = 'develop';
+
+            await github.rest.repos.updateBranchProtection({
+              owner,
+              repo,
+              branch,
+              required_status_checks: null,
+              enforce_admins: false,
+              required_pull_request_reviews: null,
+              restrictions: null
+            });
+
+      # Step 7: Log confirmation message
+      - name: Log sync message
+        run: |
+          echo "'develop' has been synced from 'main'."
           echo "Note: squash commit confirmation status: ${{ steps.wait_for_commit.outputs.commit_ready || 'not confirmed' }}"

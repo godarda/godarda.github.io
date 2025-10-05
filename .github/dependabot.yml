@@ -10,14 +10,14 @@ updates:
     # Root directory where workflow files live
     directory: "/"
 
-    # Check for updates weekly to avoid noisy PRs
+    # Check for updates monthly
     schedule:
-      interval: "weekly"
+      interval: "monthly"
 
     # Customize commit messages for clarity
     commit-message:
-      prefix: "chore"         # Semantic prefix for update commits
-      include: "scope"        # Adds context like 'github-actions' to the message
+      prefix: "chore"       # Semantic prefix for update commits
+      include: "scope"      # Adds context like 'github-actions' to the message
 
     # Limit open PRs to avoid clutter
     open-pull-requests-limit: 5
@@ -30,5 +30,5 @@ updates:
 
     # Add labels to update PRs for automation and visibility
     labels:
-      - auto-merge            # Signals PRs can be auto-merged once checks pass
-      - dependencies          # Helps contributors identify update PRs quickly
+      - auto-merge          # Signals PRs can be auto-merged once checks pass
+      - dependencies        # Helps contributors identify update PRs quickly
