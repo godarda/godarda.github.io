@@ -90,19 +90,8 @@ output: "<span class='bi bi-terminal'> Output</span>"
 
 # --------------------------------------------------------------------------
 # Defaults: tell Jekyll how to treat files by path scope.
-# Use these to force 'layout: none' for raw assets or 404 pages.
 # --------------------------------------------------------------------------
 defaults:
-  -
-   scope:
-      path: "assets/css/gd.css"
-   values:
-      layout: none
-  -
-   scope:
-      path: "404"
-   values:
-      layout: none
   -
    scope:
       path: ""
