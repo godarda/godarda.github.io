@@ -86,22 +86,3 @@ jobs:
           # Execute Python test suite
           python tests/run.py
         shell: pwsh
-
-      # Step 6: Freeze develop branch after tests
-      - name: Freeze develop branch
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const { owner, repo } = context.repo;
-            const branch = 'develop';
-
-            await github.rest.repos.updateBranchProtection({
-              owner,
-              repo,
-              branch,
-              required_status_checks: null,
-              enforce_admins: true,
-              required_pull_request_reviews: null,
-              restrictions: null
-            });
