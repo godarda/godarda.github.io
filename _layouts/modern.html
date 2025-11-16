@@ -10,11 +10,11 @@
                 <a><img id="logo" alt="Logo" src="{{ site.icon | relative_url }}"></a>
                 <a id="fc-{{ path[1] }}"> {{ parent }}</a>
             </div>
-            {%- elsif path[1] == "search" or path[1] == "testapp" or path[1] == "shubhamrdarda" -%}
+            {%- elsif path[1] == "search" or path[1] == "tools" or path[1] == "testapp" or path[1] == "shubhamrdarda" -%}
             <div class="navbar-brand" style="margin-left: 0px;">
                 <a href=""><img id="logo" alt="Logo" src="{{ site.icon | relative_url }}"></a>
                 <a id="fc-{{ path[1] }}" href="{{ path[1] }}"> / {{ path[1] | capitalize }}</a>
-                {%- if path[2] != nil -%}<a id="fc-{{ path[1] }}" href="{{ path[1] }}/{{ path[2] }}">{{ path[2] | capitalize }}</a>{%- endif -%}
+                {%- if path[2] != nil -%}<a id="fc-{{ path[1] }}" href="{{ path[1] }}/{{ path[2] }}"> / {{ path[2] | capitalize }}</a>{%- endif -%}
             </div>
             {%- else -%}
             <div id="navbar-brand" class="navbar-brand">
@@ -69,6 +69,14 @@
         </main>
         {%- include footer.html -%}
         {%- elsif path[1] == "search" -%}
+        <main role="main">
+            <div class="container">{{ content }}</div>
+        </main>
+        {%- include footer.html -%}
+        {%- elsif path[1] == "tools" -%}
+        <div class="col-12 jumbotron text-center">
+            <h3>{{ page.title }}</h3>
+        </div>
         <main role="main">
             <div class="container">{{ content }}</div>
         </main>

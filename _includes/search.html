@@ -1,107 +1,256 @@
+<!--
+Author: GoDarda
+
+Purpose:
+    Client-side live search for the GoDarda site.
+
+Description:
+    Collects pre-rendered anchors inside the results container and provides a
+    debounced, tokenized matcher that scores, ranks and highlights matches as
+    the user types. This file is intentionally lightweight and avoids external
+    dependencies so it can run in-browser after Jekyll/Liquid rendering.
+
+Guidelines:
+    - Keep functions focused and deterministic to produce stable CI/browser
+      behavior.
+    - Always escape user-provided content before inserting HTML into the DOM.
+    - Hide results and the match-count when the query is empty to avoid
+      exposing pre-rendered entries before a user searches.
+-->
+
 {%- assign path = page.url | split: '/' -%}
 
 <script type="text/javascript">
-$(document).ready(function()
-{
-    $("#KSEInput").on("keyup", function() 
-    {
-        if($("#KSEInput").val().length > 0) 
-        {
-            document.getElementById("{{ path[1] }}").style.display = "block";
-        } 
-        else 
-        {
-            document.getElementById("{{ path[1] }}").style.display = "none";
+    document.addEventListener('DOMContentLoaded', function () {
+        const containerId = '{{ path[1] }}';
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        // Collect anchors from the results container and cache title/href/html
+        const anchors = Array.from(container.querySelectorAll('a'));
+        const items = anchors.map(a => ({
+            el: a,
+            title: (a.textContent || '').trim(),
+            href: a.getAttribute('href') || a.getAttribute('data-href') || '#',
+            originalHTML: a.innerHTML
+        }));
+
+        // Utility functions: escape RegExp metacharacters and HTML entities
+        function escapeRegExp(s) { return s.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&'); }
+        function escapeHtml(unsafe) { return unsafe.replace(/[&<>\"]/g, function (ch) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]; }); }
+
+        // Scoring: evaluate match quality and return an object {score,type}
+        // Higher score indicates a stronger match (exact > prefix > substring > tokens)
+        function scoreFor(titleLower, qtrim, tokens) {
+            if (titleLower === qtrim) return { score: 100, type: 'exact' };
+            if (qtrim && titleLower.startsWith(qtrim)) return { score: 90, type: 'prefix' };
+            if (qtrim.length > 1 && titleLower.indexOf(qtrim) !== -1) return { score: 80, type: 'substring' };
+            if (tokens.length > 0 && tokens.every(t => titleLower.indexOf(t) !== -1)) return { score: 70 + tokens.length, type: 'alltokens' };
+            const matches = tokens.reduce((c, t) => c + (titleLower.indexOf(t) !== -1 ? 1 : 0), 0);
+            if (matches > 0) return { score: 40 + matches, type: 'anytokens' };
+            return { score: 0, type: null };
         }
-        var value = $(this).val().toLowerCase();
-        $("#{{ path[1] }} *").filter(function() 
-        {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+
+        // Highlighting: produce safe HTML with matched substrings wrapped in <mark>
+        // The title is HTML-escaped prior to applying mark tags to prevent XSS.
+        function buildHighlighted(title, qtrim, tokens, type) {
+            const safe = escapeHtml(title);
+            if (type === 'exact' || type === 'prefix' || type === 'substring') {
+                const re = new RegExp('(' + escapeRegExp(qtrim) + ')', 'ig');
+                return safe.replace(re, '<mark>$1</mark>');
+            }
+            const uniq = Array.from(new Set(tokens)).sort((a, b) => b.length - a.length);
+            let out = safe;
+            uniq.forEach(token => {
+                if (!token) return;
+                const re = new RegExp('(' + escapeRegExp(token) + ')', 'ig');
+                out = out.replace(re, '<mark>$1</mark>');
+            });
+            return out;
+        }
+
+        // Render: populate the results container with ranked, highlighted matches
+        // Also updates the match-count element and toggles visibility.
+        function renderMatches(q) {
+            const qtrim = q.trim().toLowerCase();
+            const matchCountEl = document.getElementById('matchCount');
+            if (qtrim.length === 0) {
+                // If query is empty, hide results and match count
+                container.style.display = 'none';
+                if (matchCountEl) matchCountEl.style.display = 'none';
+                return;
+            }
+
+            const tokens = qtrim.split(/\s+/).filter(Boolean);
+
+            const scored = items.map(it => {
+                const titleLower = it.title.toLowerCase();
+                const s = scoreFor(titleLower, qtrim, tokens);
+                return Object.assign({}, it, s);
+            }).filter(r => r.score > 0)
+                .sort((a, b) => (b.score - a.score) || a.title.localeCompare(b.title));
+
+            // Clear existing results and update match count
+            container.innerHTML = '';
+            if (matchCountEl) {
+                matchCountEl.textContent = scored.length + (scored.length === 1 ? ' result' : ' results');
+                matchCountEl.style.display = 'block';
+            }
+
+            container.style.display = 'block';
+            scored.forEach(r => {
+                const a = document.createElement('a');
+                a.className = 'codecard card';
+                a.href = r.href;
+                a.onclick = function () { clear_input(); };
+                a.style.display = 'block';
+                a.style.marginBottom = '6px';
+                a.innerHTML = buildHighlighted(r.title, qtrim, tokens, r.type);
+                container.appendChild(a);
+            });
+        }
+
+        // Attach a debounced input handler to the search input (id="KSEInput").
+        // The handler toggles icons and only triggers a search for non-empty queries.
+        const input = document.getElementById('KSEInput');
+        if (!input) return;
+        let tid = null;
+        input.addEventListener('input', function (e) {
+            clearTimeout(tid);
+            const v = e.target.value || '';
+            // Toggle search/close icons and display results only when input is non-empty
+            if (v.length === 0) {
+                document.getElementById('search_icon') && (document.getElementById('search_icon').style.display = 'inline-block');
+                document.getElementById('close_icon') && (document.getElementById('close_icon').style.display = 'none');
+                renderMatches('');
+                return;
+            } else {
+                document.getElementById('search_icon') && (document.getElementById('search_icon').style.display = 'none');
+                document.getElementById('close_icon') && (document.getElementById('close_icon').style.display = 'inline-block');
+            }
+            tid = setTimeout(() => renderMatches(v), 120);
         });
+
     });
-});
-function clear_input() 
-{
-    document.getElementById("KSEInput").value = "";
-    document.getElementById("{{ path[1] }}").style.display = "none";
-    document.getElementById("search").style.display = "none";
-    document.getElementById("close_icon").style.display = "none";
-    document.getElementById("search_icon").style.display = "inline-block";
-}
-function display_results() 
-{
-    if($("#KSEInput").val().length == 0) 
-    {
-        document.getElementById("close_icon").style.display = "none";
-        document.getElementById("search_icon").style.display = "inline-block";
+    // Clear the search input and hide any visible results or icons.
+    function clear_input() {
+        document.getElementById("KSEInput").value = "";
         document.getElementById("{{ path[1] }}").style.display = "none";
         document.getElementById("search").style.display = "none";
+        document.getElementById("close_icon").style.display = "none";
+        document.getElementById("search_icon").style.display = "inline-block";
+        var mc = document.getElementById('matchCount');
+        if (mc) mc.style.display = 'none';
     }
-    else if($("#KSEInput").val().length >= 1)
-    {
-        document.getElementById("search").style.display = "block";
-        document.getElementById("close_icon").style.display = "inline-block";
-        document.getElementById("close_icon").style.cursor = "pointer";
-        document.getElementById("search_icon").style.display = "none";
+
+    // Update UI controls based on whether the input contains text. This is a
+    // small helper used by the onkeypress/onkeyup attributes on the input field.
+    function display_results() {
+        if (jQuery && jQuery("#KSEInput").val().length == 0) {
+            document.getElementById("close_icon").style.display = "none";
+            document.getElementById("search_icon").style.display = "inline-block";
+            document.getElementById("{{ path[1] }}").style.display = "none";
+            document.getElementById("search").style.display = "none";
+            var mc2 = document.getElementById('matchCount');
+            if (mc2) mc2.style.display = 'none';
+        } else if (jQuery && jQuery("#KSEInput").val().length >= 1) {
+            document.getElementById("search").style.display = "block";
+            document.getElementById("close_icon").style.display = "inline-block";
+            document.getElementById("close_icon").style.cursor = "pointer";
+            document.getElementById("search_icon").style.display = "none";
+        }
     }
-}
-$(document).ready(function() 
-{
-    $("html").on("contextmenu", function(e) { return false; });
-});
-$(document).keydown(function(event) 
-{
-    if(event.keyCode == 123) { return false; }
-});
+    $(document).ready(function () {
+        $("html").on("contextmenu", function (e) { return false; });
+    });
+    $(document).keydown(function (event) {
+        if (event.keyCode == 123) { return false; }
+    });
 </script>
 
-<div><center>
-    <div class="col-xs-12 col-sm-11 col-md-9 col-lg-7 col-xl-6 col-xxl-6" style="margin-bottom: 25px;">
-        {%- if path[1] == "search" -%}
-        <h2 style="margin-top: 175px;" id="fc-{{ path[1] }}">GoDarda</h2>
-        <h6 style="padding-top: 5px; padding-bottom: 10px;">{{ site.tagline }}</h6>
-        {%- endif -%}
-        <div id="KSE_input-{{ path[1] }}" class="input-group input-group-lg"><input id="KSEInput" class="form-control" type="text" tabindex="1" placeholder="{{ page.title }} (type keywords to get results)" onkeypress="display_results();" onkeyup="display_results();" onload="clear_input();">
-            <div id="search_icon" style="display: inline-block; padding: 10px 15px 0px 7px; font-size: 20px;" class="input-group-append">
-                <i class="bi bi-search"></i>
+<div>
+    <center>
+        <div class="col-xs-12 col-sm-11 col-md-9 col-lg-7 col-xl-6 col-xxl-6" style="margin-bottom: 25px;">
+            {%- if path[1] == "search" or path[1] == "onecalc" -%}
+            <h2 style="margin-top: 175px;" id="fc-{{ path[1] }}">GoDarda</h2>
+            <h6 style="padding-top: 5px; padding-bottom: 10px;">{{ site.tagline }}</h6>
+            {%- endif -%}
+            <div id="KSE_input-{{ path[1] }}" class="input-group input-group-lg"><input id="KSEInput"
+                    class="form-control" type="text" tabindex="1"
+                    placeholder="{{ page.title }} (type keywords to get results)" onkeypress="display_results();"
+                    onkeyup="display_results();" onload="clear_input();">
+                <div id="search_icon" style="display: inline-block; padding: 10px 15px 0px 7px; font-size: 20px;"
+                    class="input-group-append">
+                    <i class="bi bi-search"></i>
+                </div>
+                <div id="close_icon" onclick="clear_input();" style="display: none; padding: 5px; font-size: 25px;"
+                    class="input-group-append">
+                    <i class="bi bi-x"></i>
+                </div>
             </div>
-            <div id="close_icon" onclick="clear_input();" style="display: none; padding: 5px; font-size: 25px;" class="input-group-append">
-                <i class="bi bi-x"></i>
-            </div>
+            <div id="matchCount" class="text-muted small" style="margin-top:8px; display:none; text-align:left"></div>
         </div>
-    </div>
 
-    <div id="search" class="col-xs-12 col-sm-12 col-md-10 col-lg-8 col-xl-7 col-xxl-7" style="text-align: left; margin-bottom: 30px;">
-        {%- for segment in site.data.gd.segments limit:20 -%}
+        <div id="search" class="col-xs-12 col-sm-12 col-md-10 col-lg-8 col-xl-7 col-xxl-7"
+            style="text-align: left; margin-bottom: 30px;">
+            {%- for segment in site.data.gd.segments limit:21 -%}
             <span style="display: none; margin-bottom: 30px;" id="{{ segment.url }}">
-            {%- if segment.url == "c" and path[1] == "search" -%}{%- assign search = site.data.c -%}{%- else -%}{%- if path[1] == "c" -%}{%- assign search = site.data.c -%}{%- endif -%}{%- endif -%}
-            {%- if segment.url == "cpp" and path[1] == "search" -%}{%- assign search = site.data.cpp -%}{%- else -%}{%- if path[1] == "cpp" -%}{%- assign search = site.data.cpp -%}{%- endif -%}{%- endif -%}
-            {%- if segment.url == "java" and path[1] == "search" -%}{%- assign search = site.data.java -%}{%- else -%}{%- if path[1] == "java" -%}{%- assign search = site.data.java -%}{%- endif -%}{%- endif -%}
-            {%- if segment.url == "python" and path[1] == "search" -%}{%- assign search = site.data.python -%}{%- else -%}{%- if path[1] == "python" -%}{%- assign search = site.data.python -%}{%- endif -%}{%- endif -%}
-            {%- if segment.url == "ds" and path[1] == "search" -%}{%- assign search = site.data.ds -%}{%- else -%}{%- if path[1] == "ds" -%}{%- assign search = site.data.ds -%}{%- endif -%}{%- endif -%}
-            {%- if segment.url == "r" and path[1] == "search" -%}{%- assign search = site.data.r -%}{%- else -%}{%- if path[1] == "r" -%}{%- assign search = site.data.r -%}{%- endif -%}{%- endif -%}
-            {%- if segment.url == "julia" and path[1] == "search" -%}{%- assign search = site.data.julia -%}{%- else -%}{%- if path[1] == "julia" -%}{%- assign search = site.data.julia -%}{%- endif -%}{%- endif -%}
-            {%- if segment.url == "octave" and path[1] == "search" -%}{%- assign search = site.data.octave -%}{%- else -%}{%- if path[1] == "octave" -%}{%- assign search = site.data.octave -%}{%- endif -%}{%- endif -%}
-            {%- if segment.url == "csharp" and path[1] == "search" -%}{%- assign search = site.data.csharp -%}{%- else -%}{%- if path[1] == "csharp" -%}{%- assign search = site.data.csharp -%}{%- endif -%}{%- endif -%}
-            {%- if segment.url == "fsharp" and path[1] == "search" -%}{%- assign search = site.data.fsharp -%}{%- else -%}{%- if path[1] == "fsharp" -%}{%- assign search = site.data.fsharp -%}{%- endif -%}{%- endif -%}
-            {%- if segment.url == "rust" and path[1] == "search" -%}{%- assign search = site.data.rust -%}{%- else -%}{%- if path[1] == "rust" -%}{%- assign search = site.data.rust -%}{%- endif -%}{%- endif -%}
-            {%- if segment.url == "lisp" and path[1] == "search" -%}{%- assign search = site.data.lisp -%}{%- else -%}{%- if path[1] == "lisp" -%}{%- assign search = site.data.lisp -%}{%- endif -%}{%- endif -%}
-            {%- if segment.url == "dsa" and path[1] == "search" -%}{%- assign search = site.data.dsa -%}{%- else -%}{%- if path[1] == "dsa" -%}{%- assign search = site.data.dsa -%}{%- endif -%}{%- endif -%}
-            {%- if segment.url == "linux" and path[1] == "search" -%}{%- assign search = site.data.linux -%}{%- else -%}{%- if path[1] == "linux" -%}{%- assign search = site.data.linux -%}{%- endif -%}{%- endif -%}
-            {%- if segment.url == "mysql" and path[1] == "search" -%}{%- assign search = site.data.mysql -%}{%- else -%}{%- if path[1] == "mysql" -%}{%- assign search = site.data.mysql -%}{%- endif -%}{%- endif -%}
-            {%- if segment.url == "mongodb" and path[1] == "search" -%}{%- assign search = site.data.mongodb -%}{%- else -%}{%- if path[1] == "mongodb" -%}{%- assign search = site.data.mongodb -%}{%- endif -%}{%- endif -%}
-            {%- if segment.url == "cg" and path[1] == "search" -%}{%- assign search = site.data.cg -%}{%- else -%}{%- if path[1] == "cg" -%}{%- assign search = site.data.cg -%}{%- endif -%}{%- endif -%}
-            {%- if segment.url == "selenium" and path[1] == "search" -%}{%- assign search = site.data.selenium -%}{%- else -%}{%- if path[1] == "selenium" -%}{%- assign search = site.data.selenium -%}{%- endif -%}{%- endif -%}
-            {%- if segment.url == "asm" and path[1] == "search" -%}{%- assign search = site.data.asm -%}{%- else -%}{%- if path[1] == "asm" -%}{%- assign search = site.data.asm -%}{%- endif -%}{%- endif -%}
-            {%- if segment.url == "cluster" and path[1] == "search" -%}{%- assign search = site.data.cluster -%}{%- else -%}{%- if path[1] == "cluster" -%}{%- assign search = site.data.cluster -%}{%- endif -%}{%- endif -%}
-            {%- if path[1] == "search" -%}<a class="codecard card" href="{{ segment.url }}" onclick="clear_input();">{{ segment.title }}</a>{%- endif -%}
-            {%- for parent in search.grandparent -%}
+                {%- if segment.url == "tools" and path[1] == "search" -%}{%- assign search = site.data.tools -%}{%- else
+                -%}{%-
+                if path[1] == "tools" -%}{%- assign search = site.data.tools -%}{%- endif -%}{%- endif -%}
+                {%- if segment.url == "c" and path[1] == "search" -%}{%- assign search = site.data.c -%}{%- else -%}{%-
+                if path[1] == "c" -%}{%- assign search = site.data.c -%}{%- endif -%}{%- endif -%}
+                {%- if segment.url == "cpp" and path[1] == "search" -%}{%- assign search = site.data.cpp -%}{%- else
+                -%}{%- if path[1] == "cpp" -%}{%- assign search = site.data.cpp -%}{%- endif -%}{%- endif -%}
+                {%- if segment.url == "java" and path[1] == "search" -%}{%- assign search = site.data.java -%}{%- else
+                -%}{%- if path[1] == "java" -%}{%- assign search = site.data.java -%}{%- endif -%}{%- endif -%}
+                {%- if segment.url == "python" and path[1] == "search" -%}{%- assign search = site.data.python -%}{%-
+                else -%}{%- if path[1] == "python" -%}{%- assign search = site.data.python -%}{%- endif -%}{%- endif -%}
+                {%- if segment.url == "ds" and path[1] == "search" -%}{%- assign search = site.data.ds -%}{%- else
+                -%}{%- if path[1] == "ds" -%}{%- assign search = site.data.ds -%}{%- endif -%}{%- endif -%}
+                {%- if segment.url == "r" and path[1] == "search" -%}{%- assign search = site.data.r -%}{%- else -%}{%-
+                if path[1] == "r" -%}{%- assign search = site.data.r -%}{%- endif -%}{%- endif -%}
+                {%- if segment.url == "julia" and path[1] == "search" -%}{%- assign search = site.data.julia -%}{%- else
+                -%}{%- if path[1] == "julia" -%}{%- assign search = site.data.julia -%}{%- endif -%}{%- endif -%}
+                {%- if segment.url == "octave" and path[1] == "search" -%}{%- assign search = site.data.octave -%}{%-
+                else -%}{%- if path[1] == "octave" -%}{%- assign search = site.data.octave -%}{%- endif -%}{%- endif -%}
+                {%- if segment.url == "csharp" and path[1] == "search" -%}{%- assign search = site.data.csharp -%}{%-
+                else -%}{%- if path[1] == "csharp" -%}{%- assign search = site.data.csharp -%}{%- endif -%}{%- endif -%}
+                {%- if segment.url == "fsharp" and path[1] == "search" -%}{%- assign search = site.data.fsharp -%}{%-
+                else -%}{%- if path[1] == "fsharp" -%}{%- assign search = site.data.fsharp -%}{%- endif -%}{%- endif -%}
+                {%- if segment.url == "rust" and path[1] == "search" -%}{%- assign search = site.data.rust -%}{%- else
+                -%}{%- if path[1] == "rust" -%}{%- assign search = site.data.rust -%}{%- endif -%}{%- endif -%}
+                {%- if segment.url == "lisp" and path[1] == "search" -%}{%- assign search = site.data.lisp -%}{%- else
+                -%}{%- if path[1] == "lisp" -%}{%- assign search = site.data.lisp -%}{%- endif -%}{%- endif -%}
+                {%- if segment.url == "dsa" and path[1] == "search" -%}{%- assign search = site.data.dsa -%}{%- else
+                -%}{%- if path[1] == "dsa" -%}{%- assign search = site.data.dsa -%}{%- endif -%}{%- endif -%}
+                {%- if segment.url == "linux" and path[1] == "search" -%}{%- assign search = site.data.linux -%}{%- else
+                -%}{%- if path[1] == "linux" -%}{%- assign search = site.data.linux -%}{%- endif -%}{%- endif -%}
+                {%- if segment.url == "mysql" and path[1] == "search" -%}{%- assign search = site.data.mysql -%}{%- else
+                -%}{%- if path[1] == "mysql" -%}{%- assign search = site.data.mysql -%}{%- endif -%}{%- endif -%}
+                {%- if segment.url == "mongodb" and path[1] == "search" -%}{%- assign search = site.data.mongodb -%}{%-
+                else -%}{%- if path[1] == "mongodb" -%}{%- assign search = site.data.mongodb -%}{%- endif -%}{%- endif
+                -%}
+                {%- if segment.url == "cg" and path[1] == "search" -%}{%- assign search = site.data.cg -%}{%- else
+                -%}{%- if path[1] == "cg" -%}{%- assign search = site.data.cg -%}{%- endif -%}{%- endif -%}
+                {%- if segment.url == "selenium" and path[1] == "search" -%}{%- assign search = site.data.selenium
+                -%}{%- else -%}{%- if path[1] == "selenium" -%}{%- assign search = site.data.selenium -%}{%- endif
+                -%}{%- endif -%}
+                {%- if segment.url == "asm" and path[1] == "search" -%}{%- assign search = site.data.asm -%}{%- else
+                -%}{%- if path[1] == "asm" -%}{%- assign search = site.data.asm -%}{%- endif -%}{%- endif -%}
+                {%- if segment.url == "cluster" and path[1] == "search" -%}{%- assign search = site.data.cluster -%}{%-
+                else -%}{%- if path[1] == "cluster" -%}{%- assign search = site.data.cluster -%}{%- endif -%}{%- endif
+                -%}
+                {%- if path[1] == "search" -%}<a class="codecard card" href="{{ segment.url }}"
+                    onclick="clear_input();">{{ segment.title }}</a>{%- endif -%}
+                {%- for parent in search.grandparent -%}
                 <a class="codecard card" href="{{ parent.url }}" onclick="clear_input();">{{ parent.parent }}</a>
                 {%- for child in parent.children -%}
-                    <a class="codecard card" href="{{ child.url }}" onclick="clear_input();">{{ child.title }}</a>
+                <a class="codecard card" href="{{ child.url }}" onclick="clear_input();">{{ child.title }}</a>
                 {%- endfor -%}
-            {%- endfor -%}
+                {%- endfor -%}
             </span>
-        {%- endfor -%}
-    </div>
-</center></div>
+            {%- endfor -%}
+        </div>
+    </center>
+</div>
