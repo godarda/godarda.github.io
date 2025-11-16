@@ -59,6 +59,9 @@ segments:
   - title: Cluster
     url: cluster
 
+  - title: Tools
+    url: tools
+    
   - title: GoDarda's Search
     url: search
     

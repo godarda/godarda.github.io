@@ -234,6 +234,17 @@
         {%- endif -%}
     {%- endfor -%}
 
+{%- elsif path[1] == "tools" -%}
+    {%- assign segment = "Tools" -%}
+    {%- assign parent=" / Tools / " -%}
+    {%- assign gd = site.data.tools -%}
+    {%- for item in site.data.tools.grandparent -%}
+        {%- if page.url contains item.url -%}
+            {%- assign child = item.subtree -%}
+            {%- assign segment = item.parent -%}
+        {%- endif -%}
+    {%- endfor -%}
+
 {%- else -%}
     {%- assign parent=" GoDarda" -%}
 {%- endif -%}
