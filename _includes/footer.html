@@ -13,8 +13,7 @@
                 </div>
             </div>
             <div class="modal-footer justify-content-center">
-                <a href="{{ site.data.url.linkedin }}" class="btn" title="LinkedIn" target="_blank"><i
-                        class="bi bi-linkedin"></i> LinkedIn</a>
+                <a href="{{ site.data.url.linkedin }}" class="btn" title="LinkedIn" target="_blank"><i class="bi bi-linkedin"></i> LinkedIn</a>
             </div>
         </div>
     </div>
@@ -46,8 +45,7 @@
 </div>
 
 {%- if path[1] == "search" or path[1] == "testapp" -%}{%- assign flag = "block_webfooter" -%}{%- endif -%}
-<div id="backtotop" class="text-center" style="display: none; padding-top: 15px; margin-bottom: 15px;"><a
-        class="back-to-top" style="cursor: pointer;" title="Back to top"><i class="svgicon bi bi-arrow-bar-up"></i></a>
+<div id="backtotop" class="text-center" style="display: none; padding-top: 15px; margin-bottom: 15px;"><a class="back-to-top" style="cursor: pointer;" title="Back to top"><i class="svgicon bi bi-arrow-bar-up"></i></a>
 </div>
 
 <footer class="isWebsite {{ flag }}" id="isWebsite" style="display: block; padding-top: 15px;">
@@ -56,51 +54,27 @@
             <div class="row">
                 <div class="col-6 col-md-3" style="padding-bottom: 50px;">
                     <h6>What's new</h6>
-                    <a href="python/">
-                        <div><i class="bi bi-rocket"></i> Python</div>
-                    </a>
-                    <a href="ds/">
-                        <div><i class="bi bi-pie-chart"></i> Data Science</div>
-                    </a>
-                    <a href="mongodb/">
-                        <div><i class="bi bi-database"></i> MongoDB</div>
-                    </a>
+                    <a href="python/"><div><i class="bi bi-rocket"></i> Python</div></a>
+                    <a href="ds/"><div><i class="bi bi-pie-chart"></i> Data Science</div></a>
+                    <a href="mongodb/"><div><i class="bi bi-database"></i> MongoDB</div></a>
                 </div>
                 <div class="col-6 col-md-3" style="padding-bottom: 50px;">
                     <h6>GoDarda</h6>
-                    <a href="about">
-                        <div><i class="bi bi-question-circle"></i> About Us</div>
-                    </a>
-                    <a href="about/faqs">
-                        <div><i class="bi bi-star"></i> FAQs</div>
-                    </a>
-                    <a href="shubhamrdarda">
-                        <div><i class="bi bi-person-square"></i> Meet Founder</div>
-                    </a>
+                    <a href="about"><div><i class="bi bi-question-circle"></i> About Us</div></a>
+                    <a href="about/faqs"><div><i class="bi bi-star"></i> FAQs</div></a>
+                    <a href="shubhamrdarda"><div><i class="bi bi-person-square"></i> Meet Founder</div></a>
                 </div>
                 <div class="col-6 col-md-3" style="padding-bottom: 50px;">
                     <h6>Useful Links</h6>
-                    <a href="about/terms">
-                        <div><i class="bi bi-card-text"></i> Terms</div>
-                    </a>
-                    <a href="about/privacy">
-                        <div><i class="bi bi-shield-check"></i> Privacy</div>
-                    </a>
-                    <a href="about/disclaimer">
-                        <div><i class="bi bi-exclamation-triangle"></i> Disclaimer</div>
-                    </a>
+                    <a href="about/terms"><div><i class="bi bi-card-text"></i> Terms</div></a>
+                    <a href="about/privacy"><div><i class="bi bi-shield-check"></i> Privacy</div></a>
+                    <a href="about/disclaimer"><div><i class="bi bi-exclamation-triangle"></i> Disclaimer</div></a>
                 </div>
                 <div class="col-6 col-md-3" style="padding-bottom: 50px;">
                     <h6>Social Handles</h6>
-                    <a href="{{ site.data.url.linkedin }}" target="_blank">
-                        <div><i class="bi bi-linkedin"></i> LinkedIn</div>
-                    </a>
-                    <a href="{{ site.data.url.github }}" target="_blank">
-                        <div><i class="bi bi-github"></i> GitHub</div>
-                    </a>
-                    <a href="{{ site.data.url.discord }}">
-                        <div><i class="bi bi-discord"></i></i> Discord</div>
-                    </a>
+                    <a href="{{ site.data.url.linkedin }}" target="_blank"><div><i class="bi bi-linkedin"></i> LinkedIn</div></a>
+                    <a href="{{ site.data.url.github }}" target="_blank"><div><i class="bi bi-github"></i> GitHub</div></a>
+                    <a href="{{ site.data.url.discord }}"><div><i class="bi bi-discord"></i> Discord</div></a>
                 </div>
             </div>
         </div>
@@ -116,54 +90,33 @@
                     intend to soon make it available on the Google Play Store. Currently, you need to install apk
                     manually. Would you like to get the app?<br>Minimum Requirement(s): Android 11</div>
                 <div class="modal-footer justify-content-center">
-                    <a style="cursor: pointer; border: 1px solid #e63636;" class="btn" data-bs-dismiss="modal"><i
-                            class="bi bi-cloud-slash"></i> No</a>
-                    <a href="{{ site.data.url.android_app }}" style="border: 1px solid #00b050;" class="btn"
-                        onclick="$('#appmodal').modal('hide');"><i class="bi bi-cloud-arrow-down"></i> Yes</a>
+                    <a style="cursor: pointer; border: 1px solid #e63636;" class="btn" data-bs-dismiss="modal"><i class="bi bi-cloud-slash"></i> No</a>
+                    <a href="{{ site.data.url.android_app }}" style="border: 1px solid #00b050;" class="btn" onclick="$('#appmodal').modal('hide');"><i class="bi bi-cloud-arrow-down"></i> Yes</a>
                 </div>
             </div>
         </div>
     </div>
     <div class="d-flex justify-content-center" style="background-color: #16181d; padding: 15px; margin: 0px;">
-        <img style="border-radius: 50px;" alt="" src="{{ site.icon }}" width="25" height="25"><span
-            style="padding-top: 2px; padding-left: 5px; color: #ffffff;">Developed by <a class="hlink"
-                href="shubhamrdarda">{{ site.founder }}</span></a>
+        <img style="border-radius: 50px;" alt="" src="{{ site.icon }}" width="25" height="25"><span style="padding-top: 2px; padding-left: 5px; color: #ffffff;">Developed by <a class="hlink" href="shubhamrdarda">{{ site.founder }}</span></a>
     </div>
 </footer>
 
 <footer class="isWebView" id="isWebView" style="display: none;">
     {%- assign display="false" -%}
-    {%- if path[1] == nil -%}
-    {%- assign f_home="wvnav-item-active" -%}
-    {%- elsif path[1] == "search" -%}
-    {%- assign f_search="wvnav-item-active" -%}
-    {%- elsif path[1] == "about" or path[1] == "shubhamrdarda" -%}
-    {%- assign f_about="wvnav-item-active" -%}
+    {%- if path[1] == nil -%}{%- assign f_home="wvnav-item-active" -%}
+    {%- elsif path[1] == "search" -%}{%- assign f_search="wvnav-item-active" -%}
+    {%- elsif path[1] == "about" or path[1] == "shubhamrdarda" -%}{%- assign f_about="wvnav-item-active" -%}
     {%- else -%}
     {%- assign f_learn="wvnav-item-active" -%}
     {%- assign display="true" -%}
     {%- endif -%}
-
     <div class="d-flex justify-content-between wvnav">
-        <a class="wvnav-item {{ f_home }}" href="{{ site.url }}"><i class="wvsvg {{ f_home }}- bi bi-house-door"></i>
-            <div class="text-center">Home</div>
-        </a>
-        <a class="wvnav-item {{ f_search }}" href="{{ site.url }}/search"><i
-                class="wvsvg {{ f_search }}- bi bi-search"></i>
-            <div class="text-center">Search</div>
-        </a>
+        <a class="wvnav-item {{ f_home }}" href="{{ site.url }}"><i class="wvsvg {{ f_home }}- bi bi-house-door"></i><div class="text-center">Home</div></a>
+        <a class="wvnav-item {{ f_search }}" href="{{ site.url }}/search"><i class="wvsvg {{ f_search }}- bi bi-search"></i><div class="text-center">Search</div></a>
         {% if path[1] == nil or path[1] == "search" or path[1] == "about" or path[1] == "shubhamrdarda" %}<a class="wvnav-item" href="{{ site.data.url.sponsor }}"><i class="wvsvg bi bi-suit-heart"></i><div class="text-center">Sponsor</div></a>{% endif %}
-        {%- if display == "true" -%}<a class="wvnav-item {{ f_learn }}" href="{{ site.url }}/{{ path[1] }}"><i
-                class="wvsvg {{ f_learn }}-{{ path[1] }} bi bi-code-square"></i>
-            <div class="text-center">Learning</div>
-        </a>{%- endif -%}
-        <a class="wvnav-item" href="share:{{ site.url }}{{ page.url }}"><i class="wvsvg bi bi-share"></i>
-            <div class="text-center">Share</div>
-        </a>
-        <a class="wvnav-item {{ f_about }}" href="{{ site.url }}/about"><i
-                class="wvsvg {{ f_about }}-about bi bi-info-circle"></i>
-            <div class="text-center">About</div>
-        </a>
+        {%- if display == "true" -%}<a class="wvnav-item {{ f_learn }}" href="{{ site.url }}/{{ path[1] }}"><i class="wvsvg {{ f_learn }}-{{ path[1] }} bi bi-code-square"></i><div class="text-center">Learning</div></a>{%- endif -%}
+        <a class="wvnav-item" href="share:{{ site.url }}{{ page.url }}"><i class="wvsvg bi bi-share"></i><div class="text-center">Share</div></a>
+        <a class="wvnav-item {{ f_about }}" href="{{ site.url }}/about"><i class="wvsvg {{ f_about }}-about bi bi-info-circle"></i><div class="text-center">About</div></a>
     </div>
 </footer>
 

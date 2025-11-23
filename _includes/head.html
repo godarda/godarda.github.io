@@ -8,7 +8,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
     <meta name="keywords" content="{{ page.title }}" />
-    {%- if page.description == nil -%}<meta name="description" content="{{ page.title }}" />{%- else -%}<meta name="description" content="{{ page.description }}" />{%- endif -%}
+    {%- if page.description == nil -%}<meta name="description" content="{{ page.title }}" />
+    {%- else -%}<meta name="description" content="{{ page.description }}" />{%- endif -%}
     <meta name="author" content="{{ site.founder }}" />
     <link rel="icon" href="{{ site.icon | relative_url }}">
     <link rel="stylesheet" href="{{ site.bs_css }}" integrity="{{ site.bs_cssi }}" crossorigin="anonymous">
@@ -21,230 +22,46 @@
     <base href="{{ site.url | absolute_url }}">
 </head>
 
+{%- comment -%}
+    Data-driven segment lookup with explicit per-segment `parent` support.
+    Uses `site.data.gd.segments` for titles and `site.data.<seg_key>` for the
+    segment's dataset (grandparent/children). If a segment entry includes a
+    `parent` field, that exact string is used (preserves values like ` / DS / `).
+{%- endcomment -%}
+
 {%- assign path = page.url | split: '/' -%}
-{%- if path[1] == "c" -%}
-    {%- assign segment = "C Programming" -%}
-    {%- assign parent=" / C / " -%}
-    {%- assign gd = site.data.c -%}
-    {%- for item in site.data.c.grandparent -%}
-        {%- if page.url contains item.url -%}
-            {%- assign child = item.subtree -%}
-        {%- endif -%}
-    {%- endfor -%}
+{%- assign seg_key = path[1] | default: '' -%}
+{%- assign seg_obj = site.data.gd.segments | where: 'url', seg_key | first -%}
 
-{%- elsif path[1] == "cpp" -%}
-    {%- assign segment = "C++ Programming" -%}
-    {%- assign parent=" / C++ / " -%}
-    {%- assign gd = site.data.cpp -%}
-    {%- for item in site.data.cpp.grandparent -%}
-        {%- if page.url contains item.url -%}
-            {%- assign child = item.subtree -%}
-        {%- endif -%}
-    {%- endfor -%}
-
-{%- elsif path[1] == "java" -%}
-    {%- assign segment = "Java Programming" -%}
-    {%- assign parent=" / Java / " -%}
-    {%- assign gd = site.data.java -%}
-    {%- for item in site.data.java.grandparent -%}
-        {%- if page.url contains item.url -%}
-            {%- assign child = item.subtree -%}
-        {%- endif -%}
-    {%- endfor -%}
-
-{%- elsif path[1] == "python" -%}
-    {%- assign segment = "Python Programming" -%}
-    {%- assign parent=" / Python / " -%}
-    {%- assign gd = site.data.python -%}
-    {%- for item in site.data.python.grandparent -%}
-        {%- if page.url contains item.url -%}
-            {%- assign child = item.subtree -%}
-        {%- endif -%}
-    {%- endfor -%}
-
-{%- elsif path[1] == "ds" -%}
-    {%- assign segment = "Data Science" -%}
-    {%- assign parent=" / DS / " -%}
-    {%- assign gd = site.data.ds -%}
-    {%- for item in site.data.ds.grandparent -%}
-        {%- if page.url contains item.url -%}
-            {%- assign child = item.subtree -%}
-        {%- endif -%}
-    {%- endfor -%}
-
-{%- elsif path[1] == "r" -%}
-    {%- assign segment = "R Programming" -%}
-    {%- assign parent=" / R / " -%}
-    {%- assign gd = site.data.r -%}
-    {%- for item in site.data.r.grandparent -%}
-        {%- if page.url contains item.url -%}
-            {%- assign child = item.subtree -%}
-        {%- endif -%}
-    {%- endfor -%}
-
-{%- elsif path[1] == "julia" -%}
-    {%- assign segment = "Julia Programming" -%}
-    {%- assign parent=" / Julia / " -%}
-    {%- assign gd = site.data.julia -%}
-    {%- for item in site.data.julia.grandparent -%}
-        {%- if page.url contains item.url -%}
-            {%- assign child = item.subtree -%}
-        {%- endif -%}
-    {%- endfor -%}
-
-{%- elsif path[1] == "octave" -%}
-    {%- assign segment = "GNU Octave" -%}
-    {%- assign parent=" / Octave / " -%}
-    {%- assign gd = site.data.octave -%}
-    {%- for item in site.data.octave.grandparent -%}
-        {%- if page.url contains item.url -%}
-            {%- assign child = item.subtree -%}
-        {%- endif -%}
-    {%- endfor -%}
-
-{%- elsif path[1] == "csharp" -%}
-    {%- assign segment = "C# Programming" -%}
-    {%- assign parent=" / CSharp / " -%}
-    {%- assign gd = site.data.csharp -%}
-    {%- for item in site.data.csharp.grandparent -%}
-        {%- if page.url contains item.url -%}
-            {%- assign child = item.subtree -%}
-        {%- endif -%}
-    {%- endfor -%}
-
-{%- elsif path[1] == "fsharp" -%}
-    {%- assign segment = "F# Programming" -%}
-    {%- assign parent=" / FSharp / " -%}
-    {%- assign gd = site.data.fsharp -%}
-    {%- for item in site.data.fsharp.grandparent -%}
-        {%- if page.url contains item.url -%}
-            {%- assign child = item.subtree -%}
-        {%- endif -%}
-    {%- endfor -%}
-
-{%- elsif path[1] == "rust" -%}
-    {%- assign segment = "Rust Programming" -%}
-    {%- assign parent=" / Rust / " -%}
-    {%- assign gd = site.data.rust -%}
-    {%- for item in site.data.rust.grandparent -%}
-        {%- if page.url contains item.url -%}
-            {%- assign child = item.subtree -%}
-        {%- endif -%}
-    {%- endfor -%}
-
-{%- elsif path[1] == "lisp" -%}
-    {%- assign segment = "LISP Programming" -%}
-    {%- assign parent=" / LISP / " -%}
-    {%- assign gd = site.data.lisp -%}
-    {%- for item in site.data.lisp.grandparent -%}
-        {%- if page.url contains item.url -%}
-            {%- assign child = item.subtree -%}
-        {%- endif -%}
-    {%- endfor -%}
-
-{%- elsif path[1] == "dsa" -%}
-    {%- assign segment = "Data Structures and Algorithms" -%}
-    {%- assign parent=" / DSA / " -%}
-    {%- assign gd = site.data.dsa -%}
-    {%- for item in site.data.dsa.grandparent -%}
-        {%- if page.url contains item.url -%}
-            {%- assign child = item.subtree -%}
-        {%- endif -%}
-    {%- endfor -%}
-
-{%- elsif path[1] == "linux" -%}
-    {%- assign segment = "Linux Commands and Scripting" -%}
-    {%- assign parent=" / Linux / " -%}
-    {%- assign gd = site.data.linux -%}
-    {%- for item in site.data.linux.grandparent -%}
-        {%- if page.url contains item.url -%}
-            {%- assign child = item.subtree -%}
-        {%- endif -%}
-    {%- endfor -%}
-
-{%- elsif path[1] == "mysql" -%}
-    {%- assign segment = "MySQL Database" -%}
-    {%- assign parent=" / MySQL / " -%}
-    {%- assign gd = site.data.mysql -%}
-    {%- for item in site.data.mysql.grandparent -%}
-        {%- if page.url contains item.url -%}
-            {%- assign child = item.subtree -%}
-        {%- endif -%}
-    {%- endfor -%}
-
-{%- elsif path[1] == "mongodb" -%}
-    {%- assign segment = "MongoDB (NoSQL Database)" -%}
-    {%- assign parent=" / MongoDB / " -%}
-    {%- assign gd = site.data.mongodb -%}
-    {%- for item in site.data.mongodb.grandparent -%}
-        {%- if page.url contains item.url -%}
-            {%- assign child = item.subtree -%}
-        {%- endif -%}
-    {%- endfor -%}
-
-{%- elsif path[1] == "cg" -%}
-    {%- assign segment = "Computer Graphics" -%}
-    {%- assign parent=" / CG / " -%}
-    {%- assign gd = site.data.cg -%}
-    {%- for item in site.data.cg.grandparent -%}
-        {%- if page.url contains item.url -%}
-            {%- assign child = item.subtree -%}
-        {%- endif -%}
-    {%- endfor -%}
-
-{%- elsif path[1] == "selenium" -%}
-    {%- assign segment = "Selenium WebDriver" -%}
-    {%- assign parent=" / Selenium / " -%}
-    {%- assign gd = site.data.selenium -%}
-    {%- for item in site.data.selenium.grandparent -%}
-        {%- if page.url contains item.url -%}
-            {%- assign child = item.subtree -%}
-        {%- endif -%}
-    {%- endfor -%}
-
-{%- elsif path[1] == "asm" -%}
-    {%- assign segment = "Assembly Programming" -%}
-    {%- assign parent=" / ASM / " -%}
-    {%- assign gd = site.data.asm -%}
-    {%- for item in site.data.asm.grandparent -%}
-        {%- if page.url contains item.url -%}
-            {%- assign child = item.subtree -%}
-        {%- endif -%}
-    {%- endfor -%}
-
-{%- elsif path[1] == "cluster" -%}
-    {%- assign segment = "Cluster" -%}
-    {%- assign parent=" / Cluster / " -%}
-    {%- assign gd = site.data.cluster -%}
-    {%- for item in site.data.cluster.grandparent -%}
-        {%- if page.url contains item.url -%}
-            {%- assign child = item.subtree -%}
-            {%- assign segment = item.parent -%}
-        {%- endif -%}
-    {%- endfor -%}
-
-{%- elsif path[1] == "about" -%}
-    {%- assign segment = "About Us" -%}
-    {%- assign parent=" / About / " -%}
-    {%- assign gd = site.data.about -%}
-    {%- for item in site.data.about.grandparent -%}
-        {%- if page.url contains item.url -%}
-            {%- assign child = item.subtree -%}
-            {%- assign segment = item.parent -%}
-        {%- endif -%}
-    {%- endfor -%}
-
-{%- elsif path[1] == "tools" -%}
-    {%- assign segment = "Tools" -%}
-    {%- assign parent=" / Tools / " -%}
-    {%- assign gd = site.data.tools -%}
-    {%- for item in site.data.tools.grandparent -%}
-        {%- if page.url contains item.url -%}
-            {%- assign child = item.subtree -%}
-            {%- assign segment = item.parent -%}
-        {%- endif -%}
-    {%- endfor -%}
-
+{%- if seg_obj -%}
+    {%- assign segment = seg_obj.title -%}
+    {%- if seg_obj.parent -%}
+        {%- assign parent = seg_obj.parent -%}
+    {%- endif -%}
 {%- else -%}
-    {%- assign parent=" GoDarda" -%}
+    {%- assign segment = site.title -%}
 {%- endif -%}
+
+{%- assign gd = nil -%}
+{%- if seg_key != '' and site.data[seg_key] -%}
+    {%- assign gd = site.data[seg_key] -%}
+{%- endif -%}
+
+{%- if gd -%}
+    {%- for item in gd.grandparent -%}
+        {%- if page.url contains item.url -%}
+            {%- assign child = item.subtree -%}
+            {%- if item.parent -%}
+                {%- assign segment = item.parent -%}
+            {%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endif -%}
+
+{%- unless parent -%}
+    {%- if seg_key == '' -%}
+        {%- assign parent = ' GoDarda' -%}
+    {%- else -%}
+        {%- assign parent = ' / ' | append: segment | append: ' / ' -%}
+    {%- endif -%}
+{%- endunless -%}
