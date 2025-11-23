@@ -133,18 +133,130 @@
         $('body').on('contextmenu', function () { return false; });
 
         var lastScrollTop = 0;
+        var scrollTimeout = null;
+        var MIN_DELTA = 30; // ignore micro-movements (px)
+        var MIN_DOC_HEIGHT = 1500; // only hide on long pages
+
+        // Touch-gesture detection to ignore short taps/drags that cause transient
+        // scroll events on mobile. Short gestures (quick and small movement)
+        // should not toggle the bottom bar.
+        var touchStartY = null;
+        var touchStartTime = 0;
+        var lastShortTouch = false;
+        var SHORT_TOUCH_MAX_DURATION = 200; // ms
+        var SHORT_TOUCH_MAX_MOVE = 45; // px
+        var SHORT_TOUCH_IGNORE_MS = 350; // ms to ignore subsequent scrolls
+
+        document.addEventListener('touchstart', function (ev) {
+            if (ev.touches && ev.touches[0]) {
+                touchStartY = ev.touches[0].clientY;
+                touchStartTime = Date.now();
+            }
+        }, { passive: true });
+
+        document.addEventListener('touchend', function (ev) {
+            var endY = null;
+            if (ev.changedTouches && ev.changedTouches[0]) {
+                endY = ev.changedTouches[0].clientY;
+            }
+            // fallback if touchend doesn't provide changedTouches
+            if (endY === null) {
+                endY = touchStartY;
+            }
+
+            var duration = Date.now() - touchStartTime;
+            var move = Math.abs((endY || 0) - (touchStartY || 0));
+
+            if (duration < SHORT_TOUCH_MAX_DURATION && move < SHORT_TOUCH_MAX_MOVE) {
+                // mark a short touch and ignore scroll toggles for a short window
+                lastShortTouch = true;
+                setTimeout(function () { lastShortTouch = false; }, SHORT_TOUCH_IGNORE_MS);
+            }
+
+            touchStartY = null;
+            touchStartTime = 0;
+        }, { passive: true });
+
+        // Recent-scroll buffer to differentiate between quick oscillations
+        // and sustained/purposeful scrolling (works for mouse wheel too).
+        var recentScrolls = []; // {t: timestamp, d: delta}
+        var RECENT_WINDOW = 350; // ms
+        var PURPOSEFUL_THRESHOLD = 80; // px cumulative within window to treat as purposeful
+
+        function addRecentDelta(delta) {
+            var now = Date.now();
+            recentScrolls.push({ t: now, d: delta });
+            // trim old
+            var cutoff = now - RECENT_WINDOW;
+            while (recentScrolls.length && recentScrolls[0].t < cutoff) {
+                recentScrolls.shift();
+            }
+            var sumDown = 0, sumUp = 0;
+            for (var i = 0; i < recentScrolls.length; i++) {
+                var v = recentScrolls[i].d;
+                if (v > 0) sumDown += v;
+                else sumUp += -v;
+            }
+            return { sumDown: sumDown, sumUp: sumUp };
+        }
+
+        // Also listen to wheel events to capture mouse-wheel behavior more
+        // accurately (deltaY values). Wheel events will update recentScrolls
+        // so the scroll handler can consult purposeful direction.
+        window.addEventListener('wheel', function (e) {
+            // deltaY > 0 means scrolling down
+            if (typeof e.deltaY === 'number') {
+                addRecentDelta(e.deltaY);
+            }
+        }, { passive: true });
+
         $(window).on('scroll', function () {
-            scrollTop = $(this).scrollTop();
-            if ((document.body.scrollHeight - 150) <= (window.scrollY + window.innerHeight)) {
-                $("#isWebView").fadeIn();
+            // If a recent short touch was detected, ignore this scroll event
+            if (lastShortTouch) {
+                return;
             }
-            else if (scrollTop > lastScrollTop && document.body.scrollHeight >= 1500) {
-                $("#isWebView").fadeOut();
+
+            var currentScroll = $(this).scrollTop();
+            var delta = currentScroll - lastScrollTop;
+
+            // Ignore very small movements to avoid jitter on touch devices
+            if (Math.abs(delta) < MIN_DELTA) {
+                return;
             }
-            else {
-                $("#isWebView").fadeIn();
-            }
-            lastScrollTop = scrollTop;
+
+            // Add to recent buffer and compute whether movement is purposeful.
+            // Use net-direction (sumDown - sumUp) so alternating small
+            // movements don't accumulate into a false 'purposeful' signal.
+            var recent = addRecentDelta(delta);
+            var net = recent.sumDown - recent.sumUp;
+            var purposefulDown = net >= PURPOSEFUL_THRESHOLD;
+            var purposefulUp = net <= -PURPOSEFUL_THRESHOLD;
+
+            lastScrollTop = currentScroll;
+
+            // Debounce actual show/hide to avoid rapid toggles during fast scrolls
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(function () {
+                // If we're near the bottom, always show the webview bar
+                if ((document.body.scrollHeight - 150) <= (window.scrollY + window.innerHeight)) {
+                    if (!$("#isWebView").is(":visible")) {
+                        $("#isWebView").stop(true, true).fadeIn();
+                    }
+                }
+                // If there is a purposeful downward scroll on a long page, hide
+                else if (purposefulDown && document.body.scrollHeight >= MIN_DOC_HEIGHT) {
+                    if ($("#isWebView").is(":visible")) {
+                        $("#isWebView").stop(true, true).fadeOut();
+                    }
+                }
+                // If there is a purposeful upward scroll, show the bar
+                else if (purposefulUp) {
+                    if (!$("#isWebView").is(":visible")) {
+                        $("#isWebView").stop(true, true).fadeIn();
+                    }
+                }
+                // Otherwise do not toggle — ignore small oscillations
+            }, 100);
         });
     }
     else if (!isWebview && webfooter.classList.contains("block_webfooter")) {
