@@ -1,50 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/webViewContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black">
+    android:background="@android:color/black">
 
+    <!-- WebView loads in the background -->
     <WebView
         android:id="@+id/webView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <LinearLayout
-        android:id="@+id/noInternetLayout"
+    <!-- 'No Internet' screen, inflated only when needed -->
+    <ViewStub
+        android:id="@+id/noInternetStub"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?android:colorBackground"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:layout="@layout/no_internet" />
 
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/rounded_background"
-            android:padding="7dp"
-            android:src="@mipmap/ic_launcher" />
+    <!-- Error/App Down screen, inflated only when needed -->
+    <ViewStub
+        android:id="@+id/appDownStub"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/app_down" />
 
-        <TextView
-            android:id="@+id/noInternetText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="10dp"
-            android:text="No Internet Connection"
-            android:textColor="#e63636"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/tryagain"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="Retry" />
-    </LinearLayout>
 </FrameLayout>
