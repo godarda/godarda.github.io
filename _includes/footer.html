@@ -108,13 +108,12 @@
     {%- elsif path[1] == "about" or path[1] == "shubhamrdarda" -%}{%- assign f_about="wvnav-item-active" -%}
     {%- else -%}
     {%- assign f_learn="wvnav-item-active" -%}
-    {%- assign display="true" -%}
     {%- endif -%}
     <div class="d-flex justify-content-between wvnav">
         <a class="wvnav-item {{ f_home }}" href="{{ site.url }}"><i class="wvsvg {{ f_home }}- bi bi-house-door"></i><div class="text-center">Home</div></a>
         <a class="wvnav-item {{ f_search }}" href="{{ site.url }}/search"><i class="wvsvg {{ f_search }}- bi bi-search"></i><div class="text-center">Search</div></a>
-        {% if path[1] == nil or path[1] == "search" or path[1] == "about" or path[1] == "shubhamrdarda" %}<a class="wvnav-item" href="{{ site.data.url.sponsor }}"><i class="wvsvg bi bi-suit-heart"></i><div class="text-center">Sponsor</div></a>{% endif %}
-        {%- if display == "true" -%}<a class="wvnav-item {{ f_learn }}" href="{{ site.url }}/{{ path[1] }}"><i class="wvsvg {{ f_learn }}-{{ path[1] }} bi bi-code-square"></i><div class="text-center">Learning</div></a>{%- endif -%}
+        {% if path[1] == nil or path[1] == "search" or path[1] == "about" or path[1] == "shubhamrdarda" %}<a class="wvnav-item {{ f_learn }}"><i style="color: #666;" class="wvsvg {{ f_learn }}-{{ path[1] }} bi bi-code-square"></i><div style="color: #666;" class="text-center" disabled>Learning</div></a>
+        {%- else -%}<a class="wvnav-item {{ f_learn }}" href="{{ site.url }}/{{ path[1] }}"><i class="wvsvg {{ f_learn }}-{{ path[1] }} bi bi-code-square"></i><div class="text-center">Learning</div></a>{%- endif -%}
         <a class="wvnav-item" href="share:{{ site.url }}{{ page.url }}"><i class="wvsvg bi bi-share"></i><div class="text-center">Share</div></a>
         <a class="wvnav-item {{ f_about }}" href="{{ site.url }}/about"><i class="wvsvg {{ f_about }}-about bi bi-info-circle"></i><div class="text-center">About</div></a>
     </div>
@@ -125,6 +124,7 @@
     const about_section = document.getElementById("app");
 
     if (isWebview && userAgent.includes("GoDarda")) {
+        document.getElementById("sponsor").style.display = "block";
         document.getElementById("rsidebar").style.display = "none";
         document.getElementById("isWebsite").style.display = "none";
         document.getElementById("isWebView").style.display = "block";
@@ -240,19 +240,19 @@
                 // If we're near the bottom, always show the webview bar
                 if ((document.body.scrollHeight - 150) <= (window.scrollY + window.innerHeight)) {
                     if (!$("#isWebView").is(":visible")) {
-                        $("#isWebView").stop(true, true).fadeIn();
+                        $("#isWebView").stop(true, true).fadeIn(250);
                     }
                 }
                 // If there is a purposeful downward scroll on a long page, hide
                 else if (purposefulDown && document.body.scrollHeight >= MIN_DOC_HEIGHT) {
                     if ($("#isWebView").is(":visible")) {
-                        $("#isWebView").stop(true, true).fadeOut();
+                        $("#isWebView").stop(true, true).fadeOut(500);
                     }
                 }
                 // If there is a purposeful upward scroll, show the bar
                 else if (purposefulUp) {
                     if (!$("#isWebView").is(":visible")) {
-                        $("#isWebView").stop(true, true).fadeIn();
+                        $("#isWebView").stop(true, true).fadeIn(250);
                     }
                 }
                 // Otherwise do not toggle — ignore small oscillations
@@ -267,6 +267,7 @@
         document.getElementById("navbar-brand").style.marginLeft = "0px";
         document.getElementById("lsidebar").style.display = "none";
         document.getElementById("leftsidebar").style.display = "none";
+        document.getElementById("sponsor").style.display = "block";
     }
     else if (isWebview && userAgent.includes("GoDarda") && about_section.classList.contains("about_home_false")) {
         document.getElementById("navbar-brand").style.marginLeft = "0px";
