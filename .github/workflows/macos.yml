@@ -22,7 +22,7 @@ jobs:
     steps:
       # Step 1: Checkout develop branch
       - name: Checkout develop branch
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: develop
 
