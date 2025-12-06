@@ -108,13 +108,14 @@
     {%- elsif path[1] == "about" or path[1] == "shubhamrdarda" -%}{%- assign f_about="wvnav-item-active" -%}
     {%- else -%}
     {%- assign f_learn="wvnav-item-active" -%}
+    {%- assign display="true" -%}
     {%- endif -%}
     <div class="d-flex justify-content-between wvnav">
         <a class="wvnav-item {{ f_home }}" href="{{ site.url }}"><i class="wvsvg {{ f_home }}- bi bi-house-door"></i><div class="text-center">Home</div></a>
         <a class="wvnav-item {{ f_search }}" href="{{ site.url }}/search"><i class="wvsvg {{ f_search }}- bi bi-search"></i><div class="text-center">Search</div></a>
-        {% if path[1] == nil or path[1] == "search" or path[1] == "about" or path[1] == "shubhamrdarda" %}<a class="wvnav-item {{ f_learn }}"><i style="color: #666;" class="wvsvg {{ f_learn }}-{{ path[1] }} bi bi-code-square"></i><div style="color: #666;" class="text-center" disabled>Learning</div></a>
-        {%- else -%}<a class="wvnav-item {{ f_learn }}" href="{{ site.url }}/{{ path[1] }}"><i class="wvsvg {{ f_learn }}-{{ path[1] }} bi bi-code-square"></i><div class="text-center">Learning</div></a>{%- endif -%}
         <a class="wvnav-item" href="share:{{ site.url }}{{ page.url }}"><i class="wvsvg bi bi-share"></i><div class="text-center">Share</div></a>
+        {% if path[1] == nil or path[1] == "search" or path[1] == "about" or path[1] == "shubhamrdarda" %}<a class="wvnav-item" href="{{ site.data.url.sponsor }}"><i class="wvsvg bi bi-suit-heart"></i><div class="text-center">Sponsor</div></a>{% endif %}
+        {%- if display == "true" -%}<a class="wvnav-item {{ f_learn }}" href="{{ site.url }}/{{ path[1] }}"><i class="wvsvg {{ f_learn }}-{{ path[1] }} bi bi-code-square"></i><div class="text-center">Learning</div></a>{%- endif -%}
         <a class="wvnav-item {{ f_about }}" href="{{ site.url }}/about"><i class="wvsvg {{ f_about }}-about bi bi-info-circle"></i><div class="text-center">About</div></a>
     </div>
 </footer>
@@ -123,8 +124,8 @@
     const webfooter = document.getElementById("isWebsite");
     const about_section = document.getElementById("app");
 
-    if (isWebview && userAgent.includes("GoDarda")) {
-        document.getElementById("sponsor").style.display = "block";
+    if (window.isWebview && window.userAgent.includes("GoDarda")) {
+        document.getElementById("android_theme").style.display = "block";
         document.getElementById("rsidebar").style.display = "none";
         document.getElementById("isWebsite").style.display = "none";
         document.getElementById("isWebView").style.display = "block";
@@ -258,18 +259,48 @@
                 // Otherwise do not toggle — ignore small oscillations
             }, 100);
         });
+
+        const androidThemeIcon = document.getElementById('android_theme');
+        const themes = ['auto', 'light', 'dark'];
+        const icons = {
+            auto: 'bi-circle-half',
+            light: 'bi-sun',
+            dark: 'bi-moon-stars'
+        };
+
+        const updateAndroidIcon = (theme) => {
+            const currentIcon = icons[theme] || 'bi-circle-half';
+            androidThemeIcon.setAttribute('class', `ms-auto bi ${currentIcon}`);
+        };
+        
+        // Set initial icon
+        updateAndroidIcon(getStoredTheme() || 'auto');
+
+        androidThemeIcon.addEventListener('click', () => {
+            const currentTheme = getStoredTheme() || 'auto';
+            let nextThemeIndex = themes.indexOf(currentTheme) + 1;
+            if (nextThemeIndex >= themes.length) {
+                nextThemeIndex = 0;
+            }
+            const nextTheme = themes[nextThemeIndex];
+
+            setStoredTheme(nextTheme);
+            setTheme(nextTheme);
+            showActiveTheme(nextTheme);
+            updateAndroidIcon(nextTheme);
+        });
     }
-    else if (!isWebview && webfooter.classList.contains("block_webfooter")) {
+    else if (!window.isWebview && webfooter.classList.contains("block_webfooter")) {
         document.getElementById("isWebsite").style.display = "none";
     }
-    if (isWebview && userAgent.includes("GoDarda") && about_section.classList.contains("about_home_true")) {
+    if (window.isWebview && window.userAgent.includes("GoDarda") && about_section.classList.contains("about_home_true")) {
         document.getElementById("app").style.display = "block";
         document.getElementById("navbar-brand").style.marginLeft = "0px";
         document.getElementById("lsidebar").style.display = "none";
         document.getElementById("leftsidebar").style.display = "none";
         document.getElementById("sponsor").style.display = "block";
     }
-    else if (isWebview && userAgent.includes("GoDarda") && about_section.classList.contains("about_home_false")) {
+    else if (window.isWebview && window.userAgent.includes("GoDarda") && about_section.classList.contains("about_home_false")) {
         document.getElementById("navbar-brand").style.marginLeft = "0px";
         document.getElementById("lsidebar").style.display = "none";
     }
