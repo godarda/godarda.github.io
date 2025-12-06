@@ -37,11 +37,6 @@
         <a class="card" href="{{ site.data.url.github }}">GitHub</a>
         <a class="card" href="{{ site.data.url.discord }}">Discord</a>
     </div>
-    <div class="board">
-        <div class="boardtitle"><i class="bi bi-gear-wide-connected"></i> App Settings</div>
-        <a id="cache" class="card" href="clear:">Clear: Cache and History</a>
-        <a class="card disabled">Theme: System Default</a>
-    </div>
 </div>
 
 {%- if path[1] == "search" or path[1] == "testapp" -%}{%- assign flag = "block_webfooter" -%}{%- endif -%}
@@ -97,7 +92,7 @@
         </div>
     </div>
     <div class="d-flex justify-content-center" style="background-color: #16181d; padding: 15px; margin: 0px;">
-        <img style="border-radius: 50px;" alt="" src="{{ site.icon }}" width="25" height="25"><span style="padding-top: 2px; padding-left: 5px; color: #ffffff;">Developed by <a class="hlink" href="shubhamrdarda">{{ site.founder }}</span></a>
+        <small>&copy; {% assign current_year = 'now' | date: '%Y' %}{{ current_year }} {{ site.title }}. All Rights Reserved.</small>
     </div>
 </footer>
 
@@ -113,9 +108,9 @@
     <div class="d-flex justify-content-between wvnav">
         <a class="wvnav-item {{ f_home }}" href="{{ site.url }}"><i class="wvsvg {{ f_home }}- bi bi-house-door"></i><div class="text-center">Home</div></a>
         <a class="wvnav-item {{ f_search }}" href="{{ site.url }}/search"><i class="wvsvg {{ f_search }}- bi bi-search"></i><div class="text-center">Search</div></a>
-        <a class="wvnav-item" href="share:{{ site.url }}{{ page.url }}"><i class="wvsvg bi bi-share"></i><div class="text-center">Share</div></a>
         {% if path[1] == nil or path[1] == "search" or path[1] == "about" or path[1] == "shubhamrdarda" %}<a class="wvnav-item" href="{{ site.data.url.sponsor }}"><i class="wvsvg bi bi-suit-heart"></i><div class="text-center">Sponsor</div></a>{% endif %}
         {%- if display == "true" -%}<a class="wvnav-item {{ f_learn }}" href="{{ site.url }}/{{ path[1] }}"><i class="wvsvg {{ f_learn }}-{{ path[1] }} bi bi-code-square"></i><div class="text-center">Learning</div></a>{%- endif -%}
+        <a class="wvnav-item" href="share:{{ site.url }}{{ page.url }}"><i class="wvsvg bi bi-share"></i><div class="text-center">Share</div></a>
         <a class="wvnav-item {{ f_about }}" href="{{ site.url }}/about"><i class="wvsvg {{ f_about }}-about bi bi-info-circle"></i><div class="text-center">About</div></a>
     </div>
 </footer>
@@ -247,7 +242,7 @@
                 // If there is a purposeful downward scroll on a long page, hide
                 else if (purposefulDown && document.body.scrollHeight >= MIN_DOC_HEIGHT) {
                     if ($("#isWebView").is(":visible")) {
-                        $("#isWebView").stop(true, true).fadeOut(500);
+                        $("#isWebView").stop(true, true).fadeOut(750);
                     }
                 }
                 // If there is a purposeful upward scroll, show the bar
@@ -304,8 +299,4 @@
         document.getElementById("navbar-brand").style.marginLeft = "0px";
         document.getElementById("lsidebar").style.display = "none";
     }
-    $("#cache").click(function () {
-        $(this).html("Cleared: Cache and History");
-        $(this).css("color", "#00b050");
-    });
 </script>
