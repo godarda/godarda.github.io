@@ -49,7 +49,7 @@
         </div>
         {%- endif -%}
 
-        <a id="sponsor" style="display: none; font-size: 20px; color: #00b050;" class="ms-auto bi bi-suit-heart" href="{{ site.data.url.sponsor }}" target="_blank"></a>
+        <a id="android_theme" style="display: none; font-size: 20px; color: #666;" class="ms-auto bi bi-moon"></a>
         <button id="rsidebar" class="ms-auto navbar-toggler p-0" type="button" data-bs-toggle="rightsidebar" data-bs-target="#rightsidebar" aria-label="rsidebar"><span class="navbar-toggler-icon"></span></button>
         <div id="rightsidebar" class="rightsidebar-collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav mr-auto">
@@ -62,9 +62,16 @@
                 {%- if path[1] != "about" -%}
                     <li class="nav-item"><a class="nav-link" href="about"><i class="navsvg bi bi-info-circle"></i> About Us</a></li>
                 {%- endif -%}
-                <li class="nav-item"><a class="nav-link" disabled title="System Default"><i class="bi bi-brilliance"></i> Theme</a></li>
                 <li class="nav-item"><a style="cursor: pointer;" class="nav-link" data-bs-toggle="modal" data-bs-target="#appmodal"><i class="navsvg bi bi-android2"></i> Android App</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ site.data.url.sponsor }}" target="_blank"><i class="navsvg bi bi-suit-heart"></i> Sponsor</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" aria-label="theme (auto)"><i class="bi bi-brilliance" id="bd-theme-icon"></i><span id="bd-theme-text">Theme</span></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme">
+                        <li><button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false"><i class="bi bi-sun me-2"></i>Light</button></li>
+                        <li><button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false"><i class="bi bi-moon-stars me-2"></i>Dark</button></li>
+                        <li><button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto" aria-pressed="true"><i class="bi bi-circle-half me-2"></i>Auto</button></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
