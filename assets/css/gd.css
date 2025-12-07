@@ -29,7 +29,7 @@ layout: none
     --search:              #00b050; /* Green for search-related functionalities */
     --selenium:            #00cc66; /* Green for Selenium testing framework */
     --testapp:             #00cc66; /* Green for test applications, matching Selenium */
-    --tools:              #ff9900; /* Bright orange for Tools */
+    --tools:               #ff9900; /* Bright orange for Tools */
     
     --bg_jumbotron:        #050514; /* Background color for jumbotron */
     --bnw:                 #ffffff; /* Black and white color */
@@ -49,7 +49,7 @@ layout: none
     --sidebar-tc:          #d9d9d9; /* Sidebar text color */
     --svgicon:             #f2f2f2; /* SVG icon color */
     --textcolor:           #e6e6e6; /* General text color */
-    --wvnav:               #000707; /* Navigation bar color */
+    --wvnav:               #000000; /* Navigation bar color */
     --wvnav-item-active:   #21252c; /* Active navigation item color */
 
     --code-literal:        #79c0ff; /* Literal code color for code literals and elements */
