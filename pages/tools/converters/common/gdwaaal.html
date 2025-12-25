@@ -1,0 +1,34 @@
+---
+permalink: converters/common/gdwaaal
+title: Time Converter
+description: "Instantly convert time between seconds, minutes, hours, days, weeks, months, and years. A simple and fast time conversion tool."
+---
+
+{% include converter.html %}
+<script>
+(function () {
+    // Configuration: Define units and their conversion factor to Seconds (base unit)
+    const units = {
+        ns: { name: 'Nanosecond', symbol: 'ns', factor: 1e-9 },
+        us: { name: 'Microsecond',symbol: 'µs', factor: 1e-6 },
+        ms: { name: 'Millisecond',symbol: 'ms', factor: 0.001 },
+        s:  { name: 'Second',     symbol: 's',  factor: 1 },
+        min:{ name: 'Minute',     symbol: 'min',factor: 60 },
+        h:  { name: 'Hour',       symbol: 'h',  factor: 3600 },
+        d:  { name: 'Day',        symbol: 'd',  factor: 86400 },
+        wk: { name: 'Week',       symbol: 'wk', factor: 604800 },
+        mo: { name: 'Month',      symbol: 'mo', factor: 2628000 }, // Approx 30.41 days
+        y:  { name: 'Year',       symbol: 'y',  factor: 31536000 } // 365 days
+    };
+
+    const defaultUnit = 'min';
+    const defaultSelectedUnits = ['s', 'h'];
+
+    // Initialize the shared converter logic
+    setupConverter({
+        units: units,
+        defaultUnit: defaultUnit,
+        defaultSelectedUnits: defaultSelectedUnits
+    });
+})();
+</script>

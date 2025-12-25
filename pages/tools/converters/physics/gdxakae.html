@@ -1,0 +1,30 @@
+---
+permalink: converters/physics/gdxakae
+title: Illuminance Converter
+description: "Instantly convert illuminance measurements between different units. A simple and fast illuminance conversion tool."
+---
+
+{% include converter.html %}
+<script>
+(function () {
+    // Configuration: Define units and their conversion factor to Lux (base unit)
+    const units = {
+        lx:   { name: 'Lux',                symbol: 'lx',    factor: 1 },
+        fc:   { name: 'Foot-candle',        symbol: 'fc',    factor: 10.76391 },
+        ph:   { name: 'Phot',               symbol: 'ph',    factor: 10000 },
+        nx:   { name: 'Nox',                symbol: 'nx',    factor: 0.001 },
+        klx:  { name: 'Kilolux',            symbol: 'klx',   factor: 1000 },
+        mlx:  { name: 'Millilux',           symbol: 'mlx',   factor: 0.001 }
+    };
+
+    const defaultUnit = 'lx';
+    const defaultSelectedUnits = ['fc', 'ph'];
+
+    // Initialize the shared converter logic
+    setupConverter({
+        units: units,
+        defaultUnit: defaultUnit,
+        defaultSelectedUnits: defaultSelectedUnits
+    });
+})();
+</script>

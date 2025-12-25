@@ -1,0 +1,31 @@
+---
+permalink: converters/physics/gdsqzva
+title: Angle Converter
+description: "Instantly convert angles between degrees, radians, gradians, and more. A simple and fast angle conversion tool."
+---
+
+{% include converter.html %}
+<script>
+(function () {
+    // Configuration: Define units and their conversion factor to Degrees (base unit)
+    const units = {
+        deg:    { name: 'Degree',           symbol: '°',     factor: 1 },
+        rad:    { name: 'Radian',           symbol: 'rad',   factor: 180 / Math.PI },
+        grad:   { name: 'Gradian',          symbol: 'grad',  factor: 0.9 },
+        tr:     { name: 'Turn',             symbol: 'tr',    factor: 360 },
+        arcmin: { name: 'Minute of arc',    symbol: '′',     factor: 1 / 60 },
+        arcsec: { name: 'Second of arc',    symbol: '″',     factor: 1 / 3600 },
+        mrad:   { name: 'Milliradian',      symbol: 'mrad',  factor: 180 / (1000 * Math.PI) }
+    };
+
+    const defaultUnit = 'deg';
+    const defaultSelectedUnits = ['rad', 'grad'];
+
+    // Initialize the shared converter logic
+    setupConverter({
+        units: units,
+        defaultUnit: defaultUnit,
+        defaultSelectedUnits: defaultSelectedUnits
+    });
+})();
+</script>

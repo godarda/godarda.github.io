@@ -5,18 +5,10 @@
 <body>
 <nav class="navbar navbar-expand-md navbar-dark fixed-top">
     <div class="container-fluid">
-        {%- if path[1] == nil -%}
-        <div class="navbar-brand" style="margin-left: 0px;">
-            <a><img id="logo" alt="Logo" width="30" height="30" src="{{ site.icon | relative_url }}"></a>
-            <a id="fc-{{ path[1] }}"> {{ parent }}</a>
-        </div>
-        {%- elsif path[1] == "search" or path[1] == "testapp" or path[1] == "shubhamrdarda" -%}
+        {%- if path[1] == nil or path[1] == "tools" or path[1] == "search" or path[1] == "testapp" or path[1] == "shubhamrdarda" -%}
         <div class="navbar-brand" style="margin-left: 0px;">
             <a href=""><img id="logo" alt="Logo" width="30" height="30" src="{{ site.icon | relative_url }}"></a>
-            <a id="fc-{{ path[1] }}" href="{{ path[1] }}"> / {{ path[1] | capitalize }}</a>
-            {%- if path[2] != nil -%}
-                <a id="fc-{{ path[1] }}" href="{{ path[1] }}/{{ path[2] }}"> / {{ path[2] | capitalize }}</a>
-            {%- endif -%}
+            <a id="fc-{{ path[1] }}"> {{ parent }}</a>
         </div>
         {%- else -%}
         <div id="navbar-brand" class="navbar-brand">
@@ -68,7 +60,7 @@
                 <li class="nav-item"><a style="cursor: pointer;" class="nav-link" data-bs-toggle="modal" data-bs-target="#appmodal"><i class="navsvg bi bi-android2"></i> Android App</a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" aria-label="theme (auto)"><i class="bi bi-circle-half me-2" id="bd-theme-icon"></i><span id="bd-theme-text">Theme</span></a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme">
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme" style="top: 45px;">
                         <li><button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false"><i class="bi bi-sun me-2"></i>Light</button></li>
                         <li><button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false"><i class="bi bi-moon-stars me-2"></i>Dark</button></li>
                         <li><button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto" aria-pressed="true"><i class="bi bi-circle-half me-2"></i>Auto</button></li>
@@ -80,16 +72,22 @@
 </nav>
 
 <div data-bs-toggle="collapseall">
-{%- if path[1] == nil or path[1] == "shubhamrdarda" or path[1] == "testapp" -%}
-<main role="main">{{ content }}</main>{%- include footer.html -%}
-
-{%- elsif path[1] == "search" -%}
+{%- if path[1] == "search" or path[1] == "shubhamrdarda" or path[1] == "testapp" -%}
 <main role="main"><div class="container">{{ content }}</div></main>{%- include footer.html -%}
+
+{%- elsif path[1] == nil or path[1] == "tools" -%}
+<div class="jumbotron text-center">
+    <h3>{{ site.title }}</h3>
+    {%- if path[1] == nil -%}<h6>{{ site.tagline }}</h6>
+    {%- else -%}<h6>{{ segment }}</h6>{%- endif -%}
+</div>
+<main role="main"><div class="container">{{ content }}</div></main>
+{%- include footer.html -%}
 
 {%- else -%}
 <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-xxl-10 ms-sm-auto px-md-4 jumbotron text-center">
     <h3>{{ site.title }}</h3>
-    {%- if path[1] != "tools" -%}<h6>{{ segment }}</h6>
+    {%- if path[1] != "converters" and path[1] != "calculators" -%}<h6>{{ segment }}</h6>
     {%- else -%}<h6>{{ page.title }}</h6>{%- endif -%}
 </div>
 

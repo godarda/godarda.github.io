@@ -82,15 +82,27 @@ segments:
   - title: Tools
     url: tools
     parent: " / Tools / "
-    
-  - title: GoDarda's Search
-    url: search
-    parent: " / Search / "
+
+  - title: Converters
+    url: converters
+    parent: " / Converters / "
+
+  - title: Calculators
+    url: calculators
+    parent: " / Calculators / "
     
   - title: About Us
     url: about
     parent: " / About / "
+    
+  - title: GoDarda's Search
+    url: search
+    parent: " / Search "
+
+  - title: Shubham Darda
+    url: shubhamrdarda
+    parent: " / Shubham Darda "
 
   - title: GoDarda's TestApp
     url: testapp
-    parent: " / TestApp / "
+    parent: " / TestApp "

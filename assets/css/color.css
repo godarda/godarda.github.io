@@ -28,7 +28,9 @@ layout: none
     --selenium:            #00cc66; /* Green for Selenium testing framework */
     --testapp:             #00cc66; /* Green for test applications, matching Selenium */
     --tools:               #ff9900; /* Bright orange for Tools */
-    
+    --calculators:         #ff9900; /* Bright orange for Calculators */
+    --converters:          #ff9900; /* Bright orange for Converters */
+
     --bg_jumbotron:        #050514; /* Background color for jumbotron */
     --bnw:                 #ffffff; /* Black and white color */
     --board-bc:            #21252c; /* Board background color */
@@ -92,6 +94,8 @@ layout: none
     --selenium:            #00e673; /* Bright green for Selenium testing framework */
     --testapp:             #00e673; /* Bright green for test applications */
     --tools:               #ff9900; /* Bright orange for Tools */
+    --calculators:         #ff9900; /* Bright orange for Calculators */
+    --converters:          #ff9900; /* Bright orange for Converters */
 
     --bg_jumbotron:        #c5cbd3; /* Background color for jumbotron */
     --bnw:                 #000000; /* Black and white color */

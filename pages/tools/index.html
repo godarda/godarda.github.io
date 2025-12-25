@@ -3,3 +3,9 @@ permalink: tools/
 title: GoDarda Tools
 description: "A collection of online tools for calculations, text analysis, and more. Explore our versatile utilities designed to simplify your tasks."
 ---
+
+{% for parent in site.data.tools.grandparent %}
+<div class="board"><div class="boardtitle">{{ parent.parent }}</div>
+    {% for child in parent.children %}<a class="card" href="{{ child.url }}">{{ child.title }}</a>{% endfor %}
+</div>
+{% endfor %}

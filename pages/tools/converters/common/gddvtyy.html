@@ -1,0 +1,38 @@
+---
+permalink: converters/common/gddvtyy
+title: Volume Converter
+description: "Instantly convert volumes between liters, milliliters, cubic meters, gallons, quarts, pints, and more. A simple and fast volume conversion tool."
+---
+
+{% include converter.html %}
+<script>
+(function () {
+    // Configuration: Define units and their conversion factor to Liters (base unit)
+    const units = {
+        ml:   { name: 'Milliliter',       symbol: 'ml',    factor: 0.001 },
+        cl:   { name: 'Centiliter',       symbol: 'cl',    factor: 0.01 },
+        dl:   { name: 'Deciliter',        symbol: 'dl',    factor: 0.1 },
+        l:    { name: 'Liter',            symbol: 'l',     factor: 1 },
+        m3:   { name: 'Cubic Meter',      symbol: 'm³',    factor: 1000 },
+        cm3:  { name: 'Cubic Centimeter', symbol: 'cm³',   factor: 0.001 },
+        tsp:  { name: 'US Teaspoon',      symbol: 'tsp',   factor: 0.00492892 },
+        tbsp: { name: 'US Tablespoon',    symbol: 'tbsp',  factor: 0.0147868 },
+        fl_oz:{ name: 'US Fluid Ounce',   symbol: 'fl oz', factor: 0.0295735 },
+        cup:  { name: 'US Cup',           symbol: 'cup',   factor: 0.236588 },
+        pt:   { name: 'US Pint',          symbol: 'pt',    factor: 0.473176 },
+        qt:   { name: 'US Quart',         symbol: 'qt',    factor: 0.946353 },
+        gal:  { name: 'US Gallon',        symbol: 'gal',   factor: 3.78541 },
+        gal_imp:{ name: 'Imperial Gallon',symbol: 'imp gal', factor: 4.54609 }
+    };
+
+    const defaultUnit = 'l';
+    const defaultSelectedUnits = ['ml', 'gal'];
+
+    // Initialize the shared converter logic
+    setupConverter({
+        units: units,
+        defaultUnit: defaultUnit,
+        defaultSelectedUnits: defaultSelectedUnits
+    });
+})();
+</script>
