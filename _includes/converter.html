@@ -1,0 +1,38 @@
+<div class="calc-panel">
+    <div class="row g-4">
+        <div class="col-12">
+            <!-- Result Cards Container -->
+            <div id="resultsContainer" class="row row-cols-1 g-2 mb-3">
+                <!-- Cards will be injected here -->
+            </div>
+
+            <!-- Input Section -->
+            <div class="input-group input-group-lg mb-3">
+                <input type="number" id="inputValue" class="form-control" placeholder="Enter value..." aria-label="Input value">
+                <select class="form-select" id="inputUnit" aria-label="Select unit">
+                    <!-- Options will be injected here -->
+                </select>
+            </div>
+
+            <div class="mt-2 muted small">Tip: results update as you type. Use 'Select Conversion Options' to customize the output.</div>
+            <div class="row g-2 mt-2">
+                <div class="col-auto">
+                    <button id="btnClear" class="btn btn-sm btn-outline-secondary">Clear</button>
+                </div>
+                <div class="col-auto">
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button" id="unitDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                            Select Conversion Options
+                        </button>
+                        <ul class="dropdown-menu" id="unitDropdownMenu" aria-labelledby="unitDropdownBtn">
+                            <!-- Checkboxes will be injected here -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/assets/js/converter.js"></script>
+<link rel="stylesheet" href="/assets/css/tools.css">

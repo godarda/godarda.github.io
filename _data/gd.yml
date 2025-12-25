@@ -1,0 +1,96 @@
+segments:
+  - title: C Programming
+    url: c
+    parent: " / C / "
+
+  - title: C++ Programming
+    url: cpp
+    parent: " / C++ / "
+
+  - title: Java Programming
+    url: java
+    parent: " / Java / "
+
+  - title: Python Programming
+    url: python
+    parent: " / Python / "
+
+  - title: Data Science
+    url: ds
+    parent: " / DS / "
+
+  - title: R Programming
+    url: r
+    parent: " / R / "
+
+  - title: Julia Programming
+    url: julia
+    parent: " / Julia / "
+
+  - title: GNU Octave
+    url: octave
+    parent: " / Octave / "
+
+  - title: C# Programming
+    url: csharp
+    parent: " / CSharp / "
+
+  - title: F# Programming
+    url: fsharp
+    parent: " / FSharp / "
+
+  - title: Rust Programming
+    url: rust
+    parent: " / Rust / "
+
+  - title: LISP Programming
+    url: lisp
+    parent: " / LISP / "
+
+  - title: Data Structures and Algorithms
+    url: dsa
+    parent: " / DSA / "
+
+  - title: Linux Commands and Scripting
+    url: linux
+    parent: " / Linux / "
+
+  - title: MySQL (Relational Database)
+    url: mysql
+    parent: " / MySQL / "
+    
+  - title: MongoDB (NoSQL Database)
+    url: mongodb
+    parent: " / MongoDB / "
+    
+  - title: Selenium WebDriver
+    url: selenium
+    parent: " / Selenium / "
+
+  - title: Computer Graphics
+    url: cg
+    parent: " / CG / "
+
+  - title: Assembly Programming
+    url: asm
+    parent: " / ASM / "
+
+  - title: Cluster
+    url: cluster
+    parent: " / Cluster / "
+
+  - title: Tools
+    url: tools
+    parent: " / Tools / "
+    
+  - title: GoDarda's Search
+    url: search
+    parent: " / Search / "
+    
+  - title: About Us
+    url: about
+    parent: " / About / "
+
+  - title: GoDarda's TestApp
+    url: testapp
+    parent: " / TestApp / "

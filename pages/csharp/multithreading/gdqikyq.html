@@ -1,0 +1,35 @@
+---
+permalink: csharp/multithreading/gdqikyq
+title: C# program for sleep(), abort() and join() methods
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+Thread t1 = new Thread(new ThreadStart(KWThread.thread));
+Thread t2 = new Thread(new ThreadStart(KWThread.thread));
+t1.Start();
+t2.Start();
+t1.Join();
+Console.WriteLine("Thread Interrupted");
+t1.Interrupt();
+t2.Interrupt();
+
+public class KWThread
+{
+    public static void thread()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            Console.Write(i + " ");
+            Thread.Sleep(200);
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+0 0 1 1 2 2 3 3 4 4 Thread Interrupted
+godarda@gd:~/csharp$ 
+</pre></span>

@@ -1,0 +1,207 @@
+---
+permalink: python/fundamentals/gdwwvga
+title: Python Mathematical Functions
+---
+
+<div class="terminalcard">Python math module</div>
+<span><pre>
+godarda@gd:~$ <mark>python3</mark>
+...
+>>> <mark>import math</mark>
+>>> <mark>math.pi</mark>
+3.141592653589793
+
+>>> <mark>math.e</mark>
+2.718281828459045
+
+>>> <mark>math.exp(1)</mark>
+2.718281828459045
+
+>>> <mark>math.inf</mark>
+inf
+
+>>> <mark>math.nan</mark>
+nan
+<hr>>>> <mark>math.factorial(10)</mark>
+3628800
+
+>>> <mark>math.fmod(7,3)</mark>
+1.0
+
+>>> <mark>math.fmod(10.5,3.5)</mark>
+0.0
+
+>>> <mark>math.fsum([1,1.1,3.14])</mark>
+5.24
+
+>>> <mark>math.modf(10.5)</mark>
+(0.5, 10.0)
+<hr>>>> <mark>math.gcd(18,21)</mark>
+3
+>>> <mark>math.lcm(24,36)</mark>
+72
+</pre></span>
+
+<div class="terminalcard">Logarithm functions</div>
+<span><pre>
+>>> <mark>import math</mark>
+>>> <mark>math.log(2)</mark>
+0.6931471805599453
+
+>>> <mark>math.log10(2)</mark>
+0.3010299956639812
+
+>>> <mark>math.log2(2)</mark>
+1.0
+
+>>> <mark>math.log(2,10)</mark>
+0.30102999566398114
+
+>>> <mark>math.log(2,2)</mark>
+1.0
+</pre></span>
+
+<div class="terminalcard">sqrt(), cbrt() and pow() functions</div>
+<span><pre>
+>>> <mark>import math</mark>
+>>> <mark>math.sqrt(25)</mark>
+5.0
+
+>>> <mark>math.sqrt(20)</mark>
+4.47213595499958
+
+>>> <mark>math.cbrt(27)</mark>
+3.0000000000000004
+
+>>> <mark>math.pow(2,10)</mark>
+1024.0
+
+>>> <mark>2**10</mark>
+1024
+</pre></span>
+
+<div class="terminalcard">round(), floor(), ceil() and trunc() functions</div>
+<span><pre>
+>>> <mark>round(2.3)</mark>
+2
+
+>>> <mark>round(2.8)</mark>
+3
+
+>>> <mark>round(-2.3)</mark>
+-2
+
+>>> <mark>round(-2.8)</mark>
+-3
+<hr>>>> <mark>abs(2.3)</mark>
+2.3
+
+>>> <mark>abs(-2.3)</mark>
+2.3
+<hr>>>> <mark>import math</mark>
+>>> <mark>math.floor(2.3)</mark>
+2
+
+>>> <mark>math.floor(2.8)</mark>
+2
+
+>>> <mark>math.floor(-2.3)</mark>
+-3
+
+>>> <mark>math.floor(-2.8)</mark>
+-3
+<hr>>>> <mark>math.ceil(2.3)</mark>
+3
+
+>>> <mark>math.ceil(2.8)</mark>
+3
+
+>>> <mark>math.ceil(-2.3)</mark>
+-2
+
+>>> <mark>math.ceil(-2.8)</mark>
+-2
+<hr>>>> <mark>math.trunc(2.3)</mark>
+2
+
+>>> <mark>math.trunc(2.8)</mark>
+2
+
+>>> <mark>math.trunc(-2.3)</mark>
+-2
+
+>>> <mark>math.trunc(-2.8)</mark>
+-2
+<hr>>>> <mark>math.fabs(2.3)</mark>
+2.3
+
+>>> <mark>math.fabs(-2.3)</mark>
+2.3
+</pre></span>
+
+<div class="terminalcard">Explicit type conversion using int() and float() functions</div>
+<span><pre>
+>>> <mark>int(7.99)</mark>
+7
+
+>>> <mark>float(7)</mark>
+7.0
+
+>>> <mark>a=int('10')</mark>
+>>> <mark>b=int('20')</mark>
+>>> <mark>c=a+b</mark>
+>>> <mark>c</mark>
+30
+<hr>>>> <mark>float('inf')</mark>
+inf
+
+>>> <mark>float('nan')</mark>
+nan
+
+>>> <mark>import math</mark>
+>>> <mark>math.isinf(0)</mark>
+False
+
+>>> <mark>math.isinf(float('inf'))</mark>
+True
+
+>>> <mark>math.isnan(float('nan'))</mark>
+True
+</pre></span>
+
+<div class="terminalcard">Number conversion using int(), bin(), oct(), and hex() functions</div>
+<span><pre>
+>>> <mark>n=255</mark>
+>>> <mark>print("Binary",bin(n))</mark>
+Binary 0b11111111
+
+>>> <mark>print("Octal",oct(n))</mark>
+Octal 0o377
+
+>>> <mark>print("Hexadecimal",hex(n))</mark>
+Hexadecimal 0xff
+<hr>>>> <mark>n="11111111"</mark>
+>>> <mark>print("Decimal",int(n,2))</mark>
+Decimal 255
+
+>>> <mark>print("Octal",oct(int(n,2)))</mark>
+Octal 0o377
+
+>>> <mark>print("Hexadecimal",hex(int(n,2)))</mark>
+Hexadecimal 0xff
+<hr>>>> <mark>n=0o377</mark>
+>>> <mark>print("Decimal",int(n))</mark>
+Decimal 255
+
+>>> <mark>print("Hexadecimal",hex(n))</mark>
+Hexadecimal 0xff
+<hr>>>> <mark>n=0Xff</mark>
+>>> <mark>print("Decimal",int(n))</mark>
+Decimal 255
+
+>>> <mark>print("Octal",oct(n))</mark>
+Octal 0o377
+
+>>> <mark>print("Binary",bin(n))</mark>
+Binary 0b11111111
+</pre></span>

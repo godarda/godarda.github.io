@@ -1,0 +1,70 @@
+---
+permalink: c/fundamentals/gdwgvrq
+title: Find the output of C programs
+---
+
+<div class="titlecard">{{ page.title }}</div>
+<div class="codecard">Program 1</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    int _ = 5, __ = 10, ___;
+    ___ = _ + __;
+    printf("%i\n", ___);
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div style="cursor: pointer;" class="card collapsed" data-bs-toggle="collapse" data-bs-target="#p1"><span class="show">Show Output</span><span class="hide">Output</span></div>
+<div id="p1" class="collapse"> 
+<span><pre>
+{{ site.runc }}
+15
+godarda@gd:~$ 
+</pre></span>
+</div>
+
+<div class="codecard">Program 2</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    int a = 20;
+    {
+        int a = 40;
+        // variables can have same name in different scope
+    }
+    printf("%d\n", a);
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div style="cursor: pointer;" class="card collapsed" data-bs-toggle="collapse" data-bs-target="#p2"><span class="show">Show Output</span><span class="hide">Output</span></div>
+<div id="p2" class="collapse">
+<span><pre>
+{{ site.runc }}
+20
+godarda@gd:~$ 
+</pre></span>
+</div>
+
+<div class="codecard">Program 3</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+void main()
+{
+    int x;
+    x = 10, 20, 30;
+    printf("%d\n", x);
+}
+{%- endhighlight -%}</pre>
+<div style="cursor: pointer;" class="card collapsed" data-bs-toggle="collapse" data-bs-target="#p3"><span class="show">Show Output</span><span class="hide">Output</span></div>
+<div id="p3" class="collapse">
+<span><pre>
+{{ site.runc }}
+10
+godarda@gd:~$ 
+</pre></span>
+</div>

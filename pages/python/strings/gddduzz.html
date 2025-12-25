@@ -1,0 +1,81 @@
+---
+permalink: python/strings/gddduzz
+title: Python Basic String Operations
+---
+
+<div class="terminalcard">{{ page.title }}</div>
+<span><pre>
+godarda@gd:~$ <mark>python3</mark>
+...
+>>> <mark>"GoDarda"</mark>
+'GoDarda'
+
+>>> <mark>'GoDarda'</mark>
+'GoDarda'
+
+>>> <mark>print("GoDarda")</mark>
+GoDarda
+
+>>> <mark>print("\'GoDarda\'")</mark>
+'GoDarda'
+
+>>> <mark>print('\"GoDarda\"')</mark>
+"GoDarda"
+
+>>> <mark>print("Koding\nwindow")</mark>
+Koding
+window
+
+>>> <mark>gd="GoDarda"</mark>
+>>> <mark>gd</mark>
+'GoDarda'
+
+>>> <mark>len(gd)</mark>
+12
+
+>>> <mark>del gd</mark>
+>>> <mark>gd</mark>
+<error>Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+NameError: name 'gd' is not defined</error>
+</pre></span>
+
+<div class="terminalcard">Strings Concatenation</div>
+<span><pre>
+>>> <mark>s1="Koding"</mark>
+>>> <mark>s2="window"</mark>
+>>> <mark>s1+s1</mark>
+'KodingKoding'
+
+>>> <mark>s1+s2</mark>
+'GoDarda'
+
+>>> <mark>s1*5</mark>
+'KodingKodingKodingKodingKoding'
+
+>>> <mark>s1,s2</mark>
+('Koding', 'window')
+</pre></span>
+
+<div class="terminalcard">Escape Characters</div>
+<span><pre>
+>>> <mark>gd="Koding\nwindow"</mark>
+>>> <mark>gd</mark>
+'Koding\nwindow'
+
+>>> <mark>gd="Koding\nwindow"</mark>
+>>> <mark>print(gd)</mark>
+Koding
+window
+ 
+>>> <mark>gd=r"Koding\nwindow"</mark>
+>>> <mark>print(gd)</mark>
+Koding\nwindow
+ 
+>>> <mark>print('\"GoDarda\"')</mark>
+"GoDarda"
+
+>>> <mark>gd="Koding\twindow"</mark>
+>>> <mark>print(gd)</mark>
+Koding	window
+</pre></span>

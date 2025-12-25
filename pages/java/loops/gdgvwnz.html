@@ -1,0 +1,63 @@
+---
+permalink: java/loops/gdgvwnz
+title: Java program to print the even and odd numbers
+---
+
+<div class="codecard">Java program to print the even numbers</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD
+{
+    public static void main(String args[])
+    {
+        for(int i=0;i<=10;i++)
+        {
+            if(i%2!=1)
+                System.out.println(i);
+        }
+
+        /*
+        for(int i=0;i<=10;i++)
+            if(i%2==0)
+                System.out.println(i);
+        */
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+0
+2
+4
+6
+8
+10
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java program to print the odd numbers</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD
+{
+    public static void main(String args[])
+    {
+        for(int i=0;i<=10;i++)
+        {
+            if(i%2!=0)
+                System.out.println(i);
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+1
+3
+5
+7
+9
+godarda@gd:~$ 
+</pre></span>

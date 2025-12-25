@@ -1,0 +1,55 @@
+---
+permalink: c/fundamentals/gdvgrag
+title: C program to find the range of data types
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+#include <limits.h>
+#include <float.h>
+int main()
+{
+    printf("———————————————————————————————————————————");
+    printf("\nProgram to find the range of data types");
+    printf("\n———————————————————————————————————————————");
+    printf("\nChar Bit      | %d", CHAR_BIT);
+    printf("\nChar          | %d To %d", CHAR_MIN, CHAR_MAX);
+    printf("\nSigned  char  | %d To %d", SCHAR_MIN, SCHAR_MAX);
+    printf("\nUnigned char  |  0 To %d", UCHAR_MAX);
+    printf("\nSigned  int   | %d To %d", INT_MIN, INT_MAX);
+    printf("\nUnigned int   |  0 To %d", INT_MAX);
+    printf("\nshort         | %d To %d", SHRT_MIN, SHRT_MAX);
+    printf("\nUnigned short |  0 To %d", USHRT_MAX);
+    printf("\nlong          | %ld To %ld", LONG_MIN, LONG_MAX);
+    printf("\nUnsigned long |  0 To %ld", LONG_MAX);
+    printf("\nfloat         | %g To %g", FLT_MIN, FLT_MAX);
+    printf("\nSigned  float | %g To %g", -FLT_MIN, -FLT_MAX);
+    printf("\ndouble        | %g To %g", DBL_MIN, DBL_MAX);
+    printf("\n———————————————————————————————————————————\n");
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+———————————————————————————————————————————
+Program to find the range of data types
+———————————————————————————————————————————
+Char Bit      | 8
+Char          | -128 To 127
+Signed  char  | -128 To 127
+Unigned char  |  0 To 255
+Signed  int   | -2147483648 To 2147483647
+Unigned int   |  0 To 2147483647
+short         | -32768 To 32767
+Unigned short |  0 To 65535
+long          | -9223372036854775808 To 9223372036854775807
+Unsigned long |  0 To 9223372036854775807
+float         | 1.17549e-38 To 3.40282e+38
+Signed  float | -1.17549e-38 To -3.40282e+38
+double        | 2.22507e-308 To 1.79769e+308
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

@@ -1,0 +1,65 @@
+---
+permalink: cluster/ranorex/gdewwzv
+title: How to select the Chrome context menu option in Ranorex
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">File: SelectContextMenuOption.UserCode.cs</div>
+<pre class="editorcard">
+{%- highlight csharp -%}
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Drawing;
+using System.Threading;
+using WinForms = System.Windows.Forms;
+
+using Ranorex;
+using Ranorex.Core;
+using Ranorex.Core.Repository;
+using Ranorex.Core.Testing;
+using System.Diagnostics;
+
+namespace GlobalProjects
+{
+    public partial class SelectContextMenuOption
+    {
+        private void Init()
+        {
+            GoDardaLogin();
+        }
+
+        public void GoDardaLogin()
+        {
+            Process.Start("chrome.exe","https://godarda.in/testapp/");
+            repo.GoDarda.Username.Value = "godarda";
+            repo.GoDarda.Username.Click();
+            repo.GoDarda.Username.DoubleClick();
+            
+            Mouse.Click(WinForms.MouseButtons.Right);
+            Delay.Duration(200);
+
+            foreach(MenuItem mi in repo.MenuBar.Items)
+            {
+                Report.Info(mi.Text);
+            }
+            
+            foreach(MenuItem mi in repo.MenuBar.Items)
+            {
+                if(mi.Text.Equals("Copy Ctrl+C"))
+                {
+                    mi.EnsureVisible();
+                    mi.MoveTo();
+                    mi.Click();
+                    break;
+                }
+            }
+            
+            repo.GoDarda.Password.PressKeys("{LControlKey down}{Vkey}{LControlKey up}");
+            Delay.Duration(100);
+            repo.GoDarda.Login.Click();
+        }
+    }
+}
+{%- endhighlight -%}</pre>

@@ -1,0 +1,43 @@
+---
+permalink: selenium/fundamentals/gdzgvwt
+title: Selenium Java to compare the title of a given webpage
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        WebDriver driver = new ChromeDriver();
+        driver.navigate().to("https://godarda.in/testapp/");
+
+        String actualTitle = driver.getTitle();
+        String expectedTitle = "GoDarda's Testapp";
+
+        System.out.println("Actual Title - "+actualTitle);
+        System.out.println("Expected Title - "+expectedTitle);
+        
+        if(actualTitle.contentEquals(expectedTitle))
+        {
+            System.out.println("Title Matched");
+        }
+        else
+        {
+            System.out.println("Title Not Matched");
+        }
+        driver.close();
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+Actual Title - GoDarda's TestApp
+Expected Title - GoDarda's Testapp
+Title Not Matched
+</pre></span>

@@ -1,0 +1,30 @@
+---
+permalink: tools/converter/gdvmrpd
+title: Speed Converter
+description: "Instantly convert speeds between meters per second, kilometers per hour, miles per hour, feet per second, and more. A simple and fast speed conversion tool."
+---
+
+{% include converter.html %}
+<script>
+(function () {
+    // Configuration: Define units and their conversion factor to Meters per Second (m/s)
+    const units = {
+        ms:   { name: 'Meter per second',   symbol: 'm/s',  factor: 1 },
+        kmh:  { name: 'Kilometer per hour', symbol: 'km/h', factor: 1 / 3.6 },
+        mph:  { name: 'Mile per hour',      symbol: 'mph',  factor: 0.44704 },
+        fts:  { name: 'Foot per second',    symbol: 'ft/s', factor: 0.3048 },
+        kn:   { name: 'Knot',               symbol: 'kn',   factor: 1.852 / 3.6 },
+        mach: { name: 'Mach',               symbol: 'Ma',   factor: 340.29 }
+    };
+
+    const defaultUnit = 'kmh';
+    const defaultSelectedUnits = ['mph', 'ms'];
+
+    // Initialize the shared converter logic
+    setupConverter({
+        units: units,
+        defaultUnit: defaultUnit,
+        defaultSelectedUnits: defaultSelectedUnits
+    });
+})();
+</script>

@@ -1,0 +1,89 @@
+---
+permalink: csharp/polymorphism/gdcaygv
+title: C# program for complex numbers operations
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+Complex c1 = new Complex(4, 5);
+Complex c2 = new Complex(2, 6);
+Complex add = c1 + c2;
+Complex sub = c1 - c2;
+Complex mul = c1 * c2;
+Complex div = c1 / c2;
+Console.WriteLine("———————————————————————————————————————————");
+Console.WriteLine("Implementation of complex numbers operations");
+Console.WriteLine("———————————————————————————————————————————");
+Console.WriteLine("1st complex number {0}", c1);
+Console.WriteLine("2nd complex number {0}", c2);
+Console.WriteLine("\nAddition {0}", add);
+Console.WriteLine("\nSubtraction {0}", sub);
+Console.WriteLine("\nMultiplication {0}", mul);
+Console.WriteLine("\nDivision {0}", div);
+Console.WriteLine("———————————————————————————————————————————");
+
+public struct Complex
+{
+    public double real;
+    public double imaginary;
+    public Complex(double real, double imaginary)
+    {
+        this.real = real;
+        this.imaginary = imaginary;
+    }
+
+    public static Complex operator + (Complex c1, Complex c2)
+    {
+        return new Complex(c1.real + c2.real, c1.imaginary + c2.imaginary);
+    }
+
+    public static Complex operator - (Complex c1, Complex c2)
+    {
+        return new Complex(c1.real - c2.real, c1.imaginary - c2.imaginary);
+    }
+
+    public static Complex operator * (Complex c1, Complex c2)
+    {
+        return new Complex(((c1.real) * (c2.real)) - ((c1.imaginary) * (c2.imaginary)), ((c1.real) * (c2.imaginary)) + ((c2.real) * (c1.imaginary)));
+    }
+
+    public static Complex operator / (Complex c1, Complex c2)
+    {
+        double a = (((c1.real) * (c2.real)) + ((c1.imaginary) * (c2.imaginary))) / (Math.Pow(c2.real, 2) + Math.Pow(c2.imaginary, 2));
+        double b = (((c2.real) * (c1.imaginary)) - ((c1.real) * (c2.imaginary))) / (Math.Pow(c2.real, 2) + Math.Pow(c2.imaginary, 2));
+        return new Complex(a, b);
+    }
+
+    public override string ToString()
+    {
+        if (imaginary >= 0)
+        {
+            return (String.Format("{0}+{1}i", real, imaginary));
+        }
+        else
+        {
+            return (String.Format("{0}{1}i", real, imaginary));
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+———————————————————————————————————————————
+Implementation of complex numbers operations
+———————————————————————————————————————————
+1st complex number 4+5i
+2nd complex number 2+6i
+
+Addition 6+11i
+
+Subtraction 2-1i
+
+Multiplication -22+34i
+
+Division 0.95-0.35i
+———————————————————————————————————————————
+godarda@gd:~/csharp$ 
+</pre></span>

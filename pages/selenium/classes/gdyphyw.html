@@ -1,0 +1,44 @@
+---
+permalink: selenium/classes/gdyphyw
+title: Selenium Java to select an option from the Chrome context menu
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="editorcard">{%- highlight java -%}
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
+
+class GD
+{
+    public static void main(String[] args) throws AWTException
+    {   
+        Robot robot = new Robot();
+        System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.navigate().to("https://godarda.in/testapp/");
+        WebElement un = driver.findElement(By.name("username"));
+        Actions builder = new Actions(driver);
+        Action multipleActions = builder.moveToElement(un).click().sendKeys(un, "godarda").click(un)
+        		.doubleClick(un).contextClick().build();
+        
+        multipleActions.perform();
+
+        robot.keyPress(KeyEvent.VK_DOWN);
+        robot.keyRelease(KeyEvent.VK_DOWN);
+        robot.keyPress(KeyEvent.VK_ENTER);
+
+        driver.findElement(By.name("password")).sendKeys(Keys.CONTROL, "v");
+        driver.findElement(By.name("login")).click();
+    }
+}
+{%- endhighlight -%}</pre>

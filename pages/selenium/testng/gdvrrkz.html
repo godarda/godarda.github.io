@@ -1,0 +1,150 @@
+---
+permalink: selenium/testng/gdvrrkz
+title: How to use TestNG Annotations in Selenium
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">File: BaseAnnotations.java</div>
+<pre class="code">{%- highlight java -%}
+package tests;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+
+public class BaseAnnotations 
+{
+    WebDriver driver;
+    @BeforeClass
+    public void OpenBrowser()
+    {
+        System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.navigate().to("http://newtours.demoaut.com");
+    }
+    @AfterClass
+    public void CloseBrowser()
+    {
+        driver.close();
+    }
+    @BeforeMethod
+    public void Login()
+    {
+        driver.findElement(By.name("userName")).sendKeys("mercury");
+        driver.findElement(By.name("password")).sendKeys("mercury");
+        driver.findElement(By.name("login")).click();
+    }
+    @AfterMethod
+    public void Logout() 
+    {
+        driver.findElement(By.linkText("SIGN-OFF")).click();
+    }
+}
+{%- endhighlight -%}</pre>
+
+<div class="card">File: VerifyTitle.java</div>
+<pre class="code">{%- highlight java -%}
+package tests;
+
+import org.testng.annotations.Test;
+
+public class VerifyTitle extends BaseAnnotations
+{
+    @Test
+    public void VerifyFindFlightPageTitle()
+    {
+        if(driver.getTitle().equals("Find a Flight: Mercury Tours:"))
+        {
+            System.out.println("Title Matched");
+        }
+        else
+        {
+            System.out.println("Title Unmatched");
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+
+<div class="card">File: FindFlight.java</div>
+<pre class="code">{%- highlight java -%}
+package tests;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+public class FindFlight extends BaseAnnotations
+{
+    @BeforeMethod
+    public void TripType()
+    {
+        String ttype = "oneway";
+        driver.findElement(By.cssSelector("input[value='"+ttype+"']")).click();
+    }
+    @Test
+    public void SelectFromIn()
+    {
+        Select from_dropdown = new Select(driver.findElement(By.name("fromPort")));
+        from_dropdown.selectByVisibleText("London");
+        
+        Select in_dropdown = new Select(driver.findElement(By.name("toPort")));
+        in_dropdown.selectByIndex(3);
+    }
+    @AfterMethod
+    public void ServiceClass()
+    {
+        driver.findElement(By.cssSelector("input[value='Business']")).click();
+    }
+}
+{%- endhighlight -%}</pre>
+
+<div class="card">File: testng.xml</div>
+<pre>
+{%- highlight xml -%}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Test">
+    <test name="TestNGAnnotations">
+        <classes>
+            <class name="tests.VerifyTitle"/>
+            <class name="tests.FindFlight"/>
+        </classes>
+    </test>
+</suite>
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+[RemoteTestNG] detected TestNG version 7.0.0
+
+Title Matched
+
+===============================================
+Test
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+<img src="pages/selenium/images/gdyezpw.png" loading="lazy">
+</pre></span>
+
+<div class="terminalcard">File: testng.xml</div>
+<div class="infocard">If you want to run the project parallelly, then replace the above XML file with the following one.</div>
+<pre class="editorcard">
+{%- highlight xml -%}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Test" parallel="classes" thread-count="2">
+    <test name="TestNGAnnotations">
+        <classes>
+            <class name="tests.VerifyTitle"/>
+            <class name="tests.FindFlight"/>
+        </classes>
+    </test>
+</suite>
+{%- endhighlight -%}</pre>

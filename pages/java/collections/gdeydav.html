@@ -1,0 +1,207 @@
+---
+permalink: java/collections/gdeydav
+title: Implementation of Java HashMap class
+---
+
+<div class="codecard">Java HashMap: put() and size() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.HashMap;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //HashMap class implements the Map interface
+        HashMap<Long,String> hm = new HashMap<>();
+        hm.put(25622348989L,"James Moore");
+        hm.put(25622348990L,"Donald Taylor");
+        hm.put(25622348991L,"Edward Parkar");
+        hm.put(25622348992L,"Ryan Bakshi");
+        System.out.println(hm);
+        System.out.println("Size: "+hm.size());
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+{25622348992=Ryan Bakshi, 25622348991=Edward Parkar, 25622348990=Donald Taylor, 25622348989=James Moore}
+Size: 4
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java HashMap: getKey(), getValue(), and get() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.HashMap;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //HashMap class implements the Map interface
+        HashMap<Long,String> hm = new HashMap<>();
+        hm.put(25622348989L,"James Moore");
+        hm.put(25622348990L,"Donald Taylor");
+        hm.put(25622348991L,"Edward Parkar");
+        hm.put(25622348992L,"Ryan Bakshi");
+        
+        for(HashMap.Entry m:hm.entrySet())
+        {
+            System.out.println("Account No: "+m.getKey()+" Name: "+m.getValue());
+        }
+        System.out.println(hm.get(25622348992L));
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Account No: 25622348992 Name: Ryan Bakshi
+Account No: 25622348991 Name: Edward Parkar
+Account No: 25622348990 Name: Donald Taylor
+Account No: 25622348989 Name: James Moore
+Ryan Bakshi
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java HashMap: keySet() and values() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.HashMap;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //HashMap class implements the Map interface
+        HashMap<Long,String> hm = new HashMap<>();
+        hm.put(25622348989L,"James Moore");
+        hm.put(25622348990L,"Donald Taylor");
+        hm.put(25622348991L,"Edward Parkar");
+        hm.put(25622348992L,"Ryan Bakshi");
+        
+        System.out.println(hm.keySet());
+        System.out.println(hm.values());
+        
+        /*
+         * for(Long l: hm.keySet()) { System.out.println(l); }
+         * 
+         * for(String s: hm.values()) { System.out.println(s); }
+         */
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[25622348992, 25622348991, 25622348990, 25622348989]
+[Ryan Bakshi, Edward Parkar, Donald Taylor, James Moore]
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java HashMap: replace() method</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.HashMap;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //HashMap class implements the Map interface
+        HashMap<Long,String> hm = new HashMap<>();
+        hm.put(25622348989L,"James Moore");
+        hm.put(25622348990L,"Donald Taylor");
+        hm.put(25622348991L,"Edward Parkar");
+        hm.put(25622348992L,"Ryan Bakshi");
+        System.out.println(hm);
+        
+        hm.replace(25622348991L, "Edward D Parkar");
+        hm.replace(25622348992L, "Ryan Bakshi", "Ryan S Bakshi");
+        System.out.println(hm);
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+{25622348992=Ryan Bakshi, 25622348991=Edward Parkar, 25622348990=Donald Taylor, 25622348989=James Moore}
+{25622348992=Ryan S Bakshi, 25622348991=Edward D Parkar, 25622348990=Donald Taylor, 25622348989=James Moore}
+godarda@gd:~$  
+</pre></span>
+
+<div class="codecard">Java HashMap: putIfAbsent() and putAll() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.HashMap;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //HashMap class implements the Map interface
+        HashMap<Long,String> hm1 = new HashMap<>();
+        hm1.put(25622348989L,"James Moore");
+        hm1.put(25622348990L,"Donald Taylor");
+        
+        HashMap<Long,String> hm2 = new HashMap<>();
+        hm2.put(25622348991L,"Edward Parkar");
+        hm2.put(25622348992L,"Ryan Bakshi");
+        hm2.putIfAbsent(25622348993L, "Marie Peters");
+        
+        hm2.putAll(hm1);
+        for(HashMap.Entry m:hm2.entrySet())
+        {
+            System.out.println("Account No: "+m.getKey()+" Name: "+m.getValue());
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Account No: 25622348993 Name: Marie Peters
+Account No: 25622348992 Name: Ryan Bakshi
+Account No: 25622348991 Name: Edward Parkar
+Account No: 25622348990 Name: Donald Taylor
+Account No: 25622348989 Name: James Moore
+godarda@gd:~$  
+</pre></span>
+
+<div class="codecard">Java HashMap: remove() and clear() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.HashMap;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //HashMap class implements the Map interface
+        HashMap<Long,String> hm = new HashMap<>();
+        hm.put(25622348989L,"James Moore");
+        hm.put(25622348990L,"Donald Taylor");
+        hm.put(25622348991L,"Edward Parkar");
+        hm.put(25622348992L,"Ryan Bakshi");
+        
+        hm.remove(25622348992L);
+        hm.remove(25622348991L, "Edward Parkar");
+        System.out.println(hm);
+        
+        hm.clear();
+        if(hm.isEmpty())
+        {
+            System.out.println("Map is empty now");
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+{25622348990=Donald Taylor, 25622348989=James Moore}
+Map is empty now
+godarda@gd:~$  
+</pre></span>

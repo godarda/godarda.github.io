@@ -1,0 +1,72 @@
+---
+permalink: csharp/abstraction/gdvwyou
+title: C# program for Abstract class
+---
+
+<div class="codecard">Example 1: {{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+abstract class Arithmetic
+{
+    public int add(int a, int b)
+    {
+        int c = a + b;
+        return c;
+    }
+    public void display(int c)
+    {
+        Console.Write("Addition " + c);
+    }
+}
+
+class Program : Arithmetic
+{
+    public static void Main(String[] args)
+    {
+        Program p = new Program();
+        int addition = p.add(10, 10);
+        p.display(addition);
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Addition 20
+godarda@gd:~/csharp$ 
+</pre></span>
+
+<div class="codecard">Example 2: {{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+WhiteBank wb = new WhiteBank();
+GreenBank gb = new GreenBank();
+wb.Bonus();
+gb.Bonus();
+
+abstract class Bank
+{
+    public abstract void Bonus();
+}
+class WhiteBank : Bank
+{
+    public override void Bonus()
+    {
+        Console.WriteLine("Festival Bonus: WhiteBank 1500");
+    }
+}
+class GreenBank : Bank
+{
+    public override void Bonus()
+    {
+        Console.Write("Festival Bonus: GreenBank 500");
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Festival Bonus: WhiteBank 1500
+Festival Bonus: GreenBank 500
+godarda@gd:~/csharp$ 
+</pre></span>

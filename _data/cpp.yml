@@ -1,0 +1,133 @@
+grandparent:
+- parent: C++ Fundamentals
+  subtree: Fundamentals
+  url: cpp/fundamentals
+  children:
+  - url: cpp/fundamentals/gddvwxm
+    title: C++ Hello World program
+  - url: cpp/fundamentals/gduzwdy
+    title: C++ Hello World program without using a semicolon
+  - url: cpp/fundamentals/gduagbm
+    title: C++ program to perform the arithmetic operations
+  - url: cpp/fundamentals/gdzmzav
+    title: C++ program to perform the boolean operations
+  - url: cpp/fundamentals/gdoeeya
+    title: C++ program to perform the relational operations
+  - url: cpp/fundamentals/gdexgyv
+    title: C++ program to perform the assignment operations
+  - url: cpp/fundamentals/gdzzhqg
+    title: C++ program to perform arithmetic operations by accepting inputs from a
+      user
+  - url: cpp/fundamentals/gdnyeie
+    title: C++ program to calculate the area and circumference of a circle
+  - url: cpp/fundamentals/gdbodwv
+    title: C++ program to find the size of data types
+  - url: cpp/fundamentals/gdqvvzg
+    title: C++ program to find the range of data types
+  - url: cpp/fundamentals/gdfclfh
+    title: Find the output of C++ programs
+- parent: C++ Control Statements
+  subtree: Controls
+  url: cpp/controls
+  children:
+  - url: cpp/controls/gdgwhse
+    title: C++ program to check the given number is positive or negative
+  - url: cpp/controls/gdkgzza
+    title: C++ program to check the equality of given numbers
+  - url: cpp/controls/gdinkrg
+    title: C++ program to demonstrate the use of goto statement
+  - url: cpp/controls/gdidhad
+    title: C++ program to demonstrate the use of break and continue statements
+- parent: C++ Loops
+  subtree: Loops
+  url: cpp/loops
+  children:
+  - url: cpp/loops/gdbvode
+    title: C++ program to print the star pyramid patterns
+  - url: cpp/loops/gdvzpzf
+    title: C++ program to print the ASCII values
+  - url: cpp/loops/gdvydev
+    title: C++ program to print the natural numbers
+  - url: cpp/loops/gdwaaup
+    title: C++ program to print the addition of N numbers
+  - url: cpp/loops/gdwangz
+    title: C++ program to print the floating-point numbers
+  - url: cpp/loops/gdvqyfg
+    title: C++ program to print the square of the numbers
+  - url: cpp/loops/gdvzgge
+    title: C++ program to find the factorial of a given number
+- parent: C++ Strings
+  subtree: Strings
+  url: cpp/strings
+  children:
+  - url: cpp/strings/gdzdyvg
+    title: C++ program to swap the given strings
+  - url: cpp/strings/gdadbwe
+    title: C++ program to find the length of a given string
+  - url: cpp/strings/gdecfeo
+    title: C++ program to reverse a given string using loops
+  - url: cpp/strings/gdyyvwd
+    title: C++ program to reverse a given string using predefined methods
+  - url: cpp/strings/gdarayv
+    title: C++ program to reverse a given string using recursion
+  - url: cpp/strings/gdywzwa
+    title: C++ program to reverse a given string using stack
+  - url: cpp/strings/gdyxqgg
+    title: C++ program to check whether a given string is a palindrome
+  - url: cpp/strings/gdpzcle
+    title: C++ program to perform the string operations
+- parent: C++ Arrays
+  subtree: Arrays
+  url: cpp/arrays
+  children:
+  - url: cpp/arrays/gdaziwv
+    title: C++ program to print the given matrix
+  - url: cpp/arrays/gdaayzg
+    title: C++ program to print the transpose of a given matrix
+  - url: cpp/arrays/gdzwdez
+    title: C++ program for addition of two matrices
+  - url: cpp/arrays/gdauaoi
+    title: C++ program for addition and subtraction of two matrices
+- parent: C++ Classes
+  subtree: Classes
+  url: cpp/classes
+  children:
+  - url: cpp/classes/gdutzrm
+    title: C++ program to demonstrate the use of class and object
+  - url: cpp/classes/gddvyma
+    title: C++ program to demonstrate the use of constructors and destructors
+  - url: cpp/classes/gdtvfzm
+    title: C++ program to print the addition of numbers using constructor
+- parent: C++ Functions
+  subtree: Functions
+  url: cpp/functions
+  children:
+  - url: cpp/functions/gdtaync
+    title: C++ program for addition of numbers using a function
+  - url: cpp/functions/gdzddye
+    title: C++ program for call by value and call by reference
+  - url: cpp/functions/gdmeaby
+    title: C++ program to add the members of two different classes using the friend
+      function
+  - url: cpp/functions/gdxybzk
+    title: C++ program to demonstrate the use of math library functions
+  - url: cpp/functions/gdvzzwn
+    title: C++ program to print the current date and time
+sidenav:
+- parent: C++ Programming
+  url: cpp
+  children:
+  - title: C++ Fundamentals
+    url: cpp/fundamentals
+  - title: C++ Control Statements
+    url: cpp/controls
+  - title: C++ Loops
+    url: cpp/loops
+  - title: C++ Strings
+    url: cpp/strings
+  - title: C++ Arrays
+    url: cpp/arrays
+  - title: C++ Classes
+    url: cpp/classes
+  - title: C++ Functions
+    url: cpp/functions

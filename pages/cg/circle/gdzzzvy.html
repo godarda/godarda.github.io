@@ -1,0 +1,23 @@
+---
+permalink: cg/circle/gdzzzvy.html 
+title: C++ program to draw a circle using the arc function
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <graphics.h>
+int main()
+{
+    int gd = 0, gm = 9;
+    initgraph(&gd, &gm, NULL);
+    arc(100, 100, 0, 360, 50);
+    delay(2000);
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcg }}
+<img src="pages/cg/images/gdvefgz.png" loading="lazy">
+</pre></span>

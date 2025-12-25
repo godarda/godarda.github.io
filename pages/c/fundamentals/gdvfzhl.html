@@ -1,0 +1,32 @@
+---
+permalink: c/fundamentals/gdvfzhl
+title: C Hello World program without using a semicolon
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    if (printf("Hello, World!\n"))
+    {
+    }
+
+    while (!printf("Hello, World!\n"))
+    {
+    }
+
+    switch (printf("Hello, World!\n"))
+    {
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+Hello, World!
+Hello, World!
+Hello, World!
+godarda@gd:~$ 
+</pre></span>

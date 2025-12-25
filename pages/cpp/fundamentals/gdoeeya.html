@@ -1,0 +1,45 @@
+---
+permalink: cpp/fundamentals/gdoeeya
+title: C++ program to perform the relational operations
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+using namespace std;
+int main()
+{
+    int a = 0, b = 1;
+    cout<<"———————————————————————————————————————————";
+    cout<<"\nProgram to perform the relational operations";
+    cout<<"\n———————————————————————————————————————————";
+    cout<<"\nValue of a    | "<<a;
+    cout<<"\nValue of b    | "<<b;
+    cout<<"\nValue of "<<a<<"!="<<b<<" | "<<(a != b);
+    cout<<"\nValue of "<<a<<"> "<<b<<" | "<<(a > b);
+    cout<<"\nValue of "<<a<<">="<<b<<" | "<<(a >= b);
+    cout<<"\nValue of "<<a<<"=="<<b<<" | "<<(a == b);
+    cout<<"\nValue of "<<a<<"< "<<b<<" | "<<(a < b);
+    cout<<"\nValue of "<<a<<"<="<<b<<" | "<<(a <= b);
+    cout<<"\n———————————————————————————————————————————\n";
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+———————————————————————————————————————————
+Program to perform the relational operations
+———————————————————————————————————————————
+Value of a    | 0
+Value of b    | 1
+Value of 0!=1 | 1
+Value of 0> 1 | 0
+Value of 0>=1 | 0
+Value of 0==1 | 0
+Value of 0< 1 | 1
+Value of 0<=1 | 1
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

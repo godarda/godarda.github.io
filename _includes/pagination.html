@@ -1,0 +1,37 @@
+{%- assign i = 0 -%}
+{%- assign j = 0 -%}
+
+{%- for parent in gd.grandparent -%}
+{%- assign j = j | plus:1 -%}
+    {%- if page.url contains parent.url -%}
+    {%- for child in parent.children -%}
+    {%- assign i = i | plus:1 -%}
+        {%- if page.url contains child.url -%}
+            {%- assign first = i | plus: 0 -%}{%- assign second = i | plus:1 -%}{%- assign third = i | plus:2 -%}
+            {%- if parent.children[third].url != null -%}
+            <div class="board"><div class="boardtitle">What Next?</div>
+                <a class="card" href="{{ parent.children[first].url }}">{{ parent.children[first].title }}</a>
+                <a class="card" href="{{ parent.children[second].url }}">{{ parent.children[second].title }}</a>
+                <a class="card" href="{{ parent.children[third].url }}">{{ parent.children[third].title }}</a>
+            </div>
+            {%- elsif parent.children[second].url != null -%}
+            <div class="board"><div class="boardtitle">What Next?</div>
+                <a class="card" href="{{ parent.children[first].url }}">{{ parent.children[first].title }}</a>
+                <a class="card" href="{{ parent.children[second].url }}">{{ parent.children[second].title }}</a>
+                {%- if gd.grandparent[j].url != null -%}<a class="card" href="{{ gd.grandparent[j].url }}">{{ gd.grandparent[j].parent }}</a>{%- endif -%}
+            </div>
+            {%- elsif parent.children[first].url != null -%}
+            <div class="board"><div class="boardtitle">What Next?</div>
+                <a class="card" href="{{ parent.children[first].url }}">{{ parent.children[first].title }}</a>
+                {%- if gd.grandparent[j].url != null -%}<a class="card" href="{{ gd.grandparent[j].url }}">{{ gd.grandparent[j].parent }}</a>{%- endif -%}
+            </div>
+            {%- elsif gd.grandparent[j].url != null -%}
+            <div class="board"><div class="boardtitle">What Next?</div>
+                <a class="card" href="{{ gd.grandparent[j].url }}">{{ gd.grandparent[j].parent }}</a>
+            </div>
+            {%- else -%}
+            {%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+    {%- endif -%}
+{%- endfor -%}

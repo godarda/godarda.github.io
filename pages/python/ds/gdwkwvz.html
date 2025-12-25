@@ -1,0 +1,70 @@
+---
+permalink: python/ds/gdwkwvz
+title: Python Dictionary
+---
+
+<div class="terminalcard">{{ page.title }}</div>
+<span><pre>
+godarda@gd:~$ <mark>python3</mark>
+...
+>>> <mark>KV={'s1':'Linus','s2':'Thomson','s3':'Edison'}</mark>
+>>> <mark>KV</mark>
+{'s3': 'Edison', 's2': 'Thomson', 's1': 'Linus'}
+
+>>> <mark>KV['s2']</mark>
+'Thomson'
+
+>>> <mark>len(KV)</mark>
+3
+
+>>> <mark>max(KV)</mark>
+'s3'
+
+>>> <mark>min(KV)</mark>
+'s1'
+
+>>> <mark>Dict=KV.copy()</mark>
+>>> <mark>Dict</mark>
+{'s1': 'Linus', 's2': 'Thomson', 's3': 'Edison'}
+
+>>> <mark>KV['s4']='Neil'</mark>
+>>> <mark>KV</mark>
+{'s3': 'Edison', 's2': 'Thomson', 's1': 'Linus', 's4': 'Neil'}
+
+>>> <mark>KV.update(s5='John')</mark>
+>>> <mark>KV</mark>
+{'s1': 'Linus', 's2': 'Thomson', 's3': 'Edison', 's4': 'Neil', 's5': 'John'}
+
+>>> <mark>del KV['s5']</mark>
+>>> <mark>KV</mark>
+{'s1': 'Linus', 's2': 'Thomson', 's3': 'Edison', 's4': 'Neil'}
+
+>>> <mark>KV.keys()</mark>
+dict_keys(['s1', 's2', 's3', 's4'])
+
+>>> <mark>KV.values()</mark>
+dict_values(['Linus', 'Thomson', 'Edison', 'Neil'])
+
+>>> <mark>KV.items()</mark>
+dict_items([('s1', 'Linus'), ('s2', 'Thomson'), ('s3', 'Edison'), ('s4', 'Neil')])
+
+>>> <mark>for(a,b) in KV.items():</mark>
+...     <mark>print(b,a)</mark>
+... 
+Linus s1
+Thomson s2
+Edison s3
+Neil s4
+
+>>> <mark>for(a) in KV.values():</mark>
+...     <mark>print(a)</mark>
+... 
+Linus
+Thomson
+Edison
+Neil
+
+>>> <mark>KV.clear()</mark>
+>>> <mark>KV</mark>
+{}
+</pre></span>

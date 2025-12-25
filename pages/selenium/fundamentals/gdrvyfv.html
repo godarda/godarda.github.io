@@ -1,0 +1,60 @@
+---
+permalink: selenium/fundamentals/gdrvyfv
+title: How to launch the browser using Selenium Java
+---
+
+<div class="codecard">Selenium Java to launch the Chrome browser</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="editorcard">{%- highlight java -%}
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        WebDriver driver = new ChromeDriver();     
+        driver.navigate().to("https://godarda.in/testapp/");
+        driver.close();
+        System.exit(0);
+    }   	
+}
+{%- endhighlight -%}</pre>
+
+<div class="codecard">Selenium Java to launch the Firefox browser</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="editorcard">{%- highlight java -%}
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+    	System.setProperty("webdriver.gecko.driver", "/home/godarda/drivers/geckodriver");
+        WebDriver driver = new FirefoxDriver();
+        driver.navigate().to("https://godarda.in/testapp/");
+        driver.close();
+        System.exit(0);
+    }   	
+}
+{%- endhighlight -%}</pre>
+
+<div class="codecard">Selenium Java to launch the Microsoft Edge browser</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="editorcard">{%- highlight java -%}
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        System.setProperty("webdriver.edge.driver", "/home/godarda/drivers/msedgedriver");
+        WebDriver driver = new EdgeDriver();     
+        driver.navigate().to("https://godarda.in/testapp/");
+        driver.close();
+    }       
+}
+{%- endhighlight -%}</pre>

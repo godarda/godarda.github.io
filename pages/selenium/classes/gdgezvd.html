@@ -1,0 +1,32 @@
+---
+permalink: selenium/classes/gdgezvd
+title: Selenium Java to perform series of multiple actions using Action and Actions classes
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="editorcard">{%- highlight java -%}
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
+
+class GD
+{
+    public static void main(String[] args)
+    {   
+        System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.navigate().to("https://godarda.in/testapp/");
+        WebElement un = driver.findElement(By.name("username"));
+        Actions builder = new Actions(driver);
+        Action multipleActions = builder.moveToElement(un).click()
+        .keyDown(un, Keys.SHIFT).sendKeys(un, "godarda").doubleClick().build();
+        multipleActions.perform();
+    }
+}
+{%- endhighlight -%}</pre>

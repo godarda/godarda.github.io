@@ -1,0 +1,100 @@
+---
+permalink: java/jdbc/gdvhaug
+title: Java MongoDB to create database and collection
+---
+
+<div class="board"><div class="boardtitle">Objective and Prerequisites</div>
+    <p><b>Objective: </b>This segment introduces implementation of how to create a database and collection in MongoDB using Java.<br><br>
+    <b>Prerequisites: </b>MongoDB setup is installed and running in the background. Also, the project has been developed and executed in Eclipse IDE (Integrated Development Environment).<br><br>
+    To run the following program, you need to download the MongoDB Java driver jar file <a href="{{ site.data.url.gdvrevz }}" target="_blank" class="hlink">Download MongoDB Java driver</a>. Once downloaded, you can import the library by right-clicking on your project in Eclipse -> Properties -> Java Build Path -> Libraries -> Add External JARs...</p>
+</div>
+
+<div class="terminalcard">Start MongoDB (running mongo.exe)</div>
+<span><pre>
+MongoDB shell version v4.2.3
+connecting to: mongodb://127.0.0.1:27017/
+MongoDB server version: 4.2.3
+
+<mark>> show dbs</mark>
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+
+<mark>> use admin</mark>
+switched to db admin
+
+<mark>> db.getCollectionNames()</mark>
+[ "system.version" ]
+</pre></span>
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.List;
+import java.util.Set;
+
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoDatabase;
+
+class GD
+{
+    @SuppressWarnings("deprecation")
+    public static void main(String[] args)
+    {
+        try
+        {
+            MongoClient mc = new MongoClient("localhost", 27017);
+            System.out.println("Connection Established Successfully");
+            
+            List<String> dbs = mc.getDatabaseNames();
+            System.out.println("Databases "+dbs);
+            
+            DB db = mc.getDB(dbs.get(0));
+            Set<String> collections = db.getCollectionNames();
+            System.out.println("Collections "+collections);
+            
+            MongoDatabase md = mc.getDatabase("DB");
+            md.createCollection("holders");
+            System.out.println("\nCollection Created");
+
+            db = mc.getDB("DB");
+            DBCollection collection = db.getCollection("holders");
+            System.out.println(collection.toString());
+
+            mc.close();
+            System.out.println("Connection Released Successfully");
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+Connection Established Successfully
+Databases [admin, config, local]
+Collections [system.version]
+
+Collection Created
+DBCollection{database=DB{name='DB'}, name='holders'}
+Connection Released Successfully
+</pre></span>
+
+<div class="terminalcard">MongoDB Instance</b></div>
+<span><pre>
+<mark>> show dbs</mark>
+DB      0.000GB
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+
+<mark>> use DB</mark>
+switched to db DB
+
+<mark>> db.getCollectionNames()</mark>
+[ "holders" ]
+</pre></span>

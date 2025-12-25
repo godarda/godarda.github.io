@@ -1,0 +1,184 @@
+---
+permalink: mysql/dml/gdnhhen
+title: MySQL JOINS (INNER, LEFT, RIGHT)
+---
+
+<div class="board"><div class="boardtitle">Objective and Introduction</div>
+    <p><b>Objective: </b>This segment introduces how to combine rows from two tables using JOIN clause.<br><br>
+    <b>Introduction: </b>In a relational database, a JOIN clause used to combine rows/columns from two or more tables. There are four types of joins in MySQL: Inner, Left, Right, and CROSS join. Refer to the following MySQL tables and queries to understand the types of join.</p>
+</div>
+
+<div class="terminalcard">Show databases and tables</div>
+<span><pre>
+mysql> <mark>SHOW DATABASES;</mark>
++--------------------+
+| Database           |
++--------------------+
+| DB                 |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.07 sec)
+
+mysql> <mark>USE DB;</mark>
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> <mark>SHOW TABLES;</mark>
++--------------+
+| Tables_in_DB |
++--------------+
+| holders      |
+| loans        |
++--------------+
+2 rows in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">Retrieving all the records from a parent table</div>
+<span><pre>
+mysql> <mark>DESC holders;</mark>                                                          
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| account_no | bigint      | NO   | PRI | NULL    |       |
+| name       | varchar(30) | NO   |     | NULL    |       |
+| city       | varchar(20) | YES  |     | NULL    |       |
+| dob        | date        | YES  |     | NULL    |       |
+| bank       | varchar(10) | YES  |     | NULL    |       |
+| amount     | bigint      | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> <mark>SELECT * FROM holders;</mark>
++-------------+---------------+---------+------------+----------+--------+
+| account_no  | name          | city    | dob        | bank     | amount |
++-------------+---------------+---------+------------+----------+--------+
+| 25622348989 | James Moore   | Phoenix | 1985-05-26 | Barclays |   5000 |
+| 25622348990 | Donald Taylor | Irvine  | 1990-08-20 | Citi     |   7000 |
+| 25622348991 | Edward Parkar | Irvine  | 1994-01-29 | ICICI    |  95000 |
+| 25622348992 | Ryan Bakshi   | Mumbai  | 1982-01-14 | Citi     |  50000 |
+| 25622348993 | Marie Peters  | Ribe    | 1967-01-05 | DZBank   |  12250 |
+| 25622348994 | Aanya         | Delhi   | 1975-08-18 | SBI      | 105000 |
+| 25622348995 | James Moore   | NULL    | 1978-06-26 | Citi     |  97800 |
++-------------+---------------+---------+------------+----------+--------+
+7 rows in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">Retrieving all the records from a child table</div>
+<span><pre>
+mysql> <mark>DESC loans;</mark>
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| loan_id     | int         | NO   | PRI | NULL    | auto_increment |
+| loan_type   | varchar(20) | NO   |     | NULL    |                |
+| loan_amount | bigint      | YES  |     | NULL    |                |
+| account_no  | bigint      | YES  | MUL | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+4 rows in set (0.01 sec)
+
+mysql> <mark>SELECT * FROM loans;</mark>
++---------+-----------+-------------+-------------+
+| loan_id | loan_type | loan_amount | account_no  |
++---------+-----------+-------------+-------------+
+|       1 | Personal  |        5660 | 25622348989 |
+|       2 | Home      |      450000 | 25622348992 |
+|       3 | Car       |      600000 | 25622348994 |
+|       4 | Home      |       40000 | 25622348995 |
++---------+-----------+-------------+-------------+
+4 rows in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">Inner Join</div>
+<span><pre>
+mysql> <mark>SELECT loans.account_no,holders.name,loans.loan_type FROM loans INNER JOIN holders ON loans.account_no=holders.account_no;</mark>
++-------------+-------------+-----------+
+| account_no  | name        | loan_type |
++-------------+-------------+-----------+
+| 25622348989 | James Moore | Personal  |
+| 25622348992 | Ryan Bakshi | Home      |
+| 25622348994 | Aanya       | Car       |
+| 25622348995 | James Moore | Home      |
++-------------+-------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> <mark>SELECT loans.account_no,holders.name,loans.loan_type FROM loans INNER JOIN holders ON loans.account_no=holders.account_no WHERE loan_type="Home" ORDER BY name;</mark>
++-------------+-------------+-----------+
+| account_no  | name        | loan_type |
++-------------+-------------+-----------+
+| 25622348995 | James Moore | Home      |
+| 25622348992 | Ryan Bakshi | Home      |
++-------------+-------------+-----------+
+2 rows in set (0.01 sec)
+</pre></span>
+
+<div class="terminalcard">Left Join</div>
+<span><pre>
+mysql> <mark>SELECT holders.account_no,holders.name,loans.loan_amount FROM holders LEFT JOIN loans ON holders.account_no=loans.account_no;</mark>
++-------------+---------------+-------------+
+| account_no  | name          | loan_amount |
++-------------+---------------+-------------+
+| 25622348989 | James Moore   |        5660 |
+| 25622348990 | Donald Taylor |        NULL |
+| 25622348991 | Edward Parkar |        NULL |
+| 25622348992 | Ryan Bakshi   |      450000 |
+| 25622348993 | Marie Peters  |        NULL |
+| 25622348994 | Aanya         |      600000 |
+| 25622348995 | James Moore   |       40000 |
++-------------+---------------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> <mark>SELECT holders.account_no,holders.name,loans.loan_amount FROM holders LEFT JOIN loans ON holders.account_no=loans.account_no ORDER BY name;</mark>
++-------------+---------------+-------------+
+| account_no  | name          | loan_amount |
++-------------+---------------+-------------+
+| 25622348994 | Aanya         |      600000 |
+| 25622348990 | Donald Taylor |        NULL |
+| 25622348991 | Edward Parkar |        NULL |
+| 25622348989 | James Moore   |        5660 |
+| 25622348995 | James Moore   |       40000 |
+| 25622348993 | Marie Peters  |        NULL |
+| 25622348992 | Ryan Bakshi   |      450000 |
++-------------+---------------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> <mark>SELECT holders.account_no,holders.name,loans.loan_amount FROM holders LEFT JOIN loans ON holders.account_no=loans.account_no WHERE loan_amount IS NULL;</mark>
++-------------+---------------+-------------+
+| account_no  | name          | loan_amount |
++-------------+---------------+-------------+
+| 25622348990 | Donald Taylor |        NULL |
+| 25622348991 | Edward Parkar |        NULL |
+| 25622348993 | Marie Peters  |        NULL |
++-------------+---------------+-------------+
+3 rows in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">Right Join</div>
+<span><pre>
+mysql> <mark>SELECT holders.account_no,holders.name,loans.loan_amount FROM holders RIGHT JOIN loans ON holders.account_no=loans.account_no;</mark>
++-------------+-------------+-------------+
+| account_no  | name        | loan_amount |
++-------------+-------------+-------------+
+| 25622348989 | James Moore |        5660 |
+| 25622348992 | Ryan Bakshi |      450000 |
+| 25622348994 | Aanya       |      600000 |
+| 25622348995 | James Moore |       40000 |
++-------------+-------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> <mark>SELECT holders.account_no,holders.name,loans.loan_amount FROM holders RIGHT JOIN loans ON holders.account_no=loans.account_no WHERE loan_amount>=40000;</mark>
++-------------+-------------+-------------+
+| account_no  | name        | loan_amount |
++-------------+-------------+-------------+
+| 25622348992 | Ryan Bakshi |      450000 |
+| 25622348994 | Aanya       |      600000 |
+| 25622348995 | James Moore |       40000 |
++-------------+-------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> <mark>SELECT holders.account_no,holders.name,loans.loan_amount FROM holders RIGHT JOIN loans ON holders.account_no=loans.account_no WHERE loan_amount IS NULL;</mark>
+Empty set (0.00 sec)
+</pre></span>

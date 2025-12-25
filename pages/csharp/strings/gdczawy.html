@@ -1,0 +1,42 @@
+---
+permalink: csharp/strings/gdczawy
+title: C# program to check whether a given string is a palindrome
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+Console.WriteLine("———————————————————————————————————————————");
+Console.WriteLine("Program to check string is palindrome | not");
+Console.WriteLine("———————————————————————————————————————————");
+Console.Write("Enter the string ");
+string s = Console.ReadLine()!;
+Console.WriteLine("\nLength of a string is " + s.Length);
+string r = new string(s.ToCharArray().Reverse().ToArray()!);
+Console.WriteLine("\nReverse string is " + r);
+if (s == r)
+{
+    Console.WriteLine("\nString is palindrome");
+}
+else
+{
+    Console.WriteLine("\nString is not palindrome");
+}
+Console.WriteLine("———————————————————————————————————————————");
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+———————————————————————————————————————————
+Program to check string is palindrome | not
+———————————————————————————————————————————
+Enter the string NAAN
+
+Length of a string is 4
+
+Reverse string is NAAN
+
+String is palindrome
+———————————————————————————————————————————
+godarda@gd:~/csharp$ 
+</pre></span>

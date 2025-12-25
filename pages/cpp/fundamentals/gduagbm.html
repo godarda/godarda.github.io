@@ -1,0 +1,100 @@
+---
+permalink: cpp/fundamentals/gduagbm
+title: C++ program to perform the arithmetic operations
+---
+
+<div class="codecard">Example 1: {{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+using namespace std;
+int main()
+{
+    cout<<"8+7="<<8 + 7<<"\n";
+    cout<<"7+8="<<7 + 8<<"\n";
+    cout<<"8-7="<<8 - 7<<"\n";
+    cout<<"7-8="<<7 - 8<<"\n";
+    cout<<"8*7="<<8 * 7<<"\n";
+    cout<<"8/7="<<8 / 7<<"\n";
+    cout<<"7/8="<<7 / 8<<"\n";
+    cout<<"8%7="<<8 % 7<<"\n";
+    cout<<"7%8="<<7 % 8<<"\n";
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+8+7=15
+7+8=15
+8-7=1
+7-8=-1
+8*7=56
+8/7=1
+7/8=0
+8%7=1
+7%8=7
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Example 2: {{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+using namespace std;
+int main()
+{
+    int a(9), b(7), c(a + b), d(a * b);
+    cout<<c<<"\n"<<d<<"\n";
+    return (0);
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+16
+63
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Example 3: {{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+using namespace std;
+int main()
+{
+    int a = 0, b = 1;
+    cout<<"———————————————————————————————————————————";
+    cout<<"\nProgram for the arithmetic operations ";
+    cout<<"\n———————————————————————————————————————————";
+    cout<<"\nValue of a     | "<<a;
+    cout<<"\nValue of b     | "<<b;
+    cout<<"\nValue of "<<a<<" / "<<b<<" | "<<(a / b);
+    cout<<"\nValue of "<<a<<" + "<<b<<" | "<<(a + b);
+    cout<<"\nValue of "<<a<<" - "<<b<<" | "<<(a - b);
+    cout<<"\nValue of "<<a<<" * "<<b<<" | "<<(a * b);
+    cout<<"\nValue of "<<a<<" % "<<b<<" | "<<(a % b);
+    cout<<"\nValue of a++   | "<<a++;
+    cout<<"\nValue of ++a   | "<<++a;
+    cout<<"\n———————————————————————————————————————————\n";
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+———————————————————————————————————————————
+Program for the arithmetic operations 
+———————————————————————————————————————————
+Value of a     | 0
+Value of b     | 1
+Value of 0 / 1 | 0
+Value of 0 + 1 | 1
+Value of 0 - 1 | -1
+Value of 0 * 1 | 0
+Value of 0 % 1 | 0
+Value of a++   | 0
+Value of ++a   | 2
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

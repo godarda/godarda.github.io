@@ -1,0 +1,130 @@
+---
+permalink: java/collections/gdwdaie
+title: Implementation of Java Stack class
+---
+
+<div class="codecard">Java Stack: push() and empty() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.Stack;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        Stack<String> s=new Stack<>();
+        s.push("Apple");
+        s.push("Orange");
+        s.push("Mango");
+        s.push("Grapes");
+        s.push("Cherry");
+        s.push("Apple");
+        s.push("Blueberry");
+        
+        while(s.empty()==false)
+        {
+            System.out.println(s.pop());
+        }
+        
+        /*
+         * for(String e:s) { System.out.println(e); }
+         */
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Blueberry
+Apple
+Cherry
+Grapes
+Mango
+Orange
+Apple
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java Stack: empty() and search() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.Stack;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        Stack<String> s=new Stack<>();
+        s.push("Apple");
+        s.push("Orange");
+        s.push("Mango");
+        s.push("Grapes");
+        s.push("Cherry");
+        s.push("Apple");
+        s.push("Blueberry");
+        System.out.println(s);
+        
+        System.out.println(s.empty());
+        System.out.println(s.search("Orange"));
+        System.out.println(s.search("Blueberry"));
+        System.out.println(s.search("Pineapple"));
+        System.out.println(s.search("Dates"));
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[Apple, Orange, Mango, Grapes, Cherry, Apple, Blueberry]
+false
+6
+1
+-1
+-1
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java Stack: peek() and pop() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.Stack;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        Stack<String> s=new Stack<>();
+        s.push("Apple"); //First In Last Out
+        s.push("Orange");
+        s.push("Mango");
+        s.push("Grapes");
+        s.push("Cherry");
+        s.push("Apple");
+        s.push("Blueberry"); //Last In First Out
+        System.out.println("Peek element: "+s.peek());
+        
+        System.out.println("Popping: "+s.pop());
+        
+        System.out.println("\nStack elements: ");
+        while(s.empty()==false)
+        {
+            System.out.println(s.pop());
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Peek element: Blueberry
+Popping: Blueberry
+
+Stack elements: 
+Apple
+Cherry
+Grapes
+Mango
+Orange
+Apple
+godarda@gd:~$ 
+</pre></span>

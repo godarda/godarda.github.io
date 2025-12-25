@@ -1,0 +1,32 @@
+---
+permalink: rust/fundamentals/gdvzzvi
+title: Rust program to calculate the area and circumference of a circle
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.rustfile }}</div>
+<pre class="code">{%- highlight rust -%}
+fn main()
+{
+    const PI:f32=3.14;
+    let r=5;
+    let r=r as f32;
+    println!("———————————————————————————————————————————");
+    println!("Program to calculate the area and circumference of a circle");
+    println!("———————————————————————————————————————————");
+    println!("The area of a circle is  {c}",c=PI*r*r);
+    println!("The circumference of a circle is {c}",c=2.0*PI*r);
+    println!("———————————————————————————————————————————");
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runrust }}
+———————————————————————————————————————————
+Program to calculate the area and circumference of a circle
+———————————————————————————————————————————
+The area of a circle is  78.5
+The circumference of a circle is 31.400002
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

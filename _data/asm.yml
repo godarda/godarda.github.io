@@ -1,0 +1,55 @@
+grandparent:
+- parent: 32-bit Assembly Programming
+  subtree: 32-bit
+  url: asm/32-bit
+  children:
+  - url: asm/32-bit/gdvxqaz
+    title: ALP to print Hello World (32-bit)
+  - url: asm/32-bit/gdbhdky
+    title: ALP to print Hello World using times directive (32-bit)
+  - url: asm/32-bit/gdaeavq
+    title: ALP to print the stars using macro (32-bit)
+  - url: asm/32-bit/gdbqeza
+    title: ALP to print the stars using times directive (32-bit)
+  - url: asm/32-bit/gdzkizy
+    title: ALP to print the ASCII hex to hexadecimal number (32-bit)
+  - url: asm/32-bit/gdqnwvz
+    title: ALP to print the given alphanumeric characters (32-bit)
+  - url: asm/32-bit/gdvvdud
+    title: ALP to print the length of a given string (32-bit)
+  - url: asm/32-bit/gdvakeg
+    title: ALP to identify the Central Processing Unit (CPU) type (32-bit)
+  - url: asm/32-bit/gddmaee
+    title: ALP to print the values of registers in protected mode (32-bit)
+- parent: 64-bit Assembly Programming
+  subtree: 64-bit
+  url: asm/64-bit
+  children:
+  - url: asm/64-bit/gdatnak
+    title: ALP to print Hello World without using macro (64-bit)
+  - url: asm/64-bit/gdsgpyl
+    title: ALP to print Hello World using macro (64-bit)
+  - url: asm/64-bit/gdwagtz
+    title: ALP to print the given string using macro (64-bit)
+  - url: asm/64-bit/gdcgame
+    title: ALP to print the length of a given string (64-bit)
+  - url: asm/64-bit/gdwdwaz
+    title: ALP to reverse a given string (64-bit)
+  - url: asm/64-bit/gdwzqyk
+    title: ALP to check whether a given string is palindrome (64-bit)
+  - url: asm/64-bit/gdvyzpn
+    title: ALP menu-driven program to perform the string operations (64-bit)
+  - url: asm/64-bit/gdvnyvi
+    title: ALP to convert the hexadecimal to BCD number (64-bit)
+  - url: asm/64-bit/gdvthab
+    title: ALP to convert the Binary Coded Decimal (BCD) to hexadecimal number (64-bit)
+  - url: asm/64-bit/gdgywzg
+    title: ALP to print the addition of N hexadecimal number (64-bit)
+sidenav:
+- parent: Assembly Programming
+  url: asm
+  children:
+  - title: 32-bit Assembly Programming
+    url: asm/32-bit
+  - title: 64-bit Assembly Programming
+    url: asm/64-bit

@@ -1,0 +1,20 @@
+---
+permalink: python/fundamentals/gdzidwc
+title: Python program to print the runtime arguments
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="code">{%- highlight python -%}
+import sys 
+print("File Name",sys.argv[0])
+print("Number of Arguments",len(sys.argv))
+print("Arguments",str(sys.argv))
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+godarda@gd:~$ <mark>python3 gd.py C1 C2</mark>
+File Name gd.py
+Number of Arguments 3
+Arguments ['gd.py', 'C1', 'C2']
+</pre></span>

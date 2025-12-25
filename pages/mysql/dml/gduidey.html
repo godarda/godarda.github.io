@@ -1,0 +1,163 @@
+---
+permalink: mysql/dml/gduidey
+title: MySQL SELECT and SELECT DISTINCT Statements
+---
+
+<div class="titlecard">{{ page.title }}</div>
+<div class="terminalcard">Show databases and tables</div>
+<span><pre>
+mysql> <mark>SHOW DATABASES;</mark>
++--------------------+
+| Database           |
++--------------------+
+| DB                 |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.07 sec)
+
+mysql> <mark>USE DB;</mark>
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> <mark>SHOW TABLES;</mark>
++--------------+
+| Tables_in_DB |
++--------------+
+| holders      |
+| loans        |
++--------------+
+2 rows in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">Retrieving all the records from a parent table</div>
+<span><pre>
+mysql> <mark>SELECT * FROM holders;</mark>
++-------------+---------------+---------+------------+----------+--------+
+| account_no  | name          | city    | dob        | bank     | amount |
++-------------+---------------+---------+------------+----------+--------+
+| 25622348989 | James Moore   | Phoenix | 1985-05-26 | Barclays |   5000 |
+| 25622348990 | Donald Taylor | Irvine  | 1990-08-20 | Citi     |   7000 |
+| 25622348991 | Edward Parkar | Irvine  | 1994-01-29 | ICICI    |  95000 |
+| 25622348992 | Ryan Bakshi   | Mumbai  | 1982-01-14 | Citi     |  50000 |
+| 25622348993 | Marie Peters  | Ribe    | 1967-01-05 | DZBank   |  12250 |
+| 25622348994 | Aanya         | Delhi   | 1975-08-18 | SBI      | 105000 |
+| 25622348995 | James Moore   | NULL    | 1978-06-26 | Citi     |  97800 |
++-------------+---------------+---------+------------+----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> <mark>SELECT city FROM holders;</mark>
++---------+
+| city    |
++---------+
+| Phoenix |
+| Irvine  |
+| Irvine  |
+| Mumbai  |
+| Ribe    |
+| Delhi   |
+| NULL    |
++---------+
+7 rows in set (0.01 sec)
+</pre></span>
+
+<div class="terminalcard">Retrieving distinct records</div>
+<span><pre>
+mysql> <mark>SELECT DISTINCT city FROM holders;</mark>
++---------+
+| city    |
++---------+
+| Phoenix |
+| Irvine  |
+| Mumbai  |
+| Ribe    |
+| Delhi   |
+| NULL    |
++---------+
+6 rows in set (0.00 sec)
+
+mysql> <mark>SELECT DISTINCT name, city FROM holders;</mark>
++---------------+---------+
+| name          | city    |
++---------------+---------+
+| James Moore   | Phoenix |
+| Donald Taylor | Irvine  |
+| Edward Parkar | Irvine  |
+| Ryan Bakshi   | Mumbai  |
+| Marie Peters  | Ribe    |
+| Aanya         | Delhi   |
+| James Moore   | NULL    |
++---------------+---------+
+7 rows in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">COUNT, MIN, and MAX Functions</div>
+<span><pre>
+mysql> <mark>SELECT COUNT(DISTINCT city) AS Count FROM holders;</mark>
++-------+
+| Count |
++-------+
+|     5 |
++-------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT MIN(amount) FROM holders;</mark>
++-------------+
+| MIN(amount) |
++-------------+
+|        5000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT MAX(amount) FROM holders;</mark>
++-------------+
+| MAX(amount) |
++-------------+
+|      105000 |
++-------------+
+1 row in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">Retrieving all the records from a child table</div>
+<span><pre>
+mysql> <mark>SELECT * FROM loans;</mark>
++---------+-----------+-------------+-------------+
+| loan_id | loan_type | loan_amount | account_no  |
++---------+-----------+-------------+-------------+
+|       1 | Personal  |        5660 | 25622348989 |
+|       2 | Home      |      450000 | 25622348992 |
+|       3 | Car       |      600000 | 25622348994 |
+|       4 | Home      |       40000 | 25622348995 |
++---------+-----------+-------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> <mark>DELETE FROM loans WHERE loan_id=4;</mark>
+Query OK, 1 row affected (0.17 sec)
+
+mysql> <mark>SELECT * FROM loans;</mark>
++---------+-----------+-------------+-------------+
+| loan_id | loan_type | loan_amount | account_no  |
++---------+-----------+-------------+-------------+
+|       1 | Personal  |        5660 | 25622348989 |
+|       2 | Home      |      450000 | 25622348992 |
+|       3 | Car       |      600000 | 25622348994 |
++---------+-----------+-------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> <mark>INSERT INTO loans(loan_type,loan_amount,account_no) VALUES ("Home",40000,25622348995);</mark>
+Query OK, 1 row affected (0.19 sec)
+
+mysql> <mark>SELECT * FROM loans;</mark>
++---------+-----------+-------------+-------------+
+| loan_id | loan_type | loan_amount | account_no  |
++---------+-----------+-------------+-------------+
+|       1 | Personal  |        5660 | 25622348989 |
+|       2 | Home      |      450000 | 25622348992 |
+|       3 | Car       |      600000 | 25622348994 |
+|       5 | Home      |       40000 | 25622348995 |
++---------+-----------+-------------+-------------+
+4 rows in set (0.00 sec)
+</pre></span>

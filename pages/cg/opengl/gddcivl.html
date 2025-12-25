@@ -1,0 +1,32 @@
+---
+permalink: cg/opengl/gddcivl
+title: C++ program to draw a rhombus using OpenGL
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <GL/glut.h>
+
+int main(int agrc, char **argv)
+{
+    glutInit(&agrc, argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA | GLUT_DEPTH);
+    glutInitWindowSize(500, 500);
+    glutCreateWindow("Rhombus");
+    glBegin(GL_POLYGON);
+        glColor3f(1, 1, 1);
+        glVertex2f(0, 1);
+        glVertex2f(1, 0);
+        glVertex2f(0, -1);
+        glVertex2f(-1, 0);
+    glEnd();
+    glFlush();
+    glutMainLoop();
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runopengl }}
+<img src="pages/cg/images/gdwhwpz.png" loading="lazy">
+</pre></span>

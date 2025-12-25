@@ -1,0 +1,33 @@
+---
+permalink: c/arrays/gdmqyew
+title: C program to find the min and max number from a given array
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    int min, max;
+    int arr[5] = {100, 15, 8, 45, 93};
+    min = max = arr[0];
+    for (int i = 0; i < 5; i++)
+    {
+        if (arr[i] > max)
+            max = arr[i];
+        if (arr[i] < min)
+            min = arr[i];
+    }
+    printf("The max number from a given array is %d ", max);
+    printf("The min number from a given array is %d ", min);
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+The max number from a given array is 100 
+The min number from a given array is 8 
+godarda@gd:~$ 
+</pre></span>

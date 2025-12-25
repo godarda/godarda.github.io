@@ -1,0 +1,177 @@
+---
+permalink: python/ds/gdxpzmp
+title: Python Sets
+---
+
+<div class="terminalcard">{{ page.title }}</div>
+<span><pre>
+godarda@gd:~$ <mark>python3</mark>
+...
+>>> <mark>set1 = {'Sunday','Monday','Tuesday','Sunday'}</mark>
+>>> <mark>set2 = {'Wednesday','Thursday','Friday','Friday','Saturday'}</mark>
+
+>>> <mark>set1</mark>
+{'Monday', 'Sunday', 'Tuesday'}
+>>> <mark>set2</mark>
+{'Wednesday', 'Friday', 'Thursday', 'Saturday'}
+
+>>> <mark>len(set1)</mark>
+3
+>>> <mark>len(set2)</mark>
+4
+
+>>> <mark>max(set1)</mark>
+'Tuesday'
+>>> <mark>min(set1)</mark>
+'Monday'
+
+>>> <mark>max(set2)</mark>
+'Wednesday'
+>>> <mark>min(set2)</mark>
+'Friday'
+</pre></span>
+
+<div class="terminalcard">add() and update() methods</div>
+<span><pre>
+>>> <mark>set1</mark>
+{'Monday', 'Sunday', 'Tuesday'}
+>>> <mark>set2</mark>
+{'Wednesday', 'Friday', 'Thursday', 'Saturday'}
+
+>>> <mark>set1.add('Friday')</mark>    <comment>#Add one element</comment>
+>>> <mark>set1</mark>
+{'Monday', 'Friday', 'Sunday', 'Tuesday'}
+
+>>> <mark>set2.update(['Sunday','Friday'])</mark>    <comment>#Add one or more element(s)</comment>
+>>> <mark>set2</mark>
+{'Wednesday', 'Friday', 'Sunday', 'Thursday', 'Saturday'}
+</pre></span>
+
+<div class="terminalcard">remove(), discard(), and pop() methods</div>
+<span><pre>
+>>> <mark>set1</mark>
+{'Monday', 'Friday', 'Sunday', 'Tuesday'}
+
+>>> <mark>set2</mark>
+{'Wednesday', 'Friday', 'Sunday', 'Thursday', 'Saturday'}
+
+>>> <mark>set1.remove('Friday')</mark>    <comment>#Remove one element</comment>
+>>> <mark>set1</mark>
+{'Monday', 'Sunday', 'Tuesday'}
+
+>>> <mark>set2.difference_update(['Friday','Sunday'])</mark>    <comment>#Remove one or more element(s)</comment>
+>>> <mark>set2</mark>
+{'Wednesday', 'Thursday', 'Saturday'}
+
+>>> <mark>set2.update(['Sunday','Friday'])</mark>
+>>> <mark>set2</mark>
+{'Wednesday', 'Friday', 'Sunday', 'Thursday', 'Saturday'}
+
+>>> <mark>set2 -= {'Friday','Sunday'}</mark>    <comment>#Remove one or more element(s)</comment>
+>>> <mark>set2</mark>
+{'Wednesday', 'Thursday', 'Saturday'}
+
+>>> <mark>set1</mark>
+{'Monday', 'Sunday', 'Tuesday'}
+
+>>> <mark>set1.remove('Friday')</mark>
+<error>Traceback (most recent call last):
+  File "&lt;stdin>", line 1, in &lt;module>
+KeyError: 'Friday'</error>
+
+>>> <mark>set1.discard('Friday')</mark>    <comment>#No error, if element is not present</comment>
+>>> <mark>set1</mark>
+{'Monday', 'Sunday', 'Tuesday'}
+
+>>> <mark>set1.discard('Sunday')</mark>
+>>> <mark>set1</mark>
+{'Monday', 'Tuesday'}
+
+>>> <mark>set1.pop()</mark>
+'Monday'
+
+>>> <mark>set1</mark>
+{'Tuesday'}
+
+>>> <mark>set2</mark>
+{'Wednesday', 'Thursday', 'Saturday'}
+
+>>> <mark>set2.clear()</mark>
+>>> <mark>set2</mark>
+set()
+
+>>> <mark>set1.clear()</mark>
+>>> <mark>set1</mark>
+set()
+</pre></span>
+
+<div class="terminalcard">union() and intersection() methods</div>
+<span><pre>
+>>> <mark>set1 = {'Sunday','Monday','Friday','Sunday'}</mark>
+>>> <mark>set2 = {'Wednesday','Thursday','Friday','Friday','Saturday'}</mark>
+
+>>> <mark>set1</mark>
+{'Monday', 'Friday', 'Sunday'} 
+>>> <mark>set2</mark>
+{'Wednesday', 'Friday', 'Thursday', 'Saturday'}
+ 
+>>> <mark>set1.union(set2)</mark>
+{'Wednesday', 'Monday', 'Friday', 'Sunday', 'Thursday', 'Saturday'}
+
+>>> <mark>set1</mark>
+{'Monday', 'Friday', 'Sunday'}
+>>> <mark>set2</mark>
+{'Wednesday', 'Friday', 'Thursday', 'Saturday'}
+
+>>> <mark>set1.intersection(set2)</mark>
+{'Friday'}
+</pre></span>
+
+<div class="terminalcard">difference() and symmetric_difference() methods</div>
+<span><pre>
+>>> <mark>set1 = {'Sunday','Monday','Friday','Sunday'}</mark>
+>>> <mark>set2 = {'Wednesday','Thursday','Friday','Friday','Saturday'}</mark>
+
+>>> <mark>set1.difference(set2)</mark>
+{'Monday', 'Sunday'}
+>>> <mark>set2.difference(set1)</mark>
+{'Thursday', 'Saturday', 'Wednesday'}
+
+>>> <mark>set1.symmetric_difference(set2)</mark>
+{'Sunday', 'Monday', 'Saturday', 'Thursday', 'Wednesday'}
+>>> <mark>set1</mark>
+{'Monday', 'Sunday', 'Friday'}
+
+>>> <mark>set1.symmetric_difference_update(set2)</mark>
+>>> <mark>set1</mark>
+{'Sunday', 'Monday', 'Saturday', 'Thursday', 'Wednesday'}
+</pre></span>
+
+<div class="terminalcard">Built-in set() function and operations</div>
+<span><pre>
+>>> <mark>s={1, 1, 2, 2, 1, 4, 3, 3, 6, 6, 5, 6}</mark>
+>>> <mark>s</mark>
+{1, 2, 3, 4, 5, 6}
+
+>>> <mark>s[1:3]</mark>
+<error>Traceback (most recent call last):
+  File "&lt;stdin>", line 1, in &lt;module>
+TypeError: 'set' object is not subscriptable</error>
+
+>>> <mark>s.update([7, 4, 0, 2])</mark>
+>>> <mark>s</mark>
+{0, 1, 2, 3, 4, 5, 6, 7}
+
+>>> <mark>s.remove(10)</mark>
+<error>Traceback (most recent call last):
+  File "&lt;stdin>", line 1, in &lt;module>
+KeyError: 10</error>
+
+>>> <mark>s.remove(1)</mark>
+>>> <mark>s</mark>
+{0, 2, 3, 4, 5, 6, 7}
+
+>>> <mark>s=set("Hello, World!")</mark>
+>>> <mark>s</mark>
+{'l', 'o', ' ', 'd', ',', '!', 'e', 'W', 'H', 'r'} 
+</pre></span>

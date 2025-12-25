@@ -1,0 +1,104 @@
+---
+permalink: java/re/gdwdgez
+title: Implementation of Java Regular Expressions
+---
+
+<div class="codecard">Example 1: {{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.*;
+import java.util.regex.*;
+class GD
+{
+    public static void main(String args[])
+    {
+        String s;
+        Scanner sc=new Scanner(System.in);
+        System.out.println("____________________________________");
+        System.out.println("Implementation of Regular Expression");
+        System.out.println("____________________________________");
+        System.out.print("Enter a number ");
+        s=sc.nextLine();
+        if(Pattern.matches("\\d*",s))
+        {
+            System.out.println("\nNumber accepted");
+        }
+        else
+        {
+            System.out.println("\nError: number unacceptable");
+        }
+        System.out.println("____________________________________");
+    }       
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+____________________________________
+Implementation of Regular Expression
+____________________________________
+Enter a number GD
+
+Error: number unacceptable
+____________________________________
+
+godarda@gd:~$ <mark>java GD</mark>
+____________________________________
+Implementation of Regular Expression
+____________________________________
+Enter a number 12
+
+Number accepted
+____________________________________
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Example 2: {{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.*;
+import java.util.regex.*;
+class GD
+{
+    public static void main(String args[])
+    {
+        String s;
+        Scanner sc=new Scanner(System.in);
+        System.out.println("____________________________________");
+        System.out.println("Implementation of Regular Expression");
+        System.out.println("____________________________________");
+        System.out.print("Enter your 6-digit PIN code ");
+        s=sc.nextLine();
+        if(Pattern.matches("\\d{6}",s))
+        {
+            System.out.println("\nCongratulations! your PIN code accepted successfully.");
+        }
+        else
+        {
+            System.out.println("\nPlease enter digits only");
+        }
+        System.out.println("____________________________________");
+    }       
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+____________________________________
+Implementation of Regular Expression
+____________________________________
+Enter your 6-digit PIN code -23566
+
+Please enter digits only
+____________________________________
+
+godarda@gd:~$ <mark>java GD</mark>
+____________________________________
+Implementation of Regular Expression
+____________________________________
+Enter your 6-digit PIN code 400099
+
+Congratulations! your PIN code accepted successfully.
+____________________________________
+godarda@gd:~$ 
+</pre></span>

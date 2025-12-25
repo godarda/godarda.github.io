@@ -1,0 +1,49 @@
+---
+permalink: csharp/loops/gddhyzb
+title: C# program to print the Armstrong numbers
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+int num, r, sum, temp, ul;
+Console.WriteLine("———————————————————————————————————————————");
+Console.WriteLine("Program to print the Armstrong numbers");
+Console.WriteLine("———————————————————————————————————————————");
+Console.Write("Enter the upper limit range ");
+ul = Convert.ToInt32(Console.ReadLine());
+Console.Write("\nArmstrong numbers are\n");
+for (num = 1; num <= ul; num++)
+{
+    temp = num;
+    sum = 0;
+    while (temp != 0)
+    {
+        r = temp % 10;
+        temp = temp / 10;
+        sum = sum + (r * r * r);
+    }
+    if (sum == num)
+    {
+        Console.WriteLine("{0} ", num);
+    }
+}
+Console.WriteLine("———————————————————————————————————————————");
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+———————————————————————————————————————————
+Program to print the Armstrong numbers
+———————————————————————————————————————————
+Enter the upper limit range 1000
+
+Armstrong numbers are
+1 
+153 
+370 
+371 
+407 
+———————————————————————————————————————————
+godarda@gd:~/csharp$ 
+</pre></span>

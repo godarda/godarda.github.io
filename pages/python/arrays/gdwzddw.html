@@ -1,0 +1,113 @@
+---
+permalink: python/arrays/gdwzddw
+title: Python Arrays using Array module
+---
+
+<div class="terminalcard">{{ page.title }}</div>
+<span><pre>
+godarda@gd:~$ <mark>python3</mark>
+...
+>>> <mark>from array import *</mark>
+>>> <mark>arr = array("s", ["", "", ""])</mark>
+<error>Traceback (most recent call last):
+  File "&lt;stdin>", line 1, in &lt;module>
+ValueError: bad typecode (must be b, B, u, h, H, i, I, l, L, q, Q, f or d)</error>
+
+>>> <mark>arr = array("i", [40, 96, 24, 55, 78, -111])</mark>
+>>> <mark>arr</mark>
+array('i', [40, 96, 24, 55, 78, -111])
+>>> <mark>arr[0]</mark>
+40
+
+>>> <mark>len(arr)</mark>
+6
+
+>>> <mark>max(arr)</mark>
+96
+
+>>> <mark>min(arr)</mark>
+-111
+
+>>> <mark>arr.itemsize</mark>    <comment># memory size of an element stored in the array</comment>
+4
+
+>>> <mark>arr.typecode</mark>
+'i'
+<hr>>>> <mark>for i in arr:</mark>
+...     <mark>print(i)</mark>
+... 
+40
+96
+24
+55
+78
+-111
+<hr>>>> <mark>arr = array("u", ['x', 'y', 'z'])</mark>
+>>> <mark>arr</mark>
+array('u', 'xyz')
+
+>>> <mark>arr[0]</mark>
+'x'
+
+>>> <mark>for ch in arr:</mark>
+...     <mark>print(ch)</mark>
+... 
+x
+y
+z
+</pre></span>
+
+<div class="terminalcard">Python Array Methods</div>
+<span><pre>
+>>> <mark>arr1 = array("i", [40, 96, 24, 55, 78, -111])</mark>
+>>> <mark>arr2 = array("d", [3.14, 9.84])</mark>
+>>> <mark>arr1</mark>
+array('i', [40, 96, 24, 55, 78, -111])
+
+>>> <mark>arr1.append(-111)</mark>
+>>> <mark>arr1</mark>
+array('i', [40, 96, 24, 55, 78, -111, -111])
+
+>>> <mark>arr1.count(-111)</mark>
+2
+
+>>> <mark>arr1.extend(arr2)</mark>
+<error>Traceback (most recent call last):
+  File "&lt;stdin>", line 1, in &lt;module>
+TypeError: can only extend with array of same kind</error>
+
+>>> <mark>arr2 = array("i", [314, 984])</mark>
+>>> <mark>arr1.extend(arr2)</mark>
+>>> <mark>arr1</mark>
+array('i', [40, 96, 24, 55, 78, -111, -111, 314, 984])
+
+>>> <mark>arr1.index(-111)</mark>
+5
+
+>>> <mark>arr2.insert(0, 169)</mark>
+>>> <mark>arr2</mark>
+array('i', [169, 314, 984])
+
+>>> <mark>arr2.reverse()</mark>
+>>> <mark>arr2</mark>
+array('i', [984, 314, 169])
+
+>>> <mark>arr2.pop()</mark>
+169
+
+>>> <mark>arr2.pop(0)</mark>
+984
+
+>>> <mark>arr2</mark>
+array('i', [314])
+
+>>> <mark>arr1</mark>
+array('i', [40, 96, 24, 55, 78, -111, -111, 314, 984])
+
+>>> <mark>arr1.remove(-111)</mark>
+>>> <mark>arr1</mark>
+array('i', [40, 96, 24, 55, 78, -111, 314, 984])
+
+>>> <mark>arr1.tolist()</mark>
+[40, 96, 24, 55, 78, -111, 314, 984]
+</pre></span>

@@ -1,0 +1,26 @@
+---
+permalink: c/arrays/gdzizzy
+title: C program to print the given array
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    int arr[5] = {1, 2, 3, 4, 5};
+    for (int i = 0; i < 5; i++)
+    {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+1 2 3 4 5 
+godarda@gd:~$ 
+</pre></span>

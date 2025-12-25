@@ -1,0 +1,100 @@
+{%- assign path = page.url | split: '/' -%}
+<script>window.gd_path1 = '{{ path[1] }}';</script>
+<script src="{{ site.search_js | relative_url }}"></script>
+<div><center>
+    <div class="col-xs-12 col-sm-11 col-md-9 col-lg-7 col-xl-6 col-xxl-6" style="margin-bottom: 25px;">
+        {%- if path[1] == "search" or path[1] == "onecalc" -%}
+            <h2 style="margin-top: 175px;" id="fc-{{ path[1] }}">GoDarda</h2>
+            <h6 style="padding-top: 5px; padding-bottom: 10px;">{{ site.tagline }}</h6>
+        {%- endif -%}
+
+        <div id="KSE_input-{{ path[1] }}" class="input-group input-group-lg">
+        <input id="KSEInput" class="form-control" type="text" tabindex="1" placeholder="{{ page.title }} (type keywords to get results)" onkeypress="display_results();" onkeyup="display_results();" onload="clear_input();"><div id="search_icon" class="input-group-append" style="display: inline-block; padding: 10px 15px 0px 7px; font-size: 20px;"><i class="bi bi-search"></i></div><div id="close_icon" class="input-group-append" onclick="clear_input();" style="display: none; padding: 5px; font-size: 25px;"><i class="bi bi-x"></i></div>
+        </div>
+        <div id="matchCount" class="text-muted small" style="margin-top:8px; display:none; text-align:left"></div>
+    </div>
+
+    <div id="search" class="col-xs-12 col-sm-12 col-md-10 col-lg-8 col-xl-7 col-xxl-7" style="text-align: left; margin-bottom: 30px;">
+    {% if path[1] == "search" %}
+        {%- comment -%} Main search page: render all segment JSON blobs {%- endcomment -%}
+        {%- for segment in site.data.gd.segments limit:21 -%}
+        <div id="{{ segment.url }}" style="display: none; margin-bottom: 30px;"></div>
+        <script type="application/json" id="search-data-{{ segment.url }}" style="display:none;">
+        [ { "title": {{ segment.title | jsonify }}, "href": {{ segment.url | jsonify }} }
+            {%- case segment.url -%}
+                {%- when "c" -%}{%- assign search = site.data.c -%}
+                {%- when "cpp" -%}{%- assign search = site.data.cpp -%}
+                {%- when "java" -%}{%- assign search = site.data.java -%}
+                {%- when "python" -%}{%- assign search = site.data.python -%}
+                {%- when "ds" -%}{%- assign search = site.data.ds -%}
+                {%- when "r" -%}{%- assign search = site.data.r -%}
+                {%- when "julia" -%}{%- assign search = site.data.julia -%}
+                {%- when "octave" -%}{%- assign search = site.data.octave -%}
+                {%- when "csharp" -%}{%- assign search = site.data.csharp -%}
+                {%- when "fsharp" -%}{%- assign search = site.data.fsharp -%}
+                {%- when "rust" -%}{%- assign search = site.data.rust -%}
+                {%- when "lisp" -%}{%- assign search = site.data.lisp -%}
+                {%- when "dsa" -%}{%- assign search = site.data.dsa -%}
+                {%- when "linux" -%}{%- assign search = site.data.linux -%}
+                {%- when "mysql" -%}{%- assign search = site.data.mysql -%}
+                {%- when "mongodb" -%}{%- assign search = site.data.mongodb -%}
+                {%- when "selenium" -%}{%- assign search = site.data.selenium -%}
+                {%- when "cg" -%}{%- assign search = site.data.cg -%}
+                {%- when "asm" -%}{%- assign search = site.data.asm -%}
+                {%- when "cluster" -%}{%- assign search = site.data.cluster -%}
+                {%- else -%}{%- assign search = site.data.tools -%}
+            {%- endcase -%}
+
+            {%- for parent in search.grandparent -%}
+                ,{ "title": {{ parent.parent | jsonify }}, "href": {{ parent.url | jsonify }} }
+                {%- for child in parent.children -%}
+                    ,{ "title": {{ child.title | jsonify }}, "href": {{ child.url | jsonify }} }
+                {%- endfor -%}
+            {%- endfor -%} ] 
+        </script>
+        {%- endfor -%}
+
+    {%- elsif path[1] -%}
+        {%- comment -%} Segment page: render only the active segment's JSON blob {%- endcomment -%}
+        {%- assign seg = site.data.gd.segments | where: "url", path[1] | first -%}
+        {%- if seg -%}
+        <div id="{{ seg.url }}" style="display: none; margin-bottom: 30px;"></div>
+        <script type="application/json" id="search-data-{{ seg.url }}" style="display:none;">
+        [ {%- comment -%} Do not include other segments' titles here; include only this segment's entries {%- endcomment -%}
+            {%- case seg.url -%}
+                {%- when "c" -%}{%- assign search = site.data.c -%}
+                {%- when "cpp" -%}{%- assign search = site.data.cpp -%}
+                {%- when "java" -%}{%- assign search = site.data.java -%}
+                {%- when "python" -%}{%- assign search = site.data.python -%}
+                {%- when "ds" -%}{%- assign search = site.data.ds -%}
+                {%- when "r" -%}{%- assign search = site.data.r -%}
+                {%- when "julia" -%}{%- assign search = site.data.julia -%}
+                {%- when "octave" -%}{%- assign search = site.data.octave -%}
+                {%- when "csharp" -%}{%- assign search = site.data.csharp -%}
+                {%- when "fsharp" -%}{%- assign search = site.data.fsharp -%}
+                {%- when "rust" -%}{%- assign search = site.data.rust -%}
+                {%- when "lisp" -%}{%- assign search = site.data.lisp -%}
+                {%- when "dsa" -%}{%- assign search = site.data.dsa -%}
+                {%- when "linux" -%}{%- assign search = site.data.linux -%}
+                {%- when "mysql" -%}{%- assign search = site.data.mysql -%}
+                {%- when "mongodb" -%}{%- assign search = site.data.mongodb -%}
+                {%- when "selenium" -%}{%- assign search = site.data.selenium -%}
+                {%- when "cg" -%}{%- assign search = site.data.cg -%}
+                {%- when "asm" -%}{%- assign search = site.data.asm -%}
+                {%- when "cluster" -%}{%- assign search = site.data.cluster -%}
+                {%- else -%}{%- assign search = site.data.tools -%}
+            {%- endcase -%}
+
+            {%- assign first = true -%}
+            {%- for parent in search.grandparent -%}
+                {%- if first == false -%},{%- endif -%}
+                { "title": {{ parent.parent | jsonify }}, "href": {{ parent.url | jsonify }} }{%- assign first = false -%}
+                {%- for child in parent.children -%}
+                    ,{ "title": {{ child.title | jsonify }}, "href": {{ child.url | jsonify }} }
+                {%- endfor -%}
+            {% endfor %} ] 
+        </script>
+        {%- endif -%}
+    {% endif %}
+    </div>
+</center></div>

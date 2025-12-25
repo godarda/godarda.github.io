@@ -1,0 +1,127 @@
+---
+permalink: java/collections/gdsftmv
+title: Implementation of Java HashSet class
+---
+
+<div class="codecard">Java HashSet: add() and size() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.HashSet;
+import java.util.Iterator;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //HashSet class implements the Set interface
+        HashSet<String> hs=new HashSet<>();
+        hs.add("Apple");
+        hs.add("Orange");
+        hs.add("Mango");
+        hs.add("Grapes");
+        hs.add("Cherry");
+        hs.add("Apple");
+        Iterator itr=hs.iterator();
+        while(itr.hasNext())
+        {
+            System.out.println(itr.next());
+        }
+        System.out.println("Size: "+hs.size());
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Apple
+Grapes
+Cherry
+Mango
+Orange
+Size: 5
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java HashSet: addAll() and containsAll() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.HashSet;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //HashSet class implements the Set interface
+        HashSet<String> hs1=new HashSet<>();
+        hs1.add("Apple");
+        hs1.add("Orange");
+        hs1.add("Mango");
+        System.out.println(hs1);
+
+        HashSet<String> hs2=new HashSet<>();
+        hs2.add("Apple");
+        hs2.add("Orange");
+        hs2.add("Cherry");
+        System.out.println(hs2);
+        
+        System.out.println(hs1.contains("Apple"));
+        System.out.println(hs1.containsAll(hs2));
+        
+        hs1.addAll(hs2);
+        System.out.println(hs1);
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[Apple, Mango, Orange]
+[Apple, Cherry, Orange]
+true
+false
+[Apple, Cherry, Mango, Orange]
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java HashSet: remove() and removeAll() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.HashSet;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //HashSet class implements the Set interface
+        HashSet<String> hs=new HashSet<>();
+        hs.add("Apple");
+        hs.add("Orange");
+        hs.add("Mango");
+        hs.add("Grapes");
+        hs.add("Cherry");
+        hs.add("Apple");
+        System.out.println(hs);
+        
+        hs.remove("Cherry");
+        System.out.println(hs);
+        
+        hs.removeAll(hs);
+        System.out.println(hs);
+        
+        //hs.clear();
+        if(hs.isEmpty())
+        {
+            System.out.println("HashSet is empty now");
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[Apple, Grapes, Cherry, Mango, Orange]
+[Apple, Grapes, Mango, Orange]
+[]
+HashSet is empty now
+godarda@gd:~$ 
+</pre></span>

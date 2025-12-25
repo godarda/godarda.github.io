@@ -1,0 +1,50 @@
+---
+permalink: lisp/controls/gduepzv
+title: LISP program for the arithmetic operations using the case statements
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.lispfile }}</div>
+<pre class="code">{%- highlight lisp -%}
+(write-line "———————————————————————————————————————————")
+(write-line "Program to perform the arithmetic operations ")
+(write-line "———————————————————————————————————————————")
+(write-line "1.Addition")
+(write-line "2.Subtraction")
+(write-line "3.Multiplication")
+(write-line "4.Division")
+(write-line "———————————————————————————————————————————")
+(princ "Enter your choice ")
+(setq ch(read))
+(terpri)(princ "Enter the 1st number ")
+(setq a(read))
+(terpri)(princ "Enter the 2nd number ")
+(setq b(read))
+(case ch
+(1(format t "~%Addition Of ~d+~d=~d"a b (+ a b)))
+(2(format t "~%Subtraction Of ~d-~d=~d"a b (- a b)))
+(3(format t "~%Multiplication Of ~d*~d=~d"a b (* a b)))
+(4(format t "~%Division Of ~d/~d=~d"a b (/ a b))))
+(terpri)(princ "———————————————————————————————————————————")
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runlisp }}
+———————————————————————————————————————————
+Program to perform the arithmetic operations 
+———————————————————————————————————————————
+1.Addition
+2.Subtraction
+3.Multiplication
+4.Division
+———————————————————————————————————————————
+Enter your choice 4
+
+Enter the 1st number 1
+
+Enter the 2nd number 0
+
+*** - /: division by zero
+
+godarda@gd:~$ 
+</pre></span>

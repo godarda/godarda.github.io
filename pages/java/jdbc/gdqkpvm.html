@@ -1,0 +1,162 @@
+---
+permalink: java/jdbc/gdqkpvm
+title: Java MySQL to update the table records
+---
+
+<div class="board"><div class="boardtitle">Objective and Prerequisites</div>
+    <p><b>Objective: </b>This segment introduces how to update and retrieve the updated records from a table in MySQL using Java.<br><br>
+    <b>Prerequisites: </b>MySQL setup is installed and running in the background, and the database <i><b>DB</b></i> and table <i><b>holders</b></i> are created in MySQL. 
+    If not, then refer to the <a href="java/jdbc/" class="hlink">Java Database Connectivity (JDBC)</a> segment in sequence. Also, the project has been developed and executed in Eclipse IDE (Integrated Development Environment).</p>
+</div>
+
+<div class="terminalcard">Start MySQL</div>
+<span><pre>
+godarda@gd:~$ <mark>sudo mysql -u root -p</mark>
+Enter password: ******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.19 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> <mark>SHOW DATABASES;</mark>
++--------------------+
+| Database           |
++--------------------+
+| DB                 |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> <mark>USE DB;</mark>
+Database changed
+
+mysql> <mark>SHOW TABLES;</mark>
++--------------+
+| Tables_in_DB |
++--------------+
+| holders      |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT * FROM holders;</mark>
++-------------+---------------+----------+--------+
+| account_no  | name          | bank     | amount |
++-------------+---------------+----------+--------+
+| 25622348989 | James Moore   | Barclays |   5000 |
+| 25622348990 | Donald Taylor | Citi     |   7000 |
+| 25622348991 | Edward Parkar | ICICI    |  95000 |
+| 25622348992 | Ryan Bakshi   | Citi     |  50000 |
+| 25622348993 | Marie Peters  | DZBank   |  12250 |
++-------------+---------------+----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> <mark>SELECT name, amount FROM holders;</mark>
++---------------+--------+
+| name          | amount |
++---------------+--------+
+| James Moore   |   5000 |
+| Donald Taylor |   7000 |
+| Edward Parkar |  95000 |
+| Ryan Bakshi   |  50000 |
+| Marie Peters  |  12250 |
++---------------+--------+
+5 rows in set (0.00 sec)
+</pre></span>
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+class GD
+{
+    public static void main(String[] args)
+    {
+        try
+        {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/DB","root", "godarda");
+            Statement st = con.createStatement();
+            st.executeUpdate("UPDATE holders SET amount = amount + 2000 WHERE account_no = 25622348993");
+            System.out.println("List of all the records");
+            ResultSet rs=st.executeQuery("SELECT * FROM holders");  
+            while(rs.next())
+            {
+                System.out.println(rs.getLong("account_no")+", "+rs.getString("name")+", "+rs.getString("bank")+", "+rs.getDouble("amount"));
+            }
+            
+            st.executeUpdate("UPDATE holders SET amount = amount + 2000");
+            System.out.println("\nList of all the records");
+            rs=st.executeQuery("SELECT * FROM holders");  
+            while(rs.next())
+            {
+                System.out.println(rs.getLong("account_no")+", "+rs.getString("name")+", "+rs.getString("bank")+", "+rs.getDouble("amount"));
+            }
+            con.close();
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">Explanation: </div>
+<div class="infocard">When the first update query executed with WHERE clause, the account number 25622348993 updated with an amount of 2000 as a bonus. On the other hand, when the second update query executed without WHERE clause, then all the records updated with an amount of 2000 as a bonus. Hence the final amount 16250 for account number 25622348993.</div>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+List of all the records
+25622348989, James Moore, Barclays, 5000.0
+25622348990, Donald Taylor, Citi, 7000.0
+25622348991, Edward Parkar, ICICI, 95000.0
+25622348992, Ryan Bakshi, Citi, 50000.0
+25622348993, Marie Peters, DZBank, 14250.0
+
+List of all the records
+25622348989, James Moore, Barclays, 7000.0
+25622348990, Donald Taylor, Citi, 9000.0
+25622348991, Edward Parkar, ICICI, 97000.0
+25622348992, Ryan Bakshi, Citi, 52000.0
+25622348993, Marie Peters, DZBank, 16250.0
+godarda@gd:~$ 
+</pre></span>
+
+<div class="terminalcard">MySQL Instance</b></div>
+<span><pre>
+mysql> <mark>SELECT * FROM holders;</mark>
++-------------+---------------+----------+--------+
+| account_no  | name          | bank     | amount |
++-------------+---------------+----------+--------+
+| 25622348989 | James Moore   | Barclays |   7000 |
+| 25622348990 | Donald Taylor | Citi     |   9000 |
+| 25622348991 | Edward Parkar | ICICI    |  97000 |
+| 25622348992 | Ryan Bakshi   | Citi     |  52000 |
+| 25622348993 | Marie Peters  | DZBank   |  16250 |
++-------------+---------------+----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> <mark>SELECT name, amount FROM holders;</mark>
++---------------+--------+
+| name          | amount |
++---------------+--------+
+| James Moore   |   7000 |
+| Donald Taylor |   9000 |
+| Edward Parkar |  97000 |
+| Ryan Bakshi   |  52000 |
+| Marie Peters  |  16250 |
++---------------+--------+
+5 rows in set (0.00 sec)
+</pre></span>

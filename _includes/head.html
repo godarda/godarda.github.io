@@ -1,0 +1,86 @@
+<head>
+    <title>{{ page.title }}</title>
+    <meta property="og:title" content="{{ page.title }}" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="{{ site.title }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="{{ site.og }}" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="keywords" content="{{ page.title }}" />
+    {%- if page.description == nil -%}<meta name="description" content="{{ page.title }}" />
+    {%- else -%}<meta name="description" content="{{ page.description }}" />{%- endif -%}
+    <meta name="author" content="{{ site.founder }}" />
+    <link rel="icon" href="{{ site.icon | relative_url }}">
+    <link rel="stylesheet" href="{{ site.bs_css }}" integrity="{{ site.bs_cssi }}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ site.bs_icons }}">
+    <link rel="stylesheet" type="text/css" href="{{ site.gd_color_css | relative_url }}">
+    <link rel="stylesheet" type="text/css" href="{{ site.gd_css | relative_url }}"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <script>
+        (function() {
+            const getStoredTheme = () => localStorage.getItem('theme');
+            const getPreferredTheme = () => {
+                const storedTheme = getStoredTheme();
+                return storedTheme ? storedTheme : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            };
+            const setTheme = theme => {
+                document.documentElement.setAttribute('data-bs-theme', (theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme));
+            };
+            setTheme(getPreferredTheme());
+        })();
+    </script>
+    <script defer src="{{ site.jquery }}"></script>
+    <script defer src="{{ site.bs_js }}" integrity="{{ site.bs_jsi }}" crossorigin="anonymous"></script>
+    <script defer src="{{ site.gd_js | relative_url }}"></script>
+    <script async src="{{ site.analytics }}"></script>
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <base href="{{ '/' | relative_url }}">
+</head>
+
+{%- comment -%}
+    Data-driven segment lookup with explicit per-segment `parent` support.
+    Uses `site.data.gd.segments` for titles and `site.data.<seg_key>` for the
+    segment's dataset (grandparent/children). If a segment entry includes a
+    `parent` field, that exact string is used (preserves values like ` / DS / `).
+{%- endcomment -%}
+
+{%- assign path = page.url | split: '/' -%}
+{%- assign seg_key = path[1] | default: '' -%}
+{%- assign seg_obj = site.data.gd.segments | where: 'url', seg_key | first -%}
+
+{%- if seg_obj -%}
+    {%- assign segment = seg_obj.title -%}
+    {%- if seg_obj.parent -%}
+        {%- assign parent = seg_obj.parent -%}
+    {%- endif -%}
+{%- else -%}
+    {%- assign segment = site.title -%}
+{%- endif -%}
+
+{%- assign gd = nil -%}
+{%- if seg_key != '' and site.data[seg_key] -%}
+    {%- assign gd = site.data[seg_key] -%}
+{%- endif -%}
+
+{%- if gd -%}
+    {%- for item in gd.grandparent -%}
+        {%- if page.url contains item.url -%}
+            {%- assign child = item.subtree -%}
+            {%- if item.parent -%}
+                {%- assign segment = item.parent -%}
+            {%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endif -%}
+
+{%- unless parent -%}
+    {%- if seg_key == '' -%}
+        {%- assign parent = ' GoDarda' -%}
+    {%- else -%}
+        {%- assign parent = ' / ' | append: segment | append: ' / ' -%}
+    {%- endif -%}
+{%- endunless -%}

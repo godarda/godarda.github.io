@@ -1,0 +1,30 @@
+---
+permalink: selenium/interfaces/gdggyby
+title: Selenium Java to generate alert and navigate to another page using JavascriptExecutor
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="editorcard">{%- highlight java -%}
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+class GD
+{
+    public static void main(String[] args) 
+    {   
+        System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://godarda.in/");
+        
+        JavascriptExecutor jse = (JavascriptExecutor)driver;
+        jse.executeScript("window.location = 'https://godarda.in/testapp/'");
+        
+        jse.executeScript("alert('Navigated from home page');");
+        
+        //driver.close();
+    }
+}
+{%- endhighlight -%}</pre>

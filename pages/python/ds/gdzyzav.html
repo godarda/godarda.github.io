@@ -1,0 +1,102 @@
+---
+permalink: python/ds/gdzyzav
+title: Python Lists
+---
+
+<div class="terminalcard">{{ page.title }}</div>
+<span><pre>
+godarda@gd:~$ <mark>python3</mark>
+...
+>>> <mark>a=[1, 2, 3, 4, 5, 6]</mark>
+>>> <mark>a[2:5]</mark>
+[3, 4, 5]
+
+>>> <mark>a[2:10]</mark>
+[3, 4, 5, 6]
+
+>>> <mark>a[:]</mark>
+[1, 2, 3, 4, 5, 6]
+
+>>> <mark>a</mark>
+[1, 2, 3, 4, 5, 6]
+<hr>>>> <mark>strings=['Thomson','1010011','999.99','A1D3T6Z']</mark>
+>>> <mark>strings[0]</mark>
+'Thomson'
+
+>>> <mark>strings[3]</mark>
+'A1D3T6Z'
+
+>>> <mark>strings[-1]</mark>
+'A1D3T6Z'
+
+>>> <mark>strings[-4]</mark>
+'Thomson'
+
+>>> <mark>len(strings)</mark>
+4
+
+>>> <mark>strings[0]='Neil'</mark>
+>>> <mark>strings[0]</mark>
+'Neil'
+
+>>> <mark>strings[-4]</mark>
+'Neil'
+
+>>> <mark>strings</mark>
+['Neil', '1010011', '999.99', 'A1D3T6Z']
+
+>>> <mark>del strings[3]</mark>
+>>> <mark>strings</mark>
+['Neil', '1010011', '999.99']
+
+>>> <mark>strings.append('Edison')</mark>
+>>> <mark>strings</mark>
+['Neil', '1010011', '999.99', 'Edison']
+
+>>> <mark>strings.reverse()</mark>
+>>> <mark>strings</mark>
+['Edison', '999.99', '1010011', 'Neil']
+
+>>> <mark>strings.sort()</mark>
+>>> <mark>strings</mark>
+['1010011', '999.99', 'Edison', 'Neil']
+
+>>> <mark>strings.insert(2,'Linus')</mark>
+>>> <mark>strings</mark>
+['1010011', '999.99', 'Linus', 'Edison', 'Neil']
+
+>>> <mark>strings.remove('999.99')</mark>
+>>> <mark>strings</mark>
+['1010011', 'Linus', 'Edison', 'Neil']
+
+>>> <mark>strings+[1,2,3,4]</mark>
+['1010011', 'Linus', 'Edison', 'Neil', 1, 2, 3, 4]
+
+>>> <mark>strings</mark>
+['1010011', 'Linus', 'Edison', 'Neil']
+
+>>> <mark>list(strings)</mark>
+['1010011', 'Linus', 'Edison', 'Neil']
+
+>>> <mark>list('strings')</mark>
+['s', 't', 'r', 'i', 'n', 'g', 's']
+
+>>> <mark>'neil' in strings</mark>
+False
+
+>>> <mark>'Neil' in strings</mark>
+True
+
+>>> <mark>'Thomson' not in strings</mark>
+True
+
+>>> <mark>strings.pop(0)</mark>
+'1010011'
+
+>>> <mark>strings</mark>
+['Linus', 'Edison', 'Neil']
+
+>>> <mark>del strings[2]</mark>
+>>> <mark>strings</mark>
+['Linus', 'Edison']
+</pre></span>

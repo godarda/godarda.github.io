@@ -1,0 +1,127 @@
+---
+permalink: ds/analysis/gdwdghw
+title: Python Pandas to index and sort a DataFrame
+---
+
+<div class="titlecard">{{ page.title }}</div>
+<div class="terminalcard">Get index and locate</div>
+<span><pre>
+godarda@gd:~$ <mark>python3</mark>
+...
+>>> <mark>import pandas as pd</mark>
+>>> <mark>df=pd.read_csv("/home/godarda/gd.csv")</mark>
+>>> <mark>df</mark>
+    account_no           name     city         dob      bank  amount
+0  25622348989    James Moore  Phoenix  1985-05-26  Barclays    5000
+1  25622348990  Donald Taylor   Irvine  1990-08-20      Citi    7000
+2  25622348991  Edward Parkar   Irvine  1994-01-29     ICICI   95000
+3  25622348992    Ryan Bakshi   Mumbai  1982-01-14      Citi   50000
+4  25622348993   Marie Peters     Ribe  1967-01-05    DZBank   12250
+5  25622348994          Aanya    Delhi  1975-08-18       SBI  105000
+6  25622348995    James Moore      NaN  1978-06-26      Citi   97800
+
+>>> <mark>df.index</mark>
+RangeIndex(start=0, stop=7, step=1)
+
+>>> <mark>df.loc[3]</mark>
+account_no    25622348992
+name          Ryan Bakshi
+city               Mumbai
+dob            1982-01-14
+bank                 Citi
+amount              50000
+Name: 3, dtype: object
+</pre></span>
+
+<div class="terminalcard">Set index and locate</div>
+<span><pre>
+>>> <mark>df.set_index('account_no',inplace=True)</mark>
+>>> <mark>df</mark>
+                      name     city         dob      bank  amount
+account_no                                                       
+25622348989    James Moore  Phoenix  1985-05-26  Barclays    5000
+25622348990  Donald Taylor   Irvine  1990-08-20      Citi    7000
+25622348991  Edward Parkar   Irvine  1994-01-29     ICICI   95000
+25622348992    Ryan Bakshi   Mumbai  1982-01-14      Citi   50000
+25622348993   Marie Peters     Ribe  1967-01-05    DZBank   12250
+25622348994          Aanya    Delhi  1975-08-18       SBI  105000
+25622348995    James Moore      NaN  1978-06-26      Citi   97800
+
+>>> <mark>df.loc[25622348995]</mark>
+name      James Moore
+city              NaN
+dob        1978-06-26
+bank             Citi
+amount          97800
+Name: 25622348995, dtype: object
+</pre></span>
+
+<div class="terminalcard">Reset index</div>
+<span><pre>
+>>> <mark>df.reset_index(inplace=True)</mark>
+>>> <mark>df</mark>
+    account_no           name     city         dob      bank  amount
+0  25622348989    James Moore  Phoenix  1985-05-26  Barclays    5000
+1  25622348990  Donald Taylor   Irvine  1990-08-20      Citi    7000
+2  25622348991  Edward Parkar   Irvine  1994-01-29     ICICI   95000
+3  25622348992    Ryan Bakshi   Mumbai  1982-01-14      Citi   50000
+4  25622348993   Marie Peters     Ribe  1967-01-05    DZBank   12250
+5  25622348994          Aanya    Delhi  1975-08-18       SBI  105000
+6  25622348995    James Moore      NaN  1978-06-26      Citi   97800 
+</pre></span>
+
+<div class="terminalcard">Sort single column</div>
+<span><pre>
+>>> <mark>df.sort_values('dob')</mark>
+    account_no           name     city         dob      bank  amount
+4  25622348993   Marie Peters     Ribe  1967-01-05    DZBank   12250
+5  25622348994          Aanya    Delhi  1975-08-18       SBI  105000
+6  25622348995    James Moore      NaN  1978-06-26      Citi   97800
+3  25622348992    Ryan Bakshi   Mumbai  1982-01-14      Citi   50000
+0  25622348989    James Moore  Phoenix  1985-05-26  Barclays    5000
+1  25622348990  Donald Taylor   Irvine  1990-08-20      Citi    7000
+2  25622348991  Edward Parkar   Irvine  1994-01-29     ICICI   95000
+
+>>> <mark>df.sort_values('dob',ascending=False)</mark>
+    account_no           name     city         dob      bank  amount
+2  25622348991  Edward Parkar   Irvine  1994-01-29     ICICI   95000
+1  25622348990  Donald Taylor   Irvine  1990-08-20      Citi    7000
+0  25622348989    James Moore  Phoenix  1985-05-26  Barclays    5000
+3  25622348992    Ryan Bakshi   Mumbai  1982-01-14      Citi   50000
+6  25622348995    James Moore      NaN  1978-06-26      Citi   97800
+5  25622348994          Aanya    Delhi  1975-08-18       SBI  105000
+4  25622348993   Marie Peters     Ribe  1967-01-05    DZBank   12250
+</pre></span>
+
+<div class="terminalcard">Sort multiple columns</div>
+<span><pre>
+>>> <mark>df.sort_values(by=['name','dob'])</mark>
+    account_no           name     city         dob      bank  amount
+5  25622348994          Aanya    Delhi  1975-08-18       SBI  105000
+1  25622348990  Donald Taylor   Irvine  1990-08-20      Citi    7000
+2  25622348991  Edward Parkar   Irvine  1994-01-29     ICICI   95000
+6  25622348995    James Moore      NaN  1978-06-26      Citi   97800
+0  25622348989    James Moore  Phoenix  1985-05-26  Barclays    5000
+4  25622348993   Marie Peters     Ribe  1967-01-05    DZBank   12250
+3  25622348992    Ryan Bakshi   Mumbai  1982-01-14      Citi   50000
+
+>>> <mark>df.sort_values(by=['name','dob'],ascending=[True,False])</mark>
+    account_no           name     city         dob      bank  amount
+5  25622348994          Aanya    Delhi  1975-08-18       SBI  105000
+1  25622348990  Donald Taylor   Irvine  1990-08-20      Citi    7000
+2  25622348991  Edward Parkar   Irvine  1994-01-29     ICICI   95000
+0  25622348989    James Moore  Phoenix  1985-05-26  Barclays    5000
+6  25622348995    James Moore      NaN  1978-06-26      Citi   97800
+4  25622348993   Marie Peters     Ribe  1967-01-05    DZBank   12250
+3  25622348992    Ryan Bakshi   Mumbai  1982-01-14      Citi   50000
+
+>>> <mark>df.sort_values(by=['name','dob'],ascending=[False,False])</mark>
+    account_no           name     city         dob      bank  amount
+3  25622348992    Ryan Bakshi   Mumbai  1982-01-14      Citi   50000
+4  25622348993   Marie Peters     Ribe  1967-01-05    DZBank   12250
+0  25622348989    James Moore  Phoenix  1985-05-26  Barclays    5000
+6  25622348995    James Moore      NaN  1978-06-26      Citi   97800
+2  25622348991  Edward Parkar   Irvine  1994-01-29     ICICI   95000
+1  25622348990  Donald Taylor   Irvine  1990-08-20      Citi    7000
+5  25622348994          Aanya    Delhi  1975-08-18       SBI  105000
+</pre></span>

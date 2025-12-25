@@ -1,0 +1,77 @@
+---
+permalink: rust/fundamentals/gdawgvo
+title: Rust program to perform the arithmetic operations
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.rustfile }}</div>
+<pre class="code">{%- highlight rust -%}
+fn main()
+{
+    println!("Addition {}",10+10);
+    println!("Subtraction {}",10-20);
+    println!("Multiplication {}",-10*20);
+    println!("Division {}",-200/20);
+    println!("Modulus {}",-10%3);
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runrust }}
+Addition 20
+Subtraction -10
+Multiplication -200
+Division -10
+Modulus -1
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Example 2: {{ page.title }}</div>
+<div class="card">{{ site.rustfile }}</div>
+<pre class="code">{%- highlight rust -%}
+fn main()
+{
+    let a=10;
+    let b=20;
+    println!("Addition {c}",c=a+b);
+    println!("Subtraction {c}",c=a-b);
+    println!("Multiplication {c}",c=a*b);
+    println!("Division {c}",c=b/a);
+    println!("Modulus {c}",c=b%a);
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runrust }}
+Addition 30
+Subtraction -10
+Multiplication 200
+Division 2
+Modulus 0
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Example 3: {{ page.title }}</div>
+<div class="card">{{ site.rustfile }}</div>
+<pre class="code">{%- highlight rust -%}
+fn main()
+{
+    let a:f32=3.14;
+    let b:f32=3.14;
+    println!("Addition {c}",c=a+b);
+    println!("Subtraction {c}",c=a-b);
+    println!("Multiplication {c}",c=a*b);
+    println!("Division {c}",c=b/a);
+    println!("Modulus {c}",c=b%a);
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runrust }}
+Addition 6.28
+Subtraction 0
+Multiplication 9.859601
+Division 1
+Modulus 0
+godarda@gd:~$ 
+</pre></span>

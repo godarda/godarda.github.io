@@ -1,0 +1,27 @@
+---
+permalink: selenium/classes/gdzfnwc
+title: Selenium Java to select dropdown choice using selectByIndex() method
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="editorcard">{%- highlight java -%}
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+class GD
+{
+    public static void main(String[] args) throws InterruptedException 
+    {   
+        System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.navigate().to("https://godarda.in/testapp/");
+        Thread.sleep(1000);
+        Select country = new Select(driver.findElement(By.name("country")));
+        country.selectByIndex(2);
+    }
+}
+{%- endhighlight -%}</pre>

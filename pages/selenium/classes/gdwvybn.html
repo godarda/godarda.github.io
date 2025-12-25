@@ -1,0 +1,61 @@
+---
+permalink: selenium/classes/gdwvybn
+title: Selenium Java to capture screenshots using Robot class
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="editorcard">{%- highlight java -%}
+import java.awt.AWTException;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+class GD
+{
+    static WebDriver driver;
+    public static void Screenshot()
+    {
+        try 
+        {
+            Robot rbot = new Robot();
+            Rectangle r = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
+            BufferedImage bi = rbot.createScreenCapture(r);
+            ImageIO.write(bi, "png", new File("D:/Selenium/"+System.currentTimeMillis()+".png")); 
+        } 
+        catch (AWTException | IOException e) 
+        {
+            e.printStackTrace();
+        }
+    }
+    public static void main(String[] args) 
+    {   
+        System.setProperty("webdriver.chrome.driver", "D://Selenium//chromedriver");
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.navigate().to("https://godarda.in/testapp/");
+        Screenshot();
+        
+        driver.findElement(By.name("username")).sendKeys("USERNAME");
+        driver.findElement(By.name("username")).clear();
+        Screenshot();
+        
+        driver.findElement(By.name("username")).sendKeys("godarda");
+        driver.findElement(By.name("password")).sendKeys("godarda");
+        Screenshot();
+        
+        driver.findElement(By.name("login")).click();
+        Screenshot();
+
+        driver.close();
+    }
+}
+{%- endhighlight -%}</pre>

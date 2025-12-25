@@ -1,0 +1,181 @@
+---
+permalink: python/dbc/gdvdwzz
+title: Python MySQL to connect, create a database, and table
+---
+
+<div class="board"><div class="boardtitle">Objective and Prerequisites</div>
+    <p><b>Objective: </b>This segment introduces the two different implementations of how to create a database and table in MySQL using Python (one using mysql-connector and another using PyMySQL).<br><br>
+    <b>Prerequisites: </b>PyMySQL and CSV modules are installed, and MySQL Database is up and running in the background. If not, then refer to the <a href="python/dbc/" class="hlink">Python Database Connectivity</a> segment in sequence.</p>
+</div>
+
+<div class="terminalcard">Start MySQL</div>
+<span><pre>
+godarda@gd:~$ <mark>sudo mysql -u root -p</mark>
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.36-2ubuntu3 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+<mark>mysql> SHOW DATABASES;</mark>
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+</pre></span>
+
+<div class="codecard">{{ page.title }} using mysql-connector</div>
+<div class="infocard">In the following program, we are creating a database and table. If a database DB already exists in MySQL, then the existing DB database will get deleted, and the new database DB will get created.</div>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="code">{%- highlight python -%}
+import mysql.connector
+
+db=mysql.connector.connect(host="localhost",user="root",passwd="godarda")
+print("Connection Established")
+cursor=db.cursor()
+
+try:
+    cursor.execute("CREATE DATABASE DB")
+except:
+    cursor.execute("DROP DATABASE DB")
+    cursor.execute("CREATE DATABASE DB")
+print("Database DB created successfully")
+
+cursor.execute("SHOW DATABASES")
+for dbs in cursor:
+    print(dbs)
+    
+db.close()
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runpy }}
+Connection Established
+Database DB created successfully
+('DB',)
+('information_schema',)
+('mysql',)
+('performance_schema',)
+('sys',)
+</pre></span>
+
+<div class="terminalcard">MySQL Instance</b></div>
+<span><pre>
+<mark>mysql> SHOW DATABASES;</mark>
++--------------------+
+| Database           |
++--------------------+
+| DB                 |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+<mark>mysql> USE DB;</mark>
+Database changed
+
+<mark>mysql> SHOW TABLES;</mark>
+Empty set (0.00 sec)
+</pre></span>
+
+<div class="codecard">{{ page.title }} using PyMySQL</div>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="code">{%- highlight python -%}
+import pymysql
+
+db=pymysql.connect(host='localhost', user='root', password='godarda')
+print("Connection Established")
+cursor=db.cursor()
+
+dbname="DB"
+
+try:
+    cursor.execute("CREATE DATABASE {}".format(dbname))
+except:
+    cursor.execute("DROP DATABASE {}".format(dbname))
+    cursor.execute("CREATE DATABASE {}".format(dbname))
+
+print("Database {} created successfully".format(dbname))
+
+cursor.execute("SHOW DATABASES")
+for dbs in cursor:
+    print(dbs)
+
+cursor.execute("USE {}".format(dbname))
+
+tablename="holders"
+
+cursor.execute("CREATE TABLE {}(account_no BIGINT PRIMARY KEY, name VARCHAR(30) NOT NULL, bank VARCHAR(10), amount BIGINT NOT NULL)".format(tablename))
+print("\nTable {} created successfully".format(tablename))
+
+cursor.execute("SHOW TABLES")
+for dbs in cursor:
+    print(dbs)
+
+db.close()
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runpy }}
+Connection Established
+Database DB created successfully
+('DB',)
+('information_schema',)
+('mysql',)
+('performance_schema',)
+('sys',)
+
+Table holders created successfully
+('holders',)
+</pre></span>
+
+<div class="terminalcard">MySQL Instance</b></div>
+<span><pre>
+<mark>mysql> SHOW DATABASES;</mark>
++--------------------+
+| Database           |
++--------------------+
+| DB                 |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+<mark>mysql> USE DB;</mark>
+Database changed
+
+<mark>mysql> SHOW TABLES;</mark>
++--------------+
+| Tables_in_DB |
++--------------+
+| holders      |
++--------------+
+1 row in set (0.00 sec)
+
+<mark>mysql> DESC holders;</mark>
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| account_no | bigint(20)  | NO   | PRI | NULL    |       |
+| name       | varchar(30) | NO   |     | NULL    |       |
+| bank       | varchar(10) | YES  |     | NULL    |       |
+| amount     | bigint(20)  | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+</pre></span>

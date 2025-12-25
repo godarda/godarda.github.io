@@ -1,0 +1,155 @@
+grandparent:
+- parent: Selenium Fundamentals
+  subtree: Fundamentals
+  url: selenium/fundamentals
+  children:
+  - url: selenium/fundamentals/gdrvyfv
+    title: How to launch the browser using Selenium Java
+  - url: selenium/fundamentals/gdureze
+    title: How to launch the browser using Selenium Python
+  - url: selenium/fundamentals/gdzzegt
+    title: How to launch the Chromium browser using Selenium Java
+  - url: selenium/fundamentals/gdavaga
+    title: Selenium Java to maximize the browser window and get its properties
+  - url: selenium/fundamentals/gdecmzw
+    title: Selenium Java to resize the browser window
+  - url: selenium/fundamentals/gdlarzw
+    title: Selenium Java to get the present browser URL
+  - url: selenium/fundamentals/gdzzyzd
+    title: Selenium Java to get the page source of a URL
+  - url: selenium/fundamentals/gdeevem
+    title: Selenium Java to get the title of a given webpage
+  - url: selenium/fundamentals/gdzgvwt
+    title: Selenium Java to compare the title of a given webpage
+- parent: Selenium Locators
+  subtree: Locators
+  url: selenium/locators
+  children:
+  - url: selenium/locators/gdavegp
+    title: Selenium Java to get the tag name
+  - url: selenium/locators/gdzezzd
+    title: Selenium Java to get the title of a given webpage using the getAttribute()
+      method
+  - url: selenium/locators/gdlwmed
+    title: Selenium Java to get the current date and time using sendKeys
+  - url: selenium/locators/gddzedv
+    title: Selenium Java to clear and enter the value in an input field
+  - url: selenium/locators/gdgvvpw
+    title: Selenium Java to copy and paste the text in an input field
+  - url: selenium/locators/gddwygy
+    title: Selenium Java to select the radio button using cssSelector
+- parent: Selenium XPath
+  subtree: XPath
+  url: selenium/xpath
+  children:
+  - url: selenium/xpath/gdydnod
+    title: Selenium Java to get the attribute name using relative XPath
+  - url: selenium/xpath/gdxddhz
+    title: Selenium Java to locate a web element using the contains() and starts-with()
+      methods
+  - url: selenium/xpath/gdyazdw
+    title: Selenium Java to locate a web element using the text() method
+  - url: selenium/xpath/gdzwqle
+    title: Selenium Java to locate a web element using the last() method
+  - url: selenium/xpath/gdyxewe
+    title: Selenium Java to locate a web element using the following and preceding
+      XPath axes
+  - url: selenium/xpath/gdzctqk
+    title: Selenium Java to select the radio button using XPath
+- parent: Classes in Selenium
+  subtree: Classes
+  url: selenium/classes
+  children:
+  - url: selenium/classes/gdggyzb
+    title: Selenium Java to demonstrate the use of ChromeOptions class
+  - url: selenium/classes/gdspasn
+    title: Selenium Java to get the browser details using Capabilities
+  - url: selenium/classes/gdaiwex
+    title: Selenium Java to select dropdown choice using selectByVisibleText() method
+  - url: selenium/classes/gdzfnwc
+    title: Selenium Java to select dropdown choice using selectByIndex() method
+  - url: selenium/classes/gdezzgb
+    title: Selenium Java to select dropdown choice using selectByValue() method
+  - url: selenium/classes/gdzvzvy
+    title: Selenium Java for mouse events using the Action class
+  - url: selenium/classes/gdgezvd
+    title: Selenium Java to perform series of multiple actions using Action and Actions
+      classes
+  - url: selenium/classes/gdyphyw
+    title: Selenium Java to select an option from the Chrome context menu
+  - url: selenium/classes/gdwvybn
+    title: Selenium Java to capture screenshots using Robot class
+- parent: Interfaces in Selenium
+  subtree: Interfaces
+  url: selenium/interfaces
+  children:
+  - url: selenium/interfaces/gdmweyz
+    title: Selenium Java to get domain name, URL, and page title using JavascriptExecutor
+  - url: selenium/interfaces/gdggyby
+    title: Selenium Java to generate alert and navigate to another page using JavascriptExecutor
+  - url: selenium/interfaces/gddewhz
+    title: Selenium Java to scroll down the page at the bottom using JavascriptExecutor
+  - url: selenium/interfaces/gdgqeze
+    title: Selenium Java to take screenshots using TakesScreenshot interface
+- parent: Selenium Page Object Model
+  subtree: POM
+  url: selenium/pom
+  children:
+  - url: selenium/pom/gdgvdks
+    title: Selenium Java Page Object Model with Page Factory
+  - url: selenium/pom/gdvadve
+    title: Selenium Java Page Object Model Example 1
+  - url: selenium/pom/gddyzek
+    title: Selenium Java Page Object Model Example 2
+- parent: Selenium Data Driven Framework
+  subtree: DDF
+  url: selenium/ddf
+  children:
+  - url: selenium/ddf/gdhvzcz
+    title: How to read an Excel file using Apache POI
+  - url: selenium/ddf/gdlevgg
+    title: How to compare two Excel sheets using Apache POI
+- parent: Selenium TestNG
+  subtree: TestNG
+  url: selenium/testng
+  children:
+  - url: selenium/testng/gdvrrkz
+    title: How to use TestNG Annotations in Selenium
+  - url: selenium/testng/gdeeaqo
+    title: How to use priority and dependencies in TestNG
+  - url: selenium/testng/gdeafrk
+    title: How to define dependencies between groups in TestNG XML file
+  - url: selenium/testng/gdxxztd
+    title: How to run the same method multiple times using the invocationCount in
+      TestNG
+  - url: selenium/testng/gdavbeq
+    title: How to perform load testing using the invocationCount and threadPoolSize
+      parameters in TestNG
+  - url: selenium/testng/gdekvaz
+    title: How to use TestNG Parameters and Data Provider for Data Driven Testing
+  - url: selenium/testng/gdyddge
+    title: How to run parallel tests with Selenium WebDriver and TestNG
+  - url: selenium/testng/gdgavxz
+    title: How to use and implement TestNG Listeners
+  - url: selenium/testng/gdysafu
+    title: How to generate Extent Reports in Selenium WebDriver
+sidenav:
+- parent: Selenium WebDriver
+  url: selenium
+  children:
+  - title: Selenium Fundamentals
+    url: selenium/fundamentals
+  - title: Selenium Locators
+    url: selenium/locators
+  - title: Selenium XPath
+    url: selenium/xpath
+  - title: Classes in Selenium
+    url: selenium/classes
+  - title: Interfaces in Selenium
+    url: selenium/interfaces
+  - title: Selenium Page Object Model
+    url: selenium/pom
+  - title: Selenium Data Driven Framework
+    url: selenium/ddf
+  - title: Selenium TestNG
+    url: selenium/testng

@@ -1,0 +1,31 @@
+---
+permalink: selenium/classes/gdzvzvy
+title: Selenium Java for mouse events using the Action class
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="editorcard">{%- highlight java -%}
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
+
+class GD
+{
+    public static void main(String[] args)
+    {   
+        System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.navigate().to("https://godarda.in/testapp/");
+        WebElement link = driver.findElement(By.name("reset"));
+        
+        Actions builder = new Actions(driver);
+        Action mouseHoverHome = builder.moveToElement(link).build();
+        mouseHoverHome.perform();
+    }
+}
+{%- endhighlight -%}</pre>

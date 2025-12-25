@@ -1,0 +1,39 @@
+---
+permalink: java/fundamentals/gdgypqx
+title: Java program to perform the division of two numbers
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.Scanner;
+class GD 
+{
+    public static void main(String args[])
+    {
+        float a,b;
+        Scanner sc=new Scanner(System.in);
+        System.out.println("———————————————————————————————————————————");
+        System.out.println("Program to perform the division of two numbers");
+        System.out.println("———————————————————————————————————————————");
+        System.out.print("Enter the dividend ");
+        a=sc.nextFloat();
+        System.out.print("Enter the divisor ");
+        b=sc.nextFloat();
+        System.out.println("Division of two numbers is "+(a/b));
+        System.out.println("———————————————————————————————————————————");
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+———————————————————————————————————————————
+Program to perform the division of two numbers
+———————————————————————————————————————————
+Enter the dividend 1
+Enter the divisor 0
+Division of two numbers is Infinity
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

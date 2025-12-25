@@ -1,0 +1,239 @@
+---
+permalink: asm/64-bit/gdvyzpn
+title: ALP menu-driven program to perform the string operations (64-bit)
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.asmfile }}</div>
+<pre class="code">{%- highlight nasm -%}
+section .data
+menumsg db 10, "———————————————————————————————————————————"
+    db 10, "ALP for the string operations"
+    db 10, "———————————————————————————————————————————"
+    db 10, "1.Enter the string"
+    db 10, "2.Calculate the length"
+    db 10, "3.Reverse the string"
+    db 10, "4.Check whether string is palindrome or not"
+    db 10, "5.Exit"
+    db 10, "———————————————————————————————————————————"
+    db 10, "Enter your Choice "
+menumsg_len equ $-menumsg
+
+wrchmsg db 10, "Wrong choice entered... Please try again",10
+wrchmsg_len equ $-wrchmsg
+
+entmsg db "Enter the string "
+entmsg_len equ $-entmsg
+
+lmsg db 10, "Length of the string is "
+lmsg_len equ $-lmsg
+
+revmsg db 10, "Reverse string is "
+revmsg_len equ $-revmsg
+
+palmsg db 10, "String is palindrome "
+palmsg_len equ $-palmsg
+
+npalmsg db 10, "String is not palindrome "
+npalmsg_len equ $-npalmsg
+
+spacechar db 20h
+
+section .bss
+    cnt resb 01
+    optionbuff resb 02
+    dispbuff resb 03
+    srcstr resb 10
+    revstr resb 10
+    string resb 0
+
+%macro display 4
+    mov rax,%1
+    mov rdi,%2
+    mov rsi,%3
+    mov rdx,%4
+    syscall
+%endmacro
+
+section .text
+global _start
+_start:
+menu:    
+    display 1,1,menumsg,menumsg_len
+    display 0,0,optionbuff,02
+    cmp byte [optionbuff],"1"
+    jne case2
+    call entstr_proc
+    jmp exit1
+
+case2:    
+    cmp byte [optionbuff],"2"
+    jne case3
+    call length_proc
+    jmp exit1
+
+case3:    
+    cmp byte [optionbuff],"3"
+    jne case4
+    call reverse_proc
+    jmp exit1
+
+case4:    
+    cmp byte [optionbuff],"4"
+    jne case5
+    call pal_proc
+    jmp exit1
+    case5:    
+    cmp byte [optionbuff],"5"
+    je exit
+    display 1,1,wrchmsg,wrchmsg_len
+    jmp menu
+
+exit1:
+    jmp menu
+    jne exit
+
+exit:    
+    mov rax,60    
+    mov rdi,0
+    syscall
+
+entstr_proc:
+    display 1,1,entmsg,entmsg_len
+    display 0,0,srcstr,10
+    dec al
+    mov [cnt],al 
+    ret
+
+length_proc:    
+    display 1,1,lmsg,lmsg_len         
+    mov bl,[cnt]
+    call disp8_proc    
+    ret
+
+reverse_proc:
+    mov rcx,00
+    mov rsi,srcstr
+    mov rdi,revstr
+    mov cl,[cnt]
+    add rsi,rcx
+    sub rsi,1
+
+up2: 
+    mov al,[rsi]
+    mov [rdi],al
+    inc rdi
+    dec rsi
+    loop up2
+    display 1,1,revmsg,revmsg_len
+    display 1,1,revstr,cnt 
+    ret
+
+pal_proc:
+    mov rcx,00
+    mov rsi,srcstr
+    mov rdi,revstr
+    mov cl,[cnt]
+
+up3:    
+    mov al,[rsi]
+    mov bl,[rdi]
+    cmp al,bl
+    jne exit2
+    inc rsi
+    inc rdi
+    loop up3
+    display 1,1,palmsg,palmsg_len
+    jmp return
+
+exit2:  
+    display 1,1,npalmsg,npalmsg_len 
+
+return:    
+    ret
+
+disp8_proc:
+    mov rcx,02
+    mov rdi,dispbuff
+
+dup1:
+    rol bl,4
+    mov al,bl
+    and al,0Fh
+    cmp al,09h
+    jbe dskip
+    add al,07h
+
+dskip:    
+    add al,30h
+    mov [rdi],al
+    inc rdi
+    loop dup1
+    display 1,1,dispbuff,03
+    ret
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+<mark>Note: </mark>It is mandatory to perform all the operations one by one, while executing this program
+{{ site.runasm }}
+
+———————————————————————————————————————————
+ALP for the string operations
+———————————————————————————————————————————
+1.Enter the string
+2.Calculate the length
+3.Reverse the string
+4.Check whether string is palindrome or not
+5.Exit
+———————————————————————————————————————————
+Enter your Choice 1
+Enter the string LOL   
+
+———————————————————————————————————————————
+ALP for the string operations
+———————————————————————————————————————————
+1.Enter the string
+2.Calculate the length
+3.Reverse the string
+4.Check whether string is palindrome or not
+5.Exit
+———————————————————————————————————————————
+Enter your Choice 2
+
+Length of the string is 03
+———————————————————————————————————————————
+ALP for the string operations
+———————————————————————————————————————————
+1.Enter the string
+2.Calculate the length
+3.Reverse the string
+4.Check whether string is palindrome or not
+5.Exit
+———————————————————————————————————————————
+Enter your Choice 3
+
+Reverse string is LOL
+———————————————————————————————————————————
+ALP for the string operations
+———————————————————————————————————————————
+1.Enter the string
+2.Calculate the length
+3.Reverse the string
+4.Check whether string is palindrome or not
+5.Exit
+———————————————————————————————————————————
+Enter your Choice 4
+
+String is palindrome 
+———————————————————————————————————————————
+ALP for the string operations
+———————————————————————————————————————————
+1.Enter the string
+2.Calculate the length
+3.Reverse the string
+4.Check whether string is palindrome or not
+5.Exit
+———————————————————————————————————————————
+Enter your Choice 5
+godarda@gd:~$ 
+</pre></span>

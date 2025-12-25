@@ -1,0 +1,59 @@
+---
+permalink: c/functions/gdcgdie
+title: C program for the Tower of Hanoi
+---
+
+<div class="board"><div class="boardtitle">Introduction to Tower of Hanoi</div>
+    <p>Tower of Hanoi is mathematical puzzle/problem. The goal of the puzzle is to move all the disks from source to destination, adhering to the following rules:<br>
+    <b>Rule-1:</b> Move only one disk at a time.<br>
+    <b>Rule-2:</b> A larger disk may not be placed on the top of a smaller disk.<br>
+    <b>Rule-3:</b> The top disk of any stack can be moved to the top disk of any other stack, with the restriction that you can't move a larger disk on top of a smaller disk.</p>
+</div>
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    int n;
+    void towers(int n, char source, char destination, char auxiliary);
+    printf("———————————————————————————————————————————");
+    printf("\nProgram for the Tower of Hanoi");
+    printf("\n———————————————————————————————————————————");
+    printf("\nEnter Number of Disks ");
+    scanf("%d", &n);
+    towers(n, 'A', 'B', 'C');
+    printf("\n———————————————————————————————————————————\n");
+    return 0;
+}
+void towers(int n, char source, char destination, char auxiliary)
+{
+    if (n == 1)
+    {
+        printf("\nMove disk 1 from peg %c to peg %c", source, destination);
+        return;
+    }
+    towers(n - 1, source, auxiliary, destination);
+    printf("\nMove disk %d from peg %c to peg %c", n, source, destination);
+    towers(n - 1, auxiliary, destination, source);
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+———————————————————————————————————————————
+Program for the Tower of Hanoi
+———————————————————————————————————————————
+Enter Number of Disks 3
+
+Move disk 1 from peg A to peg B
+Move disk 2 from peg A to peg C
+Move disk 1 from peg B to peg C
+Move disk 3 from peg A to peg B
+Move disk 1 from peg C to peg A
+Move disk 2 from peg C to peg B
+Move disk 1 from peg A to peg B
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

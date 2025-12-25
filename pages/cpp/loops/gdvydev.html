@@ -1,0 +1,56 @@
+---
+permalink: cpp/loops/gdvydev
+title: C++ program to print the natural numbers
+---
+
+<div class="codecard">{{ page.title }} using for loop</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+using namespace std;
+int main()
+{
+    int n, i;
+    cout<<"How many numbers you want to print ";
+    cin>>n;
+    for (i = 1; i <= n; i++)
+        cout<<i<<" ";
+    cout<<"\n";
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+How many numbers you want to print 10
+1 2 3 4 5 6 7 8 9 10 
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }} using while loop</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+using namespace std;
+int main()
+{
+    int n, i;
+    cout<<"How many numbers you want to print ";
+    cin>>n;
+    i = 1;
+    while (i <= n)
+    {
+        cout<<i<<" ";
+        i++;
+    }
+    cout<<"\n";
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+How many numbers you want to print 10
+1 2 3 4 5 6 7 8 9 10 
+godarda@gd:~$ 
+</pre></span>

@@ -1,0 +1,33 @@
+---
+permalink: selenium/xpath/gdydnod
+title: Selenium Java to get the attribute name using relative XPath
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        WebDriver driver = new ChromeDriver();
+
+        driver.get("https://godarda.in/testapp/");
+        System.out.println(driver.findElement(By.xpath("//input[@type='text']")).getAttribute("id"));
+        System.out.println(driver.findElement(By.xpath("//input[@type='text']")).getAttribute("maxlength"));
+        System.out.println(driver.findElement(By.xpath("//input[@type='password']")).getAttribute("name"));
+        driver.close();
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+username
+15
+password
+</pre></span>

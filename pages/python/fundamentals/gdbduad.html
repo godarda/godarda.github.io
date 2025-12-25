@@ -1,0 +1,60 @@
+---
+permalink: python/fundamentals/gdbduad
+title: How to view the byte code instructions using the dis module
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="code">{%- highlight python -%}
+print("Hello, World!")
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runpy }}
+Hello, World!
+godarda@gd:~$ <mark>python3 -m dis gd.py</mark>
+0           0 RESUME                   0
+
+1           2 PUSH_NULL
+            4 LOAD_NAME                0 (print)
+            6 LOAD_CONST               0 ('Hello, World!')
+            8 CALL                     1
+           16 POP_TOP
+           18 RETURN_CONST             1 (None)
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="code">{%- highlight python -%}
+a,b=10,20
+(a,b)=(b,a)
+print(a,b)
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runpy }}
+20 10
+godarda@gd:~$ <mark>python3 -m dis gd.py</mark>
+0           0 RESUME                   0
+
+1           2 LOAD_CONST               0 ((10, 20))
+            4 UNPACK_SEQUENCE          2
+            8 STORE_NAME               0 (a)
+           10 STORE_NAME               1 (b)
+
+2          12 LOAD_NAME                1 (b)
+           14 LOAD_NAME                0 (a)
+           16 SWAP                     2
+           18 STORE_NAME               0 (a)
+           20 STORE_NAME               1 (b)
+
+3          22 PUSH_NULL
+           24 LOAD_NAME                2 (print)
+           26 LOAD_NAME                0 (a)
+           28 LOAD_NAME                1 (b)
+           30 CALL                     2
+           38 POP_TOP
+           40 RETURN_CONST             1 (None)
+godarda@gd:~$ 
+</pre></span>

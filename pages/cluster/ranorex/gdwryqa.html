@@ -1,0 +1,63 @@
+---
+permalink: cluster/ranorex/gdwryqa
+title: How to open and close a browser using the Process class in Ranorex
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">File: OpenCloseBrowser.UserCode.cs</div>
+<pre class="editorcard">
+{%- highlight csharp -%}
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Drawing;
+using System.Threading;
+using WinForms = System.Windows.Forms;
+
+using Ranorex;
+using Ranorex.Core;
+using Ranorex.Core.Repository;
+using Ranorex.Core.Testing;
+using System.Diagnostics;
+
+namespace GlobalProjects
+{
+    public partial class OpenCloseBrowser
+    {
+        private void Init()
+        {
+            CloseBrowser("chrome");
+            OpenBrowser("chrome","https://godarda.in/testapp/");
+        }
+
+        public void OpenBrowser(string bname, string url)
+        {
+            Process p = Process.Start(bname, url);
+            Delay.Seconds(5);
+            p.Refresh();
+            p.CloseMainWindow();
+            p.Close();
+            
+            Delay.Seconds(5);
+            //Process.Start(bname, url);
+            ProcessStartInfo psi = new ProcessStartInfo(bname);
+            psi.WindowStyle = ProcessWindowStyle.Maximized;
+            psi.Arguments = url;
+            Process.Start(psi);
+            
+            Delay.Seconds(5);
+            CloseBrowser(bname);
+        }
+        
+        public void CloseBrowser(string bname)
+        {
+            Process[] p = Process.GetProcessesByName(bname);
+            foreach(Process pro in p)
+            {
+                pro.Kill();
+            }
+        }
+    }
+}
+{%- endhighlight -%}</pre>

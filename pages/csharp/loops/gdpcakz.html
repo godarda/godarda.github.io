@@ -1,0 +1,52 @@
+---
+permalink: csharp/loops/gdpcakz
+title: C# program to print the star diamond pattern
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+int i, j;
+for (i = 1; i <= 7; i++)
+{
+    for (j = 1; j <= 7 - i; j++)
+    {
+        Console.Write(" ");
+    }
+    for (j = 1; j <= i; j++)
+    {
+        Console.Write("* ");
+    }
+    Console.Write("\n");
+}
+for (i = 6; i >= 1; i--)
+{
+    for (j = 1; j <= 6 - i; j++)
+    {
+        Console.Write(" ");
+    }
+    for (j = 1; j <= i; j++)
+    {
+        Console.Write(" *");
+    }
+    Console.Write("\n");
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+      * 
+     * * 
+    * * * 
+   * * * * 
+  * * * * * 
+ * * * * * * 
+* * * * * * * 
+ * * * * * *
+  * * * * *
+   * * * *
+    * * *
+     * *
+      *
+godarda@gd:~/csharp$ 
+</pre></span>

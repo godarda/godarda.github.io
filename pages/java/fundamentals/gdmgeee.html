@@ -1,0 +1,42 @@
+---
+permalink: java/fundamentals/gdmgeee
+title: Java Hello World program
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        System.out.println("Hello, World!");
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Hello, World!
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java program without using main function (only compilation)</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD
+{
+    static 
+    {
+        System.out.println("Hello World");
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+<error>Error: Main method not found in class GD, please define the main method as:
+   public static void main(String[] args)
+or a JavaFX application class must extend javafx.application.Application</error>
+godarda@gd:~$  
+</pre></span>

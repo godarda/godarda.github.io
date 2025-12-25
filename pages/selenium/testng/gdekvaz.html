@@ -1,0 +1,162 @@
+---
+permalink: selenium/testng/gdekvaz
+title: How to use TestNG Parameters and Data Provider for Data Driven Testing
+---
+
+<div class="codecard">TestNG Parameters using XML file for Data Driven Testing</div>
+<div class="card">File: VerifyTitle.java</div>
+<pre class="code">{%- highlight java -%}
+package tests;
+
+import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+public class VerifyTitle
+{   
+    WebDriver driver;
+    
+    @Test
+    @Parameters("browser")
+    public void OpenBrowser(String bname)
+    {
+        if(bname.equals("firefox"))
+        {
+            System.setProperty("webdriver.gecko.driver", "/home/godarda/drivers/geckodriver");
+            driver = new FirefoxDriver();
+        }
+        else if (bname.equals("chrome")) 
+        {
+            System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+            driver = new ChromeDriver();
+        }
+        else
+        {
+            System.out.println("Browser not found");
+        }
+        
+        driver.navigate().to("http://newtours.demoaut.com");
+        if(driver.getTitle().equals("Welcome: Mercury Tours"))
+        {
+            System.out.println("Test Passed");
+        }
+        else
+        {
+            System.out.println("Test Failed");
+        }
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.close();
+    }
+}
+{%- endhighlight -%}</pre>
+
+<div class="card">File: testng.xml</div>
+<pre>
+{%- highlight xml -%}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Test">
+    <test name="VerifyTitleUsingChrome">
+    <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="tests.VerifyTitle"/>
+        </classes>
+    </test>
+    
+    <test name="VerifyTitleUsingFirefox">
+    <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="tests.VerifyTitle"/>
+        </classes>
+    </test>   
+</suite>
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+[RemoteTestNG] detected TestNG version 7.0.0
+
+Test Passed
+Test Passed
+
+===============================================
+Test
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+</pre></span>
+
+<div class="codecard">TestNG Data Provider Annotation for Data Driven Testing</div>
+<div class="card">File: VerifyTitle.java</div>
+<pre class="code">{%- highlight java -%}
+package tests;
+
+import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+public class VerifyTitle
+{   
+    WebDriver driver;
+    @Test (dataProvider="browser")
+    public void OpenBrowser(String browser)
+    {
+        if(browser.equals("firefox"))
+        {
+            System.setProperty("webdriver.gecko.driver", "/home/godarda/drivers/geckodriver");
+            driver = new FirefoxDriver();
+        }
+        else if (browser.equals("chrome")) 
+        {
+            System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+            driver = new ChromeDriver();
+        }
+        else
+        {
+            System.out.println("Browser not found");
+        }
+        
+        driver.navigate().to("http://newtours.demoaut.com");
+        if(driver.getTitle().equals("Welcome: Mercury Tours"))
+        {
+            System.out.println("Test Passed");
+        }
+        else
+        {
+            System.out.println("Test Failed");
+        }
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.close();
+    }
+    
+    @DataProvider(name="browser")
+    public Object[] browserName()
+    {
+        return new Object[][] { {"firefox"}, {"chrome"} };
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+[RemoteTestNG] detected TestNG version 7.0.0
+
+Test Passed
+Test Passed
+PASSED: OpenBrowser("firefox")
+PASSED: OpenBrowser("chrome")
+
+===============================================
+    Default test
+    Tests run: 2, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Default suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+</pre></span>

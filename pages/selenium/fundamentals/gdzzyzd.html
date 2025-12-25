@@ -1,0 +1,23 @@
+---
+permalink: selenium/fundamentals/gdzzyzd
+title: Selenium Java to get the page source of a URL
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="editorcard">{%- highlight java -%}
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+class GD
+{
+    public static void main(String[] args) 
+    {   
+        System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://godarda.in/testapp/");
+        System.out.println(driver.getPageSource());
+        driver.close();
+    }
+}
+{%- endhighlight -%}</pre>

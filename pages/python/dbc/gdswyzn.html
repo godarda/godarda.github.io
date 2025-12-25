@@ -1,0 +1,157 @@
+---
+permalink: python/dbc/gdswyzn
+title: Python MySQL to update the table records
+---
+
+<div class="board"><div class="boardtitle">Objective and Prerequisites</div>
+    <p><b>Objective: </b>This segment introduces how to update and retrieve the updated records from a table in MySQL using Python.<br><br>
+    <b>Prerequisites: </b>PyMySQL and CSV modules are installed, and MySQL Database is up and running in the background. Also, the database <i><b>DB</b></i> and table <i><b>holders (with records in it)</b></i> are present in MySQL. If not, then refer to the <a href="python/dbc/" class="hlink">Python Database Connectivity</a> segment in sequence.</p>
+</div>
+
+<div class="terminalcard">Start MySQL</div>
+<span><pre>
+godarda@gd:~$ <mark>sudo mysql -u root -p</mark>
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.36-2ubuntu3 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> <mark>SHOW DATABASES;</mark>
++--------------------+
+| Database           |
++--------------------+
+| DB                 |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> <mark>USE DB;</mark>
+Database changed
+
+mysql> <mark>SHOW TABLES;</mark>
++--------------+
+| Tables_in_DB |
++--------------+
+| holders      |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT * FROM holders;</mark>
++-------------+---------------+----------+--------+
+| account_no  | name          | bank     | amount |
++-------------+---------------+----------+--------+
+| 25622348989 | James Moore   | Barclays |   5000 |
+| 25622348990 | Donald Taylor | Citi     |   7000 |
+| 25622348991 | Edward Parkar | ICICI    |  95000 |
+| 25622348992 | Ryan Bakshi   | Citi     |  50000 |
+| 25622348993 | Marie Peters  | DZBank   |  12250 |
++-------------+---------------+----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> <mark>SELECT name, amount FROM holders;</mark>
++---------------+--------+
+| name          | amount |
++---------------+--------+
+| James Moore   |   5000 |
+| Donald Taylor |   7000 |
+| Edward Parkar |  95000 |
+| Ryan Bakshi   |  50000 |
+| Marie Peters  |  12250 |
++---------------+--------+
+5 rows in set (0.00 sec)
+</pre></span>
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="code">{%- highlight python -%}
+import pymysql
+import csv
+
+tablename="holders"
+update=(2000, 25622348993) #packing
+(bonus, accno)=update #unpacking
+
+try:
+    db=pymysql.connect(host='localhost', user='root', password='godarda', database='DB')
+    print("Connection Established")
+    cursor=db.cursor()
+
+    def RetrieveRecords():
+        cursor.execute("SELECT * FROM {}".format(tablename))
+        print("\nRetrived updated records from a table")
+        for records in cursor:
+            print(records)
+    
+    query="UPDATE {} SET amount = amount + %s WHERE account_no = %s".format(tablename)
+    cursor.execute(query,update)
+    db.commit()
+    RetrieveRecords()
+        
+    query="UPDATE {} SET amount = amount + %s".format(tablename)
+    cursor.execute(query,bonus)
+    db.commit()
+    RetrieveRecords()
+    
+    db.close()
+except pymysql.Error as err:
+    print("Error: {}".format(err))
+{%- endhighlight -%}</pre>
+<div class="card">Explanation: </div>
+<div class="infocard">When the first update query executed with WHERE clause, account number 25622348993 updated with an amount of 2000 as a bonus. On the other hand, when the second update query executed without WHERE clause, then all the records updated with an amount of 2000 as a bonus. Hence the final amount 16250 for account number 25622348993.</div>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runpy }}
+Connection Established
+
+Retrived updated records from a table
+(25622348989, 'James Moore', 'Barclays', 5000)
+(25622348990, 'Donald Taylor', 'Citi', 7000)
+(25622348991, 'Edward Parkar', 'ICICI', 95000)
+(25622348992, 'Ryan Bakshi', 'Citi', 50000)
+(25622348993, 'Marie Peters', 'DZBank', 14250)
+
+Retrived updated records from a table
+(25622348989, 'James Moore', 'Barclays', 7000)
+(25622348990, 'Donald Taylor', 'Citi', 9000)
+(25622348991, 'Edward Parkar', 'ICICI', 97000)
+(25622348992, 'Ryan Bakshi', 'Citi', 52000)
+(25622348993, 'Marie Peters', 'DZBank', 16250)
+</pre></span>
+
+<div class="terminalcard">MySQL Instance</b></div>
+<span><pre>
+mysql> <mark>SELECT * FROM holders;</mark>
++-------------+---------------+----------+--------+
+| account_no  | name          | bank     | amount |
++-------------+---------------+----------+--------+
+| 25622348989 | James Moore   | Barclays |   7000 |
+| 25622348990 | Donald Taylor | Citi     |   9000 |
+| 25622348991 | Edward Parkar | ICICI    |  97000 |
+| 25622348992 | Ryan Bakshi   | Citi     |  52000 |
+| 25622348993 | Marie Peters  | DZBank   |  16250 |
++-------------+---------------+----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> <mark>SELECT name, amount FROM holders;</mark>
++---------------+--------+
+| name          | amount |
++---------------+--------+
+| James Moore   |   7000 |
+| Donald Taylor |   9000 |
+| Edward Parkar |  97000 |
+| Ryan Bakshi   |  52000 |
+| Marie Peters  |  16250 |
++---------------+--------+
+5 rows in set (0.00 sec)
+</pre></span>

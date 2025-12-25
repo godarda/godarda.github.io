@@ -1,0 +1,61 @@
+---
+permalink: c/loops/gdzsayg
+title: C program to print the alphabets diamond pattern
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    int a = 65, n = 12, i, j, k;
+    for (i = 0; i < n; i++)
+    {
+        for (j = 0; j < (n - i); j++)
+            printf(" ");
+        for (k = 0; k <= i * 2; k++)
+            printf("%c", a + k);
+        printf("\n");
+    }
+    for (i = n; i >= 0; i--)
+    {
+        for (j = 0; j < n - i; j++)
+            printf(" ");
+        for (k = 0; k <= i * 2; k++)
+            printf("%c", a + k);
+        printf("\n");
+    }
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+            A
+           ABC
+          ABCDE
+         ABCDEFG
+        ABCDEFGHI
+       ABCDEFGHIJK
+      ABCDEFGHIJKLM
+     ABCDEFGHIJKLMNO
+    ABCDEFGHIJKLMNOPQ
+   ABCDEFGHIJKLMNOPQRS
+  ABCDEFGHIJKLMNOPQRSTU
+ ABCDEFGHIJKLMNOPQRSTUVW
+ABCDEFGHIJKLMNOPQRSTUVWXY
+ ABCDEFGHIJKLMNOPQRSTUVW
+  ABCDEFGHIJKLMNOPQRSTU
+   ABCDEFGHIJKLMNOPQRS
+    ABCDEFGHIJKLMNOPQ
+     ABCDEFGHIJKLMNO
+      ABCDEFGHIJKLM
+       ABCDEFGHIJK
+        ABCDEFGHI
+         ABCDEFG
+          ABCDE
+           ABC
+            A
+godarda@gd:~$ 
+</pre></span>

@@ -1,0 +1,63 @@
+grandparent:
+- parent: Linux Commands
+  subtree: Commands
+  url: linux/commands
+  children:
+  - url: linux/commands/gdasgke
+    title: Linux commands to display the lists of files and directories
+  - url: linux/commands/gdnvuaa
+    title: Linux commands to create and remove a file
+  - url: linux/commands/gdaznye
+    title: Linux commands to create and remove the directories/sub-directories
+  - url: linux/commands/gdwoddg
+    title: Linux commands to copy and move the files
+  - url: linux/commands/gdzbgoi
+    title: Linux commands for date and time
+  - url: linux/commands/gdrrasp
+    title: Linux commands to view the history and file content
+  - url: linux/commands/gdspezu
+    title: Linux commands to change the text cases and number systems
+  - url: linux/commands/gdfyvze
+    title: Linux commands to display the logged-in user and information
+  - url: linux/commands/gdvmazz
+    title: Linux commands to display the Operating Systems information
+  - url: linux/commands/gdgzyzd
+    title: Linux commands to display the system hardware information
+  - url: linux/commands/gdyzygf
+    title: Linux commands for sorting and searching information
+  - url: linux/commands/gdwzqca
+    title: Linux commands to display the system processes information
+- parent: Bash Shell Scripting
+  subtree: Bash
+  url: linux/bash
+  children:
+  - url: linux/bash/gdgitdy
+    title: Bash shell script to print Hello World
+  - url: linux/bash/gdtzyyp
+    title: Bash shell script to print the current date and time
+  - url: linux/bash/gdldisa
+    title: Bash shell script to perform the arithmetic and relational operations
+  - url: linux/bash/gdpwgqv
+    title: Bash shell script to calculate the area and circumference of a circle
+  - url: linux/bash/gdswlnb
+    title: Bash shell script to check a given number is positive or negative
+  - url: linux/bash/gdezzvl
+    title: Bash shell script to swap the given numbers and strings
+  - url: linux/bash/gdxdkxb
+    title: Bash shell script to check the equality of a given numbers and strings
+  - url: linux/bash/gdydril
+    title: Bash shell script to convert Decimal to Hexadecimal and Octal
+  - url: linux/bash/gdywlgd
+    title: Bash shell script to convert all lowercase letters in a file to uppercase
+      letters
+  - url: linux/bash/gdzzdvl
+    title: Bash shell script to convert all uppercase letters in a file to lowercase
+      letters
+sidenav:
+- parent: Linux Commands and Scripting
+  url: linux
+  children:
+  - title: Linux Commands
+    url: linux/commands
+  - title: Bash Shell Scripting
+    url: linux/bash

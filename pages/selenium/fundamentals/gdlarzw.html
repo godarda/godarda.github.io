@@ -1,0 +1,28 @@
+---
+permalink: selenium/fundamentals/gdlarzw
+title: Selenium Java to get the present browser URL
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+class GD
+{
+    public static void main(String[] args) 
+    {   
+        System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://godarda.in/testapp/");
+        String currentURL = driver.getCurrentUrl();
+        System.out.println(currentURL);
+        driver.close();
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+https://godarda.in/testapp/
+</pre></span>

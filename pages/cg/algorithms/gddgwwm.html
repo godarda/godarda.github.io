@@ -1,0 +1,61 @@
+---
+permalink: cg/algorithms/gddgwwm
+title: C++ program for Midpoint circle drawing algorithm
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <graphics.h>
+#include <iostream>
+#include <cmath>
+using namespace std;
+int main()
+{
+    float d;
+    int x, y, r, x1, y1, gd = 0, gm;
+    cout << "Enter the x1 coordinate ";
+    cin >> x1;
+    cout << "Enter the y1 coordinate ";
+    cin >> y1;
+    cout << "Enter the radius of circle ";
+    cin >> r;
+    initgraph(&gd, &gm, NULL);
+    x = 0;
+    y = r;
+    d = 1.25 - r;
+    do
+    {
+        putpixel(y1 + x, x1 + y, 15);
+        putpixel(x1 + y, y1 + x, RED);
+        putpixel(x1 + y, y1 - x, GREEN);
+        putpixel(y1 + x, x1 - y, YELLOW);
+        putpixel(y1 - x, x1 - y, 15);
+        putpixel(x1 - y, y1 - x, RED);
+        putpixel(x1 - y, y1 + x, GREEN);
+        putpixel(y1 - x, x1 + y, YELLOW);
+        if (d <= 0)
+        {
+            x++;
+            y = y;
+            d = d + 2 * x + 1;
+        }
+        else
+        {
+            x++;
+            y = y - 1;
+            d = d + 2 * (x - y) + 1;
+        }
+    } while (x < y);
+    delay(7000);
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcg }}
+Enter the x1 coordinate 200
+Enter the y1 coordinate 200
+Enter the radius of circle 150
+<img src="pages/cg/images/gdvrtgm.png" loading="lazy">
+</pre></span>

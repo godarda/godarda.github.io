@@ -1,0 +1,40 @@
+---
+permalink: c/strings/gdozdow
+title: C program to concatenate the given strings
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+#include <string.h>
+int main()
+{
+    char a[20], b[20];
+    printf("———————————————————————————————————————————");
+    printf("\nProgram to concatenate the two strings");
+    printf("\n———————————————————————————————————————————");
+    printf("\nEnter the 1st string ");
+    scanf("%s", a);
+    printf("\nEnter the 2nd string ");
+    scanf("%s", b);
+    strcat(a, b);
+    printf("\nThe concatenated string is %s", a);
+    printf("\n———————————————————————————————————————————\n");
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+———————————————————————————————————————————
+Program to concatenate the two strings
+———————————————————————————————————————————
+Enter the 1st string KODING
+
+Enter the 2nd string WINDOW
+
+The concatenated string is KODINGWINDOW
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

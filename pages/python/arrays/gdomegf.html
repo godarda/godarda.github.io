@@ -1,0 +1,41 @@
+---
+permalink: python/arrays/gdomegf
+title: Python to perform arithmetic operations on two matrices
+---
+
+<div class="terminalcard">{{ page.title }}</div>
+<span><pre>
+godarda@gd:~$ <mark>python3</mark>
+...
+>>> <mark>from numpy import *</mark>
+>>> <mark>m1 = matrix("1 2 3; 4 5 6; 7 8 9")</mark>
+>>> <mark>m2 = matrix("9 8 7; 6 5 4; 3 2 1")</mark>
+>>> <mark>m1</mark>
+matrix([[1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]])
+>>> <mark>m2</mark>
+matrix([[9, 8, 7],
+        [6, 5, 4],
+        [3, 2, 1]])
+
+>>> <mark>m1 + m2</mark>
+matrix([[10, 10, 10],
+        [10, 10, 10],
+        [10, 10, 10]])
+
+>>> <mark>m1 - m2</mark>
+matrix([[-8, -6, -4],
+        [-2,  0,  2],
+        [ 4,  6,  8]])
+
+>>> <mark>m1 * m2</mark>
+matrix([[ 30,  24,  18],
+        [ 84,  69,  54],
+        [138, 114,  90]])
+
+>>> <mark>m1 / m2</mark>
+matrix([[0.11111111, 0.25      , 0.42857143],
+        [0.66666667, 1.        , 1.5       ],
+        [2.33333333, 4.        , 9.        ]])
+</pre></span>

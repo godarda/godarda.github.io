@@ -1,0 +1,78 @@
+---
+permalink: java/abstraction/gdaedbv
+title: How to achieve multiple inheritance in Java using interfaces and default methods
+---
+
+<div class="codecard">Example 1: {{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+interface WhiteBank
+{
+    default void bonus()
+    {
+        System.out.println("WhiteBank Festival Bonus: 500");
+    }
+}
+interface GreenBank
+{
+    default void gift()
+    {
+        System.out.println("GreenBank Festival Gift: 1000");
+    }
+}
+class GD implements WhiteBank, GreenBank
+{
+    public static void main(String args[])
+    {
+        GD g=new GD();
+        g.bonus();
+        g.gift();
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+WhiteBank Festival Bonus: 500
+GreenBank Festival Gift: 1000
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Example 2: {{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+interface WhiteBank
+{
+    default void bonus()
+    {
+        System.out.println("WhiteBank Festival Bonus: 500");
+    }
+}
+interface GreenBank
+{
+    default void bonus()
+    {
+        System.out.println("GreenBank Festival Bonus: 1000");
+    }
+}
+class GD implements WhiteBank, GreenBank
+{
+    public void bonus()
+    {
+        WhiteBank.super.bonus();
+        GreenBank.super.bonus();
+    }
+    public static void main(String args[])
+    {
+        GD g=new GD();
+        g.bonus();
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+WhiteBank Festival Bonus: 500
+GreenBank Festival Bonus: 1000
+godarda@gd:~$ 
+</pre></span>

@@ -1,0 +1,79 @@
+grandparent:
+- parent: VBScript
+  subtree: VBScript
+  url: cluster/vbscript
+  children:
+  - url: cluster/vbscript/gdgyved
+    title: VBScript to print Hello World
+  - url: cluster/vbscript/gdbwssb
+    title: VBScript to perform the arithmetic operations
+  - url: cluster/vbscript/gdyzuir
+    title: VBScript to perform the string operations
+  - url: cluster/vbscript/gdzovgy
+    title: VBScript to demonstrate the use of Array
+  - url: cluster/vbscript/gdauerk
+    title: VBScript to sort the Array elements using Bubble sort
+  - url: cluster/vbscript/gdfvdhv
+    title: VBScript implementation of Fibonacci series
+  - url: cluster/vbscript/gdzdzhz
+    title: VBScript to generate the random numbers
+  - url: cluster/vbscript/gdnnyye
+    title: VBScript to demonstrate the use of conversion functions
+  - url: cluster/vbscript/gdkavew
+    title: VBScript to demonstrate the use of format functions
+  - url: cluster/vbscript/gdeygvz
+    title: VBScript to demonstrate the use of math functions
+  - url: cluster/vbscript/gdkzzak
+    title: VBScript to demonstrate the use of date and time functions
+  - url: cluster/vbscript/gdweeat
+    title: VBScript to perform ArrayList operations
+  - url: cluster/vbscript/gddxmey
+    title: VBScript to perform SortedList operation
+  - url: cluster/vbscript/gdgdpvd
+    title: VBScript to perform Stack operations
+  - url: cluster/vbscript/gdfaydi
+    title: VBScript to perform Queue operations
+  - url: cluster/vbscript/gdeauvd
+    title: VBScript to create an empty folder
+  - url: cluster/vbscript/gdahmud
+    title: VBScript to create an empty text file
+  - url: cluster/vbscript/gdeegki
+    title: VBScript to print the file properties
+  - url: cluster/vbscript/gdczhwa
+    title: VBScript to count the total number of files in a folder
+  - url: cluster/vbscript/gdzwzzd
+    title: VBScript to count the total number of files in a folder of the same extension
+  - url: cluster/vbscript/gdltzze
+    title: VBScript to read and write the data in a text file
+  - url: cluster/vbscript/gdmvezv
+    title: VBScript to format the text in a Word document
+  - url: cluster/vbscript/gdhywgz
+    title: VBScript to create an Excel in one folder and paste into another folder
+  - url: cluster/vbscript/gdyueyg
+    title: VBScript to read the data from an Excel sheet using ADODB object
+- parent: Ranorex
+  subtree: Ranorex
+  url: cluster/ranorex
+  children:
+  - url: cluster/ranorex/gdwryqa
+    title: How to open and close a browser using the Process class in Ranorex
+  - url: cluster/ranorex/gdgvzyw
+    title: How to get a browser details using the WebDocument class in Ranorex
+  - url: cluster/ranorex/gdewwzv
+    title: How to select the Chrome context menu option in Ranorex
+  - url: cluster/ranorex/gdfzznc
+    title: How to compare the Excel sheets using Interop objects in Ranorex
+  - url: cluster/ranorex/gdcewwv
+    title: How to create, insert and save the Excel in Ranorex
+  - url: cluster/ranorex/gdgyvzz
+    title: How to read the Excel specific row and column data in Ranorex
+  - url: cluster/ranorex/gdwwilz
+    title: How to format the Excel sheet in Ranorex
+sidenav:
+- parent: Cluster
+  url: cluster
+  children:
+  - title: VBScript
+    url: cluster/vbscript
+  - title: Ranorex
+    url: cluster/ranorex

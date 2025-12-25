@@ -1,0 +1,31 @@
+---
+permalink: tools/converter/gdekyui
+title: Torque Converter
+description: "Instantly convert torque measurements between different units. A simple and fast torque conversion tool."
+---
+
+{% include converter.html %}
+<script>
+(function () {
+    // Configuration: Define units and their conversion factor to Newton-meter (N·m) - Base unit
+    const units = {
+        nm:     { name: 'Newton-meter',         symbol: 'N·m',    factor: 1 },
+        dyncm:  { name: 'Dyne-centimeter',      symbol: 'dyn·cm', factor: 1e-7 },
+        kgfm:   { name: 'Kilogram-force meter', symbol: 'kgf·m',  factor: 9.80665 },
+        kgfcm:  { name: 'Kilogram-force cm',    symbol: 'kgf·cm', factor: 0.0980665 },
+        lbfft:  { name: 'Pound-force foot',     symbol: 'lbf·ft', factor: 1.3558179483 },
+        lbfin:  { name: 'Pound-force inch',     symbol: 'lbf·in', factor: 0.112984829 },
+        ozfin:  { name: 'Ounce-force inch',     symbol: 'ozf·in', factor: 0.0070615518 }
+    };
+
+    const defaultUnit = 'nm';
+    const defaultSelectedUnits = ['lbfft', 'kgfm'];
+
+    // Initialize the shared converter logic
+    setupConverter({
+        units: units,
+        defaultUnit: defaultUnit,
+        defaultSelectedUnits: defaultSelectedUnits
+    });
+})();
+</script>

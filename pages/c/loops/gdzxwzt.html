@@ -1,0 +1,143 @@
+---
+permalink: c/loops/gdzxwzt
+title: C program to print the star pyramid patterns
+---
+
+<div class="codecard">C program to print the right half star pyramid pattern</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    int i, j;
+    for (i = 1; i <= 10; i++)
+    {
+        for (j = 1; j <= i; j++)
+        {
+            printf("*");
+        }
+        printf("\n");
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+*
+**
+***
+****
+*****
+******
+*******
+********
+*********
+**********
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">C program to print the left half star pyramid pattern</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    int i, j;
+    for (i = 1; i <= 10; i++)
+    {
+        for (j = 1; j <= 10 - i; j++)
+            printf(" ");
+        for (j = 1; j <= i; j++)
+        {
+            printf("*");
+        }
+        printf("\n");
+    }
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+         *
+        **
+       ***
+      ****
+     *****
+    ******
+   *******
+  ********
+ *********
+**********
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">C program to print the inverted right half star pyramid pattern</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    int i, j;
+    for (i = 10; i >= 1; i--)
+    {
+        for (j = 1; j <= i; j++)
+        {
+            printf("*");
+        }
+        printf("\n");
+    }
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+**********
+*********
+********
+*******
+******
+*****
+****
+***
+**
+*
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">C program to print the inverted left half star pyramid pattern</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    int i, j;
+    for (i = 10; i >= 1; i--)
+    {
+        for (j = 1; j <= 10 - i; j++)
+            printf(" ");
+        for (j = 1; j <= i; j++)
+        {
+            printf("*");
+        }
+        printf("\n");
+    }
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+**********
+ *********
+  ********
+   *******
+    ******
+     *****
+      ****
+       ***
+        **
+         *
+godarda@gd:~$ 
+</pre></span>

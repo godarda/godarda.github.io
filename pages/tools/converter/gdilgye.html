@@ -1,0 +1,32 @@
+---
+permalink: tools/converter/gdilgye
+title: Magnetic Field Converter
+description: "Instantly convert magnetic field measurements between different units. A simple and fast magnetic field conversion tool."
+---
+
+{% include converter.html %}
+<script>
+(function () {
+    // Configuration: Define units and their conversion factor to Tesla (base unit)
+    const units = {
+        t:    { name: 'Tesla',              symbol: 'T',     factor: 1 },
+        mt:   { name: 'Millitesla',         symbol: 'mT',    factor: 0.001 },
+        ut:   { name: 'Microtesla',         symbol: 'µT',    factor: 1e-6 },
+        nt:   { name: 'Nanotesla',          symbol: 'nT',    factor: 1e-9 },
+        g:    { name: 'Gauss',              symbol: 'G',     factor: 1e-4 },
+        mg:   { name: 'Milligauss',         symbol: 'mG',    factor: 1e-7 },
+        wbm2: { name: 'Weber per sq. meter',symbol: 'Wb/m²', factor: 1 },
+        gamma:{ name: 'Gamma',              symbol: 'γ',     factor: 1e-9 }
+    };
+
+    const defaultUnit = 't';
+    const defaultSelectedUnits = ['g', 'mt'];
+
+    // Initialize the shared converter logic
+    setupConverter({
+        units: units,
+        defaultUnit: defaultUnit,
+        defaultSelectedUnits: defaultSelectedUnits
+    });
+})();
+</script>

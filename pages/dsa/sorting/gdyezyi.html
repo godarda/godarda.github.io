@@ -1,0 +1,37 @@
+---
+permalink: dsa/sorting/gdyezyi
+title: Python progarm for Bubble Sort
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="code">{%- highlight python -%}
+def bubble_sort(nlist):
+    for length in range(len(nlist)):
+        for i in range(length):
+            if nlist[i] > nlist[i + 1]:
+                # nlist[i],nlist[i+1]=nlist[i+1],nlist[i]
+                temp = nlist[i]
+                nlist[i] = nlist[i + 1]
+                nlist[i + 1] = temp
+                print(nlist)
+
+nlist = [12, 1024, -2048, 0, -1, 95, 987]
+bubble_sort(nlist)
+print(nlist)
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runpy }}
+[12, -2048, 1024, 0, -1, 95, 987]
+[-2048, 12, 1024, 0, -1, 95, 987]
+[-2048, 12, 0, 1024, -1, 95, 987]
+[-2048, 0, 12, 1024, -1, 95, 987]
+[-2048, 0, 12, -1, 1024, 95, 987]
+[-2048, 0, -1, 12, 1024, 95, 987]
+[-2048, 0, -1, 12, 95, 1024, 987]
+[-2048, -1, 0, 12, 95, 1024, 987]
+[-2048, -1, 0, 12, 95, 987, 1024]
+[-2048, -1, 0, 12, 95, 987, 1024]
+godarda@gd:~$ 
+</pre></span>

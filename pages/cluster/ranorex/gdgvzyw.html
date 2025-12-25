@@ -1,0 +1,68 @@
+---
+permalink: cluster/ranorex/gdgvzyw
+title: How to get a browser details using the WebDocument class in Ranorex
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">File: GetBrowserDetails.UserCode.cs</div>
+<pre class="editorcard">
+{%- highlight csharp -%}
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Drawing;
+using System.Threading;
+using WinForms = System.Windows.Forms;
+
+using Ranorex;
+using Ranorex.Core;
+using Ranorex.Core.Repository;
+using Ranorex.Core.Testing;
+
+namespace GlobalProjects
+{
+    public partial class GetBrowserDetails
+    {
+        private void Init()
+        {
+            Browser("Chrome","https://godarda.in/testapp/");
+        }
+        
+        public void Browser(string bname,string url)
+        {
+            try
+            {
+                Report.Info("Opening the "+bname+" browser");
+                Host.Current.OpenBrowser(url, bname, "", false, true, false, false, false); 
+                //true will maximize the browser window
+                Delay.Seconds(5);
+                
+                WebDocument wd = "/dom[@domain='godarda.com']";
+                Report.Info("Browser Name - "+wd.BrowserName);
+                Report.Info("Browser Version - "+wd.BrowserVersion);
+                Report.Info("Domain - "+wd.Domain);
+                Report.Info("Page Title - "+wd.Browser);
+                Report.Info("Page URL - "+wd.PageUrl);
+                Report.Info("Flavor Name - "+wd.FlavorName);
+                Report.Info("Browser State - "+wd.State);
+                Report.Info("Browser Valid - "+wd.Valid);
+                //Host.Current.CloseApplication(wd,new Duration(0));
+                wd.Close();
+                if(wd.Valid.Equals(false))
+                {
+                    Report.Success("Browser closed successfully");
+                }
+                else
+                {
+                    Report.Failure("Fail: Unable to close the browser window");
+                }
+            }
+            catch
+            {
+                Report.Failure("Error: Unable to open the browser");
+            }
+        }
+    }
+}
+{%- endhighlight -%}</pre>

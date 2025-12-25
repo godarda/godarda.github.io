@@ -1,0 +1,55 @@
+---
+permalink: java/re/gdbcega
+title: Java program to accept a valid blood group using regex
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.*;
+import java.util.regex.*;
+class GD
+{
+    public static void main(String args[])
+    {
+        String s;
+        Scanner sc=new Scanner(System.in);
+        System.out.println("———————————————————————————————————————————");
+        System.out.println("Implementation of Regular Expressions");
+        System.out.println("———————————————————————————————————————————");
+        System.out.print("Enter your blood group ");
+        s=sc.nextLine();
+        //if(Pattern.matches("([A,B,O]{1}[+,-]{1})|(AB[+,-]{1})",s))
+        if(Pattern.matches("(A|B|O|AB)[+,-]{1}",s))
+        {
+            System.out.println("\nBlood group accepted");
+        }
+        else
+        {
+            System.out.println("\nError: No such blood group");
+        }
+        System.out.println("———————————————————————————————————————————");
+    }       
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+———————————————————————————————————————————
+Implementation of Regular Expressions
+———————————————————————————————————————————
+Enter your blood group AB*
+
+Error: No such blood group
+———————————————————————————————————————————
+
+godarda@gd:~$ <mark>java GD</mark>
+———————————————————————————————————————————
+Implementation of Regular Expressions
+———————————————————————————————————————————
+Enter your blood group AB-
+
+Blood group accepted
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

@@ -1,0 +1,89 @@
+---
+permalink: java/abstraction/gdreodh
+title: How to achieve multiple inheritance in Java using interfaces
+---
+
+<div class="codecard">Example 1: {{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+interface Male
+{
+    void male();
+}
+
+interface Female
+{
+    void female();
+}
+
+interface Category extends Male,Female
+{
+    void humanBeing();
+}
+
+class GD implements Category
+{
+    public void male() 
+    {
+        System.out.print("Male + ");
+    }
+    public void female() 
+    {
+        System.out.print("Female = ");
+    }
+    public void humanBeing() 
+    {
+        System.out.println("We are Human Beings");
+    }
+    public static void main(String[] args) 
+    {
+        GD g=new GD();
+        g.male();
+        g.female();
+        g.humanBeing();
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Male + Female = We are Human Beings
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Example 2: {{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+interface WhiteBank
+{
+    void bonus();
+}
+interface GreenBank
+{
+    void gift();
+}
+class GD implements WhiteBank, GreenBank
+{
+    public void bonus()
+    {
+        System.out.println("WhiteBank Festival Bonus: 500");
+    }
+    public void gift()
+    {
+        System.out.println("GreenBank Festival Bonus: 1000");
+    }
+    public static void main(String args[])
+    {
+        GD g=new GD();
+        g.bonus();
+        g.gift();
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+WhiteBank Festival Bonus: 500
+GreenBank Festival Bonus: 1000
+godarda@gd:~$ 
+</pre></span>

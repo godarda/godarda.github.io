@@ -1,0 +1,48 @@
+---
+permalink: c/loops/gdcdepo
+title: C program to print alphabets using the ASCII values
+---
+
+<div class="codecard">C program to print uppercase alphabets using the ASCII values</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    int i;
+    for (i = 65; i < 91; i++)
+    {
+        printf("%c ", i);
+    }
+    printf("\n");
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">C program to print lowercase alphabets using the ASCII values</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    int i;
+    for (i = 97; i < 123; i++)
+    {
+        printf("%c ", i);
+    }
+    printf("\n");
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+a b c d e f g h i j k l m n o p q r s t u v w x y z 
+godarda@gd:~$ 
+</pre></span>

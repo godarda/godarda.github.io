@@ -1,0 +1,59 @@
+grandparent:
+- parent: MySQL Fundamentals
+  subtree: Fundamentals
+  url: mysql/fundamentals
+  children:
+  - url: mysql/fundamentals/gddayxg
+    title: How to setup, install, and start MySQL on Ubuntu
+  - url: mysql/fundamentals/gdrgtrz
+    title: MySQL Date and Time Functions
+  - url: mysql/fundamentals/gdgpzwy
+    title: MySQL String Functions
+- parent: MySQL Data Definition
+  subtree: DDL
+  url: mysql/ddl
+  children:
+  - url: mysql/ddl/gddwgvc
+    title: MySQL CREATE a DATABASE and TABLE
+  - url: mysql/ddl/gddvwtv
+    title: MySQL FOREIGN KEY
+  - url: mysql/ddl/gddvvtd
+    title: MySQL NOT NULL Constraint
+  - url: mysql/ddl/gddwtwf
+    title: MySQL ALTER TABLE (ADD, DROP, MODIFY, CHANGE, RENAME TO)
+  - url: mysql/ddl/gdedvew
+    title: MySQL DROP a TABLE and DATABASE
+- parent: MySQL Data Manipulation
+  subtree: DML
+  url: mysql/dml
+  children:
+  - url: mysql/dml/gdpdvnx
+    title: MySQL INSERT the VALUES into a TABLE
+  - url: mysql/dml/gduidey
+    title: MySQL SELECT and SELECT DISTINCT Statements
+  - url: mysql/dml/gdbbevd
+    title: MySQL WHERE Clause
+  - url: mysql/dml/gdzzcev
+    title: MySQL UPDATE Clause
+  - url: mysql/dml/gdvzkzw
+    title: MySQL ORDER BY Clause
+  - url: mysql/dml/gdpzyig
+    title: MySQL AND OR NOT Operators
+  - url: mysql/dml/gdczgza
+    title: MySQL IN BETWEEN LIKE Operators
+  - url: mysql/dml/gdpwzaz
+    title: MySQL LIMIT Clause
+  - url: mysql/dml/gdnhhen
+    title: MySQL JOINS (INNER, LEFT, RIGHT)
+  - url: mysql/dml/gdzsgwd
+    title: MySQL DELETE Statement
+sidenav:
+- parent: MySQL (Relational Database)
+  url: mysql
+  children:
+  - title: MySQL Fundamentals
+    url: mysql/fundamentals
+  - title: MySQL Data Definition
+    url: mysql/ddl
+  - title: MySQL Data Manipulation
+    url: mysql/dml

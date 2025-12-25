@@ -1,0 +1,152 @@
+---
+permalink: mongodb/crud/gdrmzzy
+title: MongoDB Projection (limiting and sorting data)
+---
+
+<div class="terminalcard">{{ page.title }} - Disable ObjectId</div>
+<span><pre>
+godarda@gd:~$ <mark>mongosh</mark>
+...
+
+DB> <mark>show dbs</mark>
+DB       72.00 KiB
+admin    40.00 KiB
+config  108.00 KiB
+local    40.00 KiB
+
+DB> <mark>db.getCollectionNames()</mark>
+[ "holders" ]
+
+DB> <mark>db.holders.find({},{name:1,city:1,_id:0})</mark>
+[
+  { name: 'James Moore', city: 'Phoenix' },
+  { name: 'Donald Taylor', city: 'Irvine' },
+  { name: 'Edward Parkar', city: 'Irvine' },
+  { name: 'Ryan Bakshi', city: 'Mumbai' }
+]
+</pre></span>
+
+<div class="terminalcard">{{ page.title }} - limit() and skip() methods</div>
+<span><pre>
+DB> <mark>db.holders.find({},{account_no: 2562348989,city: 'Irvine'}).limit(2)</mark>
+[
+  {
+    _id: ObjectId("6515552821cddd458cbbcc91"),
+    account_no: 2562348989,
+    city: 'Irvine'
+  },
+  {
+    _id: ObjectId("6515554d21cddd458cbbcc92"),
+    account_no: 2562348990,
+    city: 'Irvine'
+  }
+]
+
+DB> <mark>db.holders.find({},{account_no: 2562348989,city: 'Irvine'}).limit(2).skip(1)</mark>
+[
+  {
+    _id: ObjectId("6515554d21cddd458cbbcc92"),
+    account_no: 2562348990,
+    city: 'Irvine'
+  },
+  {
+    _id: ObjectId("6515554d21cddd458cbbcc93"),
+    account_no: 2562348991,
+    city: 'Irvine'
+  }
+]
+</pre></span>
+
+<div class="terminalcard">City names are in ascending order</div>
+<span><pre>
+DB> <mark>db.holders.find().sort({city: 1})</mark>
+[
+  {
+    _id: ObjectId("6515554d21cddd458cbbcc92"),
+    account_no: 2562348990,
+    name: 'Donald Taylor',
+    city: 'Irvine',
+    DOB: ISODate("1990-08-20T00:00:00.000Z"),
+    bank: 'Citi',
+    amount: 7000,
+    loan: [ { Home: 10000, Car: 20000 } ]
+  },
+  {
+    _id: ObjectId("6515554d21cddd458cbbcc93"),
+    account_no: 2562348991,
+    name: 'Edward Parkar',
+    city: 'Irvine',
+    DOB: ISODate("1994-01-29T00:00:00.000Z"),
+    bank: 'ICICI',
+    amount: 95000,
+    loan: [ { Personal: 25000, Home: 450000, Car: 10000 } ]
+  },
+  {
+    _id: ObjectId("6515554d21cddd458cbbcc94"),
+    account_no: 2562348992,
+    name: 'Ryan Bakshi',
+    city: 'Mumbai',
+    DOB: ISODate("1982-01-14T00:00:00.000Z"),
+    bank: 'Citi',
+    amount: 50000,
+    loan: [ { Personal: null, Home: null, Car: null } ]
+  },
+  {
+    _id: ObjectId("6515552821cddd458cbbcc91"),
+    account_no: 2562348989,
+    name: 'James Moore',
+    city: 'Phoenix',
+    DOB: ISODate("1985-05-26T00:00:00.000Z"),
+    bank: 'Barclays',
+    amount: 5000,
+    loan: [ { Personal: 5660, Home: 15000 } ]
+  }
+]
+</pre></span>
+
+<div class="terminalcard">Account numbers are in descending order</div>
+<span><pre>
+DB> <mark>db.holders.find().sort({account_no: -1})</mark>
+[
+  {
+    _id: ObjectId("6515554d21cddd458cbbcc94"),
+    account_no: 2562348992,
+    name: 'Ryan Bakshi',
+    city: 'Mumbai',
+    DOB: ISODate("1982-01-14T00:00:00.000Z"),
+    bank: 'Citi',
+    amount: 50000,
+    loan: [ { Personal: null, Home: null, Car: null } ]
+  },
+  {
+    _id: ObjectId("6515554d21cddd458cbbcc93"),
+    account_no: 2562348991,
+    name: 'Edward Parkar',
+    city: 'Irvine',
+    DOB: ISODate("1994-01-29T00:00:00.000Z"),
+    bank: 'ICICI',
+    amount: 95000,
+    loan: [ { Personal: 25000, Home: 450000, Car: 10000 } ]
+  },
+  {
+    _id: ObjectId("6515554d21cddd458cbbcc92"),
+    account_no: 2562348990,
+    name: 'Donald Taylor',
+    city: 'Irvine',
+    DOB: ISODate("1990-08-20T00:00:00.000Z"),
+    bank: 'Citi',
+    amount: 7000,
+    loan: [ { Home: 10000, Car: 20000 } ]
+  },
+  {
+    _id: ObjectId("6515552821cddd458cbbcc91"),
+    account_no: 2562348989,
+    name: 'James Moore',
+    city: 'Phoenix',
+    DOB: ISODate("1985-05-26T00:00:00.000Z"),
+    bank: 'Barclays',
+    amount: 5000,
+    loan: [ { Personal: 5660, Home: 15000 } ]
+  }
+]
+</pre></span>

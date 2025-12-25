@@ -1,0 +1,56 @@
+---
+permalink: octave/strings/gdawdqp
+title: Octave strings comparison
+---
+
+<div class="terminalcard">{{ page.title }}</div>
+<span><pre>
+godarda@gd:~$ <mark>octave</mark>
+...
+octave> <mark>gd = "GoDarda"</mark>
+gd = GoDarda
+
+octave> <mark>strcmp(gd, "GoDarda")</mark>
+ans = 1
+
+octave> <mark>strcmp(gd, "KODINGWINDOW")</mark>
+ans = 0
+
+octave> <mark>strncmp(gd, "Koding", 6)</mark>
+ans = 1
+
+octave> <mark>strcmpi("GD#12","gd#12")</mark>
+ans = 1
+
+octave> <mark>strcmpi("GD#12","gd#21")</mark>
+ans = 0
+
+octave> <mark>strncmpi("GD#12","gd",2)</mark>
+ans = 1
+
+octave> <mark>strrep(gd, "in", "#")</mark>
+ans = Kod#gw#dow
+
+octave> <mark>ischar(gd)</mark>
+ans = 1
+
+octave> <mark>a="Hello"</mark>
+a = Hello
+
+octave> <mark>b="hello"</mark>
+b = hello
+
+octave> <mark>a==b</mark>
+ans =
+
+  0  1  1  1  1
+
+octave> <mark>b="Hello"</mark>
+b = Hello
+
+octave> <mark>a==b</mark>
+ans =
+
+  1  1  1  1  1
+
+</pre></span>

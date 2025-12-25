@@ -1,0 +1,6 @@
+<resources>
+    <!-- Splash Screen Theme for Dark Mode -->
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowBackground">@color/backgroundColor</item>
+    </style>
+</resources>

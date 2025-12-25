@@ -1,0 +1,87 @@
+---
+permalink: cpp/strings/gdecfeo
+title: C++ program to reverse a given string using loops
+---
+
+<div class="codecard">C++ program to reverse a given string using using length() function</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+#include <cstring>
+using namespace std;
+int main()
+{
+    cout<<"———————————————————————————————————————————";
+    cout<<"\nProgram to reverse a given string";
+    cout<<"\n———————————————————————————————————————————";
+    string s, r = "";
+    cout<<"\nEnter the string ";
+    getline(cin, s);
+    for (int i = s.length() - 1; i >= 0; i--)
+    {
+        r = r + s[i];
+    }
+    cout<<"\nThe reverse string is "<<r;
+    cout<<"\n———————————————————————————————————————————\n";
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+———————————————————————————————————————————
+Program to reverse a given string
+———————————————————————————————————————————
+Enter the string KODINGWINDOW
+
+The reverse string is WODNIWGNIDOK
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">C++ program to reverse a given string by swapping characters</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+#include <cstring>
+using namespace std;
+int main()
+{
+    cout<<"———————————————————————————————————————————";
+    cout<<"\nProgram to reverse a given string";
+    cout<<"\n———————————————————————————————————————————";
+    char s[50], temp;
+    cout<<"\nEnter the string ";
+    cin>>s;
+    int i = 0, j = strlen(s) - 1;
+    for (i = 0; i < j; i++, j--)
+    {
+        temp = s[i];
+        s[i] = s[j];
+        s[j] = temp;
+    }
+    /* Another way, you can replace for loop with while loop
+    while(i<j)
+    {
+        temp=s[i];
+        s[i]=s[j];
+        s[j]=temp;
+        i++;
+        j--;
+    }
+    */
+    cout<<"\nThe reverse string is "<<s;
+    cout<<"\n———————————————————————————————————————————\n";
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+———————————————————————————————————————————
+Program to reverse a given string
+———————————————————————————————————————————
+Enter the string KODINGWINDOW
+
+The reverse string is WODNIWGNIDOK
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

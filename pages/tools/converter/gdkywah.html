@@ -1,0 +1,36 @@
+---
+permalink: tools/converter/gdkywah
+title: Cooking Converter
+description: "Instantly convert cooking measurements between cups, tablespoons, teaspoons, and more. A simple and fast cooking conversion tool."
+---
+
+{% include converter.html %}
+<script>
+(function () {
+    // Configuration: Define units and their conversion factor to Milliliters (base unit)
+    const units = {
+        ml:   { name: 'Milliliter',       symbol: 'ml',    factor: 1 },
+        l:    { name: 'Liter',            symbol: 'l',     factor: 1000 },
+        tsp:  { name: 'Teaspoon (US)',    symbol: 'tsp',   factor: 4.92892 },
+        tbsp: { name: 'Tablespoon (US)',  symbol: 'tbsp',  factor: 14.7868 },
+        fl_oz:{ name: 'Fluid Ounce (US)', symbol: 'fl oz', factor: 29.5735 },
+        cup:  { name: 'Cup (US)',         symbol: 'cup',   factor: 236.588 },
+        pt:   { name: 'Pint (US)',        symbol: 'pt',    factor: 473.176 },
+        qt:   { name: 'Quart (US)',       symbol: 'qt',    factor: 946.353 },
+        gal:  { name: 'Gallon (US)',      symbol: 'gal',   factor: 3785.41 },
+        imp_tbsp: { name: 'Tablespoon (Imp)', symbol: 'tbsp', factor: 17.7582 },
+        imp_cup:  { name: 'Cup (Imp)',        symbol: 'cup',  factor: 284.131 },
+        imp_fl_oz:{ name: 'Fluid Ounce (Imp)',symbol: 'fl oz', factor: 28.4131 }
+    };
+
+    const defaultUnit = 'cup';
+    const defaultSelectedUnits = ['ml', 'tbsp'];
+
+    // Initialize the shared converter logic
+    setupConverter({
+        units: units,
+        defaultUnit: defaultUnit,
+        defaultSelectedUnits: defaultSelectedUnits
+    });
+})();
+</script>

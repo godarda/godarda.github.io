@@ -1,0 +1,38 @@
+---
+permalink: java/strings/gdvvbei
+title: Java program to reverse a given string using the reverse method
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.Scanner;
+class GD
+{
+    public static void main(String args[])
+    {
+        String s;
+        Scanner sc=new Scanner(System.in);
+        System.out.println("———————————————————————————————————————————");
+        System.out.println("Program to reverse the given string");
+        System.out.println("———————————————————————————————————————————");
+        System.out.print("Enter the string ");
+        s=sc.nextLine();
+        String r=new StringBuffer(s).reverse().toString();
+        System.out.println("\nThe reverse string is "+r);
+        System.out.println("———————————————————————————————————————————");
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+———————————————————————————————————————————
+Program to reverse the given string
+———————————————————————————————————————————
+Enter the string Hello, World!
+
+The reverse string is !dlroW ,olleH
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

@@ -1,0 +1,36 @@
+name: ❓ Ask Question
+description: Ask a question or request clarification
+labels: [question, needs-triage]
+assignees:
+  - shubhamrdarda
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have a question or need clarification understanding something? We're here to support you.
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Whats your question?
+      placeholder: Clearly describe what you're trying to understand or solve.
+    validations:
+      required: true
+
+  - type: textarea
+    id: tried
+    attributes:
+      label: What have you tried or looked into?
+      placeholder: Mention any docs, issues, or code you've already checked.
+
+  - type: textarea
+    id: relevance
+    attributes:
+      label: Is this question relevant to other contributors?
+      placeholder: How might the answer help others?
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Include screenshots, links, or references.

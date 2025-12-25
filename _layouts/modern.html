@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include head.html %}
+
+<body>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top">
+    <div class="container-fluid">
+        {%- if path[1] == nil -%}
+        <div class="navbar-brand" style="margin-left: 0px;">
+            <a><img id="logo" alt="Logo" width="30" height="30" src="{{ site.icon | relative_url }}"></a>
+            <a id="fc-{{ path[1] }}"> {{ parent }}</a>
+        </div>
+        {%- elsif path[1] == "search" or path[1] == "testapp" or path[1] == "shubhamrdarda" -%}
+        <div class="navbar-brand" style="margin-left: 0px;">
+            <a href=""><img id="logo" alt="Logo" width="30" height="30" src="{{ site.icon | relative_url }}"></a>
+            <a id="fc-{{ path[1] }}" href="{{ path[1] }}"> / {{ path[1] | capitalize }}</a>
+            {%- if path[2] != nil -%}
+                <a id="fc-{{ path[1] }}" href="{{ path[1] }}/{{ path[2] }}"> / {{ path[2] | capitalize }}</a>
+            {%- endif -%}
+        </div>
+        {%- else -%}
+        <div id="navbar-brand" class="navbar-brand">
+            <a href=""><img id="logo" alt="Logo" width="30" height="30" src="{{ site.icon | relative_url }}"></a>
+            <a id="fc-{{ path[1] }}" href="{{ path[1] }}">{{ parent }}</a>
+            {%- if path[2] != nil -%}
+                <a id="fc-{{ path[1] }}" href="{{ path[1] }}/{{ path[2] }}">{{ child }} / </a>
+            {%- endif -%}
+        </div>
+        <button id="lsidebar" class="navbar-toggler p-0" type="button" data-bs-toggle="leftsidebar" data-bs-target="#leftsidebar" aria-label="lsidebar"><span class="navbar-toggler-icon"></span></button>
+        <div id="leftsidebar" class="sidebar leftsidebar-collapse col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-2 col-xxl-2">
+        {%- for parent in gd.sidenav -%}
+            {%- if page.url contains parent.url -%}
+                {%- assign active_item = nil -%}
+                {%- assign active_item = "sidebar-item-active" -%}
+                {%- assign pu = parent.url | split: '/' -%}
+                
+                {%- if path[1] == pu[0] and path[2] == nil -%}<a class="nav-link {{ active_item }} {{ path[1] }}" href="{{ parent.url }}">{{ parent.parent }}</a>
+                {%- else -%}<a class="nav-link {{ path[1] }}" href="{{ parent.url }}">{{ parent.parent }}</a>
+                {%- endif -%}
+                
+                {%- for child in parent.children -%}
+                    {%- assign cu = child.url | split: '/' -%}
+                    {%- if cu.size == 2 and path[2] == cu[1] -%}<a class="nav-link {{ active_item }} {{ path[1] }}" href="{{ child.url }}">{{ child.title }}</a>
+                    {%- else -%}<a class="nav-link {{ path[1] }}" href="{{ child.url }}">{{ child.title }}</a>
+                    {%- endif -%}
+                {%- endfor -%}
+            {%- endif -%}
+        {%- endfor -%}
+        </div>
+        {%- endif -%}
+
+        <a id="android_theme" href="javascript:void(0);" style="display: none; font-size: 20px; color: #999;" class="ms-auto bi bi-moon-stars"></a>
+        <button id="rsidebar" class="ms-auto navbar-toggler p-0" type="button" data-bs-toggle="rightsidebar" data-bs-target="#rightsidebar" aria-label="rsidebar"><span class="navbar-toggler-icon"></span></button>
+        <div id="rightsidebar" class="rightsidebar-collapse navbar-collapse justify-content-end">
+            <ul class="navbar-nav mr-auto">
+                {%- if path[1] != nil -%}
+                    <li class="nav-item"><a class="nav-link" href=""><i class="navsvg bi bi-house-door"></i> Home</a></li>
+                {%- endif -%}
+                {%- if path[1] != "search" -%}
+                    <li class="nav-item"><a class="nav-link" href="search"><i class="navsvg bi bi-search"></i> Search</a></li>
+                {%- endif -%}
+                {%- if path[1] != "tools" -%}
+                    <li class="nav-item"><a class="nav-link" href="tools"><i class="navsvg bi bi-tools"></i> Tools</a></li>
+                {%- endif -%}
+                {%- if path[1] != "about" -%}
+                    <li class="nav-item"><a class="nav-link" href="about"><i class="navsvg bi bi-info-circle"></i> About Us</a></li>
+                {%- endif -%}
+                <li class="nav-item"><a style="cursor: pointer;" class="nav-link" data-bs-toggle="modal" data-bs-target="#appmodal"><i class="navsvg bi bi-android2"></i> Android App</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" aria-label="theme (auto)"><i class="bi bi-circle-half me-2" id="bd-theme-icon"></i><span id="bd-theme-text">Theme</span></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme">
+                        <li><button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false"><i class="bi bi-sun me-2"></i>Light</button></li>
+                        <li><button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false"><i class="bi bi-moon-stars me-2"></i>Dark</button></li>
+                        <li><button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto" aria-pressed="true"><i class="bi bi-circle-half me-2"></i>Auto</button></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div data-bs-toggle="collapseall">
+{%- if path[1] == nil or path[1] == "shubhamrdarda" or path[1] == "testapp" -%}
+<main role="main">{{ content }}</main>{%- include footer.html -%}
+
+{%- elsif path[1] == "search" -%}
+<main role="main"><div class="container">{{ content }}</div></main>{%- include footer.html -%}
+
+{%- else -%}
+<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-xxl-10 ms-sm-auto px-md-4 jumbotron text-center">
+    <h3>{{ site.title }}</h3>
+    {%- if path[1] != "tools" -%}<h6>{{ segment }}</h6>
+    {%- else -%}<h6>{{ page.title }}</h6>{%- endif -%}
+</div>
+
+<main class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-xxl-10 ms-sm-auto px-md-4" role="main">
+    <div class="container">
+        {%- if path[2] == nil and path[1] != "about" -%}{%- include search.html -%}{%- endif -%}
+        {{ content }}
+        {%- for parent in gd.grandparent -%}
+        {% if path[1] != "about" and path[2] == nil %}
+        <div class="board"><div class="boardtitle">{{ parent.parent }}</div>
+            {% for child in parent.children limit:4 %}<a class="card" href="{{ child.url }}">{{ child.title }}</a>{% endfor %}
+            {%- assign count = parent.children | size -%}
+            {%- if count >= 5 -%}<a class="card" href="{{ parent.url }}">Show More &#187</a>{%- endif -%}
+        </div>
+        {%- else -%}
+        {%- if path[1] != "about" and path[3] == nil -%}
+            {%- assign pu = parent.url | split: '/' -%}
+            {%- if pu[1] == path[2] -%}
+            <div class="board"><div class="boardtitle">{{ parent.parent }}</div>{%- for child in parent.children -%}<a class="card" href="{{ child.url }}">{{ child.title }}</a>{%- endfor -%}</div>
+            {%- endif -%}
+        {%- endif -%}{%- endif -%}{%- endfor -%}
+        {%- if path[2] != nil -%}{%- include comments.html -%}{%- endif -%}
+        {% include pagination.html %}
+    </div>
+</main>
+
+<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-xxl-10 ms-sm-auto" style="padding: 0px;">{%- include footer.html -%}</div>
+{%- endif -%}
+</div>
+</body>
+</html>

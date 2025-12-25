@@ -1,0 +1,39 @@
+---
+permalink: selenium/fundamentals/gdureze
+title: How to launch the browser using Selenium Python
+---
+
+<div class="codecard">Selenium Python to launch the Chrome browser</div>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="editorcard">
+{%- highlight python -%}
+from selenium import webdriver
+
+driver = webdriver.Chrome(executable_path='/home/godarda/drivers/chromedriver')
+driver.maximize_window()
+driver.get("https://godarda.in/testapp/")
+driver.close()
+{%- endhighlight -%}</pre>
+
+<div class="codecard">Selenium Python to launch the Firefox browser</div>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="editorcard">
+{%- highlight python -%}
+from selenium import webdriver
+
+driver = webdriver.Firefox(executable_path='/home/godarda/drivers/geckodriver')
+driver.maximize_window()
+driver.get("https://godarda.in/testapp/")
+{%- endhighlight -%}</pre>
+
+<div class="codecard">Selenium Python to launch the Edge browser</div>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="editorcard">
+{%- highlight python -%}
+from selenium import webdriver
+
+driver = webdriver.Edge(executable_path='/home/godarda/drivers/msedgedriver')
+driver.maximize_window()
+driver.get("https://godarda.in/testapp/")
+driver.close()
+{%- endhighlight -%}</pre>

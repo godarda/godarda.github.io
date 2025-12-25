@@ -1,0 +1,82 @@
+---
+permalink: csharp/loops/gdvufpd
+title: C# program to find the factorial of a given number
+---
+
+<div class="codecard">Example 1: {{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+long n, f = 1;
+Console.WriteLine("———————————————————————————————————————————");
+Console.WriteLine("Program to find the factorial of a number");
+Console.WriteLine("———————————————————————————————————————————");
+Console.Write("Enter the number ");
+n = long.Parse(Console.ReadLine()!);
+if(n == 0)
+{
+    Console.WriteLine("\nFactorial of 0 is 1");
+}
+else if(n >= 21)
+{
+    Console.WriteLine("Number should be less than 21");
+}
+else
+{
+    f = n;
+    for(long i = n - 1; i >= 2; i--)
+    {
+        f *= i;
+    }
+    Console.WriteLine("\nFactorial of {0} is {1}", n, f);
+}
+Console.WriteLine("———————————————————————————————————————————");
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+———————————————————————————————————————————
+Program to find the factorial of a number
+———————————————————————————————————————————
+Enter the number 16
+
+Factorial of 16 is 20922789888000
+———————————————————————————————————————————
+godarda@gd:~/csharp$ 
+</pre></span>
+
+<div class="codecard">Example 2: {{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+long n, f = 1;
+Console.WriteLine("———————————————————————————————————————————");
+Console.WriteLine("Program to find the factorial of a number");
+Console.WriteLine("———————————————————————————————————————————");
+Console.Write("Enter the number ");
+n = long.Parse(Console.ReadLine()!);
+if(n < 0)
+{
+    Console.WriteLine("\nPlease enter a positive number");
+}
+else
+{
+    while (n > 0)
+    {
+        f *= n;
+        n--;
+    }
+    Console.WriteLine("\nFactorial of {0} is {1}", n, f);
+}
+Console.WriteLine("———————————————————————————————————————————");
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+———————————————————————————————————————————
+Program to find the factorial of a number
+———————————————————————————————————————————
+Enter the number 0
+
+Factorial of 0 is 1
+———————————————————————————————————————————
+godarda@gd:~/csharp$ 
+</pre></span>

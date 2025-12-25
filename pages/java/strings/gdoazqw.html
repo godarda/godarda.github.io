@@ -1,0 +1,56 @@
+---
+permalink: java/strings/gdoazqw
+title: Java program to perform the string operations
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD
+{
+    public static void main(String args[])
+    {
+        String s="Hello World";
+        System.out.println("———————————————————————————————————————————");
+        System.out.println("Program to perform the string operations");
+        System.out.println("———————————————————————————————————————————");
+        System.out.println("Main string | "+s);
+        System.out.println("———————————————————————————————————————————");
+        System.out.println("Length of string      | "+s.length());
+        System.out.println("Lowercase of string   | "+s.toLowerCase());
+        System.out.println("Uppercase of string   | "+s.toUpperCase());
+        char c=s.charAt(6);
+        System.out.println("Char at 6th position  | "+(c));
+        System.out.println("Index position of W   | "+s.indexOf('W'));
+        System.out.println("Matching substring ld | "+s.matches("(.*)ld(.*)"));
+        System.out.println("Is string start with A| "+s.startsWith("A"));
+        System.out.println("Replace space by *    | "+s.replace(' ','*'));
+        System.out.println("From 3rd position     | "+s.substring(3));
+        System.out.println("Dispaly from e to r   | "+s.subSequence(1,9));
+        System.out.println("Hash code for string  | "+s.hashCode());
+        System.out.println("———————————————————————————————————————————");
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+———————————————————————————————————————————
+Program to perform the string operations
+———————————————————————————————————————————
+Main string | Hello World
+———————————————————————————————————————————
+Length of string      | 11
+Lowercase of string   | hello world
+Uppercase of string   | HELLO WORLD
+Char at 6th position  | W
+Index position of W   | 6
+Matching substring ld | true
+Is string start with A| false
+Replace space by *    | Hello*World
+From 3rd position     | lo World
+Dispaly from e to r   | ello Wor
+Hash code for string  | -862545276
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

@@ -1,0 +1,33 @@
+---
+permalink: cluster/vbscript/gdeygvz
+title: VBScript to demonstrate the use of math functions
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.vbsfile }}</div>
+<pre>{%- highlight vb -%}
+print "Returns the absolute value: " & Abs(-50.00)
+print "Returns the arctangent: " & Atn(1)*4
+print "Returns the sine: " & Sin(30)
+print "Returns the cosine: " & Cos(30)
+print "Returns the tangent: " & Tan(30)
+print "Returns e raised to a power: " & Exp(0) & " " & Exp(1)
+print "Returns the integer part: " & Int(50.247862) & " " & Fix(50.247862)
+print "Returns the natural logarithm: " & Log(2)
+print "Returns the square root: " & Sqr(676)
+Randomize
+print "Returns a random number: " & Rnd
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+Returns the absolute value: 50
+Returns the arctangent: 3.14159265358979
+Returns the sine: -0.988031624092862
+Returns the cosine: 0.154251449887584
+Returns the tangent: -6.40533119664628
+Returns e raised to a power: 1 2.71828182845905
+Returns the integer part: 50 50
+Returns the natural logarithm: 0.693147180559945
+Returns the square root: 26
+Returns a random number: 0.8620264
+</pre></span>

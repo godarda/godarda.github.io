@@ -1,0 +1,28 @@
+---
+permalink: cg/circle/gdekhai.html 
+title: C++ program to draw concentric circles from a fixed point
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <graphics.h>
+int main()
+{
+    int gd = 0, gm = 9, i;
+    initgraph(&gd, &gm, NULL);
+    for (i = 10; i <= 150; i = i + 10)
+    {
+        setcolor(15);
+        circle(120 + i, 200, i);
+        delay(200);
+    }
+    delay(5000);
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcg }}
+<img src="pages/cg/images/gdbidey.png" loading="lazy">
+</pre></span>

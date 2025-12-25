@@ -1,0 +1,45 @@
+---
+permalink: java/abstraction/gdddxgp
+title: Java program for Interface
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+interface Operations
+{
+    interface add
+    {
+        void add(int x,int y);
+    }
+    interface sub
+    {
+        void sub(int x,int y);
+    }
+}
+
+class GD implements Operations
+{
+    void add(int x,int y) 
+    {
+        System.out.println("Addition "+(x+y));
+    }
+    void sub(int x,int y) 
+    {
+        System.out.println("Subtraction "+(x-y));
+    }
+    public static void main(String[] args) 
+    {
+        GD g=new GD();
+        g.add(10,20);
+        g.sub(20,10);
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Addition 30
+Subtraction 10
+godarda@gd:~$ 
+</pre></span>

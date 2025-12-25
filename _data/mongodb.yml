@@ -1,0 +1,35 @@
+grandparent:
+- parent: MongoDB Fundamentals
+  subtree: Fundamentals
+  url: mongodb/fundamentals
+  children:
+  - url: mongodb/fundamentals/gdvivwa
+    title: MongoDB Getting started with the mongosh
+  - url: mongodb/fundamentals/gdaiaar
+    title: MongoDB Mathematical Properties and Functions
+  - url: mongodb/fundamentals/gdalyqa
+    title: MongoDB user-defined function to find the factorial of a given number
+- parent: MongoDB CRUD Operations
+  subtree: CRUD
+  url: mongodb/crud
+  children:
+  - url: mongodb/crud/gdyxxwo
+    title: MongoDB Create a Database and Collection
+  - url: mongodb/crud/gdeuazw
+    title: MongoDB Insert the Documents into a Collection
+  - url: mongodb/crud/gdhydqg
+    title: MongoDB find() method
+  - url: mongodb/crud/gdhzgdy
+    title: MongoDB Logical Query Operators ($and $or $nor $not)
+  - url: mongodb/crud/gdrmzzy
+    title: MongoDB Projection (limiting and sorting data)
+  - url: mongodb/crud/gdwawvv
+    title: MongoDB Update a Document
+sidenav:
+- parent: MongoDB (NoSQL Database)
+  url: mongodb
+  children:
+  - title: MongoDB Fundamentals
+    url: mongodb/fundamentals
+  - title: MongoDB CRUD Operations
+    url: mongodb/crud

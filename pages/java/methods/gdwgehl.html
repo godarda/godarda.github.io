@@ -1,0 +1,32 @@
+---
+permalink: java/methods/gdwgehl
+title: Java program to format the text blocks strings using formatted() method
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD 
+{
+    @SuppressWarnings({ "preview", "removal" })
+    public static void main(String[] args) 
+    {
+        String s1 = """
+                account_no: %d
+                name: %s
+                city: %s
+                amount: %.2f
+                """.formatted(25622348989L,"James Moore","Phoenix",5000.002335);
+        System.out.println(s1);
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+account_no: 25622348989
+name: James Moore
+city: Phoenix
+amount: 5000.00
+godarda@gd:~$ 
+</pre></span>

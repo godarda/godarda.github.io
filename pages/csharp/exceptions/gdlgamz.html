@@ -1,0 +1,40 @@
+---
+permalink: csharp/exceptions/gdlgamz
+title: C# program to handle the PlatformNotSupportedException
+---
+
+<div class="codecard">C# PlatformNotSupportedException</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+Thread t = Thread.CurrentThread;
+t.Name = "Main Thread";
+t.Abort();
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+<error>Unhandled exception. System.PlatformNotSupportedException: Thread abort is not supported on this platform.
+    at System.Threading.Thread.Abort()
+    at Program.&lt;Main>$(String[] args) in /home/godarda/csharp/Program.cs:line 3</error>
+godarda@gd:~/csharp$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+try
+{
+    Thread t = Thread.CurrentThread;
+    t.Abort();
+}
+catch(PlatformNotSupportedException)
+{
+    Console.WriteLine("Some part of your code doesn't supported on this platform");
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Some part of your code doesn't supported on this platform
+godarda@gd:~/csharp$ 
+</pre></span>

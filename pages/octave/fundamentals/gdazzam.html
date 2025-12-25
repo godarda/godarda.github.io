@@ -1,0 +1,138 @@
+---
+permalink: octave/fundamentals/gdazzam
+title: Octave Trigonometric Functions
+---
+
+<div class="terminalcard">Compute trigonometric ratios (angles are in radians and degrees)</div>
+<span><pre>
+godarda@gd:~$ <mark>octave</mark>
+...
+octave> <mark>pi</mark>
+ans = 3.1416
+
+octave> <mark>deg2rad([0, 90, 180, 270, 360])</mark>
+ans =
+
+        0   1.5708   3.1416   4.7124   6.2832
+
+
+octave> <mark>rad2deg([0, pi/2, pi, 3/2*pi, 2*pi])</mark>
+ans =
+
+     0    90   180   270   360
+
+octave> <mark>sin(0)</mark>
+ans = 0
+
+octave> <mark>cos(30)</mark>
+ans = 0.1543
+
+octave> <mark>tan(45)</mark>
+ans = 1.6198
+
+octave> <mark>sec(60)</mark>
+ans = -1.0500
+
+octave> <mark>csc(90)</mark>
+ans = 1.1186
+
+octave> <mark>cot(180)</mark>
+ans = 0.7470
+<hr>octave> <mark>sind(0)</mark>
+ans = 0
+
+octave> <mark>cosd(30)</mark>
+ans = 0.8660
+
+octave> <mark>tand(45)</mark>
+ans = 1.0000
+
+octave> <mark>secd(60)</mark>
+ans = 2.0000
+
+octave> <mark>cscd(90)</mark>
+ans = 1
+
+octave> <mark>cotd(180)</mark>
+ans = Inf
+</pre></span>
+
+<div class="terminalcard">Compute inverse trigonometric ratios (angles are in radians and degrees)</div>
+<span><pre>
+octave> <mark>asin(0)</mark>
+ans = 0
+
+octave> <mark>acos(30)</mark>
+ans =       0 + 4.0941i
+
+octave> <mark>atan(45)</mark>
+ans = 1.5486
+
+octave> <mark>asec(60)</mark>
+ans = 1.5541
+
+octave> <mark>acsc(90)</mark>
+ans = 0.011111
+
+octave> <mark>acot(180)</mark>
+ans = 5.5555e-03
+<hr>octave> <mark>asind(0)</mark>
+ans = 0
+
+octave> <mark>acosd(30)</mark>
+ans =         0 + 234.5727i
+
+octave> <mark>atand(45)</mark>
+ans = 88.727
+
+octave> <mark>asecd(60)</mark>
+ans = 89.045
+
+octave> <mark>acscd(90)</mark>
+ans = 0.6366
+
+octave> <mark>acotd(180)</mark>
+ans = 0.3183
+</pre></span>
+
+<div class="terminalcard">Compute hyperbolic trigonometric ratios</div>
+<span><pre>
+octave> <mark>sinh(0)</mark>
+ans = 0
+
+octave> <mark>cosh(30)</mark>
+ans = 5.3432e+12
+
+octave> <mark>tanh(45)</mark>
+ans = 1
+
+octave> <mark>sech(60)</mark>
+ans = 1.7513e-26
+
+octave> <mark>csch(90)</mark>
+ans = 1.6388e-39
+
+octave> <mark>coth(180)</mark>
+ans = 1
+</pre></span>
+
+<div class="terminalcard">Compute inverse hyperbolic trigonometric ratios</div>
+<span><pre>
+octave> <mark>asinh(0)</mark>
+ans = 0
+
+octave> <mark>acosh(30)</mark>
+ans = 4.0941
+
+octave> <mark>atanh(45)</mark>
+ans =  0.022226 + 1.570796i
+
+octave> <mark>asech(60)</mark>
+ans =       0 + 1.5541i
+
+octave> <mark>acsch(90)</mark>
+ans = 0.011111
+
+octave> <mark>acoth(180)</mark>
+ans = 5.5556e-03
+</pre></span>

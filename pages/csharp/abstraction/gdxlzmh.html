@@ -1,0 +1,57 @@
+---
+permalink: csharp/abstraction/gdxlzmh
+title: C# program to demonstrate the use of an interface
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+Console.WriteLine("———————————————————————————————————————————");
+Console.WriteLine("Program to demonstrate the use of interface");
+Console.WriteLine("———————————————————————————————————————————");
+WhiteBank wb = new WhiteBank();
+GreenBank gb = new GreenBank();
+gb.credit();
+wb.withdraw();
+Console.Write("———————————————————————————————————————————");
+
+public interface IBank
+{
+    void credit();
+    void withdraw();
+}
+public class WhiteBank : IBank
+{
+    public void credit()
+    {
+        Console.WriteLine("Your balance is credited in WhiteBank account");
+    }
+    public void withdraw()
+    {
+        Console.WriteLine("\nCash withdrew from WhiteBank account");
+    }
+}
+public class GreenBank : IBank
+{
+    public void credit()
+    {
+        Console.WriteLine("Your balance is credited in GreenBank account");
+    }
+    public void withdraw()
+    {
+        Console.WriteLine("\nCash withdrew from GreenBank account");
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+———————————————————————————————————————————
+Program to demonstrate the use of interface
+———————————————————————————————————————————
+Your balance is credited in GreenBank account
+
+Cash withdrew from WhiteBank bank account
+———————————————————————————————————————————
+godarda@gd:~/csharp$ 
+</pre></span>

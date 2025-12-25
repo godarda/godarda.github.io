@@ -1,0 +1,177 @@
+---
+permalink: python/strings/gdyqzaz
+title: Python Strings Methods
+---
+
+<div class="terminalcard">String casefold(), capitalize() and title() methods</div>
+<span><pre>
+godarda@gd:~$ <mark>python3</mark>
+...
+>>> <mark>gd="KoDiNgWiNdOw"</mark>
+>>> <mark>gd.casefold()</mark>
+'godarda'
+
+>>> <mark>gd="KODINGWINDOW"</mark>
+>>> <mark>gd.casefold()</mark>
+'godarda'
+
+>>> <mark>gd="godarda"</mark>
+>>> <mark>gd.casefold()</mark>
+'godarda'
+
+>>> <mark>gd="koding window"</mark>
+>>> <mark>gd.capitalize()</mark>
+'Koding window'
+
+>>> <mark>gd.title()</mark>
+'Koding Window'    
+</pre></span>
+
+<div class="terminalcard">String upper(), lower() and swapcase() methods</div>
+<span><pre>
+>>> <mark>gd="godarda"</mark>
+>>> <mark>gd.upper()</mark>
+'KODINGWINDOW'
+
+>>> <mark>gd="KODINGWINDOW"</mark>
+>>> <mark>gd.lower()</mark>
+'godarda'
+
+>>> <mark>gd="GoDarda"</mark>
+>>> <mark>gd.swapcase()</mark>
+'kODINGwINDOW'    
+</pre></span>
+
+<div class="terminalcard">String rjust() and ljust() methods</div>
+<span><pre>
+>>> <mark>gd="GoDarda"</mark>
+>>> <mark>gd.rjust(20)</mark>
+'        GoDarda'
+
+>>> <mark>gd.ljust(20)</mark>
+'GoDarda        '
+</pre></span>
+
+<div class="terminalcard">String strip(), rstrip(), and lstrip() methods</div>
+<span><pre>
+>>> <mark>gd="    GoDarda           "</mark>
+>>> <mark>gd.strip()</mark>
+'GoDarda' 
+
+>>> <mark>gd.rstrip()</mark>
+'    GoDarda'
+
+>>> <mark>gd.lstrip()</mark>
+'GoDarda           '
+</pre></span>
+
+<div class="terminalcard">String find() and count() methods</div>
+<span><pre>
+>>> <mark>gd="GoDarda"</mark>
+>>> <mark>gd.find("W",0,len(gd))</mark>
+6
+
+>>> <mark>gd.find("in",0,len(gd))</mark>
+3
+
+>>> <mark>gd.count("in",1,len(gd))</mark>
+2
+
+>>> <mark>gd.count("o",1,len(gd))</mark>
+2  
+</pre></span>
+
+<div class="terminalcard">Strings sort() method</div>
+<span><pre>
+>>> <mark>gd=["K","O","D","I","N","G","W","I","N","D","O","W"]</mark>
+>>> <mark>gd.sort()</mark>
+>>> <mark>gd</mark>
+['D', 'D', 'G', 'I', 'I', 'K', 'N', 'N', 'O', 'O', 'W', 'W']
+
+>>> <mark>gd=("K","O","D","I","N","G","W","I","N","D","O","W")</mark>
+>>> <mark>gd.sort()</mark>
+<error>Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+AttributeError: 'tuple' object has no attribute 'sort'</error>
+</pre></span>
+
+<div class="terminalcard">String startswith() and endswith() methods</div>
+<span><pre>
+>>> <mark>gd="GoDarda"</mark>
+>>> <mark>gd.startswith("k")</mark>
+False
+
+>>> <mark>gd.startswith("K")</mark>
+True
+
+>>> <mark>gd.startswith("GoDarda")</mark>
+True
+
+>>> <mark>gd.endswith("GoDarda")</mark>
+True
+
+>>> <mark>gd.endswith("ow")</mark>
+True
+
+>>> <mark>gd.endswith("W")</mark>
+False  
+</pre></span>
+
+<div class="terminalcard">String zfill() and replace() method</div>
+<span><pre>
+>>> <mark>gd="GoDarda"</mark>
+>>> <mark>len(gd)</mark>
+12
+
+>>> <mark>gd.zfill(12)</mark>
+'GoDarda'
+
+>>> <mark>gd.zfill(15)</mark>
+'000KodingWindow'
+
+>>> <mark>gd.zfill(0)</mark>
+'GoDarda'    
+
+>>> <mark>gd.replace("i","###")</mark>
+'Kod###ngW###ndow'
+
+>>> <mark>gd.replace("W","###",1)</mark>
+'Koding###indow'
+
+>>> <mark>gd.replace("d","###",2)</mark>
+'Ko###ingWin###ow'
+</pre></span>
+
+<div class="terminalcard">String split() and splitlines() methods</div>
+<span><pre>
+>>> <mark>gd="Koding\nWindow"</mark>
+>>> <mark>gd.splitlines()</mark>
+['Koding', 'Window']
+
+>>> <mark>gd.split("\n")</mark>
+['Koding', 'Window']    
+</pre></span>
+
+<div class="terminalcard">String functions and operations</div>
+<span><pre>
+>>> <mark>'Hello, World!'.split()</mark>
+['hello,', 'world!']
+
+>>> <mark>s1=("Hello, World!")</mark>
+>>> <mark>''.join(sorted(s1))</mark>
+' !,HWdellloor'
+
+>>> <mark>''.join(sorted(s1)).strip()</mark>
+'!,HWdellloor'
+
+>>> <mark>print(sorted(s1))</mark>
+[' ', '!', ',', 'H', 'W', 'd', 'e', 'l', 'l', 'l', 'o', 'o', 'r']
+
+>>> <mark>''.join(sorted(set(s1)))</mark>
+' !,HWdelor'
+
+>>> <mark>strings="Kiwi Apple Orange Banana Kiwi Apple Kiwi"</mark>
+>>> <mark>words=strings.split()</mark>
+>>> <mark>print(' '.join(sorted(set(words),key=words.index)))</mark>
+Kiwi Apple Orange Banana
+</pre></span>

@@ -1,0 +1,120 @@
+---
+permalink: java/collections/gdsnzag
+title: Implementation of Java LinkedHashSet class
+---
+
+<div class="codecard">Java LinkedHashSet: add() and size() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.LinkedHashSet;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //LinkedHashSet class implements the Set interface
+        LinkedHashSet<String> lhs=new LinkedHashSet<>();
+        lhs.add("Apple");
+        lhs.add("Orange");
+        lhs.add("Mango");
+        lhs.add("Grapes");
+        lhs.add("Cherry");
+        lhs.add("Apple");
+        System.out.println(lhs);
+        System.out.println("Size: "+lhs.size());
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[Apple, Orange, Mango, Grapes, Cherry]
+Size: 5
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java LinkedHashSet: addAll() and containsAll() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.LinkedHashSet;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //LinkedHashSet class implements the Set interface
+    	LinkedHashSet<String> lhs1=new LinkedHashSet<>();
+    	lhs1.add("Apple");
+        lhs1.add("Orange");
+        lhs1.add("Mango");
+        lhs1.add("Blueberry");
+        System.out.println(lhs1);
+        
+        LinkedHashSet<String> lhs2=new LinkedHashSet<>();
+    	lhs2.add("Apple");
+        lhs2.add("Orange");
+        lhs2.add("Mango");
+        lhs2.add("Pineapple");
+        System.out.println(lhs2);
+        
+        lhs1.addAll(lhs2);
+        System.out.println(lhs1);
+        
+        System.out.println(lhs1.contains("Pineapple"));
+        System.out.println(lhs2.containsAll(lhs1));
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[Apple, Orange, Mango, Blueberry]
+[Apple, Orange, Mango, Pineapple]
+[Apple, Orange, Mango, Blueberry, Pineapple]
+true
+false
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java LinkedHashSet: remove() and removeAll() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.LinkedHashSet;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //LinkedHashSet class implements the Set interface
+    	LinkedHashSet<String> lhs=new LinkedHashSet<>();
+        lhs.add("Apple");
+        lhs.add("Orange");
+        lhs.add("Mango");
+        lhs.add("Grapes");
+        lhs.add("Cherry");
+        
+        for(String s:lhs)
+        {
+            System.out.println(s);
+        }
+        lhs.remove("Apple");
+        System.out.println("\n"+lhs);
+        
+        lhs.removeAll(lhs); //lhs.clear();
+        System.out.println("Size: "+lhs.size());
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Apple
+Orange
+Mango
+Grapes
+Cherry
+
+[Orange, Mango, Grapes, Cherry]
+Size: 0
+godarda@gd:~$ 
+</pre></span>

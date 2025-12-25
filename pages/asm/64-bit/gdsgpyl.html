@@ -1,0 +1,36 @@
+---
+permalink: asm/64-bit/gdsgpyl
+title: ALP to print Hello World using macro (64-bit)
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.asmfile }}</div>
+<pre class="code">{%- highlight nasm -%}
+section .data
+msg db "Hello, World!",10
+msg_len equ $-msg
+
+%macro display 4
+    mov rax,%1
+    mov rdi,%2
+    mov rsi,%3
+    mov rdx,%4
+    syscall
+%endm
+
+section .text
+global _start
+_start:
+    display 1,1,msg,msg_len
+
+;Exit System Call
+    mov rax,60
+    mov rbx,00
+    syscall
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runasm }}
+Hello, World!
+godarda@gd:~$ 
+</pre></span></pre></span>

@@ -1,0 +1,68 @@
+name: Sync Develop After Squash Merge
+
+# Trigger: Executes when a pull request to 'main' is closed.
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  sync-develop:
+    # Condition: Execute only if the PR was merged from 'develop' by 'shubhamrdarda'.
+    if: github.event.pull_request.merged == true &&
+        github.event.pull_request.head.ref == 'develop' &&
+        github.event.pull_request.user.login == 'shubhamrdarda'
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the 'main' branch with full history
+      - name: Checkout main branch
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Configure Git identity for automated operations
+      - name: Configure Git
+        run: |
+          git config user.name "GoDarda Bot"
+          git config user.email "bot@godarda.dev"
+
+      # Fetch all remote branches
+      - name: Fetch all branches
+        run: git fetch --all
+
+      # Verify that the squash commit has propagated to 'main'
+      - name: Wait for squash commit to appear
+        id: wait_for_commit
+        run: |
+          EXPECTED_COMMIT="${{ github.event.pull_request.merge_commit_sha }}"
+          echo "Expected squash commit: $EXPECTED_COMMIT"
+
+          for i in {1..5}; do
+            git fetch origin main
+            ACTUAL_COMMIT=$(git rev-parse origin/main)
+            echo "Attempt $i: main is at $ACTUAL_COMMIT"
+
+            if [ "$ACTUAL_COMMIT" = "$EXPECTED_COMMIT" ]; then
+              echo "Squash commit confirmed on main."
+              echo "commit_ready=true" >> $GITHUB_OUTPUT
+              break
+            fi
+
+            echo "Waiting for GitHub to sync..."
+            sleep 30
+          done
+
+      # Force-sync 'develop' to match 'main'
+      - name: Sync develop from main
+        run: |
+          git push origin main:develop --force
+
+      # Log synchronization status
+      - name: Log sync message
+        run: |
+          echo "'develop' has been synced from 'main'."
+          echo "Note: squash commit confirmation status: ${{ steps.wait_for_commit.outputs.commit_ready || 'not confirmed' }}"

@@ -1,0 +1,29 @@
+---
+permalink: selenium/interfaces/gddewhz
+title: Selenium Java to scroll down the page at the bottom using JavascriptExecutor
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="editorcard">{%- highlight java -%}
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+class GD
+{
+    public static void main(String[] args) 
+    {   
+        System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://godarda.in/");
+        
+        JavascriptExecutor jse = (JavascriptExecutor)driver;
+        jse.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+        
+        //jse.executeScript("window.scrollBy(0, 500)"); //scrollBy(x-pixels,y-pixels)
+        //driver.close();
+    }
+}
+{%- endhighlight -%}</pre>

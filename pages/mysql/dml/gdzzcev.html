@@ -1,0 +1,106 @@
+---
+permalink: mysql/dml/gdzzcev
+title: MySQL UPDATE Clause
+---
+
+<div class="titlecard">{{ page.title }}</div>
+
+<div class="terminalcard">Retrieving the existing databases and table records</div>
+<span><pre>
+mysql> <mark>SHOW DATABASES;</mark>
++--------------------+
+| Database           |
++--------------------+
+| DB                 |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> <mark>USE DB;</mark>
+Database changed
+
+mysql> <mark>SHOW TABLES;</mark>
++--------------+
+| Tables_in_DB |
++--------------+
+| holders      |
++--------------+
+1 row in set (0.01 sec)
+
+mysql> <mark>SELECT * FROM holders;</mark>
++-------------+---------------+---------+------------+----------+--------+
+| account_no  | name          | city    | dob        | bank     | amount |
++-------------+---------------+---------+------------+----------+--------+
+| 25622348989 | James Moore   | Phoenix | 1985-05-26 | Barclays |   5000 |
+| 25622348990 | Donald Taylor | Irvine  | 1990-08-20 | Citi     |   7000 |
+| 25622348991 | Edward Parkar | Irvine  | 1994-01-29 | ICICI    |  95000 |
+| 25622348992 | Ryan Bakshi   | Mumbai  | 1982-01-14 | Citi     |  50000 |
+| 25622348993 | Marie Peters  | Ribe    | 1967-01-05 | DZBank   |  12250 |
+| 25622348994 | Aanya         | Delhi   | 1975-08-18 | SBI      | 105000 |
+| 25622348995 | James Moore   | NULL    | 1978-06-26 | Citi     |  97800 |
++-------------+---------------+---------+------------+----------+--------+
+7 rows in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">Updating the specific records</div>
+<span><pre>
+mysql> <mark>UPDATE holders SET amount = amount + 2000 WHERE city = 'Irvine';</mark>
+Query OK, 2 rows affected (0.16 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> <mark>SELECT * FROM holders;</mark>
++-------------+---------------+---------+------------+----------+--------+
+| account_no  | name          | city    | dob        | bank     | amount |
++-------------+---------------+---------+------------+----------+--------+
+| 25622348989 | James Moore   | Phoenix | 1985-05-26 | Barclays |   5000 |
+| 25622348990 | Donald Taylor | Irvine  | 1990-08-20 | Citi     |   9000 |
+| 25622348991 | Edward Parkar | Irvine  | 1994-01-29 | ICICI    |  97000 |
+| 25622348992 | Ryan Bakshi   | Mumbai  | 1982-01-14 | Citi     |  50000 |
+| 25622348993 | Marie Peters  | Ribe    | 1967-01-05 | DZBank   |  12250 |
+| 25622348994 | Aanya         | Delhi   | 1975-08-18 | SBI      | 105000 |
+| 25622348995 | James Moore   | NULL    | 1978-06-26 | Citi     |  97800 |
++-------------+---------------+---------+------------+----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> <mark>UPDATE holders SET city = 'New York' WHERE account_no = 25622348995;</mark>
+Query OK, 1 row affected (0.19 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> <mark>SELECT * FROM holders;</mark>
++-------------+---------------+----------+------------+----------+--------+
+| account_no  | name          | city     | dob        | bank     | amount |
++-------------+---------------+----------+------------+----------+--------+
+| 25622348989 | James Moore   | Phoenix  | 1985-05-26 | Barclays |   5000 |
+| 25622348990 | Donald Taylor | Irvine   | 1990-08-20 | Citi     |   9000 |
+| 25622348991 | Edward Parkar | Irvine   | 1994-01-29 | ICICI    |  97000 |
+| 25622348992 | Ryan Bakshi   | Mumbai   | 1982-01-14 | Citi     |  50000 |
+| 25622348993 | Marie Peters  | Ribe     | 1967-01-05 | DZBank   |  12250 |
+| 25622348994 | Aanya         | Delhi    | 1975-08-18 | SBI      | 105000 |
+| 25622348995 | James Moore   | New York | 1978-06-26 | Citi     |  97800 |
++-------------+---------------+----------+------------+----------+--------+
+7 rows in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">Updating all the records</div>
+<span><pre>
+mysql> <mark>UPDATE holders SET amount = amount + 2000;</mark>
+Query OK, 7 rows affected (0.19 sec)
+Rows matched: 7  Changed: 7  Warnings: 0
+
+mysql> <mark>SELECT * FROM holders;</mark>
++-------------+---------------+----------+------------+----------+--------+
+| account_no  | name          | city     | dob        | bank     | amount |
++-------------+---------------+----------+------------+----------+--------+
+| 25622348989 | James Moore   | Phoenix  | 1985-05-26 | Barclays |   7000 |
+| 25622348990 | Donald Taylor | Irvine   | 1990-08-20 | Citi     |  11000 |
+| 25622348991 | Edward Parkar | Irvine   | 1994-01-29 | ICICI    |  99000 |
+| 25622348992 | Ryan Bakshi   | Mumbai   | 1982-01-14 | Citi     |  52000 |
+| 25622348993 | Marie Peters  | Ribe     | 1967-01-05 | DZBank   |  14250 |
+| 25622348994 | Aanya         | Delhi    | 1975-08-18 | SBI      | 107000 |
+| 25622348995 | James Moore   | New York | 1978-06-26 | Citi     |  99800 |
++-------------+---------------+----------+------------+----------+--------+
+7 rows in set (0.01 sec)
+</pre></span>

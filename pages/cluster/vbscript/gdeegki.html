@@ -1,0 +1,28 @@
+---
+permalink: cluster/vbscript/gdeegki
+title: VBScript to print the file properties
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.vbsfile }}</div>
+<pre>{%- highlight vb -%}
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+Set objFile = objFSO.GetFile("D:\VBScript\Trial.txt")
+print objFSO.GetAbsolutePathName(objFile)
+print objFSO.GetBaseName(objFile)
+print objFSO.GetFileName(objFile)
+print objFSO.GetExtensionName(objFile)
+print objFSO.GetDriveName(objFile)
+print objFSO.GetParentFolderName(objFile)
+print "File Size " & objFSO.GetFile(objFile).Size & " bytes"
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+D:\VBScript\Trial.txt
+Trial
+Trial.txt
+txt
+D:
+D:\VBScript
+File Size 30 bytes
+</pre></span>

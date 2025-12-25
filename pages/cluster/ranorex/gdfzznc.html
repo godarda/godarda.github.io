@@ -1,0 +1,92 @@
+---
+permalink: cluster/ranorex/gdfzznc
+title: How to compare the Excel sheets using Interop objects in Ranorex
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">File: ExcelComparison.UserCode.cs</div>
+<pre class="editorcard">
+{%- highlight csharp -%}
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Drawing;
+using System.Threading;
+using WinForms = System.Windows.Forms;
+
+using Ranorex;
+using Ranorex.Core;
+using Ranorex.Core.Repository;
+using Ranorex.Core.Testing;
+using Microsoft.Office.Interop.Excel;
+
+namespace GlobalProjects
+{
+    public partial class ExcelComparison
+    {
+        private void Init()
+        {
+            CompareCell();
+        }
+
+        Excel.Application xlapp;
+        Excel.Workbook xlworkbook1, xlworkbook2;
+        Excel.Worksheet xlworksheet1, xlworksheet2;
+        Excel.Range xlrange1, xlrange2;
+        
+        public void CompareCell()
+        {
+            xlapp = new Excel.ApplicationClass();
+            xlapp.WindowState = Excel.XlWindowState.xlMaximized;
+            xlapp.Visible = true;
+            
+            xlworkbook1 = xlapp.Workbooks.Open("D:\\Ranorex\\GlobalProjects\\Workbook-1.xlsx");
+            xlworkbook2 = xlapp.Workbooks.Open("D:\\Ranorex\\GlobalProjects\\Workbook-2.xlsx");
+            
+            xlworksheet1 = (Excel.Worksheet)xlworkbook1.Sheets["Sheet1"];
+            xlworksheet2 = (Excel.Worksheet)xlworkbook2.Sheets["Sheet1"];
+            
+            xlrange1 = xlworksheet1.UsedRange;
+            xlrange2 = xlworksheet2.UsedRange;
+            
+            if(xlrange1.Rows.Count.Equals(xlrange2.Rows.Count) && xlrange1.Columns.Count.Equals(xlrange2.Columns.Count))
+            {
+                Report.Info("Excel range matched.");
+                for(int rowcnt=1; rowcnt<=xlrange1.Rows.Count; rowcnt++)
+                {
+                    for(int colcnt=1; colcnt<=xlrange1.Columns.Count; colcnt++)
+                    {
+                        string data1 = (((xlrange1.Cells[rowcnt, colcnt] as Excel.Range).Value2).ToString());
+                        if(data1==null)
+                        {
+                            data1="";
+                        }
+                        string data2 = (((xlrange2.Cells[rowcnt, colcnt] as Excel.Range).Value2).ToString());
+                        if(data2==null)
+                        {
+                            data2="";
+                        }
+                        
+                        if(data1.Equals(data2))
+                        {
+                            Report.Info("Row "+rowcnt+" Column "+colcnt+" -> Matched Cell("+rowcnt+","+colcnt+")");
+                        }
+                        else
+                        {
+                            Report.Info("Row "+rowcnt+" Column "+colcnt+" -> Unatched Cell("+rowcnt+","+colcnt+")");
+                        }
+                    }
+                }
+                Report.Success("Data comparison successfully done. Status: Pass");
+            }
+            else
+            {
+                Report.Info("Excel range not matched. Status: Fail");
+            }
+            xlapp.Quit();
+        }
+        
+    }
+}
+{%- endhighlight -%}</pre>

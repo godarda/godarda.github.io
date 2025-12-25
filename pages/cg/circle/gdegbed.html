@@ -1,0 +1,37 @@
+---
+permalink: cg/circle/gdegbed.html 
+title: C++ program to draw concentric color-filled circles
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <graphics.h>
+int main()
+{
+    int gd = 0, gm = 9, i, color = 1;
+    initgraph(&gd, &gm, NULL);
+    {
+        for (i = 10; i <= 200; i = i + 15)
+        {
+            setcolor(color++);
+            pieslice(320, 240, 0, 360, i);
+            delay(100);
+        }
+        int gd = 0, gm = 9, i, color = 1;
+        for (i = 200; i >= 10; i = i - 15)
+        {
+            setcolor(color++);
+            pieslice(320, 240, 0, 360, i);
+            delay(100);
+        }
+    }
+    delay(7000);
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcg }}
+<img src="pages/cg/images/gdoygmy.png" loading="lazy">
+</pre></span>

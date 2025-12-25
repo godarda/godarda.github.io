@@ -1,0 +1,27 @@
+---
+permalink: cluster/vbscript/gdzovgy
+title: VBScript to demonstrate the use of Array
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.vbsfile }}</div>
+<pre>{%- highlight vb -%}
+arr = Array(1000,900,800,700,600,500,400,300,200,100)
+print arr(5)
+print IsArray(arr)
+print LBound(arr)
+print UBound(arr)
+arr(5)=1100
+For i = LBound(arr) To UBound(arr)
+    a = a & arr(i) & " "
+Next
+print "Array Elements " & a
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+500
+True
+0
+9
+Array Elements 1000 900 800 700 600 1100 400 300 200 100 
+</pre></span>

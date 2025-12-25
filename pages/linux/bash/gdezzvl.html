@@ -1,0 +1,39 @@
+---
+permalink: linux/bash/gdezzvl
+title: Bash shell script to swap the given numbers and strings
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.shfile }}</div>
+<pre class="code">{%- highlight shell -%}
+#!/bin/bash
+
+echo "———————————————————————————————————————————"
+echo "Script to swap the given numbers and strings"
+echo "———————————————————————————————————————————"
+echo -n "a="; read a
+echo -n "b="; read b
+echo "——————————————————————"
+echo "After swapping..."
+echo "——————————————————————"
+sleep 2
+echo "a=$b"
+echo "b=$a"
+echo "———————————————————————————————————————————"
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runsh }}
+———————————————————————————————————————————
+Script to swap the given numbers and strings
+———————————————————————————————————————————
+a=Hi There!
+b=How are you today?
+——————————————————————
+After swapping...
+——————————————————————
+a=How are you today?
+b=Hi There!
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

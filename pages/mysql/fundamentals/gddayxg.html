@@ -1,0 +1,73 @@
+---
+permalink: mysql/fundamentals/gddayxg
+title: How to setup, install, and start MySQL on Ubuntu
+---
+
+<div class="titlecard">{{ page.title }}</div>
+
+<div class="terminalcard">Step-1: Open a terminal and execute the following commands</div>
+<span><pre>
+godarda@gd:~$ <mark>sudo apt-get install mysql-server</mark>
+[sudo] password for godarda: 
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following additional packages will be installed:
+...
+After this operation, 246 MB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+</pre></span>
+
+<div class="terminalcard">Step-2: Check MySQL server status</div>
+<span><pre>
+  godarda@gd:~$ <mark>systemctl status mysql</mark>
+● mysql.service - MySQL Community Server
+     Loaded: loaded (/lib/systemd/system/mysql.service; enabled; vendor preset:>
+     Active: active (running) since Fri 2024-03-01 09:49:13 IST; 30min ago
+   Main PID: 723 (mysqld)
+     Status: "Server is operational"
+      Tasks: 38 (limit: 9171)
+     Memory: 424.0M
+        CPU: 12.957s
+     CGroup: /system.slice/mysql.service
+             └─723 /usr/sbin/mysqld
+
+Mar 01 09:49:12 gd systemd[1]: Starting MySQL Community Server...
+Mar 01 09:49:13 gd systemd[1]: Started MySQL Community Server.
+</pre></span>
+
+<div class="terminalcard">Step-3: Start MySQL</div>
+<span><pre>
+godarda@gd:~$ <mark>sudo mysql -u root -p</mark>
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.36-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> <mark>SHOW DATABASES;</mark>
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.02 sec)
+
+mysql> 
+</pre></span>
+
+<div class="board"><div class="boardtitle">Recommendations</div>
+    <a class="card" href="mysql/ddl/gddwgvc">MySQL CREATE a DATABASE and TABLE</a>
+    <a class="card" href="java/jdbc/gdpuuhg">Java MySQL to connect, create database, and table</a>
+    <a class="card" href="python/dbc/gdvdwzz">Python MySQL to connect, create database, and table</a>
+</div>

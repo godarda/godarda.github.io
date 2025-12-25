@@ -1,0 +1,45 @@
+---
+permalink: java/multithreading/gdegzvz
+title: Java program for priority thread
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD extends Thread
+{  
+    public void run()
+    {  
+        System.out.println(Thread.currentThread().getName()+" Server Is Running...");       
+    }  
+    public static void main(String args[])
+    {  
+        GD t1=new GD();
+        GD t2=new GD(); 
+        GD t3=new GD(); 
+        t1.setName("MongoDB");
+        t2.setName("MySQL");
+        t3.setName("Cassandra");
+        t1.setPriority(Thread.MAX_PRIORITY);
+        t2.setPriority(Thread.NORM_PRIORITY);
+        t3.setPriority(Thread.MIN_PRIORITY);
+        System.out.println("Thread Priority T1 "+t1.getPriority());
+        System.out.println("Thread Priority T2 "+t2.getPriority());
+        System.out.println("Thread Priority T3 "+t3.getPriority());
+        t1.start(); 
+        t2.start();
+        t3.start();  
+    }  
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Thread Priority T1 10
+Thread Priority T2 5
+Thread Priority T3 1
+MongoDB Server Is Running...
+MySQL Server Is Running...
+Cassandra Server Is Running...
+godarda@gd:~$ 
+</pre></span>

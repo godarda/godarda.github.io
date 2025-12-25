@@ -1,0 +1,74 @@
+---
+permalink: c/controls/gdebyay
+title: Find the output of C programs
+---
+
+<div class="titlecard">{{ page.title }}</div>
+<div class="codecard">Program 1</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    int x = 5;
+    if (x == 5)
+        printf("%d\n", !x);
+    else
+        printf("%d\n", x);
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div style="cursor: pointer;" class="card collapsed" data-bs-toggle="collapse" data-bs-target="#p1"><span class="show">Show Output</span><span class="hide">Output</span></div>
+<div id="p1" class="collapse">
+<span><pre>
+{{ site.runc }}
+0
+godarda@gd:~$ 
+</pre></span>
+</div>
+
+<div class="codecard">Program 2</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    int x = 0;
+    if (!x)
+        printf("%d\n", !x);
+    else
+        printf("%d\n", x);
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div style="cursor: pointer;" class="card collapsed" data-bs-toggle="collapse" data-bs-target="#p2"><span class="show">Show Output</span><span class="hide">Output</span></div>
+<div id="p2" class="collapse">
+<span><pre>
+{{ site.runc }}
+1
+godarda@gd:~$ 
+</pre></span>
+</div>
+
+<div class="codecard">Program 3</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    int x = 5;
+    if (x)
+        printf("%d\n", !x);
+    else
+        printf("%d\n", x);
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div style="cursor: pointer;" class="card collapsed" data-bs-toggle="collapse" data-bs-target="#p3"><span class="show">Show Output</span><span class="hide">Output</span></div>
+<div id="p3" class="collapse">
+<span><pre>
+{{ site.runc }}
+0
+godarda@gd:~$ 
+</pre></span>
+</div>

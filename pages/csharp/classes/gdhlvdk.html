@@ -1,0 +1,46 @@
+---
+permalink: csharp/classes/gdhlvdk
+title: C# implementation of class and object
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+Console.WriteLine("———————————————————————————————————————————");
+Console.WriteLine("Program to use the class and object");
+Console.WriteLine("———————————————————————————————————————————");
+Computer c = new Computer();
+c.insert("Wireless","Lenovo",145221);
+c.display();
+Console.WriteLine("———————————————————————————————————————————");
+
+public class Computer
+{
+    public String mouseType = "";
+    public String mouseCmp = "";
+    public int mouseId;
+
+    public void insert(String t,String c,int i)
+    {
+        mouseType = t;
+        mouseCmp = c;
+        mouseId = i;
+    }
+    public void display()
+    {
+        Console.WriteLine("Mouse Type: "+mouseType+"\nMouse Cmp:  "+mouseCmp+"\nMouse Id:   "+mouseId);
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+———————————————————————————————————————————
+Program to use the class and object
+———————————————————————————————————————————
+Mouse Type: Wireless
+Mouse Cmp:  Lenovo
+Mouse Id:   145221
+———————————————————————————————————————————
+godarda@gd:~/csharp$ 
+</pre></span>

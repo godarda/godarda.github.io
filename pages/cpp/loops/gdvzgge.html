@@ -1,0 +1,55 @@
+---
+permalink: cpp/loops/gdvzgge
+title: C++ program to find the factorial of a given number
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+using namespace std;
+int main()
+{
+    long i, n, fact = 1;
+    cout<<"———————————————————————————————————————————";
+    cout<<"\nProgram to find the factorial of a given number ";
+    cout<<"\n———————————————————————————————————————————";
+    cout<<"\nEnter the number ";
+    cin>>n;
+    if (n > 20 || n < 0)
+    {
+        cout<<"\nOOP's can't find "<<n<<"!";
+    }
+    else
+    {
+        for (i = 1; i <= n; i++)
+        {
+            fact = fact * i;
+        }
+        cout<<"\nFactorial of "<<n<<" = "<<fact;
+    }
+    cout<<"\n———————————————————————————————————————————\n";
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+———————————————————————————————————————————
+Program to find the factorial of a given number 
+———————————————————————————————————————————
+Enter the number 25
+
+OOP's can't find 25!
+———————————————————————————————————————————
+
+godarda@gd:~$ <mark>./a.out</mark>
+———————————————————————————————————————————
+Program to find the factorial of a given number 
+———————————————————————————————————————————
+Enter the number 15
+
+Factorial of 15 = 1307674368000
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

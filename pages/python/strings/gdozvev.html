@@ -1,0 +1,129 @@
+---
+permalink: python/strings/gdozvev
+title: Python to check the given string is alphanumeric
+---
+
+<div class="terminalcard">String isalpha() method</div>
+<span><pre>
+godarda@gd:~$ <mark>python3</mark>
+...
+>>> <mark>s="Hello World!"</mark>
+>>> <mark>s.isalpha()</mark>
+False
+
+>>> <mark>s="Hello World"</mark>
+>>> <mark>s.isalpha()</mark>
+False
+
+>>> <mark>s="HelloWorld"</mark>
+>>> <mark>s.isalpha()</mark>
+True
+</pre></span>
+
+<div class="terminalcard">String isalnum() method</div>
+<span><pre>
+>>> <mark>s="Hello World!"</mark>
+>>> <mark>s.isalnum()</mark>
+False
+
+>>> <mark>s="Hello World"</mark>
+>>> <mark>s.isalnum()</mark>
+False
+
+>>> <mark>s="13HelloWorld13"</mark>
+>>> <mark>s.isalnum()</mark>
+True
+</pre></span>
+
+<div class="terminalcard">String isdigit() method</div>
+<span><pre>
+>>> <mark>s="13HelloWorld13"</mark>
+>>> <mark>s.isdigit()</mark>
+False
+
+>>> <mark>s="1313"</mark>
+>>> <mark>s.isdigit()</mark>
+True
+
+>>> <mark>s="13.13"</mark>
+>>> <mark>s.isdigit()</mark>
+False
+
+>>> <mark>s="\u00B2"</mark>
+>>> <mark>s.isdigit()</mark>
+True
+</pre></span>
+
+<div class="terminalcard">String isdecimal() method</div>
+<span><pre>
+>>> <mark>s="\u00B2"</mark>    <comment># to the power 2</comment>
+>>> <mark>s.isdecimal()</mark>
+False
+
+>>> <mark>s="0123456789"</mark>
+>>> <mark>s.isdecimal()</mark>
+True
+
+>>> <mark>s="\u00BD"</mark>    <comment># 1/2</comment>
+>>> <mark>s.isdecimal()</mark>
+False
+</pre></span>
+
+<div class="terminalcard">String isnumeric() method</div>
+<span><pre>
+>>> <mark>s="\u00B2"</mark>
+>>> <mark>s.isnumeric()</mark>
+True
+
+>>> <mark>s="0123456789"</mark>
+>>> <mark>s.isnumeric()</mark>
+True
+
+>>> <mark>s="1/2"</mark>
+>>> <mark>s.isnumeric()</mark>
+False
+
+>>> <mark>s="\u00BD"</mark>    <comment># 1/2</comment>
+>>> <mark>s.isnumeric()</mark>
+True
+</pre></span>
+
+<div class="terminalcard">String isspace() method</div>
+<span><pre>
+>>> <mark>s="Hello World!"</mark>
+>>> <mark>s.isspace()</mark>
+False
+
+>>> <mark>s="       "</mark>
+>>> <mark>s.isspace()</mark>
+True
+</pre></span>
+
+<div class="terminalcard">String istitle() method</div>
+<span><pre>
+>>> <mark>s="Hello World!"</mark>
+>>> <mark>s.istitle()</mark>
+True
+
+>>> <mark>s="hello world!"</mark>
+>>> <mark>s.istitle()</mark>
+False
+</pre></span>
+
+<div class="terminalcard">String islower() and isupper() methods</div>
+<span><pre>
+>>> <mark>s="hello world!"</mark>
+>>> <mark>s.islower()</mark>
+True
+
+>>> <mark>s="HELLO, WORLD!"</mark>
+>>> <mark>s.isupper()</mark>
+True
+
+>>> <mark>s="Hello, World!"</mark>
+>>> <mark>s.islower()</mark>
+False
+
+>>> <mark>s.isupper()</mark>
+False
+</pre></span>

@@ -1,0 +1,87 @@
+name: GDID Tracker
+
+# Automated Workflow: Tracks and updates GDID usage references.
+on:
+  # Trigger on push and pull requests to the develop branch
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
+
+# Grant write permissions to contents and pull requests
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  gdid-status-check:
+    name: GDID Status Check
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository content
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      # Execute a dummy check to verify workflow initiation
+      - name: Run dummy check
+        run: echo "GDID check passed"
+
+  create-pr:
+    name: Create and Merge GDID PR
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository content with full history
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      # Set up the Python 3.13 environment
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+
+      # Install required Python dependencies
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      # Execute the GDID tracking script
+      - name: Run GDID Tracker
+        run: python assets/gdid_sets/gdid.py
+
+      # Configure Git identity for automated commits
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      # Create a Pull Request with updated GDID sets
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v8
+        with:
+          commit-message: Auto-update GDID sets
+          title: Auto-update GDID sets
+          body: |
+            This PR was created automatically by the GDID Tracker workflow.
+            It includes updates to gdid_set*.txt and invalid.txt based on new usage references.
+          branch: gdid-update-${{ github.run_id }}
+          base: develop
+          delete-branch: true
+          labels: automated, gdid-update
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Enable auto-merge for the created Pull Request
+      - name: Enable Auto-Merge
+        if: steps.cpr.outputs.pull-request-number != ''
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
+          merge-method: squash
+          token: ${{ secrets.GITHUB_TOKEN }}

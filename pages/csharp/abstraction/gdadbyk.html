@@ -1,0 +1,39 @@
+---
+permalink: csharp/abstraction/gdadbyk
+title: How to achieve Multiple Inheritance in C# using interfaces
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+Bank b=new Bank();
+b.WhiteBankBonus();
+b.GreenBankBonus();
+
+interface IWhiteBank
+{
+    void WhiteBankBonus();
+}
+interface IGreenBank
+{
+    void GreenBankBonus();
+}
+class Bank : IWhiteBank, IGreenBank
+{
+    public void WhiteBankBonus()
+    {
+        Console.WriteLine("WhiteBank Festival Bonus: 1500");
+    }
+    public void GreenBankBonus()
+    {
+        Console.Write("GreenBank Festival Bonus: 500");
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+WhiteBank Festival Bonus: 1500
+GreenBank Festival Bonus: 500
+godarda@gd:~/csharp$ 
+</pre></span>

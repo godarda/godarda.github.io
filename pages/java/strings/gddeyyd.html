@@ -1,0 +1,52 @@
+---
+permalink: java/strings/gddeyyd
+title: Java implementation of the Character class
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD
+{
+    public static void main(String args[])
+    {
+        System.out.println("———————————————————————————————————————————");
+        System.out.println("Java implementation of Character class");
+        System.out.println("———————————————————————————————————————————");
+        System.out.println(Character.isLetter('S'));
+        System.out.println(Character.isDigit('7'));
+        System.out.println(Character.isUpperCase('S'));
+        System.out.println(Character.isLowerCase('w'));
+        System.out.println(Character.isWhitespace(' '));
+        System.out.println(Character.isWhitespace('\n'));
+        System.out.println(Character.isWhitespace('\t'));
+        System.out.println(Character.isLetter('*'));
+        System.out.println(Character.isDigit('@'));
+        System.out.println(Character.toLowerCase('A'));
+        System.out.println(Character.toUpperCase('a'));
+        System.out.println(Character.toString('Q'));
+        System.out.println("———————————————————————————————————————————");
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+———————————————————————————————————————————
+Java implementation of Character class
+———————————————————————————————————————————
+true
+true
+true
+true
+true
+true
+true
+false
+false
+a
+A
+Q
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

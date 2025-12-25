@@ -1,0 +1,88 @@
+name: TestHarness (Windows)
+
+# Automated Schedule: Executes on the last day of every month.
+# Manual Trigger: Enables on-demand execution via the GitHub Actions interface.
+on:
+  schedule:
+    # Execute on the 31st for months with 31 days
+    - cron: '0 1 31 1,3,5,7,8,10,12 *'
+    # Execute on the 30th for months with 30 days
+    - cron: '0 1 30 4,6,9,11 *'
+    # Execute on the 29th of February (Leap years)
+    - cron: '0 1 29 2 *'
+    # Execute on the 28th of February (Non-leap years)
+    - cron: '0 1 28 2 *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 15
+
+    steps:
+      # Checkout the repository content
+      - name: Checkout develop branch
+        uses: actions/checkout@v6
+        with:
+          ref: develop
+
+      # Set up the Python 3.13 environment
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+
+      # Install project-specific Python dependencies
+      - name: Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip > $null 2>&1
+          pip install --quiet -r setups/requirements.txt > $null 2>&1
+        shell: pwsh
+
+      # Set up Ruby environment and install dependencies
+      - name: Setup Ruby and Install Gems
+        run: |
+          # Install Ruby with DevKit
+          choco install ruby --no-progress -y > $null 2>&1
+          refreshenv
+
+          # Install MSYS2 toolchain for native extensions
+          ridk install 3 > $null 2>&1
+
+          # Install Bundler and required Ruby gems
+          gem install bundler --quiet > $null 2>&1
+          bundle config set --local path vendor/bundle
+          bundle install --quiet > $null 2>&1
+        shell: pwsh
+
+      # Initialize the Jekyll server and execute the test suite
+      - name: Start Jekyll Server and Run Tests
+        run: |
+          # Launch the Jekyll server in the background
+          Start-Process -NoNewWindow -FilePath "bundle" -ArgumentList "exec", "jekyll", "serve"
+          Start-Sleep -Seconds 5
+
+          # Poll for server availability
+          $maxAttempts = 60
+          for ($i = 1; $i -le $maxAttempts; $i++) {
+            try {
+              Invoke-WebRequest -Uri http://localhost:4000 -UseBasicParsing | Out-Null
+              Write-Host "Jekyll server is up!"
+              break
+            } catch {
+              Write-Host "Waiting for server... ($i)"
+              Start-Sleep -Seconds 1
+            }
+          }
+
+          # Validate server status prior to testing
+          try {
+            Invoke-WebRequest -Uri http://localhost:4000 -UseBasicParsing | Out-Null
+          } catch {
+            Write-Error "Server failed to start within timeout. Aborting tests."
+            exit 1
+          }
+          
+          # Execute the Python test suite
+          python tests/run.py
+        shell: pwsh

@@ -1,0 +1,117 @@
+---
+permalink: csharp/dbc/gdeoefi
+title: C# program to create a table in MySQL
+---
+
+<div class="terminalcard">Start MySQL</div>
+<span><pre>
+Enter password: ******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.19 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> <mark>SHOW DATABASES;</mark>
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.03 sec)
+godarda@gd:~/csharp$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+using MySql.Data.MySqlClient;
+using System;
+namespace GoDarda
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            MySqlConnection con = new MySqlConnection("server=localhost;database=DB;user=root;port=3306;password=passwd");
+            MySqlCommand cmd;
+            try
+            {
+                con.Open();
+                cmd = new MySqlCommand("CREATE TABLE holders(account_no BIGINT PRIMARY KEY, name VARCHAR(30) NOT NULL, bank VARCHAR(10), amount BIGINT NOT NULL)", con);
+                cmd.ExecuteNonQuery();
+                Console.WriteLine("Table Created");
+                
+                Console.WriteLine("\nList of MySQL Tables: ");
+                cmd = new MySqlCommand("SHOW TABLES", con);
+                MySqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    Console.WriteLine(dr[0]);
+                }
+                dr.Close();
+                con.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            Console.ReadKey();
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+Table Created
+
+List of MySQL Tables:
+holders
+</pre></span>
+
+<div class="terminalcard">MySQL Instance</b></div>
+<span><pre>
+mysql> <mark>SHOW DATABASES;</mark>
++--------------------+
+| Database           |
++--------------------+
+| db                 |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> <mark>USE DB;</mark>
+Database changed
+
+mysql> <mark>SHOW TABLES;</mark>
++--------------+
+| Tables_in_db |
++--------------+
+| holders      |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>DESC holders;</mark>
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| account_no | bigint      | NO   | PRI | NULL    |       |
+| name       | varchar(30) | NO   |     | NULL    |       |
+| bank       | varchar(10) | YES  |     | NULL    |       |
+| amount     | bigint      | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.33 sec)
+godarda@gd:~/csharp$ 
+</pre></span>

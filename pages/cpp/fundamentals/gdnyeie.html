@@ -1,0 +1,38 @@
+---
+permalink: cpp/fundamentals/gdnyeie
+title: C++ program to calculate the area and circumference of a circle
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+using namespace std;
+#define PI 3.141592654
+int main()
+{
+    float R;
+    cout<<"———————————————————————————————————————————";
+    cout<<"\nProgram to calculate the area and circumference of a circle";
+    cout<<"\n———————————————————————————————————————————";
+    cout<<"\nEnter the radius of a circle ";
+    cin>>R;
+    cout<<"\nThe area of a circle is "<<PI * R * R;
+    cout<<"\nThe circumference of a circle is "<<2 * PI * R;
+    cout<<"\n———————————————————————————————————————————\n";
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+———————————————————————————————————————————
+Program to calculate the area and circumference of a circle
+———————————————————————————————————————————
+Enter the radius of a circle 10
+
+The area of a circle is 314.159
+The circumference of a circle is 62.8319
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

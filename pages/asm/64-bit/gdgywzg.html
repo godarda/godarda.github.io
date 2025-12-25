@@ -1,0 +1,177 @@
+---
+permalink: asm/64-bit/gdgywzg
+title: ALP to print the addition of N hexadecimal number (64-bit)
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.asmfile }}</div>
+<pre class="code">{%- highlight nasm -%}
+section .data
+title db 10, "———————————————————————————————————————————"
+    db 10, "ALP to print the addition of N hexadecimal number"
+    db 10, "———————————————————————————————————————————"
+    db 10, "1.Enter the data "
+    db 10, "2.Display the result "
+    db 10, "3.Exit "
+    db 10, "———————————————————————————————————————————"
+    db 10, "Enter your choice "
+title_len equ $-title
+
+input1 db 10, "How many numbers you want to enter "
+input1_len equ $-input1
+
+input2 db 10, "Enter the 2 digit hex number "
+input2_len equ $-input2
+
+output db 10, "Addition of array element is "
+output_len equ $-output
+
+wrong db 10, "Wrong choice entered... Please try again"
+wrong_len equ $-wrong
+
+section .bss 
+    numascii resb 03
+    resl resb 01
+    resh resb 01
+    cnt resb 01
+    optionbuff resb 02
+    dispbuff resb 04
+
+%macro display 4
+    mov rax,%1
+    mov rdi,%2
+    mov rsi,%3
+    mov rdx,%4
+    syscall
+%endm
+
+section .text
+global _start
+_start:
+menu:
+    display 1,1,title,title_len
+    display 0,0,optionbuff,02
+    cmp byte [optionbuff],"1"
+    jne case2
+    call procedure
+    jmp _start
+
+case2:
+    cmp byte [optionbuff],"2"
+    jne case3
+    display 1,1,output,output_len
+    display 1,1,dispbuff,4
+    jmp _start
+
+case3:
+    cmp byte [optionbuff],"3"
+    je exit
+    display 1,1,wrong,wrong_len
+    jmp _start
+
+procedure:
+    display 1,1,input1,input1_len
+    display 0,0,numascii,03
+    call packnum
+    mov [cnt],bl
+    xor rcx,rcx
+    mov cl,[cnt]
+
+addup:
+    push rcx
+    display 1,1,input2,input2_len
+    display 0,0,numascii,03
+    call packnum
+    add [resl],bl
+    adc byte [resh],0
+    pop rcx
+    loop addup
+
+    mov bl,[resl]
+    mov bh,[resh]
+    call disp16_proc
+    jmp exit
+
+packnum:
+    mov bl,0
+    mov rcx,02
+    mov rsi,numascii
+
+up1:
+    rol bl,04
+    mov al,[rsi]
+    cmp al,39h
+    jbe skip1
+    sub al,07h
+
+skip1:
+    sub al,30h
+    add bl,al
+    inc rsi
+    loop up1
+    ret
+
+disp16_proc:
+    mov rcx,04
+    mov rdi,dispbuff
+
+dup1:
+    rol bx,04
+    mov al,bl
+    and al,0fh
+    cmp al,09
+    jbe dskip
+    add al,07h
+
+dskip:
+    add al,30h
+    mov [rdi],al
+    inc rdi
+    loop dup1
+    jmp _start
+    ret
+
+exit:
+    mov rax,60
+    mov rdi,00
+    syscall
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runasm }}
+
+———————————————————————————————————————————
+ALP to print the addition of N hexadecimal number
+———————————————————————————————————————————
+1.Enter the data 
+2.Display the result 
+3.Exit 
+———————————————————————————————————————————
+Enter your choice 1
+
+How many numbers you want to enter 02
+
+Enter the 2 digit hex number AF
+
+Enter the 2 digit hex number FF
+
+———————————————————————————————————————————
+ALP to print the addition of N hexadecimal number
+———————————————————————————————————————————
+1.Enter the data 
+2.Display the result 
+3.Exit 
+———————————————————————————————————————————
+Enter your choice 2
+
+Addition of array element is 01AE
+———————————————————————————————————————————
+ALP to print the addition of N hexadecimal number
+———————————————————————————————————————————
+1.Enter the data 
+2.Display the result 
+3.Exit 
+———————————————————————————————————————————
+Enter your choice 3
+godarda@gd:~$ 
+</pre></span>

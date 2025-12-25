@@ -1,0 +1,28 @@
+---
+permalink: cg/circle/gdmgezv.html 
+title: C++ program to draw concentric circles using for loop
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <graphics.h>
+int main()
+{
+    int gd = 0, gm = 9, i;
+    initgraph(&gd, &gm, NULL);
+    for (i = 50; i <= 100; i = i + 15)
+    {
+        setcolor(15);
+        circle(150, 150, i);
+        delay(200);
+    }
+    delay(5000);
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcg }}
+<img src="pages/cg/images/gdpaarg.png" loading="lazy">
+</pre></span>

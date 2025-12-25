@@ -1,0 +1,51 @@
+---
+permalink: selenium/fundamentals/gdecmzw
+title: Selenium Java to resize the browser window
+---
+
+<div class="codecard">Selenium Java to resize the Chrome browser window</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="editorcard">{%- highlight java -%}
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+
+class GD
+{
+    public static void main(String[] args) 
+    {   
+        System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        ChromeOptions co = new ChromeOptions();
+        co.addArguments("window-size=700,700");
+        
+        DesiredCapabilities dc = DesiredCapabilities.chrome();
+        dc.setCapability(ChromeOptions.CAPABILITY, co);
+        
+        WebDriver driver = new ChromeDriver(dc);
+        driver.navigate().to("https://godarda.in/testapp/");
+        driver.close();
+    }
+}
+{%- endhighlight -%}</pre>
+
+<div class="codecard">Selenium Java to resize the Firefox browser window</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="editorcard">{%- highlight java -%}
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+class GD
+{
+    public static void main(String[] args) 
+    {   
+        System.setProperty("webdriver.gecko.driver", "/home/godarda/drivers/geckodriver");
+        WebDriver driver = new FirefoxDriver();
+        Dimension d = new Dimension(700, 700);
+        driver.manage().window().setSize(d);
+        driver.navigate().to("https://godarda.in/testapp/");
+        driver.close();
+    }
+}
+{%- endhighlight -%}</pre>

@@ -1,0 +1,181 @@
+---
+permalink: linux/commands/gdzbgoi
+title: Linux commands for date and time
+---
+
+<div class="titlecard">{{ page.title }}</div>
+<div class="terminalcard">date and time commands with options</div>
+<span><pre>
+godarda@gd:~$ <mark>date</mark>
+Sunday 31 May 2020 10:52:00 AM IST
+
+godarda@gd:~$ <mark>uptime</mark>
+ 10:53:11 up 8 min,  1 user,  load average: 0.65, 1.44, 0.93
+
+godarda@gd:~$ <mark>time</mark>
+real	0m0.000s
+user	0m0.000s
+sys	0m0.000s
+
+godarda@gd:~$ <mark>times</mark>
+0m0.022s 0m0.012s
+0m0.021s 0m0.016s
+<hr>godarda@gd:~$ <mark>date +"%D %H:%M:%S"</mark>
+05/31/20 10:54:52
+
+godarda@gd:~$ <mark>date +"%D %H:%M:%s"</mark>
+05/31/20 10:55:1590902704
+
+godarda@gd:~$ <mark>date +"%D %H:%m:%s"</mark>
+05/31/20 10:05:1590902707
+
+godarda@gd:~$ <mark>date +"%D %h:%m:%s"</mark>
+05/31/20 May:05:1590902711
+
+godarda@gd:~$ <mark>date +"%d %h:%m:%s"</mark>
+31 May:05:1590902716
+
+godarda@gd:~$ <mark>date +"%A %B %d"</mark>
+Sunday May 31
+
+godarda@gd:~$ <mark>date +%m</mark>
+05
+
+godarda@gd:~$ <mark>date +%h</mark>
+May
+
+godarda@gd:~$ <mark>date +"%h %m"</mark>
+May 05
+
+godarda@gd:~$ <mark>date +"%h %m %d %T"</mark>
+May 05 31 10:56:48
+</pre></span>
+
+<div class="terminalcard">cal command with options</div>
+<span><pre>
+godarda@gd:~$ <mark>cal</mark>
+      May 2020        
+Su Mo Tu We Th Fr Sa  
+                1  2  
+ 3  4  5  6  7  8  9  
+10 11 12 13 14 15 16  
+17 18 19 20 21 22 23  
+24 25 26 27 28 29 30  
+31                    
+godarda@gd:~$ <mark>cal 5 0</mark>
+<error>cal: year `0' not in range 1..9999</error>
+
+godarda@gd:~$ <mark>cal 2 2020</mark>
+   February 2020      
+Su Mo Tu We Th Fr Sa  
+                   1  
+ 2  3  4  5  6  7  8  
+ 9 10 11 12 13 14 15  
+16 17 18 19 20 21 22  
+23 24 25 26 27 28 29  
+
+godarda@gd:~$ <mark>echo $(cal)</mark>
+May 2020 Su Mo Tu We Th Fr Sa 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31
+
+godarda@gd:~$ <mark>echo "$(cal)"</mark>
+      May 2020        
+Su Mo Tu We Th Fr Sa  
+                1  2  
+ 3  4  5  6  7  8  9  
+10 11 12 13 14 15 16  
+17 18 19 20 21 22 23  
+24 25 26 27 28 29 30  
+31                    
+<hr>godarda@gd:~$ <mark>cal -j 2021</mark>
+                         2021
+          January                     February            
+ Su  Mo  Tu  We  Th  Fr  Sa   Su  Mo  Tu  We  Th  Fr  Sa  
+                      1   2       32  33  34  35  36  37  
+  3   4   5   6   7   8   9   38  39  40  41  42  43  44  
+ 10  11  12  13  14  15  16   45  46  47  48  49  50  51  
+ 17  18  19  20  21  22  23   52  53  54  55  56  57  58  
+ 24  25  26  27  28  29  30   59                          
+ 31                                                       
+
+           March                        April             
+ Su  Mo  Tu  We  Th  Fr  Sa   Su  Mo  Tu  We  Th  Fr  Sa  
+     60  61  62  63  64  65                   91  92  93  
+ 66  67  68  69  70  71  72   94  95  96  97  98  99 100  
+ 73  74  75  76  77  78  79  101 102 103 104 105 106 107  
+ 80  81  82  83  84  85  86  108 109 110 111 112 113 114  
+ 87  88  89  90              115 116 117 118 119 120      
+                                                          
+
+            May                         June              
+ Su  Mo  Tu  We  Th  Fr  Sa   Su  Mo  Tu  We  Th  Fr  Sa  
+                        121          152 153 154 155 156  
+122 123 124 125 126 127 128  157 158 159 160 161 162 163  
+129 130 131 132 133 134 135  164 165 166 167 168 169 170  
+136 137 138 139 140 141 142  171 172 173 174 175 176 177  
+143 144 145 146 147 148 149  178 179 180 181              
+150 151                                                   
+
+           July                        August             
+ Su  Mo  Tu  We  Th  Fr  Sa   Su  Mo  Tu  We  Th  Fr  Sa  
+                182 183 184  213 214 215 216 217 218 219  
+185 186 187 188 189 190 191  220 221 222 223 224 225 226  
+192 193 194 195 196 197 198  227 228 229 230 231 232 233  
+199 200 201 202 203 204 205  234 235 236 237 238 239 240  
+206 207 208 209 210 211 212  241 242 243                  
+                                                          
+
+         September                     October            
+ Su  Mo  Tu  We  Th  Fr  Sa   Su  Mo  Tu  We  Th  Fr  Sa  
+            244 245 246 247                      274 275  
+248 249 250 251 252 253 254  276 277 278 279 280 281 282  
+255 256 257 258 259 260 261  283 284 285 286 287 288 289  
+262 263 264 265 266 267 268  290 291 292 293 294 295 296  
+269 270 271 272 273          297 298 299 300 301 302 303  
+                             304                          
+
+         November                     December            
+ Su  Mo  Tu  We  Th  Fr  Sa   Su  Mo  Tu  We  Th  Fr  Sa  
+    305 306 307 308 309 310              335 336 337 338  
+311 312 313 314 315 316 317  339 340 341 342 343 344 345  
+318 319 320 321 322 323 324  346 347 348 349 350 351 352  
+325 326 327 328 329 330 331  353 354 355 356 357 358 359  
+332 333 334                  360 361 362 363 364 365      
+<hr>godarda@gd:~$ <mark>cal -y 2021</mark>
+                            2021
+      January               February               March          
+Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  
+                1  2      1  2  3  4  5  6      1  2  3  4  5  6  
+ 3  4  5  6  7  8  9   7  8  9 10 11 12 13   7  8  9 10 11 12 13  
+10 11 12 13 14 15 16  14 15 16 17 18 19 20  14 15 16 17 18 19 20  
+17 18 19 20 21 22 23  21 22 23 24 25 26 27  21 22 23 24 25 26 27  
+24 25 26 27 28 29 30  28                    28 29 30 31           
+31                                                                
+
+       April                  May                   June          
+Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  
+             1  2  3                     1         1  2  3  4  5  
+ 4  5  6  7  8  9 10   2  3  4  5  6  7  8   6  7  8  9 10 11 12  
+11 12 13 14 15 16 17   9 10 11 12 13 14 15  13 14 15 16 17 18 19  
+18 19 20 21 22 23 24  16 17 18 19 20 21 22  20 21 22 23 24 25 26  
+25 26 27 28 29 30     23 24 25 26 27 28 29  27 28 29 30           
+                      30 31                                       
+
+        July                 August              September        
+Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  
+             1  2  3   1  2  3  4  5  6  7            1  2  3  4  
+ 4  5  6  7  8  9 10   8  9 10 11 12 13 14   5  6  7  8  9 10 11  
+11 12 13 14 15 16 17  15 16 17 18 19 20 21  12 13 14 15 16 17 18  
+18 19 20 21 22 23 24  22 23 24 25 26 27 28  19 20 21 22 23 24 25  
+25 26 27 28 29 30 31  29 30 31              26 27 28 29 30        
+                                                                  
+
+      October               November              December        
+Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  
+                1  2      1  2  3  4  5  6            1  2  3  4  
+ 3  4  5  6  7  8  9   7  8  9 10 11 12 13   5  6  7  8  9 10 11  
+10 11 12 13 14 15 16  14 15 16 17 18 19 20  12 13 14 15 16 17 18  
+17 18 19 20 21 22 23  21 22 23 24 25 26 27  19 20 21 22 23 24 25  
+24 25 26 27 28 29 30  28 29 30              26 27 28 29 30 31     
+31                                                                
+godarda@gd:~$ 
+</pre></span>

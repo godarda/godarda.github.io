@@ -1,0 +1,60 @@
+---
+permalink: cpp/functions/gdzddye
+title: C++ program for call by value and call by reference
+---
+
+<div class="codecard">C++ program for call by value</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+using namespace std;
+int add(int a, int b)
+{
+    a = 100;
+    b = 100;
+    int c = a + b;
+    return c;
+}
+int main()
+{
+    int a = 20, b = 10, c;
+    c = a + b;
+    add(a, b);
+    cout<<c<<endl;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+30
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">C++ program for call by reference</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+using namespace std;
+void swap(int *a, int *b)
+{
+    int c;
+    c = *a;
+    *a = *b;
+    *b = c;
+}
+int main()
+{
+    int a = 10, b = 20;
+    swap(&a, &b);
+    cout<<"a="<<a<<endl;
+    cout<<"b="<<b<<endl;
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+a=10
+b=20
+godarda@gd:~$ 
+</pre></span>

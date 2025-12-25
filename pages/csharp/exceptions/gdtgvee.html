@@ -1,0 +1,37 @@
+---
+permalink: csharp/exceptions/gdtgvee
+title: C# program to catch all the exceptions using Exception class
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+int a = 1, b = 0;
+try
+{
+    try
+    {
+        Console.WriteLine(a / b);
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine("First Exception: " + e.ToString());
+    }
+    string s = null;
+    Console.WriteLine(s.Length);
+
+}
+catch (Exception e)
+{
+    Console.WriteLine("Second Exception: " + e.ToString());
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+<error>First Exception: System.DivideByZeroException: Attempted to divide by zero.
+    at Program.&lt;Main>$(String[] args) in /home/godarda/csharp/Program.cs:line 6
+ Second Exception: System.NullReferenceException: Object reference not set to an instance of an object.
+    at Program.&lt;Main>$(String[] args) in /home/godarda/csharp/Program.cs:line 13</error> 
+godarda@gd:~/csharp$ 
+</pre></span>

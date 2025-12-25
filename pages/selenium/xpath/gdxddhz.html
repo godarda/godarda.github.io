@@ -1,0 +1,30 @@
+---
+permalink: selenium/xpath/gdxddhz
+title: Selenium Java to locate a web element using the contains() and starts-with() methods
+---
+
+<div class="codecard">Selenium Java script to locate web element by XPath using contains() and starts-with() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="editorcard">{%- highlight java -%}
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+class GD
+{
+    public static void main(String[] args) 
+    {   
+        WebDriver driver;
+        System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.navigate().to("https://godarda.in/testapp/");
+        
+        driver.findElement(By.xpath("//*[contains(@name,'ername')]")).sendKeys("godarda");
+        driver.findElement(By.xpath("//*[contains(@name,'passw')]")).sendKeys("godarda");
+        driver.findElement(By.xpath("//*[starts-with(@name,'log')]")).click();
+
+        driver.close();
+    }
+}
+{%- endhighlight -%}</pre>

@@ -1,0 +1,50 @@
+---
+permalink: cpp/fundamentals/gdzzhqg
+title: C++ program to perform arithmetic operations by accepting inputs from a user
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+using namespace std;
+int main()
+{
+    float a, b;
+    cout<<"———————————————————————————————————————————";
+    cout<<"\nProgram to perform the arithmetic operations";
+    cout<<"\n———————————————————————————————————————————";
+    cout<<"\nEnter the 1st number ";
+    cin>>a;
+    cout<<"\nEnter the 2nd number ";
+    cin>>b;
+    cout<<"——————————————————————————";
+    cout<<"\nAddition       | "<<a<<"+"<<b<<"="<<a + b;
+    cout<<"\nSubtraction    | "<<a<<"-"<<b<<"="<<a - b;
+    cout<<"\nMultiplication | "<<a<<"*"<<b<<"="<<a * b;
+    cout<<"\nDivision       | "<<a<<"/"<<b<<"="<<a / b;
+    cout<<"\n——————————————————————————";
+    cout<<"\nAverage of 2 numbers is "<<(a + b) / 2;
+    cout<<"\n———————————————————————————————————————————\n";
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+———————————————————————————————————————————
+Program to perform the arithmetic operations
+———————————————————————————————————————————
+Enter the 1st number 1
+
+Enter the 2nd number 0
+——————————————————————————
+Addition       | 1+0=1
+Subtraction    | 1-0=1
+Multiplication | 1*0=0
+Division       | 1/0=inf
+——————————————————————————
+Average of 2 numbers is 0.5
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

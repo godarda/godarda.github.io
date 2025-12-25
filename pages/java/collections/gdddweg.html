@@ -1,0 +1,264 @@
+---
+permalink: java/collections/gdddweg
+title: Implementation of Java LinkedList class
+---
+
+<div class="codecard">Java LinkedList: add() and size() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.LinkedList;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //LinkedList class implements the List interface and Deque -> Queue interface
+        LinkedList<String> ll=new LinkedList<>();
+        ll.add("Apple");
+        ll.add("Orange");
+        ll.add("Mango");
+        ll.add("Grapes");
+        ll.add("Cherry");
+        ll.add("Apple");
+        System.out.println(ll);
+        System.out.println("Size: "+ll.size());
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[Apple, Orange, Mango, Grapes, Cherry, Apple]
+Size: 6
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java LinkedList: get() and contains() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.LinkedList;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //LinkedList class implements the List interface and Deque -> Queue interface
+        LinkedList<String> ll=new LinkedList<>();
+        ll.add("Apple");
+        ll.add("Orange");
+        ll.add("Mango");
+        ll.add("Grapes");
+        ll.add("Cherry");
+        ll.add("Apple");
+        for(String s:ll)
+        {
+            System.out.println(s);
+        }
+        System.out.println("\n"+ll.get(3));
+        System.out.println(ll.contains("Apple"));
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Apple
+Orange
+Mango
+Grapes
+Cherry
+Apple
+
+Grapes
+true
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java LinkedList: addFirst() and addLast() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.LinkedList;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //LinkedList class implements the List interface and Deque -> Queue interface
+        LinkedList<String> ll=new LinkedList<>();
+        ll.add("Apple");
+        ll.add("Orange");
+        ll.add("Mango");
+        ll.add("Grapes");
+        ll.add("Cherry");
+        for(String s:ll)
+        {
+            System.out.println(s);
+        }
+        
+        ll.addFirst("Strawberry");
+        ll.addLast("Apple");
+        System.out.println("\n"+ll);
+    }
+}
+
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Apple
+Orange
+Mango
+Grapes
+Cherry
+
+[Strawberry, Apple, Orange, Mango, Grapes, Cherry, Apple]
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java LinkedList: getFirst() and getLast() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.LinkedList;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //LinkedList class implements the List interface and Deque -> Queue interface
+        LinkedList<String> ll=new LinkedList<>();
+        ll.add("Apple");
+        ll.add("Orange");
+        ll.add("Grapes");
+        ll.add("Cherry");
+        ll.add("Apple");
+        ll.add("Mango");
+        
+        System.out.println(ll);
+        System.out.println("First element: "+ll.getFirst());
+        System.out.println("Last element: "+ll.getLast());
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[Apple, Orange, Grapes, Cherry, Apple, Mango]
+First element: Apple
+Last element: Mango
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java LinkedList: indexOf() and lastIndexOf() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.LinkedList;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //LinkedList class implements the List interface and Deque -> Queue interface
+        LinkedList<String> ll=new LinkedList<>();
+        ll.add("Apple");
+        ll.add("Orange");
+        ll.add("Mango");
+        ll.add("Grapes");
+        ll.add("Cherry");
+        ll.add("Apple");
+        
+        System.out.println("indexOf Apple: "+ll.indexOf("Apple"));
+        System.out.println("lastIndexOf Apple: "+ll.lastIndexOf("Apple"));
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+indexOf Apple: 0
+lastIndexOf Apple: 5
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java LinkedList: addAll() and containsAll() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.LinkedList;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //LinkedList class implements the List interface and Deque -> Queue interface
+        LinkedList<String> ll1=new LinkedList<>();
+        ll1.add("Apple");
+        ll1.add("Orange");
+        ll1.add("Mango");
+        System.out.println(ll1);
+        
+        LinkedList<String> ll2=new LinkedList<>();
+        ll2.add("Grapes");
+        ll2.add("Cherry");
+        ll2.add("Apple");
+        System.out.println(ll2);
+        
+        System.out.println(ll1.containsAll(ll2));
+        
+        ll1.addAll(ll2);
+        System.out.println(ll1);
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[Apple, Orange, Mango]
+[Grapes, Cherry, Apple]
+false
+[Apple, Orange, Mango, Grapes, Cherry, Apple]
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java LinkedList: remove() and removeAll() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.LinkedList;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //LinkedList class implements the List interface and Deque -> Queue interface
+        LinkedList<String> ll=new LinkedList<>();
+        ll.add("Apple");
+        ll.add("Orange");
+        ll.add("Mango");
+        ll.add("Grapes");
+        ll.add("Cherry");
+        ll.add("Apple");
+        
+        System.out.println(ll);
+        ll.remove();
+        System.out.println(ll);
+        ll.remove(2);
+        System.out.println(ll);
+        ll.remove("Cherry");
+        System.out.println(ll);
+        
+        ll.removeAll(ll); //ll.clear();
+        if(ll.isEmpty())
+        {
+            System.out.println("LinkedList is empty now");
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[Apple, Orange, Mango, Grapes, Cherry, Apple]
+[Orange, Mango, Grapes, Cherry, Apple]
+[Orange, Mango, Cherry, Apple]
+[Orange, Mango, Apple]
+LinkedList is empty now
+godarda@gd:~$ 
+</pre></span>

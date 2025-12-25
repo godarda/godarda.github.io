@@ -1,0 +1,78 @@
+---
+permalink: cpp/classes/gdtvfzm
+title: C++ program to print the addition of numbers using constructor
+---
+
+<div class="codecard">C++ program to print the addition of numbers using default constructor</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+using namespace std;
+class gd
+{
+    int a, b;
+
+public:
+    void add()
+    {
+        cout<<"The addition of "<<a<<"+"<<b<<"="<<(a + b)<<"\n";
+    }
+    gd()
+    {
+        a = 10;
+        b = 10;
+    }
+};
+int main()
+{
+    gd g;
+    g.add();
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+The addition of 10+10=20
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">C++ program to print the addition of numbers using parameterized constructor</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+using namespace std;
+class gd
+{
+    float a, b;
+
+public:
+    void add()
+    {
+        cout<<"The addition of "<<a<<"+"<<b<<"="<<(a + b)<<"\n";
+    }
+    gd()
+    {
+        a = 10, b = 10;
+    }
+    gd(int x, float y)
+    {
+        a = x;
+        b = y;
+    }
+};
+int main()
+{
+    gd g, d(10, 10.02351);
+    g.add();
+    d.add();
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+The addition of 10+10=20
+The addition of 10+10.0235=20.0235
+godarda@gd:~$ 
+</pre></span>

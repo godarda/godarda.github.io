@@ -1,0 +1,36 @@
+---
+permalink: dsa/sorting/gdaekky
+title: Python progarm for Insertion Sort
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="code">{%- highlight python -%}
+def insertion_sort(nlist):
+    for i in range(1, len(nlist)):
+        key = nlist[i]
+        j = i - 1
+
+        while j >= 0 and key < nlist[j]:
+            nlist[j + 1] = nlist[j]
+            j = j - 1
+
+        nlist[j + 1] = key
+        print(nlist)
+
+nlist = [12, 1024, -2048, 0, -1, 95, 987]
+insertion_sort(nlist)
+print(nlist)
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runpy }}
+[12, 1024, -2048, 0, -1, 95, 987]
+[-2048, 12, 1024, 0, -1, 95, 987]
+[-2048, 0, 12, 1024, -1, 95, 987]
+[-2048, -1, 0, 12, 1024, 95, 987]
+[-2048, -1, 0, 12, 95, 1024, 987]
+[-2048, -1, 0, 12, 95, 987, 1024]
+[-2048, -1, 0, 12, 95, 987, 1024]
+godarda@gd:~$ 
+</pre></span>

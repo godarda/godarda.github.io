@@ -1,0 +1,102 @@
+name: TestHarness (Ubuntu)
+
+# Automated Schedule: Executes on the last day of every month.
+# Manual Trigger: Enables on-demand execution via the GitHub Actions interface.
+on:
+  schedule:
+    # Execute on the 31st for months with 31 days
+    - cron: '0 0 31 1,3,5,7,8,10,12 *'
+    # Execute on the 30th for months with 30 days
+    - cron: '0 0 30 4,6,9,11 *'
+    # Execute on the 29th of February (Leap years)
+    - cron: '0 0 29 2 *'
+    # Execute on the 28th of February (Non-leap years)
+    - cron: '0 0 28 2 *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      # Checkout the repository content
+      - name: Checkout develop branch
+        uses: actions/checkout@v6
+        with:
+          ref: develop
+
+      # Set up the Python 3.13 environment
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+
+      # Install project-specific Python dependencies
+      - name: Install Python Dependencies
+        run: |
+          python3 -m pip install --upgrade pip --quiet
+          pip install --disable-pip-version-check --no-cache-dir --quiet -r setups/requirements.txt
+        shell: bash
+
+      # Set up the Oracle Java 21 environment
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'oracle'
+          java-version: '21'
+
+      # Install required system packages (Rust, FreeGLUT, NASM)
+      - name: Install Rust, FreeGLUT, and NASM
+        run: |
+          sudo apt-get -qq update > /dev/null
+          sudo apt-get -qq install -y rustc freeglut3-dev nasm > /dev/null
+        shell: bash
+
+      # Install Google Chrome for Selenium-based browser testing
+      - name: Install Google Chrome
+        run: |
+          # Configure the Google Chrome repository and signing key
+          wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+          sudo apt-get -qq update > /dev/null
+          sudo apt-get -qq install -y google-chrome-stable > /dev/null
+        shell: bash
+
+      # Initialize the Jekyll server and execute the test suite
+      - name: Start Jekyll Server and Run Tests
+        run: |
+          # Install Ruby and essential build tools
+          sudo apt-get -qq install -y ruby-full build-essential zlib1g-dev curl > /dev/null
+
+          # Configure the local Ruby Gem path
+          export GEM_HOME="$HOME/.gem"
+          export PATH="$GEM_HOME/bin:$PATH"
+
+          # Install Bundler and required Ruby gems
+          gem install bundler --quiet --no-document > /dev/null
+          bundle config set --local path vendor/bundle
+          bundle install --quiet > /dev/null
+
+          # Launch the Jekyll server in the background
+          nohup bundle exec jekyll serve &
+
+          # Poll for server availability
+          for i in {1..60}; do
+            if curl -s http://localhost:4000 > /dev/null; then
+              echo "Jekyll server is up!"
+              break
+            fi
+            echo "Waiting for server... ($i)"
+            sleep 5
+          done
+
+          # Validate server status prior to testing
+          if ! curl -s http://localhost:4000 > /dev/null; then
+            echo "Server failed to start within timeout. Aborting tests."
+            exit 1
+          fi
+
+          # Execute the Python test suite
+          python3 tests/run.py
+        shell: bash

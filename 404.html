@@ -1,0 +1,42 @@
+---
+title: 404 Page Not Found
+layout: none
+---
+
+<!DOCTYPE html>
+<html>
+<meta http-equiv="refresh" content="9; url={{ site.url }}">
+{%- include head.html -%}
+
+<body>
+<div class="container d-flex flex-column min-vh-100 min-vw-100">
+    <div class="d-flex flex-grow-1 justify-content-center align-items-center">
+        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+            <div class="box card-header text-center">
+                <h5 style="color: #b30000;"><i class="bi bi-emoji-frown"></i> 404 Page Not Found</h5>
+            </div>
+            <div class="box card-footer">
+                <div style="color: var(--textcolor); font-weight: normal; text-align: center;">The page you are looking for doesn't exist. We apologize for the inconvenience. You will be auto-redirected to GoDarda.</div>
+                <div style="color: var(--textcolor); font-size: 40px; font-weight: normal; text-align: center;"><span id="timer">9</span>s</div>
+                <script type="text/javascript">
+                document.addEventListener('DOMContentLoaded', function() {
+                    var cnt = 9;
+                    var timerEl = document.getElementById("timer");
+                    var intervalId = setInterval(function() {
+                        cnt--;
+                        if (cnt >= 0 && timerEl) {
+                            timerEl.innerHTML = cnt;
+                        }
+                        if (cnt <= 0) {
+                            clearInterval(intervalId);
+                            window.location.href = "{{ site.url }}";
+                        }
+                    }, 1000);
+                });
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

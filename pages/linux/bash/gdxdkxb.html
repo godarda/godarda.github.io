@@ -1,0 +1,75 @@
+---
+permalink: linux/bash/gdxdkxb
+title: Bash shell script to check the equality of a given numbers and strings
+---
+
+<div class="codecard">Bash shell script to check the equality of given numbers</div>
+<div class="card">{{ site.shfile }}</div>
+<pre class="code">{%- highlight shell -%}
+#!/bin/bash
+
+echo "———————————————————————————————————————————"
+echo "Script to check the equality of given numbers"
+echo "———————————————————————————————————————————"
+echo -n "Enter the 1st number "; read a
+echo -n "Enter the 2nd number "; read b
+if [ $a -gt $b ];then
+    echo "$a is greater than $b"
+elif [ $a -eq $b ];then
+    echo "$a is equal to $b"
+else
+    echo "$a is less than $b"
+fi
+echo "———————————————————————————————————————————"
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runsh }}
+———————————————————————————————————————————
+Script to check the equality of given numbers
+———————————————————————————————————————————
+Enter the 1st number -5
+Enter the 2nd number -10
+-5 is greater than -10
+———————————————————————————————————————————
+
+{{ site.runsh }}
+———————————————————————————————————————————
+Script to check the equality of given numbers
+———————————————————————————————————————————
+Enter the 1st number 0
+Enter the 2nd number 0
+0 is equal to 0
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Bash shell script to check the equality of given strings</div>
+<div class="card">{{ site.shfile }}</div>
+<pre class="code">{%- highlight shell -%}
+#!/bin/bash
+
+echo "———————————————————————————————————————————"
+echo "Script to check the equality of given strings"
+echo "———————————————————————————————————————————"
+echo -n "Enter the 1st string "; read a
+echo -n "Enter the 2nd string "; read b 
+if [ $a = $b ];then
+    echo "$a is equal to $b"
+else
+    echo "$a is not equal to $b"
+fi
+echo "———————————————————————————————————————————"
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runsh }}
+———————————————————————————————————————————
+Script to check the equality of given strings
+———————————————————————————————————————————
+Enter the 1st string WELCOME
+Enter the 2nd string welcome
+WELCOME is not equal to welcome
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

@@ -1,0 +1,102 @@
+---
+permalink: java/exceptions/gdvvvvh
+title: Java program to demonstrate the use of finally block
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD
+{
+    public static void main(String args[])
+    {
+        String s=null;
+        try
+        {
+            System.out.println("Length: "+s.length());
+        }
+        catch(Exception e)
+        {
+            System.out.println("Exception caught");
+        }
+        finally
+        {
+            System.out.println("Finally block always get executed");
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Exception caught
+Finally block always get executed
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD
+{
+    public static void main(String args[])
+    {
+        String s=null;
+        try
+        {
+            System.out.println("Length: "+s.length());
+        }
+        catch(ArithmeticException e)
+        {
+            System.out.println("Exception caught in the first catch block");
+        }
+        catch(RuntimeException e)
+        {
+            System.out.println("Exception caught in the second catch block");
+        }
+        catch(Exception e)
+        {
+            System.out.println("Exception caught in the third catch block");
+        }
+        finally
+        {
+            System.out.println("Finally block always get executed");
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Exception caught in the second catch block
+Finally block always get executed
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">The following try and finally block sequence is allowed</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD
+{
+    public static void main(String args[])
+    {
+        String s=null;
+        try
+        {
+            System.out.println("Length: "+s.length());
+        }
+        finally
+        {
+            System.out.println("Finally block always get executed");
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Finally block always get executed
+<error>Exception in thread "main" java.lang.NullPointerException
+    at GD.main(GD.java:8)</error>
+godarda@gd:~$ 
+</pre></span>

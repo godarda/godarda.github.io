@@ -1,0 +1,134 @@
+# -----------------------------------------------------------------------------
+# GoDarda — Production Site Configuration
+# Maintainer: Shubham Darda
+#
+# This file controls site metadata, asset references, templates, and build settings.
+#
+# Guidelines:
+# - Prefer non-breaking changes for production stability.
+# - Verify external CDN URLs and SRI hashes before committing.
+# - Do not store secrets or private tokens here; use environment variables.
+# -----------------------------------------------------------------------------
+
+title: GoDarda
+url: https://godarda.in
+email: godarda.in@outlook.com
+tagline: Let's learn and celebrate success together
+founder: Shubham Darda
+
+# --------------------------------------------------------------------------
+# Asset References
+# Define third-party CDN links and local asset paths for consistent usage.
+# When updating resources with SRI hashes, ensure both the URL and 'i' (integrity)
+# fields are updated.
+# --------------------------------------------------------------------------
+gd_css: assets/css/gd.css
+gd_color_css: assets/css/color.css
+gd_js: assets/js/gd.js
+search_js: assets/js/search.js
+
+# Bootstrap (CSS + JS) served via CDN — update carefully
+bs_css: https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css
+bs_cssi: sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB
+bs_js: https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js
+bs_jsi: sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI
+
+# Optional icon/font libraries and client-side helpers
+bs_icons: https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css
+jquery: https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js
+
+# Open Graph / favicon / logos
+og: https://raw.githubusercontent.com/godarda/godarda.github.io/master/assets/images/logo.jpg
+icon: assets/images/icon.png
+logo: assets/images/logo.jpg
+advertise: assets/images/advertise.png
+
+# Analytics snippet (load asynchronously in templates)
+analytics: https://www.googletagmanager.com/gtag/js?id=G-8ZJLP1KH1R
+
+# --------------------------------------------------------------------------
+# UI Defaults & File Icons
+# HTML fragments used in templates for file badges, execution hints, and captions.
+# Ensure these remain valid HTML when editing.
+# --------------------------------------------------------------------------
+highlighter: rouge
+cfile: "<span class='bi bi-file-code'> gd.c</span>"
+cppfile: "<span class='bi bi-file-code'> gd.cpp</span>"
+javafile: "<span class='bi bi-filetype-java'> GD.java</span>"
+pyfile: "<span class='bi bi-filetype-py'> gd.py</span>"
+rfile: "<span class='bi bi-file-code'> gd.r</span>"
+juliafile: "<span class='bi bi-file-code'> gd.jl</span>"
+csfile: "<span class='bi bi-filetype-cs'> Program.cs</span>"
+fsfile: "<span class='bi bi-file-code'> Program.fs</span>"
+rustfile: "<span class='bi bi-file-code'> gd.rs</span>"
+lispfile: "<span class='bi bi-file-code'> gd.lisp</span>"
+shfile: "<span class='bi bi-filetype-sh'> gd.sh</span>"
+asmfile: "<span class='bi bi-file-code'> gd.asm</span>"
+vbsfile: "<span class='bi bi-file-code'> gd.vbs</span>"
+csvfile: "<span class='bi bi-filetype-csv'> gd.csv</span>"
+jsonfile: "<span class='bi bi-filetype-json'> gd.json</span>"
+excelfile: "<span class='bi bi-filetype-xlsx'> gd.xlsx</span>"
+
+# Execution hints for code blocks
+runc: "godarda@gd:~$ <mark>gcc gd.c</mark><br>godarda@gd:~$ <mark>./a.out</mark>"
+runcpp: "godarda@gd:~$ <mark>g++ gd.cpp</mark><br>godarda@gd:~$ <mark>./a.out</mark>"
+runjava: "godarda@gd:~$ <mark>javac GD.java</mark><br>godarda@gd:~$ <mark>java GD</mark>"
+runpy: "godarda@gd:~$ <mark>python3 gd.py</mark>"
+runjulia: "godarda@gd:~$ <mark>julia gd.jl</mark>"
+runcs: "godarda@gd:~/csharp$ <mark>dotnet run</mark>"
+runfs: "godarda@gd:~/fsharp$ <mark>dotnet run</mark>"
+runrust: "godarda@gd:~$ <mark>rustc gd.rs</mark><br>godarda@gd:~$ <mark>./gd</mark>"
+runlisp: "godarda@gd:~$ <mark>clisp gd.lisp</mark>"
+runsh: "godarda@gd:~$ <mark>bash gd.sh</mark>"
+runcg: "godarda@gd:~$ <mark>g++ gd.cpp -lgraph</mark><br>godarda@gd:~$ <mark>./a.out</mark>"
+runopengl: "godarda@gd:~$ <mark>g++ gd.cpp -lGL -lGLU -lglut</mark><br>godarda@gd:~$ <mark>./a.out</mark>"
+runasm: "godarda@gd:~$ <mark>nasm -felf64 gd.asm</mark><br>godarda@gd:~$ <mark>ld gd.o && ./a.out</mark>"
+output: "<span class='bi bi-terminal'> Output</span>"
+
+# --------------------------------------------------------------------------
+# Defaults: Configure how Jekyll processes files based on their path.
+# --------------------------------------------------------------------------
+defaults:
+  -
+   scope:
+      path: ""
+   values:
+      layout: "modern"
+
+# --------------------------------------------------------------------------
+# Plugins: Enable only essential and trusted plugins for production.
+# --------------------------------------------------------------------------
+plugins:
+   - jekyll-sitemap
+
+# --------------------------------------------------------------------------
+# Includes: Directories explicitly included in the build.
+# --------------------------------------------------------------------------
+include: ['pages']
+
+# --------------------------------------------------------------------------
+# Exclude: Files and directories to ignore during the build process.
+# --------------------------------------------------------------------------
+exclude:
+  - .bundle
+  - .github
+  - .gitignore
+  - .jekyll-cache
+  - .jekyll-metadata
+  - .vscode
+  - android
+  - codes
+  - CODE_OF_CONDUCT.md
+  - CONTRIBUTING.md
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE
+  - README.md
+  - SECURITY.md
+  - SUPPORT.md
+  - setups
+  - tests
+  - vendor
+
+# -----------------------------------------------------------------------------
+# End of configuration.

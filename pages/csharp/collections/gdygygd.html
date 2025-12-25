@@ -1,0 +1,42 @@
+---
+permalink: csharp/collections/gdygygd
+title: Implementation of C# Stack class
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+using System.Collections.Generic;
+
+Stack<string> st = new Stack<string>();
+st.Push("Apple");
+st.Push("Cherry");
+st.Push("Apple");
+st.Push("Durian");
+
+Console.WriteLine("Stack elements: ");
+foreach (string s in st)
+{
+    Console.WriteLine(s);
+}
+
+Console.WriteLine("\nPeek element: " + st.Peek());
+Console.WriteLine("Pop: element: " + st.Pop());
+Console.WriteLine("Peek element: " + st.Peek());
+Console.WriteLine("Number of elements: " + st.Count);
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Stack elements: 
+Durian
+Apple
+Cherry
+Apple
+
+Peek element: Durian
+Pop: element: Durian
+Peek element: Apple
+Number of elements: 3
+godarda@gd:~/csharp$ 
+</pre></span>

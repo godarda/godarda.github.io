@@ -1,0 +1,49 @@
+---
+permalink: cpp/functions/gdtaync
+title: C++ program for addition of numbers using a function
+---
+
+<div class="codecard">Example 1: {{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+using namespace std;
+int add(int a = 7, int b = 8)
+{
+    return a + b;
+}
+int main()
+{
+    cout<<add()<<"\n";
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+15
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Example 2: {{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+using namespace std;
+int add(int a, int b)
+{
+    return a + b;
+}
+int main()
+{
+    int i = 7, j = 8;
+    cout<<add(i, j)<<"\n";
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+15
+godarda@gd:~$ 
+</pre></span>

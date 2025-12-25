@@ -1,0 +1,34 @@
+---
+permalink: selenium/xpath/gdyxewe
+title: Selenium Java to locate a web element using the following and preceding XPath axes
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="editorcard">{%- highlight java -%}
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+class GD
+{
+    public static void main(String[] args) 
+    {   
+        WebDriver driver;
+        System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.navigate().to("https://godarda.in/testapp/");
+        
+        //sending username
+        driver.findElement(By.xpath("//*[@name='password']//preceding::input[@type='text']")).sendKeys("godarda");
+        
+        //sending password
+        driver.findElement(By.xpath("//*[@name='username']//following::input[@type='password']")).sendKeys("godarda");
+        
+        //clicking login button
+        driver.findElement(By.xpath("//*[@name='login']//self::button")).click();
+        driver.close();
+    }
+}
+{%- endhighlight -%}</pre>

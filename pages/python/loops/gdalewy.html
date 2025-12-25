@@ -1,0 +1,37 @@
+---
+permalink: python/loops/gdalewy
+title: Python program to print the sum of all digits in a given number
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="code">{%- highlight python -%}
+print("___________________________________________")
+print("Program to print sum of all digits")
+print("___________________________________________")
+try:
+    n=int(input("Enter the number "))
+    if(n<=0):
+        print("Please enter a positive number")
+    else:
+        sum=0
+        temp=n
+        while n>0:
+            r=n%10
+            sum=sum+r
+            n=n//10
+        print("Sum of all digits in",temp,"is",sum)
+except ValueError:
+    print("Enter valid number")
+print("___________________________________________")
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runpy }}
+___________________________________________
+Program to print sum of all digits
+___________________________________________
+Enter the number 123456789
+Sum of all digits in 123456789 is 45
+___________________________________________
+</pre></span>

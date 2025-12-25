@@ -1,0 +1,27 @@
+---
+permalink: selenium/locators/gddwygy
+title: Selenium Java to select the radio button using cssSelector
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="editorcard">{%- highlight java -%}
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+class GD
+{
+    public static void main(String[] args) throws InterruptedException 
+    {   
+        System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.navigate().to("https://godarda.in/testapp/");
+        driver.findElement(By.name("username")).sendKeys("kodignwindow");
+        Thread.sleep(1000);
+        driver.findElement(By.name("password")).sendKeys("kodignwindow");
+        driver.findElement(By.cssSelector("input[name='usertype'][id='admin']")).click();
+    }
+}
+{%- endhighlight -%}</pre>

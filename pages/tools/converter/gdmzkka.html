@@ -1,0 +1,49 @@
+---
+permalink: tools/converter/gdmzkka
+title: Temperature Converter
+description: "Instantly convert temperatures between Celsius, Fahrenheit, Kelvin, Rankine, and Réaumur. A simple and fast temperature conversion tool."
+---
+
+{% include converter.html %}
+<script>
+(function () {
+    // Configuration: Define units and their conversion logic to/from Celsius
+    const units = {
+        celsius: { 
+            name: 'Celsius', symbol: '°C', 
+            toBase: v => v, 
+            fromBase: v => v 
+        },
+        fahrenheit: { 
+            name: 'Fahrenheit', symbol: '°F', 
+            toBase: v => (v - 32) * 5 / 9, 
+            fromBase: v => (v * 9 / 5) + 32 
+        },
+        kelvin: { 
+            name: 'Kelvin', symbol: 'K', 
+            toBase: v => v - 273.15, 
+            fromBase: v => v + 273.15 
+        },
+        rankine: { 
+            name: 'Rankine', symbol: '°R', 
+            toBase: v => (v - 491.67) * 5 / 9, 
+            fromBase: v => (v + 273.15) * 1.8 
+        },
+        reaumur: { 
+            name: 'Réaumur', symbol: '°Re', 
+            toBase: v => v * 1.25, 
+            fromBase: v => v * 0.8 
+        }
+    };
+
+    const defaultUnit = 'celsius';
+    const defaultSelectedUnits = ['fahrenheit'];
+
+    // Initialize the shared converter logic
+    setupConverter({
+        units: units,
+        defaultUnit: defaultUnit,
+        defaultSelectedUnits: defaultSelectedUnits
+    });
+})();
+</script>

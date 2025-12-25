@@ -1,0 +1,49 @@
+---
+permalink: c/pointers/gdvdpgg
+title: C program to find the address of variables
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+#include <string.h>
+int main()
+{
+    int a = 10;
+    char *string = "Hello World";
+    char s = 'H';
+    double d = 23.98908;
+    long l = 343247891370492;
+    // register b=10;
+    // can't find the address of register variables
+    printf("———————————————————————————————————————————");
+    printf("\nProgram to find address of variables ");
+    printf("\n———————————————————————————————————————————");
+    printf("\nAddress of a      | %p", &a);
+    printf("\nAddress of string | %p", &string);
+    printf("\nAddress of s      | %p", &s);
+    printf("\nAddress of d      | %p", &d);
+    printf("\nAddress of l      | %p", &l);
+    printf("\nmain address      | %p", main);
+    printf("\nmain address      | %p", (void *)&main);
+    printf("\n———————————————————————————————————————————\n");
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+———————————————————————————————————————————
+Program to find address of variables 
+———————————————————————————————————————————
+Address of a      | 0x7fff701439cc
+Address of string | 0x7fff701439d0
+Address of s      | 0x7fff701439cb
+Address of d      | 0x7fff701439d8
+Address of l      | 0x7fff701439e0
+main address      | 0x56238cd336fa
+main address      | 0x56238cd336fa
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

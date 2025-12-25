@@ -1,0 +1,37 @@
+---
+permalink: cpp/loops/gdwangz
+title: C++ program to print the floating-point numbers
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+using namespace std;
+int main()
+{
+    float i = 1;
+    do
+    {
+        cout<<i<<"\n";
+        i = i + 0.1;
+    } while (i <= 2.1);
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+1
+1.1
+1.2
+1.3
+1.4
+1.5
+1.6
+1.7
+1.8
+1.9
+2
+godarda@gd:~$ 
+</pre></span>

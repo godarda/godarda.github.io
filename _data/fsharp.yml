@@ -1,0 +1,29 @@
+grandparent:
+- parent: F# Fundamentals
+  subtree: Fundamentals
+  url: fsharp/fundamentals
+  children:
+  - url: fsharp/fundamentals/gdegsem
+    title: F# Hello World program
+  - url: fsharp/fundamentals/gdwpkzv
+    title: F# program to perform the arithmetic operations
+  - url: fsharp/fundamentals/gdewzhw
+    title: F# program to perform the boolean operations
+  - url: fsharp/fundamentals/gdxmvyy
+    title: F# program to calculate the area and circumference of a circle
+- parent: F# Control Statements
+  subtree: Controls
+  url: fsharp/controls
+  children:
+  - url: fsharp/controls/gdzegce
+    title: F# program to check the given number is even or odd
+  - url: fsharp/controls/gdhadwu
+    title: F# program to check the given number is positive or negative
+sidenav:
+- parent: F# Programming
+  url: fsharp
+  children:
+  - title: F# Fundamentals
+    url: fsharp/fundamentals
+  - title: F# Control Statements
+    url: fsharp/controls

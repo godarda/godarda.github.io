@@ -1,0 +1,44 @@
+---
+permalink: csharp/fundamentals/gdmavwt
+title: C# program to find the range of data types
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+Console.WriteLine("———————————————————————————————————————————");
+Console.WriteLine("Program to print the range of data types");
+Console.WriteLine("———————————————————————————————————————————");
+Console.WriteLine("          byte | " + byte.MinValue + " To " + byte.MaxValue);
+Console.WriteLine("   signed byte | " + sbyte.MinValue + " To " + sbyte.MaxValue);
+Console.WriteLine("         short | " + short.MinValue + " To " + short.MaxValue);
+Console.WriteLine("unsigned short | " + ushort.MinValue + " To " + ushort.MaxValue);
+Console.WriteLine("           int | " + int.MinValue + " To " + int.MaxValue);
+Console.WriteLine("  unsigned int | " + uint.MinValue + " To " + uint.MaxValue);
+Console.WriteLine("          long | " + long.MinValue + " To " + long.MaxValue);
+Console.WriteLine(" unsigned long | " + ulong.MinValue + " To " + ulong.MaxValue);
+Console.WriteLine("         float | " + float.MinValue + " To " + float.MaxValue);
+Console.WriteLine("        double | " + double.MinValue + " To " + double.MaxValue);
+Console.WriteLine("       decimal | " + decimal.MinValue + " To " + decimal.MaxValue);
+Console.WriteLine("———————————————————————————————————————————");
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+———————————————————————————————————————————
+Program to print the range of data types
+———————————————————————————————————————————
+          byte | 0 To 255
+   signed byte | -128 To 127
+         short | -32768 To 32767
+unsigned short | 0 To 65535
+           int | -2147483648 To 2147483647
+  unsigned int | 0 To 4294967295
+          long | -9223372036854775808 To 9223372036854775807
+ unsigned long | 0 To 18446744073709551615
+         float | -3.4028235E+38 To 3.4028235E+38
+        double | -1.7976931348623157E+308 To 1.7976931348623157E+308
+       decimal | -79228162514264337593543950335 To 79228162514264337593543950335
+———————————————————————————————————————————
+godarda@gd:~/csharp$ 
+</pre></span>

@@ -1,0 +1,192 @@
+---
+permalink: java/exceptions/gdvolqb
+title: Java program to demonstrate the use of try and catch blocks
+---
+
+<div class="codecard">NullPointerException</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD
+{
+    public static void main(String args[])
+    {
+        String s=null;
+        System.out.println("Length: "+s.length());
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+<error>Exception in thread "main" java.lang.NullPointerException
+    at GD.main(GD.java:6)</error>
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD
+{
+    public static void main(String args[])
+    {
+        String s=null;
+        try
+        {
+            System.out.println("Length: "+s.length());
+        }
+        catch(Exception e)
+        {
+            System.out.println("String is null, hence, Unable to find the length.");
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+String is null, hence, Unable to find the length.
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java program to demonstrate the use of try with multiple catch blocks</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD
+{
+    public static void main(String args[])
+    {
+        String s=null;
+        try
+        {
+            System.out.println("Length: "+s.length());
+        }
+        catch(ArithmeticException e)
+        {
+            System.out.println("Exception caught in the first catch block");
+        }
+        catch(NullPointerException e)
+        {
+            System.out.println("Exception caught in the second catch block");
+        }
+        catch(Exception e)
+        {
+            System.out.println("Exception caught in the third catch block");
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Exception caught in the second catch block
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java program to handle the NullPointerException using Exception class</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD
+{
+    public static void main(String args[])
+    {
+        String s=null;
+        try
+        {
+            System.out.println("Length: "+s.length());
+        }
+        catch(ArithmeticException e)
+        {
+            System.out.println("Exception caught in the first catch block");
+        }
+        catch(StringIndexOutOfBoundsException e)
+        {
+            System.out.println("Exception caught in the second catch block");
+        }
+        catch(Exception e)
+        {
+            System.out.println("Exception caught in the third catch block");
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Exception caught in the third catch block
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java program to handle the NullPointerException using RuntimeException class</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD
+{
+    public static void main(String args[])
+    {
+        String s=null;
+        try
+        {
+            System.out.println("Length: "+s.length());
+        }
+        catch(ArithmeticException e)
+        {
+            System.out.println("Exception caught in the first catch block");
+        }
+        catch(RuntimeException e)
+        {
+            System.out.println("Exception caught in the second catch block");
+        }
+        catch(Exception e)
+        {
+            System.out.println("Exception caught in the third catch block");
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Exception caught in the second catch block
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">The following sequence of multiple catch blocks are not allowed</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD
+{
+    public static void main(String args[])
+    {
+        String s=null;
+        try
+        {
+            System.out.println("Length: "+s.length());
+        }
+        catch(Exception e)
+        {
+            System.out.println("Exception caught in the third catch block");
+        }
+        catch(RuntimeException e)
+        {
+            System.out.println("Exception caught in the second catch block");
+        }
+        catch(ArithmeticException e)
+        {
+            System.out.println("Exception caught in the first catch block");
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+<error>GD.java:14: error: exception RuntimeException has already been caught
+        catch(RuntimeException e)
+        ^
+GD.java:18: error: exception ArithmeticException has already been caught
+        catch(ArithmeticException e)
+        ^
+2 errors</error>
+godarda@gd:~$ 
+</pre></span>

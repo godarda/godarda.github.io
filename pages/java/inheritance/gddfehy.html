@@ -1,0 +1,63 @@
+---
+permalink: java/inheritance/gddfehy
+title: Java program for Hybrid Inheritance (Multilevel and Hierarchical)
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class Bank
+{
+    void Bonus()
+    {
+        System.out.print("Festival Bonus: ");
+    }  
+}
+class WhiteBank extends Bank
+{
+    void WhiteBankBonus()
+    {
+        super.Bonus();
+        System.out.println("WhiteBank 1500");
+    }
+}
+class GreenBank extends WhiteBank
+{
+    void GreenBankBonus()
+    {
+        super.Bonus();
+        System.out.println("GreenBank 500");
+    }
+}
+class PinkBank extends WhiteBank
+{
+    void PinkBankBonus()
+    {
+        super.Bonus();
+        System.out.println("PinkBank 1000");
+    }
+}
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        GreenBank gb=new GreenBank();
+        gb.GreenBankBonus();
+        gb.WhiteBankBonus();
+        
+        PinkBank pb=new PinkBank();
+        pb.PinkBankBonus();
+        pb.WhiteBankBonus();
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Festival Bonus: GreenBank 500
+Festival Bonus: WhiteBank 1500
+Festival Bonus: PinkBank 1000
+Festival Bonus: WhiteBank 1500
+godarda@gd:~$ 
+</pre></span>

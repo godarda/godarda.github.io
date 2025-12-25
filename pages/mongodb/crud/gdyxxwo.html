@@ -1,0 +1,36 @@
+---
+permalink: mongodb/crud/gdyxxwo
+title: MongoDB Create a Database and Collection
+---
+
+<div class="terminalcard">{{ page.title }}</div>
+<span><pre>
+godarda@gd:~$ <mark>mongosh</mark>
+...
+
+test> <mark>show databases</mark>
+admin    40.00 KiB
+config  108.00 KiB
+local    40.00 KiB
+
+test> <mark>use DB</mark>
+switched to db DB
+
+DB> <mark>db</mark>
+DB
+
+DB> <mark>db.getName()</mark>
+DB
+
+DB> <mark>db.createCollection("holders")</mark>
+{ "ok" : 1 }
+
+DB> <mark>db.getCollectionNames()</mark>
+[ "holders" ]
+
+DB> <mark>show dbs</mark>
+DB        8.00 KiB
+admin    40.00 KiB
+config  108.00 KiB
+local    40.00 KiB
+</pre></span>

@@ -1,0 +1,49 @@
+---
+permalink: linux/commands/gdwoddg
+title: Linux commands to copy and move the files
+---
+
+<div class="titlecard">{{ page.title }}</div>
+<div class="terminalcard">mv command to rename a file</div>
+<span><pre>
+godarda@gd:~$ <mark>ls</mark>
+a.out  gd.cpp   gd.py    Documents  Fedora.txt  Pictures  Templates   Videos
+gd.c   GD.java  Desktop  Downloads  Music   Public    Ubuntu.txt  Weekdays
+<hr>godarda@gd:~$ <mark>mv Fedora.txt FEDORA.TXT</mark>
+godarda@gd:~$ <mark>ls</mark>
+a.out  gd.cpp   gd.py    Documents  FEDORA.TXT  Pictures  Templates   Videos
+gd.c   GD.java  Desktop  Downloads  Music   Public    Ubuntu.txt  Weekdays
+</pre></span>
+
+<div class="terminalcard">cp command to copy a file</div>
+<span><pre>
+godarda@gd:~$ <mark>cp FEDORA.TXT /home/godarda/Documents/</mark>
+godarda@gd:~$ <mark>ls $cat /home/godarda/Documents/</mark>
+FEDORA.TXT
+</pre></span>
+
+<div class="terminalcard">cp and mv commands to copy and move the files</div>
+<span><pre>
+godarda@gd:~$ <mark>mkdir Linux</mark>
+godarda@gd:~$ <mark>touch Ubuntu.txt Fedora.txt</mark>
+godarda@gd:~$ <mark>cp Ubuntu.txt Fedora.txt</mark>
+godarda@gd:~$ <mark>ls</mark>
+a.out   GD.java  Documents   Linux     Public      Videos
+gd.c    gd.py    Downloads   Music     Templates   Weekdays
+gd.cpp  Desktop  Fedora.txt  Pictures  Ubuntu.txt
+
+godarda@gd:~$ <mark>cp Ubuntu.txt /home/godarda/Linux/</mark>
+godarda@gd:~$ <mark>ls $cat /home/godarda/Linux/</mark>
+Ubuntu.txt
+
+godarda@gd:~$ <mark>mv Fedora.txt /home/godarda/Linux/</mark>
+godarda@gd:~$ <mark>ls $cat /home/godarda/Linux/</mark>
+Fedora.txt  Ubuntu.txt
+
+godarda@gd:~$ <mark>ls</mark>
+a.out  gd.cpp   gd.py    Documents  Linux  Pictures  Templates   Videos
+gd.c   GD.java  Desktop  Downloads  Music  Public    Ubuntu.txt  Weekdays
+godarda@gd:~$ <mark>cd Linux/</mark>
+godarda@gd:~/Linux$ <mark>ls</mark>
+Fedora.txt  Ubuntu.txt
+</pre></span>

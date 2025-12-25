@@ -1,0 +1,47 @@
+---
+permalink: csharp/loops/gdxagiz
+title: C# program to use the loops and control statements
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+Console.WriteLine("———————————————————————————————————————————");
+Console.WriteLine("Program to use the control statements");
+Console.WriteLine("———————————————————————————————————————————");
+int i = 0;
+do
+{
+    i++;
+    if (i == 9)
+    {
+        break;
+    }
+    if(i == 6)
+    {
+        continue;
+    }
+    Console.WriteLine(i); 
+} while(i <= 10);
+goto Execute;
+Execute:
+Console.WriteLine("Executed goto statement");
+Console.WriteLine("———————————————————————————————————————————");
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+———————————————————————————————————————————
+Program to use the control statements
+———————————————————————————————————————————
+1
+2
+3
+4
+5
+7
+8
+Executed goto statement
+———————————————————————————————————————————
+godarda@gd:~/csharp$ 
+</pre></span>

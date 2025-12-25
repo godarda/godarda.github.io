@@ -1,0 +1,47 @@
+---
+name: 🏅 Badge Request
+description: Request a contributor badge for your meaningful work on GoDarda
+labels: [recognition, needs-review]
+assignees:
+  - shubham-dev
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for making GoDarda better! Use this form to request a badge that reflects your contribution.
+
+  - type: input
+    id: contribution
+    attributes:
+      label: What did you contribute?
+      placeholder: e.g. Refactored MainActivity.kt, improved onboarding docs, designed badge layout
+    validations:
+      required: true
+
+  - type: dropdown
+    id: badge_type
+    attributes:
+      label: Which badge are you requesting?
+      options:
+        - 🛠️ Code Contributor
+        - 📖 Documentation Contributor
+        - 🎨 Design Contributor
+        - 💡 Idea Contributor
+        - 🌱 Community Builder
+        - 🧪 Bug Hunter
+        - 🧭 Maintainer's Choice
+      description: Choose the badge that best reflects your contribution.
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Link to your contribution
+      placeholder: PRs, commits, issues, or discussions that show your work
+    validations:
+      required: true
+
+  - type: textarea
+    id: message
+    attributes:
+      label: Optional message
+      description: Share anything you'd like us to know about your contribution or experience.

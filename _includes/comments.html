@@ -1,0 +1,35 @@
+<div class="board"><div class="boardtitle">Comments and Reactions</div>
+    <div style="padding: 10px 10px 5px 10px;">
+        <div id="giscus-container"></div>
+        <script>
+            function loadGiscus() {
+                const giscusContainer = document.getElementById('giscus-container');
+                if (!giscusContainer) return;
+
+                while (giscusContainer.firstChild) {
+                    giscusContainer.removeChild(giscusContainer.firstChild);
+                }
+
+                const script = document.createElement('script');
+                script.src = "https://giscus.app/client.js";
+                script.setAttribute("data-repo", "godarda/godarda.github.io");
+                script.setAttribute("data-repo-id", "R_kgDONkepyw");
+                script.setAttribute("data-category", "General");
+                script.setAttribute("data-category-id", "DIC_kwDONkepy84CmVAw");
+                script.setAttribute("data-mapping", "pathname");
+                script.setAttribute("data-strict", "1");
+                script.setAttribute("data-reactions-enabled", "1");
+                script.setAttribute("data-emit-metadata", "0");
+                script.setAttribute("data-input-position", "top");
+                script.setAttribute("data-theme", document.documentElement.getAttribute('data-bs-theme') || 'light');
+                script.setAttribute("data-lang", "en");
+                script.setAttribute("crossorigin", "anonymous");
+                script.async = true;
+                giscusContainer.appendChild(script);
+            }
+
+            loadGiscus();
+            document.addEventListener('themeChanged', loadGiscus);
+        </script>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+grandparent:
+- parent: Data Structures Fundamentals
+  subtree: Fundamentals
+  url: dsa/fundamentals
+  children:
+  - url: dsa/fundamentals/gduqyab
+    title: C++ implementation of the stack and its operations
+- parent: Searching Algorithms
+  subtree: Searching
+  url: dsa/searching
+  children:
+  - url: dsa/searching/gdecgzp
+    title: C++ implementation of Binary Search
+  - url: dsa/searching/gdwzavz
+    title: Python implementation of Binary Search
+- parent: Sorting Algorithms
+  subtree: Sorting
+  url: dsa/sorting
+  children:
+  - url: dsa/sorting/gdzxlqf
+    title: C progarm for Bubble Sort
+  - url: dsa/sorting/gdwzsgz
+    title: C++ progarm for Bubble Sort
+  - url: dsa/sorting/gdvvavg
+    title: C++ progarm for optimized Bubble Sort
+  - url: dsa/sorting/gdyezyi
+    title: Python progarm for Bubble Sort
+  - url: dsa/sorting/gdorpaw
+    title: Python progarm for Merge Sort
+  - url: dsa/sorting/gdaekky
+    title: Python progarm for Insertion Sort
+  - url: dsa/sorting/gdvzade
+    title: Python progarm for Quick Sort
+- parent: Shortest Path Algorithms
+  subtree: Trees
+  url: dsa/trees
+  children:
+  - url: dsa/trees/gdbuzge
+    title: C++ implementation of Prim's spanning tree algorithm
+- parent: Applications of Data Structures
+  subtree: Applications
+  url: dsa/applications
+  children:
+  - url: dsa/applications/gdzdguw
+    title: C++ program for Tic-Tac-Toe game
+sidenav:
+- parent: Data Structures and Algorithms
+  url: dsa
+  children:
+  - title: Data Structures Fundamentals
+    url: dsa/fundamentals
+  - title: Searching Algorithms
+    url: dsa/searching
+  - title: Sorting Algorithms
+    url: dsa/sorting
+  - title: Shortest Path Algorithms
+    url: dsa/trees
+  - title: Applications of Data Structures
+    url: dsa/applications

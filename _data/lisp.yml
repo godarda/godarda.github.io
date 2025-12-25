@@ -1,0 +1,67 @@
+grandparent:
+- parent: LISP (List Processing) Fundamentals
+  subtree: Fundamentals
+  url: lisp/fundamentals
+  children:
+  - url: lisp/fundamentals/gdggdyw
+    title: CLISP Command Line Interface (CLI)
+  - url: lisp/fundamentals/gdggadz
+    title: Maxima Command Line Interface (CLI)
+  - url: lisp/fundamentals/gdydkmw
+    title: LISP Hello World program
+  - url: lisp/fundamentals/gdvwwue
+    title: LISP program to perform the arithmetic operations
+  - url: lisp/fundamentals/gdmalgp
+    title: LISP program to perform the bitwise operations
+  - url: lisp/fundamentals/gdzedbg
+    title: LISP program to demonstrate the use of trigonometric functions
+  - url: lisp/fundamentals/gdvagvz
+    title: LISP program to demonstrate the use of numeric conversion functions
+  - url: lisp/fundamentals/gdiewcv
+    title: LISP program to calculate the square and cube of numbers
+  - url: lisp/fundamentals/gdddysa
+    title: LISP program to find the min and max of two numbers
+  - url: lisp/fundamentals/gdgoauk
+    title: LISP program to swap the given numbers
+- parent: LISP Control Statements
+  subtree: Controls
+  url: lisp/controls
+  children:
+  - url: lisp/controls/gdkdena
+    title: LISP program for the positive-negative test of a given number
+  - url: lisp/controls/gduepzv
+    title: LISP program for the arithmetic operations using the case statements
+- parent: LISP Loops
+  subtree: Loops
+  url: lisp/loops
+  children:
+  - url: lisp/loops/gdzzzay
+    title: LISP program to print the even and odd numbers
+- parent: LISP Strings
+  subtree: Strings
+  url: lisp/strings
+  children:
+  - url: lisp/strings/gdtrkke
+    title: LISP program to perform the string operations
+  - url: lisp/strings/gdzygzo
+    title: LISP program to check whether a given string is a palindrome
+- parent: LISP Functions
+  subtree: Functions
+  url: lisp/functions
+  children:
+  - url: lisp/functions/gduzcrz
+    title: LISP program to find the area of a circle using a function
+sidenav:
+- parent: LISP Programming
+  url: lisp
+  children:
+  - title: LISP Fundamentals
+    url: lisp/fundamentals
+  - title: LISP Control Statements
+    url: lisp/controls
+  - title: LISP Loops
+    url: lisp/loops
+  - title: LISP Strings
+    url: lisp/strings
+  - title: LISP Functions
+    url: lisp/functions

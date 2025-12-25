@@ -1,0 +1,49 @@
+---
+permalink: cpp/controls/gdkgzza
+title: C++ program to check the equality of given numbers
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+using namespace std;
+int main()
+{
+    int a, b;
+    cout<<"———————————————————————————————————————————";
+    cout<<"\nProgram to check the equality of given numbers\n";
+    cout<<"———————————————————————————————————————————";
+    cout<<"\nEnter the first number ";
+    cin>>a;
+    cout<<"Enter the second number ";
+    cin>>b;
+    if (a < b)
+    {
+        cout<<"\n"<<a<<" is less than "<<b;
+    }
+    else if (a == b)
+    {
+        cout<<"\n"<<a<<" is equal to "<<b;
+    }
+    else
+    {
+        cout<<"\n"<<a<<" is greater than "<<b;
+    }
+    cout<<"\n———————————————————————————————————————————\n";
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+———————————————————————————————————————————
+Program to check the equality of given numbers
+———————————————————————————————————————————
+Enter the first number -10
+Enter the second number 10
+
+-10 is less than 10
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

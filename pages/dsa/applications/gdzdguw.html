@@ -1,0 +1,216 @@
+---
+permalink: dsa/applications/gdzdguw
+title: C++ program for Tic-Tac-Toe game
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include<iostream>
+#include<string>
+using namespace std;
+class TicTacToe
+{
+    private:
+    char table[3][3];
+    public:
+    TicTacToe()
+    {
+
+    }
+    void setBoard()
+    {
+        int n=1;
+        for(int i=0;i<3;i++)
+        {
+            for(int j=0;j<3;j++)
+            {
+                table[i][j]='0'+n;
+                n++;
+            }
+        }
+    }
+
+    void showBoard()
+    {
+        cout<<"__________\n";
+        for(int i=0;i<3;i++)
+        {
+            for(int j=0;j<3;j++)
+            if(j<2)
+            {
+                cout<<table[i][j]<<" | ";
+            }
+            else
+            {
+                cout<<table[i][j]<<endl;
+            }
+            if(i<2)
+            {
+                cout<<"--+---+--\n";
+            }
+        }
+        cout<<"__________\n\n";
+    }
+
+    void playerMove(char num,char player)
+    {
+        bool wrongMove=true;
+        for(int i=0;i<3;i++)
+        {
+            for(int j=0;j<3;j++)
+            {
+                if(table[i][j]==num)
+                {
+                    table[i][j]=player;
+                    wrongMove=false;
+                }
+            }
+        }
+        if(wrongMove==true)
+        {
+            cout<<"\nWrong Move\n\n";
+        }
+    }
+
+    bool checkWinner(char player,bool gameOver)
+    {
+        for(int i=0;i<3;i++)
+            if(table[i][0]==table[i][1]&&table[i][1]==table[i][2])
+                gameOver=true;
+        for(int i=0;i<3;i++)
+            if(table[0][i]==table[1][i]&&table[1][i]==table[2][i])
+                gameOver=true;
+        if(table[0][0]==table[1][1]&&table[1][1]==table[2][2])
+            gameOver=true;
+        if(table[0][2]==table[1][1]&&table[1][1]==table[2][0])
+            gameOver=true;
+        if(gameOver==true)
+        {
+            cout<<"Player "<<player<<" wins!\n\n";
+        }
+        return gameOver;
+    }
+
+    bool checkDraw(bool gameOver)
+    {
+        int n=1,count=0;
+        for(int i=0;i<3;i++)
+        {
+            for(int j=0;j<3;j++)
+            {
+                if(table[i][j]=='0'+n)
+                {
+                    count++;
+                }
+                n++;
+            }
+        }
+        if(count<1)
+        {
+            cout<<"It's draw!\n\n";
+            gameOver=true;
+        }
+        return gameOver;
+    }
+};
+
+int main()
+{
+    bool done=false,gameOver=false;
+    char player='O',num;
+    TicTacToe myGame;
+    myGame.setBoard();
+    do
+    {
+        if(player=='X')
+        {
+            player='O';
+        }
+        else
+        {
+            player='X';
+        }
+        myGame.showBoard();
+        cout<<"Player \""<<player<<"\" turn> ";
+        cin>>num;
+        cout<<"\n";
+        if(num=='q')
+        {
+            cout<<"Exit\n";
+            break;
+        }
+        myGame.playerMove(num,player);
+        gameOver=myGame.checkWinner(player,gameOver);
+        gameOver=myGame.checkDraw(gameOver);
+        if(gameOver==true)
+        {
+            myGame.setBoard();
+            gameOver=false;
+        }
+    }while(!done);
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+__________
+1 | 2 | 3
+--+---+--
+4 | 5 | 6
+--+---+--
+7 | 8 | 9
+__________
+
+Player "X" turn> 5
+__________
+1 | 2 | 3
+--+---+--
+4 | X | 6
+--+---+--
+7 | 8 | 9
+__________
+
+Player "O" turn> 1
+__________
+O | 2 | 3
+--+---+--
+4 | X | 6
+--+---+--
+7 | 8 | 9
+__________
+
+Player "X" turn> 3
+__________
+O | 2 | X
+--+---+--
+4 | X | 6
+--+---+--
+7 | 8 | 9
+__________
+
+Player "O" turn> 4
+__________
+O | 2 | X
+--+---+--
+O | X | 6
+--+---+--
+7 | 8 | 9
+__________
+
+Player "X" turn> 7
+
+Player X wins!
+__________
+1 | 2 | 3
+--+---+--
+4 | 5 | 6
+--+---+--
+7 | 8 | 9
+__________
+
+Player "O" turn> q
+Exit
+godarda@gd:~$ 
+</pre></span>

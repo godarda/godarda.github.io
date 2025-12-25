@@ -1,0 +1,57 @@
+---
+permalink: c/loops/gduhwvy
+title: C program to reverse a given number
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    int n, temp;
+    printf("———————————————————————————————————————————");
+    printf("\nProgram to reverse a given number");
+    printf("\n———————————————————————————————————————————");
+    printf("\nEnter the number ");
+    scanf("%d", &n);
+    if (n < 10)
+    {
+        printf("\nUnable to reverse the negative and single-digit number.");
+    }
+    else
+    {
+        printf("\nThe reverse number is ");
+        while (n / 10 != 0)
+        {
+            temp = n % 10;
+            n = n / 10;
+            printf("%d", temp);
+        }
+        printf("%d", n);
+    }
+    printf("\n———————————————————————————————————————————\n");
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+———————————————————————————————————————————
+Program to reverse a given number
+———————————————————————————————————————————
+Enter the number 5
+
+Unable to reverse the negative and single-digit number.
+———————————————————————————————————————————
+
+godarda@gd:~$ <mark>./a.out</mark>
+———————————————————————————————————————————
+Program to reverse a given number
+———————————————————————————————————————————
+Enter the number 65535
+
+The reverse number is 53556
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

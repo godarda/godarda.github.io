@@ -1,0 +1,87 @@
+name: TestHarness (macOS)
+
+# Automated Schedule: Executes on the last day of every month.
+# Manual Trigger: Enables on-demand execution via the GitHub Actions interface.
+on:
+  schedule:
+    # Execute on the 31st for months with 31 days
+    - cron: '0 0 31 1,3,5,7,8,10,12 *'
+    # Execute on the 30th for months with 30 days
+    - cron: '0 0 30 4,6,9,11 *'
+    # Execute on the 29th of February (Leap years)
+    - cron: '0 0 29 2 *'
+    # Execute on the 28th of February (Non-leap years)
+    - cron: '0 0 28 2 *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    timeout-minutes: 15
+
+    steps:
+      # Checkout the repository content
+      - name: Checkout develop branch
+        uses: actions/checkout@v6
+        with:
+          ref: develop
+
+      # Set up the Python 3.13 environment
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+
+      # Install project-specific Python dependencies
+      - name: Install Python Dependencies
+        run: |
+          python3 -m pip install --upgrade pip > /dev/null 2>&1
+          pip install --quiet -r setups/requirements.txt > /dev/null 2>&1
+        shell: bash
+
+      # Set up the Oracle Java 21 environment
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'oracle'
+          java-version: '21'
+
+      # Install required system packages (Rust and NASM)
+      - name: Install Rust and NASM
+        run: |
+          brew update > /dev/null 2>&1
+          brew install rust nasm > /dev/null 2>&1
+        shell: bash
+
+      # Initialize the Jekyll server and execute the test suite
+      - name: Start Jekyll Server and Run Tests
+        run: |
+          # Install Ruby and Bundler
+          brew install ruby > /dev/null 2>&1
+          export GEM_HOME="$HOME/.gem"
+          export PATH="$GEM_HOME/bin:$PATH"
+          gem install bundler > /dev/null 2>&1
+          bundle config set --local path vendor/bundle
+          bundle install > /dev/null 2>&1
+
+          # Launch the Jekyll server in the background
+          nohup bundle exec jekyll serve > /dev/null 2>&1 &
+
+          # Poll for server availability (max 60 seconds)
+          for i in {1..60}; do
+            if curl -s http://localhost:4000 > /dev/null; then
+              echo "Jekyll server is up!"
+              break
+            fi
+            echo "Waiting for server... ($i)"
+            sleep 5
+          done
+
+          if ! curl -s http://localhost:4000 > /dev/null; then
+            echo "Server failed to start within timeout. Aborting tests."
+            exit 1
+          fi
+
+          # Execute the Python test suite
+          python3 tests/run.py
+        shell: bash

@@ -1,0 +1,143 @@
+grandparent:
+- parent: C Fundamentals
+  subtree: Fundamentals
+  url: c/fundamentals
+  children:
+  - url: c/fundamentals/gduvqaa
+    title: C Hello World program
+  - url: c/fundamentals/gdvfzhl
+    title: C Hello World program without using a semicolon
+  - url: c/fundamentals/gdadrfz
+    title: C program to perform the arithmetic operations
+  - url: c/fundamentals/gdzevtw
+    title: C program to perform the boolean operations
+  - url: c/fundamentals/gdafefa
+    title: C program to perform the relational operations
+  - url: c/fundamentals/gdzygvt
+    title: C program to perform the arithmetic operations by accepting the inputs
+  - url: c/fundamentals/gdfdlyz
+    title: C program to calculate the area and circumference of a circle
+  - url: c/fundamentals/gdmwpsv
+    title: C program to find the size of data types
+  - url: c/fundamentals/gdvgrag
+    title: C program to find the range of data types
+  - url: c/fundamentals/gdwgvrq
+    title: Find the output of C programs
+- parent: C Control Statements
+  subtree: Controls
+  url: c/controls
+  children:
+  - url: c/controls/gdcheqs
+    title: C program to check the given number is even or odd
+  - url: c/controls/gddwdgs
+    title: C program to check the equality of given numbers
+  - url: c/controls/gdwagwy
+    title: C program to demonstrate the use of goto statement
+  - url: c/controls/gdecgzz
+    title: C program to demonstrate the use of break and continue statements
+  - url: c/controls/gdebyay
+    title: Find the output of C programs
+- parent: C Loops
+  subtree: Loops
+  url: c/loops
+  children:
+  - url: c/loops/gdvmakr
+    title: C program to print the even and odd numbers
+  - url: c/loops/gdzxwzt
+    title: C program to print the star pyramid patterns
+  - url: c/loops/gddysru
+    title: C program to print the star diamond pattern
+  - url: c/loops/gdzsayg
+    title: C program to print the alphabets diamond pattern
+  - url: c/loops/gdruyaz
+    title: C program to find the min and max of given numbers
+  - url: c/loops/gdcdepo
+    title: C program to print alphabets using the ASCII values
+  - url: c/loops/gduhwvy
+    title: C program to reverse a given number
+  - url: c/loops/gdztvdz
+    title: C program for the addition of N natural numbers
+  - url: c/loops/gdmwzzz
+    title: C program to convert a binary number to an equivalent decimal number
+  - url: c/loops/gddrnhk
+    title: C program to demonstrate the static and local variables
+  - url: c/loops/gdwevzk
+    title: Find the output of C programs
+- parent: C Strings
+  subtree: Strings
+  url: c/strings
+  children:
+  - url: c/strings/gdpnkez
+    title: C program to find the length of a given string
+  - url: c/strings/gdozdow
+    title: C program to concatenate the given strings
+  - url: c/strings/gdtwwpw
+    title: C program to copy the given string
+  - url: c/strings/gdgdpvh
+    title: C program to compare the given strings
+  - url: c/strings/gdvfzwd
+    title: C program to convert lowercase to an uppercase string
+  - url: c/strings/gdopzze
+    title: C program to convert uppercase to a lowercase string
+  - url: c/strings/gdnsdqd
+    title: C program to reverse a given string
+  - url: c/strings/gdnrzbz
+    title: C program to check whether a given string is a palindrome
+- parent: C Arrays
+  subtree: Arrays
+  url: c/arrays
+  children:
+  - url: c/arrays/gdzizzy
+    title: C program to print the given array
+  - url: c/arrays/gdzzdyp
+    title: C program to print the length of a given array
+  - url: c/arrays/gdavnal
+    title: C program to print the sum of all numbers in a given array
+  - url: c/arrays/gdmqyew
+    title: C program to find the min and max number from a given array
+  - url: c/arrays/gdaazcg
+    title: Find the output of C programs
+- parent: C Functions
+  subtree: Functions
+  url: c/functions
+  children:
+  - url: c/functions/gdhxgee
+    title: C program to demonstrate the use of functions
+  - url: c/functions/gdvdeeg
+    title: C menu-driven program for the arithmetic operations
+  - url: c/functions/gdvbrva
+    title: C program to perform the Set operations (Union and Intersection)
+  - url: c/functions/gdcgdie
+    title: C program for the Tower of Hanoi
+  - url: c/functions/gdbudev
+    title: C program to find the factorial of a given number
+  - url: c/functions/gdhfycr
+    title: C program to find the factorial of a given number using recursion
+  - url: c/functions/gdvzlki
+    title: C program to print the current date and time
+- parent: C Pointers
+  subtree: Pointers
+  url: c/pointers
+  children:
+  - url: c/pointers/gdvdpgg
+    title: C program to find the address of variables
+  - url: c/pointers/gdlwgzw
+    title: C program to print the length of a given array without using sizeof
+sidenav:
+- parent: C Programming
+  url: c
+  children:
+  - title: C Fundamentals
+    url: c/fundamentals
+  - title: C Control Statements
+    url: c/controls
+  - title: C Loops
+    url: c/loops
+  - title: C Strings
+    url: c/strings
+  - title: C Arrays
+    url: c/arrays
+  - title: C Functions
+    url: c/functions
+  - title: C Pointers
+    url: c/pointers

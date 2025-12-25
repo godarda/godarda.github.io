@@ -1,0 +1,35 @@
+grandparent:
+- parent: Octave Fundamentals
+  subtree: Fundamentals
+  url: octave/fundamentals
+  children:
+  - url: octave/fundamentals/gdfxzpq
+    title: Octave Arithmetic Operations
+  - url: octave/fundamentals/gdeezgn
+    title: Octave Logical Operations
+  - url: octave/fundamentals/gddggad
+    title: How to generate random numbers in Octave
+  - url: octave/fundamentals/gdgeiev
+    title: Octave Exponents and Logarithms
+  - url: octave/fundamentals/gdazzam
+    title: Octave Trigonometric Functions
+- parent: Octave Strings
+  subtree: Strings
+  url: octave/strings
+  children:
+  - url: octave/strings/gduaulz
+    title: Octave basic string operations
+  - url: octave/strings/gdeceiw
+    title: Octave string indexing
+  - url: octave/strings/gdawdqp
+    title: Octave strings comparison
+  - url: octave/strings/gdcvyzd
+    title: Octave to check the given string is alphanumeric
+sidenav:
+- parent: GNU Octave
+  url: octave
+  children:
+  - title: Octave Fundamentals
+    url: octave/fundamentals
+  - title: Octave Strings
+    url: octave/strings

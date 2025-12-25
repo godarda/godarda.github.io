@@ -1,0 +1,197 @@
+---
+layout: none
+---
+
+[data-bs-theme="dark"]
+{
+    --asm:                 #b37700; /* Brown for assembly language */
+    --c:                   #0080ff; /* Blue for C programming language */
+    --cg:                  #ff6699; /* Pink for computer graphics */
+    --cluster:             #99994d; /* Olive for clustering systems */
+    --cpp:                 #99e600; /* Bright green for C++ programming language */
+    --csharp:              #b366ff; /* Purple for C# programming language */
+    --ds:                  #cc6666; /* Muted red for data science */
+    --dsa:                 #e6b800; /* Amber for data structures and algorithms */
+    --fsharp:              #00bfff; /* Cyan for F# programming language */
+    --java:                #ff8533; /* Warm orange for Java programming language */
+    --julia:               #cc3399; /* Magenta for Julia programming language */
+    --linux:               #ff9966; /* Coral for Linux systems */
+    --lisp:                #8080ff; /* Indigo for Lisp programming language */
+    --mongodb:             #29a329; /* Green for MongoDB database */
+    --mysql:               #4080bf; /* Blue for MySQL database */
+    --octave:              #ff6600; /* Bright orange for Octave programming language */
+    --other:               #00b050; /* Green for miscellaneous or other categories, matching search */
+    --python:              #e6e600; /* Vibrant yellow for Python programming language */
+    --r:                   #9999ff; /* Light purple for R programming language */
+    --rust:                #996633; /* Rustic brown for Rust programming language */
+    --search:              #00b050; /* Green for search-related functionalities */
+    --selenium:            #00cc66; /* Green for Selenium testing framework */
+    --testapp:             #00cc66; /* Green for test applications, matching Selenium */
+    --tools:               #ff9900; /* Bright orange for Tools */
+    
+    --bg_jumbotron:        #050514; /* Background color for jumbotron */
+    --bnw:                 #ffffff; /* Black and white color */
+    --board-bc:            #21252c; /* Board background color */
+    --board-tc:            #d9d9d9; /* Board text color */
+    --color1:              #373d49; /* First color variable */
+    --color2:              #2c313a; /* Second color variable */
+    --color3:              #16181d; /* Third color variable */
+    --color4:              #16181d; /* Fourth color variable */
+    --hlink:               #4d94ff; /* Hyperlink color */
+    --hover_jumbotron:     #000000; /* Hover color for jumbotron */
+    --hover_sideitem:      #16181d; /* Hover color for sidebar items */
+    --infocard:            #0b0c0e; /* Info card background color */
+    --pre-bg:              #0b0c0f; /* Preformatted text background color */
+    --rightsidebar-bc:     #21252c; /* Right sidebar background color */
+    --sidebar-bc:          #21252c; /* Sidebar background color */
+    --sidebar-tc:          #d9d9d9; /* Sidebar text color */
+    --svgicon:             #f2f2f2; /* SVG icon color */
+    --textcolor:           #e6e6e6; /* General text color */
+    --wvnav:               #000000; /* Navigation bar color */
+    --wvnav-item-active:   #21252c; /* Active navigation item color */
+
+    --code-literal:        #79c0ff; /* Literal code color for code literals and elements */
+    --code-special:        #1f6feb; /* Special code color for special code elements */
+    --comment:             #8b949e; /* Comment color for code comments */
+    --diff-added:          #aff5b4; /* Diff added color for added content in diffs */
+    --diff-removed:        #ffdcd7; /* Diff removed color for removed content in diffs */
+    --function:            #d2a8ff; /* Function color for function-related classes */
+    --keyword:             #ff7b72; /* Keyword color for syntax highlighting keywords */
+    --name-attr:           #7ee787; /* Attribute name color for attributes and tags */
+    --name-constant:       #ffa657; /* Constant name color for names and constants */
+    --string:              #a5d6ff; /* String color for string-related classes */
+    --text-error:          #f0f6fc; /* Error text color for error-related classes */
+    --text-primary:        #c9d1d9; /* Primary text color for general text and specific classes */
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+[data-bs-theme="light"]
+{
+    --asm:                 #cc8800; /* Bright brown for assembly language */
+    --c:                   #1a8cff; /* Bright blue for C programming language */
+    --cg:                  #ff668c; /* Light pink for computer graphics */
+    --cluster:             #b3b366; /* Light olive for clustering systems */
+    --cpp:                 #80ff00; /* Vibrant green for C++ programming language */
+    --csharp:              #cc66ff; /* Bright purple for C# programming language */
+    --ds:                  #ff6666; /* Light red for data science */
+    --dsa:                 #ffaa00; /* Bright amber for data structures and algorithms */
+    --fsharp:              #33ccff; /* Bright cyan for F# programming language */
+    --java:                #ff8c1a; /* Warm orange for Java programming language */
+    --julia:               #ff3399; /* Vivid magenta for Julia programming language */
+    --linux:               #ff9966; /* Light coral for Linux systems */
+    --lisp:                #9999ff; /* Light indigo for Lisp programming language */
+    --mongodb:             #33cc33; /* Bright green for MongoDB database */
+    --mysql:               #4d94cc; /* Light blue for MySQL database */
+    --octave:              #ff751a; /* Bright orange for Octave programming language */
+    --other:               #00cc66; /* Bright green for other miscellaneous categories */
+    --python:              #ffcc00; /* Bright yellow for Python programming language */
+    --r:                   #b3b3ff; /* Light purple for R programming language */
+    --rust:                #cc6633; /* Lighter brown for Rust programming language */
+    --search:              #00cc66; /* Bright green for search systems */
+    --selenium:            #00e673; /* Bright green for Selenium testing framework */
+    --testapp:             #00e673; /* Bright green for test applications */
+    --tools:               #ff9900; /* Bright orange for Tools */
+
+    --bg_jumbotron:        #c5cbd3; /* Background color for jumbotron */
+    --bnw:                 #000000; /* Black and white color */
+    --board-bc:            #e2e5e9; /* Board background color */
+    --board-tc:            #424b57; /* Board text color */
+    --color1:              #8b98a7; /* First color variable */
+    --color2:              #c5cbd3; /* Second color variable */
+    --color3:              #99a4b2; /* Third color variable */
+    --color4:              #c5cbd3; /* Fourth color variable */
+    --hlink:               #1a75ff; /* Hyperlink color */
+    --hover_jumbotron:     #99a4b2; /* Hover color for jumbotron */
+    --hover_sideitem:      #c5cbd3; /* Hover color for sidebar items */
+    --infocard:            #b6bfc8; /* Info card background color */
+    --pre-bg:              #e2e6e9; /* Preformatted text background color */
+    --rightsidebar-bc:     #e2e5e9; /* Right sidebar background color */
+    --rightsidebar-tc:     #424b57; /* Right sidebar text color */
+    --sidebar-bc:          #e2e5e9; /* Sidebar background color */
+    --sidebar-tc:          #424b57; /* Sidebar text color */
+    --svgicon:             #424b57; /* SVG icon color */
+    --textcolor:           #000000; /* General text color */
+    --wvnav:               #ffffff; /* Navigation bar color */
+    --wvnav-item-active:   #e2e5e9; /* Active navigation item color */
+
+    --code-literal:        #043a7c; /* Literal code color for code literals and elements */
+    --code-special:        #0550ae; /* Special code color for special code elements */
+    --comment:             #6e7781; /* Comment color for code comments */
+    --diff-added:          #116329; /* Diff added color for added content in diffs */
+    --diff-removed:        #82071e; /* Diff removed color for removed content in diffs */
+    --function:            #8250df; /* Function color for function-related classes */
+    --keyword:             #cf222e; /* Keyword color for syntax highlighting keywords */
+    --name-attr:           #116329; /* Attribute name color for attributes and tags */
+    --name-constant:       #953800; /* Constant name color for names and constants */
+    --string:              #0a3069; /* String color for string-related classes */
+    --text-error:          #24292f; /* Error text color for error-related classes */
+    --text-primary:        #24292f; /* Primary text color for general text and specific classes */
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+{%- for segment in site.data.gd.segments -%}{%- assign s = segment.url | split: '/' -%}
+a.{{ s }}:hover, a.{{ s }}:focus, #{{ s }} > a:hover, #{{ s }} > a:focus, .procard.{{ s }}, .nav-link.sidebar-item-active.{{ s }}
+{ border-left: 5px solid var(--{{ s }}); }
+
+#fc-{{ s }}, #fc-{{ s }}:hover, .wvnav-item-active-{{ s }}
+{ color: var(--{{ s }}); }
+
+div#KSE_input-{{ s }}
+{
+    border-bottom: 1px solid var(--{{ s }});
+    border-radius: 5px;
+}
+#KSE_input-{{ s }}
+{     
+    box-shadow: 0px 0px 20px -13px var(--{{ s }});
+}
+{%- endfor -%}
+
+#other > a:hover, #other > a:focus, .nav-link.sidebar-item-active.about, a.about:hover, a.about:focus
+{ border-left: 5px solid var(--other); }
+
+#fc-, #fc-search, #fc-about, #fc-shubhamrdarda, .wvnav-item-active-, .wvnav-item-active-search, .wvnav-item-active-about, #fc-:hover, #fc-search:hover, #fc-about:hover, #fc-shubhamrdarda:hover
+{ color: var(--other); }
+
+/* --------------------------------------------------------------------------------------------- */
+
+.highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight, .highlight .w { color: var(--text-primary); }
+.highlight .k, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kt, .highlight .kv { color: var(--keyword); }
+.highlight .gr { color: var(--text-error); }
+.highlight .gd { color: var(--diff-removed); }
+.highlight .nb { color: var(--name-constant); }
+.highlight .nc { color: var(--name-constant); }
+.highlight .no { color: var(--name-constant); }
+.highlight .nn { color: var(--name-constant); }
+.highlight .sr { color: var(--name-attr); }
+.highlight .na { color: var(--name-attr); }
+.highlight .nt { color: var(--name-attr); }
+.highlight .gi { color: var(--diff-added); }
+.highlight .kc { color: var(--code-literal); }
+.highlight .l, .highlight .ld, .highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx { color: var(--code-literal); }
+.highlight .sb { color: var(--code-literal); }
+.highlight .bp { color: var(--code-literal); }
+.highlight .ne { color: var(--code-literal); }
+.highlight .nl { color: var(--code-literal); }
+.highlight .py { color: var(--code-literal); }
+.highlight .nv, .highlight .vc, .highlight .vg, .highlight .vi, .highlight .vm { color: var(--code-literal); }
+.highlight .o, .highlight .ow { color: var(--code-literal); }
+.highlight .gh { color: var(--code-special); }
+.highlight .gu { color: var(--code-special); }
+.highlight .s, .highlight .sa, .highlight .sc, .highlight .dl, .highlight .sd, .highlight .s aquí 2, .highlight .se, .highlight .sh, .highlight .sx, .highlight .s1, .highlight .ss { color: var(--string); }
+.highlight .nd { color: var(--function); }
+.highlight .nf, .highlight .fm { color: var(--function); }
+.highlight .err { color: var(--text-error); }
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cm, .highlight .cp, .highlight .cpf, .highlight .c1, .highlight .cs { color: var(--comment); }
+.highlight .gl { color: var(--comment); }
+.highlight .gt { color: var(--comment); }
+.highlight .ni { color: var(--text-primary); }
+.highlight .si { color: var(--text-primary); }
+.highlight .ge { color: var(--text-primary); }
+.highlight .gs { color: var(--text-primary); }
+
+/* --------------------------------------------------------------------------------------------- */

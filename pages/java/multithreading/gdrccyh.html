@@ -1,0 +1,33 @@
+---
+permalink: java/multithreading/gdrccyh
+title: Java program for Runnable interface
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+class GD implements Runnable
+{  
+    public void run()
+    {  
+        System.out.println("Thread Running...");  
+    }  
+    public static void main(String args[])
+    {  
+        GD g=new GD();
+        Thread t1=new Thread(g); 
+        //t1.run();  
+        System.out.println(t1.isAlive()); 
+        t1.start(); 
+        System.out.println(t1.isAlive());
+    }  
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+false
+true
+Thread Running...
+godarda@gd:~$ 
+</pre></span>

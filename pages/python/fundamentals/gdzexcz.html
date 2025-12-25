@@ -1,0 +1,122 @@
+---
+permalink: python/fundamentals/gdzexcz
+title: Python Built-in Functions
+---
+
+<div class="terminalcard">type() function</div>
+<span><pre>
+godarda@gd:~$ <mark>python3</mark>
+...
+>>> <mark>type('Hello, World!')</mark>
+&lt;class 'str'&gt;
+
+>>> <mark>type(7)</mark>
+&lt;class 'int'&gt;
+
+>>> <mark>type(7.23)</mark>
+&lt;class 'float'&gt;
+
+>>> <mark>type(True)</mark>
+&lt;class 'bool'&gt;
+
+>>> <mark>type(False)</mark>
+&lt;class 'bool'&gt;
+
+>>> <mark>a=[1, 2, 3, 4, 5]</mark>
+>>> <mark>type(a)</mark>
+&lt;class 'list'&gt;
+
+>>> <mark>a=(1)</mark>
+>>> <mark>type(a)</mark>
+&lt;class 'int'&gt;
+
+>>> <mark>a=(1, 1.1)</mark>
+>>> <mark>type(a)</mark>
+&lt;class 'tuple'&gt;
+</pre></span>
+
+<div class="terminalcard">range() function</div>
+<span><pre>
+>>> <mark>range(10)</mark>
+range(0, 10)
+
+>>> <mark>list(range(10))</mark>
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+>>> <mark>list(range(5,10))</mark>
+[5, 6, 7, 8, 9]
+
+>>> <mark>list(range(0,10,1))</mark>
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+>>> <mark>list(range(0,10,2))</mark>
+[0, 2, 4, 6, 8]
+ 
+>>> <mark>list(range(0,10,3))</mark>
+[0, 3, 6, 9]
+</pre></span>
+
+<div class="terminalcard">chr() and ord() functions</div>
+<span><pre>
+>>> <mark>chr(42)</mark>
+'*'
+
+>>> <mark>chr(65)</mark>
+'A'
+
+>>> <mark>ord('A')</mark>
+65
+
+>>> <mark>ord('*')</mark>
+42
+</pre></span>
+
+<div class="terminalcard">bytes() and bytearray() functions</div>
+<span><pre>
+>>> <mark>a=[1,2,3,4,5,6]</mark>
+>>> a[0]</mark>
+1
+
+>>> <mark>a[-1]</mark>
+6
+
+>>> <mark>a[-1]=-1000</mark>
+>>> <mark>a</mark>
+[1, 2, 3, 4, 5, -1000]
+
+>>> <mark>exp=bytes(a)</mark>
+<error>Traceback (most recent call last):
+  File "&lt;stdin>", line 1, in &lt;module>
+ValueError: bytes must be in range(0, 256)</error>
+
+>>> <mark>a[-1]=255</mark>
+>>> <mark>a</mark>
+[1, 2, 3, 4, 5, 255]
+
+>>> <mark>exp=bytes(a)</mark>
+>>> <mark>exp[-1]=6</mark>
+<error>Traceback (most recent call last):
+  File "&lt;stdin>", line 1, in &lt;module>
+TypeError: 'bytes' object does not support item assignment</error>
+<hr>>>> <mark>a=[1,2,3,4,5,6]</mark>
+>>> <mark>exp=bytearray(a)</mark>
+>>> <mark>exp[0]</mark>
+1
+
+>>> <mark>exp[-1]</mark>
+6
+
+>>> <mark>exp[-1]=255</mark>
+>>> <mark>exp</mark>
+bytearray(b'\x01\x02\x03\x04\x05\xff')
+
+>>> <mark>for i in exp: print(i)
+... </mark>
+1
+2
+3
+4
+5
+255
+>>> 
+</pre></span>

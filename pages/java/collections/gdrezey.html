@@ -1,0 +1,321 @@
+---
+permalink: java/collections/gdrezey
+title: Implementation of Java TreeSet class
+---
+
+<div class="codecard">Java TreeSet: add() and size() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.TreeSet;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //TreeSet class implements the NavigableSet -> SortedSet -> Set interface
+        TreeSet<String> ts=new TreeSet<>();
+        ts.add("Apple");
+        ts.add("Orange");
+        ts.add("Mango");
+        ts.add("Grapes");
+        ts.add("Cherry");
+        ts.add("Apple");
+        
+        System.out.println(ts);
+        System.out.println("Size: "+ts.size());
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[Apple, Cherry, Grapes, Mango, Orange]
+Size: 5
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java TreeSet: first() and last() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.TreeSet;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //TreeSet class implements the NavigableSet -> SortedSet -> Set interface
+        TreeSet<String> ts=new TreeSet<>();
+        ts.add("Apple");
+        ts.add("Orange");
+        ts.add("Mango");
+        ts.add("Grapes");
+        ts.add("Cherry");
+        ts.add("Apple");
+        System.out.println(ts);
+        
+        System.out.println(ts.first());
+        System.out.println(ts.last());
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[Apple, Cherry, Grapes, Mango, Orange]
+Apple
+Orange
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java TreeSet: higher() and lower() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.TreeSet;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //TreeSet class implements the NavigableSet -> SortedSet -> Set interface
+        TreeSet<String> ts=new TreeSet<>();
+        ts.add("Apple");
+        ts.add("Orange");
+        ts.add("Mango");
+        ts.add("Pineapple");
+        ts.add("Grapes");
+        ts.add("Cherry");
+        ts.add("Apple");
+        System.out.println(ts);
+        
+        System.out.println(ts.higher("Orange"));
+        System.out.println(ts.lower("Orange"));
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[Apple, Cherry, Grapes, Mango, Orange, Pineapple]
+Pineapple
+Mango
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java TreeSet: headSet(), subSet() and tailSet() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.TreeSet;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //TreeSet class implements the NavigableSet -> SortedSet -> Set interface
+        TreeSet<String> ts=new TreeSet<>();
+        ts.add("Apple");
+        ts.add("Orange");
+        ts.add("Mango");
+        ts.add("Pineapple");
+        ts.add("Grapes");
+        ts.add("Cherry");
+        ts.add("Apple");
+        System.out.println(ts);
+        
+        System.out.println(ts.headSet("Grapes"));
+        System.out.println(ts.subSet("Apple", "Mango"));
+        System.out.println(ts.tailSet("Grapes"));
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[Apple, Cherry, Grapes, Mango, Orange, Pineapple]
+[Apple, Cherry]
+[Apple, Cherry, Grapes]
+[Grapes, Mango, Orange, Pineapple]
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java TreeSet: ceiling() and floor() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.TreeSet;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //TreeSet class implements the NavigableSet -> SortedSet -> Set interface
+        TreeSet<Float> ts=new TreeSet<>();
+        ts.add(2455.336F);
+        ts.add(36985.336F);
+        ts.add(1256.39F);
+        ts.add(987442.933F);
+        ts.add(45.73F);
+        ts.add(47.99F);
+        ts.add(1.20220F);
+        ts.add(12255.00F);
+        System.out.println(ts);
+        
+        System.out.println(ts.ceiling(2500F)); 
+        //return least element from the set which is greater than or equal to the given element
+        
+        System.out.println(ts.floor(100F)); 
+        //return greatest element from the set which is less than the given element
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[1.2022, 45.73, 47.99, 1256.39, 2455.336, 12255.0, 36985.336, 987442.94]
+12255.0
+47.99
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java TreeSet: ceiling() and floor() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.TreeSet;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //TreeSet class implements the NavigableSet -> SortedSet -> Set interface
+        TreeSet<String> ts=new TreeSet<>();
+        ts.add("Apple");
+        ts.add("Orange");
+        ts.add("Blueberry");
+        ts.add("Mango");
+        ts.add("Grapes");
+        ts.add("Apple");
+        ts.add("Bananas");
+        
+        System.out.println(ts);
+        System.out.println(ts.ceiling("Dates"));
+        System.out.println(ts.floor("Cherry"));
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[Apple, Bananas, Blueberry, Grapes, Mango, Orange]
+Grapes
+Blueberry
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java TreeSet: pollFirst() and pollLast() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.TreeSet;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //TreeSet class implements the NavigableSet -> SortedSet -> Set interface
+        TreeSet<String> ts=new TreeSet<>();
+        ts.add("Apple");
+        ts.add("Orange");
+        ts.add("Blueberry");
+        ts.add("Mango");
+        ts.add("Pineapple");
+        ts.add("Grapes");
+        ts.add("Apple");
+        ts.add("Bananas");
+        System.out.println(ts);
+        
+        ts.pollFirst();
+        ts.pollLast();
+        System.out.println(ts);
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[Apple, Bananas, Blueberry, Grapes, Mango, Orange, Pineapple]
+[Bananas, Blueberry, Grapes, Mango, Orange]
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java TreeSet: addAll() and containsAll() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.TreeSet;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //TreeSet class implements the NavigableSet -> SortedSet -> Set interface
+        TreeSet<String> ts1=new TreeSet<>();
+        ts1.add("Apple");
+        ts1.add("Orange");
+        ts1.add("Mango");
+        ts1.add("Blueberry");
+        System.out.println(ts1);
+        
+        TreeSet<String> ts2=new TreeSet<>();
+        ts2.add("Apple");
+        ts2.add("Orange");
+        ts2.add("Mango");
+        ts2.add("Pineapple");
+        
+        ts1.addAll(ts2);
+        System.out.println(ts1);
+        System.out.println(ts1.contains("Pineapple"));
+        System.out.println(ts2.containsAll(ts1));
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[Apple, Blueberry, Mango, Orange]
+[Apple, Blueberry, Mango, Orange, Pineapple]
+true
+false
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java TreeSet: remove() and removeAll() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.TreeSet;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //TreeSet class implements the NavigableSet -> SortedSet -> Set interface
+        TreeSet<String> ts=new TreeSet<>();
+        ts.add("Apple");
+        ts.add("Orange");
+        ts.add("Mango");
+        ts.add("Grapes");
+        ts.add("Cherry");
+        ts.add("Apple");
+        
+        ts.remove("Apple");
+        System.out.println(ts);
+        
+        ts.removeAll(ts); //ts.clear();
+        System.out.println("Size: "+ts.size());
+        System.out.println(ts.isEmpty());
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[Cherry, Grapes, Mango, Orange]
+Size: 0
+true
+godarda@gd:~$ 
+</pre></span>

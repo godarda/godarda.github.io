@@ -1,0 +1,31 @@
+---
+permalink: fsharp/fundamentals/gdxmvyy
+title: F# program to calculate the area and circumference of a circle
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.fsfile }}</div>
+<pre class="code">{%- highlight fsharp -%}
+open System
+
+printfn "———————————————————————————————————————————"
+printfn "Program to calculate the area and circumference of a circle"
+printfn "———————————————————————————————————————————"
+printf "Enter the radius of a circle "
+let r = float(Console.ReadLine())
+printfn "The area of a circle is %f " (Math.PI * r * r)
+printfn "The circumference of a circle is %f " (float(2) * Math.PI * r)
+printfn "———————————————————————————————————————————"
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runfs }}
+———————————————————————————————————————————
+Program to calculate the area and circumference of a circle
+———————————————————————————————————————————
+Enter the radius of a circle 10
+The area of a circle is 314.159265 
+The circumference of a circle is 62.831853 
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

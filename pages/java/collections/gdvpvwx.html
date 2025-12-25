@@ -1,0 +1,174 @@
+---
+permalink: java/collections/gdvpvwx
+title: Implementation of Java ArrayDeque class
+---
+
+<div class="codecard">Java ArrayDeque: add() and size() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.ArrayDeque;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //ArrayDeque class implements the Queue interface
+        ArrayDeque<String> aq=new ArrayDeque<>();
+        aq.add("Apple");
+        aq.add("Orange");
+        aq.add("Mango");
+        aq.add("Grapes");
+        aq.add("Cherry");
+        aq.add("Apple");
+        aq.add("Blueberry");
+        
+        for(String e:aq) 
+        { 
+            System.out.println(e); 
+        }
+        System.out.println("Size: "+aq.size());
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Apple
+Orange
+Mango
+Grapes
+Cherry
+Apple
+Blueberry
+Size: 7
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java ArrayDeque: offerFirst() and offerLast() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.ArrayDeque;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //ArrayDeque class implements the Queue interface
+        ArrayDeque<String> aq=new ArrayDeque<>();
+        aq.add("Apple");
+        aq.add("Mango");
+        aq.add("Grapes");
+        aq.add("Cherry");
+        aq.add("Apple");
+        System.out.println(aq);
+        if(aq.offerFirst("Orange")) //returns true on successful addition of an element
+        {
+            System.out.println("\nElement added at the first position of ArrayDeque");
+            System.out.println(aq);
+        }
+        if(aq.offerLast("Blueberry"))
+        {
+            System.out.println("\nElement added at the last position of ArrayDeque");
+            System.out.println(aq);
+        }
+        if(aq.offer("Pineapple"))
+        {
+            System.out.println("\nNew element added into the ArrayDeque");
+            System.out.println(aq);
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[Apple, Orange, Mango, Grapes, Cherry, Apple, Blueberry]
+
+New element added into the ArrayDeque
+[Apple, Orange, Mango, Grapes, Cherry, Apple, Blueberry, Pineapple]
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java ArrayDeque: peek() and poll() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.ArrayDeque;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //ArrayDeque class implements the Queue interface
+        ArrayDeque<String> aq=new ArrayDeque<>();
+        aq.add("Apple"); //First In First Out
+        aq.add("Orange");
+        aq.add("Mango");
+        aq.add("Grapes");
+        aq.add("Cherry");
+        aq.add("Apple");
+        aq.add("Blueberry"); //Last In Last Out
+        System.out.println(aq);
+        System.out.println("Head element: "+aq.element());
+        
+        aq.poll();
+        System.out.println("\n"+aq);
+        System.out.println("Peek element: "+aq.peek());
+        
+        aq.remove();
+        System.out.println("\n"+aq);
+        System.out.println("Peek element: "+aq.peek());
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[Apple, Orange, Mango, Grapes, Cherry, Apple, Blueberry]
+Head element: Apple
+
+[Orange, Mango, Grapes, Cherry, Apple, Blueberry]
+Peek element: Orange
+
+[Mango, Grapes, Cherry, Apple, Blueberry]
+Peek element: Mango
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java ArrayDeque: addFirst() and pollFirst() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.ArrayDeque;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //ArrayDeque class implements the Queue interface
+        ArrayDeque<String> aq=new ArrayDeque<>();
+        aq.add("Apple");
+        aq.add("Mango");
+        aq.add("Grapes");
+        aq.add("Cherry");
+        aq.add("Apple");
+        System.out.println(aq);
+        
+        //aq.addFirst(null); //java.lang.NullPointerException
+
+        aq.addFirst("Orange");
+        aq.addLast("Blueberry");
+        System.out.println(aq);
+        
+        aq.pollFirst();
+        aq.pollLast();
+        System.out.println(aq);
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[Apple, Mango, Grapes, Cherry, Apple]
+[Orange, Apple, Mango, Grapes, Cherry, Apple, Blueberry]
+[Apple, Mango, Grapes, Cherry, Apple]
+godarda@gd:~$ 
+</pre></span>

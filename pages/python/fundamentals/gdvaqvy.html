@@ -1,0 +1,73 @@
+---
+permalink: python/fundamentals/gdvaqvy
+title: Python program for conversion of the number systems
+---
+
+<div class="titlecard">{{ page.title }}</div>
+<div class="codecard">Decimal to Binary, Octal, and Hexadecimal</div>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="code">{%- highlight python -%}
+n=int(input("Enter Decimal number "))
+print("Binary equivalent ",bin(n))
+print("Octal equivalent ",oct(n))
+print("Hexadecimal equivalent ",hex(n))
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runpy }}
+Enter Decimal number 255
+Binary equivalent 0b11111111
+Octal equivalent 0o377
+Hexadecimal equivalent 0xff
+</pre></span>
+
+<div class="codecard">Binary to Decimal, Octal, and Hexadecimal</div>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="code">{%- highlight python -%}
+n=input("Enter Binary number ")
+print("Decimal equivalent ",int(n,2))
+print("Octal equivalent ",oct(int(n,2)))
+print("Hexadecimal equivalent ",hex(int(n,2)))
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runpy }}
+Enter Binary number 11111111
+Decimal equivalent 255
+Octal equivalent 0o377
+Hexadecimal equivalent 0xff
+</pre></span>
+
+<div class="codecard">Octal to Decimal, Binary, and Hexadecimal</div>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="code">{%- highlight python -%}
+n=input("Enter Octal number ")
+print("Decimal equivalent ",int(n,8))
+print("Binary equivalent ",bin(int(n,8)))
+print("Hexadecimal equivalent ",hex(int(n,8)))
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runpy }}
+Enter Octal number 17
+Decimal equivalent 15
+Binary equivalent 0b1111
+Hexadecimal equivalent 0xf
+</pre></span>
+
+<div class="codecard">Hexadecimal to Decimal, Binary, Octal</div>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="code">{%- highlight python -%}
+n=input("Enter Hexadecimal number ")
+print("Decimal equivalent ",int(n,16))
+print("Binary equivalent ",bin(int(n,16)))
+print("Octal equivalent ",oct(int(n,16)))
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runpy }}
+Enter Hexadecimal number FFFF
+Decimal equivalent 65535
+Binary equivalent 0b1111111111111111
+Octal equivalent 0o177777
+</pre></span>

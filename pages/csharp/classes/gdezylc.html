@@ -1,0 +1,57 @@
+---
+permalink: csharp/classes/gdezylc
+title: C# program to print the current date and time
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+Console.WriteLine("———————————————————————————————————————————");
+Console.WriteLine("Program to print the current date and time");
+Console.WriteLine("———————————————————————————————————————————");
+DateTime dt = DateTime.Now;
+Console.WriteLine(dt.ToString("d"));
+Console.WriteLine(dt.ToString("D"));
+Console.WriteLine(dt.ToString("f"));
+Console.WriteLine(dt.ToString("F"));
+Console.WriteLine(dt.ToString("g"));
+Console.WriteLine(dt.ToString("G"));
+Console.WriteLine(dt.ToString("m"));
+Console.WriteLine(dt.ToString("M"));
+Console.WriteLine(dt.ToString("o"));
+Console.WriteLine(dt.ToString("O"));
+Console.WriteLine(dt.ToString("s"));
+Console.WriteLine(dt.ToString("t"));
+Console.WriteLine(dt.ToString("T"));
+Console.WriteLine(dt.ToString("u"));
+Console.WriteLine(dt.ToString("U"));
+Console.WriteLine(dt.ToString("y"));
+Console.WriteLine(dt.ToString("Y"));
+Console.WriteLine("———————————————————————————————————————————");
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+———————————————————————————————————————————
+Program to print the current date and time
+———————————————————————————————————————————
+8/5/2023
+Saturday, August 5, 2023
+Saturday, August 5, 2023 2:11PM
+Saturday, August 5, 2023 2:11:51PM
+8/5/2023 2:11PM
+8/5/2023 2:11:51PM
+August 5
+August 5
+2023-08-05T14:11:51.6439520+05:30
+2023-08-05T14:11:51.6439520+05:30
+2023-08-05T14:11:51
+2:11PM
+2:11:51PM
+2023-08-05 14:11:51Z
+Saturday, August 5, 2023 8:41:51AM
+August 2023
+August 2023
+———————————————————————————————————————————
+godarda@gd:~/csharp$ 
+</pre></span>

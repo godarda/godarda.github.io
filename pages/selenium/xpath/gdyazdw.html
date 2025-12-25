@@ -1,0 +1,27 @@
+---
+permalink: selenium/xpath/gdyazdw
+title: Selenium Java to locate a web element using the text() method
+---
+
+<div class="codecard">Selenium Java to locate web element by XPath using text() method</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="editorcard">{%- highlight java -%}
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        WebDriver driver = new ChromeDriver();
+        driver.navigate().to("https://godarda.in/testapp/");
+        
+        driver.findElement(By.xpath("//*[contains(@name,'ername')]")).sendKeys("godarda");
+        driver.findElement(By.xpath("//*[contains(@name,'passw')]")).sendKeys("godarda");
+        driver.findElement(By.xpath("//*[text()='Reset']")).click();
+        driver.close();
+    }
+}
+{%- endhighlight -%}</pre>

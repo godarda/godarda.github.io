@@ -1,0 +1,29 @@
+---
+permalink: selenium/locators/gdgvvpw
+title: Selenium Java to copy and paste the text in an input field
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="editorcard">{%- highlight java -%}
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+class GD
+{
+    public static void main(String[] args) 
+    {   
+        System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://godarda.in/testapp/");
+        driver.findElement(By.name("username")).sendKeys("godarda");
+        driver.findElement(By.name("username")).sendKeys(Keys.CONTROL, "a");
+        driver.findElement(By.name("username")).sendKeys(Keys.CONTROL, "c");
+        driver.findElement(By.name("password")).sendKeys(Keys.CONTROL, "v");;
+        driver.findElement(By.name("login")).click();
+        driver.close();
+    }
+}
+{%- endhighlight -%}</pre>

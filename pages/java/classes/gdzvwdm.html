@@ -1,0 +1,49 @@
+---
+permalink: java/classes/gdzvwdm
+title: Java program to print the current date and time
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.*;
+class GD
+{
+    public static void main(String args[])
+    {
+        System.out.println(new Date());
+    }
+}
+{%- endhighlight -%}</pre>
+
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.Date;
+class GD
+{
+    public static void main(String args[])
+    {
+        Date d=new Date();
+        System.out.println(d);
+    }
+}
+{%- endhighlight -%}</pre>
+
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.Calendar;
+class GD
+{
+    public static void main(String args[])
+    {
+        Calendar c=Calendar.getInstance();
+        System.out.println(c.getTime());
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Sun Apr 28 11:30:36 IST 2019
+godarda@gd:~$ 
+</pre></span>

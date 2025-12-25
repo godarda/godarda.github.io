@@ -1,0 +1,61 @@
+---
+permalink: cluster/vbscript/gdweeat
+title: VBScript to perform ArrayList operations
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.vbsfile }}</div>
+<pre>{%- highlight vb -%}
+Set ArrayList = CreateObject("System.Collections.ArrayList")
+ArrayList.Add 1000
+ArrayList.Add 900
+ArrayList.Add 800
+ArrayList.Add 700
+ArrayList.Add 600
+ArrayList.Add 500
+ArrayList.Add 400
+ArrayList.Add 300
+ArrayList.Add 200
+ArrayList.Add 100
+
+print Join(ArrayList.ToArray, ", ")
+ArrayList.Sort
+print Join(ArrayList.ToArray, ", ")
+ArrayList.Remove 1000
+print Join(ArrayList.ToArray, ", ")
+ArrayList.RemoveAt 0
+print Join(ArrayList.ToArray, ", ")
+If ArrayList.Contains(500) Then
+    print "Element Present"
+Else
+    print "Element Not Present"
+End If
+ArrayList.Clear
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+1000, 900, 800, 700, 600, 500, 400, 300, 200, 100
+100, 200, 300, 400, 500, 600, 700, 800, 900, 1000
+100, 200, 300, 400, 500, 600, 700, 800, 900
+200, 300, 400, 500, 600, 700, 800, 900
+Element Present
+</pre></span>
+
+<div class="codecard">Example 2</div>
+<div class="card">{{ site.vbsfile }}</div>
+<pre>{%- highlight vb -%}
+Set ArrayList = CreateObject("System.Collections.ArrayList")
+ArrayList.Add "Apple"
+ArrayList.Add "Banana"
+ArrayList.Add "Cherry"
+ArrayList.Add "Durian"
+ArrayList.Add "Apple"
+print Join(ArrayList.ToArray, ", ")
+ArrayList.Sort
+print Join(ArrayList.ToArray, ", ")
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+Apple, Banana, Cherry, Durian, Apple
+Apple, Apple, Banana, Cherry, Durian
+</pre></span>

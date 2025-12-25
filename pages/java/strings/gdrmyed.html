@@ -1,0 +1,94 @@
+---
+permalink: java/strings/gdrmyed
+title: Java program to find the unique characters from a given string
+---
+
+<div class="codecard">Example 1: {{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.Scanner;
+class GD
+{
+    public static void main(String args[])
+    {
+        String s1,s2="";
+        System.out.println("———————————————————————————————————————————");
+        System.out.println("Program to find unique characters");
+        System.out.println("———————————————————————————————————————————");
+        Scanner sc=new Scanner(System.in);
+        System.out.print("Enter the string ");
+        s1=sc.nextLine();
+        for(int i=0;i<s1.length();i++)
+        {
+            if(s2.indexOf(s1.charAt(i))==-1)
+            {
+                s2=s2+s1.charAt(i);
+            }
+        }
+        System.out.println("\nUnique characters "+s2);
+        System.out.println("———————————————————————————————————————————");
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+———————————————————————————————————————————
+Program to find unique characters
+———————————————————————————————————————————
+Enter the string KODINGWINDOW
+
+Unique characters KODINGW
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Example 2: {{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.Scanner;
+class GD
+{
+    public static void main(String args[])
+    {
+        String s;
+        System.out.println("———————————————————————————————————————————");
+        System.out.println("Program to find unique characters");
+        System.out.println("———————————————————————————————————————————");
+        Scanner sc=new Scanner(System.in);
+        System.out.print("Enter the string ");
+        s=sc.nextLine();
+        s=s.toUpperCase();
+        for(char letter='A';letter<='Z';letter++)
+        {
+            for(int i=0;i<s.length();i++)
+            {
+                if(letter==s.charAt(i))
+                {
+                    System.out.print("\nUnique character "+letter);
+                    break;
+                }
+            }
+        }
+        System.out.println("\n———————————————————————————————————————————");
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+———————————————————————————————————————————
+Program to find unique characters
+———————————————————————————————————————————
+Enter the string KODINGWINDOW
+
+Unique character D
+Unique character G
+Unique character I
+Unique character K
+Unique character N
+Unique character O
+Unique character W
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

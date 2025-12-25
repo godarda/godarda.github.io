@@ -1,0 +1,38 @@
+---
+permalink: lisp/fundamentals/gdzedbg
+title: LISP program to demonstrate the use of trigonometric functions
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.lispfile }}</div>
+<pre class="code">{%- highlight lisp -%}
+(write-line "———————————————————————————————————————————")
+(write-line "Program for trigonometric functions")
+(write-line "———————————————————————————————————————————")
+(princ "Enter the angle ")
+(setq a(read))
+(format t "~%  sin(~d) | ~d"a (sin a))
+(format t "~%  cos(~d) | ~d"a (cos a))
+(format t "~%  tan(~d) | ~d"a (tan a))
+(format t "~%  cot(~d) | ~d"a (/ (cos 45) (sin 45)))
+(format t "~%  sec(~d) | ~d"a (/ 1 (cos 45)))
+(format t "~%cosec(~d) | ~d"a (/ 1 (sin 45)))
+(terpri)(format t "———————————————————————————————————————————")
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runlisp }}
+———————————————————————————————————————————
+Program for trigonometric functions
+———————————————————————————————————————————
+Enter the angle 60
+
+  sin(60) | -0.3048106
+  cos(60) | -0.95241296
+  tan(60) | 0.32004037
+  cot(60) | 0.6173696
+  sec(60) | 1.9035945
+cosec(60) | 1.1752213
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

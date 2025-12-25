@@ -1,0 +1,97 @@
+---
+permalink: lisp/fundamentals/gdggadz
+title: Maxima Command Line Interface (CLI)
+---
+
+<div class="titlecard">{{ page.title }}</div>
+<div class="terminalcard">Basic operations</div>
+<span><pre>
+godarda@gd:~$ <mark>maxima</mark>
+...
+(%i1) <mark>50!;</mark>
+(%o1)  30414093201713378043612608166064768844377641568960512000000000000
+
+(%i2) <mark>2^64;</mark>
+(%o2)                        18446744073709551616
+
+(%i3) <mark>f(x):=x^8;</mark>
+                                           8
+(%o3)                             f(x) := x
+
+(%i4) <mark>f(10);</mark>
+(%o4)                              100000000
+
+(%i5) <mark>f(5);</mark>
+(%o5)                               390625
+
+(%i6) <mark>sin(%pi/3);</mark>
+                                    sqrt(3)
+(%o6)                               -------
+                                       2
+
+(%i7) <mark>factor(x^2+x-20);</mark>
+(%o7)                           (x - 4) (x + 5)
+</pre></span>
+
+<div class="terminalcard">Units</div>
+<span><pre>
+(%i8) <mark>load(unit);</mark>
+******************************************************************* 
+*                       Units version 0.50                        * 
+*          Definitions based on the NIST Reference on             * 
+*              Constants, Units, and Uncertainty                  * 
+*       Conversion factors from various sources including         * 
+*                   NIST and the GNU units package                * 
+******************************************************************* 
+ 
+Redefining necessary functions... 
+Initializing unit arrays... 
+Done. 
+(%o8)        /usr/share/maxima/5.41.0/share/contrib/unit/unit.mac
+
+(%i9) <mark>[N,Pa,J,W,C,V,F];</mark>
+                                  2      2           2   2  4
+                  kg m   kg   kg m   kg m        kg m   A  s
+(%o9)            [----, ----, -----, -----, A s, -----, -----]
+                    2      2    2      3            3       2
+                   s    m s    s      s          A s    kg m
+
+(%i10) <mark>[Ohm,T,H,lm,lx];</mark>
+                              2            2
+                          kg m    kg   kg m       cd
+(%o10)                   [-----, ----, -----, cd, --]
+                           2  3     2   2  2       2
+                          A  s   A s   A  s       m
+
+(%i11) <mark>mass:5*kg $ acc:1.8*m/s^2 $ force:mass*acc;</mark>
+                                       kg m
+(%o13)                            (9) (----)
+                                         2
+                                        s
+(%i14) <mark>mass:15*kg $ velocity:5*m/s $ KE=0.5*mass*velocity^2;</mark>
+                                               2
+                                           kg m
+(%o16)                       KE = (187.5) (-----)
+                                             2
+                                            s
+
+(%i17) <mark>setunits([N,J]);</mark>
+(%o17)                               done
+
+(%i18) <mark>[(5*kg)*(26.8*m/s^2),(1.5*N)*(3*m)];</mark>
+                                          9
+(%o18)                       [(134) (N), (-) (J)]
+                                          2
+
+(%i19) <mark>uforget([N,J]);</mark>
+(%o19)                          [false, false]
+
+(%i20) <mark>[(5*kg)*(26.8*m/s^2),(1.5*N)*(3*m)];</mark>
+                                                   2
+                                   kg m    9   kg m
+(%o20)                   [(134.0) (----), (-) (-----)]
+                                     2     2     2
+                                    s           s
+
+(%i21) <mark>CTRL+D to Exit;</mark>
+</pre></span>

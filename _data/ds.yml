@@ -1,0 +1,27 @@
+grandparent:
+- parent: Data Analysis
+  subtree: Data Analysis
+  url: ds/analysis
+  children:
+  - url: ds/analysis/gdkzmpr
+    title: Python Pandas to create a DataFrame from CSV file, Dictionary, etc.
+  - url: ds/analysis/gdvoktc
+    title: Python Pandas to extract rows and columns from a DataFrame
+  - url: ds/analysis/gdwdghw
+    title: Python Pandas to index and sort a DataFrame
+  - url: ds/analysis/gdwvkyk
+    title: Python Pandas to fill and drop missing data in a DataFrame
+- parent: Data Visualization
+  subtree: Data Visualization
+  url: ds/visualization
+  children:
+  - url: ds/visualization/gdleovy
+    title: Python Pandas to create a bar graph using the matplotlib module
+sidenav:
+- parent: Data Science
+  url: ds
+  children:
+  - title: Data Analysis
+    url: ds/analysis
+  - title: Data Visualization
+    url: ds/visualization

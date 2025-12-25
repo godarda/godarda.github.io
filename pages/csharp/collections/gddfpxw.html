@@ -1,0 +1,48 @@
+---
+permalink: csharp/collections/gddfpxw
+title: Implementation of C# ArrayList class
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+using System.Collections;
+
+ArrayList al = new ArrayList();
+al.Add("Apple");
+al.Add("Banana");
+al.Add(50);
+al.Add("Cherry");
+al.Add("Durian");
+al.Add("Apple");
+Console.WriteLine("ArrayList: ");
+foreach(var fruits in al)
+{
+    Console.Write(fruits+" ");
+}
+
+Console.WriteLine("\n\nThird element: "+al[3]);
+Console.WriteLine("Size of ArrayList: "+al.Count);
+
+al.RemoveAt(2); //removed 50
+al.Sort();
+Console.WriteLine("\nSorted elements: ");
+foreach(var fruits in al)
+{
+    Console.Write(fruits+" ");
+}
+Console.WriteLine();
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+ArrayList: 
+Apple Banana 50 Cherry Durian Apple 
+
+Third element: Cherry
+Size of ArrayList: 6
+
+Sorted elements: 
+Apple Apple Banana Cherry Durian 
+godarda@gd:~/csharp$ 
+</pre></span>

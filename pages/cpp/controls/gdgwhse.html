@@ -1,0 +1,41 @@
+---
+permalink: cpp/controls/gdgwhse
+title: C++ program to check the given number is positive or negative
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+using namespace std;
+int main()
+{
+    int n;
+    cout<<"Enter a number ";
+    cin>>n;
+    if (n < 0)
+    {
+        cout<<"Entered number is negative"<<endl;
+    }
+    else if (n > 0)
+    {
+        cout<<"Entered number is positive"<<endl;
+    }
+    else
+    {
+        cout<<"Entered number is zero"<<endl;
+    }
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+Enter a number -3.14
+Entered number is negative
+
+godarda@gd:~$ <mark>./a.out</mark>
+Enter a number 0
+Entered number is zero
+godarda@gd:~$ 
+</pre></span>

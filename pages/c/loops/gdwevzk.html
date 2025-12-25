@@ -1,0 +1,28 @@
+---
+permalink: c/loops/gdwevzk
+title: Find the output of C programs
+---
+
+<div class="titlecard">{{ page.title }}</div>
+<div class="codecard">Program 1</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+int main()
+{
+    int a = 5;
+    printf("%d\n", ++a + ++a + ++a);
+    int b = 5;
+    printf("%d %d %d\n", ++b, ++b, ++b);
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div style="cursor: pointer;" class="card collapsed" data-bs-toggle="collapse" data-bs-target="#p1"><span class="show">Show Output</span><span class="hide">Output</span></div>
+<div id="p1" class="collapse">
+<span><pre>
+{{ site.runc }}
+22
+8 8 8
+godarda@gd:~$ 
+</pre></span>
+</div>

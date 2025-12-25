@@ -1,0 +1,117 @@
+---
+permalink: dsa/searching/gdwzavz
+title: Python implementation of Binary Search
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="code">{%- highlight python -%}
+def BinarySearch(array,num,first,last):
+    if(first>last):
+        print("\nElement not found!")
+        print("———————————————————————————————————————————")
+    else:
+        mid=(first+last)//2;
+        if(array[mid]==num):
+            print("\nElement found at index",mid+1)
+            print("———————————————————————————————————————————")
+        elif(array[mid]>num):
+            BinarySearch(array,num,first,mid-1);
+        else:
+            BinarySearch(array,num,mid+1,last);
+
+print("———————————————————————————————————————————")
+print("Implementation of a Binary Search")
+print("———————————————————————————————————————————")
+try:
+    array=[]
+    n=int(input("How many numbers you want to enter "))
+    if(n>0):
+        for i in range(0,n):
+            print("Enter Number",i+1,end=" | ")
+            numbers=int(input())
+            array.append(numbers)
+        array.sort()
+        print("\nSorted numbers",array)
+        num=int(input("\nEnter the number to be searched "))
+        beg=0
+        end=n-1
+        BinarySearch(array,num,beg,end)
+    else:
+        print("\nPlease enter a positive integer")
+        print("———————————————————————————————————————————")
+except ValueError:
+    print("\nInvalid Input!\nProgram Terminated")
+    print("———————————————————————————————————————————")
+{%- endhighlight -%}</pre>
+<div class="card">Output: positive test</div>
+<span><pre>
+{{ site.runpy }}
+———————————————————————————————————————————
+Implementation of a Binary Search
+———————————————————————————————————————————
+How many numbers you want to enter 8
+Enter Number 1 | -29
+Enter Number 2 | 85
+Enter Number 3 | -1024
+Enter Number 4 | 2048
+Enter Number 5 | 596
+Enter Number 6 | 100
+Enter Number 7 | 65535
+Enter Number 8 | 0
+
+Sorted numbers [-1024, -29, 0, 85, 100, 596, 2048, 65535]
+
+Enter the number to be searched 0
+
+Element found at index 3
+———————————————————————————————————————————
+godarda@gd:~$ 
+
+{{ site.runpy }}
+———————————————————————————————————————————
+Implementation of a Binary Search
+———————————————————————————————————————————
+How many numbers you want to enter 5
+Enter Number 1 | 2
+Enter Number 2 | 2
+Enter Number 3 | 2
+Enter Number 4 | 2
+Enter Number 5 | 2
+
+Sorted numbers [2, 2, 2, 2, 2]
+
+Enter the number to be searched 2
+
+Element found at index 3
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>
+
+<div class="terminalcard">Output: negative test</div>
+<span><pre>
+{{ site.runpy }}
+———————————————————————————————————————————
+Implementation of a Binary Search
+———————————————————————————————————————————
+How many numbers you want to enter 5
+Enter Number 1 | 8
+Enter Number 2 | 5
+Enter Number 3 | 2
+Enter Number 4 | #
+
+Invalid Input!
+Program Terminated
+———————————————————————————————————————————
+godarda@gd:~$ 
+
+{{ site.runpy }}
+———————————————————————————————————————————
+Implementation of a Binary Search
+———————————————————————————————————————————
+How many numbers you want to enter 0
+
+Please enter a positive integer
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

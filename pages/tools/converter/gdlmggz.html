@@ -1,0 +1,27 @@
+---
+permalink: tools/converter/gdlmggz
+title: Sound Level Converter
+description: "Instantly convert sound levels between different units. A simple and fast sound level conversion tool."
+---
+
+{% include converter.html %}
+<script>
+(function () {
+    // Configuration: Define units and their conversion factor to Decibel (dB) - Base unit
+    const units = {
+        db:   { name: 'Decibel',            symbol: 'dB',    factor: 1 },
+        b:    { name: 'Bel',                symbol: 'B',     factor: 10 },
+        np:   { name: 'Neper',              symbol: 'Np',    factor: 8.685889638 }
+    };
+
+    const defaultUnit = 'db';
+    const defaultSelectedUnits = ['b', 'np'];
+
+    // Initialize the shared converter logic
+    setupConverter({
+        units: units,
+        defaultUnit: defaultUnit,
+        defaultSelectedUnits: defaultSelectedUnits
+    });
+})();
+</script>

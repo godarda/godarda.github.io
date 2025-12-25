@@ -1,0 +1,31 @@
+---
+permalink: linux/bash/gdydril
+title: Bash shell script to convert Decimal to Hexadecimal and Octal
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.shfile }}</div>
+<pre class="code">{%- highlight shell -%}
+#!/bin/bash
+
+echo "———————————————————————————————————————————"
+echo "Script to convert Dec To Hex and Oct number"
+echo "———————————————————————————————————————————"
+a=65535
+echo -n "Decimal="$a
+printf "\nOctal="%o $a
+printf "\nHexadecimal="%x $a
+echo -e "\n———————————————————————————————————————————"
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runsh }}
+———————————————————————————————————————————
+Script to convert Dec To Hex and Oct number
+———————————————————————————————————————————
+Decimal=65535
+Octal=177777
+Hexadecimal=ffff
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

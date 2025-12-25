@@ -1,0 +1,33 @@
+---
+permalink: selenium/locators/gdavegp
+title: Selenium Java to get the tag name
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        WebDriver driver = new ChromeDriver();
+
+        driver.get("https://godarda.in/testapp/");
+        System.out.println(driver.findElement(By.name("username")).getTagName());
+        System.out.println(driver.findElement(By.name("password")).getTagName());
+        System.out.println(driver.findElement(By.name("login")).getTagName());
+        driver.close();
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+input
+input
+button
+</pre></span>

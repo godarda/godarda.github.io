@@ -1,0 +1,113 @@
+---
+permalink: c/functions/gdhxgee
+title: C program to demonstrate the use of functions
+---
+
+<div class="codecard">Example 1: {{ page.title }}</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+float add(float a, float b)
+{
+    return a + b;
+}
+int main()
+{
+    printf("Addition %f\n", add(2.343, 3.14));
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+Addition 5.483000
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Example 2: {{ page.title }}</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+void add()
+{
+    float a, b;
+    printf("Enter the 1st Number ");
+    scanf("%f", &a);
+    printf("Enter the 2nd Number ");
+    scanf("%f", &b);
+    a = a + b;
+    printf("Addition %f\n", a);
+}
+int main()
+{
+    add();
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+Enter the 1st Number 55
+Enter the 2nd Number -10
+Addition 45.000000
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Example 3: {{ page.title }}</div>
+<div class="card">{{ site.cfile }}</div>
+<pre class="code">{%- highlight c -%}
+#include <stdio.h>
+float a, b, c;
+void accept()
+{
+    printf("———————————————————————————————————————————");
+    printf("\nProgram to perform the arithmetic operations");
+    printf("\n———————————————————————————————————————————\n");
+    printf("Enter the 1st number ");
+    scanf("%f", &a);
+    printf("Enter the 2nd number ");
+    scanf("%f", &b);
+}
+float add(float a, float b)
+{
+    return a + b;
+}
+float sub(float a, float b)
+{
+    return a - b;
+}
+float mul(float a, float b)
+{
+    return a * b;
+}
+float division(float a, float b)
+{
+    return a / b;
+}
+int main()
+{
+    accept();
+    printf("\nAddition      | %f\n", add(a, b));
+    printf("Subtraction   | %f\n", sub(a, b));
+    printf("Multiplication| %f\n", mul(a, b));
+    printf("Division      | %f\n", division(a, b));
+    printf("———————————————————————————————————————————\n");
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runc }}
+———————————————————————————————————————————
+Program to perform the arithmetic operations
+———————————————————————————————————————————
+Enter the 1st number 1
+Enter the 2nd number 0
+
+Addition      | 1.000000
+Subtraction   | 1.000000
+Multiplication| 0.000000
+Division      | inf
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

@@ -1,0 +1,75 @@
+---
+permalink: selenium/classes/gdspasn
+title: Selenium Java to get the browser details using Capabilities
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver; 
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
+
+class GD
+{
+    static WebDriver driver;
+    public static void NameVersionOS()
+    {
+        Capabilities c = ((RemoteWebDriver)driver).getCapabilities();
+        System.out.println("Browser Name: "+c.getBrowserName());
+        System.out.println("Browser Version: "+c.getBrowserVersion());
+        System.out.println("Platform: "+c.getPlatformName());
+        System.out.println("___________________________________________");
+        driver.close();
+    }
+    
+    public static void main(String[] args) 
+    {   
+        System.out.println("Operating System: "+System.getProperty("os.name"));
+        System.out.println("OS Version: "+System.getProperty("os.version"));
+        System.out.println("OS Architecture: "+System.getProperty("os.arch"));
+        System.out.println("___________________________________________");
+        
+        ChromeOptions co = new ChromeOptions();
+        FirefoxOptions fo = new FirefoxOptions();
+        EdgeOptions eo = new EdgeOptions();
+                
+        System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        driver = new ChromeDriver(co);
+        NameVersionOS();
+        
+        System.setProperty("webdriver.gecko.driver", "/home/godarda/drivers/geckodriver");
+        driver = new FirefoxDriver(fo);
+        NameVersionOS();
+        
+        System.setProperty("webdriver.edge.driver", "/home/godarda/drivers/msedgedriver");
+        driver = new EdgeDriver(eo);
+        NameVersionOS();
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+Operating System: Windows 11
+OS Version: 10.0
+OS Architecture: amd64
+___________________________________________
+Browser Name: chrome
+Browser Version: 114.0.5735.134
+Platform: windows
+___________________________________________
+Browser Name: firefox
+Browser Version: 114.0.2
+Platform: windows
+___________________________________________
+Browser Name: msedge
+Browser Version: 114.0.1823.58
+Platform: windows
+___________________________________________
+</pre></span>

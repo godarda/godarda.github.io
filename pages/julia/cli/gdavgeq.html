@@ -1,0 +1,88 @@
+---
+permalink: julia/cli/gdavgeq
+title: Julia Logical Operations
+---
+
+<div class="terminalcard">{{ page.title }}</div>
+<span><pre>
+julia> <mark>1 | 1</mark>
+1
+
+julia> <mark>1 | 0</mark>
+1
+
+julia> <mark>0 | 1</mark>
+1
+
+julia> <mark>0 | 0</mark>
+0
+<hr>julia> <mark>true | true</mark>
+true
+
+julia> <mark>true | false</mark>
+true
+
+julia> <mark>false | true</mark>
+true
+
+julia> <mark>false | false</mark>
+false
+<hr>julia> <mark>1 & 1</mark>
+1
+
+julia> <mark>1 & 0</mark>
+0
+
+julia> <mark>0 & 1</mark>
+0
+
+julia> <mark>0 & 0</mark>
+0
+<hr>julia> <mark>true & true</mark>
+true
+
+julia> <mark>true & false</mark>
+false
+
+julia> <mark>false & true</mark>
+false
+
+julia> <mark>false & false</mark>
+false
+<hr>julia> <mark>true+true</mark>
+2
+
+julia> <mark>false-true</mark>
+-1
+
+julia> <mark>true-false</mark>
+1
+
+julia> <mark>false-false</mark>
+0
+<hr>julia> <mark>1==1</mark>
+true
+
+julia> <mark>1<1</mark>
+false
+
+julia> <mark>1>1</mark>
+false
+
+julia> <mark>1>=1</mark>
+true
+
+julia> <mark>10//30==1//3</mark>
+true
+<hr>julia> <mark>NaN == NaN</mark>
+false
+
+julia> <mark>isequal(NaN, NaN)</mark>
+true
+
+julia> <mark>-0.0 == 0.0</mark>
+true
+
+julia> <mark>isequal(-0.0, 0.0)</mark>
+false
+</pre></span>

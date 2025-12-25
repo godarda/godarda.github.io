@@ -1,0 +1,107 @@
+---
+permalink: cluster/ranorex/gdcewwv
+title: How to create, insert and save the Excel in Ranorex
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">File: CreateInsertSaveExcel.UserCode.cs</div>
+<pre class="editorcard">
+{%- highlight csharp -%}
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Drawing;
+using System.Threading;
+using WinForms = System.Windows.Forms;
+
+using Ranorex;
+using Ranorex.Core;
+using Ranorex.Core.Repository;
+using Ranorex.Core.Testing;
+using Microsoft.Office.Interop.Excel;
+
+namespace GlobalProjects
+{
+    public partial class CreateInsertSaveExcel
+    {
+        private void Init()
+        {
+            StoreDataInExcel();
+        }
+        
+        public string RandomData()
+        {
+            string alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            string digits = "0123456789";
+            Random r = new Random();
+            string genrate = "";
+            while (genrate.Length != 7)
+            {
+                int rPick = r.Next(4);
+                if (rPick == 1)
+                {
+                    genrate += alphabets[(r.Next(25))];
+                }
+                else if (rPick == 3)
+                {
+                    genrate += digits[(r.Next(9))];
+                }
+            }
+            string empid = "EMP_"+genrate;
+            return empid;
+        }
+        
+        Excel.Application xlapp;
+        Excel.Workbook xlworkbook;
+        Excel.Worksheet xlworksheet;
+        Excel.Range xlrange;
+        
+        public void StoreDataInExcel()
+        {
+            xlapp = new Excel.ApplicationClass();
+            if(xlapp == null)
+            {
+                Report.Info("Excel application not installed in this machine");
+            }
+            else
+            {
+                xlapp.Visible = true;
+                xlapp.WindowState = Excel.XlWindowState.xlMaximized;
+                xlworkbook = xlapp.Workbooks.Add(1);
+                xlworksheet = (Excel.Worksheet)xlworkbook.Sheets["Sheet1"];
+                xlworksheet.Name = "Data";
+                
+                xlworksheet = (Excel.Worksheet)xlapp.Worksheets.get_Item(1);
+                string sheetname = xlworksheet.Name;
+                Report.Info("Worksheet Name - "+sheetname);
+                
+                xlrange = xlworksheet.UsedRange;
+                
+                for(int i=1;i<=10;i++)
+                {
+                    xlrange.Cells[i,1] = RandomData();
+                }
+                Report.Info("Data successfully generated in Excel");
+                
+                try
+                {
+                    if(!System.IO.File.Exists("D:\\Ranorex\\GlobalProjects\\RandomData"))
+                    {
+                        xlapp.DisplayAlerts = false;
+                        xlworkbook.SaveAs("D:\\Ranorex\\GlobalProjects\\RandomData");
+                        Report.Success("Excel saved successfully. Status: Pass");
+                        xlworkbook.Close();
+                    }
+                }
+                catch
+                {
+                    Report.Info("Excel not saved. Error: Path not found. Status: Fail");
+                }
+                
+            }
+            xlapp.Quit();
+        }
+    }
+}
+{%- endhighlight -%}</pre>

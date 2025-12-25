@@ -1,0 +1,38 @@
+---
+permalink: java/fundamentals/gdpgsbg
+title: Java program to calculate the area of a circle
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.Scanner;
+class GD
+{
+    public static void main(String args[])
+    {
+        float r;
+        Scanner sc=new Scanner(System.in);
+        System.out.println("———————————————————————————————————————————");
+        System.out.println("Program to calculate the area of circle ");
+        System.out.println("———————————————————————————————————————————");
+        System.out.print("Enter the radius of circle ");
+        r=sc.nextFloat();
+        System.out.println("Area of circle is "+(3.14*r*r));
+        System.out.println("Circumference of circle is "+(2*3.14*r));
+        System.out.println("———————————————————————————————————————————");
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+———————————————————————————————————————————
+Program to calculate the area of circle 
+———————————————————————————————————————————
+Enter the radius of circle 10
+Area of circle is 314.0
+Circumference of circle is 62.800000000000004
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

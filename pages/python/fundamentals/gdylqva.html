@@ -1,0 +1,38 @@
+---
+permalink: python/fundamentals/gdylqva
+title: Python program to swap the given numbers
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.pyfile }}</div>
+<pre class="code">{%- highlight python -%}
+print("__________________________________________")
+print("Program to swap the two numbers")
+print("__________________________________________")
+a=int(input("a = "))
+b=int(input("b = "))
+a=a+b
+b=a-b
+a=a-b
+print("__________________________________________") 
+print("After swapping...")
+print("__________________________________________")
+print("a = ",a)
+print("b = ",b)
+print("__________________________________________")
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runpy }}
+__________________________________________
+Program to swap the two numbers
+__________________________________________
+a = 1024
+b = 2048
+__________________________________________
+After swapping...
+__________________________________________
+a = 2048
+b = 1024
+__________________________________________
+</pre></span>

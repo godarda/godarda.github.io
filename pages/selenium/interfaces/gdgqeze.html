@@ -1,0 +1,58 @@
+---
+permalink: selenium/interfaces/gdgqeze
+title: Selenium Java to take screenshots using TakesScreenshot interface
+---
+
+<div class="board"><div class="boardtitle">Prerequisites</div>
+    <p>Firstly, you need to download the jar file of <a href="{{ site.data.url.gdzewdu }}" target="_blank">Apache Commons IO</a>. Once downloaded, you can import the library by right-clicking on the project -> Properties -> Java Build Path -> Libraries -> Add External JARs...</p>
+</div>
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="editorcard">{%- highlight java -%}
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+class GD
+{
+    static WebDriver driver;
+    public static void Screenshot()
+    {
+        File f = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        try 
+        {
+            FileUtils.copyFile(f, new File("D:/Selenium/"+System.currentTimeMillis()+".png"));
+        } 
+        catch (IOException e) 
+        {
+            e.printStackTrace();
+        }
+    }
+    public static void main(String[] args) 
+    {   
+        System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.navigate().to("https://godarda.in/testapp/");
+        Screenshot();
+        
+        driver.findElement(By.name("username")).sendKeys("godarda");
+        driver.findElement(By.name("username")).clear();
+        Screenshot();
+        
+        driver.findElement(By.name("username")).sendKeys("godarda");
+        driver.findElement(By.name("password")).sendKeys("godarda");
+        Screenshot();
+        driver.findElement(By.name("login")).click();
+        Screenshot();
+
+        driver.close();
+    }
+}
+{%- endhighlight -%}</pre>

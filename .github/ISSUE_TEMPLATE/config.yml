@@ -1,0 +1,16 @@
+# GitHub Issue Forms configuration for GoDarda
+# Controls visibility, ordering, and contributor-facing templates
+
+blank_issues_enabled: false
+
+issue_templates:
+  - name: 🏅 Badge Request
+    file: badge.yml
+  - name: 🐞 Bug Report
+    file: bug.yml
+  - name: 📄 Documentation Improvement
+    file: documentation.yml
+  - name: ✨ Feature Request
+    file: feature.yml
+  - name: ❓ Question
+    file: question.yml

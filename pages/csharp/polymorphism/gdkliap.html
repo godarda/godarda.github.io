@@ -1,0 +1,32 @@
+---
+permalink: csharp/polymorphism/gdkliap
+title: How to overload the Main() method in C#
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+using System;
+namespace GoDarda
+{
+    class Program
+    {
+        public static void Main(string s)
+        {
+            Console.WriteLine("Welcome to " + s);
+        }
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("Hello, World!");
+            Main("GoDarda");
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Hello, World!
+Welcome to GoDarda
+godarda@gd:~/csharp$ 
+</pre></span>

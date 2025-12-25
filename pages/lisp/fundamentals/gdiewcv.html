@@ -1,0 +1,35 @@
+---
+permalink: lisp/fundamentals/gdiewcv
+title: LISP program to calculate the square and cube of numbers
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.lispfile }}</div>
+<pre class="code">{%- highlight lisp -%}
+(write-line "+--------+---------+------------+")
+(write-line "|Numbers | Squares | Cubes      |")
+(write-line "+--------+---------+------------+")
+(dotimes(n 11)
+(format t "   ~d         ~d          ~d       ~%"n(* n n)(* n(* n n))))
+(write-line "+--------+---------+------------+")
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runlisp }}
++--------+---------+------------+
+|Numbers | Squares | Cubes      |
++--------+---------+------------+
+   0         0          0       
+   1         1          1       
+   2         4          8       
+   3         9          27       
+   4         16          64       
+   5         25          125       
+   6         36          216       
+   7         49          343       
+   8         64          512       
+   9         81          729       
+   10         100          1000       
++--------+---------+------------+
+godarda@gd:~$ 
+</pre></span>

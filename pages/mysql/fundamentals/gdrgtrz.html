@@ -1,0 +1,287 @@
+---
+permalink: mysql/fundamentals/gdrgtrz
+title: MySQL Date and Time Functions
+---
+
+<div class="titlecard">{{ page.title }}</div>
+<div class="terminalcard">CURDATE and CURTIME Functions</div>
+<div class="infocard">CURDATE(): It returns the current date as a value in 'YYYY-MM-DD' or YYYYMMDD format, depending on which function is used.</div>
+<span><pre>
+mysql> <mark>SELECT CURDATE();</mark>
++------------+
+| CURDATE()  |
++------------+
+| 2020-08-28 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT CURDATE() + 0;</mark>
++---------------+
+| CURDATE() + 0 |
++---------------+
+|      20200828 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT CURTIME();</mark>
++-----------+
+| CURTIME() |
++-----------+
+| 17:51:39  |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT CURTIME() + 0;</mark>
++---------------+
+| CURTIME() + 0 |
++---------------+
+|        175152 |
++---------------+
+1 row in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">NOW, SLEEP, and SYSDATE Functions</div>
+<div class="infocard">NOW(): It returns a constant time that indicates the time at which the statement start to execute, and SYSDATE() returns the exact time at which it executes.</div>
+<span><pre>
+mysql> <mark>SELECT NOW();</mark>
++---------------------+
+| NOW()               |
++---------------------+
+| 2020-08-28 17:53:08 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT NOW(), SLEEP(2), NOW();</mark>
++---------------------+----------+---------------------+
+| NOW()               | SLEEP(2) | NOW()               |
++---------------------+----------+---------------------+
+| 2020-08-28 17:53:25 |        0 | 2020-08-28 17:53:25 |
++---------------------+----------+---------------------+
+1 row in set (2.34 sec)
+
+mysql> <mark>SELECT SYSDATE(), SLEEP(2), SYSDATE();</mark>
++---------------------+----------+---------------------+
+| SYSDATE()           | SLEEP(2) | SYSDATE()           |
++---------------------+----------+---------------------+
+| 2020-08-28 17:54:07 |        0 | 2020-08-28 17:54:09 |
++---------------------+----------+---------------------+
+1 row in set (2.00 sec)
+</pre></span>
+
+<div class="terminalcard">DATEDIFF and DATE_ADD Functions</div>
+<div class="infocard">DATEDIFF(): It returns expr1 − expr2 (date or date-and-time expressions) expressed as a value in days from one date to the other</div>
+<span><pre>
+mysql> <mark>SELECT DATEDIFF(CURDATE(),'2018-02-19');</mark>
++----------------------------------+
+| DATEDIFF(CURDATE(),'2018-02-19') |
++----------------------------------+
+|                              921 |
++----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT DATE_ADD(CURDATE(), INTERVAL 1 DAY);</mark>
++-------------------------------------+
+| DATE_ADD(CURDATE(), INTERVAL 1 DAY) |
++-------------------------------------+
+| 2020-08-29                          |
++-------------------------------------+
+1 row in set (0.01 sec)
+
+mysql> <mark>SELECT DATE_ADD(CURDATE(), INTERVAL 5 MONTH);</mark>
++---------------------------------------+
+| DATE_ADD(CURDATE(), INTERVAL 5 MONTH) |
++---------------------------------------+
+| 2021-01-28                            |
++---------------------------------------+
+1 row in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">DATE_FORMAT Function</div>
+<span><pre>
+mysql> <mark>SELECT DATE_FORMAT(CURDATE(), '%W %M %Y');</mark>
++------------------------------------+
+| DATE_FORMAT(CURDATE(), '%W %M %Y') |
++------------------------------------+
+| Friday August 2020                 |
++------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT DATE_FORMAT(CURDATE(), '%D %y %a %d %m %b %j') AS DATE_FORMAT;</mark>
++---------------------------+
+| DATE_FORMAT               |
++---------------------------+
+| 28th 20 Fri 28 08 Aug 241 |
++---------------------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT DATE_FORMAT('2018-02-19', GET_FORMAT(DATE,'USA')) AS USA_DATE_FORMAT;</mark>
++-----------------+
+| USA_DATE_FORMAT |
++-----------------+
+| 02.19.2018      |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT DATE_FORMAT('2018-02-19', GET_FORMAT(DATE,'EUR')) AS EUR_DATE_FORMAT;</mark>
++-----------------+
+| EUR_DATE_FORMAT |
++-----------------+
+| 19.02.2018      |
++-----------------+
+1 row in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">DAYNAME Function</div>
+<span><pre>
+mysql> <mark>SELECT DAYNAME(CURDATE());</mark>
++--------------------+
+| DAYNAME(CURDATE()) |
++--------------------+
+| Friday             |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT DAYNAME('2018-02-19');</mark>
++-----------------------+
+| DAYNAME('2018-02-19') |
++-----------------------+
+| Monday                |
++-----------------------+
+1 row in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">DAYOFMONTH, DAYOFWEEK, and DAYOFYEAR Functions</div>
+<div class="infocard">WEEKDAY(): It Returns the weekday index for date (0 = Monday, 1 = Tuesday, … 6 = Sunday)</div>
+<span><pre>
+mysql> <mark>SELECT DAYOFMONTH(CURDATE());</mark>
++-----------------------+
+| DAYOFMONTH(CURDATE()) |
++-----------------------+
+|                    28 |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT DAYOFWEEK('2018-02-19');</mark>
++-------------------------+
+| DAYOFWEEK('2018-02-19') |
++-------------------------+
+|                       2 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT DAYOFWEEK(CURDATE());</mark>
++----------------------+
+| DAYOFWEEK(CURDATE()) |
++----------------------+
+|                    6 |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT DAYOFYEAR(CURDATE());</mark>
++----------------------+
+| DAYOFYEAR(CURDATE()) |
++----------------------+
+|                  241 |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT DAYOFYEAR('2018-02-19');</mark>
++-------------------------+
+| DAYOFYEAR('2018-02-19') |
++-------------------------+
+|                      50 |
++-------------------------+
+1 row in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">EXTRACT Function</div>
+<span><pre>
+mysql> <mark>SELECT EXTRACT(YEAR FROM CURDATE()) AS YEAR;</mark>
++------+
+| YEAR |
++------+
+| 2020 |
++------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT EXTRACT(MONTH FROM CURDATE()) AS MONTH;</mark>
++-------+
+| MONTH |
++-------+
+|     8 |
++-------+
+1 row in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">LAST_DAY and MONTHNAME Functions</div>
+<span><pre>
+mysql> <mark>SELECT LAST_DAY('2018-02-19');</mark>
++------------------------+
+| LAST_DAY('2018-02-19') |
++------------------------+
+| 2018-02-28             |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT MONTHNAME(CURDATE());</mark>
++----------------------+
+| MONTHNAME(CURDATE()) |
++----------------------+
+| August               |
++----------------------+
+1 row in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">SEC_TO_TIME and SUBDATE Functions</div>
+<span><pre>
+mysql> <mark>SELECT SEC_TO_TIME(4500);</mark>
++-------------------+
+| SEC_TO_TIME(4500) |
++-------------------+
+| 01:15:00          |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT SUBDATE(CURDATE(), INTERVAL 107 DAY) AS DIFFERENCE;</mark>
++------------+
+| DIFFERENCE |
++------------+
+| 2020-05-13 |
++------------+
+1 row in set (0.00 sec)
+</pre></span>
+
+<div class="terminalcard">UTC_DATE and UTC_TIME Functions</div>
+<span><pre>
+mysql> <mark>SELECT UTC_DATE();</mark>
++------------+
+| UTC_DATE() |
++------------+
+| 2020-08-28 |
++------------+
+1 row in set (0.01 sec)
+
+mysql> <mark>SELECT UTC_TIME();</mark>
++------------+
+| UTC_TIME() |
++------------+
+| 12:33:54   |
++------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT UTC_TIMESTAMP();</mark>
++---------------------+
+| UTC_TIMESTAMP()     |
++---------------------+
+| 2020-08-28 12:34:11 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> <mark>SELECT WEEK(CURDATE());</mark>
++-----------------+
+| WEEK(CURDATE()) |
++-----------------+
+|              34 |
++-----------------+
+1 row in set (0.00 sec)
+</pre></span>

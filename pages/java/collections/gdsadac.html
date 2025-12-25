@@ -1,0 +1,192 @@
+---
+permalink: java/collections/gdsadac
+title: Implementation of Java ArrayList class
+---
+
+<div class="codecard">Java ArrayList: add() and size() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.ArrayList;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //ArrayList class implements the List interface
+        ArrayList<String> al=new ArrayList<>();
+        al.add("Apple");
+        al.add("Orange");
+        al.add("Mango");
+        al.add("Grapes");
+        al.add("Cherry");
+        al.add("Apple");
+        System.out.println(al);
+        System.out.println("Size: "+al.size());
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[Apple, Orange, Mango, Grapes, Cherry, Apple]
+Size: 6
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java ArrayList: get() and indexOf() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.ArrayList;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //ArrayList class implements the List interface
+        ArrayList<String> al=new ArrayList<>();
+        al.add("Apple");
+        al.add("Orange");
+        al.add("Mango");
+        al.add("Grapes");
+        al.add("Cherry");
+        al.add("Apple");
+        for(String s:al)
+        {
+            System.out.println(s);
+        }
+        System.out.println("\n"+al.get(3));
+        System.out.println(al.indexOf("Apple"));
+        System.out.println(al.lastIndexOf("Apple"));
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+Apple
+Orange
+Mango
+Grapes
+Cherry
+Apple
+
+Grapes
+0
+5
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java ArrayList: subList() and set() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.ArrayList;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //ArrayList class implements the List interface
+        ArrayList<String> al=new ArrayList<>();
+        al.add("Apple");
+        al.add("Orange");
+        al.add("Mango");
+        al.add("Grapes");
+        al.add("Cherry");
+        al.add("Apple");
+        System.out.println(al);
+        System.out.println(al.subList(2, 4));
+        al.set(0, "Pineapple");
+        System.out.println(al);
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[Apple, Orange, Mango, Grapes, Cherry, Apple]
+[Mango, Grapes]
+[Pineapple, Orange, Mango, Grapes, Cherry, Apple]
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java ArrayList: addAll() and containsAll() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.ArrayList;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //ArrayList class implements the List interface
+        ArrayList<String> al1=new ArrayList<>();
+        al1.add("Apple");
+        al1.add("Orange");
+        al1.add("Mango");
+        al1.add("Grapes");
+        al1.add("Cherry");
+        System.out.println(al1);
+        
+        ArrayList<String> al2=new ArrayList<>();
+        al2.add("Strawberry");
+        al2.add("Pineapple");
+        System.out.println(al2);
+        
+        al1.addAll(al2);
+        System.out.println(al1);
+        System.out.println(al1.containsAll(al2));
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[Apple, Orange, Mango, Grapes, Cherry]
+[Strawberry, Pineapple]
+[Apple, Orange, Mango, Grapes, Cherry, Strawberry, Pineapple]
+true
+godarda@gd:~$  
+</pre></span>
+
+<div class="codecard">Java ArrayList: remove() and removeAll() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.ArrayList;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //ArrayList class implements the List interface
+        ArrayList<String> al=new ArrayList<>();
+        al.add("Apple");
+        al.add("Orange");
+        al.add("Mango");
+        al.add("Grapes");
+        al.add("Cherry");
+        al.add("Apple");
+        System.out.println(al);
+        
+        //al.remove() //Without arguments its error in ArrayList
+        al.remove(2);
+        System.out.println(al);
+        al.remove("Apple");
+        System.out.println(al);
+        
+        al.removeAll(al); //al.clear();
+        if(al.isEmpty())
+        {
+            System.out.println("List is empty now");
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[Apple, Orange, Mango, Grapes, Cherry, Apple]
+[Apple, Orange, Grapes, Cherry, Apple]
+[Orange, Grapes, Cherry, Apple]
+List is empty now
+godarda@gd:~$ 
+</pre></span>

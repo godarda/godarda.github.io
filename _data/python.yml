@@ -1,0 +1,181 @@
+grandparent:
+- parent: Python Fundamentals
+  subtree: Fundamentals
+  url: python/fundamentals
+  children:
+  - url: python/fundamentals/gdvyafu
+    title: Python Arithmetic Operations
+  - url: python/fundamentals/gdexazw
+    title: Python Logical Operations
+  - url: python/fundamentals/gdzexcz
+    title: Python Built-in Functions
+  - url: python/fundamentals/gdwwvga
+    title: Python Mathematical Functions
+  - url: python/fundamentals/gddveuh
+    title: Python Trigonometric Functions
+  - url: python/fundamentals/gdlvgqy
+    title: How to use Python help utility
+  - url: python/fundamentals/gdgvzwx
+    title: How to compile a Python program using the py_compile module
+  - url: python/fundamentals/gdbduad
+    title: How to view the byte code instructions using the dis module
+  - url: python/fundamentals/gdyosqg
+    title: Python program to perform the arithmetic operations
+  - url: python/fundamentals/gdetapa
+    title: Python program to perform the relational operations
+  - url: python/fundamentals/gdylqva
+    title: Python program to swap the given numbers
+  - url: python/fundamentals/gdzidwc
+    title: Python program to print the runtime arguments
+  - url: python/fundamentals/gdvaqvy
+    title: Python program for conversion of the number systems
+  - url: python/fundamentals/gdzsead
+    title: Python program to demonstrate debugging of script
+  - url: python/fundamentals/gdxdagf
+    title: Python program to print the current date and time
+  - url: python/fundamentals/gdscgzf
+    title: Python implementation of the calendar module
+- parent: Python Control Statements
+  subtree: Controls
+  url: python/controls
+  children:
+  - url: python/controls/gdgmsmv
+    title: Python program to check the equality of given numbers
+  - url: python/controls/gdgvewa
+    title: Python program to check the given number is even or odd
+  - url: python/controls/gdwmaxe
+    title: Python program to check whether a given character is an alphabet
+  - url: python/controls/gdrwkxe
+    title: Python program to check whether a given year is a leap
+- parent: Python Loops
+  subtree: Loops
+  url: python/loops
+  children:
+  - url: python/loops/gdvfyae
+    title: Python program to print the star pyramid patterns
+  - url: python/loops/gdwauzw
+    title: Python program to print the ASCII values
+  - url: python/loops/gdwbtvh
+    title: Python program to print the prime numbers
+  - url: python/loops/gdagzvl
+    title: Python program to find the factorial of a given number
+  - url: python/loops/gdalewy
+    title: Python program to print the sum of all digits in a given number
+  - url: python/loops/gdalmxy
+    title: Python program to print the multiplication table of a given number
+  - url: python/loops/gdggkza
+    title: Python program to check whether a given number is a palindrome
+  - url: python/loops/gdrawfa
+    title: Python program to print the list of all leap years
+- parent: Python Strings
+  subtree: Strings
+  url: python/strings
+  children:
+  - url: python/strings/gddduzz
+    title: Python Basic String Operations
+  - url: python/strings/gdkgyxy
+    title: Python Strings Comparison
+  - url: python/strings/gdzdngz
+    title: Python String Slicing
+  - url: python/strings/gdozvev
+    title: Python to check the given string is alphanumeric
+  - url: python/strings/gdyqzaz
+    title: Python Strings Methods
+- parent: Python Data Structures
+  subtree: Data Structures
+  url: python/ds
+  children:
+  - url: python/ds/gdzyzav
+    title: Python Lists
+  - url: python/ds/gdcgaye
+    title: Python Tuples
+  - url: python/ds/gdxpzmp
+    title: Python Sets
+  - url: python/ds/gdwkwvz
+    title: Python Dictionary
+- parent: Python Arrays
+  subtree: Arrays
+  url: python/arrays
+  children:
+  - url: python/arrays/gdwzddw
+    title: Python Arrays using Array module
+  - url: python/arrays/gddrehr
+    title: Python indexing and slicing on an array
+  - url: python/arrays/gdzyigz
+    title: Python NumPy Arrays
+  - url: python/arrays/gddeqlk
+    title: Python to create a view() and copy() of NumPy arrays
+  - url: python/arrays/gdevyzz
+    title: Python NumPy Arrays Comparison
+  - url: python/arrays/gdykhed
+    title: Python NumPy Mathematical Functions for Arrays
+  - url: python/arrays/gdzxhny
+    title: Python indexing and slicing on NumPy arrays
+  - url: python/arrays/gdskedg
+    title: How to create arrays using the linspace() and logspace() functions
+  - url: python/arrays/gdvalhi
+    title: How to create arrays using the arange(), zeros(), and ones() functions
+  - url: python/arrays/gdeazqm
+    title: Python NumPy Multi-dimensional Arrays
+  - url: python/arrays/gddkizz
+    title: Python NumPy Matrices
+  - url: python/arrays/gdeghdz
+    title: Python to print the transpose of a given matrix
+  - url: python/arrays/gdomegf
+    title: Python to perform arithmetic operations on two matrices
+- parent: Python File Handling
+  subtree: FileIO
+  url: python/fileio
+  children:
+  - url: python/fileio/gddzeng
+    title: Python program to count the lines, words, and characters from a given file
+  - url: python/fileio/gdlyeay
+    title: Python program to count the frequency of words in a given file
+- parent: Python Networking
+  subtree: Networking
+  url: python/networking
+  children:
+  - url: python/networking/gdyslwy
+    title: Python networking using the netaddr module
+  - url: python/networking/gdgzlzd
+    title: Python program for two way communication using socket programming
+  - url: python/networking/gdkyirx
+    title: Python program for file sharing using socket programming
+- parent: Python Database Connectivity
+  subtree: DBC
+  url: python/dbc
+  children:
+  - url: python/dbc/gdwdnax
+    title: How to install pymysql and pymongo on Ubuntu
+  - url: python/dbc/gdvdwzz
+    title: Python MySQL to connect, create a database, and table
+  - url: python/dbc/gdtyalw
+    title: Python MySQL to insert and retrieve the records from a table
+  - url: python/dbc/gdswyzn
+    title: Python MySQL to update the table records
+  - url: python/dbc/gdmyyzz
+    title: Python MongoDB to connect, create database, and collection
+  - url: python/dbc/gdgulma
+    title: Python MongoDB to insert and retrieve the documents from a collection
+sidenav:
+- parent: Python Programming
+  url: python
+  children:
+  - title: Python Fundamentals
+    url: python/fundamentals
+  - title: Python Control Statements
+    url: python/controls
+  - title: Python Loops
+    url: python/loops
+  - title: Python Strings
+    url: python/strings
+  - title: Python Data Structures
+    url: python/ds
+  - title: Python Arrays
+    url: python/arrays
+  - title: Python File Handling
+    url: python/fileio
+  - title: Python Networking
+    url: python/networking
+  - title: Python Database Connectivity
+    url: python/dbc

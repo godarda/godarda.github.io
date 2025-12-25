@@ -1,0 +1,170 @@
+---
+permalink: java/collections/gderzgx
+title: Implementation of Java LinkedHashMap class
+---
+
+<div class="codecard">Java LinkedHashMap: put() and size() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.LinkedHashMap;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //LinkedHashMap class implements the Map interface
+        LinkedHashMap<Long,String> lhm = new LinkedHashMap<>();
+        lhm.put(25622348989L,"James Moore");
+        lhm.put(25622348990L,"Donald Taylor");
+        lhm.put(25622348991L,"Edward Parkar");
+        lhm.put(25622348992L,"Ryan Bakshi");
+        System.out.println(lhm);
+        System.out.println("Size: "+lhm.size());
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+{25622348989=James Moore, 25622348990=Donald Taylor, 25622348991=Edward Parkar, 25622348992=Ryan Bakshi}
+Size: 4
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java LinkedHashMap: keySet() and values() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.LinkedHashMap;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //LinkedHashMap class implements the Map interface
+        LinkedHashMap<Long,String> lhm = new LinkedHashMap<>();
+        lhm.put(25622348989L, "James Moore");
+        lhm.put(25622348990L, "Donald Taylor");
+        lhm.put(25622348991L, "Edward Parkar");
+        lhm.put(25622348992L, "Ryan Bakshi");
+
+        System.out.println(lhm.keySet());
+        System.out.println(lhm.values());
+
+        /*
+         * for(Long l: lhm.keySet()) { System.out.println(l); }
+         * 
+         * for(String s: lhm.values()) { System.out.println(s); }
+         */
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[25622348989, 25622348990, 25622348991, 25622348992]
+[James Moore, Donald Taylor, Edward Parkar, Ryan Bakshi]
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java LinkedHashMap: replace() method</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.LinkedHashMap;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //LinkedHashMap class implements the Map interface
+        LinkedHashMap<Long,String> lhm = new LinkedHashMap<>();
+        lhm.put(25622348989L,"James Moore");
+        lhm.put(25622348990L,"Donald Taylor");
+        lhm.put(25622348991L,"Edward Parkar");
+        lhm.put(25622348992L,"Ryan Bakshi");
+        System.out.println(lhm);
+        
+        lhm.replace(25622348991L, "Edward D Parkar");
+        lhm.replace(25622348992L, "Ryan Bakshi", "Ryan S Bakshi");
+        System.out.println(lhm);
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+{25622348989=James Moore, 25622348990=Donald Taylor, 25622348991=Edward Parkar, 25622348992=Ryan Bakshi}
+{25622348989=James Moore, 25622348990=Donald Taylor, 25622348991=Edward D Parkar, 25622348992=Ryan S Bakshi}
+godarda@gd:~$  
+</pre></span>
+
+<div class="codecard">Java LinkedHashMap: putAll() and putIfAbsent() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.LinkedHashMap;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //LinkedHashMap class implements the Map interface
+        LinkedHashMap<Long, String> lhm1 = new LinkedHashMap<>();
+        lhm1.put(25622348989L,"James Moore");
+        lhm1.put(25622348990L,"Donald Taylor");
+        System.out.println(lhm1);
+        
+        LinkedHashMap<Long, String> lhm2 = new LinkedHashMap<>();
+        lhm2.put(25622348991L,"Edward Parkar");
+        lhm2.put(25622348992L,"Ryan Bakshi");
+        System.out.println(lhm2);
+        
+        lhm2.putIfAbsent(25622348993L, "Marie Peters");
+        lhm1.putAll(lhm2);
+        System.out.println(lhm1);
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+{25622348989=James Moore, 25622348990=Donald Taylor}
+{25622348991=Edward Parkar, 25622348992=Ryan Bakshi}
+{25622348989=James Moore, 25622348990=Donald Taylor, 25622348991=Edward Parkar, 25622348992=Ryan Bakshi, 25622348993=Marie Peters}
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Java LinkedHashMap: remove() and clear() methods</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.util.LinkedHashMap;
+
+class GD 
+{
+    public static void main(String[] args) 
+    {
+        //LinkedHashMap class implements the Map interface
+        LinkedHashMap<Long,String> lhm = new LinkedHashMap<>();
+        lhm.put(25622348989L,"James Moore");
+        lhm.put(25622348990L,"Donald Taylor");
+        lhm.put(25622348991L,"Edward Parkar");
+        lhm.put(25622348992L,"Ryan Bakshi");
+        
+        System.out.println(lhm.keySet());
+        lhm.remove(25622348991L);
+        System.out.println(lhm.keySet());
+        
+        lhm.clear();
+        if(lhm.isEmpty())
+        {
+            System.out.println("LinkedHashMap is empty now");
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+[25622348989, 25622348990, 25622348991, 25622348992]
+[25622348989, 25622348990, 25622348992]
+LinkedHashMap is empty now
+godarda@gd:~$ 
+</pre></span>

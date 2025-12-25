@@ -1,0 +1,65 @@
+---
+permalink: cpp/fundamentals/gdbodwv
+title: C++ program to find the size of data types
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <iostream>
+#include <iomanip>
+using namespace std;
+int main()
+{
+    cout<<"———————————————————————————————————————————";
+    cout<<"\nProgram to print the size of data types\n";
+    cout<<"———————————————————————————————————————————";
+    cout<<"\nThe size of int "<<setw(11)<<"| "<<sizeof(int)<<"\n";
+    cout<<"The size of float "<<setw(9)<<"| "<<sizeof(float)<<"\n";
+    cout<<"The size of short "<<setw(9)<<"| "<<sizeof(short)<<"\n";
+    cout<<"The size of double "<<setw(8)<<"| "<<sizeof(double)<<"\n";
+    cout<<"The size of long "<<setw(10)<<"| "<<sizeof(long)<<"\n";
+    cout<<"The size of char "<<setw(10)<<"| "<<sizeof(char)<<"\n";
+    cout<<"The size of bool "<<setw(10)<<"| "<<sizeof(bool)<<"\n";
+    cout<<"The size of NULL "<<setw(10)<<"| "<<sizeof(NULL)<<"\n";
+    cout<<"The size of wchar_t "<<setw(7)<<"| "<<sizeof(wchar_t)<<"\n";
+    cout<<"Size of long int "<<setw(10)<<"| "<<sizeof(long int)<<"\n";
+    cout<<"Size of short int "<<setw(9)<<"| "<<sizeof(short int)<<"\n";
+    cout<<"Size of long double "<<setw(7)<<"| "<<sizeof(long double)<<"\n";
+    cout<<"Size of signed int "<<setw(8)<<"| "<<sizeof(signed int)<<"\n";
+    cout<<"Size of unsigned int "<<setw(6)<<"| "<<sizeof(unsigned int)<<"\n";
+    cout<<"Size of signed char "<<setw(7)<<"| "<<sizeof(signed char)<<"\n";
+    cout<<"Size of unsigned char "<<setw(5)<<"| "<<sizeof(unsigned char)<<"\n";
+    cout<<"Size of long signed int "<<setw(3)<<"| "<<sizeof(long signed int)<<"\n";
+    cout<<"Size of long unsigned int"<<setw(0)<<"| "<<sizeof(long unsigned int)<<"\n";
+    cout<<"———————————————————————————————————————————\n";
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcpp }}
+———————————————————————————————————————————
+Program to print the size of data types
+———————————————————————————————————————————
+The size of int          | 4
+The size of float        | 4
+The size of short        | 2
+The size of double       | 8
+The size of long         | 8
+The size of char         | 1
+The size of bool         | 1
+The size of NULL         | 8
+The size of wchar_t      | 4
+Size of long int         | 8
+Size of short int        | 2
+Size of long double      | 16
+Size of signed int       | 4
+Size of unsigned int     | 4
+Size of signed char      | 1
+Size of unsigned char    | 1
+Size of long signed int  | 8
+Size of long unsigned int| 8
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

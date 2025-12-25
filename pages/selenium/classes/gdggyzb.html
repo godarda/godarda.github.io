@@ -1,0 +1,42 @@
+---
+permalink: selenium/classes/gdggyzb
+title: Selenium Java to demonstrate the use of ChromeOptions class
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="editorcard">{%- highlight java -%}
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+class GD
+{
+    public static void main(String[] args) 
+    {   
+        System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        ChromeOptions co = new ChromeOptions();
+        
+        // This argument used to open Chrome in maximized mode
+        co.addArguments("--start-maximized");
+        
+        // This argument used to open Chrome in an incognito mode
+        co.addArguments("--incognito");
+        
+        // This line used to disable pop-ups
+        co.addArguments("--disable-popup-blocking");
+        
+        // This two lines prevents Chrome from displaying the notification 'Chrome is being controlled by automated software'
+        co.setExperimentalOption("useAutomationExtension", false);
+        co.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"}); 
+        
+        // This argument used to set the size of Chrome browser window
+        co.addArguments("window-size=700,700");
+
+        WebDriver driver = new ChromeDriver(co);
+        
+        driver.get("https://godarda.in/testapp/");
+        driver.close();
+    }
+}
+{%- endhighlight -%}</pre>

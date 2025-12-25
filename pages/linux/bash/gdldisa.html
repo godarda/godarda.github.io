@@ -1,0 +1,68 @@
+---
+permalink: linux/bash/gdldisa
+title: Bash shell script to perform the arithmetic and relational operations
+---
+
+<div class="codecard">Bash shell script to perform the arithmetic operations</div>
+<div class="card">{{ site.shfile }}</div>
+<pre class="code">{%- highlight shell -%}
+#!/bin/bash
+
+echo -n "10+20  = "; expr 10 + 20
+echo -n "10-20  = "; expr 10 - 20
+echo -n "10\*20 = "; expr 10 \* 20
+echo -n "10/20  = "; expr 10 / 20
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runsh }}
+10+20  = 30
+10-20  = -10
+10\*20 = 200
+10/20  = 0
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Bash shell script to perform the arithmetic operations</div>
+<div class="card">{{ site.shfile }}</div>
+<pre class="code">{%- highlight shell -%}
+#!/bin/bash
+
+echo $((10 + 20))
+echo $((10 - 20))
+echo $((10 * 20))
+echo $((10 / 20))
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runsh }}
+30
+-10
+200
+0
+godarda@gd:~$ 
+</pre></span>
+
+<div class="codecard">Bash shell script to perform the arithmetic and relational operations</div>
+<div class="card">{{ site.shfile }}</div>
+<pre class="code">{%- highlight shell -%}
+#!/bin/bash
+
+expr '10' '+' '20'
+expr '10' '<' '20'
+expr '10' '>' '20'
+expr '10' '<' '10'
+expr '10' '<=' '10'
+expr '10' '>=' '20'
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runsh }}
+30
+1
+0
+0
+1
+0
+godarda@gd:~$ 
+</pre></span>

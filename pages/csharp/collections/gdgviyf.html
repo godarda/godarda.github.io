@@ -1,0 +1,42 @@
+---
+permalink: csharp/collections/gdgviyf
+title: Implementation of C# Hashtable class
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.csfile }}</div>
+<pre class="code">{%- highlight csharp -%}
+using System.Collections;
+
+Hashtable ht = new Hashtable();
+ht.Add(25622348989, "James Moore");
+ht.Add(25622348990, "Donald Taylor");
+ht.Add(25622348991, "Edward Parkar");
+ht.Add(25622348992, "Ryan Bakshi");
+
+foreach (long key in ht.Keys)
+{
+    Console.WriteLine("Account No: {0}, Name: {1}", key, ht[key]);
+}
+
+ht.Remove(25622348990);
+Console.WriteLine("\nAfter removing: ");
+foreach (long key in ht.Keys)
+{
+    Console.WriteLine("Account No: {0}, Name: {1}", key, ht[key]);
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcs }}
+Account No: 25622348992, Name: Ryan Bakshi
+Account No: 25622348990, Name: Donald Taylor
+Account No: 25622348991, Name: Edward Parkar
+Account No: 25622348989, Name: James Moore
+
+After removing: 
+Account No: 25622348992, Name: Ryan Bakshi
+Account No: 25622348991, Name: Edward Parkar
+Account No: 25622348989, Name: James Moore
+godarda@gd:~/csharp$ 
+</pre></span>

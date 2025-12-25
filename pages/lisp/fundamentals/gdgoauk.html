@@ -1,0 +1,38 @@
+---
+permalink: lisp/fundamentals/gdgoauk
+title: LISP program to swap the given numbers
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.lispfile }}</div>
+<pre class="code">{%- highlight lisp -%}
+(write-line "———————————————————————————————————————————")
+(write-line "Program to swap the given numbers")
+(write-line "———————————————————————————————————————————")
+(princ "Enter the 1st number a=")
+(setq a(read))
+(princ "Enter the 2nd number b=")
+(setq b(read))
+(write-line "After swapping...")
+(setq a(+ a b))
+(setq b(- a b))
+(setq a(- a b))
+(terpri)(princ "a=")(write a)
+(terpri)(princ "b=")(write b)
+(terpri)(format t "———————————————————————————————————————————")
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runlisp }}
+———————————————————————————————————————————
+Program to swap the given numbers
+———————————————————————————————————————————
+Enter the 1st number a=10
+Enter the 2nd number b=20
+After swapping...
+
+a=20
+b=10
+———————————————————————————————————————————
+godarda@gd:~$ 
+</pre></span>

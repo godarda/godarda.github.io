@@ -1,0 +1,153 @@
+---
+permalink: linux/commands/gdvmazz
+title: Linux commands to display the Operating Systems information
+---
+
+<div class="titlecard">{{ page.title }}</div>
+<div class="terminalcard">uname command with options</div>
+<span><pre>
+godarda@gd:~$ <mark>uname</mark>
+Linux
+
+godarda@gd:~$ <mark>uname -a</mark>
+Linux gd 6.8.0-31-generic #31-Ubuntu SMP PREEMPT_DYNAMIC Sat Apr 20 00:40:06 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux
+
+godarda@gd:~$ <mark>uname -i</mark>
+x86_64
+
+godarda@gd:~$ <mark>uname -m</mark>
+x86_64
+
+godarda@gd:~$ <mark>uname -n</mark>
+gd
+
+godarda@gd:~$ <mark>uname -o</mark>
+GNU/Linux
+
+godarda@gd:~$ <mark>uname -p</mark>
+x86_64
+
+godarda@gd:~$ <mark>uname -r</mark>
+6.8.0-31-generic
+
+godarda@gd:~$ <mark>uname -s</mark>
+Linux
+
+godarda@gd:~$ <mark>uname -v</mark>
+#31-Ubuntu SMP PREEMPT_DYNAMIC Sat Apr 20 00:40:06 UTC 2024
+
+godarda@gd:~$ <mark>uname --help</mark>
+Usage: uname [OPTION]...
+Print certain system information.  With no OPTION, same as -s.
+
+  -a, --all                print all information, in the following order,
+                             except omit -p and -i if unknown:
+  -s, --kernel-name        print the kernel name
+  -n, --nodename           print the network node hostname
+  -r, --kernel-release     print the kernel release
+  -v, --kernel-version     print the kernel version
+  -m, --machine            print the machine hardware name
+  -p, --processor          print the processor type (non-portable)
+  -i, --hardware-platform  print the hardware platform (non-portable)
+  -o, --operating-system   print the operating system
+      --help     display this help and exit
+      --version  output version information and exit
+
+GNU coreutils online help: https://www.gnu.org/software/coreutils/
+Full documentation at: https://www.gnu.org/software/coreutils/uname
+or available locally via: info '(coreutils) uname invocation'
+
+godarda@gd:~$ <mark>uname --version</mark>
+uname (GNU coreutils) 9.4
+Copyright (C) 2023 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Written by David MacKenzie.<hr>godarda@gd:~$ <mark>hostname</mark>
+gd
+
+godarda@gd:~$ <mark>finger</mark>
+Login         Name           Tty      Idle  Login Time   Office     Office Phone
+godarda  GoDarda  *:0             May 31 10:48 (:0)
+</pre></span>
+
+<div class="terminalcard">lsb_release command with options</div>
+<span><pre>
+godarda@gd:~$ <mark>lsb_release -a</mark>
+No LSB modules are available.
+Distributor ID:	Ubuntu
+Description:	Ubuntu 24.04 LTS
+Release:	24.04
+Codename:	noble
+
+godarda@gd:~$ <mark>lsb_release -c</mark>
+No LSB modules are available.
+Codename:	noble
+
+godarda@gd:~$ <mark>lsb_release -d</mark>
+No LSB modules are available.
+Description:	Ubuntu 24.04 LTS
+
+godarda@gd:~$ <mark>lsb_release -i</mark>
+No LSB modules are available.
+Distributor ID: Ubuntu
+
+godarda@gd:~$ <mark>lsb_release -r</mark>
+No LSB modules are available.
+Release:	24.04
+
+godarda@gd:~$ <mark>lsb_release -s</mark>
+No LSB modules are available.
+
+godarda@gd:~$ <mark>lsb_release -h</mark>
+Usage: lsb_release [options]
+
+Options:
+  -h, --help         show this help message and exit
+  -v, --version      show LSB modules this system supports
+  -i, --id           show distributor ID
+  -d, --description  show description of this distribution
+  -r, --release      show release number of this distribution
+  -c, --codename     show code name of this distribution
+  -a, --all          show all of the above information
+  -s, --short        show requested information in short format
+</pre></span>
+
+<div class="terminalcard">System information using cat command</div>
+<span><pre>
+godarda@gd:~$ <mark>cat /proc/version</mark>
+Linux version 6.8.0-31-generic (buildd@lcy02-amd64-080) (x86_64-linux-gnu-gcc-13 (Ubuntu 13.2.0-23ubuntu4) 13.2.0, GNU ld (GNU Binutils for Ubuntu) 2.42) #31-Ubuntu SMP PREEMPT_DYNAMIC Sat Apr 20 00:40:06 UTC 2024
+
+godarda@gd:~$ <mark>cat /proc/sys/kernel/{ostype,osrelease,version}</mark>
+Linux
+6.8.0-31-generic
+#31-Ubuntu SMP PREEMPT_DYNAMIC Sat Apr 20 00:40:06 UTC 2024
+
+godarda@gd:~$ <mark>cat /etc/lsb-release</mark>
+DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=24.04
+DISTRIB_CODENAME=noble
+DISTRIB_DESCRIPTION="Ubuntu 24.04 LTS"
+
+godarda@gd:~$ <mark>cat /etc/issue.net</mark>
+Ubuntu 24.04 LTS
+
+godarda@gd:~$ <mark>cat /etc/debian_version</mark>
+trixie/sid
+
+godarda@gd:~$ <mark>cat /etc/os-release</mark>
+PRETTY_NAME="Ubuntu 24.04 LTS"
+NAME="Ubuntu"
+VERSION_ID="24.04"
+VERSION="24.04 LTS (Noble Numbat)"
+VERSION_CODENAME=noble
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=noble
+LOGO=ubuntu-logo
+</pre></span>

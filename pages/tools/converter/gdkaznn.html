@@ -1,0 +1,38 @@
+---
+permalink: tools/converter/gdkaznn
+title: Length Converter
+description: "Instantly convert lengths between meters, kilometers, inches, feet, miles, light-years, and more. A simple and fast length conversion tool."
+---
+
+{% include converter.html %}
+<script>
+(function () {
+    // Configuration: Define units and their conversion factor to Meters
+    const units = {
+        nm: { name: 'Nanometer', symbol: 'nm', factor: 1e-9 },
+        um: { name: 'Micrometer', symbol: 'µm', factor: 1e-6 },
+        mm: { name: 'Millimeter',symbol: 'mm', factor: 0.001 },
+        cm: { name: 'Centimeter',symbol: 'cm', factor: 0.01 },
+        in: { name: 'Inch',      symbol: 'in', factor: 0.0254 },
+        dm: { name: 'Decimeter', symbol: 'dm', factor: 0.1 },
+        ft: { name: 'Foot',      symbol: 'ft', factor: 0.3048 },
+        yd: { name: 'Yard',      symbol: 'yd', factor: 0.9144 },
+        m:  { name: 'Meter',     symbol: 'm',  factor: 1 },
+        dam:{ name: 'Decameter', symbol: 'dam',factor: 10 },
+        km: { name: 'Kilometer', symbol: 'km', factor: 1000 },
+        mi: { name: 'Mile',      symbol: 'mi', factor: 1609.344 },
+        Mm: { name: 'Megameter', symbol: 'Mm', factor: 1e6 },
+        ly: { name: 'Light-year',symbol: 'ly', factor: 9460730472580800 }
+    };
+
+    const defaultUnit = 'm';
+    const defaultSelectedUnits = ['km'];
+
+    // Initialize the shared converter logic
+    setupConverter({
+        units: units,
+        defaultUnit: defaultUnit,
+        defaultSelectedUnits: defaultSelectedUnits
+    });
+})();
+</script>

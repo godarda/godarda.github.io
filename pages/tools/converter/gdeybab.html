@@ -1,0 +1,38 @@
+---
+permalink: tools/converter/gdeybab
+title: Data Transfer Speed Converter
+description: "Instantly convert data transfer speeds between different units. A simple and fast data transfer speed conversion tool."
+---
+
+{% include converter.html %}
+<script>
+(function () {
+    // Configuration: Define units and their conversion factor to Bits per second (bps) - Base unit
+    const units = {
+        bps:   { name: 'Bit per second',       symbol: 'bps',    factor: 1 },
+        kbps:  { name: 'Kilobit per second',   symbol: 'Kbps',   factor: 1e3 },
+        mbps:  { name: 'Megabit per second',   symbol: 'Mbps',   factor: 1e6 },
+        gbps:  { name: 'Gigabit per second',   symbol: 'Gbps',   factor: 1e9 },
+        tbps:  { name: 'Terabit per second',   symbol: 'Tbps',   factor: 1e12 },
+        B_s:   { name: 'Byte per second',      symbol: 'B/s',    factor: 8 },
+        kB_s:  { name: 'Kilobyte per second',  symbol: 'KB/s',   factor: 8000 },
+        mB_s:  { name: 'Megabyte per second',  symbol: 'MB/s',   factor: 8000000 },
+        gB_s:  { name: 'Gigabyte per second',  symbol: 'GB/s',   factor: 8000000000 },
+        tB_s:  { name: 'Terabyte per second',  symbol: 'TB/s',   factor: 8000000000000 },
+        KiB_s: { name: 'Kibibyte per second',  symbol: 'KiB/s',  factor: 8192 },
+        MiB_s: { name: 'Mebibyte per second',  symbol: 'MiB/s',  factor: 8388608 },
+        GiB_s: { name: 'Gibibyte per second',  symbol: 'GiB/s',  factor: 8589934592 },
+        TiB_s: { name: 'Tebibyte per second',  symbol: 'TiB/s',  factor: 8796093022208 }
+    };
+
+    const defaultUnit = 'mbps';
+    const defaultSelectedUnits = ['mB_s', 'gbps'];
+
+    // Initialize the shared converter logic
+    setupConverter({
+        units: units,
+        defaultUnit: defaultUnit,
+        defaultSelectedUnits: defaultSelectedUnits
+    });
+})();
+</script>
