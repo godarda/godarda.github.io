@@ -25,6 +25,38 @@ grandparent:
     title: Area Converter
   - url: tools/converter/gdwaaal
     title: Time Converter
+  - title: Frequency Converter
+    url: tools/converter/gdckceg
+  - title: Radiation Converter
+    url: tools/converter/gdeekgp
+  - title: Energy Converter
+    url: tools/converter/gdeiafn
+  - title: Torque Converter
+    url: tools/converter/gdekyui
+  - title: Pressure Converter
+    url: tools/converter/gdergua
+  - title: Data Transfer Speed Converter
+    url: tools/converter/gdeybab
+  - title: Currency Converter
+    url: tools/converter/gdigzed
+  - title: Magnetic Field Converter
+    url: tools/converter/gdilgye
+  - title: Cooking Converter
+    url: tools/converter/gdkywah
+  - title: Power Converter
+    url: tools/converter/gdlavzn
+  - title: Sound Level Converter
+    url: tools/converter/gdlmggz
+  - title: Fuel Consumption Converter
+    url: tools/converter/gdmkzcy
+  - title: Angle Converter
+    url: tools/converter/gdsqzva
+  - title: Data Storage Converter
+    url: tools/converter/gdvadte
+  - title: Speed Converter
+    url: tools/converter/gdvmrpd
+  - title: Illuminance Converter
+    url: tools/converter/gdxakae
 - parent: Physics Converters
   subtree: Converter
   url: tools/converter
