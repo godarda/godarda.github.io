@@ -93,7 +93,7 @@
 
 <main class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-xxl-10 ms-sm-auto px-md-4" role="main">
     <div class="container">
-        {%- if path[2] == nil and path[1] != "about" -%}{%- include search.html -%}{%- endif -%}
+        {%- if path[2] == nil -%}{%- include search.html -%}{%- endif -%}
         {{ content }}
         {%- for parent in gd.grandparent -%}
         {% if path[1] != "about" and path[2] == nil %}

@@ -78,18 +78,6 @@ segments:
   - title: Cluster
     url: cluster
     parent: " / Cluster / "
-
-  - title: Tools
-    url: tools
-    parent: " / Tools / "
-
-  - title: Converters
-    url: converters
-    parent: " / Converters / "
-
-  - title: Calculators
-    url: calculators
-    parent: " / Calculators / "
     
   - title: About Us
     url: about

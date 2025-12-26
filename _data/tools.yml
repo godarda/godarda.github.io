@@ -1,8 +1,8 @@
-grandparent: 
-  - parent: Tools
-    url: tools
-    children: 
-      - title: Calculators
-        url: calculators
-      - title: Converters
-        url: converters
+segments:
+- title: Converters
+  url: converters
+  parent: " / Converters / "
+
+- title: Calculators
+  url: calculators
+  parent: " / Calculators / "

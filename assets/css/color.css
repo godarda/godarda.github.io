@@ -2,6 +2,8 @@
 layout: none
 ---
 
+/* --------------------------------------------------------------------------------------------- */
+
 [data-bs-theme="dark"]
 {
     --asm:                 #b37700; /* Brown for assembly language */
@@ -20,16 +22,11 @@ layout: none
     --mongodb:             #29a329; /* Green for MongoDB database */
     --mysql:               #4080bf; /* Blue for MySQL database */
     --octave:              #ff6600; /* Bright orange for Octave programming language */
-    --other:               #00b050; /* Green for miscellaneous or other categories, matching search */
     --python:              #e6e600; /* Vibrant yellow for Python programming language */
     --r:                   #9999ff; /* Light purple for R programming language */
     --rust:                #996633; /* Rustic brown for Rust programming language */
-    --search:              #00b050; /* Green for search-related functionalities */
     --selenium:            #00cc66; /* Green for Selenium testing framework */
-    --testapp:             #00cc66; /* Green for test applications, matching Selenium */
-    --tools:               #ff9900; /* Bright orange for Tools */
-    --calculators:         #ff9900; /* Bright orange for Calculators */
-    --converters:          #ff9900; /* Bright orange for Converters */
+    --other:               #00b050; /* Green for miscellaneous or other categories, matching search */
 
     --bg_jumbotron:        #050514; /* Background color for jumbotron */
     --bnw:                 #ffffff; /* Black and white color */
@@ -86,16 +83,11 @@ layout: none
     --mongodb:             #33cc33; /* Bright green for MongoDB database */
     --mysql:               #4d94cc; /* Light blue for MySQL database */
     --octave:              #ff751a; /* Bright orange for Octave programming language */
-    --other:               #00cc66; /* Bright green for other miscellaneous categories */
     --python:              #ffcc00; /* Bright yellow for Python programming language */
     --r:                   #b3b3ff; /* Light purple for R programming language */
     --rust:                #cc6633; /* Lighter brown for Rust programming language */
-    --search:              #00cc66; /* Bright green for search systems */
     --selenium:            #00e673; /* Bright green for Selenium testing framework */
-    --testapp:             #00e673; /* Bright green for test applications */
-    --tools:               #ff9900; /* Bright orange for Tools */
-    --calculators:         #ff9900; /* Bright orange for Calculators */
-    --converters:          #ff9900; /* Bright orange for Converters */
+    --other:               #00b050; /* Bright green for other miscellaneous categories */
 
     --bg_jumbotron:        #c5cbd3; /* Background color for jumbotron */
     --bnw:                 #000000; /* Black and white color */
@@ -135,23 +127,55 @@ layout: none
 
 /* --------------------------------------------------------------------------------------------- */
 
+{%- assign languages = "asm,c,cg,cluster,cpp,csharp,ds,dsa,fsharp,java,julia,linux,lisp,mongodb,mysql,octave,python,r,rust,selenium" | split: ',' -%}
 {%- for segment in site.data.gd.segments -%}{%- assign s = segment.url | split: '/' -%}
+{%- if languages contains segment.url -%}
+    {%- assign color_var = "var(--" | append: segment.url | append: ")" -%}
+{%- else -%}
+    {%- assign color_var = "var(--other)" -%}
+{%- endif -%}
 a.{{ s }}:hover, a.{{ s }}:focus, #{{ s }} > a:hover, #{{ s }} > a:focus, .procard.{{ s }}, .nav-link.sidebar-item-active.{{ s }}
-{ border-left: 5px solid var(--{{ s }}); }
+{ border-left: 5px solid {{ color_var }}; }
 
 #fc-{{ s }}, #fc-{{ s }}:hover, .wvnav-item-active-{{ s }}
-{ color: var(--{{ s }}); }
+{ color: {{ color_var }}; }
 
-div#KSE_input-{{ s }}
+div#GDS_input-{{ s }}
 {
-    border-bottom: 1px solid var(--{{ s }});
+    border-bottom: 1px solid {{ color_var }};
     border-radius: 5px;
 }
-#KSE_input-{{ s }}
+#GDS_input-{{ s }}
 {     
-    box-shadow: 0px 0px 20px -13px var(--{{ s }});
+    box-shadow: 0px 0px 20px -13px {{ color_var }};
+}
+div#GDS_input-{{ s }}.search-loading::after
+{
+    background: {{ color_var }};
+}
+div#GDS_input-{{ s }}.search-loading.indeterminate::after
+{
+    background: linear-gradient(90deg, transparent, {{ color_var }}, transparent);
 }
 {%- endfor -%}
+
+div#GDS_input-, div#GDS_input-search
+{
+    border-bottom: 1px solid var(--other);
+    border-radius: 5px;
+}
+#GDS_input-, #GDS_input-search
+{     
+    box-shadow: 0px 0px 20px -13px var(--other);
+}
+div#GDS_input-.search-loading::after, div#GDS_input-search.search-loading::after
+{
+    background: var(--other);
+}
+div#GDS_input-.search-loading.indeterminate::after, div#GDS_input-search.search-loading.indeterminate::after
+{
+    background: linear-gradient(90deg, transparent, var(--other), transparent);
+}
 
 #other > a:hover, #other > a:focus, .nav-link.sidebar-item-active.about, a.about:hover, a.about:focus
 { border-left: 5px solid var(--other); }
@@ -197,5 +221,28 @@ div#KSE_input-{{ s }}
 .highlight .si { color: var(--text-primary); }
 .highlight .ge { color: var(--text-primary); }
 .highlight .gs { color: var(--text-primary); }
+
+/* --------------------------------------------------------------------------------------------- */
+
+.search-loading { position: relative; overflow: hidden; }
+.search-loading::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    z-index: 5;
+    width: var(--search-progress, 0%);
+    transition: width 0.1s linear;
+}
+.search-loading.indeterminate::after {
+    width: 100%;
+    transform: translateX(-100%);
+    animation: loading-slide 1.5s infinite;
+}
+@keyframes loading-slide {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
 
 /* --------------------------------------------------------------------------------------------- */

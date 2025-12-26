@@ -20,36 +20,30 @@ From onboarding to CI pipelines, from tech stack insights to contributor recogni
 
 ## Introduction
 
-GoDarda is an educational, Jekyll-powered website and companion Android app that provides concise programming examples, tutorials, and curated learning paths across many languages and domains. The repo groups runnable example code under language-specific folders and pairs each example with a documentation page so contributors and learners can quickly find, run, and improve samples.
-
-This repository is intended for:
-- learners looking for minimal, runnable examples;
-- contributors who add examples, fix documentation, or improve CI/setup scripts;
-- maintainers who want a clear, testable site that can be served locally and on GitHub Pages.
+GoDarda is an educational, Jekyll-powered website and companion Android app that provides concise programming examples, tutorials, and curated learning paths across many languages and domains.
 
 Key repo entry points:
-- Content & Site Pages: [`pages`](pages/)
-- Source Examples (Grouped by Language): [`codes`](codes/)
-- Static Assets & ID Maps: [`assets`](assets/)
+- Content and Site Pages: [`pages`](pages/)
+- Static Assets and ID Maps: [`assets`](assets/)
 - Local Setup Scripts: [`setups`](setups/)
-- Layouts & Includes: [`_layouts`](_layouts/) & [`_includes`](_includes/)
-- CI & Automation: [`.github`](.github/)
+- Layouts and Includes: [`_layouts`](_layouts/) and [`_includes`](_includes/)
+- CI and Automation: [`.github`](.github/)
 - Android App Sources: [`android`](android/)
-- Tests & Verification: [`tests`](tests/)
+- Tests and Verification: [`tests`](tests/)
 
 ## Project Status
 
 Real-time indicators of GoDarda's health, activity, and platform coverage:
 
-> 🖥️ Platform & Availability
+🖥️ Platform and Availability
 
 ![Platform Support][gdcdhdg] ![GoDarda Android App][gdyzyvk]
 
-> 📦 Repository Metadata
+📦 Repository Metadata
 
 ![License][gdycyiw] ![Repo Size][gdypvzk] ![Contributors][gdpgpdw]
 
-> 📈 Activity & Health
+📈 Activity and Health
 
 ![Commits Last Month][gdkgddy] ![Last Commit][gdzveyt] ![Issues][gddaakl] ![Pull Requests][gdwgvye] ![Discussions][gdgnlyl]
 
@@ -66,12 +60,12 @@ Automated CI workflows are available for macOS, Ubuntu, and Windows. It validate
 
 GoDarda's website and Android app are version-controlled via GitHub using Git, and built with:
 
-| Category                     | Tools & Technologies                                                                 |
+| Category                     | Tools and Technologies                                                                 |
 |-----------------------------|----------------------------------------------------------------------------------------|
-| Web & Mobile Platforms      | Jekyll, Bootstrap, jQuery, Font Awesome, Google Fonts, HTML5 & CSS3, Liquid, Markdown, Kotlin, Gradle |
-| Build, Automation & Diagnostics | Ruby, Bundler, YAML, GitHub Actions, Python, CI Badges                             |
-| Engagement & Insights       | Giscus, Google Analytics 4 (GA4)                                                      |
-| IDE & Development Environment | Visual Studio Code, GitHub Codespaces, Android Studio                               |
+| Web and Mobile Platforms      | Jekyll, Bootstrap, jQuery, Font Awesome, Google Fonts, HTML5 and CSS3, Liquid, Markdown, Kotlin, Gradle |
+| Build, Automation and Diagnostics | Ruby, Bundler, YAML, GitHub Actions, Python, CI Badges                             |
+| Engagement and Insights       | Giscus, Google Analytics 4 (GA4)                                                      |
+| IDE and Development Environment | Visual Studio Code, GitHub Codespaces, Android Studio                               |
 
 ## Contributors
 

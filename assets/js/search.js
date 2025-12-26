@@ -2,14 +2,15 @@
 // Expects `window.gd_path1` to be set by the page (Liquid assigns it in the include).
 (function () {
     document.addEventListener('DOMContentLoaded', function () {
-        const containerId = window.gd_path1 || '';
+        const containerId = window.gd_path1 || 'search';
         const container = document.getElementById(containerId);
         if (!container) return;
 
         // Cache frequently-used DOM nodes
         const matchCountEl = document.getElementById('matchCount');
-        const input = document.getElementById('KSEInput');
+        const input = document.getElementById('GDSInput');
         if (!input) return;
+        const inputContainer = document.getElementById('GDS_input-' + containerId);
 
         // Utilities (used by loader and renderers)
         function escapeRegExp(s) { return s.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&'); }
@@ -18,51 +19,227 @@
         // Lazy-loaded items. We avoid parsing JSON blobs until the user actually
         // interacts with the search input to keep initial page load light.
         let items = null; // null = not loaded; [] = loaded but empty
+        let loadPromise = null;
+
         function loadItemsIfNeeded() {
-            if (items !== null) return;
-            items = [];
+            if (items !== null) return Promise.resolve();
+            if (loadPromise) return loadPromise;
+            
+            if (inputContainer) {
+                inputContainer.classList.add('search-loading');
+                inputContainer.style.setProperty('--search-progress', '0%');
+            }
+
+            let realProgress = 0;
+            let isFetching = true;
+            let dataResult = [];
+            const animationDuration = 1000;
+            const startTime = performance.now();
+
             const dataScript = document.getElementById('search-data-' + containerId);
             if (dataScript) {
                 try {
                     const data = JSON.parse(dataScript.textContent || dataScript.innerText || '[]');
-                    items = data.map(o => ({
-                        title: (o.title || '').trim(),
-                        href: o.href || '#',
-                        safeTitle: escapeHtml(o.title || ''),
-                        lowerTitle: (o.title || '').toLowerCase()
-                    }));
-                    return;
+                    items = processItems(data);
+                    if (inputContainer) inputContainer.classList.remove('search-loading', 'indeterminate');
+                    return Promise.resolve();
                 } catch (e) {
                     items = [];
-                    return;
+                    if (inputContainer) inputContainer.classList.remove('search-loading', 'indeterminate');
+                    return Promise.resolve();
                 }
             }
 
-            if (containerId === 'search') {
-                // Aggregate all segment blobs only when needed (main search page)
-                const scripts = Array.from(document.querySelectorAll('script[type="application/json"][id^="search-data-"]'));
-                const agg = [];
-                scripts.forEach(s => {
-                    try {
-                        const d = JSON.parse(s.textContent || s.innerText || '[]');
-                        d.forEach(o => agg.push(o));
-                    } catch (e) { /* ignore malformed segment */ }
+            // If no embedded script is found, fetch the global search.json and filter if necessary
+            const fetchP = fetch(window.gd_search_url || '/search.json')
+                .then(response => {
+                    const contentLength = response.headers.get('content-length');
+                    const total = parseInt(contentLength, 10);
+                    if (!contentLength || isNaN(total)) {
+                        realProgress = 100;
+                        return response.json();
+                    }
+                    let loaded = 0;
+                    const reader = response.body.getReader();
+                    const stream = new ReadableStream({
+                        start(controller) {
+                            function push() {
+                                reader.read().then(({ done, value }) => {
+                                    if (done) { controller.close(); return; }
+                                    loaded += value.byteLength;
+                                    realProgress = (loaded / total) * 100;
+                                    controller.enqueue(value);
+                                    push();
+                                });
+                            }
+                            push();
+                        }
+                    });
+                    return new Response(stream).json();
+                })
+                .then(data => {
+                    dataResult = data;
+                    realProgress = 100;
+                    isFetching = false;
+                })
+                .catch(e => {
+                    console.error("Search data load failed", e);
+                    dataResult = [];
+                    realProgress = 100;
+                    isFetching = false;
                 });
-                items = agg.map(o => ({ title: (o.title || '').trim(), href: o.href || '#', safeTitle: escapeHtml(o.title || ''), lowerTitle: (o.title || '').toLowerCase() }));
-                return;
-            }
 
-            // Fallback: if the page still contains anchors (older templates), read them
-            const anchors = Array.from(container.querySelectorAll('a'));
-            items = anchors.map(a => ({ title: (a.textContent || '').trim(), href: a.getAttribute('href') || a.getAttribute('data-href') || '#', safeTitle: escapeHtml(a.textContent || ''), lowerTitle: (a.textContent || '').toLowerCase() }));
+            const animationP = new Promise(resolve => {
+                function frame(time) {
+                    const elapsed = time - startTime;
+                    const virtualProgress = Math.min((elapsed / animationDuration) * 100, 100);
+                    const display = Math.min(realProgress, virtualProgress);
+                    
+                    if (inputContainer) {
+                        inputContainer.style.setProperty('--search-progress', display + '%');
+                    }
+
+                    if (elapsed < animationDuration || isFetching) {
+                        requestAnimationFrame(frame);
+                    } else {
+                        if (inputContainer) inputContainer.style.setProperty('--search-progress', '100%');
+                        setTimeout(resolve, 250);
+                    }
+                }
+                requestAnimationFrame(frame);
+            });
+
+            loadPromise = Promise.all([fetchP, animationP])
+                .then(() => {
+                    const allItems = processItems(dataResult);
+                    if (containerId === 'search') {
+                        items = allItems;
+                    } else {
+                        // Filter items that belong to the current segment (e.g., "java" or "java/...")
+                        items = allItems.filter(it => it.category === containerId);
+                    }
+                })
+                .finally(() => { 
+                    loadPromise = null;
+                    if (inputContainer) {
+                        inputContainer.classList.remove('search-loading');
+                    }
+                });
+            return loadPromise;
+        }
+
+        let vocabulary = new Set();
+
+        function levenshtein(a, b) {
+            const alen = a.length;
+            const blen = b.length;
+            if (alen === 0) return blen;
+            if (blen === 0) return alen;
+            const matrix = [];
+            for (let i = 0; i <= blen; i++) { matrix[i] = [i]; }
+            for (let j = 0; j <= alen; j++) { matrix[0][j] = j; }
+            for (let i = 1; i <= blen; i++) {
+                for (let j = 1; j <= alen; j++) {
+                    if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                        matrix[i][j] = matrix[i - 1][j - 1];
+                    } else {
+                        matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, Math.min(matrix[i][j - 1] + 1, matrix[i - 1][j] + 1));
+                    }
+                }
+            }
+            return matrix[blen][alen];
+        }
+
+        function findCorrection(word) {
+            if (vocabulary.has(word)) return null;
+            
+            // Heuristic: Don't correct short words aggressively.
+            const maxDist = (word.length <= 4) ? 1 : 2;
+
+            let bestWord = null;
+            let minDistance = maxDist + 1; 
+            for (const vocabWord of vocabulary) {
+                if (Math.abs(vocabWord.length - word.length) > maxDist) continue;
+                const dist = levenshtein(word, vocabWord);
+                if (dist < minDistance) {
+                    minDistance = dist;
+                    bestWord = vocabWord;
+                }
+            }
+            return bestWord;
+        }
+
+        function processItems(data) {
+            vocabulary.clear();
+            const seen = new Map();
+            const processed = [];
+
+            data.forEach(o => {
+                const href = o.href || '#';
+                const lowerTitle = (o.title || '').toLowerCase();
+                const lowerContent = (o.content || '').toLowerCase();
+
+                if (seen.has(href)) {
+                    const existing = seen.get(href);
+                    if (!existing.lowerContent && lowerContent) {
+                        existing.lowerContent = lowerContent;
+                    }
+                    return;
+                }
+
+                const tokens = lowerTitle.split(/[^a-z0-9]+/);
+                tokens.forEach(t => { if (t.length > 2) vocabulary.add(t); });
+
+                if (lowerContent) {
+                    const contentTokens = lowerContent.split(/[^a-z0-9]+/);
+                    contentTokens.forEach(t => { if (t.length > 2) vocabulary.add(t); });
+                }
+
+                let matchTitle = lowerTitle;
+                if (lowerTitle.indexOf("'") > -1) {
+                    const lowerNoApos = lowerTitle.replace(/'/g, '');
+                    matchTitle += ' ' + lowerNoApos;
+                    const tokensNoApos = lowerNoApos.split(/[^a-z0-9]+/);
+                    tokensNoApos.forEach(t => { if (t.length > 2) vocabulary.add(t); });
+                }
+
+                const item = { 
+                    title: (o.title || '').trim(), 
+                    href: href, 
+                    category: o.category, 
+                    safeTitle: escapeHtml(o.title || ''), 
+                    lowerTitle: matchTitle,
+                    lowerContent: lowerContent
+                };
+                seen.set(href, item);
+                processed.push(item);
+            });
+
+            // Dynamic Vocabulary: Add words from the current page content using the DOM API.
+            // This acts as a dynamic whitelist for common words present in the UI/content.
+            try {
+                const pageText = (document.body.innerText || '').slice(0, 100000).toLowerCase();
+                const pageTokens = pageText.split(/[^a-z0-9]+/);
+                pageTokens.forEach(t => { if (t.length > 2) vocabulary.add(t); });
+            } catch (e) { /* ignore */ }
+
+            return processed;
         }
 
         // Scoring helper (operates on precomputed lowerTitle)
-        function scoreFor(lowerTitle, qtrim, tokens) {
+        function scoreFor(item, qtrim, tokens) {
+            const lowerTitle = item.lowerTitle;
+            const lowerContent = item.lowerContent || '';
+
             if (lowerTitle === qtrim) return { score: 100, type: 'exact' };
             if (qtrim && lowerTitle.startsWith(qtrim)) return { score: 90, type: 'prefix' };
             if (qtrim.length > 1 && lowerTitle.indexOf(qtrim) !== -1) return { score: 80, type: 'substring' };
             if (tokens.length > 0 && tokens.every(t => lowerTitle.indexOf(t) !== -1)) return { score: 70 + tokens.length, type: 'alltokens' };
+            
+            // Content matches
+            if (lowerContent.indexOf(qtrim) !== -1) return { score: 60, type: 'content' };
+            if (tokens.length > 0 && tokens.every(t => lowerContent.indexOf(t) !== -1)) return { score: 50 + tokens.length, type: 'content_all' };
+
             const matches = tokens.reduce((c, t) => c + (lowerTitle.indexOf(t) !== -1 ? 1 : 0), 0);
             if (matches > 0) return { score: 40 + matches, type: 'anytokens' };
             return { score: 0, type: null };
@@ -72,16 +249,24 @@
         function buildHighlighted(item, qtrim, tokens, type) {
             const safe = item.safeTitle;
             if (!qtrim) return safe;
+
+            function getPattern(t) {
+                if (/^[a-zA-Z0-9]+$/.test(t)) {
+                    return t.split('').map(c => escapeRegExp(c) + "[']?").join('');
+                }
+                return escapeRegExp(t);
+            }
+
             try {
                 if (type === 'exact' || type === 'prefix' || type === 'substring') {
-                    const re = new RegExp('(' + escapeRegExp(qtrim) + ')', 'ig');
+                    const re = new RegExp('(' + getPattern(qtrim) + ')', 'ig');
                     return safe.replace(re, '<mark>$1</mark>');
                 }
                 const uniq = Array.from(new Set(tokens)).sort((a, b) => b.length - a.length);
                 let out = safe;
                 uniq.forEach(token => {
                     if (!token) return;
-                    const re = new RegExp('(' + escapeRegExp(token) + ')', 'ig');
+                    const re = new RegExp('(' + getPattern(token) + ')', 'ig');
                     out = out.replace(re, '<mark>$1</mark>');
                 });
                 return out;
@@ -139,13 +324,12 @@
             }
 
             // Ensure data is loaded lazily on first interaction
-            loadItemsIfNeeded();
-
+            loadItemsIfNeeded().then(() => {
             const tokens = qtrim.split(/\s+/).filter(Boolean);
 
             // Fast path: map with precomputed lowerTitle
             const scoredAll = items.map(it => {
-                const s = scoreFor(it.lowerTitle, qtrim, tokens);
+                const s = scoreFor(it, qtrim, tokens);
                 return Object.assign({}, it, s);
             }).filter(r => r.score > 0)
                 .sort((a, b) => (b.score - a.score) || a.title.localeCompare(b.title));
@@ -176,63 +360,84 @@
                     matchCountEl.style.display = 'block';
                 }
             });
+            });
         }
 
-        // Attach a debounced input handler to the search input (id="KSEInput").
+        // Attach a debounced input handler to the search input (id="GDSInput").
         // We debounce to avoid running expensive work on every keystroke.
         let tid = null;
         input.addEventListener('input', function (e) {
             clearTimeout(tid);
-            const v = e.target.value || '';
-            // Toggle icons immediately for UX
+            
+            // Autocorrect logic: triggers when the last character typed is a space
+            const cursor = input.selectionStart;
+            if (items !== null && cursor > 0 && input.value[cursor - 1] === ' ') {
+                const val = input.value;
+                const textBefore = val.slice(0, cursor - 1);
+                const match = textBefore.match(/([a-zA-Z0-9]+)$/);
+                if (match) {
+                    const word = match[1];
+                    const lowerWord = word.toLowerCase();
+                    if (word.length > 2 && !vocabulary.has(lowerWord)) {
+                        const correction = findCorrection(lowerWord);
+                        if (correction) {
+                            const before = val.slice(0, match.index);
+                            const after = val.slice(cursor);
+                            input.value = before + correction + ' ' + after;
+                            const newCursor = before.length + correction.length + 1;
+                            input.setSelectionRange(newCursor, newCursor);
+                        }
+                    }
+                }
+            }
+
+            const v = input.value || '';
+            // Toggle icons immediately for UX via the shared helper
+            if (typeof window.display_results === 'function') window.display_results();
+
             if (v.length === 0) {
-                document.getElementById('search_icon') && (document.getElementById('search_icon').style.display = 'inline-block');
-                document.getElementById('close_icon') && (document.getElementById('close_icon').style.display = 'none');
                 renderMatches('');
                 return;
-            } else {
-                document.getElementById('search_icon') && (document.getElementById('search_icon').style.display = 'none');
-                document.getElementById('close_icon') && (document.getElementById('close_icon').style.display = 'inline-block');
             }
             // 150ms debounce gives a balance of responsiveness and work reduction
             tid = setTimeout(() => renderMatches(v), 150);
+        });
+
+        // Prefetch on focus
+        input.addEventListener('focus', function() {
+            loadItemsIfNeeded();
         });
 
     });
 
     // Clear the search input and hide any visible results or icons.
     window.clear_input = function () {
-        const inputEl = document.getElementById("KSEInput");
+        const inputEl = document.getElementById("GDSInput");
         if (inputEl) inputEl.value = "";
-        if (window.gd_path1) {
-            const el = document.getElementById(window.gd_path1);
-            if (el) el.style.display = "none";
-        }
-        const searchEl = document.getElementById("search");
-        if (searchEl) searchEl.style.display = "none";
-        const closeIcon = document.getElementById("close_icon");
-        if (closeIcon) closeIcon.style.display = "none";
-        const searchIcon = document.getElementById("search_icon");
-        if (searchIcon) searchIcon.style.display = "inline-block";
-        var mc = document.getElementById('matchCount');
-        if (mc) mc.style.display = 'none';
+        if (typeof window.display_results === 'function') window.display_results();
     };
 
     // Update UI controls based on whether the input contains text. This is a
     // small helper used by the onkeypress/onkeyup attributes on the input field.
     window.display_results = function () {
-        if (typeof jQuery !== 'undefined' && jQuery("#KSEInput").val().length == 0) {
-            const closeIcon = document.getElementById("close_icon"); if (closeIcon) closeIcon.style.display = "none";
-            const searchIcon = document.getElementById("search_icon"); if (searchIcon) searchIcon.style.display = "inline-block";
-            if (window.gd_path1) {
-                const el = document.getElementById(window.gd_path1); if (el) el.style.display = "none";
-            }
-            const searchEl = document.getElementById("search"); if (searchEl) searchEl.style.display = "none";
-            var mc2 = document.getElementById('matchCount'); if (mc2) mc2.style.display = 'none';
-        } else if (typeof jQuery !== 'undefined' && jQuery("#KSEInput").val().length >= 1) {
-            const searchEl = document.getElementById("search"); if (searchEl) searchEl.style.display = "block";
-            const closeIcon = document.getElementById("close_icon"); if (closeIcon) { closeIcon.style.display = "inline-block"; closeIcon.style.cursor = "pointer"; }
-            const searchIcon = document.getElementById("search_icon"); if (searchIcon) searchIcon.style.display = "none";
+        const input = document.getElementById("GDSInput");
+        const val = input ? input.value : "";
+        const searchEl = document.getElementById("search");
+        const closeIcon = document.getElementById("close_icon");
+        const searchIcon = document.getElementById("search_icon");
+        const matchCount = document.getElementById('matchCount');
+        const gdPathEl = window.gd_path1 ? document.getElementById(window.gd_path1) : null;
+
+        if (val.length === 0) {
+            if (closeIcon) closeIcon.style.display = "none";
+            if (searchIcon) searchIcon.style.display = "inline-block";
+            if (gdPathEl) gdPathEl.style.display = "none";
+            if (searchEl) searchEl.style.display = "none";
+            if (matchCount) matchCount.style.display = 'none';
+        } else {
+            if (searchEl) searchEl.style.display = "block";
+            if (closeIcon) { closeIcon.style.display = "inline-block"; closeIcon.style.cursor = "pointer"; }
+            if (searchIcon) searchIcon.style.display = "none";
         }
     };
 

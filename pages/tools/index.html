@@ -4,8 +4,11 @@ title: GoDarda Tools
 description: "A collection of online tools for calculations, text analysis, and more. Explore our versatile utilities designed to simplify your tasks."
 ---
 
-{% for parent in site.data.tools.grandparent %}
-<div class="board"><div class="boardtitle">{{ parent.parent }}</div>
-    {% for child in parent.children %}<a class="card" href="{{ child.url }}">{{ child.title }}</a>{% endfor %}
+{%- include search.html -%}
+<div class="row">
+    {%- for segment in site.data.tools.segments -%}
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-3">
+        <a href="{{ segment.url }}"><div class="{{ segment.url | split: '/' }} procard">{{ segment.title }}</div></a>
+    </div>
+    {%- endfor -%}
 </div>
-{% endfor %}
