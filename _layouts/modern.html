@@ -117,5 +117,28 @@
 <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-xxl-10 ms-sm-auto" style="padding: 0px;">{%- include footer.html -%}</div>
 {%- endif -%}
 </div>
+
+{%- if path[3] != nil -%}
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><i class="bi bi-clipboard-heart"></i> Thank You</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">Dear User, <br>Thank you for visitng GoDarda. If you are interested in technical
+                articles, latest technologies, and our journey further, please follow us on LinkedIn.<br><br>
+                <div>Regards,<br><a href="shubhamrdarda" class="hlink">{{ site.founder }}</a><br>Architect of {{ site.title }}</div>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <a href="{{ site.data.url.linkedin }}" class="btn" title="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin"></i> LinkedIn</a>
+                <a href="{{ site.data.url.sponsor }}"  class="btn" title="Sponsor" target="_blank" rel="noopener noreferrer"><i class="bi bi-suit-heart"></i> Sponsor</a>
+            </div>
+        </div>
+    </div>
+</div>
+{%- endif -%}
+
 </body>
 </html>
