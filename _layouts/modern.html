@@ -5,7 +5,7 @@
 <body>
 <nav class="navbar navbar-expand-md navbar-dark fixed-top">
     <div class="container-fluid">
-        {%- if path[1] == nil or path[1] == "tools" or path[1] == "search" or path[1] == "testapp" or path[1] == "shubhamrdarda" -%}
+        {%- if path[1] == nil or path[1] == "tools" or path[1] == "learn" or path[1] == "search" or path[1] == "testapp" or path[1] == "shubhamrdarda" -%}
         <div class="navbar-brand" style="margin-left: 0px;">
             <a href=""><img id="logo" alt="Logo" width="30" height="30" src="{{ site.icon | relative_url }}"></a>
             <a id="fc-{{ path[1] }}"> {{ parent }}</a>
@@ -48,8 +48,8 @@
                 {%- if path[1] != nil -%}
                     <li class="nav-item"><a class="nav-link" href=""><i class="navsvg bi bi-house-door"></i> Home</a></li>
                 {%- endif -%}
-                {%- if path[1] != "search" -%}
-                    <li class="nav-item"><a class="nav-link" href="search"><i class="navsvg bi bi-search"></i> Search</a></li>
+                {%- if path[1] != "learn" -%}
+                    <li class="nav-item"><a class="nav-link" href="learn"><i class="navsvg bi bi-lightbulb-fill"></i> Learn</a></li>
                 {%- endif -%}
                 {%- if path[1] != "tools" -%}
                     <li class="nav-item"><a class="nav-link" href="tools"><i class="navsvg bi bi-tools"></i> Tools</a></li>
@@ -71,11 +71,11 @@
     </div>
 </nav>
 
-<div data-bs-toggle="collapseall">
-{%- if path[1] == "search" or path[1] == "shubhamrdarda" or path[1] == "testapp" -%}
+<div data-bs-toggle="collapseall" style="min-height: 100vh;">
+{%- if path[1] == nil or path[1] == "shubhamrdarda" or path[1] == "testapp" -%}
 <main role="main"><div class="container">{{ content }}</div></main>{%- include footer.html -%}
 
-{%- elsif path[1] == nil or path[1] == "tools" -%}
+{%- elsif path[1] == "learn" or path[1] == "tools" -%}
 <div class="jumbotron text-center">
     <h3>{{ site.title }}</h3>
     {%- if path[1] == nil -%}<h6>{{ site.tagline }}</h6>

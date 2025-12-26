@@ -80,7 +80,7 @@
 }
 
 .calc-panel .stat {
-    border-left: 5px solid var(--tools);
+    border-left: 5px solid var(--other);
     box-shadow: none;
 }
 .calc-panel .stat::before { display: none; }

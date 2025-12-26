@@ -1,0 +1,14 @@
+---
+permalink: learn/
+title: Computer Science and Programming
+description: "Welcome to GoDarda, your ultimate destination for programming. Our mission is to inspire learners by providing a comprehensive and pragmatic approach to programming and making them realize their unfathomable potential."
+---
+
+{%- include search.html -%}
+<div class="row">
+    {%- for segment in site.data.learn.segments -%}
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-3">
+        <a href="{{ segment.url }}"><div class="{{ segment.url | split: '/' }} procard">{{ segment.title }}</div></a>
+    </div>
+    {%- endfor -%}
+</div>

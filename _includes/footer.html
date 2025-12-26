@@ -39,7 +39,7 @@
     </div>
 </div>
 
-{%- if path[1] == "search" or path[1] == "testapp" -%}{%- assign flag = "block_webfooter" -%}{%- endif -%}
+{%- if path[1] == nil or path[1] == "testapp" -%}{%- assign flag = "block_webfooter" -%}{%- endif -%}
 <div id="backtotop" class="text-center" style="display: none; padding-top: 15px; margin-bottom: 15px;"><a class="back-to-top" style="cursor: pointer;" title="Back to top"><i class="svgicon bi bi-arrow-bar-up"></i></a>
 </div>
 
@@ -97,18 +97,18 @@
 </footer>
 
 <footer class="isWebView" id="isWebView" style="display: none;">
-    {% if path[1] == "search" %}
-        {% assign f_search="wvnav-item-active" %}
+    {% if path[1] == nil %}
+        {% assign f_home="wvnav-item-active" %}
     {% elsif path[1] == "tools" %}
         {% assign f_tools="wvnav-item-active" %}
     {% elsif path[1] == "about" or path[1] == "shubhamrdarda" %}
         {% assign f_about="wvnav-item-active" %}
     {% else %}
-        {% assign f_home="wvnav-item-active" %}
+        {% assign f_learn="wvnav-item-active" %}
     {% endif %}
     <div class="d-flex justify-content-between wvnav">
-        <a class="wvnav-item {{ f_home }}" href="{{ site.url }}"><i class="wvsvg {{ f_home }}-{{ path[1] }} bi bi-house-door"></i><div class="text-center">Home</div></a>
-        <a class="wvnav-item {{ f_search }}" href="{{ site.url }}/search"><i class="wvsvg {{ f_search }}- bi bi-search"></i><div class="text-center">Search</div></a>
+        <a class="wvnav-item {{ f_home }}" href="{{ site.url }}"><i class="wvsvg {{ f_home }}- bi bi-house-door"></i><div class="text-center">Home</div></a>
+        <a class="wvnav-item {{ f_learn }}" href="{{ site.url }}/learn"><i class="wvsvg {{ f_learn }}-{{ path[1] }} bi bi-lightbulb-fill"></i><div class="text-center">Learn</div></a>
         <a class="wvnav-item" href="share:{{ site.url }}{{ page.url }}"><i class="wvsvg bi bi-share"></i><div class="text-center">Share</div></a>
         <a class="wvnav-item {{ f_tools }}" href="{{ site.url }}/tools"><i class="wvsvg {{ f_tools }}-{{ path[1] }} bi bi-tools"></i><div class="text-center">Tools</div></a>
         <a class="wvnav-item {{ f_about }}" href="{{ site.url }}/about"><i class="wvsvg {{ f_about }}-about bi bi-info-circle"></i><div class="text-center">About</div></a>

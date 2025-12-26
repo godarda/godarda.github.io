@@ -2,7 +2,7 @@
 // Expects `window.gd_path1` to be set by the page (Liquid assigns it in the include).
 (function () {
     document.addEventListener('DOMContentLoaded', function () {
-        const containerId = window.gd_path1 || 'search';
+        const containerId = window.gd_path1;
         const container = document.getElementById(containerId);
         if (!container) return;
 
@@ -18,8 +18,9 @@
 
         // Lazy-loaded items. We avoid parsing JSON blobs until the user actually
         // interacts with the search input to keep initial page load light.
-        let items = null; // null = not loaded; [] = loaded but empty
+        let items = null; // null = not loaded; [] = loaded but empty. This will hold the search items.
         let loadPromise = null;
+        let searchConfig = {}; // To store the config part of the JSON (e.g., category lists).
 
         function loadItemsIfNeeded() {
             if (items !== null) return Promise.resolve();
@@ -78,7 +79,8 @@
                     return new Response(stream).json();
                 })
                 .then(data => {
-                    dataResult = data;
+                    dataResult = data.items || []; // Search items are in the 'items' property.
+                    searchConfig = data.config || {}; // Configuration is in the 'config' property.
                     realProgress = 100;
                     isFetching = false;
                 })
@@ -111,9 +113,13 @@
 
             loadPromise = Promise.all([fetchP, animationP])
                 .then(() => {
-                    const allItems = processItems(dataResult);
+                    const allItems = processItems(dataResult); // dataResult is now just the array of items.
                     if (containerId === 'search') {
                         items = allItems;
+                    } else if (searchConfig[containerId]) {
+                        // This is for /learn and /tools pages. Filter using the config from search.json.
+                        const categorySet = new Set(searchConfig[containerId]);
+                        items = allItems.filter(it => categorySet.has(it.category));
                     } else {
                         // Filter items that belong to the current segment (e.g., "java" or "java/...")
                         items = allItems.filter(it => it.category === containerId);
