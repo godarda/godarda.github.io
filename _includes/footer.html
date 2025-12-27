@@ -146,7 +146,7 @@ window.addEventListener('DOMContentLoaded', () => {
              document.getElementById("lsidebar").style.display = "none";
          }
      } else {
-         document.getElementById("rsidebar").style.display = "block";
+         document.getElementById("rsidebar").removeAttribute("style");
          if (!webfooter.classList.contains("block_webfooter")) {
              webfooter.style.display = "block";
          }
