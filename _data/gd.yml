@@ -85,7 +85,7 @@ segments:
 
   - title: Tools
     url: tools
-    parent: " / Tools / "
+    parent: " / Tools "
 
   - title: Calculators
     url: calculators
@@ -97,7 +97,7 @@ segments:
 
   - title: Programming
     url: learn
-    parent: " / Learn / "
+    parent: " / Learn "
     
   - title: GoDarda's Search
     url: search

@@ -8,6 +8,11 @@ description: "Convert strings to various hashing algorithms including MD5, SHA-1
 {% include converter.html %}
 
 <script>
+    // Hide the input unit dropdown immediately to prevent UI flashing.
+    document.getElementById('inputUnit').style.display = 'none';
+</script>
+
+<script>
 (function () {
     // Helper to safely execute hashing or return loading state
     const hash = (algo, v, options) => {
@@ -94,11 +99,5 @@ description: "Convert strings to various hashing algorithms including MD5, SHA-1
         inputPlaceholder: 'Enter text to hash...',
         inputType: 'textarea'
     });
-
-    // Since the input unit is always 'text', hide the selector for a cleaner UI.
-    const inputUnitSelect = document.getElementById('inputUnit');
-    if (inputUnitSelect) {
-        inputUnitSelect.style.display = 'none';
-    }
 })();
 </script>

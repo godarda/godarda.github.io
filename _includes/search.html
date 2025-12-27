@@ -1,17 +1,11 @@
 {%- assign path = page.url | split: '/' -%}
+<style>
+    #suggestion-light.light-on {
+        color: yellow;
+    }
+</style>
 <script>window.gd_path1 = '{{ path[1] | default: "search" }}';</script>
 <script>window.gd_search_url = '{{ "/search.json" | relative_url }}';</script>
-<script>
-    function searchSuggestion(term) {
-        const input = document.getElementById('GDSInput');
-        if (input) {
-            input.value = term;
-            input.focus();
-            // Dispatch an 'input' event to trigger the search logic in search.js
-            input.dispatchEvent(new Event('input', { bubbles: true }));
-        }
-    }
-</script>
 <script src="{{ site.search_js | relative_url }}"></script>
 <div><center>
     <div class="col-xs-12 col-sm-11 col-md-9 col-lg-7 col-xl-6 col-xxl-6" style="margin-bottom: 25px;">
@@ -28,7 +22,7 @@
 
     {%- if path[1] == nil -%}
     <div style="margin-top: -10px; margin-bottom: 30px; font-size: 0.9rem;">
-        <span class="text-muted" style="font-weight: 500; margin-right: 5px;"><i class="bi bi-lightbulb"></i> Suggestions:</span>
+        <span class="text-muted" style="font-weight: 500; margin-right: 5px;"><i id="suggestion-light" class="bi bi-lightbulb"></i> Suggestions:</span>
         <a class="btn btn-sm btn-outline-secondary rounded-pill" href="javascript:void(0);" onclick="searchSuggestion('C')" style="margin: 2px;">C</a>
         <a class="btn btn-sm btn-outline-secondary rounded-pill" href="javascript:void(0);" onclick="searchSuggestion('C#')" style="margin: 2px;">C#</a>
         <a class="btn btn-sm btn-outline-secondary rounded-pill" href="javascript:void(0);" onclick="searchSuggestion('Java')" style="margin: 2px;">Java</a>

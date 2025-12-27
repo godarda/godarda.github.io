@@ -7,7 +7,7 @@
     <div class="container-fluid">
         {%- if path[1] == nil or path[1] == "tools" or path[1] == "learn" or path[1] == "testapp" or path[1] == "shubhamrdarda" -%}
         <div class="navbar-brand" style="margin-left: 0px;">
-            <a href=""><img id="logo" alt="Logo" width="30" height="30" src="{{ site.icon | relative_url }}"></a>
+            <a><img id="logo" alt="Logo" width="30" height="30" src="{{ site.icon | relative_url }}"></a>
             <a id="fc-{{ path[1] }}"> {{ parent }}</a>
         </div>
         {%- else -%}
@@ -41,7 +41,7 @@
         </div>
         {%- endif -%}
 
-        <a id="android_theme" href="javascript:void(0);" style="display: none; font-size: 20px; color: #999;" class="ms-auto bi bi-moon-stars"></a>
+        <a id="android_theme" href="javascript:void(0);" style="display: none; font-size: 20px; color: #8c8c8c;" class="ms-auto bi bi-moon-stars"></a>
         <button id="rsidebar" class="ms-auto navbar-toggler p-0" type="button" data-bs-toggle="rightsidebar" data-bs-target="#rightsidebar" aria-label="rsidebar" style="display: none;"><span class="navbar-toggler-icon"></span></button>
         <div id="rightsidebar" class="rightsidebar-collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav mr-auto">
@@ -49,10 +49,10 @@
                     <li class="nav-item"><a class="nav-link" href=""><i class="navsvg bi bi-house-door"></i> Home</a></li>
                 {%- endif -%}
                 {%- if path[1] != "learn" -%}
-                    <li class="nav-item"><a class="nav-link" href="learn"><i class="navsvg bi bi-lightbulb-fill"></i> Learn</a></li>
+                    <li class="nav-item"><a class="nav-link" href="learn"><i class="navsvg bi bi-lightbulb"></i> Learn</a></li>
                 {%- endif -%}
                 {%- if path[1] != "tools" -%}
-                    <li class="nav-item"><a class="nav-link" href="tools"><i class="navsvg bi bi-tools"></i> Tools</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tools"><i class="navsvg bi bi-gear"></i> Tools</a></li>
                 {%- endif -%}
                 {%- if path[1] != "about" -%}
                     <li class="nav-item"><a class="nav-link" href="about"><i class="navsvg bi bi-info-circle"></i> About Us</a></li>

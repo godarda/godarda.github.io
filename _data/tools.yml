@@ -1,8 +1,8 @@
 segments:
-- title: Converters
-  url: converters
-  parent: " / Converters / "
-
 - title: Calculators
   url: calculators
   parent: " / Calculators / "
+
+- title: Converters
+  url: converters
+  parent: " / Converters / "
