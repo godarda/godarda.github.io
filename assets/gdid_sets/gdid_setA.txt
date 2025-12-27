@@ -1,4 +1,3 @@
-gdeggcz
 gdwzdkr
 gdpklzu
 gdzoyew
@@ -4957,6 +4956,7 @@ gdzwqle - pages/learn/selenium/xpath/gdzwqle.html
 gdadocu - pages/tools/calculators/common/gdadocu.html
 gdldvld - pages/tools/calculators/common/gdldvld.html
 gdzzvvv - pages/tools/calculators/common/gdzzvvv.html
+gdeggcz - pages/tools/converters/algorithm/gdeggcz.html
 gddvtyy - pages/tools/converters/common/gddvtyy.html
 gdegcwx - pages/tools/converters/common/gdegcwx.html
 gdkaznn - pages/tools/converters/common/gdkaznn.html
