@@ -21,7 +21,7 @@
 <div id="backtotop" class="text-center" style="display: none; padding-top: 15px; margin-bottom: 15px;"><a class="back-to-top" style="cursor: pointer;" title="Back to top"><i class="svgicon bi bi-arrow-bar-up"></i></a>
 </div>
 
-<footer class="isWebsite {{ flag }}" id="isWebsite" style="display: block; padding-top: 15px;">
+<footer class="isWebsite {{ flag }}" id="isWebsite" style="display: none; padding-top: 15px;">
     <div class="footer">
         <div class="container">
             <div class="row">
@@ -95,61 +95,61 @@
 
 <script type="text/javascript">
 window.addEventListener('DOMContentLoaded', () => {
-    const webfooter = document.getElementById("isWebsite");
-    const about_section = document.getElementById("app");
+     const webfooter = document.getElementById("isWebsite");
+     const about_section = document.getElementById("app");
 
-    if (window.isWebview && window.userAgent.includes("GoDarda")) {
-        document.getElementById("android_theme").style.display = "block";
-        document.getElementById("rsidebar").style.display = "none";
-        document.getElementById("isWebsite").style.display = "none";
-        document.getElementById("isWebView").style.display = "block";
-        document.getElementById("backtotop").style.marginBottom = "100px";
-        onselectstart = (e) => { e.preventDefault() }
-        $('body').on('contextmenu', function () { return false; });
-
-        const androidThemeIcon = document.getElementById('android_theme');
-        const themes = ['auto', 'light', 'dark'];
-        const icons = {
-            auto: 'bi-circle-half',
-            light: 'bi-sun',
-            dark: 'bi-moon-stars'
-        };
-
-        const updateAndroidIcon = (theme) => {
-            const currentIcon = icons[theme] || 'bi-circle-half';
-            androidThemeIcon.setAttribute('class', `ms-auto bi ${currentIcon}`);
-        };
-        
-        // Set initial icon
-        updateAndroidIcon(getStoredTheme() || 'auto');
-
-        androidThemeIcon.addEventListener('click', () => {
-            const currentTheme = getStoredTheme() || 'auto';
-            let nextThemeIndex = themes.indexOf(currentTheme) + 1;
-            if (nextThemeIndex >= themes.length) {
-                nextThemeIndex = 0;
-            }
-            const nextTheme = themes[nextThemeIndex];
-
-            setStoredTheme(nextTheme);
-            setTheme(nextTheme);
-            showActiveTheme(nextTheme);
-            updateAndroidIcon(nextTheme);
-        });
-    }
-    else if (!window.isWebview && webfooter.classList.contains("block_webfooter")) {
-        document.getElementById("isWebsite").style.display = "none";
-    }
-    if (window.isWebview && window.userAgent.includes("GoDarda") && about_section.classList.contains("about_home_true")) {
-        document.getElementById("app").style.display = "block";
-        document.getElementById("navbar-brand").style.marginLeft = "0px";
-        document.getElementById("lsidebar").style.display = "none";
-        document.getElementById("leftsidebar").style.display = "none";
-        document.getElementById("sponsor").style.display = "block";
-    }
-    else if (window.isWebview && window.userAgent.includes("GoDarda") && about_section.classList.contains("about_home_false")) {
-        document.getElementById("navbar-brand").style.marginLeft = "0px";
-        document.getElementById("lsidebar").style.display = "none";
-    }
+     if (window.isWebview && window.userAgent.includes("GoDarda")) {
+         document.getElementById("android_theme").style.display = "block";
+         document.getElementById("isWebView").style.display = "block";
+         document.getElementById("backtotop").style.marginBottom = "100px";
+         onselectstart = (e) => { e.preventDefault() }
+         $('body').on('contextmenu', function () { return false; });
+ 
+         const androidThemeIcon = document.getElementById('android_theme');
+         const themes = ['auto', 'light', 'dark'];
+         const icons = {
+             auto: 'bi-circle-half',
+             light: 'bi-sun',
+             dark: 'bi-moon-stars'
+         };
+ 
+         const updateAndroidIcon = (theme) => {
+             const currentIcon = icons[theme] || 'bi-circle-half';
+             androidThemeIcon.setAttribute('class', `ms-auto bi ${currentIcon}`);
+         };
+         
+         // Set initial icon
+         updateAndroidIcon(getStoredTheme() || 'auto');
+ 
+         androidThemeIcon.addEventListener('click', () => {
+             const currentTheme = getStoredTheme() || 'auto';
+             let nextThemeIndex = themes.indexOf(currentTheme) + 1;
+             if (nextThemeIndex >= themes.length) {
+                 nextThemeIndex = 0;
+             }
+             const nextTheme = themes[nextThemeIndex];
+ 
+             setStoredTheme(nextTheme);
+             setTheme(nextTheme);
+             showActiveTheme(nextTheme);
+             updateAndroidIcon(nextTheme);
+         });
+ 
+         if (about_section.classList.contains("about_home_true")) {
+             document.getElementById("app").style.display = "block";
+             document.getElementById("navbar-brand").style.marginLeft = "0px";
+             document.getElementById("lsidebar").style.display = "none";
+             document.getElementById("leftsidebar").style.display = "none";
+             document.getElementById("sponsor").style.display = "block";
+         } else if (about_section.classList.contains("about_home_false")) {
+             document.getElementById("navbar-brand").style.marginLeft = "0px";
+             document.getElementById("lsidebar").style.display = "none";
+         }
+     } else {
+         document.getElementById("rsidebar").style.display = "block";
+         if (!webfooter.classList.contains("block_webfooter")) {
+             webfooter.style.display = "block";
+         }
+     }
 });
 </script>

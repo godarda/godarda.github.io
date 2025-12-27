@@ -42,7 +42,7 @@
         {%- endif -%}
 
         <a id="android_theme" href="javascript:void(0);" style="display: none; font-size: 20px; color: #999;" class="ms-auto bi bi-moon-stars"></a>
-        <button id="rsidebar" class="ms-auto navbar-toggler p-0" type="button" data-bs-toggle="rightsidebar" data-bs-target="#rightsidebar" aria-label="rsidebar"><span class="navbar-toggler-icon"></span></button>
+        <button id="rsidebar" class="ms-auto navbar-toggler p-0" type="button" data-bs-toggle="rightsidebar" data-bs-target="#rightsidebar" aria-label="rsidebar" style="display: none;"><span class="navbar-toggler-icon"></span></button>
         <div id="rightsidebar" class="rightsidebar-collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav mr-auto">
                 {%- if path[1] != nil -%}
@@ -111,6 +111,7 @@
         {%- endif -%}{%- endif -%}{%- endfor -%}
         {%- if path[2] != nil -%}{%- include comments.html -%}{%- endif -%}
         {% include pagination.html %}
+        {% include ads.html %}
     </div>
 </main>
 
