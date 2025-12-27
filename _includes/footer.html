@@ -2,14 +2,6 @@
 {%- elsif path[1] == "about" and path[2] != nil -%}{%- assign about_section = "about_home_false" -%}{%- endif -%}
 <div id="app" class="container {{ about_section }}" style="display: none;">
     <div class="board">
-        <div class="boardtitle"><i class="bi bi-info-circle"></i> About</div>
-        <a class="card" href="about/faqs">Frequently Asked Questions</a>
-        <a class="card" href="about/contribute">Contribution Guide</a>
-        <a class="card" href="about/terms">Terms of Use</a>
-        <a class="card" href="about/privacy">Privacy Policy</a>
-        <a class="card" href="about/disclaimer">Disclaimer</a>
-    </div>
-    <div class="board">
         <div class="boardtitle"><i class="bi bi-link"></i> Social Handles</div>
         <a class="card" href="{{ site.data.url.linkedin }}">LinkedIn</a>
         <a class="card" href="{{ site.data.url.github }}">GitHub</a>
@@ -99,6 +91,7 @@ window.addEventListener('DOMContentLoaded', () => {
      const about_section = document.getElementById("app");
 
      if (window.isWebview && window.userAgent.includes("GoDarda")) {
+         document.body.classList.add('is-webview');
          document.getElementById("android_theme").style.display = "block";
          document.getElementById("isWebView").style.display = "block";
          document.getElementById("backtotop").style.marginBottom = "100px";
@@ -137,13 +130,6 @@ window.addEventListener('DOMContentLoaded', () => {
  
          if (about_section.classList.contains("about_home_true")) {
              document.getElementById("app").style.display = "block";
-             document.getElementById("navbar-brand").style.marginLeft = "0px";
-             document.getElementById("lsidebar").style.display = "none";
-             document.getElementById("leftsidebar").style.display = "none";
-             document.getElementById("sponsor").style.display = "block";
-         } else if (about_section.classList.contains("about_home_false")) {
-             document.getElementById("navbar-brand").style.marginLeft = "0px";
-             document.getElementById("lsidebar").style.display = "none";
          }
      } else {
          document.getElementById("rsidebar").removeAttribute("style");

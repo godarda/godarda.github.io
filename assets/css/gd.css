@@ -72,6 +72,10 @@
         -webkit-transform: translateX(0%);
         transform: translateX(0%);
     }
+
+    body.is-webview .leftsidebar-collapse {
+        bottom: 68px;
+    }
 }
 
 /* --------------------------------------------------------------------------------------------- */
