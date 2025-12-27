@@ -36,6 +36,7 @@ bs_jsi: sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI
 # Optional icon/font libraries and client-side helpers
 bs_icons: https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css
 jquery: https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js
+crypto_js: https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js
 
 # Open Graph / favicon / logos
 og: https://raw.githubusercontent.com/godarda/godarda.github.io/master/assets/images/logo.jpg

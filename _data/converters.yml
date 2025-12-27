@@ -59,6 +59,12 @@ grandparent:
     title: Cooking Converter
   - url: converters/lifestyle/gdmkzcy
     title: Fuel Consumption Converter
+- parent: Algorithm Converters
+  subtree: Algorithm
+  url: converters/algorithm
+  children:
+  - url: converters/algorithm/gdeggcz
+    title: Hashing Converters
 sidenav:
 - parent: Converters
   url: converters
@@ -71,3 +77,5 @@ sidenav:
     url: converters/digital
   - title: Lifestyle Converters
     url: converters/lifestyle
+  - title: Algorithm Converters
+    url: converters/algorithm

@@ -77,11 +77,9 @@ jobs:
           labels: automated, gdid-update
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      # Enable auto-merge for the created Pull Request
-      - name: Enable Auto-Merge
+      # Enable auto-merge for the created Pull Request and auto-delete the branch on merge
+      - name: Enable Auto-Merge and Auto-Delete Branch
         if: steps.cpr.outputs.pull-request-number != ''
-        uses: peter-evans/enable-pull-request-automerge@v3
-        with:
-          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
-          merge-method: squash
-          token: ${{ secrets.GITHUB_TOKEN }}
+        run: gh pr merge --auto --squash --delete-branch ${{ steps.cpr.outputs.pull-request-number }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
