@@ -15,14 +15,12 @@
         {%- endif -%}
 
         <div id="GDS_input-{{ path[1] | default: 'search' }}" class="input-group input-group-lg">
-        <input id="GDSInput" class="form-control" type="text" tabindex="1" placeholder="{{ page.title }} (type keywords to get results)" onkeypress="display_results();" onkeyup="display_results();" onload="clear_input();"><div id="search_icon" class="input-group-append" style="display: inline-block; padding: 10px 15px 0px 7px; font-size: 20px;"><i class="bi bi-search"></i></div><div id="close_icon" class="input-group-append" onclick="clear_input();" style="display: none; padding: 5px; font-size: 25px;"><i class="bi bi-x"></i></div>
+        <input id="GDSInput" class="form-control" type="text" tabindex="1" placeholder="{{ page.title }} (type to get the results)" onkeypress="display_results();" onkeyup="display_results();" onload="clear_input();"><div id="search_icon" class="input-group-append" style="display: inline-block; padding: 10px 15px 0px 7px; font-size: 20px;"><i class="bi bi-search"></i></div><div id="close_icon" class="input-group-append" onclick="clear_input();" style="display: none; padding: 5px; font-size: 25px;"><i class="bi bi-x"></i></div>
         </div>
-        {%- if path[1] == nil -%}
-        <div style="margin-top: 10px; text-align: left;">
+        <div id="suggestions-container" style="margin-top: 10px; text-align: left; display: none;">
             <span class="text-muted" style="margin-right: 5px;"><i id="suggestion-light" class="bi bi-lightbulb"></i> Suggestions:</span>
             <span id="search-suggestions"></span>
         </div>
-        {%- endif -%}
         <div id="matchCount" class="text-muted small" style="margin-top:8px; display:none; text-align:left"></div>
     </div>
 
@@ -30,34 +28,89 @@
 </center></div>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const suggestions = [
+    const currentCategory = window.gd_path1;
+
+    const learnSuggestions = [
         'C', 'C++', 'Java', 'Python', 'R', 'Julia', 'Octave', 'C#', 'F#',
         'Rust', 'LISP', 'Linux', 'MySQL', 'MongoDB', 'Selenium', 'Algorithm', 'Assembly', 'VBScript',
-        'Ranorex', 'OpenGL', 'AWT', 'Function', 'Method', 'Class', 'Inheritance', 
+        'Ranorex', 'OpenGL', 'AWT', 'Function', 'Method', 'Class', 'Inheritance',
         'Polymorphism', 'Encapsulation', 'Abstraction', 'Array', 'Bash', 'CLI', 'Exception', 'Database',
         'Stack', 'Queue', 'Tree', 'Graph', 'Sorting', 'Searching', 'Recursion', 'XPath', 'WebDriver', 'TestNG',
         'String', 'DataFrame', 'NumPy', 'Pandas', 'Matplotlib', 'List', 'Set', 'Tuple', 'Dictionary',
-        'Expression', 'Log', 'Thread', 'Matrix', 'Math', 'CRUD'];
+        'Expression', 'Log', 'Thread', 'Matrix', 'Math', 'CRUD'
+    ];
 
-    // Fisher-Yates shuffle to show random suggestions on each load
-    for (let i = suggestions.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [suggestions[i], suggestions[j]] = [suggestions[j], suggestions[i]];
+    const toolsSuggestions = [
+        'Calculator', 'Converter', 'Data', 'Length', 'Time', 'Currency', 'Physics', 'Hash', 'Area', 'Volume',
+        'Speed', 'Temperature', 'Pressure', 'Power', 'Energy'
+    ];
+
+    function displaySuggestions(suggestions) {
+        for (let i = suggestions.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [suggestions[i], suggestions[j]] = [suggestions[j], suggestions[i]];
+        }
+
+        const suggestionsParentContainer = document.getElementById('suggestions-container');
+        const suggestionsContainer = document.getElementById('search-suggestions');
+        if (suggestionsContainer && suggestionsParentContainer) {
+            suggestionsContainer.innerHTML = ''; // Clear previous suggestions
+            const selectedSuggestions = suggestions.slice(0, 3);
+            selectedSuggestions.forEach(suggestion => {
+                const link = document.createElement('a');
+                link.className = 'btn btn-sm btn-outline-secondary rounded-pill';
+                link.href = 'javascript:void(0);';
+                link.onclick = () => {
+                    const input = document.getElementById('GDSInput');
+                    input.value = suggestion;
+                    input.focus();
+                    input.dispatchEvent(new Event('input', { bubbles: true }));
+                };
+                link.style.margin = '2px';
+                link.style.fontSize = '12px';
+                link.textContent = suggestion;
+                suggestionsContainer.appendChild(link);
+            });
+            suggestionsParentContainer.style.display = 'block';
+        }
     }
 
-    const suggestionsContainer = document.getElementById('search-suggestions');
-    if (suggestionsContainer) {
-        const selectedSuggestions = suggestions.slice(0, 5);
-        selectedSuggestions.forEach(suggestion => {
-            const link = document.createElement('a');
-            link.className = 'btn btn-sm btn-outline-secondary rounded-pill';
-            link.href = 'javascript:void(0);';
-            link.onclick = () => searchSuggestion(suggestion);
-            link.style.margin = '2px';
-            link.style.fontSize = '12px';
-            link.textContent = suggestion;
-            suggestionsContainer.appendChild(link);
-        });
+    if (currentCategory === 'search' || currentCategory === 'learn') {
+        displaySuggestions(learnSuggestions);
+    } else if (currentCategory === 'tools') {
+        displaySuggestions(toolsSuggestions);
+    } else {
+        fetch('{{ "/search.json" | relative_url }}')
+            .then(response => response.json())
+            .then(data => {
+                const keywords = new Set();
+                let itemsToProcess = data.items;
+
+                if (currentCategory) {
+                    const categoryItems = data.items.filter(item => item.category === currentCategory);
+                    if (categoryItems.length > 0) {
+                        itemsToProcess = categoryItems;
+                    }
+                }
+
+                itemsToProcess.forEach(item => {
+                    const words = item.title.match(/[a-zA-Z0-9+.#-]+/g) || [];
+                    words.forEach(word => {
+                        const firstChar = word.charAt(0);
+                        if (word && isNaN(word) && firstChar >= 'A' && firstChar <= 'Z') {
+                            keywords.add(word);
+                        }
+                    });
+                    if (item.category) {
+                        const cat = item.category.charAt(0).toUpperCase() + item.category.slice(1);
+                        keywords.add(cat);
+                    }
+                });
+
+                const dynamicSuggestions = Array.from(keywords);
+                displaySuggestions(dynamicSuggestions);
+            })
+            .catch(error => console.error('Error fetching or processing search.json for suggestions:', error));
     }
 });
 </script>

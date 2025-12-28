@@ -31,14 +31,5 @@ document.addEventListener('DOMContentLoaded', () => {
         blinkCount++;
     }, intervalTime);
 });
-function searchSuggestion(term) {
-    const input = document.getElementById('GDSInput');
-    if (input) {
-        input.value = term;
-        input.focus();
-        // Dispatch an 'input' event to trigger the search logic in search.js
-        input.dispatchEvent(new Event('input', { bubbles: true }));
-    }
-}
 </script>
 {%- include search.html -%}
