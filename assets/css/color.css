@@ -157,6 +157,11 @@ div#GDS_input-{{ s }}.search-loading.indeterminate::after
 {
     background: linear-gradient(90deg, transparent, {{ color_var }}, transparent);
 }
+
+#GDS_input-{{ s }} ~ #suggestions-container #suggestion-light.light-on
+{
+    color: {{ color_var }};
+}
 {%- endfor -%}
 
 div#GDS_input-, div#GDS_input-search
@@ -175,6 +180,11 @@ div#GDS_input-.search-loading::after, div#GDS_input-search.search-loading::after
 div#GDS_input-.search-loading.indeterminate::after, div#GDS_input-search.search-loading.indeterminate::after
 {
     background: linear-gradient(90deg, transparent, var(--other), transparent);
+}
+
+#GDS_input- ~ #suggestions-container #suggestion-light.light-on, #GDS_input-search ~ #suggestions-container #suggestion-light.light-on
+{
+    color: var(--other);
 }
 
 #other > a:hover, #other > a:focus, .nav-link.sidebar-item-active.about, a.about:hover, a.about:focus
@@ -221,28 +231,3 @@ div#GDS_input-.search-loading.indeterminate::after, div#GDS_input-search.search-
 .highlight .si { color: var(--text-primary); }
 .highlight .ge { color: var(--text-primary); }
 .highlight .gs { color: var(--text-primary); }
-
-/* --------------------------------------------------------------------------------------------- */
-
-.search-loading { position: relative; overflow: hidden; }
-.search-loading::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 2px;
-    z-index: 5;
-    width: var(--search-progress, 0%);
-    transition: width 0.1s linear;
-}
-.search-loading.indeterminate::after {
-    width: 100%;
-    transform: translateX(-100%);
-    animation: loading-slide 1.5s infinite;
-}
-@keyframes loading-slide {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-}
-
-/* --------------------------------------------------------------------------------------------- */

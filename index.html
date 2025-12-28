@@ -3,39 +3,4 @@ title: GoDarda
 description: Unlock your potential with GoDarda. A modern platform to explore the world of technology, from programming languages and algorithms to developer tools and data science. Search for instant solutions, learn core concepts, and build what's next.
 ---
 
-<style>
-#suggestion-light.light-on {
-    color: yellow;
-}
-</style>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const light = document.getElementById('suggestion-light');
-    if (!light) return;
-
-    const blinkTotal = 3;
-    const intervalTime = 2000;
-    let blinkCount = 0;
-
-    const intervalId = setInterval(() => {
-        if (blinkCount >= blinkTotal) {
-            clearInterval(intervalId);
-            return;
-        }
-
-        // Turn on
-        light.classList.replace('bi-lightbulb', 'bi-lightbulb-fill');
-        light.classList.add('light-on');
-
-        setTimeout(() => {
-            // Turn off
-            light.classList.replace('bi-lightbulb-fill', 'bi-lightbulb');
-            light.classList.remove('light-on');
-        }, intervalTime / 2);
-
-        blinkCount++;
-    }, intervalTime);
-});
-</script>
 {%- include search.html -%}
