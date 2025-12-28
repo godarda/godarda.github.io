@@ -17,18 +17,47 @@
         <div id="GDS_input-{{ path[1] | default: 'search' }}" class="input-group input-group-lg">
         <input id="GDSInput" class="form-control" type="text" tabindex="1" placeholder="{{ page.title }} (type keywords to get results)" onkeypress="display_results();" onkeyup="display_results();" onload="clear_input();"><div id="search_icon" class="input-group-append" style="display: inline-block; padding: 10px 15px 0px 7px; font-size: 20px;"><i class="bi bi-search"></i></div><div id="close_icon" class="input-group-append" onclick="clear_input();" style="display: none; padding: 5px; font-size: 25px;"><i class="bi bi-x"></i></div>
         </div>
+        {%- if path[1] == nil -%}
+        <div style="margin-top: 10px; text-align: left;">
+            <span class="text-muted" style="margin-right: 5px;"><i id="suggestion-light" class="bi bi-lightbulb"></i> Suggestions:</span>
+            <span id="search-suggestions"></span>
+        </div>
+        {%- endif -%}
         <div id="matchCount" class="text-muted small" style="margin-top:8px; display:none; text-align:left"></div>
     </div>
 
-    {%- if path[1] == nil -%}
-    <div style="margin-top: -10px; margin-bottom: 30px; font-size: 0.9rem;">
-        <span class="text-muted" style="font-weight: 500; margin-right: 5px;"><i id="suggestion-light" class="bi bi-lightbulb"></i> Suggestions:</span>
-        <a class="btn btn-sm btn-outline-secondary rounded-pill" href="javascript:void(0);" onclick="searchSuggestion('C')" style="margin: 2px;">C</a>
-        <a class="btn btn-sm btn-outline-secondary rounded-pill" href="javascript:void(0);" onclick="searchSuggestion('C#')" style="margin: 2px;">C#</a>
-        <a class="btn btn-sm btn-outline-secondary rounded-pill" href="javascript:void(0);" onclick="searchSuggestion('Java')" style="margin: 2px;">Java</a>
-        <a class="btn btn-sm btn-outline-secondary rounded-pill" href="javascript:void(0);" onclick="searchSuggestion('Python')" style="margin: 2px;">Python</a>
-    </div>
-    {%- endif -%}
-
     <div id="{{ path[1] | default: 'search' }}" class="col-xs-12 col-sm-12 col-md-10 col-lg-8 col-xl-7 col-xxl-7" style="text-align: left; margin-bottom: 30px;"></div>
 </center></div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const suggestions = [
+        'C', 'C++', 'Java', 'Python', 'R', 'Julia', 'Octave', 'C#', 'F#',
+        'Rust', 'LISP', 'Linux', 'MySQL', 'MongoDB', 'Selenium', 'Algorithm', 'Assembly', 'VBScript',
+        'Ranorex', 'OpenGL', 'AWT', 'Function', 'Method', 'Class', 'Inheritance', 
+        'Polymorphism', 'Encapsulation', 'Abstraction', 'Array', 'Bash', 'CLI', 'Exception', 'Database',
+        'Stack', 'Queue', 'Tree', 'Graph', 'Sorting', 'Searching', 'Recursion', 'XPath', 'WebDriver', 'TestNG',
+        'String', 'DataFrame', 'NumPy', 'Pandas', 'Matplotlib', 'List', 'Set', 'Tuple', 'Dictionary',
+        'Expression', 'Log', 'Thread', 'Matrix', 'Math', 'CRUD'];
+
+    // Fisher-Yates shuffle to show random suggestions on each load
+    for (let i = suggestions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [suggestions[i], suggestions[j]] = [suggestions[j], suggestions[i]];
+    }
+
+    const suggestionsContainer = document.getElementById('search-suggestions');
+    if (suggestionsContainer) {
+        const selectedSuggestions = suggestions.slice(0, 5);
+        selectedSuggestions.forEach(suggestion => {
+            const link = document.createElement('a');
+            link.className = 'btn btn-sm btn-outline-secondary rounded-pill';
+            link.href = 'javascript:void(0);';
+            link.onclick = () => searchSuggestion(suggestion);
+            link.style.margin = '2px';
+            link.style.fontSize = '12px';
+            link.textContent = suggestion;
+            suggestionsContainer.appendChild(link);
+        });
+    }
+});
+</script>

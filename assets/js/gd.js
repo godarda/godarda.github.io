@@ -124,39 +124,16 @@ $(document).ready(function () {
 /* --------------------------------------------------------------------------------------------- */
 // Theme Management (Dark/Light Mode)
 /* --------------------------------------------------------------------------------------------- */
-
-const getStoredTheme = () => localStorage.getItem('theme')
-const setStoredTheme = theme => localStorage.setItem('theme', theme)
-
-// Determine preferred theme based on storage or system preference
-const getPreferredTheme = () => {
-    const storedTheme = getStoredTheme()
-    if (storedTheme) {
-        return storedTheme
-    }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-}
-
-// Apply the selected theme to the document
-const setTheme = theme => {
-    if (theme === 'auto') {
-        document.documentElement.setAttribute('data-bs-theme', window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-    } else {
-        document.documentElement.setAttribute('data-bs-theme', theme)
-    }
-}
-
 // Update the theme switcher UI to reflect the active theme
 const showActiveTheme = (theme, focus = false) => {
-    const androidTheme = document.querySelector('#android_theme')
-    if (androidTheme) {
-        androidTheme.classList.remove('bi-moon-stars', 'bi-sun', 'bi-circle-half')
+    const themeCard = document.querySelector('#app-theme-switcher');
+    if (themeCard) {
         if (theme === 'auto') {
-            androidTheme.classList.add('bi-circle-half')
+            themeCard.textContent = 'Theme: System Default';
         } else if (theme === 'dark') {
-            androidTheme.classList.add('bi-moon-stars')
+            themeCard.textContent = 'Theme: Dark';
         } else {
-            androidTheme.classList.add('bi-sun')
+            themeCard.textContent = 'Theme: Light';
         }
     }
 
@@ -186,27 +163,16 @@ const showActiveTheme = (theme, focus = false) => {
     }
 }
 
-// Listen for system theme changes
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-    const storedTheme = getStoredTheme()
-    if (storedTheme !== 'light' && storedTheme !== 'dark') {
-        setTheme(getPreferredTheme())
-    }
-})
-
 // Initialize theme on DOM load
 window.addEventListener('DOMContentLoaded', () => {
-    if (window.isWebview) {
-        const at = document.getElementById('android_theme');
-        if (at) at.style.display = 'block';
-    }
-    showActiveTheme(getStoredTheme() || 'auto')
-    document.querySelectorAll('[data-bs-theme-value], #android_theme')
+    const storedTheme = getStoredTheme() || 'auto';
+    showActiveTheme(storedTheme);
+    document.querySelectorAll('[data-bs-theme-value], #app-theme-switcher')
         .forEach(toggle => {
             toggle.addEventListener('click', (event) => {
                 event.preventDefault()
                 let theme = toggle.getAttribute('data-bs-theme-value')
-                // If no specific value is set (e.g., Android toggle), switch between light/dark
+                // If no specific value is set, switch between light/dark
                 if (!theme) {
                     const stored = getStoredTheme() || 'auto'
                     const cycles = ['auto', 'light', 'dark']
@@ -214,7 +180,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 }
                 setStoredTheme(theme)
                 setTheme(theme)
-                showActiveTheme(theme, true)
+                showActiveTheme(theme, toggle.matches('[data-bs-theme-value]'))
             })
         })
 })
