@@ -1,11 +1,8 @@
 # Repository Guide
 
-Welcome to GoDarda!  
-Whether you're here to contribute, need support, or just exploring how things work, this guide is your starting point.
+Welcome to GoDarda!
 
-It’s designed to help you navigate GoDarda’s architecture, workflows, and contributor resources with clarity and confidence.
-
-From onboarding to CI pipelines, from tech stack insights to contributor recognition, every step is crafted to be cross-platform, intentional, and empowering.
+Whether you're here to contribute, need support, or just exploring how things work, this guide is your starting point. It's designed to help you navigate GoDarda's architecture, workflows, and contributor resources with clarity and confidence.
 
 ## 📚 Table of Contents
 
@@ -20,7 +17,9 @@ From onboarding to CI pipelines, from tech stack insights to contributor recogni
 
 ## Introduction
 
-GoDarda is an educational, Jekyll-powered website and companion Android app that provides concise programming examples, tutorials, and curated learning paths across many languages and domains.
+**GoDarda** is a comprehensive developer ecosystem designed to streamline learning and productivity. Combining a content-rich website with a companion Android app, it delivers concise programming examples, tutorials, and curated learning paths across a wide spectrum of languages.
+
+To support modern development, GoDarda empowers developers with a suite of **Live Tools** including real-time calculators, converters, and validators enabling you to verify logic, transform data, and solve problems on the fly.
 
 Key repo entry points:
 - Content and Site Pages: [`pages`](pages/)
@@ -48,7 +47,7 @@ Real-time indicators of GoDarda's health, activity, and platform coverage:
 ![Commits Last Month][gdkgddy] ![Last Commit][gdzveyt] ![Issues][gddaakl] ![Pull Requests][gdwgvye] ![Discussions][gdgnlyl]
 
 ## Cross-Platform CI Status
-Automated CI workflows are available for macOS, Ubuntu, and Windows. It validates the setup logic and ensure platform-specific compatibility.
+Automated CI workflows are available for macOS, Ubuntu, and Windows. These workflows validate the setup logic and ensure platform-specific compatibility.
 
 | Platform | Status Badge |
 |----------|--------------|
@@ -58,7 +57,7 @@ Automated CI workflows are available for macOS, Ubuntu, and Windows. It validate
 
 ## Technology Stack
 
-GoDarda's website and Android app are version-controlled via GitHub using Git, and built with:
+GoDarda is built with a modern, cross-platform technology stack:
 
 | Category                     | Tools and Technologies                                                                 |
 |-----------------------------|----------------------------------------------------------------------------------------|
@@ -88,7 +87,6 @@ We believe in recognition without noise, collaboration without ego, and learning
 
 Keep Learning, Keep Building, Keep Inspiring
 
-[gdzwfwc]: https://github.com/godarda/godarda.github.io?tab=MIT-1-ov-file
 [gdcdhdg]: https://img.shields.io/badge/platforms-macOS%2C%20Ubuntu%2C%20Windows-blueviolet?logo=microsoft  
 [gdyzyvk]: https://img.shields.io/badge/GoDarda-Android%20App-bluegreen?logo=android  
 [gdycyiw]: https://img.shields.io/github/license/godarda/godarda.github.io?color=blue&logo=open-source-initiative  
