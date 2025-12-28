@@ -29,6 +29,8 @@ gem 'wdm', '~> 0.2.0' if Gem.win_platform? && ENV['CI'].nil?
 gem "http_parser.rb", "~> 0.6.0", platforms: [:jruby]
 
 # Standard library gems (explicitly listed for compatibility or bundling)
-gem "csv"       # CSV parsing and generation
-gem "logger"    # Logging utilities
-gem "base64"    # Base64 encoding and decoding
+gem "csv"           # CSV parsing and generation
+gem "logger"        # Logging utilities
+gem "base64"        # Base64 encoding and decoding
+gem "webrick"       # Required for Jekyll 4.x on Ruby 3.x
+gem "faraday-retry" # Required for Faraday v2.0+ middleware
