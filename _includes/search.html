@@ -1,9 +1,4 @@
 {%- assign path = page.url | split: '/' -%}
-<style>
-    #suggestion-light.light-on {
-        color: yellow;
-    }
-</style>
 <script>window.gd_path1 = '{{ path[1] | default: "search" }}';</script>
 <script>window.gd_search_url = '{{ "/search.json" | relative_url }}';</script>
 <script src="{{ site.search_js | relative_url }}"></script>
@@ -28,53 +23,94 @@
 </center></div>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // --- Cache DOM elements for performance ---
+    const input = document.getElementById('GDSInput');
+    const suggestionsContainer = document.getElementById('search-suggestions');
+    const suggestionsParentContainer = document.getElementById('suggestions-container');
+    const closeIcon = document.getElementById('close_icon');
     const currentCategory = window.gd_path1;
 
+    // --- Data for suggestions ---
     const learnSuggestions = [
         'C', 'C++', 'Java', 'Python', 'R', 'Julia', 'Octave', 'C#', 'F#',
         'Rust', 'LISP', 'Linux', 'MySQL', 'MongoDB', 'Selenium', 'Algorithm', 'Assembly', 'VBScript',
         'Ranorex', 'OpenGL', 'AWT', 'Function', 'Method', 'Class', 'Inheritance',
-        'Polymorphism', 'Encapsulation', 'Abstraction', 'Array', 'Bash', 'CLI', 'Exception', 'Database',
+        'Polymorphism', 'Abstraction', 'Array', 'Bash', 'CLI', 'Exception', 'Database',
         'Stack', 'Queue', 'Tree', 'Graph', 'Sorting', 'Searching', 'Recursion', 'XPath', 'WebDriver', 'TestNG',
         'String', 'DataFrame', 'NumPy', 'Pandas', 'Matplotlib', 'List', 'Set', 'Tuple', 'Dictionary',
         'Expression', 'Log', 'Thread', 'Matrix', 'Math', 'CRUD'
     ];
-
     const toolsSuggestions = [
         'Calculator', 'Converter', 'Data', 'Length', 'Time', 'Currency', 'Physics', 'Hash', 'Area', 'Volume',
         'Speed', 'Temperature', 'Pressure', 'Power', 'Energy'
     ];
 
+    // --- Helper Functions ---
+    function deactivateSuggestions() {
+        if (suggestionsContainer) {
+            for (const child of suggestionsContainer.children) {
+                child.classList.remove('active');
+            }
+        }
+    }
+
     function displaySuggestions(suggestions) {
+        if (!suggestionsContainer || !suggestionsParentContainer || suggestions.length === 0) return;
+
+        // Shuffle the array to get random suggestions
         for (let i = suggestions.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [suggestions[i], suggestions[j]] = [suggestions[j], suggestions[i]];
         }
+        
+        // Use a document fragment to minimize DOM reflows
+        const fragment = document.createDocumentFragment();
+        suggestions.slice(0, 3).forEach(suggestion => {
+            const link = document.createElement('a');
+            link.className = 'btn btn-sm btn-outline-secondary rounded-pill';
+            link.href = 'javascript:void(0);';
+            link.style.margin = '2px';
+            link.style.fontSize = '12px';
+            link.textContent = suggestion;
+            fragment.appendChild(link);
+        });
 
-        const suggestionsParentContainer = document.getElementById('suggestions-container');
-        const suggestionsContainer = document.getElementById('search-suggestions');
-        if (suggestionsContainer && suggestionsParentContainer) {
-            suggestionsContainer.innerHTML = ''; // Clear previous suggestions
-            const selectedSuggestions = suggestions.slice(0, 3);
-            selectedSuggestions.forEach(suggestion => {
-                const link = document.createElement('a');
-                link.className = 'btn btn-sm btn-outline-secondary rounded-pill';
-                link.href = 'javascript:void(0);';
-                link.onclick = () => {
-                    const input = document.getElementById('GDSInput');
-                    input.value = suggestion;
-                    input.focus();
-                    input.dispatchEvent(new Event('input', { bubbles: true }));
-                };
-                link.style.margin = '2px';
-                link.style.fontSize = '12px';
-                link.textContent = suggestion;
-                suggestionsContainer.appendChild(link);
-            });
-            suggestionsParentContainer.style.display = 'block';
-        }
+        suggestionsContainer.innerHTML = ''; // Clear previous suggestions
+        suggestionsContainer.appendChild(fragment);
+        suggestionsParentContainer.style.display = 'block';
     }
 
+    // --- Event Handlers ---
+    // Use event delegation for suggestion clicks for better performance
+    if (suggestionsContainer) {
+        suggestionsContainer.addEventListener('click', (event) => {
+            const target = event.target;
+            if (target.tagName === 'A' && target.classList.contains('btn')) {
+                event.preventDefault();
+                if (input) {
+                    input.value = target.textContent;
+                    input.dispatchEvent(new Event('input', { bubbles: true }));
+                    input.blur();
+                }
+                deactivateSuggestions();
+                target.classList.add('active');
+            }
+        });
+    }
+
+    if (closeIcon) {
+        closeIcon.addEventListener('click', deactivateSuggestions);
+    }
+
+    if (input) {
+        input.addEventListener('input', () => {
+            if (input.value === '') {
+                deactivateSuggestions();
+            }
+        });
+    }
+
+    // --- Main Logic to determine which suggestions to show ---
     if (currentCategory === 'search' || currentCategory === 'learn') {
         displaySuggestions(learnSuggestions);
     } else if (currentCategory === 'tools') {
@@ -88,27 +124,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (currentCategory) {
                     const categoryItems = data.items.filter(item => item.category === currentCategory);
-                    if (categoryItems.length > 0) {
-                        itemsToProcess = categoryItems;
-                    }
+                    if (categoryItems.length > 0) itemsToProcess = categoryItems;
                 }
 
                 itemsToProcess.forEach(item => {
                     const words = item.title.match(/[a-zA-Z0-9+.#-]+/g) || [];
                     words.forEach(word => {
                         const firstChar = word.charAt(0);
-                        if (word && isNaN(word) && firstChar >= 'A' && firstChar <= 'Z') {
+                        if (word.length > 2 && isNaN(word) && firstChar >= 'A' && firstChar <= 'Z') {
                             keywords.add(word);
                         }
                     });
-                    if (item.category) {
-                        const cat = item.category.charAt(0).toUpperCase() + item.category.slice(1);
-                        keywords.add(cat);
-                    }
+                    const cat = item.category?.charAt(0).toUpperCase() + item.category?.slice(1);
+                    if (cat && cat.length > 2) keywords.add(cat);
                 });
 
-                const dynamicSuggestions = Array.from(keywords);
-                displaySuggestions(dynamicSuggestions);
+                displaySuggestions(Array.from(keywords));
             })
             .catch(error => console.error('Error fetching or processing search.json for suggestions:', error));
     }
