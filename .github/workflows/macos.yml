@@ -26,11 +26,11 @@ jobs:
         with:
           ref: develop
 
-      # Set up the Python 3.13 environment
+      # Set up the Python 3.14 environment
       - name: Setup Python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.13'
+          python-version: '3.14'
 
       # Install project-specific Python dependencies
       - name: Install Python Dependencies
@@ -39,12 +39,12 @@ jobs:
           pip install --quiet -r setups/requirements.txt > /dev/null 2>&1
         shell: bash
 
-      # Set up the Oracle Java 21 environment
+      # Set up the Oracle Java 24 environment
       - name: Setup Java
         uses: actions/setup-java@v5
         with:
           distribution: 'oracle'
-          java-version: '21'
+          java-version: '24'
 
       # Install required system packages (Rust and NASM)
       - name: Install Rust and NASM

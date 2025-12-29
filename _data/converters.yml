@@ -64,7 +64,7 @@ grandparent:
   url: converters/algorithm
   children:
   - url: converters/algorithm/gdeggcz
-    title: Hashing Converters
+    title: Hashing Converter
 sidenav:
 - parent: Converters
   url: converters

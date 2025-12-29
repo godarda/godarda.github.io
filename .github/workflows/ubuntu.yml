@@ -5,13 +5,13 @@ name: TestHarness (Ubuntu)
 on:
   schedule:
     # Execute on the 31st for months with 31 days
-    - cron: '0 0 31 1,3,5,7,8,10,12 *'
+    - cron: '0 1 31 1,3,5,7,8,10,12 *'
     # Execute on the 30th for months with 30 days
-    - cron: '0 0 30 4,6,9,11 *'
+    - cron: '0 1 30 4,6,9,11 *'
     # Execute on the 29th of February (Leap years)
-    - cron: '0 0 29 2 *'
+    - cron: '0 1 29 2 *'
     # Execute on the 28th of February (Non-leap years)
-    - cron: '0 0 28 2 *'
+    - cron: '0 1 28 2 *'
   workflow_dispatch:
 
 jobs:
@@ -26,11 +26,11 @@ jobs:
         with:
           ref: develop
 
-      # Set up the Python 3.13 environment
+      # Set up the Python 3.14 environment
       - name: Setup Python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.13'
+          python-version: '3.14'
 
       # Install project-specific Python dependencies
       - name: Install Python Dependencies
@@ -39,12 +39,12 @@ jobs:
           pip install --disable-pip-version-check --no-cache-dir --quiet -r setups/requirements.txt
         shell: bash
 
-      # Set up the Oracle Java 21 environment
+      # Set up the Oracle Java 24 environment
       - name: Setup Java
         uses: actions/setup-java@v5
         with:
           distribution: 'oracle'
-          java-version: '21'
+          java-version: '24'
 
       # Install required system packages (Rust, FreeGLUT, NASM)
       - name: Install Rust, FreeGLUT, and NASM
