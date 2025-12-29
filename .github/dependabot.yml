@@ -5,11 +5,9 @@ updates:
   - package-ecosystem: "github-actions"   # Ecosystem to update (GitHub Actions in workflows)
     directory: "/"                        # Root directory where workflow files live
 
-    # Schedule updates to run on the 25th of every month
+    # Schedule updates to run monthly
     schedule:
       interval: "monthly"                 # Run once per month
-      day: 25                             # Pin to the 25th of each month
-      time: "07:00"                       # UTC time of day to run
 
     rebase-strategy: "auto"               # Auto-rebase PRs if conflicts occur
     target-branch: "develop"              # PRs will target the 'develop' branch, not 'main'
