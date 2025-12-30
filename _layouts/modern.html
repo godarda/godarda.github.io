@@ -127,18 +127,23 @@
                 <h5 class="modal-title" id="staticBackdropLabel"><i class="bi bi-clipboard-heart"></i> Thank You</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">Dear User, <br>Thank you for visitng GoDarda. If you are interested in technical
-                articles, latest technologies, and our journey further, please follow us on LinkedIn.<br><br>
-                <div>Regards,<br><a href="shubhamrdarda" class="hlink">{{ site.architect }}</a><br>Architect of {{ site.title }}</div>
+            <div class="modal-body">
+                <p class="h6 text-center">Thank you for visiting GoDarda!</p>
+                <p>If you've found GoDarda helpful, please consider supporting our mission to provide free, high-quality content for developers. Your support makes a difference!</p>
+                <p>⭐ <b>Star our repo on GitHub</b> to show your appreciation.<br>
+                🔗 <b>Follow us on LinkedIn</b> for the latest articles and updates.<br>
+                ❤️ <b>Become a sponsor</b> to help us grow.</p>
             </div>
             <div class="modal-footer justify-content-center">
+                <a class="btn" href="{{ site.data.url.repo }}" title="GitHub Star" target="_blank" rel="noopener noreferrer"><i class="bi bi-star"></i> Star</a>
                 <a href="{{ site.data.url.linkedin }}" class="btn" title="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin"></i> LinkedIn</a>
-                <a href="{{ site.data.url.sponsor }}"  class="btn" title="Sponsor" target="_blank" rel="noopener noreferrer"><i class="bi bi-suit-heart"></i> Sponsor</a>
+                <a href="{{ site.data.url.sponsor }}" class="btn" title="Sponsor" target="_blank" rel="noopener noreferrer"><i class="bi bi-suit-heart"></i> Sponsor</a>
             </div>
         </div>
     </div>
 </div>
 {%- endif -%}
 
+<script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
 </html>
