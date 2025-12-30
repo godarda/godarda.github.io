@@ -85,7 +85,7 @@
 <div class="d-flex justify-content-between wvnav">
     <a class="wvnav-item {{ f_home }}" href="{{ site.url }}"><i class="wvsvg {{ f_home }}- bi {% if f_home == "wvnav-item-active" %}bi-house-heart-fill{% else %}bi-house-heart{% endif %}"></i><div class="text-center">Home</div></a>
     <a class="wvnav-item {{ f_learn }}" href="{{ site.url }}/learn"><i class="wvsvg {{ f_learn }}-{{ path[1] }} bi {% if f_learn == "wvnav-item-active" %}bi-lightbulb-fill{% else %}bi-lightbulb{% endif %}"></i><div class="text-center">Learn</div></a>
-    <a class="wvnav-item" href="share:{{ site.url }}{{ page.url }}"><i class="wvsvg bi bi-share"></i><div class="text-center">Share</div></a>
+    <a id="share-button" class="wvnav-item" href="share:{{ site.url }}{{ page.url }}"><i class="wvsvg bi bi-share"></i><div class="text-center">Share</div></a>
     <a class="wvnav-item {{ f_tools }}" href="{{ site.url }}/tools"><i class="wvsvg {{ f_tools }}-{{ path[1] }} bi {% if f_tools == "wvnav-item-active" %}bi-gear-fill{% else %}bi-gear{% endif %}"></i><div class="text-center">Tools</div></a>
     <a class="wvnav-item {{ f_about }}" href="{{ site.url }}/about"><i class="wvsvg {{ f_about }}-about bi {% if f_about == "wvnav-item-active" %}bi-info-circle-fill{% else %}bi-info-circle{% endif %}"></i><div class="text-center">About</div></a>
 </div>
@@ -136,6 +136,26 @@ function setupAppView() {
     const aboutSection = document.getElementById("app");
     if (aboutSection && aboutSection.classList.contains("about_home_true")) {
         aboutSection.style.display = "block";
+    }
+
+    const shareButton = document.getElementById("share-button");
+    if (shareButton) {
+        let isClickDisabled = false;
+
+        // A single click will proceed, but rapid clicks (like a double-click) will be blocked.
+        shareButton.addEventListener('click', (event) => {
+            if (isClickDisabled) {
+                event.preventDefault(); // Block the second click of a double-click
+            } else {
+                isClickDisabled = true;
+                setTimeout(() => { isClickDisabled = false; }, 400); // Cooldown period
+            }
+        });
+
+        // Prevent the default double-click action (e.g., text selection) on the share button.
+        shareButton.addEventListener('dblclick', (event) => {
+            event.preventDefault();
+        });
     }
 
     // Activate share window on double-touch anywhere within the webview.
