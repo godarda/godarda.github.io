@@ -137,6 +137,15 @@ function setupAppView() {
     if (aboutSection && aboutSection.classList.contains("about_home_true")) {
         aboutSection.style.display = "block";
     }
+
+    // Activate share window on double-touch anywhere within the webview.
+    document.body.addEventListener('dblclick', (event) => {
+        // Prevent triggering share on interactive elements like links or buttons.
+        if (event.target.closest('a, button')) {
+            return;
+        }
+        window.location.href = "share:{{ site.url }}{{ page.url }}";
+    });
 }
 
 /**
