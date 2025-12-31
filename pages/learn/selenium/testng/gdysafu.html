@@ -1,0 +1,175 @@
+---
+permalink: selenium/testng/gdysafu
+title: How to generate Extent Reports in Selenium WebDriver
+---
+
+<div class="board"><div class="boardtitle">Prerequisites</div>
+    <p>
+        1. TestNG installed in Eclispse. 
+        <br>2. You need to download the following jar files for Extent Reports. Once downloaded, you can import the library by right-clicking on the project -> Properties -> Java Build Path -> Libraries -> Add External JARs...
+        <br><a href="{{ site.data.url.gdgdewb }}" target="_blank" class="hlink">ExtentReports</a>
+        <br><a href="{{ site.data.url.gdezgge }}" target="_blank" class="hlink">ExtentReports For Selenium</a>
+        <br><a href="{{ site.data.url.gdzvllg }}" target="_blank" class="hlink">Apache FreeMarker</a>
+        <br><a href="{{ site.data.url.gddedwy }}" target="_blank" class="hlink">RxJava</a>
+    </p>
+</div>
+
+<div class="codecard">{{ page.title }} (Example 1)</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import java.io.IOException;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
+
+public class GD 
+{
+    WebDriver driver;
+    
+    @BeforeClass
+    public void SetBrowser() 
+    {
+    	System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        driver = new ChromeDriver();
+    }
+    
+    @Test
+    public void VerifyTitle() throws IOException, InterruptedException 
+    {
+    	ExtentSparkReporter esr = new ExtentSparkReporter("/home/godarda/ExtentReport.html");
+        ExtentReports er = new ExtentReports();
+        er.attachReporter(esr);
+        
+        esr.config().setDocumentTitle("Extent Report");
+        esr.config().setTheme(Theme.DARK);
+        
+        ExtentTest et = er.createTest("VerifyHomePageTitle");
+        et.log(Status.INFO, "Chrome Browser Launched");
+        
+        driver.navigate().to("https://godarda.in/testapp/");
+        et.log(Status.INFO,"Successfully Navigated to the URL");
+        
+        String actual = driver.getTitle();
+        String expected = "GoDarda's TestApp";
+        
+        et.log(Status.INFO, "Actual Title: " +actual);
+        et.log(Status.INFO, "Expected Title: "+expected);
+        if(actual.equals(expected))
+        {
+            et.log(Status.PASS, "Test Passed");
+        }
+        else
+        {
+            et.log(Status.FAIL, "Test Failed");
+        }
+        
+        Assert.assertEquals(actual,expected);
+        er.flush();
+    }
+    @AfterClass
+    public void CloseDriver() 
+    {
+        driver.close();
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+[RemoteTestNG] detected TestNG version 7.4.0
+PASSED: VerifyTitle
+
+===============================================
+    Default test
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+===============================================
+Default suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+<img src="pages/learn/selenium/images/gdeyxca.png" loading="lazy">
+</pre></span>
+
+<div class="codecard">{{ page.title }} (Example 2)</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.Test;
+
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
+
+public class GD 
+{
+    WebDriver driver;
+    ExtentReports er;
+    ExtentTest et;
+    
+    @Test
+    public void VerifyTitle()
+    {
+        er = new ExtentReports("/home/godarda/ExtentReport.html");
+        et = er.startTest("VerifyTitle");
+        
+    	System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        driver = new ChromeDriver();
+        
+        driver.navigate().to("https://godarda.in/testapp/");
+        et.log(LogStatus.INFO,"Successfully Navigated to the URL");
+        
+        String actual = driver.getTitle();
+        String expected = "GoDarda's TestApp";
+        
+        et.log(LogStatus.INFO, "Actual Title: " +actual);
+        et.log(LogStatus.INFO, "Expected Title: "+expected);
+        if(actual.equals(expected))
+        {
+            et.log(LogStatus.PASS, "Test Passed");
+        }
+        else
+        {
+            et.log(LogStatus.FAIL, "Test Failed");
+        }
+        Assert.assertEquals(actual,expected);
+    }
+    
+    @AfterTest
+    public void CloseDriver() 
+    {
+        er.endTest(et);
+        er.flush();
+        driver.close();
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+[RemoteTestNG] detected TestNG version 7.4.0
+PASSED: VerifyTitle
+
+===============================================
+    Default test
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+===============================================
+Default suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+<img src="pages/learn/selenium/images/gdzddiz.png" loading="lazy">
+</pre></span>

@@ -1,0 +1,35 @@
+---
+permalink: java/awt/gdqoivp
+title: Java program to create an input field on a frame
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.javafile }}</div>
+<pre class="code">{%- highlight java -%}
+import javax.swing.*;
+import java.awt.FlowLayout;
+class GD
+{
+    public static void main(String args[])
+    {
+        JPanel p=new JPanel();
+        FlowLayout fl=new FlowLayout();
+        p.setLayout(fl);
+        JLabel l=new JLabel("Enter the name ");
+        JTextField tf=new JTextField(10);
+        p.add(l);
+        p.add(tf);
+        JFrame f=new JFrame("Frame");
+        f.setContentPane(p);
+        f.setSize(300,300);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+    }
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runjava }}
+
+<img src="pages/learn/java/images/gdkwlzw.png" loading="lazy">
+</pre></span>

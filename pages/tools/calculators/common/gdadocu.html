@@ -1,0 +1,124 @@
+---
+permalink: calculators/common/gdadocu
+title: Character Calculator
+description: "Instantly count alphabets, numbers, spaces, and special characters in your text. A simple and fast character analysis tool."
+---
+
+<link rel="stylesheet" href="../../assets/css/tools.css">
+
+<div class="calc-panel">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="row row-cols-2 row-cols-sm-4 g-2 mb-3">
+                <div class="col">
+                    <div class="stat">
+                        <div class="muted small">Alphabets</div>
+                        <div id="alphabetCount" class="mb-0">0</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="stat">
+                        <div class="muted small">Numbers</div>
+                        <div id="numberCount" class="mb-0">0</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="stat">
+                        <div class="muted small">Spaces</div>
+                        <div id="spaceCount" class="mb-0">0</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="stat">
+                        <div class="muted small">Special</div>
+                        <div id="specialCharCount" class="mb-0">0</div>
+                    </div>
+                </div>
+            </div>
+            <textarea id="inputText" class="form-control" placeholder="Type or paste text here..."
+                aria-label="Text to analyze"></textarea>
+
+            <div class="mt-2 muted small">Tip: results update as you type. Use <kbd>Ctrl</kbd>+<kbd>Enter</kbd> to trim whitespace.
+            </div>
+
+            <div class="row g-2 mt-2">
+                <div class="col-auto">
+                    <button id="btnClear" class="btn btn-sm btn-outline-secondary">Clear</button>
+                </div>
+                <div class="col-auto">
+                    <button id="btnTrim" class="btn btn-sm btn-outline-primary">Trim</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        // --- DOM Element Selection ---
+        // Get references to all necessary UI elements from the document.
+        const input = document.getElementById('inputText');
+        const alphabetCount = document.getElementById('alphabetCount');
+        const numberCount = document.getElementById('numberCount');
+        const spaceCount = document.getElementById('spaceCount');
+        const specialCharCount = document.getElementById('specialCharCount');
+        const btnClear = document.getElementById('btnClear');
+        const btnTrim = document.getElementById('btnTrim');
+
+        /**
+         * Analyzes the input text and returns a count of different character types.
+         * @param {string} text The text to analyze.
+         * @returns {object} An object containing the counts.
+         * @property {number} alphabets - The count of alphabetic characters.
+         * @property {number} numbers - The count of numeric characters.
+         * @property {number} spaces - The count of whitespace characters.
+         * @property {number} special - The count of special characters.
+         */
+        function computeCounts(text) {
+            let alphabets = 0, numbers = 0, spaces = 0, special = 0;
+            for (const char of text) {
+                if (/[a-zA-Z]/.test(char)) alphabets++;
+                else if (/[0-9]/.test(char)) numbers++;
+                else if (/\s/.test(char)) spaces++;
+                else special++;
+            }
+            return { alphabets, numbers, spaces, special };
+        }
+
+        /**
+         * Reads the input, computes the character counts, and updates the UI.
+         */
+        function update() {
+            const text = input.value || '';
+            const { alphabets, numbers, spaces, special } = computeCounts(text);
+
+            // Update the text content of the result elements.
+            alphabetCount.textContent = alphabets;
+            numberCount.textContent = numbers;
+            spaceCount.textContent = spaces;
+            specialCharCount.textContent = special;
+        }
+
+        // --- Event Listeners ---
+        // Debounce the update function to improve performance while typing.
+        let tId = null;
+        input.addEventListener('input', () => {
+            clearTimeout(tId);
+            tId = setTimeout(update, 120);
+        });
+
+        // Clears the input field and recalculates the counts.
+        btnClear.addEventListener('click', () => { input.value = ''; update(); input.focus(); });
+
+        // Trims leading/trailing whitespace from the input and recalculates.
+        btnTrim.addEventListener('click', () => { input.value = input.value.trim(); update(); });
+
+        // Adds a Ctrl+Enter keyboard shortcut to trigger the trim functionality.
+        input.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); btnTrim.click(); }
+        });
+
+        // Perform an initial update on page load to set the default '0' values.
+        update();
+    })();
+</script>

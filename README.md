@@ -1,11 +1,8 @@
 # Repository Guide
 
-Welcome to GoDarda!  
-Whether you're here to contribute, need support, or just exploring how things work, this guide is your starting point.
+Welcome to GoDarda!
 
-It’s designed to help you navigate GoDarda’s architecture, workflows, and contributor resources with clarity and confidence.
-
-From onboarding to CI pipelines, from tech stack insights to contributor recognition, every step is crafted to be cross-platform, intentional, and empowering.
+Whether you're here to contribute, need support, or just exploring how things work, this guide is your starting point. It's designed to help you navigate GoDarda's architecture, workflows, and contributor resources with clarity and confidence.
 
 ## 📚 Table of Contents
 
@@ -20,41 +17,31 @@ From onboarding to CI pipelines, from tech stack insights to contributor recogni
 
 ## Introduction
 
-GoDarda is an educational, Jekyll-powered website and companion Android app that provides concise programming examples, tutorials, and curated learning paths across many languages and domains. The repo groups runnable example code under language-specific folders and pairs each example with a documentation page so contributors and learners can quickly find, run, and improve samples.
+**GoDarda** is a comprehensive developer ecosystem designed to streamline learning and productivity. Combining a content-rich website with a companion Android app, it delivers concise programming examples, tutorials, and curated learning paths across a wide spectrum of languages.
 
-This repository is intended for:
-- learners looking for minimal, runnable examples;
-- contributors who add examples, fix documentation, or improve CI/setup scripts;
-- maintainers who want a clear, testable site that can be served locally and on GitHub Pages.
+To support modern development, GoDarda empowers developers with a suite of **Live Tools** including real-time calculators, converters, and validators enabling you to verify logic, transform data, and solve problems on the fly.
 
 Key repo entry points:
-- Content & Site Pages: [`pages`](pages/)
-- Source Examples (Grouped by Language): [`codes`](codes/)
-- Static Assets & ID Maps: [`assets`](assets/)
+- Content and Site Pages: [`pages`](pages/)
+- Static Assets and ID Maps: [`assets`](assets/)
 - Local Setup Scripts: [`setups`](setups/)
-- Layouts & Includes: [`_layouts`](_layouts/) & [`_includes`](_includes/)
-- CI & Automation: [`.github`](.github/)
+- Layouts and Includes: [`_layouts`](_layouts/) and [`_includes`](_includes/)
+- CI and Automation: [`.github`](.github/)
 - Android App Sources: [`android`](android/)
-- Tests & Verification: [`tests`](tests/)
+- Tests and Verification: [`tests`](tests/)
 
 ## Project Status
 
 Real-time indicators of GoDarda's health, activity, and platform coverage:
 
-> 🖥️ Platform & Availability
-
-![Platform Support][gdcdhdg] ![GoDarda Android App][gdyzyvk]
-
-> 📦 Repository Metadata
-
-![License][gdycyiw] ![Repo Size][gdypvzk] ![Contributors][gdpgpdw]
-
-> 📈 Activity & Health
-
-![Commits Last Month][gdkgddy] ![Last Commit][gdzveyt] ![Issues][gddaakl] ![Pull Requests][gdwgvye] ![Discussions][gdgnlyl]
+| Category              | Indicators                                                                 |
+|-----------------------|----------------------------------------------------------------------------|
+| **Platform and Availability** | ![Platform Support][gdcdhdg] ![GoDarda Android App][gdyzyvk]             |
+| **Repository Metadata**     | ![License][gdycyiw] ![Repo Size][gdypvzk] ![Contributors][gdpgpdw]       |
+| **Activity and Health**       | ![Commits Last Month][gdkgddy] ![Last Commit][gdzveyt] ![Issues][gddaakl] ![Pull Requests][gdwgvye] ![Discussions][gdgnlyl] |
 
 ## Cross-Platform CI Status
-Automated CI workflows are available for macOS, Ubuntu, and Windows. It validates the setup logic and ensure platform-specific compatibility.
+Automated CI workflows are available for macOS, Ubuntu, and Windows. These workflows validate the setup logic and ensure platform-specific compatibility.
 
 | Platform | Status Badge |
 |----------|--------------|
@@ -64,14 +51,14 @@ Automated CI workflows are available for macOS, Ubuntu, and Windows. It validate
 
 ## Technology Stack
 
-GoDarda's website and Android app are version-controlled via GitHub using Git, and built with:
+GoDarda is built with a modern, cross-platform technology stack:
 
-| Category                     | Tools & Technologies                                                                 |
+| Category                     | Tools and Technologies                                                                 |
 |-----------------------------|----------------------------------------------------------------------------------------|
-| Web & Mobile Platforms      | Jekyll, Bootstrap, jQuery, Font Awesome, Google Fonts, HTML5 & CSS3, Liquid, Markdown, Kotlin, Gradle |
-| Build, Automation & Diagnostics | Ruby, Bundler, YAML, GitHub Actions, Python, CI Badges                             |
-| Engagement & Insights       | Giscus, Google Analytics 4 (GA4)                                                      |
-| IDE & Development Environment | Visual Studio Code, GitHub Codespaces, Android Studio                               |
+| Web and Mobile Platforms      | Jekyll, Bootstrap, jQuery, Font Awesome, Google Fonts, HTML5 and CSS3, Liquid, Markdown, Kotlin, Gradle |
+| Build, Automation and Diagnostics | Ruby, Bundler, YAML, GitHub Actions, Python, CI Badges                             |
+| Engagement and Insights       | Giscus, Google Analytics 4 (GA4)                                                      |
+| IDE and Development Environment | Visual Studio Code, GitHub Codespaces, Android Studio                               |
 
 ## Contributors
 
@@ -94,7 +81,6 @@ We believe in recognition without noise, collaboration without ego, and learning
 
 Keep Learning, Keep Building, Keep Inspiring
 
-[gdzwfwc]: https://github.com/godarda/godarda.github.io?tab=MIT-1-ov-file
 [gdcdhdg]: https://img.shields.io/badge/platforms-macOS%2C%20Ubuntu%2C%20Windows-blueviolet?logo=microsoft  
 [gdyzyvk]: https://img.shields.io/badge/GoDarda-Android%20App-bluegreen?logo=android  
 [gdycyiw]: https://img.shields.io/github/license/godarda/godarda.github.io?color=blue&logo=open-source-initiative  
@@ -105,11 +91,11 @@ Keep Learning, Keep Building, Keep Inspiring
 [gddaakl]: https://img.shields.io/github/issues/godarda/godarda.github.io?color=purple&logo=github  
 [gdwgvye]: https://img.shields.io/github/issues-pr/godarda/godarda.github.io?color=cyan&logo=github  
 [gdgnlyl]: https://img.shields.io/github/discussions/godarda/godarda.github.io?color=gold&logo=github
-[gdzytwa]: https://github.com/godarda/godarda.github.io/actions/workflows/macos.yml/badge.svg?branch=develop 
+[gdzytwa]: https://github.com/godarda/godarda.github.io/actions/workflows/macos.yml/badge.svg
 [gdzynzx]: https://github.com/godarda/godarda.github.io/actions/workflows/macos.yml  
-[gdkvdbh]: https://github.com/godarda/godarda.github.io/actions/workflows/ubuntu.yml/badge.svg?branch=develop  
+[gdkvdbh]: https://github.com/godarda/godarda.github.io/actions/workflows/ubuntu.yml/badge.svg
 [gdiagyq]: https://github.com/godarda/godarda.github.io/actions/workflows/ubuntu.yml  
-[gdwwzzn]: https://github.com/godarda/godarda.github.io/actions/workflows/windows.yml/badge.svg?branch=develop  
+[gdwwzzn]: https://github.com/godarda/godarda.github.io/actions/workflows/windows.yml/badge.svg
 [gdabdte]: https://github.com/godarda/godarda.github.io/actions/workflows/windows.yml
 [gddndwy]: https://contrib.rocks/image?repo=godarda/godarda.github.io
 [gdaepzd]: https://github.com/godarda/godarda.github.io/blob/main/LICENSE

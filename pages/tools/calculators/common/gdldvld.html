@@ -1,0 +1,157 @@
+---
+permalink: calculators/common/gdldvld
+title: Expression Calculator
+description: "Evaluate mathematical expressions instantly. Supports basic arithmetic, parentheses, and common functions."
+---
+
+<link rel="stylesheet" href="../../assets/css/tools.css">
+
+<div class="calc-panel">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="row row-cols-1 g-2 mb-3">
+                <div class="col">
+                    <div class="stat">
+                        <div class="muted small">Result</div>
+                        <div id="expressionResult" class="mb-0">0</div>
+                    </div>
+                </div>
+            </div>
+            <textarea id="inputText" class="form-control" placeholder="e.g., (3 + 4) * 2 - 9 // 2 + 2**3"
+                aria-label="Expression to evaluate"></textarea>
+ 
+            <div class="mt-2 muted small">Tip: results update as you type. Use <kbd>Ctrl</kbd>+<kbd>Enter</kbd> to trim whitespace.
+            </div>
+
+            <div class="row g-2 mt-2">
+                <div class="col-auto">
+                    <button id="btnClear" class="btn btn-sm btn-outline-secondary">Clear</button>
+                </div>
+                <div class="col-auto">
+                    <button id="btnTrim" class="btn btn-sm btn-outline-primary">Trim</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    // Self-executing anonymous function to encapsulate the calculator's client-side logic.
+    // This pattern helps prevent global scope pollution.
+    (function () {
+        const input = document.getElementById('inputText');
+        const expressionResult = document.getElementById('expressionResult');
+        const btnClear = document.getElementById('btnClear');
+        const btnTrim = document.getElementById('btnTrim');
+
+        /**
+         * Implements Python-style floor division (`//`) for two numbers.
+         * If either operand is a float, the result will also be a float (e.g., 9.0 // 2 = 4.0).
+         * Otherwise, it returns an integer.
+         * @param {string|number} a - The dividend.
+         * @param {string|number} b - The divisor.
+         * @returns {number} The result of the floor division.
+         */
+        // Custom floor division to mimic Python's behavior (e.g., 9.0 // 2 = 4.0)
+        function pyFloorDiv(a, b) {
+            const numA = parseFloat(a);
+            const numB = parseFloat(b);
+            const result = Math.floor(numA / numB);
+
+            // If either operand is a float (i.e., not an integer), return a float result.
+            if (String(a).includes('.') || String(b).includes('.')) {
+                return result.toFixed(1);
+            }
+            return result;
+        }
+
+        /**
+         * Safely evaluates a mathematical expression string.
+         * It sanitizes the input to prevent arbitrary code execution,
+         * replaces Python-style floor division (`//`) with a custom function,
+         * and converts user-friendly multiplication symbols (`x`, `X`) to standard `*`.
+         * The evaluation is performed using the `Function` constructor, which is safer than `eval()`
+         * when the input source is controlled and external scope access is limited.
+         * @param {string} expression - The mathematical expression to evaluate.
+         * @returns {number} The numerical result of the expression.
+         * @throws {Error} If the expression contains invalid characters or repeated operators.
+         */
+        function safeEval(expression) {
+            // Sanitize the expression: only allow digits, basic arithmetic operators (+, -, *, /),
+            // parentheses, decimal point, modulo (%), and user-friendly multiplication (x, X).
+            // Exponentiation (**) is implicitly allowed as '*' is permitted.
+            const sanitized = expression.replace(/[^-()\d/*+.\% xX^]/g, '');
+
+            if (sanitized !== expression) {
+                // Basic security check: if sanitization changed the string, it contained disallowed characters.
+                throw new Error('Invalid characters in expression.');
+            }
+            const invalidRepeatRegex = /\/{3,}|(?<!\*)\*{3,}|[+%xX]{2,}/;
+
+            if (invalidRepeatRegex.test(sanitized)) {
+                throw new Error('Invalid expression: repeated operators.');
+            }
+ 
+            // Replace Python-style floor division (//) with a Math.floor() operation.
+            // It captures the operands around `//` and passes them as strings to `pyFloorDiv`.
+            let jsExpression = sanitized.replace(/(-?\(.+?\)|-?[\d.]+)\s*\/\/\s*(-?\(.+?\)|-?[\d.]+)/g, "pyFloorDiv('$1', '$2')");
+
+            // Replace '^' with '**' for exponentiation.
+            jsExpression = jsExpression.replace(/\^/g, '**');
+
+            // Replace user-friendly multiplication (x, X) with standard (*).
+            jsExpression = jsExpression.replace(/[xX]/g, '*');
+ 
+            // Use the Function constructor to evaluate the expression.
+            // This creates a new function from the expression string. By passing `pyFloorDiv`
+            // as an argument, we explicitly control the available scope, making it safer than `eval()`.
+            // This prevents the expression from accessing or manipulating the global scope directly.
+            // For highly complex or untrusted inputs, a dedicated expression parsing library would be more robust.
+            const result = new Function('pyFloorDiv', 'return ' + jsExpression)(pyFloorDiv);
+
+            // Round the result to a maximum of 12 decimal places to correct for floating-point inaccuracies.
+            // Using Number() and toFixed() avoids trailing zeros.
+            // e.g., (6 - 4.7) becomes 1.3 instead of 1.2999999999999998
+            return Number(result.toFixed(12));
+        }
+
+        function update() {
+            const text = input.value.trim();
+            expressionResult.classList.remove('text-danger');
+
+            if (text === '') {
+                expressionResult.textContent = '0';
+                return;
+            }
+
+            try {
+                const result = safeEval(text);
+                expressionResult.textContent = result;
+            } catch (e) {
+                expressionResult.textContent = 'Invalid expression';
+                expressionResult.classList.add('text-danger');
+            }
+        }
+
+        let tId = null;
+        input.addEventListener('input', () => {
+            clearTimeout(tId);
+            tId = setTimeout(update, 200);
+        });
+
+        btnClear.addEventListener('click', () => { input.value = ''; update(); input.focus(); });
+
+        btnTrim.addEventListener('click', () => {
+            input.value = input.value.trim();
+            update();
+        });
+
+        input.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); btnTrim.click(); }
+        });
+
+        // Perform an initial update on page load to set the default '0' values.
+        update();
+    })();
+</script>

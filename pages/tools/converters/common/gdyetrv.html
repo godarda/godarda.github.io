@@ -1,0 +1,34 @@
+---
+permalink: converters/common/gdyetrv
+title: Weight Converter
+description: "Instantly convert weights between grams, kilograms, pounds, ounces, tons, and more. A simple and fast weight conversion tool."
+---
+
+{% include converter.html %}
+<script>
+(function () {
+    // Configuration: Define units and their conversion factor to Grams (base unit)
+    const units = {
+        ug: { name: 'Microgram', symbol: 'µg', factor: 1e-6 },
+        mg: { name: 'Milligram', symbol: 'mg', factor: 0.001 },
+        g:  { name: 'Gram',      symbol: 'g',  factor: 1 },
+        kg: { name: 'Kilogram',  symbol: 'kg', factor: 1000 },
+        t:  { name: 'Metric Ton',symbol: 't',  factor: 1e6 },
+        oz: { name: 'Ounce',     symbol: 'oz', factor: 28.349523125 },
+        lb: { name: 'Pound',     symbol: 'lb', factor: 453.59237 },
+        st: { name: 'Stone',     symbol: 'st', factor: 6350.29318 },
+        ton_us: { name: 'US Ton', symbol: 'ton', factor: 907184.74 },
+        ton_imp: { name: 'Imperial Ton', symbol: 'long ton', factor: 1016046.9088 }
+    };
+
+    const defaultUnit = 'kg';
+    const defaultSelectedUnits = ['lb'];
+
+    // Initialize the shared converter logic
+    setupConverter({
+        units: units,
+        defaultUnit: defaultUnit,
+        defaultSelectedUnits: defaultSelectedUnits
+    });
+})();
+</script>

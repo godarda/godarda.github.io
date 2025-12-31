@@ -1,0 +1,124 @@
+---
+permalink: selenium/pom/gddyzek
+title: Selenium Java Page Object Model Example 2
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">File: HomePage.java</div>
+<pre class="code">{%- highlight java -%}
+package pageObjects;
+
+import org.openqa.selenium.*;
+
+public class HomePage
+{
+    WebDriver driver;
+    public HomePage(WebDriver driver)
+    {
+        this.driver = driver;
+    }
+
+    public void title()
+    {
+        String actualTitle, expectedTitle;
+        actualTitle = driver.getTitle();
+        expectedTitle = "Welcome: Mercury Tours";
+        if (actualTitle.equalsIgnoreCase(expectedTitle))
+        {
+            System.out.println("Page Title Matched");
+        }
+        else
+        {
+            System.out.println("Page Title Not Matched");
+        }
+    }
+}
+{%- endhighlight -%}</pre>
+
+<div class="card">File: LoginPage.java</div>
+<pre class="code">{%- highlight java -%}
+package pageObjects;
+
+import org.openqa.selenium.*;
+
+public class LoginPage
+{
+    WebDriver driver;
+    By username = By.name("userName");
+    By password = By.name("password");
+    By login = By.name("login");
+
+    public LoginPage(WebDriver driver)
+    {
+        this.driver = driver;
+    }
+
+    public void sendUsername(String strUserName)
+    {
+        driver.findElement(username).sendKeys(strUserName);
+    }
+
+    public void sendPassword(String strPassword)
+    {
+        driver.findElement(password).sendKeys(strPassword);
+    }
+
+    public void clickLogin()
+    {
+        driver.findElement(login).click();
+    }
+
+    public void logout()
+    {
+        driver.findElement(By.xpath("//*[@class='mouseOut']//*[text()='SIGN-OFF']")).click();
+    }
+
+    public void login(String strUserName, String strPasword)
+    {
+        this.sendUsername(strUserName);
+        this.sendPassword(strPasword);
+        this.clickLogin();
+    }
+}
+{%- endhighlight -%}</pre>
+
+<div class="card">File: TestCase.java</div>
+<pre class="code">{%- highlight java -%}
+package test;
+
+import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import pageObjects.HomePage;
+import pageObjects.LoginPage;
+
+public class TestCase
+{
+    static WebDriver driver;
+    static LoginPage lp;
+    static HomePage hp;
+
+    public static void main(String[] args)
+    {
+        System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.get("http://newtours.demoaut.com/");
+
+        lp = new LoginPage(driver);
+        hp = new HomePage(driver);
+        lp.login("mercury", "mercury");
+        hp.title();
+        lp.logout();
+        System.out.println("Sign-Off Successfully");
+        driver.close();
+    }
+}
+{%- endhighlight -%}</pre>
+
+<div class="card">Package Explorer</div>
+<span><pre>
+<img src="pages/learn/selenium/images/gdyewga.png" loading="lazy">
+</pre></span>

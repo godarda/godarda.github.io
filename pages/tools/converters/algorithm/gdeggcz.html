@@ -1,0 +1,103 @@
+---
+permalink: converters/algorithm/gdeggcz
+title: Hashing Converter
+description: "Convert strings to various hashing algorithms including MD5, SHA-1, SHA-256, SHA3, and more. A quick and easy hashing tool for secure data representation."
+---
+
+<script src="{{ site.crypto_js }}"></script>
+{% include converter.html %}
+
+<script>
+    // Hide the input unit dropdown immediately to prevent UI flashing.
+    document.getElementById('inputUnit').style.display = 'none';
+</script>
+
+<script>
+(function () {
+    // Helper to safely execute hashing or return loading state
+    const hash = (algo, v, options) => {
+        if (typeof CryptoJS === 'undefined') return 'Loading...';
+        try {
+            if (options) {
+                return CryptoJS[algo](v, options).toString();
+            }
+            return CryptoJS[algo](v).toString();
+        } catch (e) {
+            return 'Error';
+        }
+    };
+
+    // Configuration for Hashing Converter
+    const units = {
+        text: { 
+            name: 'Plain Text', 
+            symbol: 'txt',
+            toBase: v => v,
+            fromBase: v => v
+        },
+        md5: { 
+            name: 'MD5', 
+            symbol: 'MD5',
+            fromBase: v => hash('MD5', v)
+        },
+        sha1: { 
+            name: 'SHA-1', 
+            symbol: 'SHA-1',
+            fromBase: v => hash('SHA1', v)
+        },
+        sha256: { 
+            name: 'SHA-256', 
+            symbol: 'SHA-256',
+            fromBase: v => hash('SHA256', v)
+        },
+        sha512: { 
+            name: 'SHA-512', 
+            symbol: 'SHA-512',
+            fromBase: v => hash('SHA512', v)
+        },
+        sha384: {
+            name: 'SHA-384',
+            symbol: 'SHA-384',
+            fromBase: v => hash('SHA384', v)
+        },
+        sha3_224: {
+            name: 'SHA3-224',
+            symbol: 'SHA3-224',
+            fromBase: v => hash('SHA3', v, { outputLength: 224 })
+        },
+        sha3_256: {
+            name: 'SHA3-256',
+            symbol: 'SHA3-256',
+            fromBase: v => hash('SHA3', v, { outputLength: 256 })
+        },
+        sha3_384: {
+            name: 'SHA3-384',
+            symbol: 'SHA3-384',
+            fromBase: v => hash('SHA3', v, { outputLength: 384 })
+        },
+        sha3_512: {
+            name: 'SHA3-512',
+            symbol: 'SHA3-512',
+            fromBase: v => hash('SHA3', v, { outputLength: 512 })
+        },
+        ripemd160: {
+            name: 'RIPEMD-160',
+            symbol: 'RIPEMD-160',
+            fromBase: v => hash('RIPEMD160', v)
+        }
+    };
+
+    const defaultUnit = 'text';
+    const defaultSelectedUnits = ['sha256'];
+
+    // Initialize the shared converter logic
+    setupConverter({
+        units: units,
+        defaultUnit: defaultUnit,
+        defaultSelectedUnits: defaultSelectedUnits,
+        converterType: 'string', // Specify the converter type
+        inputPlaceholder: 'Enter text to hash...',
+        inputType: 'textarea'
+    });
+})();
+</script>

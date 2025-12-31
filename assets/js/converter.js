@@ -8,7 +8,7 @@
 (function () {
     // Expose the setup function globally
     window.setupConverter = function (config) {
-        const { units, defaultUnit, defaultSelectedUnits } = config;
+        const { units, defaultUnit, defaultSelectedUnits, converterType = 'numeric', inputPlaceholder = 'Enter value...', inputType = 'number' } = config;
 
         // Normalize units to support both 'factor' (simple multiplication) and 'toBase/fromBase' (formulas)
         Object.keys(units).forEach(key => {
@@ -28,14 +28,30 @@
         const resultsContainer = document.getElementById('resultsContainer');
         const unitDropdownMenu = document.getElementById('unitDropdownMenu');
         const inputUnitSelect = document.getElementById('inputUnit');
-        const inputValue = document.getElementById('inputValue');
+        let inputValue = document.getElementById('inputValue');
         const btnClear = document.getElementById('btnClear');
         let btnReset; // Will be initialized in init()
+
+        // Dynamic Input Type Switching (e.g. for Textarea)
+        if (inputType === 'textarea') {
+            const textarea = document.createElement('textarea');
+            textarea.id = 'inputValue';
+            textarea.className = inputValue.className;
+            textarea.placeholder = inputPlaceholder;
+            textarea.setAttribute('aria-label', inputValue.getAttribute('aria-label'));
+            textarea.rows = 2;
+            inputValue.parentNode.replaceChild(textarea, inputValue);
+            inputValue = textarea;
+        }
 
         /**
          * Initializes the UI components: result cards, dropdown items, and event listeners.
          */
         function init() {
+            if (inputType !== 'textarea') {
+                inputValue.placeholder = inputPlaceholder;
+            }
+
             // 0. Create Select All / Clear All Actions
             const liActions = document.createElement('li');
             liActions.innerHTML = `
@@ -72,8 +88,8 @@
                 col.dataset.unit = key;
                 col.innerHTML = `
                     <div class="stat">
-                        <div class="muted small">${u.name}</div>
-                        <div class="res-val mb-0" data-target="${key}">-</div>
+                        <div class="muted small text-truncate" title="${u.name}">${u.name}</div>
+                        <div class="res-val mb-0 text-break" data-target="${key}">-</div>
                     </div>
                 `;
                 resultsFrag.appendChild(col);
@@ -120,6 +136,10 @@
             resultsContainer.appendChild(resultsFrag);
             unitDropdownMenu.appendChild(menuFrag);
             inputUnitSelect.appendChild(selectFrag);
+            
+            if (defaultUnit) {
+                inputUnitSelect.value = defaultUnit;
+            }
 
             // Select All / Clear All Listeners
             btnSelectAllDd.addEventListener('click', () => {
@@ -181,7 +201,7 @@
 
             const count = unitsToShow.size;
             resultsContainer.className = 'row g-2 mb-3';
-            if (count <= 1) {
+            if (converterType !== 'numeric' || count <= 1) {
                 resultsContainer.classList.add('row-cols-1');
             } else {
                 resultsContainer.classList.add('row-cols-2');
@@ -203,22 +223,33 @@
          * This runs on every input event and uses the visibility cache to minimize DOM access.
          */
         function updateValues() {
-            const val = parseFloat(inputValue.value);
             const currentUnitKey = inputUnitSelect.value;
-            const baseValue = isNaN(val) ? 0 : units[currentUnitKey].toBase(val);
+            if (!units[currentUnitKey]) return;
 
-            Object.keys(units).forEach(key => {
-                if (!visibleUnitsCache.has(key)) return;
-                const u = units[key];
-                const els = u.elements;
+            if (converterType === 'numeric') {
+                const val = parseFloat(inputValue.value);
+                const baseValue = isNaN(val) ? 0 : units[currentUnitKey].toBase(val);
 
-                if (isNaN(val)) {
-                    els.val.textContent = '-';
-                } else {
-                    const targetValue = u.fromBase(baseValue);
-                    els.val.textContent = formatNumber(targetValue) + ' ' + u.symbol;
-                }
-            });
+                visibleUnitsCache.forEach(key => {
+                    const u = units[key];
+                    const els = u.elements;
+
+                    if (isNaN(val) || inputValue.value.length === 0) {
+                        els.val.textContent = '-';
+                    } else {
+                        const targetValue = u.fromBase(baseValue);
+                        els.val.textContent = formatNumber(targetValue) + ' ' + u.symbol;
+                    }
+                });
+            } else { // Assumes string-based conversion
+                const val = inputValue.value;
+                const baseValue = units[currentUnitKey].toBase(val);
+
+                visibleUnitsCache.forEach(key => {
+                    const u = units[key];
+                    u.elements.val.textContent = (val.length === 0) ? '-' : u.fromBase(baseValue);
+                });
+            }
         }
 
         inputValue.addEventListener('input', updateValues);

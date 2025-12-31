@@ -196,7 +196,17 @@ def compile_snippets(source: str, destination: str) -> Optional[Tuple[int, int]]
             subpath = f"{path[0]}/{path[1]}/"
             os.makedirs(subpath, exist_ok=True)
 
-            source_file = os.path.join(source, url + ".html")
+            source_file = None
+            # Search for the url in the subdirectories of `source`
+            for folder in os.listdir(source):
+                sub_source_dir = os.path.join(source, folder)
+                if os.path.isdir(sub_source_dir):
+                    potential_path = os.path.join(sub_source_dir, url + ".html")
+                    if os.path.exists(potential_path):
+                        source_file = potential_path
+                        break  # Found it, stop searching subdirectories
+            if not source_file:
+                continue  # This URL doesn't correspond to any file, skip it
             with open(source_file, "r", encoding="utf-8") as f:
                 html_input = f.read()
 

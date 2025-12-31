@@ -1,34 +1,23 @@
 # Configuration for Dependabot
-version: 2
+version: 2                                # Schema version
 
-# Define where to look for package updates
 updates:
+  - package-ecosystem: "github-actions"   # Ecosystem to update (GitHub Actions in workflows)
+    directory: "/"                        # Root directory where workflow files live
 
-  # Maintain GitHub Actions workflow dependencies
-  - package-ecosystem: "github-actions"
-
-    # Directory containing the workflow files
-    directory: "/"
-
-    # Schedule updates to run once a month
+    # Schedule updates to run monthly
     schedule:
-      interval: "monthly"
+      interval: "monthly"                 # Run once per month
 
-    # Configure commit messages to follow semantic conventions
-    commit-message:
-      prefix: "chore"       # Use 'chore' as the semantic prefix
-      include: "scope"      # Include the scope (e.g., 'github-actions') in the message
+    rebase-strategy: "auto"               # Auto-rebase PRs if conflicts occur
+    target-branch: "develop"              # PRs will target the 'develop' branch, not 'main'
 
-    # Limit the number of open pull requests to reduce noise
-    open-pull-requests-limit: 5
+    labels:                               # Labels applied to Dependabot PRs
+      - auto-merge                        # Signals PRs are eligible for auto-merge if checks pass
+      - dependencies                      # Marks PRs as dependency updates
 
-    # Automatically rebase pull requests if there are conflicts
-    rebase-strategy: "auto"
-
-    # Target the 'develop' branch for updates
-    target-branch: "develop"
-
-    # Apply labels to pull requests for better visibility and automation
-    labels:
-      - auto-merge          # Indicates PR is ready for auto-merge if checks pass
-      - dependencies        # Identifies the PR as a dependency update
+    # Group all GitHub Actions updates into a single Pull Request
+    groups:
+      github-actions:                     # Group name (arbitrary, but descriptive)
+        patterns:
+          - "*"                           # Match all GitHub Actions updates

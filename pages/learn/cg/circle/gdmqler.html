@@ -1,0 +1,27 @@
+---
+permalink: cg/circle/gdmqler.html 
+title: C++ program to draw circles using for loop
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <graphics.h>
+int main()
+{
+    int gd = 0, gm = 9, i;
+    initgraph(&gd, &gm, NULL);
+    for (i = 50; i <= 300; i = i + 50)
+    {
+        setcolor(15);
+        circle(i, i, 30);
+    }
+    delay(5000);
+    return 0;
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcg }}
+<img src="pages/learn/cg/images/gdtgzwv.png" loading="lazy">
+</pre></span>

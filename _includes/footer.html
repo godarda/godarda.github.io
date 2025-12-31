@@ -1,49 +1,25 @@
-{%- if path[3] != nil -%}
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel"><i class="bi bi-clipboard-heart"></i> Thank You</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">Dear User, <br>Thank you for visitng GoDarda. If you are interested in technical
-                articles, latest technologies, and our journey further, please follow us on LinkedIn.<br><br>
-                <div>Regards,<br><a href="shubhamrdarda" class="hlink">{{ site.founder }}</a><br>Architect of {{ site.title }}</div>
-            </div>
-            <div class="modal-footer justify-content-center">
-                <a href="{{ site.data.url.linkedin }}" class="btn" title="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin"></i> LinkedIn</a>
-                <a href="{{ site.data.url.sponsor }}"  class="btn" title="Sponsor" target="_blank" rel="noopener noreferrer"><i class="bi bi-suit-heart"></i> Sponsor</a>
-            </div>
-        </div>
-    </div>
-</div>
-{%- endif -%}
-
 {%- if path[1] == "about" and path[2] == nil -%}{%- assign about_section = "about_home_true" -%}
 {%- elsif path[1] == "about" and path[2] != nil -%}{%- assign about_section = "about_home_false" -%}{%- endif -%}
 <div id="app" class="container {{ about_section }}" style="display: none;">
-    <div class="board">
-        <div class="boardtitle"><i class="bi bi-info-circle"></i> About</div>
-        <a class="card" href="about/faqs">Frequently Asked Questions</a>
-        <a class="card" href="about/contribute">Contribution Guide</a>
-        <a class="card" href="about/terms">Terms of Use</a>
-        <a class="card" href="about/privacy">Privacy Policy</a>
-        <a class="card" href="about/disclaimer">Disclaimer</a>
-    </div>
     <div class="board">
         <div class="boardtitle"><i class="bi bi-link"></i> Social Handles</div>
         <a class="card" href="{{ site.data.url.linkedin }}">LinkedIn</a>
         <a class="card" href="{{ site.data.url.github }}">GitHub</a>
         <a class="card" href="{{ site.data.url.discord }}">Discord</a>
     </div>
+    <div class="board">
+        <div class="boardtitle"><i class="bi bi-gear-wide-connected"></i> App Settings</div>
+        <a id="version" class="card disabled"></a>
+        <a id="cache" class="card" href="clear:">Clear: Cache and History</a>
+        <a id="app-theme-switcher" class="card" style="cursor: pointer;">Theme: System Default</a>
+    </div>
 </div>
 
-{%- if path[1] == "search" or path[1] == "testapp" -%}{%- assign flag = "block_webfooter" -%}{%- endif -%}
+{%- if path[1] == nil or path[1] == "testapp" -%}{%- assign flag = "block_webfooter" -%}{%- endif -%}
 <div id="backtotop" class="text-center" style="display: none; padding-top: 15px; margin-bottom: 15px;"><a class="back-to-top" style="cursor: pointer;" title="Back to top"><i class="svgicon bi bi-arrow-bar-up"></i></a>
 </div>
 
-<footer class="isWebsite {{ flag }}" id="isWebsite" style="display: block; padding-top: 15px;">
+<footer class="isWebsite {{ flag }}" id="isWebsite" style="display: none; padding-top: 15px;">
     <div class="footer">
         <div class="container">
             <div class="row">
@@ -57,7 +33,7 @@
                     <h6>GoDarda</h6>
                     <a href="about"><div><i class="bi bi-question-circle"></i> About Us</div></a>
                     <a href="about/faqs"><div><i class="bi bi-star"></i> FAQs</div></a>
-                    <a href="shubhamrdarda"><div><i class="bi bi-person-square"></i> Meet Founder</div></a>
+                    <a href="shubhamrdarda"><div><i class="bi bi-person-square"></i> Meet Architect</div></a>
                 </div>
                 <div class="col-6 col-md-3" style="padding-bottom: 50px;">
                     <h6>Useful Links</h6>
@@ -97,81 +73,139 @@
 </footer>
 
 <footer class="isWebView" id="isWebView" style="display: none;">
-    {% if path[1] == "search" %}
-        {% assign f_search="wvnav-item-active" %}
-    {% elsif path[1] == "tools" %}
-        {% assign f_tools="wvnav-item-active" %}
-    {% elsif path[1] == "about" or path[1] == "shubhamrdarda" %}
-        {% assign f_about="wvnav-item-active" %}
-    {% else %}
-        {% assign f_home="wvnav-item-active" %}
-    {% endif %}
-    <div class="d-flex justify-content-between wvnav">
-        <a class="wvnav-item {{ f_home }}" href="{{ site.url }}"><i class="wvsvg {{ f_home }}-{{ path[1] }} bi bi-house-door"></i><div class="text-center">Home</div></a>
-        <a class="wvnav-item {{ f_search }}" href="{{ site.url }}/search"><i class="wvsvg {{ f_search }}- bi bi-search"></i><div class="text-center">Search</div></a>
-        <a class="wvnav-item" href="share:{{ site.url }}{{ page.url }}"><i class="wvsvg bi bi-share"></i><div class="text-center">Share</div></a>
-        <a class="wvnav-item {{ f_tools }}" href="{{ site.url }}/tools"><i class="wvsvg {{ f_tools }}-{{ path[1] }} bi bi-tools"></i><div class="text-center">Tools</div></a>
-        <a class="wvnav-item {{ f_about }}" href="{{ site.url }}/about"><i class="wvsvg {{ f_about }}-about bi bi-info-circle"></i><div class="text-center">About</div></a>
-    </div>
+{% if path[1] == nil %}
+    {% assign f_home="wvnav-item-active" %}
+{% elsif path[1] == "tools" or path[1] == "calculators" or path[1] == "converters" %}
+    {% assign f_tools="wvnav-item-active" %}
+{% elsif path[1] == "about" or path[1] == "shubhamrdarda" %}
+    {% assign f_about="wvnav-item-active" %}
+{% else %}
+    {% assign f_learn="wvnav-item-active" %}
+{% endif %}
+<div class="d-flex justify-content-between wvnav">
+    <a class="wvnav-item {{ f_home }}" href="{{ site.url }}"><i class="wvsvg {{ f_home }}- bi {% if f_home == "wvnav-item-active" %}bi-house-heart-fill{% else %}bi-house-heart{% endif %}"></i><div class="text-center">Home</div></a>
+    <a class="wvnav-item {{ f_learn }}" href="{{ site.url }}/learn"><i class="wvsvg {{ f_learn }}-{{ path[1] }} bi {% if f_learn == "wvnav-item-active" %}bi-lightbulb-fill{% else %}bi-lightbulb{% endif %}"></i><div class="text-center">Learn</div></a>
+    <a id="share-button" class="wvnav-item" href="share:{{ site.url }}{{ page.url }}"><i class="wvsvg bi bi-share"></i><div class="text-center">Share</div></a>
+    <a class="wvnav-item {{ f_tools }}" href="{{ site.url }}/tools"><i class="wvsvg {{ f_tools }}-{{ path[1] }} bi {% if f_tools == "wvnav-item-active" %}bi-gear-fill{% else %}bi-gear{% endif %}"></i><div class="text-center">Tools</div></a>
+    <a class="wvnav-item {{ f_about }}" href="{{ site.url }}/about"><i class="wvsvg {{ f_about }}-about bi {% if f_about == "wvnav-item-active" %}bi-info-circle-fill{% else %}bi-info-circle{% endif %}"></i><div class="text-center">About</div></a>
+</div>
 </footer>
 
 <script type="text/javascript">
-window.addEventListener('DOMContentLoaded', () => {
-    const webfooter = document.getElementById("isWebsite");
-    const about_section = document.getElementById("app");
+/**
+ * Fetches the latest version tag from GitHub commits and updates the UI.
+ * The version tag is expected to be in the format vXX.XX.
+ */
+async function showVersion() {
+    const versionElement = document.getElementById("version");
+    if (!versionElement) return;
 
-    if (window.isWebview && window.userAgent.includes("GoDarda")) {
-        document.getElementById("android_theme").style.display = "block";
-        document.getElementById("rsidebar").style.display = "none";
-        document.getElementById("isWebsite").style.display = "none";
-        document.getElementById("isWebView").style.display = "block";
-        document.getElementById("backtotop").style.marginBottom = "100px";
-        onselectstart = (e) => { e.preventDefault() }
-        $('body').on('contextmenu', function () { return false; });
+    try {
+        const response = await fetch("https://api.github.com/repos/godarda/godarda.github.io/commits");
+        const commits = await response.json();
+        const regex = /^v\d{2}\.\d{1,2}$/;
+        let versionCommit = null;
 
-        const androidThemeIcon = document.getElementById('android_theme');
-        const themes = ['auto', 'light', 'dark'];
-        const icons = {
-            auto: 'bi-circle-half',
-            light: 'bi-sun',
-            dark: 'bi-moon-stars'
-        };
-
-        const updateAndroidIcon = (theme) => {
-            const currentIcon = icons[theme] || 'bi-circle-half';
-            androidThemeIcon.setAttribute('class', `ms-auto bi ${currentIcon}`);
-        };
-        
-        // Set initial icon
-        updateAndroidIcon(getStoredTheme() || 'auto');
-
-        androidThemeIcon.addEventListener('click', () => {
-            const currentTheme = getStoredTheme() || 'auto';
-            let nextThemeIndex = themes.indexOf(currentTheme) + 1;
-            if (nextThemeIndex >= themes.length) {
-                nextThemeIndex = 0;
+        for (const commit of commits) {
+            const firstLine = commit.commit.message.split("\n")[0].trim();
+            if (regex.test(firstLine)) {
+                versionCommit = firstLine;
+                break;
             }
-            const nextTheme = themes[nextThemeIndex];
+        }
+        versionElement.textContent = versionCommit ? `App Version: ${versionCommit}` : "App Version: (not tagged)";
+    } catch (error) {
+        console.error("Error fetching commits:", error);
+        versionElement.textContent = "App Version: (error)";
+    }
+}
 
-            setStoredTheme(nextTheme);
-            setTheme(nextTheme);
-            showActiveTheme(nextTheme);
-            updateAndroidIcon(nextTheme);
+/**
+ * Configures the UI for the native Android app environment.
+ * This view features a bottom navigation bar and disables certain web functionalities.
+ */
+function setupAppView() {
+    document.body.classList.add('is-webview');
+    document.getElementById("isWebView").style.display = "block";
+    document.getElementById("backtotop").style.marginBottom = "100px";
+
+    // Disable text selection and context menu for a more native feel
+    document.onselectstart = (e) => e.preventDefault();
+    $('body').on('contextmenu', () => false);
+
+    const aboutSection = document.getElementById("app");
+    if (aboutSection && aboutSection.classList.contains("about_home_true")) {
+        aboutSection.style.display = "block";
+    }
+
+    const shareButton = document.getElementById("share-button");
+    if (shareButton) {
+        let isClickDisabled = false;
+
+        // A single click will proceed, but rapid clicks (like a double-click) will be blocked.
+        shareButton.addEventListener('click', (event) => {
+            if (isClickDisabled) {
+                event.preventDefault(); // Block the second click of a double-click
+            } else {
+                isClickDisabled = true;
+                setTimeout(() => { isClickDisabled = false; }, 400); // Cooldown period
+            }
+        });
+
+        // Prevent the default double-click action (e.g., text selection) on the share button.
+        shareButton.addEventListener('dblclick', (event) => {
+            event.preventDefault();
         });
     }
-    else if (!window.isWebview && webfooter.classList.contains("block_webfooter")) {
-        document.getElementById("isWebsite").style.display = "none";
+
+    // Activate share window on double-touch anywhere within the webview.
+    document.body.addEventListener('dblclick', (event) => {
+        // Prevent triggering share on interactive elements like links or buttons.
+        if (event.target.closest('a, button')) {
+            return;
+        }
+        window.location.href = "share:{{ site.url }}{{ page.url }}";
+    });
+}
+
+/**
+ * Configures the UI for the standard web browser environment.
+ * This view shows the standard website footer.
+ */
+function setupWebAppView() {
+    const rsidebar = document.getElementById("rsidebar");
+    if (rsidebar) {
+        rsidebar.removeAttribute("style");
     }
-    if (window.isWebview && window.userAgent.includes("GoDarda") && about_section.classList.contains("about_home_true")) {
-        document.getElementById("app").style.display = "block";
-        document.getElementById("navbar-brand").style.marginLeft = "0px";
-        document.getElementById("lsidebar").style.display = "none";
-        document.getElementById("leftsidebar").style.display = "none";
-        document.getElementById("sponsor").style.display = "block";
+
+    const webfooter = document.getElementById("isWebsite");
+    if (webfooter && !webfooter.classList.contains("block_webfooter")) {
+        webfooter.style.display = "block";
     }
-    else if (window.isWebview && window.userAgent.includes("GoDarda") && about_section.classList.contains("about_home_false")) {
-        document.getElementById("navbar-brand").style.marginLeft = "0px";
-        document.getElementById("lsidebar").style.display = "none";
+}
+
+/**
+ * Initializes the view based on the user agent, distinguishing between
+ * the native app and a standard web browser. Also sets up UI event handlers.
+ */
+function initializeView() {
+    // The user agent for the native app contains "GoDarda" or is a WebView
+    if (window.isWebview || (window.userAgent && window.userAgent.includes("GoDarda"))) {
+        setupAppView();
+    } else {
+        setupWebAppView();
     }
-});
+
+    // Setup for the 'Clear Cache' button
+    $("#cache").click(function () {
+        $(this).html("Cleared: Cache and History");
+        $(this).css("color", "#00b050");
+    });
+}
+
+// Fetch version information as soon as the script runs.
+showVersion();
+
+// Initialize the main view once the DOM is fully loaded.
+window.addEventListener('DOMContentLoaded', initializeView);
 </script>

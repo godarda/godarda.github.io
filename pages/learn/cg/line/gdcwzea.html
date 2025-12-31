@@ -1,0 +1,105 @@
+---
+permalink: cg/line/gdcwzea
+title: C++ program to draw the Modern Periodic Table of Elements
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.cppfile }}</div>
+<pre class="code">{%- highlight cpp -%}
+#include <graphics.h>
+int main()
+{
+    int gd = DETECT, gm = 0, i;
+    initgraph(&gd, &gm, NULL);
+    delay(800);
+    setcolor(5);
+    bar(0, 0, 640, 480);
+    delay(800);
+    setcolor(4);
+    bar(0, 0, 640, 480);
+    delay(800);
+    setcolor(1);
+    bar(0, 0, 640, 480);
+
+    outtextxy(155, 80, (char*)"MODERN PERIODIC CHART OF THE ELEMENT");
+    delay(4000);
+    setcolor(0);
+    bar(0, 0, 640, 480);
+    bar(0, 80, 68, 120);
+    bar(0, 120, 102, 200);
+
+    bar(612, 80, 640, 120);
+    bar(442, 120, 640, 200);
+    setcolor(8);
+    bar(0, 200, 640, 400);
+
+    setcolor(12);
+    bar(172, 400, 640, 440);
+    setcolor(9);
+    bar(172, 440, 640, 480);
+    setcolor(1);
+    bar(612, 120, 640, 400);
+    setcolor(14);
+    bar(578, 160, 612, 360);
+    setcolor(2);
+    bar(544, 160, 578, 280);
+    bar(510, 160, 544, 240);
+    bar(476, 160, 510, 200);
+    setcolor(9);
+    bar(544, 280, 578, 360);
+    bar(510, 240, 544, 320);
+    bar(476, 200, 510, 280);
+    bar(442, 160, 476, 200);
+    setcolor(13);
+    bar(442, 200, 476, 400);
+    bar(476, 280, 510, 400);
+    bar(510, 320, 544, 400);
+    bar(544, 360, 578, 400);
+    bar(578, 360, 612, 400);
+    setcolor(5);
+    bar(0, 80, 68, 120);
+    bar(68, 120, 102, 160);
+    bar(102, 200, 442, 240);
+    bar(442, 120, 612, 160);
+    bar(612, 80, 640, 120);
+    bar(0, 80, 34, 400);
+
+    setcolor(12);
+    bar(102, 320, 136, 360);
+    bar(34, 160, 68, 400);
+    setcolor(9);
+    bar(102, 360, 136, 400);
+
+    setcolor(2);
+    bar(68, 160, 102, 400);
+    bar(34, 120, 68, 160);
+    bar(136, 360, 442, 400);
+
+    setcolor(0);
+    for (i = 0; i <= 640; i = i + 34)
+    {
+        line(0 + i, 40, 0 + i, 480);
+    }
+    for (i = 40; i <= 480; i = i + 40)
+    {
+        line(0, 40 + i, 640, 40 + i);
+    }
+    outtextxy(0, 95, (char*)"G/P   1\t\t\t\t\t\t\t\t\t\t\t\t\t\t  18");
+    outtextxy(10, 135, (char*)"1      H    2\t\t\t\t\t\t\t\t\t 13     14    15    16   17    He");
+    outtextxy(10, 175, (char*)"2     Li    Be\t\t\t\t\t\t\t\t\t B     C     N    O       F   Ne");
+    outtextxy(10, 215, (char*)"3     Na   Mg    3     4     5     6      7     8      9    10    11    12     Al   Si     P     S     Cl   Ar");
+    outtextxy(10, 255, (char*)"4      K    Ca   Sc    Ti    V    Cr    Mn   Fe    Co    Ni    Cu   Zn    Ga   Ge    As    Se    Br  Kr");
+    outtextxy(10, 295, (char*)"5     Pb    Sr    Y    Zr   Nb   Mo    Tc   Ru    Rh    Pd   Ag   Cd    In   Sn    Sb    Te     I   Xe");
+    outtextxy(10, 335, (char*)"6     Cs    Ba   La    Hf   Ta    W    Re   Os    Ir    Pt   Au   Hg    TI   Pb    Bi    Po    At   Rn");
+    outtextxy(10, 375, (char*)"7     Fr    Ra   Ac    Rf   Db   Sg    Bh   Hs   Mt    Ds   Uuu Uub  Uut Uuq  Uup  Uuh Uus Uuo");
+    outtextxy(180, 415, (char*)"Ce    Pr   Nd   Pm   Sm   Eu   Gd   Tb   Dy    Ho   Er   Tm   Yb   Lu");
+    outtextxy(180, 455, (char*)"Th    Pa   U    Np   Pu   Am   Cm   Bk    Cf    Es   Fm   Md   No   Lr");
+    outtextxy(155, 50, (char*)"MODERN PERIODIC CHART OF THE ELEMENT");
+    delay(5000);
+}
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+{{ site.runcg }}
+<img src="pages/learn/cg/images/gdvvvhy.png" loading="lazy">
+</pre></span>

@@ -5,18 +5,10 @@
 <body>
 <nav class="navbar navbar-expand-md navbar-dark fixed-top">
     <div class="container-fluid">
-        {%- if path[1] == nil -%}
+        {%- if path[1] == nil or path[1] == "tools" or path[1] == "learn" or path[1] == "testapp" or path[1] == "shubhamrdarda" -%}
         <div class="navbar-brand" style="margin-left: 0px;">
             <a><img id="logo" alt="Logo" width="30" height="30" src="{{ site.icon | relative_url }}"></a>
             <a id="fc-{{ path[1] }}"> {{ parent }}</a>
-        </div>
-        {%- elsif path[1] == "search" or path[1] == "testapp" or path[1] == "shubhamrdarda" -%}
-        <div class="navbar-brand" style="margin-left: 0px;">
-            <a href=""><img id="logo" alt="Logo" width="30" height="30" src="{{ site.icon | relative_url }}"></a>
-            <a id="fc-{{ path[1] }}" href="{{ path[1] }}"> / {{ path[1] | capitalize }}</a>
-            {%- if path[2] != nil -%}
-                <a id="fc-{{ path[1] }}" href="{{ path[1] }}/{{ path[2] }}"> / {{ path[2] | capitalize }}</a>
-            {%- endif -%}
         </div>
         {%- else -%}
         <div id="navbar-brand" class="navbar-brand">
@@ -49,18 +41,17 @@
         </div>
         {%- endif -%}
 
-        <a id="android_theme" href="javascript:void(0);" style="display: none; font-size: 20px; color: #999;" class="ms-auto bi bi-moon-stars"></a>
-        <button id="rsidebar" class="ms-auto navbar-toggler p-0" type="button" data-bs-toggle="rightsidebar" data-bs-target="#rightsidebar" aria-label="rsidebar"><span class="navbar-toggler-icon"></span></button>
+        <button id="rsidebar" class="ms-auto navbar-toggler p-0" type="button" data-bs-toggle="rightsidebar" data-bs-target="#rightsidebar" aria-label="rsidebar" style="display: none;"><span class="navbar-toggler-icon"></span></button>
         <div id="rightsidebar" class="rightsidebar-collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav mr-auto">
                 {%- if path[1] != nil -%}
                     <li class="nav-item"><a class="nav-link" href=""><i class="navsvg bi bi-house-door"></i> Home</a></li>
                 {%- endif -%}
-                {%- if path[1] != "search" -%}
-                    <li class="nav-item"><a class="nav-link" href="search"><i class="navsvg bi bi-search"></i> Search</a></li>
+                {%- if path[1] != "learn" -%}
+                    <li class="nav-item"><a class="nav-link" href="learn"><i class="navsvg bi bi-lightbulb"></i> Learn</a></li>
                 {%- endif -%}
                 {%- if path[1] != "tools" -%}
-                    <li class="nav-item"><a class="nav-link" href="tools"><i class="navsvg bi bi-tools"></i> Tools</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tools"><i class="navsvg bi bi-gear"></i> Tools</a></li>
                 {%- endif -%}
                 {%- if path[1] != "about" -%}
                     <li class="nav-item"><a class="nav-link" href="about"><i class="navsvg bi bi-info-circle"></i> About Us</a></li>
@@ -68,7 +59,7 @@
                 <li class="nav-item"><a style="cursor: pointer;" class="nav-link" data-bs-toggle="modal" data-bs-target="#appmodal"><i class="navsvg bi bi-android2"></i> Android App</a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" aria-label="theme (auto)"><i class="bi bi-circle-half me-2" id="bd-theme-icon"></i><span id="bd-theme-text">Theme</span></a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme">
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme" style="top: 45px;">
                         <li><button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false"><i class="bi bi-sun me-2"></i>Light</button></li>
                         <li><button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false"><i class="bi bi-moon-stars me-2"></i>Dark</button></li>
                         <li><button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto" aria-pressed="true"><i class="bi bi-circle-half me-2"></i>Auto</button></li>
@@ -79,17 +70,23 @@
     </div>
 </nav>
 
-<div data-bs-toggle="collapseall">
+<div data-bs-toggle="collapseall" style="min-height: 100vh;">
 {%- if path[1] == nil or path[1] == "shubhamrdarda" or path[1] == "testapp" -%}
-<main role="main">{{ content }}</main>{%- include footer.html -%}
-
-{%- elsif path[1] == "search" -%}
 <main role="main"><div class="container">{{ content }}</div></main>{%- include footer.html -%}
+
+{%- elsif path[1] == "learn" or path[1] == "tools" -%}
+<div class="jumbotron text-center">
+    <h3>{{ site.title }}</h3>
+    {%- if path[1] == nil -%}<h6>{{ site.tagline }}</h6>
+    {%- else -%}<h6>{{ segment }}</h6>{%- endif -%}
+</div>
+<main role="main"><div class="container">{{ content }}</div></main>
+{%- include footer.html -%}
 
 {%- else -%}
 <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-xxl-10 ms-sm-auto px-md-4 jumbotron text-center">
     <h3>{{ site.title }}</h3>
-    {%- if path[1] != "tools" -%}<h6>{{ segment }}</h6>
+    {%- if path[1] != "converters" and path[1] != "calculators" -%}<h6>{{ segment }}</h6>
     {%- else -%}<h6>{{ page.title }}</h6>{%- endif -%}
 </div>
 
@@ -113,11 +110,38 @@
         {%- endif -%}{%- endif -%}{%- endfor -%}
         {%- if path[2] != nil -%}{%- include comments.html -%}{%- endif -%}
         {% include pagination.html %}
+        {% include ads.html %}
     </div>
 </main>
 
 <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-xxl-10 ms-sm-auto" style="padding: 0px;">{%- include footer.html -%}</div>
 {%- endif -%}
 </div>
+
+{%- if path[3] != nil -%}
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><i class="bi bi-clipboard-heart"></i> Thank You</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="h6 text-center">Thank you for visiting GoDarda!</p>
+                <p>If you've found GoDarda helpful, please consider supporting our mission to provide free, high-quality content for developers. Your support makes a difference!</p>
+                <p>Don't forget to show your appreciation by starring our repo, following us, and becoming a sponsor!</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <a class="btn" href="{{ site.data.url.repo }}" title="GitHub Star" target="_blank" rel="noopener noreferrer"><i class="bi bi-star"></i> Star</a>
+                <a href="{{ site.data.url.linkedin }}" class="btn" title="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin"></i> LinkedIn</a>
+                <a href="{{ site.data.url.sponsor }}" class="btn" title="Sponsor" target="_blank" rel="noopener noreferrer"><i class="bi bi-suit-heart"></i> Sponsor</a>
+            </div>
+        </div>
+    </div>
+</div>
+{%- endif -%}
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
 </html>

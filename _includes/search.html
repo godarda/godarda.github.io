@@ -1,100 +1,175 @@
 {%- assign path = page.url | split: '/' -%}
-<script>window.gd_path1 = '{{ path[1] }}';</script>
+<script>window.gd_path1 = '{{ path[1] | default: "search" }}';</script>
+<script>window.gd_search_url = '{{ "/search.json" | relative_url }}';</script>
 <script src="{{ site.search_js | relative_url }}"></script>
 <div><center>
     <div class="col-xs-12 col-sm-11 col-md-9 col-lg-7 col-xl-6 col-xxl-6" style="margin-bottom: 25px;">
-        {%- if path[1] == "search" or path[1] == "onecalc" -%}
-            <h2 style="margin-top: 175px;" id="fc-{{ path[1] }}">GoDarda</h2>
+        {%- if path[1] == nil -%}
+            <h2 style="padding-top: 150px;" id="fc-{{ path[1] }}">GoDarda</h2>
             <h6 style="padding-top: 5px; padding-bottom: 10px;">{{ site.tagline }}</h6>
         {%- endif -%}
 
-        <div id="KSE_input-{{ path[1] }}" class="input-group input-group-lg">
-        <input id="KSEInput" class="form-control" type="text" tabindex="1" placeholder="{{ page.title }} (type keywords to get results)" onkeypress="display_results();" onkeyup="display_results();" onload="clear_input();"><div id="search_icon" class="input-group-append" style="display: inline-block; padding: 10px 15px 0px 7px; font-size: 20px;"><i class="bi bi-search"></i></div><div id="close_icon" class="input-group-append" onclick="clear_input();" style="display: none; padding: 5px; font-size: 25px;"><i class="bi bi-x"></i></div>
+        <div id="GDS_input-{{ path[1] | default: 'search' }}" class="input-group input-group-lg">
+        <input id="GDSInput" class="form-control" type="text" tabindex="1" placeholder="{{ page.title }} (type to get the results)" onkeypress="display_results();" onkeyup="display_results();" onload="clear_input();"><div id="search_icon" class="input-group-append" style="display: inline-block; padding: 10px 15px 0px 7px; font-size: 20px;"><i class="bi bi-search"></i></div><div id="close_icon" class="input-group-append" onclick="clear_input();" style="display: none; padding: 5px; font-size: 25px;"><i class="bi bi-x"></i></div>
+        </div>
+        <div id="suggestions-container" style="margin-top: 10px; text-align: left; display: none;">
+            <span class="text-muted" style="margin-right: 5px;"><i id="suggestion-light" class="bi bi-lightbulb"></i> Suggestions:</span>
+            <span id="search-suggestions"></span>
         </div>
         <div id="matchCount" class="text-muted small" style="margin-top:8px; display:none; text-align:left"></div>
     </div>
 
-    <div id="search" class="col-xs-12 col-sm-12 col-md-10 col-lg-8 col-xl-7 col-xxl-7" style="text-align: left; margin-bottom: 30px;">
-    {% if path[1] == "search" %}
-        {%- comment -%} Main search page: render all segment JSON blobs {%- endcomment -%}
-        {%- for segment in site.data.gd.segments limit:21 -%}
-        <div id="{{ segment.url }}" style="display: none; margin-bottom: 30px;"></div>
-        <script type="application/json" id="search-data-{{ segment.url }}" style="display:none;">
-        [ { "title": {{ segment.title | jsonify }}, "href": {{ segment.url | jsonify }} }
-            {%- case segment.url -%}
-                {%- when "c" -%}{%- assign search = site.data.c -%}
-                {%- when "cpp" -%}{%- assign search = site.data.cpp -%}
-                {%- when "java" -%}{%- assign search = site.data.java -%}
-                {%- when "python" -%}{%- assign search = site.data.python -%}
-                {%- when "ds" -%}{%- assign search = site.data.ds -%}
-                {%- when "r" -%}{%- assign search = site.data.r -%}
-                {%- when "julia" -%}{%- assign search = site.data.julia -%}
-                {%- when "octave" -%}{%- assign search = site.data.octave -%}
-                {%- when "csharp" -%}{%- assign search = site.data.csharp -%}
-                {%- when "fsharp" -%}{%- assign search = site.data.fsharp -%}
-                {%- when "rust" -%}{%- assign search = site.data.rust -%}
-                {%- when "lisp" -%}{%- assign search = site.data.lisp -%}
-                {%- when "dsa" -%}{%- assign search = site.data.dsa -%}
-                {%- when "linux" -%}{%- assign search = site.data.linux -%}
-                {%- when "mysql" -%}{%- assign search = site.data.mysql -%}
-                {%- when "mongodb" -%}{%- assign search = site.data.mongodb -%}
-                {%- when "selenium" -%}{%- assign search = site.data.selenium -%}
-                {%- when "cg" -%}{%- assign search = site.data.cg -%}
-                {%- when "asm" -%}{%- assign search = site.data.asm -%}
-                {%- when "cluster" -%}{%- assign search = site.data.cluster -%}
-                {%- else -%}{%- assign search = site.data.tools -%}
-            {%- endcase -%}
-
-            {%- for parent in search.grandparent -%}
-                ,{ "title": {{ parent.parent | jsonify }}, "href": {{ parent.url | jsonify }} }
-                {%- for child in parent.children -%}
-                    ,{ "title": {{ child.title | jsonify }}, "href": {{ child.url | jsonify }} }
-                {%- endfor -%}
-            {%- endfor -%} ] 
-        </script>
-        {%- endfor -%}
-
-    {%- elsif path[1] -%}
-        {%- comment -%} Segment page: render only the active segment's JSON blob {%- endcomment -%}
-        {%- assign seg = site.data.gd.segments | where: "url", path[1] | first -%}
-        {%- if seg -%}
-        <div id="{{ seg.url }}" style="display: none; margin-bottom: 30px;"></div>
-        <script type="application/json" id="search-data-{{ seg.url }}" style="display:none;">
-        [ {%- comment -%} Do not include other segments' titles here; include only this segment's entries {%- endcomment -%}
-            {%- case seg.url -%}
-                {%- when "c" -%}{%- assign search = site.data.c -%}
-                {%- when "cpp" -%}{%- assign search = site.data.cpp -%}
-                {%- when "java" -%}{%- assign search = site.data.java -%}
-                {%- when "python" -%}{%- assign search = site.data.python -%}
-                {%- when "ds" -%}{%- assign search = site.data.ds -%}
-                {%- when "r" -%}{%- assign search = site.data.r -%}
-                {%- when "julia" -%}{%- assign search = site.data.julia -%}
-                {%- when "octave" -%}{%- assign search = site.data.octave -%}
-                {%- when "csharp" -%}{%- assign search = site.data.csharp -%}
-                {%- when "fsharp" -%}{%- assign search = site.data.fsharp -%}
-                {%- when "rust" -%}{%- assign search = site.data.rust -%}
-                {%- when "lisp" -%}{%- assign search = site.data.lisp -%}
-                {%- when "dsa" -%}{%- assign search = site.data.dsa -%}
-                {%- when "linux" -%}{%- assign search = site.data.linux -%}
-                {%- when "mysql" -%}{%- assign search = site.data.mysql -%}
-                {%- when "mongodb" -%}{%- assign search = site.data.mongodb -%}
-                {%- when "selenium" -%}{%- assign search = site.data.selenium -%}
-                {%- when "cg" -%}{%- assign search = site.data.cg -%}
-                {%- when "asm" -%}{%- assign search = site.data.asm -%}
-                {%- when "cluster" -%}{%- assign search = site.data.cluster -%}
-                {%- else -%}{%- assign search = site.data.tools -%}
-            {%- endcase -%}
-
-            {%- assign first = true -%}
-            {%- for parent in search.grandparent -%}
-                {%- if first == false -%},{%- endif -%}
-                { "title": {{ parent.parent | jsonify }}, "href": {{ parent.url | jsonify }} }{%- assign first = false -%}
-                {%- for child in parent.children -%}
-                    ,{ "title": {{ child.title | jsonify }}, "href": {{ child.url | jsonify }} }
-                {%- endfor -%}
-            {% endfor %} ] 
-        </script>
-        {%- endif -%}
-    {% endif %}
-    </div>
+    <div id="{{ path[1] | default: 'search' }}" class="col-xs-12 col-sm-12 col-md-10 col-lg-8 col-xl-7 col-xxl-7" style="text-align: left; margin-bottom: 30px;"></div>
 </center></div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // --- Light bulb blinking logic ---
+    const light = document.getElementById('suggestion-light');
+    if (light) {
+        const blinkTotal = 3;
+        const intervalTime = 2000;
+        let blinkCount = 0;
+
+        const intervalId = setInterval(() => {
+            if (blinkCount >= blinkTotal) {
+                clearInterval(intervalId);
+                return;
+            }
+
+            // Turn on
+            light.classList.replace('bi-lightbulb', 'bi-lightbulb-fill');
+            light.classList.add('light-on');
+
+            setTimeout(() => {
+                // Turn off
+                light.classList.replace('bi-lightbulb-fill', 'bi-lightbulb');
+                light.classList.remove('light-on');
+            }, intervalTime / 2);
+
+            blinkCount++;
+        }, intervalTime);
+    }
+
+    // --- Cache DOM elements for performance ---
+    const input = document.getElementById('GDSInput');
+    const suggestionsContainer = document.getElementById('search-suggestions');
+    const suggestionsParentContainer = document.getElementById('suggestions-container');
+    const closeIcon = document.getElementById('close_icon');
+    const currentCategory = window.gd_path1;
+
+    // --- Data for suggestions ---
+    const learnSuggestions = [
+        'C', 'C++', 'Java', 'Python', 'R', 'Julia', 'Octave', 'C#', 'F#',
+        'Rust', 'LISP', 'Linux', 'MySQL', 'MongoDB', 'Selenium', 'Algorithm', 'Assembly', 'VBScript',
+        'Ranorex', 'OpenGL', 'AWT', 'Function', 'Method', 'Class', 'Inheritance',
+        'Polymorphism', 'Abstraction', 'Array', 'Bash', 'CLI', 'Exception', 'Database',
+        'Stack', 'Queue', 'Tree', 'Graph', 'Sorting', 'Searching', 'Recursion', 'XPath', 'WebDriver', 'TestNG',
+        'String', 'DataFrame', 'NumPy', 'Pandas', 'Matplotlib', 'List', 'Set', 'Tuple', 'Dictionary',
+        'Expression', 'Log', 'Thread', 'Matrix', 'Math', 'CRUD'
+    ];
+    const toolsSuggestions = [
+        'Calculator', 'Converter', 'Data', 'Length', 'Time', 'Currency', 'Physics', 'Hash', 'Area', 'Volume',
+        'Speed', 'Temperature', 'Pressure', 'Power', 'Energy'
+    ];
+
+    // --- Helper Functions ---
+    function deactivateSuggestions() {
+        if (suggestionsContainer) {
+            for (const child of suggestionsContainer.children) {
+                child.classList.remove('active');
+            }
+        }
+    }
+
+    function displaySuggestions(suggestions) {
+        if (!suggestionsContainer || !suggestionsParentContainer || suggestions.length === 0) return;
+
+        // Shuffle the array to get random suggestions
+        for (let i = suggestions.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [suggestions[i], suggestions[j]] = [suggestions[j], suggestions[i]];
+        }
+        
+        // Use a document fragment to minimize DOM reflows
+        const fragment = document.createDocumentFragment();
+        suggestions.slice(0, 3).forEach(suggestion => {
+            const link = document.createElement('a');
+            link.className = 'btn btn-sm btn-outline-secondary rounded-pill';
+            link.href = 'javascript:void(0);';
+            link.style.margin = '2px';
+            link.style.fontSize = '12px';
+            link.textContent = suggestion;
+            fragment.appendChild(link);
+        });
+
+        suggestionsContainer.innerHTML = ''; // Clear previous suggestions
+        suggestionsContainer.appendChild(fragment);
+        suggestionsParentContainer.style.display = 'block';
+    }
+
+    // --- Event Handlers ---
+    // Use event delegation for suggestion clicks for better performance
+    if (suggestionsContainer) {
+        suggestionsContainer.addEventListener('click', (event) => {
+            const target = event.target;
+            if (target.tagName === 'A' && target.classList.contains('btn')) {
+                event.preventDefault();
+                if (input) {
+                    input.value = target.textContent;
+                    input.dispatchEvent(new Event('input', { bubbles: true }));
+                    input.blur();
+                }
+                deactivateSuggestions();
+                target.classList.add('active');
+            }
+        });
+    }
+
+    if (closeIcon) {
+        closeIcon.addEventListener('click', deactivateSuggestions);
+    }
+
+    if (input) {
+        input.addEventListener('input', () => {
+            if (input.value === '') {
+                deactivateSuggestions();
+            }
+        });
+    }
+
+    // --- Main Logic to determine which suggestions to show ---
+    if (currentCategory === 'search' || currentCategory === 'learn') {
+        displaySuggestions(learnSuggestions);
+    } else if (currentCategory === 'tools') {
+        displaySuggestions(toolsSuggestions);
+    } else {
+        fetch('{{ "/search.json" | relative_url }}')
+            .then(response => response.json())
+            .then(data => {
+                const keywords = new Set();
+                let itemsToProcess = data.items;
+
+                if (currentCategory) {
+                    const categoryItems = data.items.filter(item => item.category === currentCategory);
+                    if (categoryItems.length > 0) itemsToProcess = categoryItems;
+                }
+
+                itemsToProcess.forEach(item => {
+                    const words = item.title.match(/[a-zA-Z0-9+.#-]+/g) || [];
+                    words.forEach(word => {
+                        const firstChar = word.charAt(0);
+                        if (word.length > 2 && isNaN(word) && firstChar >= 'A' && firstChar <= 'Z') {
+                            keywords.add(word);
+                        }
+                    });
+                    const cat = item.category?.charAt(0).toUpperCase() + item.category?.slice(1);
+                    if (cat && cat.length > 2) keywords.add(cat);
+                });
+
+                displaySuggestions(Array.from(keywords));
+            })
+            .catch(error => console.error('Error fetching or processing search.json for suggestions:', error));
+    }
+});
+</script>

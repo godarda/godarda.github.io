@@ -1,0 +1,33 @@
+---
+permalink: converters/physics/gdergua
+title: Pressure Converter
+description: "Instantly convert pressure between pascals, kilopascals, bars, atmospheres, pounds per square inch, and more. A simple and fast pressure conversion tool."
+---
+
+{% include converter.html %}
+<script>
+(function () {
+    // Configuration: Define units and their conversion factor to Pascals (base unit)
+    const units = {
+        pa:   { name: 'Pascal',             symbol: 'Pa',    factor: 1 },
+        kpa:  { name: 'Kilopascal',         symbol: 'kPa',   factor: 1000 },
+        mpa:  { name: 'Megapascal',         symbol: 'MPa',   factor: 1e6 },
+        bar:  { name: 'Bar',                symbol: 'bar',   factor: 100000 },
+        mbar: { name: 'Millibar',           symbol: 'mbar',  factor: 100 },
+        psi:  { name: 'Pound per square inch', symbol: 'psi', factor: 6894.75729 },
+        atm:  { name: 'Standard Atmosphere',symbol: 'atm',   factor: 101325 },
+        torr: { name: 'Torr',               symbol: 'Torr',  factor: 133.322368 },
+        mmhg: { name: 'Millimeter of Mercury', symbol: 'mmHg', factor: 133.322387 }
+    };
+
+    const defaultUnit = 'pa';
+    const defaultSelectedUnits = ['bar', 'psi', 'atm'];
+
+    // Initialize the shared converter logic
+    setupConverter({
+        units: units,
+        defaultUnit: defaultUnit,
+        defaultSelectedUnits: defaultSelectedUnits
+    });
+})();
+</script>

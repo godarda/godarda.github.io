@@ -1,0 +1,519 @@
+---
+permalink: java/jdbc/gdbylyk
+title: Java MySQL to perform JDBC CRUD operations
+---
+
+<div class="board"><div class="boardtitle">Objective and Prerequisites</div>
+    <p><b>Objective: </b>This segment introduces CRUD (create, read, update, and delete) operations in MySQL table using Java.<br><br>
+    <b>Prerequisites: </b>MySQL setup is installed and running in the background. Also, the project has been developed and executed in Eclipse IDE (Integrated Development Environment). 
+    <br><br>To run the following program, you need to download the <a href="{{ site.data.url.gdamwnw }}" target="_blank" class="hlink">Download JDBC driver</a> jar file. Once downloaded, you can import the library by right-clicking on your project in Eclipse -> Properties -> Java Build Path -> Libraries -> Add External JARs...</p>
+</div>
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">File: Employee.java</div>
+<pre class="code">{%- highlight java -%}
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.InputMismatchException;
+import java.util.Random;
+import java.util.Scanner;
+
+public class Employee
+{
+    static String empid;
+    static int ch;
+    static String fname="";
+    static String lname="";
+    static String mob="";
+    static String designation="";
+    static double salary=0;
+    static String city="";
+    static Scanner sc = new Scanner(System.in);
+    static DataStoreHelper dsh = new DataStoreHelper();
+    
+    public Employee(String empid, String fname, String lname, String mob, String designation, double salary, String city)
+    {
+        Employee.empid=empid;
+        Employee.fname=fname;
+        Employee.lname=lname;
+        Employee.mob=mob;
+        Employee.designation=designation;
+        Employee.salary=salary;
+        Employee.city=city;
+    }
+    
+    public static String empid()
+    {
+        String alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String digits = "0123456789";
+        Random r = new Random();
+        String genrate = "";
+        while (genrate.length () != 7)
+        {
+            int rPick = r.nextInt(4);
+            if (rPick == 1)
+            {
+                genrate += alphabets.charAt(r.nextInt(25));
+            }
+            else if (rPick == 3)
+            {
+                genrate += digits.charAt(r.nextInt(9));
+            }
+        }
+        empid="KW_"+genrate;
+        System.out.println("\nGenerated Employee ID " + empid);
+        return empid;
+    }
+    
+    static String mobile()
+    {
+        System.out.print("\nEnter Mobile Number ");
+        mob=sc.next();
+        if(mob.matches("\\d{10}"))
+        {
+            System.out.println("Mobile Number is Accepted");
+        }
+        else
+        {
+            System.out.println("Mobile Number is Not Valid (Must be 10 Digit)");
+            mobile();
+        }
+        return mob;
+    }
+    
+    static String select_desig()
+    {
+        do
+        {
+            try
+            {
+                System.out.println("________________________________");
+                System.out.println("Select Your Designation");
+                System.out.println("________________________________");
+                System.out.println("1. Software Engineer\n2. Consultant\n3. Manager\n4. Other");
+                System.out.println("________________________________");
+                System.out.print("Enter Your Choice ");
+                ch = sc.nextInt();
+            }
+            catch(InputMismatchException ime)
+            {
+                System.out.println("\nWrong Choice Entered... Please Try Again");
+                select_desig();
+            }
+            switch(ch)
+            {
+                case 1:
+                    designation="Software Engineer";
+                    salary=20000;
+                    break;
+                case 2:
+                    designation="Consultant";
+                    salary=25000;
+                    break;
+                case 3:
+                    designation="Manager";
+                    salary=30000;
+                    break;
+                case 4:
+                    designation="Other";
+                    salary=15000;
+                    break;
+                default:
+                    System.out.println("\nWrong Choice Entered... Please Try Again");
+            }
+            
+        } while (ch!=1&ch!=2&ch!=3&ch!=4);
+        return designation;
+    }
+    
+    static String city()
+    {
+        String regex = "^[a-zA-Z]+$";
+        System.out.print("\nEnter Your City ");
+        city=sc.next();
+        if(city.matches(regex)&&city.length()>=3)
+        {
+            System.out.println("City Name is Accepted");
+        }
+        else
+        {
+            System.out.println("Invalid City \n(Contains only alphabets and length should be greater than 2)");
+            city();
+        }
+        return city;
+    }
+    
+    static String firstname()
+    {
+        String regex = "^[a-zA-Z]+$";
+        System.out.print("\nEnter First Name ");
+        fname=sc.next();
+        
+        if(fname.matches(regex)&&fname.length()>=2)
+        {
+            System.out.println("FirstName is Accepted");
+        }
+        else
+        {
+            System.out.println("Invalid FirstName \n(Contains only alphabets and length should be greater than 2)");
+            firstname();
+        }
+        return fname;
+    }
+    
+    static String lastname()
+    {
+        String regex = "^[a-zA-Z]+$";
+        System.out.print("\nEnter Last Name ");
+        lname=sc.next();
+        
+        if(lname.matches(regex)&&lname.length()>=2)
+        {
+            System.out.println("LastName is Accepted");
+        }
+        else
+        {
+            System.out.println("Invalid LastName \n(Contains only alphabets and length should be greater than 2)");
+            firstname();
+        }
+        return lname;
+    }
+    
+    public static void mainMenu() throws ClassNotFoundException, SQLException, IOException
+    {
+        do
+        {
+            try
+            {
+                System.out.println("________________________________");
+                System.out.println("Welcome to GoDarda Portal");
+                System.out.println("________________________________");
+                System.out.println("1. Admin Login\n2. Sign In\n3. Sign Up\n4. Exit");
+                System.out.println("________________________________");
+                System.out.print("Enter Your Choice ");
+                ch = sc.nextInt();
+            }
+            catch(InputMismatchException ime)
+            {
+                System.out.println("\nWrong Choice Entered... Please Try Again");
+                mainMenu();
+            }
+            
+            switch(ch)
+            {
+                case 1:
+                    System.out.print("\nEnter User Name ");
+                    String uname=sc.next();
+                    System.out.print("\nEnter Password ");
+                    String password=sc.next();
+                    
+                    if(uname.equalsIgnoreCase("admin")&&password.equalsIgnoreCase("admin"))
+                    {
+                        do
+                        {
+                            System.out.println("________________________________");
+                            System.out.println("1. Display All Employees\n2. Update Info\n3. Delete All Account\n4. Go to MainMenu");
+                            System.out.println("________________________________");
+                            System.out.print("Enter Your Choice ");
+                            try
+                            {
+                                ch = sc.nextInt();
+                            }
+                            catch(InputMismatchException ime)
+                            {
+                                System.out.println("\nWrong Choice Entered... Please Try Again");
+                            }
+                            switch(ch)
+                            {
+                                case 1:
+                                    try
+                                    {
+                                        dsh.viewAllEmployee(empid);
+                                    }
+                                    catch(Exception e)
+                                    {
+                                        System.out.println(e);
+                                    }
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    try
+                                    {
+                                        dsh.dropAllEmployee();
+                                    }
+                                    catch(Exception e)
+                                    {
+                                        System.out.println(e);
+                                    }
+                                    break;
+                                case 4:
+                                    mainMenu();
+                                default:
+                                    System.out.println("\nWrong Choice Entered... Please Try Again");
+                            }
+                        } while (ch!=4);
+                        
+                    }
+                    else
+                    {
+                        System.out.println("\nWrong Username and Password");
+                        mainMenu();
+                    }
+                    break;
+                case 2:
+                    System.out.print("\nEnter Employee ID ");
+                    String emp=sc.next();
+                    
+                    if(emp.equals(empid))
+                    {
+                        do
+                        {
+                            System.out.println("________________________________");
+                            System.out.println("1. Display Info\n2. Update Info\n3. Remove Account\n4. Go to MainMenu");
+                            System.out.println("________________________________");
+                            System.out.print("Enter Your Choice ");
+                            try
+                            {
+                                ch = sc.nextInt();
+                            }
+                            catch(InputMismatchException ime)
+                            {
+                                System.out.println("\nWrong Choice Entered... Please Try Again");
+                            }
+                            switch(ch)
+                            {
+                                case 1:
+                                    try
+                                    {
+                                        dsh.viewEmployee(empid);
+                                    }
+                                    catch(Exception e)
+                                    {
+                                        System.out.println(e);
+                                    }
+                                    break;
+                                case 2:
+                                    dsh.updateEmployee(empid);
+                                    break;
+                                case 3:
+                                    dsh.removeEmployee(empid);
+                                    break;
+                                case 4:
+                                    mainMenu();
+                                default:
+                                    System.out.println("\nWrong Choice Entered... Please Try Again");
+                            }
+                        } while (ch!=4);
+                    }
+                    else
+                    {
+                        mainMenu();
+                    }
+                    System.out.println(empid);
+                    break;
+                case 3:
+                    empid();
+                    
+                    firstname();
+                    
+                    lastname();
+                    
+                    mobile();
+                    
+                    select_desig();
+                    
+                    city();
+                    
+                    Employee e = new Employee(empid,fname,lname,mob,designation,salary,city);
+                    try
+                    {
+                        dsh.addEmployee(e);
+                    }
+                    catch(Exception ex)
+                    {
+                        System.out.println(ex);
+                    }
+                    
+                    break;
+                case 4:
+                    System.exit(0);
+                default:
+                    System.out.println("\nWrong Choice Entered... Please Try Again");
+            }
+        } while (ch!=4);
+    }
+
+    public static void main(String[] args) throws ClassNotFoundException, IOException, SQLException
+    {
+        try
+        {
+            Class.forName("com.mysql.cj.jdbk.Driver");
+        }
+        catch (ClassNotFoundException e)
+        {
+            System.out.println("Please load MySQL JDBC driver");
+            e.printStackTrace();
+            return;
+        }
+        Connection con;
+        try
+        {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root", "godarda");
+            System.out.println("Connection Established");
+            
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Connection Failed");
+            e.printStackTrace();
+            return;
+        }
+        
+        Statement st=con.createStatement();
+        //st.executeUpdate("DROP TABLE EMPLOYEES");
+        st.executeUpdate("CREATE TABLE EMPLOYEES(EMPID VARCHAR(11) PRIMARY KEY,FNAME VARCHAR(20),LNAME VARCHAR(20),MOB INT(10),DESIGNATION VARCHAR(20), SALARY INT(20), CITY VARCHAR(15))");
+        System.out.println("Employees Table Created Successfully");
+        mainMenu();
+    }
+    
+}
+{%- endhighlight -%}</pre>
+
+<div class="card">File: DataStoreHelper.java</div>
+<pre class="code">{%- highlight java -%}
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class DataStoreHelper
+{
+    public void addEmployee(Employee e1) throws ClassNotFoundException, SQLException, IOException
+    {
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root", "godarda");
+        Statement st = con.createStatement();
+        st.executeUpdate("INSERT INTO EMPLOYEES VALUES('"+Employee.empid+"','"+Employee.fname+"','"+Employee.lname+"','"+Employee.mob+"','"+Employee.designation+"','"+Employee.salary+"','"+Employee.city+"')");
+        System.out.println("\nValues Inserted Successfully");
+    }
+    
+    public void viewEmployee(String empid) throws ClassNotFoundException, IOException
+    {
+        System.out.println("________________________________");
+        try
+        {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root", "godarda");
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM EMPLOYEES WHERE EMPID='"+empid+"'");
+            rs.next();
+            System.out.println(rs.getString(2)+"'s Information");
+            System.out.println("________________________________");
+            System.out.println("EMPID: "+rs.getString(1)+"\nFirst Name: "+rs.getString(2)+"\nLast Name: "+rs.getString(3)+"\nMobile No.: "+rs.getString(4)+"\nDesignation: "+rs.getString(5)+"\nCurrent Salary: "+rs.getDouble(6)+"\nCity: "+rs.getString(7));
+        }
+        catch(SQLException e)
+        {
+            System.out.println("Record Not Found");
+        }
+        System.out.println("________________________________\n");
+    }
+    
+    public void viewAllEmployee(String empid) throws ClassNotFoundException, IOException
+    {
+        int count=0;
+        try
+        {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root", "godarda");
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM EMPLOYEES");
+            System.out.println("________________________________");
+            while(rs.next())
+            {
+                System.out.println("EMPID: "+rs.getString(1)+"\nFirst Name: "+rs.getString(2)+"\nLast Name: "+rs.getString(3)+"\nMobile No.: "+rs.getString(4)+"\nDesignation: "+rs.getString(5)+"\nCurrent Salary: "+rs.getDouble(6)+"\nCity: "+rs.getString(7));
+                System.out.println("________________________________");
+                count++;
+            }
+            System.out.println("Total Number of Records "+count);
+        }
+        catch(SQLException e)
+        {
+            System.out.println("Database is Empty");
+        }
+    }
+    public void removeEmployee(String empid) throws ClassNotFoundException, SQLException, IOException
+    {
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root", "godarda");
+        Statement st = con.createStatement();
+        st.executeUpdate("DELETE FROM EMPLOYEES WHERE EMPID='"+empid+"'");
+        System.out.println("Employee Removed Successfully");
+    }
+
+    public void updateEmployee(String empid) throws ClassNotFoundException, SQLException, IOException
+    {
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root", "godarda");
+        Statement st = con.createStatement();
+        Scanner sc = new Scanner(System.in);
+        int ch;
+        try
+        {
+            System.out.println("________________________________");
+            System.out.println("Update Your Information");
+            System.out.println("________________________________");
+            System.out.println("1. Mobile Number\n2. Designation\n3. City");
+            System.out.println("________________________________");
+            System.out.print("Enter Your Choice ");
+            ch = sc.nextInt();
+            switch(ch)
+            {
+                case 1:
+                    String mob = Employee.mobile();
+                    st.executeUpdate("UPDATE EMPLOYEES SET MOB='"+mob+"' WHERE EMPID='"+empid+"'");
+                    break;
+                case 2:
+                    String designation = Employee.select_desig();
+                    st.executeUpdate("UPDATE EMPLOYEES SET DESIGNATION='"+designation+"' WHERE EMPID='"+empid+"'");
+                    break;
+                case 3:
+                    String city = Employee.city();
+                    st.executeUpdate("UPDATE EMPLOYEES SET CITY='"+city+"' WHERE EMPID='"+empid+"'");
+                    break;
+                default:
+                    System.out.println("\nWrong Choice Entered... Please Try Again");
+            }
+        }
+        catch(InputMismatchException ime)
+        {
+            System.out.println("\nWrong Choice Entered... Please Try Again");
+            Employee.select_desig();
+        }
+        System.out.println("Record Updated Successfully");
+    }
+    
+    public void updateEmployeeDesig(String empid, String designation) throws ClassNotFoundException, SQLException, IOException
+    {
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root", "godarda");
+        con.createStatement();
+        System.out.println("Record Updated Successfully");
+    }
+
+    public void dropAllEmployee() throws SQLException
+    {
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root", "godarda");
+        Statement st = con.createStatement();
+        st.executeUpdate("DROP TABLE EMPLOYEES");
+        System.out.println("All Employees Removed Successfully");
+    }
+}
+{%- endhighlight -%}</pre>
+
+<div class="card">{{ site.output }}</div>
+<span><pre>
+<img src="pages/learn/java/images/gdloeob.png" loading="lazy"><br>
+<img src="pages/learn/java/images/gdzpwav.png" loading="lazy">
+</pre></span>

@@ -1,0 +1,21 @@
+---
+permalink: csharp/multithreading
+title: C# Multithreading
+---
+
+<div class="board"><div class="boardtitle">Objective</div>
+<p>In this segment we will understand the concept of multithreading in C# programming language. Multithreading is a process in which multiple threads work simultaneously to achieve multitasking, which means executing multiple tasks or processes at the same time (for instance, running multiple processes like the Firefox browser, Chrome browser, a Notepad application, etc.), and multitasking is of two types: process-based and thread-based. Architecturally, multithreading requires a multitasking operating system. Let’s take a brief overview of what is mean by a process and thread in the operating systems.<br><br>
+
+<b>Process: </b>A process is the execution of a child (one or more threads run in the context of the process).<br>
+<b>Thread: </b>A thread is a lightweight process, and it can execute any part of the process code, including parts currently being executed by another thread.</p>
+</div>
+
+<div class="board"><div class="boardtitle">Introduction to C# Multithreading</div>
+<p>Multithreading is one of the most powerful built-in features of C# programming language. It is a process in which multiple threads work concurrently (gives an ability to achieve multitasking), hence we can save time as multiple tasks being executed at the same time (principal advantage of multithreading).<br><br> To use C# multithreading classes, interfaces, methods, and properties, we must have to declare <mark>System.Threading</mark> namespace. Whenever we create the instances of Thread class, then the life cycle for each thread gets started. The following list represents the states in C# thread life cycle.<br><br>
+1. <mark>Unstarted:</mark> by default, a thread is in unstarted state when an instance of Thread class gets created [Thread t = new Thread();]<br>
+2. <mark>Runnable (Ready to run):</mark> When we call the start() method on a thread, then it is into ready to run state<br>
+3. <mark>Running:</mark> a thread that is running (when moved from ready to run state to running state) and not yet stopped<br>
+4. <mark>Not Runnable:</mark> a thread that is not running when the sleep(), wait() or suspended() methods get called<br>
+5. <mark>Dead (Terminated):</mark> this is last state when a thread completes its execution and move to dead or terminate state<br>
+</p>
+</div>

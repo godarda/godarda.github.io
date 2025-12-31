@@ -1,0 +1,93 @@
+---
+permalink: selenium/testng/gdyddge
+title: How to run parallel tests with Selenium WebDriver and TestNG
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">File: Login.java</div>
+<pre class="code">{%- highlight java -%}
+package tests;
+
+import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
+
+public class Login 
+{
+    @Test
+    public void OpenChorme()
+    {
+        System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
+        System.out.println("Chrome Thread ID "+Thread.currentThread().getId());
+        WebDriver driver = new ChromeDriver();
+        driver.navigate().to("http://newtours.demoaut.com");
+        driver.findElement(By.name("userName")).sendKeys("mercury");
+        driver.findElement(By.name("password")).sendKeys("mercury");
+        driver.findElement(By.name("login")).click();
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.close();
+    }
+}
+{%- endhighlight -%}</pre>
+
+<div class="card">File: VerifyTitle.java</div>
+<pre class="code">{%- highlight java -%}
+package tests;
+  
+import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.Test;
+  
+public class VerifyTitle           
+{
+    @Test        
+    public void OpenFirefox()      
+    {
+        System.setProperty("webdriver.gecko.driver", "/home/godarda/drivers/geckodriver");
+        System.out.println("Firefox Thread ID "+Thread.currentThread().getId());
+        WebDriver driver = new FirefoxDriver();
+        driver.navigate().to("http://newtours.demoaut.com");  
+        if(driver.getTitle().equals("Welcome: Mercury Tours"))
+        {        
+            System.out.println("Test Passed"); 
+        }        
+        else     
+        {        
+            System.out.println("Test Failed"); 
+        }        
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);        
+        driver.close();
+    }
+}
+{%- endhighlight -%}</pre>
+
+<div class="card">File: testng.xml</div>
+<pre>
+{%- highlight xml -%}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Test" parallel="methods" thread-count="2">
+    <test name="testngTests">
+        <classes>
+            <class name="tests.Login" />
+            <class name="tests.VerifyTitle" />
+        </classes>
+    </test> 
+</suite>
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+[RemoteTestNG] detected TestNG version 7.0.0
+Chrome Thread ID 11
+Firefox Thread ID 12
+
+===============================================
+Test
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+<img src="pages/learn/selenium/images/gdoemcy.png" loading="lazy">
+</pre></span>

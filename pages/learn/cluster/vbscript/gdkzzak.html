@@ -1,0 +1,46 @@
+---
+permalink: cluster/vbscript/gdkzzak
+title: VBScript to demonstrate the use of date and time functions
+---
+
+<div class="codecard">{{ page.title }}</div>
+<div class="card">{{ site.vbsfile }}</div>
+<pre>{%- highlight vb -%}
+print CDate("March 4, 2017")
+print CDate(#9/20/2016#)
+print "Current System Date and Time: " & Date & " " & Time
+print "Current System Date and Time: " & Now()
+print "Adding 2 Years to Current System Date: " & DateAdd("yyyy", 2, Date)
+print "Adding 2 Days to Current System Date: " & DateAdd("d", 2, Date)
+print "Adding 3 to Day of Year from Current System Date: " & DateAdd("d", 3, Date)
+print "Substracting 2 months from Current System Date: " & DateAdd("m", -2, Date)
+print "Adding 10 Hours to Current System Time: " & DateAdd("h", 10, Now())
+print "Adding 10 Minutes to Current System Time: " & DateAdd("n", 10, Now())
+print "Adding 10 Seconds to Current System Time: " & DateAdd("s", 10, Now())
+print "Getting Month from Current System Date: " & DatePart("m", Now())
+print "Getting Hours from Current System Time: " & DatePart("h", Now())
+print "Getting Minutes from Current System Time: " & DatePart("n", Now())
+print "Getting Seconds from Current System Time: " & DatePart("s", Now())
+print "Getting Weekday from Current System Date: " & DatePart("w", Now())
+print "Getting Week of Year from Current System Date: " & DatePart("ww", Now())
+print "Getting Date in System's Date Format: " & DateSerial(2017,3,22)
+print "Getting Date in System's Date Format: " & DateSerial(2017+5,3+1,22-5)
+print "Getting Months Difference Between 2 Dates: " & DateDiff("m", "23-May-2016", Date)
+print "Getting Seconds Difference Between 2 dates and Time: " & DateDiff("s", "23-May-2016 05:50:51AM", Now())
+print "Date Value: " & DateValue("15/06")
+print "Day of Month: " & Day("5-Apr-2017")
+print "Returns Hour of Day: " & Hour(Now())
+print "Returns Minute of the Hour: " & Minute(Now())
+print "Returns Seconds of the Minute: " & Second(Now())
+print "Validation of Date: " & IsDate("44/16/2017")
+print "Returns Month of Year: " & Month(Date)
+print "Returns Year: " & Year(Date)
+print "Returns Month Name: " & MonthName(10)
+print "Number of seconds since 12:00 AM: " & Timer
+print "Returns the Time for a specific H, M, and S: " & TimeSerial(5,23,50)
+print "Returns a Variant of subtype Date that contains the Time: " & TimeValue("17:50")
+{%- endhighlight -%}</pre>
+<div class="card">{{ site.output }}</div>
+<span><pre>
+<img src="pages/learn/cluster/vbscript/images/gdawudd.png" loading="lazy">
+</pre></span>
