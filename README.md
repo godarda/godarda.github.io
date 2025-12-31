@@ -34,17 +34,11 @@ Key repo entry points:
 
 Real-time indicators of GoDarda's health, activity, and platform coverage:
 
-🖥️ Platform and Availability
-
-![Platform Support][gdcdhdg] ![GoDarda Android App][gdyzyvk]
-
-📦 Repository Metadata
-
-![License][gdycyiw] ![Repo Size][gdypvzk] ![Contributors][gdpgpdw]
-
-📈 Activity and Health
-
-![Commits Last Month][gdkgddy] ![Last Commit][gdzveyt] ![Issues][gddaakl] ![Pull Requests][gdwgvye] ![Discussions][gdgnlyl]
+| Category              | Indicators                                                                 |
+|-----------------------|----------------------------------------------------------------------------|
+| **Platform and Availability** | ![Platform Support][gdcdhdg] ![GoDarda Android App][gdyzyvk]             |
+| **Repository Metadata**     | ![License][gdycyiw] ![Repo Size][gdypvzk] ![Contributors][gdpgpdw]       |
+| **Activity and Health**       | ![Commits Last Month][gdkgddy] ![Last Commit][gdzveyt] ![Issues][gddaakl] ![Pull Requests][gdwgvye] ![Discussions][gdgnlyl] |
 
 ## Cross-Platform CI Status
 Automated CI workflows are available for macOS, Ubuntu, and Windows. These workflows validate the setup logic and ensure platform-specific compatibility.
@@ -97,11 +91,11 @@ Keep Learning, Keep Building, Keep Inspiring
 [gddaakl]: https://img.shields.io/github/issues/godarda/godarda.github.io?color=purple&logo=github  
 [gdwgvye]: https://img.shields.io/github/issues-pr/godarda/godarda.github.io?color=cyan&logo=github  
 [gdgnlyl]: https://img.shields.io/github/discussions/godarda/godarda.github.io?color=gold&logo=github
-[gdzytwa]: https://github.com/godarda/godarda.github.io/actions/workflows/macos.yml/badge.svg?branch=develop 
+[gdzytwa]: https://github.com/godarda/godarda.github.io/actions/workflows/macos.yml/badge.svg
 [gdzynzx]: https://github.com/godarda/godarda.github.io/actions/workflows/macos.yml  
-[gdkvdbh]: https://github.com/godarda/godarda.github.io/actions/workflows/ubuntu.yml/badge.svg?branch=develop  
+[gdkvdbh]: https://github.com/godarda/godarda.github.io/actions/workflows/ubuntu.yml/badge.svg
 [gdiagyq]: https://github.com/godarda/godarda.github.io/actions/workflows/ubuntu.yml  
-[gdwwzzn]: https://github.com/godarda/godarda.github.io/actions/workflows/windows.yml/badge.svg?branch=develop  
+[gdwwzzn]: https://github.com/godarda/godarda.github.io/actions/workflows/windows.yml/badge.svg
 [gdabdte]: https://github.com/godarda/godarda.github.io/actions/workflows/windows.yml
 [gddndwy]: https://contrib.rocks/image?repo=godarda/godarda.github.io
 [gdaepzd]: https://github.com/godarda/godarda.github.io/blob/main/LICENSE
