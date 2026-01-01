@@ -38,7 +38,7 @@
     </div>
     </footer>
 
-    <footer id="webCopyright">
+    <footer id="webCopyright" class="{% if flag == 'block_webfooter' %}fixed-bottom{% endif %}">
         <div class="d-flex justify-content-between copyright-footer">
             <small>&copy; {% assign current_year = 'now' | date: '%Y' %}{{ current_year }} {{ site.title }}.</small>
             <div>
