@@ -23,7 +23,7 @@ class GD
         dc.setCapability(ChromeOptions.CAPABILITY, co);
         
         WebDriver driver = new ChromeDriver(dc);
-        driver.navigate().to("https://godarda.in/testapp/");
+        driver.navigate().to("https://godarda.in/testapp");
         driver.close();
     }
 }
@@ -44,7 +44,7 @@ class GD
         WebDriver driver = new FirefoxDriver();
         Dimension d = new Dimension(700, 700);
         driver.manage().window().setSize(d);
-        driver.navigate().to("https://godarda.in/testapp/");
+        driver.navigate().to("https://godarda.in/testapp");
         driver.close();
     }
 }

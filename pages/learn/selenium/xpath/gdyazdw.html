@@ -16,7 +16,7 @@ class GD
     {
         System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
         WebDriver driver = new ChromeDriver();
-        driver.navigate().to("https://godarda.in/testapp/");
+        driver.navigate().to("https://godarda.in/testapp");
         
         driver.findElement(By.xpath("//*[contains(@name,'ername')]")).sendKeys("godarda");
         driver.findElement(By.xpath("//*[contains(@name,'passw')]")).sendKeys("godarda");

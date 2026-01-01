@@ -18,7 +18,7 @@ class GD
         System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.navigate().to("https://godarda.in/testapp/");
+        driver.navigate().to("https://godarda.in/testapp");
         Thread.sleep(1000);
         Select country = new Select(driver.findElement(By.name("country")));
         country.selectByIndex(2);

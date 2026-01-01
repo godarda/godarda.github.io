@@ -15,7 +15,7 @@ class GD
     {   
         System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
         WebDriver driver = new ChromeDriver();
-        driver.get("https://godarda.in/testapp/");
+        driver.get("https://godarda.in/testapp");
         System.out.println(driver.getPageSource());
         driver.close();
     }

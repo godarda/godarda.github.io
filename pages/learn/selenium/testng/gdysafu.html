@@ -55,7 +55,7 @@ public class GD
         ExtentTest et = er.createTest("VerifyHomePageTitle");
         et.log(Status.INFO, "Chrome Browser Launched");
         
-        driver.navigate().to("https://godarda.in/testapp/");
+        driver.navigate().to("https://godarda.in/testapp");
         et.log(Status.INFO,"Successfully Navigated to the URL");
         
         String actual = driver.getTitle();
@@ -128,7 +128,7 @@ public class GD
     	System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
         driver = new ChromeDriver();
         
-        driver.navigate().to("https://godarda.in/testapp/");
+        driver.navigate().to("https://godarda.in/testapp");
         et.log(LogStatus.INFO,"Successfully Navigated to the URL");
         
         String actual = driver.getTitle();

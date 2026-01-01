@@ -11,7 +11,7 @@ from selenium import webdriver
 
 driver = webdriver.Chrome(executable_path='/home/godarda/drivers/chromedriver')
 driver.maximize_window()
-driver.get("https://godarda.in/testapp/")
+driver.get("https://godarda.in/testapp")
 driver.close()
 {%- endhighlight -%}</pre>
 
@@ -23,7 +23,7 @@ from selenium import webdriver
 
 driver = webdriver.Firefox(executable_path='/home/godarda/drivers/geckodriver')
 driver.maximize_window()
-driver.get("https://godarda.in/testapp/")
+driver.get("https://godarda.in/testapp")
 {%- endhighlight -%}</pre>
 
 <div class="codecard">Selenium Python to launch the Edge browser</div>
@@ -34,6 +34,6 @@ from selenium import webdriver
 
 driver = webdriver.Edge(executable_path='/home/godarda/drivers/msedgedriver')
 driver.maximize_window()
-driver.get("https://godarda.in/testapp/")
+driver.get("https://godarda.in/testapp")
 driver.close()
 {%- endhighlight -%}</pre>

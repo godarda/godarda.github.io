@@ -17,7 +17,7 @@ class GD
         System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.get("https://godarda.in/testapp/");
+        driver.get("https://godarda.in/testapp");
         
         JavascriptExecutor jse = (JavascriptExecutor)driver;
         String domain = jse.executeScript("return document.domain;").toString();
@@ -36,6 +36,6 @@ class GD
 <div class="card">{{ site.output }}</div>
 <span><pre>
 Domain Name - godarda.com
-URL - https://godarda.in/testapp/
+URL - https://godarda.in/testapp
 Page Title - GoDarda's TestApp
 </pre></span>
