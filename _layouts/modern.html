@@ -3,9 +3,13 @@
 {% include head.html %}
 
 <body>
+{%- assign main_pages = "shubhamrdarda,testapp,learn,tools" | split: ',' -%}
+{%- if path[1] == nil or main_pages contains path[1] -%}{%- assign is_sidebar_page = false -%}
+{%- else -%}{%- assign is_sidebar_page = true -%}{%- endif -%}
+
 <nav class="navbar navbar-expand-md navbar-dark fixed-top">
     <div class="container-fluid">
-        {%- if path[1] == nil or path[1] == "tools" or path[1] == "learn" or path[1] == "testapp" or path[1] == "shubhamrdarda" -%}
+        {%- unless is_sidebar_page -%}
         <div class="navbar-brand" style="margin-left: 0px;">
             <a><img id="logo" alt="Logo" width="30" height="30" src="{{ site.icon | relative_url }}"></a>
             <a id="fc-{{ path[1] }}"> {{ parent }}</a>
@@ -39,7 +43,7 @@
             {%- endif -%}
         {%- endfor -%}
         </div>
-        {%- endif -%}
+        {%- endunless -%}
 
         <button id="rsidebar" class="ms-auto navbar-toggler p-0" type="button" data-bs-toggle="rightsidebar" data-bs-target="#rightsidebar" aria-label="rsidebar" style="display: none;"><span class="navbar-toggler-icon"></span></button>
         <div id="rightsidebar" class="rightsidebar-collapse navbar-collapse justify-content-end">
@@ -70,52 +74,50 @@
     </div>
 </nav>
 
-<div data-bs-toggle="collapseall" style="min-height: 100vh;">
-{%- if path[1] == nil or path[1] == "shubhamrdarda" or path[1] == "testapp" -%}
-<main role="main"><div class="container">{{ content }}</div></main>{%- include footer.html -%}
-
-{%- elsif path[1] == "learn" or path[1] == "tools" -%}
-<div class="jumbotron text-center">
-    <h3>{{ site.title }}</h3>
-    {%- if path[1] == nil -%}<h6>{{ site.tagline }}</h6>
-    {%- else -%}<h6>{{ segment }}</h6>{%- endif -%}
-</div>
-<main role="main"><div class="container">{{ content }}</div></main>
-{%- include footer.html -%}
-
-{%- else -%}
-<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-xxl-10 ms-sm-auto px-md-4 jumbotron text-center">
-    <h3>{{ site.title }}</h3>
-    {%- if path[1] != "converters" and path[1] != "calculators" -%}<h6>{{ segment }}</h6>
-    {%- else -%}<h6>{{ page.title }}</h6>{%- endif -%}
-</div>
-
-<main class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-xxl-10 ms-sm-auto px-md-4" role="main">
-    <div class="container">
-        {%- if path[2] == nil and path[1] != "about" -%}{%- include search.html -%}{%- endif -%}
-        {{ content }}
-        {%- for parent in gd.grandparent -%}
-        {% if path[1] != "about" and path[2] == nil %}
-        <div class="board"><div class="boardtitle">{{ parent.parent }}</div>
-            {% for child in parent.children limit:4 %}<a class="card" href="{{ child.url }}">{{ child.title }}</a>{% endfor %}
-            {%- assign count = parent.children | size -%}
-            {%- if count >= 5 -%}<a class="card" href="{{ parent.url }}">Show More &#187</a>{%- endif -%}
-        </div>
-        {%- else -%}
-        {%- if path[1] != "about" and path[3] == nil -%}
-            {%- assign pu = parent.url | split: '/' -%}
-            {%- if pu[1] == path[2] -%}
-            <div class="board"><div class="boardtitle">{{ parent.parent }}</div>{%- for child in parent.children -%}<a class="card" href="{{ child.url }}">{{ child.title }}</a>{%- endfor -%}</div>
-            {%- endif -%}
-        {%- endif -%}{%- endif -%}{%- endfor -%}
-        {%- if path[2] != nil -%}{%- include comments.html -%}{%- endif -%}
-        {% include pagination.html %}
-        {% include ads.html %}
+<div data-bs-toggle="collapseall" class="d-flex flex-column flex-grow-1">
+    {%- unless is_sidebar_page -%}
+    {%- if path[1] == "learn" or path[1] == "tools" -%}
+    <div class="jumbotron text-center">
+        <h3>{{ site.title }}</h3>
+        <h6>{{ segment }}</h6>
     </div>
-</main>
+    {%- endif -%}
+    <main role="main" class="flex-grow-1"><div class="container">{{ content }}</div></main>
 
-<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-xxl-10 ms-sm-auto" style="padding: 0px;">{%- include footer.html -%}</div>
-{%- endif -%}
+    {%- else -%}
+    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-xxl-10 ms-sm-auto px-md-4 jumbotron text-center">
+        <h3>{{ site.title }}</h3>
+        {%- if path[1] != "converters" and path[1] != "calculators" -%}<h6>{{ segment }}</h6>
+        {%- else -%}<h6>{{ page.title }}</h6>{%- endif -%}
+    </div>
+
+    <main class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-xxl-10 ms-sm-auto px-md-4 flex-grow-1" role="main">
+        <div class="container">
+            {%- if path[2] == nil and path[1] != "about" -%}{%- include search.html -%}{%- endif -%}
+            {{ content }}
+            {%- for parent in gd.grandparent -%}
+            {% if path[1] != "about" and path[2] == nil %}
+            <div class="board"><div class="boardtitle">{{ parent.parent }}</div>
+                {% for child in parent.children limit:4 %}<a class="card" href="{{ child.url }}">{{ child.title }}</a>{% endfor %}
+                {%- assign count = parent.children | size -%}
+                {%- if count >= 5 -%}<a class="card" href="{{ parent.url }}">Show More &#187</a>{%- endif -%}
+            </div>
+            {%- else -%}
+            {%- if path[1] != "about" and path[3] == nil -%}
+                {%- assign pu = parent.url | split: '/' -%}
+                {%- if pu[1] == path[2] -%}
+                <div class="board"><div class="boardtitle">{{ parent.parent }}</div>{%- for child in parent.children -%}<a class="card" href="{{ child.url }}">{{ child.title }}</a>{%- endfor -%}</div>
+                {%- endif -%}
+            {%- endif -%}{%- endif -%}{%- endfor -%}
+            {%- if path[2] != nil -%}{%- include comments.html -%}{%- endif -%}
+            {% include pagination.html %}
+            {% include ads.html %}
+        </div>
+    </main>
+    {%- endunless -%}
+
+    {%- if is_sidebar_page -%}{%- assign footer_class = "col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-xxl-10 ms-sm-auto footer-no-padding" -%}{%- else -%}{%- assign footer_class = "" -%}{%- endif -%}
+    <div class="{{ footer_class }}">{%- include footer_app.html -%}{%- include footer_web.html -%}</div>
 </div>
 
 {%- if path[3] != nil -%}
@@ -142,6 +144,25 @@
 </div>
 {%- endif -%}
 
-<script async defer src="https://buttons.github.io/buttons.js"></script>
+<div class="modal fade" id="appmodal" data-bs-backdrop="static" data-bs-keyboard="false"
+    aria-labelledby="appmodalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="appmodalLabel"><i class="bi bi-android2"></i> GoDarda Android App</h5>
+            </div>
+            <div class="modal-body">Dear User, <br>We are grateful for your interest in the GoDarda Android app. We
+                intend to soon make it available on the Google Play Store. Currently, you need to install apk
+                manually. Would you like to get the app?<br>Minimum Requirement(s): Android 11</div>
+            <div class="modal-footer justify-content-center">
+                <a style="cursor: pointer; border: 1px solid #e63636;" class="btn" data-bs-dismiss="modal"><i
+                        class="bi bi-cloud-slash"></i> No</a>
+                <a href="{{ site.data.url.android_app }}" style="border: 1px solid #00b050;" class="btn"
+                    onclick="$('#appmodal').modal('hide');"><i class="bi bi-cloud-arrow-down"></i> Yes</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

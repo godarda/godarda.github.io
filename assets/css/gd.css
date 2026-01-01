@@ -80,6 +80,12 @@
 
 /* --------------------------------------------------------------------------------------------- */
 
+body:not(.is-webview) {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 body {
     font-family: 'Roboto';
     font-size: 15px;
@@ -619,7 +625,7 @@ div.col-6>h6 {
 }
 
 .modal-backdrop.show {
-    opacity: 0.9;
+    opacity: 0.7;
 }
 
 .btn-close:focus {
@@ -685,8 +691,14 @@ a.wvnav-item>i.wvsvg {
 .copyright-footer {
     background-color: var(--color1);
     color: var(--bnw);
-    padding: 15px;
+    padding: 0 15px;
+    height: 40px;
+    align-items: center;
     margin: 0px;
+}
+
+.footer-no-padding {
+    padding: 0px;
 }
 
 /* --------------------------------------------------------------------------------------------- */

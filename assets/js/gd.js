@@ -76,6 +76,7 @@ const standalone = navigator.standalone;
 const isAndroid = /android/.test(normalizedUserAgent);
 // Detect if running inside an Android WebView
 window.isWebview = (isAndroid && /; wv\)/.test(normalizedUserAgent));
+window.isGoDardaApp = window.isWebview || (window.userAgent && window.userAgent.includes("GoDarda"));
 
 /* --------------------------------------------------------------------------------------------- */
 // Scroll and Modal Logic
