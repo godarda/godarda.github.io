@@ -394,10 +394,6 @@ div.collapsed {
     border-bottom: 1px solid var(--color2)
 }
 
-.sidebar>a:last-child {
-    margin-bottom: 30px;
-}
-
 .sidebar>a:hover,
 .sidebar>a:focus {
     background-color: var(--color2);
@@ -580,7 +576,7 @@ option,
 .navbar-toggler:focus,
 .btn:hover:active {
     border-color: var(--color1);
-    box-shadow: 0 0 0 0.2rem var(--color1);
+    box-shadow: none;
 }
 
 ::-webkit-input-placeholder {
@@ -729,4 +725,36 @@ a.wvnav-item>i.wvsvg {
     100% { transform: translateX(100%); }
 }
 
+/* --------------------------------------------------------------------------------------------- */
+
+/* Copy Button Tooltip/Popper */
+/* --------------------------------------------------------------------------------------------- */
+.copy-btn {
+    position: relative;
+}
+
+.copy-btn::after {
+    content: 'Code copied!';
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    transform: translateY(-50%);
+    margin-right: 8px;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: #00b050;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-style: normal;
+    white-space: nowrap;
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .2s ease-in-out, visibility .2s ease-in-out;
+}
+
+.copy-btn.show-tooltip::after {
+    opacity: 1;
+    visibility: visible;
+}
 /* --------------------------------------------------------------------------------------------- */

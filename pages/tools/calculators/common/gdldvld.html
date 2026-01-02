@@ -13,7 +13,7 @@ description: "Evaluate mathematical expressions instantly. Supports basic arithm
                 <div class="col">
                     <div class="stat">
                         <div class="muted small">Result</div>
-                        <div id="expressionResult" class="mb-0">0</div>
+                        <div id="expressionResult" class="mb-0">-</div>
                     </div>
                 </div>
             </div>
@@ -121,7 +121,7 @@ description: "Evaluate mathematical expressions instantly. Supports basic arithm
             expressionResult.classList.remove('text-danger');
 
             if (text === '') {
-                expressionResult.textContent = '0';
+                expressionResult.textContent = '-';
                 return;
             }
 
@@ -151,7 +151,7 @@ description: "Evaluate mathematical expressions instantly. Supports basic arithm
             if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); btnTrim.click(); }
         });
 
-        // Perform an initial update on page load to set the default '0' values.
+        // Perform an initial update on page load.
         update();
     })();
 </script>

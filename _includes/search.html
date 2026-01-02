@@ -159,12 +159,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     const words = item.title.match(/[a-zA-Z0-9+.#-]+/g) || [];
                     words.forEach(word => {
                         const firstChar = word.charAt(0);
-                        if (word.length > 2 && isNaN(word) && firstChar >= 'A' && firstChar <= 'Z') {
+                        if (word.length > 2 && word.length <= 15 && isNaN(word) && firstChar >= 'A' && firstChar <= 'Z') {
                             keywords.add(word);
                         }
                     });
                     const cat = item.category?.charAt(0).toUpperCase() + item.category?.slice(1);
-                    if (cat && cat.length > 2) keywords.add(cat);
+                    if (cat && cat.length > 2 && cat.length <= 15) keywords.add(cat);
                 });
 
                 displaySuggestions(Array.from(keywords));

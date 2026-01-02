@@ -12,10 +12,19 @@ document.addEventListener('touchmove', touchmove, { passive: true });
 document.addEventListener('touchend', touchend, { passive: true });
 
 // Capture the starting coordinates of a touch event
-function touchstart(evt) { const firstTouch = (evt.touches || evt.originalEvent.touches)[0]; xDown = firstTouch.clientX; yDown = firstTouch.clientY; }
+function touchstart(evt) {
+    if (!evt.touches || evt.touches.length === 0) return;
+    const firstTouch = evt.touches[0];
+    xDown = firstTouch.clientX;
+    yDown = firstTouch.clientY;
+}
 
 // Track the movement coordinates during a touch event
-function touchmove(evt) { if (!xDown || !yDown) return; xUp = evt.touches[0].clientX; yUp = evt.touches[0].clientY; }
+function touchmove(evt) {
+    if (!xDown || !yDown || !evt.touches || evt.touches.length === 0) return;
+    xUp = evt.touches[0].clientX;
+    yUp = evt.touches[0].clientY;
+}
 
 // Handle the end of a touch event to determine swipe direction
 function touchend() {
@@ -36,6 +45,11 @@ function touchend() {
 
 // Sidebar and UI interaction handlers
 $(function () {
+    // Force the default cursor to prevent the I-beam from appearing over text.
+    $('body').css('cursor', 'default');
+    // Ensure input fields and textareas still show the text cursor for editing.
+    $('input, textarea').css('cursor', 'text');
+
     // Toggle left sidebar visibility
     $('[data-bs-toggle="leftsidebar"]').on('click', function () {
         $('.rightsidebar-collapse').removeClass('open')
@@ -55,14 +69,16 @@ $(function () {
     $('html').on('dragstart', 'a', function () { return false; });
 });
 
-// Disable specific keyboard shortcuts (F12, Inspect Element, View Source, Save)
-$(document).keydown(function (event) {
+// Disable specific keyboard shortcuts, right-click, and text selection
+$(document).on('keydown', function (event) {
     if (event.keyCode == 123 || // F12
         (event.ctrlKey && event.shiftKey && event.keyCode == 73) || // Ctrl+Shift+I
         (event.ctrlKey && event.keyCode == 85) || // Ctrl+U
         (event.ctrlKey && event.keyCode == 83)) { // Ctrl+S
         return false;
     }
+}).on('contextmenu selectstart', function () {
+    return false;
 });
 
 /* --------------------------------------------------------------------------------------------- */
@@ -85,6 +101,13 @@ window.isGoDardaApp = window.isWebview || (window.userAgent && window.userAgent.
 $(document).ready(function () {
     // Smooth scroll to top
     $('.back-to-top').click(function () { $('html, body').animate({ scrollTop: 0 }, 100); });
+
+    // Scroll active sidebar item into view on page load.
+    var activeItems = document.querySelectorAll('.sidebar-item-active');
+    if (activeItems.length > 0) {
+      var lastActiveItem = activeItems[activeItems.length - 1];
+      lastActiveItem.scrollIntoView({ block: 'center', behavior: 'auto' });
+    }
 
     var today = new Date().toLocaleDateString();
     var is_shown = sessionStorage.getItem('status');
@@ -204,3 +227,31 @@ gtag('config', 'G-8ZJLP1KH1R', {
 /* --------------------------------------------------------------------------------------------- */
 
 var year = new Date().getFullYear();
+
+/* --------------------------------------------------------------------------------------------- */
+// Copy to Clipboard for Code Blocks
+/* --------------------------------------------------------------------------------------------- */
+document.addEventListener('DOMContentLoaded', function() {
+    const copyButtons = document.querySelectorAll('.copy-btn');
+
+    copyButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const card = this.closest('.card');
+            if (card) {
+                const pre = card.nextElementSibling;
+                if (pre && pre.tagName === 'PRE') {
+                    const pageUrl = window.location.href;
+                    const codeToCopy = pageUrl + '\n\n' + pre.innerText;
+                    navigator.clipboard.writeText(codeToCopy).then(() => {
+                        this.classList.add('show-tooltip');
+                        this.setAttribute('title', 'Copied!');
+                        setTimeout(() => {
+                            this.classList.remove('show-tooltip');
+                            this.setAttribute('title', 'Copy code');
+                        }, 2000);
+                    }).catch(err => { console.error('Failed to copy text: ', err); });
+                }
+            }
+        });
+    });
+});
