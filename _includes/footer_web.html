@@ -55,10 +55,17 @@ function setupWebAppView() {
 
     const webFooterContainer = document.getElementById("web-footer-container");
     const webfooter = document.getElementById("isWebsite");
+    const webCopyright = document.getElementById("webCopyright");
+    const backToTop = document.getElementById("backtotop");
 
     if (webFooterContainer) {
         webFooterContainer.style.display = "block";
         if (webfooter && webfooter.classList.contains("block_webfooter")) { webfooter.style.display = "none"; }
+    }
+
+    // If the copyright footer is fixed (Home Page), add extra margin to the Back to Top button
+    if (webCopyright && webCopyright.classList.contains("fixed-bottom") && backToTop) {
+        backToTop.style.marginBottom = "70px";
     }
 }
 

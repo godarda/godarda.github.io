@@ -139,37 +139,47 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // --- Main Logic to determine which suggestions to show ---
-    if (currentCategory === 'search' || currentCategory === 'learn') {
-        displaySuggestions(learnSuggestions);
-    } else if (currentCategory === 'tools') {
-        displaySuggestions(toolsSuggestions);
-    } else {
-        fetch('{{ "/search.json" | relative_url }}')
-            .then(response => response.json())
-            .then(data => {
-                const keywords = new Set();
-                let itemsToProcess = data.items;
+    function loadSuggestions() {
+        if (currentCategory === 'search' || currentCategory === 'learn') {
+            displaySuggestions(learnSuggestions);
+        } else if (currentCategory === 'tools') {
+            displaySuggestions(toolsSuggestions);
+        } else {
+            fetch('{{ "/search.json" | relative_url }}')
+                .then(response => response.json())
+                .then(data => {
+                    const keywords = new Set();
+                    let itemsToProcess = data.items;
 
-                if (currentCategory) {
-                    const categoryItems = data.items.filter(item => item.category === currentCategory);
-                    if (categoryItems.length > 0) itemsToProcess = categoryItems;
-                }
+                    if (currentCategory) {
+                        const categoryItems = data.items.filter(item => item.category === currentCategory);
+                        if (categoryItems.length > 0) itemsToProcess = categoryItems;
+                    }
 
-                itemsToProcess.forEach(item => {
-                    const words = item.title.match(/[a-zA-Z0-9+.#-]+/g) || [];
-                    words.forEach(word => {
-                        const firstChar = word.charAt(0);
-                        if (word.length > 2 && word.length <= 15 && isNaN(word) && firstChar >= 'A' && firstChar <= 'Z') {
-                            keywords.add(word);
-                        }
+                    itemsToProcess.forEach(item => {
+                        const words = item.title.match(/[a-zA-Z0-9+.#-]+/g) || [];
+                        words.forEach(word => {
+                            const firstChar = word.charAt(0);
+                            if (word.length > 2 && word.length <= 15 && isNaN(word) && firstChar >= 'A' && firstChar <= 'Z') {
+                                keywords.add(word);
+                            }
+                        });
+                        const cat = item.category?.charAt(0).toUpperCase() + item.category?.slice(1);
+                        if (cat && cat.length > 2 && cat.length <= 15) keywords.add(cat);
                     });
-                    const cat = item.category?.charAt(0).toUpperCase() + item.category?.slice(1);
-                    if (cat && cat.length > 2 && cat.length <= 15) keywords.add(cat);
-                });
 
-                displaySuggestions(Array.from(keywords));
-            })
-            .catch(error => console.error('Error fetching or processing search.json for suggestions:', error));
+                    displaySuggestions(Array.from(keywords));
+                })
+                .catch(error => console.error('Error fetching or processing search.json for suggestions:', error));
+        }
     }
+
+    loadSuggestions();
+
+    window.addEventListener('pageshow', (event) => {
+        if (event.persisted) {
+            loadSuggestions();
+        }
+    });
 });
 </script>
