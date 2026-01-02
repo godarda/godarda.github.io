@@ -43,11 +43,6 @@
 </footer>
 
 <script>
-const GD_PATH_1 = "{{ path[1] | default: '' }}";
-const GD_PATH_2 = "{{ path[2] | default: '' }}";
-const GD_SITE_URL = "{{ site.url }}";
-const GD_PAGE_URL = "{{ page.url }}";
-
 async function showVersion() {
     const versionElement = document.getElementById("version");
     if (!versionElement) return;
@@ -115,55 +110,5 @@ function setupAppView() {
     showVersion();
 }
 
-function setupSwipeNavigation() {
-    const footer = document.getElementById("isWebView");
-    if (!footer) return;
- 
-    let touchStartX = 0;
-    let touchEndX = 0;
-    const minSwipeDistance = 50;
-    
-    const tabs = [
-        GD_SITE_URL,
-        `${GD_SITE_URL}/learn`,
-        `${GD_SITE_URL}/tools`,
-        `${GD_SITE_URL}/about`
-    ];
-    
-    let currentIndex = 0;
-    if (GD_PATH_1 === '') {
-        currentIndex = 0;
-    } else if (GD_PATH_1 === 'learn') {
-        currentIndex = 1;
-    } else if (GD_PATH_1 === 'tools') {
-        currentIndex = 2;
-    } else if (['about', 'shubhamrdarda'].includes(GD_PATH_1)) {
-        currentIndex = 3;
-    } else {
-        currentIndex = 1;
-    }
-    
-    let virtualIndex = currentIndex;
-    footer.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
-    footer.addEventListener('touchend', e => {
-        touchEndX = e.changedTouches[0].screenX;
-        const distance = touchEndX - touchStartX;
-        const numTabs = tabs.length;
-        if (Math.abs(distance) < minSwipeDistance) return;
-
-        if (distance < 0) { // Swipe left (R to L) -> go next
-            virtualIndex = (virtualIndex + 1) % numTabs;
-        } else if (distance > 0) { // Swipe right (L to R) -> go previous
-            virtualIndex = (virtualIndex - 1 + numTabs) % numTabs;
-        }
-        window.location.href = tabs[virtualIndex];
-    }, {passive: true});
-}
-
-window.addEventListener('DOMContentLoaded', () => { 
-    if (window.isGoDardaApp) { 
-        setupAppView(); 
-        if (GD_PATH_2 === '') { setupSwipeNavigation(); }
-    } 
-});
+window.addEventListener('DOMContentLoaded', () => { if (window.isGoDardaApp) setupAppView(); });
 </script>

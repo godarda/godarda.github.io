@@ -12,19 +12,10 @@ document.addEventListener('touchmove', touchmove, { passive: true });
 document.addEventListener('touchend', touchend, { passive: true });
 
 // Capture the starting coordinates of a touch event
-function touchstart(evt) {
-    if (!evt.touches || evt.touches.length === 0) return;
-    const firstTouch = evt.touches[0];
-    xDown = firstTouch.clientX;
-    yDown = firstTouch.clientY;
-}
+function touchstart(evt) { const firstTouch = (evt.touches || evt.originalEvent.touches)[0]; xDown = firstTouch.clientX; yDown = firstTouch.clientY; }
 
 // Track the movement coordinates during a touch event
-function touchmove(evt) {
-    if (!xDown || !yDown || !evt.touches || evt.touches.length === 0) return;
-    xUp = evt.touches[0].clientX;
-    yUp = evt.touches[0].clientY;
-}
+function touchmove(evt) { if (!xDown || !yDown) return; xUp = evt.touches[0].clientX; yUp = evt.touches[0].clientY; }
 
 // Handle the end of a touch event to determine swipe direction
 function touchend() {
@@ -101,7 +92,7 @@ window.isGoDardaApp = window.isWebview || (window.userAgent && window.userAgent.
 $(document).ready(function () {
     // Smooth scroll to top
     $('.back-to-top').click(function () { $('html, body').animate({ scrollTop: 0 }, 100); });
-
+    
     // Scroll active sidebar item into view on page load.
     var activeItems = document.querySelectorAll('.sidebar-item-active');
     if (activeItems.length > 0) {
