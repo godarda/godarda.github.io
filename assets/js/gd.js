@@ -6,9 +6,8 @@ try {
 }
 
 // Touch event variables for swipe detection
-var xDown = null, yDown = null, xUp = null, yUp = null;
+var xDown = null, yDown = null;
 document.addEventListener('touchstart', touchstart, { passive: true });
-document.addEventListener('touchmove', touchmove, { passive: true });
 document.addEventListener('touchend', touchend, { passive: true });
 
 // Capture the starting coordinates of a touch event
@@ -19,28 +18,32 @@ function touchstart(evt) {
     yDown = firstTouch.clientY;
 }
 
-// Track the movement coordinates during a touch event
-function touchmove(evt) {
-    if (!xDown || !yDown || !evt.touches || evt.touches.length === 0) return;
-    xUp = evt.touches[0].clientX;
-    yUp = evt.touches[0].clientY;
-}
-
 // Handle the end of a touch event to determine swipe direction
-function touchend() {
-    var xDiff = xUp - xDown, yDiff = yUp - yDown;
-    // Check if the horizontal movement is significant enough to be considered a swipe
-    if ((Math.abs(xDiff) > Math.abs(yDiff)) && (Math.abs(xDiff) > 0.6 * document.body.clientWidth)) {
+function touchend(evt) {
+    if (!xDown || !yDown || !evt.changedTouches || evt.changedTouches.length === 0) {
+        return;
+    }
+
+    const xUp = evt.changedTouches[0].clientX;
+    const yUp = evt.changedTouches[0].clientY;
+
+    const xDiff = xUp - xDown;
+    const yDiff = yUp - yDown;
+
+    // A swipe is mostly horizontal and at least 30% of the screen width.
+    if (Math.abs(xDiff) > Math.abs(yDiff) && Math.abs(xDiff) > 0.3 * document.body.clientWidth) {
         if (xDiff > 0) {
             // Swipe right: Open left sidebar
-            $('.leftsidebar-collapse').toggleClass('open')
-        }
-        else {
+            $('.leftsidebar-collapse').toggleClass('open');
+        } else {
             // Swipe left: Close left sidebar
-            $('.leftsidebar-collapse').removeClass('open')
+            $('.leftsidebar-collapse').removeClass('open');
         }
     }
-    xDown = null, yDown = null;
+
+    // Reset values
+    xDown = null;
+    yDown = null;
 }
 
 // Sidebar and UI interaction handlers
