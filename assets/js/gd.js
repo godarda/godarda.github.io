@@ -20,20 +20,7 @@ function touchstart(evt) {
 
 // Handle the end of a touch event to determine swipe direction
 function touchend(evt) {
-    // Do not trigger swipe when a modal is open to prevent conflicts.
-    if ($('.modal.show').length > 0) {
-        return;
-    }
-
     if (!xDown || !yDown || !evt.changedTouches || evt.changedTouches.length === 0) {
-        return;
-    }
-
-    // Do not trigger sidebar swipe on elements that may have their own horizontal scroll/swipe.
-    const target = evt.target;
-    if (target.closest('pre, .board')) {
-        xDown = null;
-        yDown = null;
         return;
     }
 
@@ -43,13 +30,10 @@ function touchend(evt) {
     const xDiff = xUp - xDown;
     const yDiff = yUp - yDown;
 
-    // Disable sidebar swipe on the main "about" page where it is hidden.
-    const isAboutHome = (typeof GD_PATH_1 !== 'undefined' && GD_PATH_1 === 'about' && typeof GD_PATH_2 !== 'undefined' && GD_PATH_2 === '');
-
-    // A swipe is mostly horizontal and at least 50px.
-    if (!isAboutHome && Math.abs(xDiff) > Math.abs(yDiff) && Math.abs(xDiff) > 50) {
+    // A swipe is mostly horizontal and at least 30% of the screen width.
+    if (Math.abs(xDiff) > Math.abs(yDiff) && Math.abs(xDiff) > 0.3 * document.body.clientWidth) {
         if (xDiff > 0) {
-            // Swipe right: Toggle left sidebar
+            // Swipe right: Open left sidebar
             $('.leftsidebar-collapse').toggleClass('open');
         } else {
             // Swipe left: Close left sidebar
