@@ -1,13 +1,24 @@
 /**
- * Shared Converter Logic
+ * GoDarda - Converter Logic (converter.js)
  *
- * This module provides a reusable foundation for various unit conversion tools.
- * It handles UI initialization, state management, conversion logic normalization,
- * and optimized DOM updates.
+ * Purpose:
+ * This module provides a reusable foundation for various unit conversion tools
+ * on the GoDarda website. It handles UI initialization, state management,
+ * conversion logic normalization, and optimized DOM updates.
+ *
+ * Key Features:
+ * 1. Dynamic UI Generation: Creates result cards and dropdown menus based on configuration.
+ * 2. Flexible Conversion: Supports both factor-based (multiplication) and formula-based conversions.
+ * 3. State Management: Tracks selected units and persists defaults.
+ * 4. Optimized Rendering: Uses caching and efficient DOM updates for smooth performance.
  */
+
 (function () {
     // Expose the setup function globally
     window.setupConverter = function (config) {
+        // --------------------------------------------------------------------------
+        // Configuration and State
+        // --------------------------------------------------------------------------
         const { units, defaultUnit, defaultSelectedUnits, converterType = 'numeric', inputPlaceholder = 'Enter value...', inputType = 'number' } = config;
 
         // Normalize units to support both 'factor' (simple multiplication) and 'toBase/fromBase' (formulas)
@@ -24,6 +35,9 @@
         // Cache for currently visible units to optimize the update loop
         let visibleUnitsCache = new Set();
 
+        // --------------------------------------------------------------------------
+        // DOM Caching and Elements
+        // --------------------------------------------------------------------------
         // DOM Elements - These IDs must be present in the HTML
         const resultsContainer = document.getElementById('resultsContainer');
         const unitDropdownMenu = document.getElementById('unitDropdownMenu');
@@ -44,6 +58,9 @@
             inputValue = textarea;
         }
 
+        // --------------------------------------------------------------------------
+        // Initialization
+        // --------------------------------------------------------------------------
         /**
          * Initializes the UI components: result cards, dropdown items, and event listeners.
          */
@@ -161,6 +178,9 @@
             });
         }
 
+        // --------------------------------------------------------------------------
+        // Formatting
+        // --------------------------------------------------------------------------
         /**
          * Formats a number for display, using scientific notation for extreme values
          * and fixed precision for standard ranges to ensure readability.
@@ -174,6 +194,9 @@
             return parseFloat(num.toPrecision(6)).toString();
         }
 
+        // --------------------------------------------------------------------------
+        // UI Update Logic
+        // --------------------------------------------------------------------------
         /**
          * Updates the visibility of result cards based on user selection and current input unit.
          * This function handles DOM layout changes (showing/hiding elements) and is separated
@@ -252,6 +275,9 @@
             }
         }
 
+        // --------------------------------------------------------------------------
+        // Event Listeners
+        // --------------------------------------------------------------------------
         inputValue.addEventListener('input', updateValues);
         inputUnitSelect.addEventListener('change', () => {
             updateVisibility();
@@ -263,6 +289,9 @@
             inputValue.focus();
         });
 
+        // --------------------------------------------------------------------------
+        // Initial Execution
+        // --------------------------------------------------------------------------
         init();
         updateVisibility();
         updateValues();

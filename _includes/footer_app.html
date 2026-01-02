@@ -2,7 +2,7 @@
 {%- elsif path[1] == "about" and path[2] != nil -%}{%- assign about_section = "about_home_false" -%}{%- endif -%}
 <div id="app" class="container {{ about_section }}" style="display: none;">
     <div class="board">
-        <div class="boardtitle"><i class="bi bi-info-circle"></i> About</div>
+        <div class="boardtitle">Useful Links</div>
         <a class="card" href="about/faqs">Frequently Asked Questions</a>
         <a class="card" href="about/contribute">Contribution Guide</a>
         <a class="card" href="about/terms">Terms of Use</a>
@@ -10,13 +10,13 @@
         <a class="card" href="about/disclaimer">Disclaimer</a>
     </div>
     <div class="board">
-        <div class="boardtitle"><i class="bi bi-link"></i> Social Handles</div>
+        <div class="boardtitle">Social Handles</div>
         <a class="card" href="{{ site.data.url.linkedin }}">LinkedIn</a>
         <a class="card" href="{{ site.data.url.github }}">GitHub</a>
         <a class="card" href="{{ site.data.url.discord }}">Discord</a>
     </div>
     <div class="board">
-        <div class="boardtitle"><i class="bi bi-gear-wide-connected"></i> App Settings</div>
+        <div class="boardtitle">App Settings</div>
         <a id="version" class="card disabled"></a>
         <a id="cache" class="card" href="clear:">Clear: Cache and History</a>
         <a id="app-theme-switcher" class="card" style="cursor: pointer;">Theme: System Default</a>

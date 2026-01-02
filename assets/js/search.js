@@ -1,8 +1,24 @@
-// Externalized search JS for GoDarda
-// Expects `window.gd_path1` to be set by the page (Liquid assigns it in the include).
+/**
+ * GoDarda - Search Functionality (search.js)
+ *
+ * Purpose:
+ * This file implements the client-side search engine for the GoDarda website.
+ * It handles lazy loading of search indices, fuzzy matching (Levenshtein),
+ * auto-correction, and dynamic result rendering.
+ *
+ * Key Features:
+ * 1. Lazy Loading: Fetches search data (JSON) only when the user interacts with the input.
+ * 2. Fuzzy Search: Uses Levenshtein distance for typo tolerance and auto-correction.
+ * 3. Real-time Feedback: Provides a progress bar during data fetch and debounced result rendering.
+ * 4. Context Awareness: Filters results based on the current page section (e.g., /learn, /tools).
+ */
+
 (function () {
     document.addEventListener('DOMContentLoaded', function () {
         const containerId = window.gd_path1;
+        // --------------------------------------------------------------------------
+        // Initial Setup & DOM Caching
+        // --------------------------------------------------------------------------
         const container = document.getElementById(containerId);
         if (!container) return;
 
@@ -12,10 +28,16 @@
         if (!input) return;
         const inputContainer = document.getElementById('GDS_input-' + containerId);
 
+        // --------------------------------------------------------------------------
+        // Utilities
+        // --------------------------------------------------------------------------
         // Utilities (used by loader and renderers)
         function escapeRegExp(s) { return s.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&'); }
         function escapeHtml(unsafe) { return (unsafe || '').replace(/[&<>\"]/g, function (ch) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]; }); }
 
+        // --------------------------------------------------------------------------
+        // Data Loading & State
+        // --------------------------------------------------------------------------
         // Lazy-loaded items. We avoid parsing JSON blobs until the user actually
         // interacts with the search input to keep initial page load light.
         let items = null; // null = not loaded; [] = loaded but empty. This will hold the search items.
@@ -134,6 +156,9 @@
             return loadPromise;
         }
 
+        // --------------------------------------------------------------------------
+        // Fuzzy Search & Auto-Correction
+        // --------------------------------------------------------------------------
         let vocabulary = new Set();
 
         function levenshtein(a, b) {
@@ -175,6 +200,9 @@
             return bestWord;
         }
 
+        // --------------------------------------------------------------------------
+        // Data Processing & Scoring
+        // --------------------------------------------------------------------------
         function processItems(data) {
             vocabulary.clear();
             const seen = new Map();
@@ -251,6 +279,9 @@
             return { score: 0, type: null };
         }
 
+        // --------------------------------------------------------------------------
+        // Result Rendering
+        // --------------------------------------------------------------------------
         // Highlighting: use pre-escaped safeTitle to avoid re-escaping repeatedly.
         function buildHighlighted(item, qtrim, tokens, type) {
             const safe = item.safeTitle;
@@ -369,6 +400,9 @@
             });
         }
 
+        // --------------------------------------------------------------------------
+        // Event Listeners
+        // --------------------------------------------------------------------------
         // Attach a debounced input handler to the search input (id="GDSInput").
         // We debounce to avoid running expensive work on every keystroke.
         let tid = null;
@@ -416,6 +450,9 @@
 
     });
 
+    // --------------------------------------------------------------------------
+    // Global Helper Functions
+    // --------------------------------------------------------------------------
     // Clear the search input and hide any visible results or icons.
     window.clear_input = function () {
         const inputEl = document.getElementById("GDSInput");
@@ -447,6 +484,9 @@
         }
     };
 
+    // --------------------------------------------------------------------------
+    // jQuery-specific Security
+    // --------------------------------------------------------------------------
     if (typeof jQuery !== 'undefined') {
         jQuery(document).ready(function () {
             jQuery("html").on("contextmenu", function (e) { return false; });

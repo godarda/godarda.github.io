@@ -1,41 +1,98 @@
-// Frame busting protection: Ensures the site is not loaded within an iframe.
+/**
+ * GoDarda - Main JavaScript File (gd.js)
+ *
+ * Purpose:
+ * This file serves as the central hub for client-side interactivity and logic
+ * on the GoDarda website. It orchestrates UI behaviors, event handling,
+ * security measures, and third-party integrations to ensure a smooth and
+ * secure user experience.
+ *
+ * Key Features and Responsibilities:
+ * 1. Security Enhancements:
+ *    - Frame Busting: Prevents the site from being loaded inside iframes (clickjacking protection).
+ *    - Input Protection: Disables specific keyboard shortcuts (F12, Ctrl+U, etc.) and context menus.
+ *
+ * 2. User Interface & Interaction:
+ *    - Sidebar Management: Handles toggling and collapsing of left/right sidebars.
+ *    - Swipe Gestures: Implements touch-based swipe detection for mobile sidebar navigation.
+ *    - Scroll Behaviors: Manages "Back to Top" visibility, scroll-triggered modals, and active item highlighting.
+ *    - Theme Switcher: Controls Light/Dark mode toggling and persistence via local storage.
+ *
+ * 3. Utility Functions:
+ *    - Clipboard Integration: Provides "Copy to Clipboard" functionality for code blocks.
+ *    - User Agent Detection: Identifies Android WebViews or specific app environments.
+ *    - Analytics: Configures Google Analytics (GA4) for traffic tracking.
+ */
+
+// --------------------------------------------------------------------------
+// Frame Busting
+// --------------------------------------------------------------------------
+
+// Ensures the site is not loaded within an iframe, which can be a security risk (clickjacking).
 try {
-    self !== top && (top.location = self.location);
+    if (self !== top) {
+        top.location = self.location;
+    }
 } catch (e) {
-    document.documentElement.style.display = 'none';
+    // If the browser's security policy blocks access, hide the page content.
+    $(function() { $('html').hide(); });
 }
 
-// Touch event variables for swipe detection
+// --------------------------------------------------------------------------
+// Swipe Actions
+// --------------------------------------------------------------------------
+
+// Global variables to store touch coordinates for swipe detection.
 var xDown = null, yDown = null, xUp = null, yUp = null;
-document.addEventListener('touchstart', touchstart, { passive: true });
-document.addEventListener('touchmove', touchmove, { passive: true });
-document.addEventListener('touchend', touchend, { passive: true });
 
-// Capture the starting coordinates of a touch event
-function touchstart(evt) { const firstTouch = (evt.touches || evt.originalEvent.touches)[0]; xDown = firstTouch.clientX; yDown = firstTouch.clientY; }
+function touchstart(evt) {
+    const firstTouch = (evt.touches || evt.originalEvent.touches)[0];
+    xDown = firstTouch.clientX;
+    yDown = firstTouch.clientY;
+    xUp = null; yUp = null;
+}
 
-// Track the movement coordinates during a touch event
-function touchmove(evt) { if (!xDown || !yDown) return; xUp = evt.touches[0].clientX; yUp = evt.touches[0].clientY; }
+function touchmove(evt) {
+    if (!xDown || !yDown) return;
+    xUp = (evt.originalEvent || evt).touches[0].clientX;
+    yUp = (evt.originalEvent || evt).touches[0].clientY;
+}
 
-// Handle the end of a touch event to determine swipe direction
 function touchend() {
+    // Prevent swipe actions if a modal is open
+    if ($('body').hasClass('modal-open')) {
+        xDown = null, yDown = null;
+        return;
+    }
+    if (!xUp || !yUp) return;
     var xDiff = xUp - xDown, yDiff = yUp - yDown;
     // Check if the horizontal movement is significant enough to be considered a swipe
     if ((Math.abs(xDiff) > Math.abs(yDiff)) && (Math.abs(xDiff) > 0.6 * document.body.clientWidth)) {
         if (xDiff > 0) {
             // Swipe right: Open left sidebar
-            $('.leftsidebar-collapse').toggleClass('open')
-        }
-        else {
+            $('.leftsidebar-collapse').toggleClass('open');
+        } else {
             // Swipe left: Close left sidebar
-            $('.leftsidebar-collapse').removeClass('open')
+            $('.leftsidebar-collapse').removeClass('open');
         }
     }
     xDown = null, yDown = null;
 }
 
-// Sidebar and UI interaction handlers
+// --------------------------------------------------------------------------
+// DOM Ready - Main Execution
+// --------------------------------------------------------------------------
+
 $(function () {
+    // Attach swipe event listeners to the document.
+    $(document).on('touchstart', touchstart);
+    $(document).on('touchmove', touchmove);
+    $(document).on('touchend', touchend);
+
+    // --------------------------------------------------------------------------
+    // UI Initialization & Event Handlers
+    // --------------------------------------------------------------------------
+
     // Force the default cursor to prevent the I-beam from appearing over text.
     $('body').css('cursor', 'default');
     // Ensure input fields and textareas still show the text cursor for editing.
@@ -43,166 +100,182 @@ $(function () {
 
     // Toggle left sidebar visibility
     $('[data-bs-toggle="leftsidebar"]').on('click', function () {
-        $('.rightsidebar-collapse').removeClass('open')
-        $('.leftsidebar-collapse').toggleClass('open')
-    })
+        $('.rightsidebar-collapse').removeClass('open');
+        $('.leftsidebar-collapse').toggleClass('open');
+    });
     // Toggle right sidebar visibility
     $('[data-bs-toggle="rightsidebar"]').on('click', function () {
-        $('.leftsidebar-collapse').removeClass('open')
-        $('.rightsidebar-collapse').toggleClass('open')
-    })
+        $('.leftsidebar-collapse').removeClass('open');
+        $('.rightsidebar-collapse').toggleClass('open');
+    });
     // Collapse all sidebars
     $('[data-bs-toggle="collapseall"]').on('click', function () {
-        $('.leftsidebar-collapse').removeClass('open')
-        $('.rightsidebar-collapse').removeClass('open')
-    })
+        $('.leftsidebar-collapse').removeClass('open');
+        $('.rightsidebar-collapse').removeClass('open');
+    });
     // Prevent dragging of anchor tags
     $('html').on('dragstart', 'a', function () { return false; });
-});
 
-// Disable specific keyboard shortcuts, right-click, and text selection
-$(document).on('keydown', function (event) {
-    if (event.keyCode == 123 || // F12
-        (event.ctrlKey && event.shiftKey && event.keyCode == 73) || // Ctrl+Shift+I
-        (event.ctrlKey && event.keyCode == 85) || // Ctrl+U
-        (event.ctrlKey && event.keyCode == 83)) { // Ctrl+S
+    // --------------------------------------------------------------------------
+    // Security Measures
+    // --------------------------------------------------------------------------
+
+    // Disable specific keyboard shortcuts, right-click, and text selection
+    $(document).on('keydown', function (event) {
+        if (event.keyCode === 123 || // F12
+            (event.ctrlKey && event.shiftKey && event.keyCode === 73) || // Ctrl+Shift+I
+            (event.ctrlKey && event.keyCode === 85) || // Ctrl+U
+            (event.ctrlKey && event.keyCode === 83)) { // Ctrl+S
+            return false;
+        }
+    }).on('contextmenu selectstart', function () {
         return false;
-    }
-}).on('contextmenu selectstart', function () {
-    return false;
-});
+    });
 
-/* --------------------------------------------------------------------------------------------- */
-// User Agent Detection
-/* --------------------------------------------------------------------------------------------- */
+    // --------------------------------------------------------------------------
+    // Scroll-based Behaviors
+    // --------------------------------------------------------------------------
 
-const navigator = window.navigator;
-window.userAgent = navigator.userAgent;
-const normalizedUserAgent = window.userAgent.toLowerCase();
-const standalone = navigator.standalone;
-const isAndroid = /android/.test(normalizedUserAgent);
-// Detect if running inside an Android WebView
-window.isWebview = (isAndroid && /; wv\)/.test(normalizedUserAgent));
-window.isGoDardaApp = window.isWebview || (window.userAgent && window.userAgent.includes("GoDarda"));
-
-/* --------------------------------------------------------------------------------------------- */
-// Scroll and Modal Logic
-/* --------------------------------------------------------------------------------------------- */
-
-$(document).ready(function () {
     // Smooth scroll to top
-    $('.back-to-top').click(function () { $('html, body').animate({ scrollTop: 0 }, 100); });
-    
+    $('.back-to-top').on('click', function () {
+        $('html, body').animate({ scrollTop: 0 }, 100);
+    });
+
     // Scroll active sidebar item into view on page load.
-    var activeItems = document.querySelectorAll('.sidebar-item-active');
-    if (activeItems.length > 0) {
-      var lastActiveItem = activeItems[activeItems.length - 1];
-      lastActiveItem.scrollIntoView({ block: 'center', behavior: 'auto' });
+    var $activeItems = $('.sidebar-item-active');
+    if ($activeItems.length > 0) {
+        var lastActiveItem = $activeItems.last()[0];
+        lastActiveItem.scrollIntoView({ block: 'center', behavior: 'auto' });
     }
 
     var today = new Date().toLocaleDateString();
     var is_shown = sessionStorage.getItem('status');
-    var backToTop = document.getElementById("backtotop");
-    var leftSidebar = $('.leftsidebar-collapse');
-    var rightSidebar = $('.rightsidebar-collapse');
+    var $backToTop = $("#backtotop");
+    var $leftSidebar = $('.leftsidebar-collapse');
+    var $rightSidebar = $('.rightsidebar-collapse');
+    var $staticBackdrop = $('#staticBackdrop');
 
-    $(window).scroll(function (e) {
+    $(window).on('scroll', function () {
         var scrollTop = $(window).scrollTop();
-        
+
         // Show modal once per day when user scrolls past 50% of the page
-        if (is_shown != today) {
+        if (is_shown !== today) {
             var scrollPercent = ((scrollTop) / ($(document).height() - $(window).height())) * 100;
             if (scrollPercent >= 50) {
-                $('#staticBackdrop').modal('show');
+                $staticBackdrop.modal('show');
                 sessionStorage.setItem('status', today);
                 is_shown = today;
             }
         }
 
         // Toggle "Back to Top" button visibility
-        if (scrollTop > 100) {
-            if (backToTop.style.display !== "block") backToTop.style.display = "block";
-        } else {
-            if (backToTop.style.display !== "none") backToTop.style.display = "none";
-        }
-        
+        $backToTop.toggle(scrollTop > 100);
+
         // Auto-close sidebars on scroll
-        if (leftSidebar.hasClass('open')) {
-            leftSidebar.removeClass('open')
+        if ($leftSidebar.hasClass('open')) {
+            $leftSidebar.removeClass('open');
         }
-        if (rightSidebar.hasClass('open')) {
-            rightSidebar.removeClass('open')
+        if ($rightSidebar.hasClass('open')) {
+            $rightSidebar.removeClass('open');
+        }
+    });
+
+    // --------------------------------------------------------------------------
+    // Theme Management (Dark/Light Mode)
+    // --------------------------------------------------------------------------
+
+    // Updates the theme switcher UI to reflect the active theme.
+    const showActiveTheme = (theme, focus = false) => {
+        const $themeCard = $('#app-theme-switcher');
+        if ($themeCard.length) {
+            if (theme === 'auto') {
+                $themeCard.text('Theme: System Default');
+            } else if (theme === 'dark') {
+                $themeCard.text('Theme: Dark');
+            } else {
+                $themeCard.text('Theme: Light');
+            }
+        }
+
+        const $themeSwitcher = $('#bd-theme');
+        if (!$themeSwitcher.length) {
+            return;
+        }
+
+        const $themeSwitcherText = $('#bd-theme-text');
+        const $activeThemeIcon = $('#bd-theme-icon');
+        const $btnToActive = $(`[data-bs-theme-value="${theme}"]`);
+        const svgOfActiveBtn = $btnToActive.find('i').attr('class');
+
+        $('[data-bs-theme-value]').removeClass('active').attr('aria-pressed', 'false');
+
+        $btnToActive.addClass('active').attr('aria-pressed', 'true');
+        $activeThemeIcon.attr('class', svgOfActiveBtn);
+        const themeSwitcherLabel = `${$themeSwitcherText.text()} (${$btnToActive.data('bs-theme-value')})`;
+        $themeSwitcher.attr('aria-label', themeSwitcherLabel);
+
+        if (focus) {
+            $themeSwitcher.focus();
+        }
+    };
+
+    // Initialize theme on DOM load.
+    const storedTheme = getStoredTheme() || 'auto';
+    showActiveTheme(storedTheme);
+    $('[data-bs-theme-value], #app-theme-switcher').on('click', function (event) {
+        event.preventDefault();
+        let theme = $(this).data('bs-theme-value');
+        // If no specific value is set, switch between light/dark
+        if (!theme) {
+            const stored = getStoredTheme() || 'auto';
+            const cycles = ['auto', 'light', 'dark'];
+            theme = cycles[(cycles.indexOf(stored) + 1) % cycles.length];
+        }
+        setStoredTheme(theme);
+        setTheme(theme);
+        showActiveTheme(theme, $(this).is('[data-bs-theme-value]'));
+    });
+
+    // --------------------------------------------------------------------------
+    // Clipboard Functionality
+    // --------------------------------------------------------------------------
+
+    // Handles the "copy" button on code blocks.
+    $('.copy-btn').on('click', function () {
+        const $button = $(this);
+        const $card = $button.closest('.card');
+        if ($card.length) {
+            const $pre = $card.next('pre');
+            if ($pre.length) {
+                const pageUrl = window.location.href;
+                const codeToCopy = pageUrl + '\n\n' + $pre.text();
+                navigator.clipboard.writeText(codeToCopy).then(() => {
+                    $button.addClass('show-tooltip').attr('title', 'Copied!');
+                    setTimeout(() => {
+                        $button.removeClass('show-tooltip').attr('title', 'Copy code');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
         }
     });
 });
 
-/* --------------------------------------------------------------------------------------------- */
-// Theme Management (Dark/Light Mode)
-/* --------------------------------------------------------------------------------------------- */
-// Update the theme switcher UI to reflect the active theme
-const showActiveTheme = (theme, focus = false) => {
-    const themeCard = document.querySelector('#app-theme-switcher');
-    if (themeCard) {
-        if (theme === 'auto') {
-            themeCard.textContent = 'Theme: System Default';
-        } else if (theme === 'dark') {
-            themeCard.textContent = 'Theme: Dark';
-        } else {
-            themeCard.textContent = 'Theme: Light';
-        }
-    }
+// --------------------------------------------------------------------------
+// User Agent Detection
+// --------------------------------------------------------------------------
 
-    const themeSwitcher = document.querySelector('#bd-theme')
-    if (!themeSwitcher) {
-        return
-    }
+window.userAgent = navigator.userAgent;
+const normalizedUserAgent = (window.userAgent || '').toLowerCase();
+const isAndroid = /android/.test(normalizedUserAgent);
+// Detect if running inside an Android WebView
+window.isWebview = (isAndroid && /; wv\)/.test(normalizedUserAgent));
+window.isGoDardaApp = window.isWebview || (window.userAgent && window.userAgent.includes("GoDarda"));
 
-    const themeSwitcherText = document.querySelector('#bd-theme-text')
-    const activeThemeIcon = document.querySelector('#bd-theme-icon')
-    const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`)
-    const svgOfActiveBtn = btnToActive.querySelector('i').getAttribute('class')
-
-    document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
-        element.classList.remove('active')
-        element.setAttribute('aria-pressed', 'false')
-    })
-
-    btnToActive.classList.add('active')
-    btnToActive.setAttribute('aria-pressed', 'true')
-    activeThemeIcon.setAttribute('class', svgOfActiveBtn)
-    const themeSwitcherLabel = `${themeSwitcherText.textContent} (${btnToActive.dataset.bsThemeValue})`
-    themeSwitcher.setAttribute('aria-label', themeSwitcherLabel)
-
-    if (focus) {
-        themeSwitcher.focus()
-    }
-}
-
-// Initialize theme on DOM load
-window.addEventListener('DOMContentLoaded', () => {
-    const storedTheme = getStoredTheme() || 'auto';
-    showActiveTheme(storedTheme);
-    document.querySelectorAll('[data-bs-theme-value], #app-theme-switcher')
-        .forEach(toggle => {
-            toggle.addEventListener('click', (event) => {
-                event.preventDefault()
-                let theme = toggle.getAttribute('data-bs-theme-value')
-                // If no specific value is set, switch between light/dark
-                if (!theme) {
-                    const stored = getStoredTheme() || 'auto'
-                    const cycles = ['auto', 'light', 'dark']
-                    theme = cycles[(cycles.indexOf(stored) + 1) % cycles.length]
-                }
-                setStoredTheme(theme)
-                setTheme(theme)
-                showActiveTheme(theme, toggle.matches('[data-bs-theme-value]'))
-            })
-        })
-})
-
-/* --------------------------------------------------------------------------------------------- */
+// --------------------------------------------------------------------------
 // Google Analytics Configuration
-/* --------------------------------------------------------------------------------------------- */
+// --------------------------------------------------------------------------
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
@@ -215,34 +288,7 @@ gtag('config', 'G-8ZJLP1KH1R', {
     }
 });
 
-/* --------------------------------------------------------------------------------------------- */
+// --------------------------------------------------------------------------
 
+// Set the current year for use in the footer or other parts of the site.
 var year = new Date().getFullYear();
-
-/* --------------------------------------------------------------------------------------------- */
-// Copy to Clipboard for Code Blocks
-/* --------------------------------------------------------------------------------------------- */
-document.addEventListener('DOMContentLoaded', function() {
-    const copyButtons = document.querySelectorAll('.copy-btn');
-
-    copyButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const card = this.closest('.card');
-            if (card) {
-                const pre = card.nextElementSibling;
-                if (pre && pre.tagName === 'PRE') {
-                    const pageUrl = window.location.href;
-                    const codeToCopy = pageUrl + '\n\n' + pre.innerText;
-                    navigator.clipboard.writeText(codeToCopy).then(() => {
-                        this.classList.add('show-tooltip');
-                        this.setAttribute('title', 'Copied!');
-                        setTimeout(() => {
-                            this.classList.remove('show-tooltip');
-                            this.setAttribute('title', 'Copy code');
-                        }, 2000);
-                    }).catch(err => { console.error('Failed to copy text: ', err); });
-                }
-            }
-        });
-    });
-});
