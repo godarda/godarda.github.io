@@ -95,7 +95,7 @@ segments:
     url: converters
     parent: " / Converters "
 
-  - title: Programming
+  - title: Programming and Tutorials
     url: learn
     parent: " / Learn "
     
