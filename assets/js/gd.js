@@ -228,7 +228,7 @@ $(function () {
         // If no specific value is set, switch between light/dark
         if (!theme) {
             const stored = getStoredTheme() || 'auto';
-            const cycles = ['auto', 'light', 'dark'];
+            const cycles = ['auto', 'dark', 'light'];
             theme = cycles[(cycles.indexOf(stored) + 1) % cycles.length];
         }
         setStoredTheme(theme);
