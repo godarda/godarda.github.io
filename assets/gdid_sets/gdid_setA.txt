@@ -4746,9 +4746,9 @@ gdwazdq - pages/learn/java/strings/gdwazdq.html
 gdyfzdp - pages/learn/java/strings/gdyfzdp.html
 gdygaza - pages/learn/java/strings/gdygaza.html
 gdymyew - pages/learn/java/strings/gdymyew.html
-gdadvew - pages/learn/julia/cli/gdadvew.html
-gdavgeq - pages/learn/julia/cli/gdavgeq.html
-gdxkekw - pages/learn/julia/cli/gdxkekw.html
+gdadvew - pages/learn/julia/fundamentals/gdadvew.html
+gdavgeq - pages/learn/julia/fundamentals/gdavgeq.html
+gdxkekw - pages/learn/julia/fundamentals/gdxkekw.html
 gdezzvl - pages/learn/linux/bash/gdezzvl.html
 gdgitdy - pages/learn/linux/bash/gdgitdy.html
 gdldisa - pages/learn/linux/bash/gdldisa.html
