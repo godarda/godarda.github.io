@@ -1,17 +1,17 @@
 grandparent:
-- parent: Julia Command Line Interface
-  subtree: CLI
-  url: julia/cli
+- parent: Julia Fundamentals
+  subtree: Fundamentals
+  url: julia/fundamentals
   children:
-  - url: julia/cli/gdxkekw
+  - url: julia/fundamentals/gdxkekw
     title: Julia Arithmetic Operations
-  - url: julia/cli/gdavgeq
+  - url: julia/fundamentals/gdavgeq
     title: Julia Logical Operations
-  - url: julia/cli/gdadvew
+  - url: julia/fundamentals/gdadvew
     title: Julia Exponents and Logarithms
 sidenav:
 - parent: Julia Programming
   url: julia
   children:
-  - title: Julia Command Line Interface
-    url: julia/cli
+  - title: Julia Fundamentals
+    url: julia/fundamentals

@@ -19,7 +19,7 @@
             <a href=""><img id="logo" alt="Logo" width="30" height="30" src="{{ site.icon | relative_url }}"></a>
             <a id="fc-{{ path[1] }}" href="{{ path[1] }}">{{ parent }}</a>
             {%- if path[2] != nil -%}
-                <a id="fc-{{ path[1] }}" href="{{ path[1] }}/{{ path[2] }}">{{ child }} / </a>
+                <a id="fc-{{ path[1] }}" href="{{ path[1] }}/{{ path[2] }}">/ {{ child }}</a>
             {%- endif -%}
         </div>
         <button id="lsidebar" class="navbar-toggler p-0" type="button" data-bs-toggle="leftsidebar" data-bs-target="#leftsidebar" aria-label="lsidebar"><span class="navbar-toggler-icon"></span></button>
@@ -109,9 +109,11 @@
                 <div class="board"><div class="boardtitle">{{ parent.parent }}</div>{%- for child in parent.children -%}<a class="card" href="{{ child.url }}">{{ child.title }}</a>{%- endfor -%}</div>
                 {%- endif -%}
             {%- endif -%}{%- endif -%}{%- endfor -%}
-            {%- if path[2] != nil -%}{%- include comments.html -%}{%- endif -%}
-            {% include pagination.html %}
-            {% include ads.html %}
+            {%- if path[1] != nil and path[1] != "about" -%}
+                {%- include comments.html -%}
+                {% include pagination.html %}
+                {% include ads.html %}
+            {%- endif -%}
         </div>
     </main>
     {%- endunless -%}
