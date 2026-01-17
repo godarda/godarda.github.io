@@ -57,13 +57,6 @@
     <base href="{{ '/' | relative_url }}">
 </head>
 
-{%- comment -%}
-    Data-driven segment lookup with explicit per-segment `parent` support.
-    Uses `site.data.gd.segments` for titles and `site.data.<seg_key>` for the
-    segment's dataset (grandparent/children). If a segment entry includes a
-    `parent` field, that exact string is used (preserves values like ` / DS / `).
-{%- endcomment -%}
-
 {%- assign path = page.url | split: '/' -%}
 {%- assign seg_key = path[1] | default: '' -%}
 {%- assign seg_obj = site.data.gd.segments | where: 'url', seg_key | first -%}
@@ -78,8 +71,21 @@
 {%- endif -%}
 
 {%- assign gd = nil -%}
-{%- if seg_key != '' and site.data[seg_key] -%}
-    {%- assign gd = site.data[seg_key] -%}
+{%- if seg_key != '' -%}
+    {%- if site.data[seg_key] -%}
+        {%- assign gd_temp = site.data[seg_key] -%}
+        {%- if gd_temp.grandparent -%}{%- assign gd = gd_temp -%}
+        {%- elsif gd_temp[seg_key] and gd_temp[seg_key].grandparent -%}{%- assign gd = gd_temp[seg_key] -%}{%- endif -%}
+    {%- endif -%}
+    {%- if gd == nil -%}
+        {%- for data_file in site.data -%}
+            {%- assign sub_data = data_file[1] -%}
+            {%- if sub_data[seg_key] and sub_data[seg_key].grandparent -%}
+                {%- assign gd = sub_data[seg_key] -%}
+                {%- break -%}
+            {%- endif -%}
+        {%- endfor -%}
+    {%- endif -%}
 {%- endif -%}
 
 {%- if gd -%}

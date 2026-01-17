@@ -5,12 +5,14 @@ permalink: /search.json
 {
   "config": {
     "learn": [
-      {%- for segment in site.data.learn.segments -%}
+      {%- assign learn_data = site.data.learn.learn -%}
+      {%- for segment in learn_data.segments -%}
         "{{ segment.url }}"{%- unless forloop.last -%},{%- endunless -%}
       {%- endfor -%}
     ],
     "tools": [
-      {%- for segment in site.data.tools.segments -%}
+      {%- assign tools_data = site.data.tools.tools -%}
+      {%- for segment in tools_data.segments -%}
         "{{ segment.url }}"{%- unless forloop.last -%},{%- endunless -%}
       {%- endfor -%}
     ]
