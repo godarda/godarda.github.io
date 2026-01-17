@@ -4,6 +4,23 @@ title: Pressure Converter
 description: "Instantly convert pressure between pascals, kilopascals, bars, atmospheres, pounds per square inch, and more. A simple and fast pressure conversion tool."
 ---
 
+{% capture help_content %}
+<p>The <strong>Pressure Converter</strong> is a specialized tool designed to perform instant conversions between various units of pressure. Whether for meteorology, engineering, or scientific research, it provides accurate results across a wide range of measurements.</p>
+<h6><i class="bi bi-sliders"></i> How to Use</h6>
+<ul>
+    <li><strong>Input Value:</strong> Enter the pressure value you wish to convert in the input field.</li>
+    <li><strong>Select Unit:</strong> Choose the starting unit (e.g., Pascal, Bar) from the dropdown next to the input.</li>
+    <li><strong>Customize Results:</strong> Use the "Select Conversion" dropdown to choose which target units to display.</li>
+</ul><hr>
+<h6><i class="bi bi-speedometer"></i> Supported Units</h6>
+<p class="small text-muted">This tool supports conversion between the following pressure units:</p>
+<ul>
+    <li><strong>Metric / SI:</strong> Pascal (Pa), Kilopascal (kPa), Megapascal (MPa), Bar (bar), Millibar (mbar)</li>
+    <li><strong>Imperial / US:</strong> Pound per square inch (psi)</li>
+    <li><strong>Atmosphere / Other:</strong> Standard Atmosphere (atm), Torr (Torr), Millimeter of Mercury (mmHg)</li>
+</ul>
+{% endcapture %}
+
 {% include converter.html %}
 <script>
 (function () {
@@ -21,7 +38,7 @@ description: "Instantly convert pressure between pascals, kilopascals, bars, atm
     };
 
     const defaultUnit = 'pa';
-    const defaultSelectedUnits = ['bar', 'psi', 'atm'];
+    const defaultSelectedUnits = ['bar', 'psi'];
 
     // Initialize the shared converter logic
     setupConverter({

@@ -4,6 +4,23 @@ title: Angle Converter
 description: "Instantly convert angles between degrees, radians, gradians, and more. A simple and fast angle conversion tool."
 ---
 
+{% capture help_content %}
+<p>The <strong>Angle Converter</strong> is a precise tool designed to facilitate instant conversions between various angular units. Whether for geometry, trigonometry, or navigation, it provides accurate results across a wide range of measurements.</p>
+<h6><i class="bi bi-sliders"></i> How to Use</h6>
+<ul>
+    <li><strong>Input Value:</strong> Enter the angle you wish to convert in the input field.</li>
+    <li><strong>Select Unit:</strong> Choose the starting unit (e.g., Degree, Radian) from the dropdown next to the input.</li>
+    <li><strong>Customize Results:</strong> Use the "Select Conversion" dropdown to choose which target units to display.</li>
+</ul><hr>
+<h6><i class="bi bi-compass"></i> Supported Units</h6>
+<p class="small text-muted">This tool supports conversion between the following angular units:</p>
+<ul>
+    <li><strong>Common / SI:</strong> Degree (°), Radian (rad), Gradian (grad), Milliradian (mrad)</li>
+    <li><strong>Astronomical / Navigation:</strong> Minute of arc (′), Second of arc (″)</li>
+    <li><strong>Other:</strong> Turn (tr)</li>
+</ul>
+{% endcapture %}
+
 {% include converter.html %}
 <script>
 (function () {

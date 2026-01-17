@@ -4,6 +4,22 @@ title: Fuel Consumption Converter
 description: "Instantly convert fuel consumption between liters per 100 kilometers, miles per gallon, and more. A simple and fast fuel consumption conversion tool."
 ---
 
+{% capture help_content %}
+<p>The <strong>Fuel Consumption Converter</strong> is a practical tool designed to compare fuel efficiency across different international standards. Whether you are calculating trip costs, comparing vehicle specifications, or converting between metric and imperial systems, it provides accurate results instantly.</p>
+<h6><i class="bi bi-sliders"></i> How to Use</h6>
+<ul>
+    <li><strong>Input Value:</strong> Enter the fuel consumption value you wish to convert in the input field.</li>
+    <li><strong>Select Unit:</strong> Choose the starting unit (e.g., MPG (US), L/100km) from the dropdown next to the input.</li>
+    <li><strong>Customize Results:</strong> Use the "Select Conversion" dropdown to choose which target units to display.</li>
+</ul><hr>
+<h6><i class="bi bi-fuel-pump"></i> Supported Units</h6>
+<p class="small text-muted">This tool supports conversion between the following fuel efficiency units:</p>
+<ul>
+    <li><strong>Metric:</strong> Liters per 100 Kilometers (L/100km), Kilometers per Liter (km/L)</li>
+    <li><strong>Imperial / US:</strong> Miles per Gallon (US), Miles per Gallon (Imperial)</li>
+</ul>
+{% endcapture %}
+
 {% include converter.html %}
 <script>
 (function () {

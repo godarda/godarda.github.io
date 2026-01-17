@@ -4,6 +4,22 @@ title: Frequency Converter
 description: "Instantly convert frequency measurements between different units. A simple and fast frequency conversion tool."
 ---
 
+{% capture help_content %}
+<p>The <strong>Frequency Converter</strong> is a precise tool designed to facilitate instant conversions between various frequency units. Whether for electronics, acoustics, or mechanical engineering, it provides accurate results across a wide range of cyclic measurements.</p>
+<h6><i class="bi bi-sliders"></i> How to Use</h6>
+<ul>
+    <li><strong>Input Value:</strong> Enter the frequency you wish to convert in the input field.</li>
+    <li><strong>Select Unit:</strong> Choose the starting unit (e.g., Hertz, Kilohertz) from the dropdown next to the input.</li>
+    <li><strong>Customize Results:</strong> Use the "Select Conversion" dropdown to choose which target units to display.</li>
+</ul><hr>
+<h6><i class="bi bi-activity"></i> Supported Units</h6>
+<p class="small text-muted">This tool supports conversion between the following frequency units:</p>
+<ul>
+    <li><strong>SI / Metric:</strong> Hertz (Hz), Kilohertz (kHz), Megahertz (MHz), Gigahertz (GHz), Terahertz (THz)</li>
+    <li><strong>Rotational / Angular:</strong> Revolutions per minute (rpm), Radian per second (rad/s), Degree per second (deg/s)</li>
+</ul>
+{% endcapture %}
+
 {% include converter.html %}
 <script>
 (function () {

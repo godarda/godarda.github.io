@@ -60,7 +60,6 @@
                 {%- if path[1] != "about" -%}
                     <li class="nav-item"><a class="nav-link" href="about"><i class="navsvg bi bi-info-circle"></i> About Us</a></li>
                 {%- endif -%}
-                <li class="nav-item"><a style="cursor: pointer;" class="nav-link" data-bs-toggle="modal" data-bs-target="#appmodal"><i class="navsvg bi bi-android2"></i> Android App</a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" aria-label="theme (dark)"><i class="bi bi-moon-stars me-2" id="bd-theme-icon"></i><span id="bd-theme-text">Theme</span></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme" style="top: 45px;">
@@ -132,7 +131,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p class="h6 text-center">Thank you for visiting GoDarda!</p>
+                <p class="h6">Thank you for visiting GoDarda!</p>
                 <p>If you've found GoDarda helpful, please consider supporting our mission to provide free, high-quality content for developers. Your support makes a difference!</p>
                 <p>Don't forget to show your appreciation by starring our repo, following us, and becoming a sponsor!</p>
             </div>
@@ -145,25 +144,6 @@
     </div>
 </div>
 {%- endif -%}
-
-<div class="modal fade" id="appmodal" data-bs-backdrop="static" data-bs-keyboard="false"
-    aria-labelledby="appmodalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="appmodalLabel"><i class="bi bi-android2"></i> GoDarda Android App</h5>
-            </div>
-            <div class="modal-body">Dear User, <br>We are grateful for your interest in the GoDarda Android app. We
-                intend to soon make it available on the Google Play Store. Currently, you need to install apk
-                manually. Would you like to get the app?<br>Minimum Requirement(s): Android 11</div>
-            <div class="modal-footer justify-content-center">
-                <a style="cursor: pointer;" class="btn btn-sm btn-outline-danger rounded-pill" data-bs-dismiss="modal"><i class="bi bi-cloud-slash"></i> No</a>
-                <a href="{{ site.data.url.android_app }}" class="btn btn-sm btn-outline-success rounded-pill"
-                    onclick="$('#appmodal').modal('hide');"><i class="bi bi-cloud-arrow-down"></i> Yes</a>
-            </div>
-        </div>
-    </div>
-</div>
 
 </body>
 </html>

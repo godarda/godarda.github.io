@@ -4,6 +4,22 @@ title: Magnetic Field Converter
 description: "Instantly convert magnetic field measurements between different units. A simple and fast magnetic field conversion tool."
 ---
 
+{% capture help_content %}
+<p>The <strong>Magnetic Field Converter</strong> is a specialized tool designed to perform instant conversions between various units of magnetic flux density. Whether for physics research, electrical engineering, or geophysics, it provides accurate results across a wide range of magnetic field measurements.</p>
+<h6><i class="bi bi-sliders"></i> How to Use</h6>
+<ul>
+    <li><strong>Input Value:</strong> Enter the magnetic field value you wish to convert in the input field.</li>
+    <li><strong>Select Unit:</strong> Choose the starting unit (e.g., Tesla, Gauss) from the dropdown next to the input.</li>
+    <li><strong>Customize Results:</strong> Use the "Select Conversion" dropdown to choose which target units to display.</li>
+</ul><hr>
+<h6><i class="bi bi-magnet"></i> Supported Units</h6>
+<p class="small text-muted">This tool supports conversion between the following magnetic field units:</p>
+<ul>
+    <li><strong>SI / Metric:</strong> Tesla (T), Millitesla (mT), Microtesla (µT), Nanotesla (nT), Weber per square meter (Wb/m²)</li>
+    <li><strong>CGS / Other:</strong> Gauss (G), Milligauss (mG), Gamma (γ)</li>
+</ul>
+{% endcapture %}
+
 {% include converter.html %}
 <script>
 (function () {

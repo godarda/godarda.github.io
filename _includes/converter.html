@@ -14,7 +14,7 @@
                 </select>
             </div>
 
-            <div class="mt-2 muted small">Tip: results update as you type. Use 'Select Conversion Options' to customize the output.</div>
+            <div class="mt-2 muted small">Tip: results update as you type. Use 'Select Conversions' to customize the output.</div>
             <div class="row g-2 mt-2">
                 <div class="col-auto">
                     <button id="btnClear" class="btn btn-sm btn-outline-secondary">Clear</button>
@@ -22,13 +22,33 @@
                 <div class="col-auto">
                     <div class="dropdown">
                         <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button" id="unitDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
-                            Select Conversion Options
+                            Select Conversions
                         </button>
                         <ul class="dropdown-menu" id="unitDropdownMenu" aria-labelledby="unitDropdownBtn">
                             <!-- Checkboxes will be injected here -->
                         </ul>
                     </div>
                 </div>
+                <div class="col-auto">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#helpModal">
+                        Help
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Help Modal -->
+<div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="helpModalLabel"><i class="bi bi-info-circle"></i> {{ page.title }} Help</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{ help_content }}
             </div>
         </div>
     </div>

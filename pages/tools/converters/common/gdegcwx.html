@@ -4,7 +4,24 @@ title: Area Converter
 description: "Instantly convert areas between square meters, square kilometers, square feet, square miles, acres, hectares, and more. A simple and fast area conversion tool."
 ---
 
+{% capture help_content %}
+<p>The <strong>Area Converter</strong> is a reliable tool designed to perform instant conversions between various metric and imperial area measurements. Whether for land surveying, construction planning, or academic use, it provides accurate results across a wide range of surface area units.</p>
+<h6><i class="bi bi-sliders"></i> How to Use</h6>
+<ul>
+    <li><strong>Input Value:</strong> Enter the area you wish to convert in the input field.</li>
+    <li><strong>Select Unit:</strong> Choose the starting unit (e.g., Square Meter, Acre) from the dropdown next to the input.</li>
+    <li><strong>Customize Results:</strong> Use the "Select Conversion" dropdown to choose which target units to display.</li>
+</ul><hr>
+<h6><i class="bi bi-bounding-box"></i> Supported Units</h6>
+<p class="small text-muted">This tool supports conversion between the following area units:</p>
+<ul>
+    <li><strong>Metric:</strong> Square Millimeter (mm²), Square Centimeter (cm²), Square Meter (m²), Hectare (ha), Square Kilometer (km²)</li>
+    <li><strong>Imperial / US:</strong> Square Inch (in²), Square Foot (ft²), Square Yard (yd²), Acre (ac), Square Mile (mi²)</li>
+</ul>
+{% endcapture %}
+
 {% include converter.html %}
+
 <script>
 (function () {
     // Configuration: Define units and their conversion factor to Square Meters (base unit)

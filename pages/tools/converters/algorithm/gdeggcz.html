@@ -5,6 +5,24 @@ description: "Convert strings to various hashing algorithms including MD5, SHA-1
 ---
 
 <script src="{{ site.crypto_js }}"></script>
+{% capture help_content %}
+<p>The <strong>Hashing Converter</strong> is a secure tool designed to generate cryptographic hashes from text input. Essential for data verification, password storage simulation, and digital fingerprinting, it supports a wide array of industry-standard algorithms.</p>
+<h6><i class="bi bi-sliders"></i> How to Use</h6>
+<ul>
+    <li><strong>Input Text:</strong> Enter the text string you wish to hash in the input area.</li>
+    <li><strong>Customize Results:</strong> Use the "Select Conversion" dropdown to choose which hash algorithms to display.</li>
+</ul><hr>
+<h6><i class="bi bi-shield-lock"></i> Supported Algorithms</h6>
+<p class="small text-muted">This tool supports the following cryptographic hash functions:</p>
+<ul>
+    <li><strong>MD5:</strong> MD5</li>
+    <li><strong>SHA-1:</strong> SHA-1</li>
+    <li><strong>SHA-2:</strong> SHA-256, SHA-384, SHA-512</li>
+    <li><strong>SHA-3:</strong> SHA3-224, SHA3-256, SHA3-384, SHA3-512</li>
+    <li><strong>Others:</strong> RIPEMD-160</li>
+</ul>
+{% endcapture %}
+
 {% include converter.html %}
 
 <script>

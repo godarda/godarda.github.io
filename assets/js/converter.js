@@ -104,7 +104,7 @@ window.setupConverter = function (config) {
             col.dataset.unit = key;
             col.innerHTML = `
                 <div class="stat">
-                    <div class="muted small text-truncate" title="${u.name}">${u.name}</div>
+                    <div class="muted small text-truncate" title="${u.name} (${u.symbol})">${u.name} (${u.symbol})</div>
                     <div class="res-val mb-0 text-break" data-target="${key}">-</div>
                 </div>
             `;
@@ -117,7 +117,7 @@ window.setupConverter = function (config) {
                 <div class="dropdown-item">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="${key}" id="chk_${key}" ${selectedUnits.has(key) ? 'checked' : ''}>
-                        <label class="form-check-label w-100" for="chk_${key}">${u.name}</label>
+                        <label class="form-check-label w-100" for="chk_${key}">${u.name} (${u.symbol})</label>
                     </div>
                 </div>
             `;
@@ -221,12 +221,10 @@ window.setupConverter = function (config) {
 
         const count = unitsToShow.size;
         resultsContainer.className = 'row g-2 mb-3';
-        if (converterType !== 'numeric' || count <= 1) {
+        if (count <= 1) {
             resultsContainer.classList.add('row-cols-1');
         } else {
-            resultsContainer.classList.add('row-cols-2');
-            if (count === 3) resultsContainer.classList.add('row-cols-md-3');
-            else if (count >= 4) resultsContainer.classList.add('row-cols-md-4');
+            resultsContainer.classList.add('row-cols-1', 'row-cols-md-2');
         }
 
         Object.keys(units).forEach(key => {

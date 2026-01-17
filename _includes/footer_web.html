@@ -11,15 +11,15 @@
             <div class="row">
                 <div class="col-6 col-md-3" style="padding-bottom: 50px;">
                     <h6>What's new</h6>
-                    <a href="python"><div><i class="bi bi-rocket"></i> Python</div></a>
-                    <a href="ds"><div><i class="bi bi-pie-chart"></i> Data Science</div></a>
-                    <a href="mongodb"><div><i class="bi bi-database"></i> MongoDB</div></a>
+                    <a href="learn"><div><i class="bi bi-lightbulb"></i> Learn</div></a>
+                    <a href="tools"><div><i class="bi bi-gear"></i> Tools</div></a>
+                    <a style="cursor: pointer;" class="nav-link" data-bs-toggle="modal" data-bs-target="#appmodal"><div><i class="navsvg bi bi-android2"></i> Android App</div></a>
                 </div>
                 <div class="col-6 col-md-3" style="padding-bottom: 50px;">
-                    <h6>Tools</h6>
-                    <a href="tools"><div><i class="bi bi-gear"></i> Tools</div></a>
-                    <a href="calculators"><div><i class="bi bi-calculator"></i> Calculators</div></a>
-                    <a href="converters"><div><i class="bi bi-flask"></i> Converters</div></a>
+                    <h6>Contribute</h6>
+                    <a href="{{ site.data.url.teams }}" target="_blank" rel="noopener noreferrer"><div><i class="bi bi-people"></i> Join Teams</div></a>
+                    <a href="{{ site.data.url.issues }}" target="_blank" rel="noopener noreferrer"><div><i class="bi bi-bug"></i> Report Bug</div></a>
+                    <a href="{{ site.data.url.releases }}" target="_blank" rel="noopener noreferrer"><div><i class="bi bi-box-seam"></i> Releases</div></a>
                 </div>
                 <div class="col-6 col-md-3" style="padding-bottom: 50px;">
                     <h6>GoDarda</h6>
@@ -48,6 +48,25 @@
     </footer>
 </div>
 
+<div class="modal fade" id="appmodal" data-bs-backdrop="static" data-bs-keyboard="false"
+    aria-labelledby="appmodalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="appmodalLabel"><i class="bi bi-android2"></i> GoDarda Android App</h5>
+            </div>
+            <div class="modal-body">Dear User, <br>We are grateful for your interest in the GoDarda Android app. We
+                intend to soon make it available on the Google Play Store. Currently, you need to install apk
+                manually. Would you like to get the app?<br>Minimum Requirement(s): Android 11</div>
+            <div class="modal-footer justify-content-center">
+                <a style="cursor: pointer;" class="btn btn-sm btn-outline-danger rounded-pill" data-bs-dismiss="modal"><i class="bi bi-cloud-slash"></i> No</a>
+                <a href="{{ site.data.url.android_app }}" class="btn btn-sm btn-outline-success rounded-pill"
+                    onclick="$('#appmodal').modal('hide');"><i class="bi bi-cloud-arrow-down"></i> Yes</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 function setupWebAppView() {
     const rsidebar = document.getElementById("rsidebar");
@@ -70,4 +89,5 @@ function setupWebAppView() {
 }
 
 window.addEventListener('DOMContentLoaded', () => { if (!window.isGoDardaApp) setupWebAppView(); });
+
 </script>

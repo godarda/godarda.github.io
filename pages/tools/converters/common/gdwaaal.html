@@ -4,7 +4,25 @@ title: Time Converter
 description: "Instantly convert time between seconds, minutes, hours, days, weeks, months, and years. A simple and fast time conversion tool."
 ---
 
+{% capture help_content %}
+<p>The <strong>Time Converter</strong> is a practical tool designed to perform instant conversions between various units of time. Whether for scientific calculations, project planning, or daily scheduling, it provides accurate results across a wide range of time scales.</p>
+<h6><i class="bi bi-sliders"></i> How to Use</h6>
+<ul>
+    <li><strong>Input Value:</strong> Enter the time duration you wish to convert in the input field.</li>
+    <li><strong>Select Unit:</strong> Choose the starting unit (e.g., Minute, Hour) from the dropdown next to the input.</li>
+    <li><strong>Customize Results:</strong> Use the "Select Conversion" dropdown to choose which target units to display.</li>
+</ul><hr>
+<h6><i class="bi bi-clock"></i> Supported Units</h6>
+<p class="small text-muted">This tool supports conversion between the following time units:</p>
+<ul>
+    <li><strong>Small Scale:</strong> Nanosecond (ns), Microsecond (µs), Millisecond (ms)</li>
+    <li><strong>Standard:</strong> Second (s), Minute (min), Hour (h)</li>
+    <li><strong>Large Scale:</strong> Day (d), Week (wk), Month (mo), Year (y)</li>
+</ul>
+{% endcapture %}
+
 {% include converter.html %}
+
 <script>
 (function () {
     // Configuration: Define units and their conversion factor to Seconds (base unit)
