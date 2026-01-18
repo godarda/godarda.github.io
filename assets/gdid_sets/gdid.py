@@ -288,10 +288,16 @@ def update_yaml(html_path: Path):
         raise ValueError(f"Invalid permalink format: {permalink}")
 
     section_key, subsection_key = parts[0], parts[1]
-    yml_path = REPO_ROOT / "_data" / f"{section_key}.yml"
+    data_dir = REPO_ROOT / "_data"
+    yml_path = data_dir / f"{section_key}.yml"
 
     if not yml_path.exists():
-        raise FileNotFoundError(f"YAML file not found: {yml_path}")
+        # Search recursively in subdirectories if not found at root of _data
+        candidates = list(data_dir.rglob(f"{section_key}.yml"))
+        if candidates:
+            yml_path = candidates[0]
+        else:
+            raise FileNotFoundError(f"YAML file not found: {yml_path}")
 
     data = yaml.safe_load(yml_path.read_text(encoding='utf-8')) or {}
 

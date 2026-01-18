@@ -281,12 +281,11 @@ window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 
-gtag('config', 'G-8ZJLP1KH1R', {
-    ignore_referrer: 'true',
-    'linker': {
-        'domains': ['godarda.in']
-    }
-});
+if (window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1") {
+    gtag('config', 'G-8ZJLP1KH1R', {
+        ignore_referrer: 'true'
+    });
+}
 
 // --------------------------------------------------------------------------
 
