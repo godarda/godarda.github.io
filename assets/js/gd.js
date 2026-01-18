@@ -281,7 +281,7 @@ window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 
-if (window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1") {
+if (window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1" && window.location.protocol !== "file:") {
     gtag('config', 'G-8ZJLP1KH1R', {
         ignore_referrer: 'true'
     });
