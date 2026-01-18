@@ -133,6 +133,21 @@
         <p>We are currently performing scheduled maintenance to improve your experience. We will be back online shortly.</p>
     </div>
     <script>
+        // --------------------------------------------------------------------------
+        // User Agent Detection
+        // --------------------------------------------------------------------------
+
+        window.userAgent = navigator.userAgent;
+        const normalizedUserAgent = (window.userAgent || '').toLowerCase();
+        const isAndroid = /android/.test(normalizedUserAgent);
+        // Detect if running inside an Android WebView
+        window.isWebview = (isAndroid && /; wv\)/.test(normalizedUserAgent));
+        window.isGoDardaApp = window.isWebview || (window.userAgent && window.userAgent.includes("GoDarda"));
+
+        if (window.isGoDardaApp) {
+            document.querySelector('h1').textContent = "App Under Maintenance";
+        }
+
         // Disable right-click
         document.addEventListener('contextmenu', event => event.preventDefault());
 
