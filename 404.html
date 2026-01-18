@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <meta name="theme-color" content="#f5f7fa" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline' https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com; img-src 'self' https://www.google-analytics.com;">
+    <meta name="referrer" content="no-referrer">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="canonical" href="https://godarda.in">
+    <link rel="icon" href="data:,">
+    <link rel="apple-touch-icon" href="data:,">
+    <link rel="manifest" href="data:application/manifest+json,{}">
+    <meta property="og:title" content="Website Under Maintenance">
+    <meta property="og:description" content="We are currently performing scheduled maintenance.">
+    <meta property="og:url" content="https://godarda.in">
+    <meta property="og:type" content="website">
+    <title>Maintenance Mode</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8ZJLP1KH1R"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8ZJLP1KH1R', {
+          ignore_referrer: 'true',
+          'linker': {
+              'domains': ['godarda.in']
+          }
+      });
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(-45deg, #f5f7fa, #c3cfe2, #e9eff5, #f5f7fa);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            cursor: default;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        .container {
+            background: white;
+            padding: 40px 40px 55px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-sizing: border-box;
+            animation: fadeInUp 1s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 15px;
+            background: linear-gradient(45deg, #ffc107 25%, #000000 25%, #000000 50%, #ffc107 50%, #ffc107 75%, #000000 75%, #000000 100%);
+            background-size: 40px 40px;
+            animation: moveStripes 2s linear infinite;
+        }
+        h1 {
+            margin-top: 0;
+            color: #2c3e50;
+            font-size: 24px;
+        }
+        p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+        @media (max-width: 480px) {
+            .container {
+                width: 85%;
+                padding: 25px 25px 40px;
+            }
+        }
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: linear-gradient(-45deg, #000000, #1c1c1c, #2d2d2d, #000000);
+                background-size: 400% 400%;
+                animation: gradient 15s ease infinite;
+            }
+            .container {
+                background: #454545;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            }
+            h1 {
+                color: #ffffff;
+            }
+            p {
+                color: #e0e0e0;
+            }
+        }
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        @keyframes moveStripes {
+            0% { background-position: 0 0; }
+            100% { background-position: 40px 0; }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media print {
+            html, body { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Website Under Maintenance</h1>
+        <p>We are currently performing scheduled maintenance to improve your experience. We will be back online shortly.</p>
+    </div>
+    <script>
+        // Disable right-click
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // Disable text selection
+        document.addEventListener('selectstart', event => event.preventDefault());
+
+        // Disable keyboard input and shortcuts (F12, Ctrl+U, Ctrl+C, etc.)
+        document.addEventListener('keydown', event => {
+            // Allow F5 and Ctrl+R (Refresh) so legitimate users can check if site is back
+            if (event.key === 'F5' || (event.ctrlKey && event.key === 'r') || (event.metaKey && event.key === 'r')) {
+                return;
+            }
+            event.preventDefault();
+        });
+
+        // Prevent iframe embedding (Frame Busting)
+        if (window.top !== window.self) {
+            window.top.location = window.self.location;
+        }
+
+        // Disable drag and drop
+        document.addEventListener('dragstart', event => event.preventDefault());
+    </script>
+</body>
+</html>
