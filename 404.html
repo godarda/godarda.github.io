@@ -23,12 +23,12 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-8ZJLP1KH1R', {
-          ignore_referrer: 'true',
-          'linker': {
-              'domains': ['godarda.in']
-          }
-      });
+
+      if (window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1" && window.location.protocol !== "file:") {
+          gtag('config', 'G-8ZJLP1KH1R', {
+              ignore_referrer: 'true'
+          });
+      }
     </script>
     <style>
         body {
@@ -88,12 +88,13 @@
         }
         @media (prefers-color-scheme: dark) {
             body {
-                background: linear-gradient(-45deg, #000000, #1c1c1c, #2d2d2d, #000000);
-                background-size: 400% 400%;
-                animation: gradient 15s ease infinite;
+                background: #000000;
+                animation: none;
             }
             .container {
-                background: #454545;
+                background: rgba(30, 30, 30, 0.6);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
                 box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             }
             h1 {
