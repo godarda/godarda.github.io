@@ -25,7 +25,7 @@ class GD
         WebDriver driver = new ChromeDriver(co);
         driver.manage().window().maximize();
         
-        driver.navigate().to("https://godarda.in/testapp");
+        driver.navigate().to("https://godarda.in/testapp/");
         driver.findElement(By.name("username")).sendKeys("godarda");
         driver.findElement(By.name("password")).sendKeys("godarda");
         driver.findElement(By.name("login")).click();

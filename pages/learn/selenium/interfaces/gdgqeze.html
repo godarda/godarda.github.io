@@ -39,7 +39,7 @@ class GD
         System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.navigate().to("https://godarda.in/testapp");
+        driver.navigate().to("https://godarda.in/testapp/");
         Screenshot();
         
         driver.findElement(By.name("username")).sendKeys("godarda");

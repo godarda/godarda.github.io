@@ -23,9 +23,9 @@
             {%- assign tools_matches = tools_data.segments | where: "url", path[1] -%}
             {%- if learn_matches.size > 0 -%}{%- assign home_url = "learn" -%}{%- elsif tools_matches.size > 0 -%}{%- assign home_url = "tools" -%}{%- endif -%} 
             <a href="{{ home_url }}"><img id="logo" alt="Logo" width="30" height="30" src="{{ site.icon | relative_url }}"></a>
-            <a id="fc-{{ path[1] }}" href="{{ path[1] }}">{{ parent }}</a>
+            <a id="fc-{{ path[1] }}" href="{{ path[1] }}">{{ parent }} / </a>
             {%- if path[2] != nil -%}
-                <a id="fc-{{ path[1] }}" href="{{ path[1] }}/{{ path[2] }}">/ {{ child }}</a>
+                <a id="fc-{{ path[1] }}" href="{{ path[1] }}/{{ path[2] }}">{{ child }} / </a>
             {%- endif -%}
         </div>
         <button id="lsidebar" class="navbar-toggler p-0" type="button" data-bs-toggle="leftsidebar" data-bs-target="#leftsidebar" aria-label="lsidebar"><span class="navbar-toggler-icon"></span></button>

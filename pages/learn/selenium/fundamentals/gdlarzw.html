@@ -15,7 +15,7 @@ class GD
     {   
         System.setProperty("webdriver.chrome.driver", "/home/godarda/drivers/chromedriver");
         WebDriver driver = new ChromeDriver();
-        driver.get("https://godarda.in/testapp");
+        driver.get("https://godarda.in/testapp/");
         String currentURL = driver.getCurrentUrl();
         System.out.println(currentURL);
         driver.close();
@@ -24,5 +24,5 @@ class GD
 {%- endhighlight -%}</pre>
 <div class="card">{{ site.output }}</div>
 <span><pre>
-https://godarda.in/testapp
+https://godarda.in/testapp/
 </pre></span>

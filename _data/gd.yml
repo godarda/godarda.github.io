@@ -98,10 +98,6 @@ segments:
   - title: Programming and Tutorials
     url: learn
     parent: " / Learn "
-    
-  - title: GoDarda's Search
-    url: search
-    parent: " / Search "
 
   - title: Shubham Darda
     url: shubhamrdarda
