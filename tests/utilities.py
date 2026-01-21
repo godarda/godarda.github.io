@@ -295,11 +295,11 @@ def load_expected_data(folder_path):
     if not folder.exists() or not folder.is_dir():
         return expected
 
-    files = [
-        folder / f
-        for f in os.listdir(folder)
-        if f.endswith(".yml") or f.endswith(".yaml")
-    ]
+    files = []
+    for root, _, filenames in os.walk(folder):
+        for filename in filenames:
+            if filename.endswith((".yml", ".yaml")):
+                files.append(Path(root) / filename)
     if not files:
         return expected
 
