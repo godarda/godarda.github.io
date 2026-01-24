@@ -10,6 +10,11 @@ on:
     branches:
       - develop
 
+# Prevent multiple tracker workflows from running simultaneously
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 # Grant write permissions to contents and pull requests
 permissions:
   contents: write
@@ -23,7 +28,7 @@ jobs:
     steps:
       # Checkout the repository content
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       # Execute a dummy check to verify workflow initiation
       - name: Run dummy check
@@ -32,18 +37,19 @@ jobs:
   create-pr:
     name: Create and Merge GDID PR
     if: github.event_name == 'push'
+    needs: gdid-status-check
     runs-on: ubuntu-latest
 
     steps:
       # Checkout the repository content with full history
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # Set up the Python 3.14 environment
+      # Set up the Python environment
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v5
         with:
           python-version: '3.14'
 
@@ -64,7 +70,7 @@ jobs:
       # Create a Pull Request with updated GDID sets
       - name: Create Pull Request
         id: cpr
-        uses: peter-evans/create-pull-request@v8
+        uses: peter-evans/create-pull-request@v7
         with:
           commit-message: Auto-update GDID sets
           title: Auto-update GDID sets

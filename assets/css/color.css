@@ -134,6 +134,7 @@ layout: none
 {%- else -%}
     {%- assign color_var = "var(--other)" -%}
 {%- endif -%}
+
 a.{{ s }}:hover, a.{{ s }}:focus, #{{ s }} > a:hover, #{{ s }} > a:focus, .procard.{{ s }}, .nav-link.sidebar-item-active.{{ s }}
 { border-left: 5px solid {{ color_var }}; }
 
@@ -187,7 +188,7 @@ div#GDS_input-.search-loading.indeterminate::after, div#GDS_input-search.search-
     color: var(--other);
 }
 
-#other > a:hover, #other > a:focus, .nav-link.sidebar-item-active.about, a.about:hover, a.about:focus
+#other > a:hover, #other > a:focus, #search > a:hover, #search > a:focus, .nav-link.sidebar-item-active.about, a.about:hover, a.about:focus
 { border-left: 5px solid var(--other); }
 
 #fc-, #fc-search, #fc-about, #fc-shubhamrdarda, .wvnav-item-active-, .wvnav-item-active-search, .wvnav-item-active-about, #fc-:hover, #fc-search:hover, #fc-about:hover, #fc-shubhamrdarda:hover
