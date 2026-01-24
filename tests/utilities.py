@@ -92,7 +92,6 @@ def get_environment_config() -> EnvironmentConfig:
 def load_expected_data(folder_path: Union[str, Path]) -> List[dict]:
     """
     Parses YAML files in the specified directory to extract expected URL/title pairs.
-
     Uses concurrency to speed up file reading and deduplicates entries.
 
     Returns:
@@ -148,11 +147,6 @@ def load_expected_data(folder_path: Union[str, Path]) -> List[dict]:
     return unique_entries
 
 
-# Initialize global configuration and statistics.
-CONFIG = get_environment_config()
-STATS = TestStats()
-
-
 def clean_pycache(cache_path: Optional[str] = None) -> None:
     """
     Removes the __pycache__ directory.
@@ -174,3 +168,8 @@ def clean_pycache(cache_path: Optional[str] = None) -> None:
             shutil.rmtree(p)
     except Exception as e:
         print(f"Cleanup warning (could not remove {cache_path or 'default'}): {e}")
+
+
+# Initialize global configuration and statistics.
+CONFIG = get_environment_config()
+STATS = TestStats()

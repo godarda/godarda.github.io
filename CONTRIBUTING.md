@@ -82,21 +82,18 @@ We're thrilled to have you contribute! This guide walks you through the full onb
    ```bash
    git checkout -b feature/my-contribution
    ```
-5. Run the platform-specific setup script to initialize your environment:
-   #### **macOS:**
+5. Run the setup script to initialize your environment:
+   #### **macOS & Ubuntu:**
    ```
-   $ python3 setups/macos.py full
+   $ python3 setups/run.py full
    ```
-   #### **Ubuntu:**
-   ```
-   $ python3 setups/ubuntu.py full
-   ```
-   #### **Windows:** Ensure [Visual Studio Code][gdwyygg], [Python][gdkweoz], and [Ruby][gdkwzyw] are installed and then follow these steps:
+   #### **Windows:**
+   Ensure [Visual Studio Code][gdwyygg], [Python][gdkweoz], and [Ruby][gdkwzyw] are installed and then follow these steps:
    ```
    PS D:\> Open Visual Studio Code -> Terminal  
-   PS D:\godarda.github.io> python setups/windows.py full  
+   PS D:\godarda.github.io> python setups/run.py full  
    ```
-   - All setup scripts are located in the [`setups/`][gdgggza] directory and are platform-specific (`macos.py`, `ubuntu.py`, `windows.py`).
+   - The setup script is located in the [`setups/`][gdgggza] directory.
    - The site runs locally on port `4000` by default. You can access it via `http://127.0.0.1:4000` or `http://localhost:4000`.
 6. Make your changes  
 7. Commit and push:

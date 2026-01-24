@@ -51,7 +51,7 @@ jobs:
 
           # Install Bundler and required Ruby gems
           gem install bundler --quiet > $null 2>&1
-          bundle config set --local path vendor/bundle
+          bundle config set --local path .vendor/bundle
           bundle install --quiet > $null 2>&1
         shell: pwsh
 

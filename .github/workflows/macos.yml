@@ -61,7 +61,7 @@ jobs:
           export GEM_HOME="$HOME/.gem"
           export PATH="$GEM_HOME/bin:$PATH"
           gem install bundler > /dev/null 2>&1
-          bundle config set --local path vendor/bundle
+          bundle config set --local path .vendor/bundle
           bundle install > /dev/null 2>&1
 
           # Launch the Jekyll server in the background
