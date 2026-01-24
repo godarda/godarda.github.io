@@ -1,16 +1,21 @@
 """
-Main execution entry point for the test harness.
+Test Harness Entry Point (tests/run.py)
 
-This script orchestrates the testing workflow:
-- Validates the runtime environment.
-- Executes title verification tests.
-- Performs code snippet compilation (on supported platforms).
-- Generates and prints a summary report.
+Purpose:
+This script orchestrates the testing workflow for the GoDarda site.
+It validates the runtime environment, executes verification tests,
+performs code compilation, and generates a summary report.
+
+Key Features:
+1. Orchestration: Coordinates title verification and code compilation steps.
+2. Validation: Checks Python version and directory structure before running.
+3. Reporting: Calculates execution time and displays final results.
 """
 
 import os
 import sys
 import time
+import shutil
 from compile import compile_snippets
 from unittesting import TitleVerificationTest
 from report import print_report
@@ -46,6 +51,8 @@ def main() -> None:
         # Execute snippet compilation if supported.
         if CONFIG.OS_NAME != "Windows":
             compile_snippets(source, destination)
+            if os.path.exists(destination):
+                shutil.rmtree(destination)
 
         print_report(
             STATS.matched,

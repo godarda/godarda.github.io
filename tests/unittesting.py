@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 """
-Unit tests for verifying the integrity of the deployed static site.
+Title Verification Tests (tests/unittesting.py)
 
-This module:
-- Performs concurrent HTTP requests to validate page titles.
-- Verifies that <title> tags match expected values from data files.
-- Utilizes a thread pool for efficient network I/O.
+Purpose:
+This module performs unit tests to verify the integrity of the deployed
+static site. It validates that webpage titles match expected values defined
+in the data files.
+
+Key Features:
+1. Concurrency: Utilizes thread pools for efficient parallel HTTP requests.
+2. Validation: Compares fetched HTML <title> tags against expected metadata.
+3. Resilience: Implements connection pooling and retries for network stability.
 """
 
 import os

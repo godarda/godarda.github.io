@@ -1,118 +1,75 @@
 #!/usr/bin/env python3
 """
-Author: Shubham Darda
-Description:
-    Ubuntu convenience helpers for provisioning and running the GoDarda website locally.
+Ubuntu Setup Script (setups/ubuntu.py)
 
-    This module provides a small wrapper around system package installation and the
-    default startup flow used on Ubuntu-based development hosts or CI runners.
-    It intentionally keeps behavior imperative and minimal — it invokes system package
-    managers (apt/snap) and relies on the shared utilities module for environment
-    validation, dependency installation, cleanup and server lifecycle.
+Purpose:
+This script handles the provisioning and execution of the GoDarda website
+environment on Ubuntu. It manages APT/Snap package installations and delegates
+core setup tasks to shared utilities.
 
-    Safety / operational notes:
-    - Many commands in this script require elevated privileges (sudo). Run only on
-      trusted machines and review commands before execution.
-    - This script is tailored to Ubuntu/Debian environments. Do not run on other
-      distributions without adjusting package names and package manager calls.
-    - The script uses a basic "full" CLI flag and a lightweight internet check to
-      decide whether to perform a complete provisioning flow vs. only starting the server.
-
-Usage:
-    - Run from the repository root (or let utilities.py change into the repo root).
-    - To perform a full provisioning flow: python3 setups/ubuntu.py full
-    - To only attempt to start the server: python3 setups/ubuntu.py
-
+Key Features:
+1. Package Management: Installs system packages via APT and Snap.
+2. Environment Setup: Validates environment and installs dependencies.
+3. Server Lifecycle: Starts the Jekyll server for local development.
+4. Automation: Supports full provisioning via CLI flags.
 """
 
 from utilities import *
-import os
-import subprocess
 
 
 def install_packages():
     """
-    Install system-level packages required to build and serve the site on Ubuntu.
+    Install required system packages via APT and Snap.
 
-    Behavior:
-    - Performs an apt update and full-upgrade to ensure package metadata is current.
-    - Installs a curated list of packages. The list is narrower in CI (githubactions)
-      to reduce runtime and avoid interactive installs; for local development a
-      broader set of developer tools is installed.
-    - Uses snap to install Visual Studio Code and Julia when available on the host
-      and not already installed.
-    - If not running inside GitHub Actions and the repository is missing locally,
-      the repository will be cloned and the working directory adjusted.
-    - Delegates Ruby/Python gem and pip installs to install_dependencies() from utilities.
-
-    Important:
-    - All apt/snap commands use system calls that will require sudo. The caller of
-      this function must be prepared to provide credentials or run the script with sudo.
-    - The function deliberately tolerates missing packages via --ignore-missing and
-      continues on best-effort.
+    Actions:
+        - Updates and upgrades APT packages.
+        - Installs defined package sets (CI vs Local).
+        - Installs Snap packages (VS Code, Julia) if available.
+        - Clones the repository if running interactively and not present.
     """
     # Update package metadata and upgrade installed packages
-    os.system("sudo apt-get update -y")
-    os.system("sudo apt-get full-upgrade -y")
+    subprocess.run("sudo apt-get update -y", shell=True, check=True)
+    subprocess.run("sudo apt-get full-upgrade -y", shell=True, check=True)
 
     # Define package sets depending on environment (CI vs local)
-    if githubactions:
+    if IS_GITHUB_ACTIONS:
         packages = "ruby-full clisp rustc freeglut3-dev nasm shc"
     else:
         packages = (
             "python3-pip git-all openjdk-21-jre openjdk-21-jdk ruby-full "
             "build-essential zlib1g-dev dotnet-sdk-8.0 r-base octave clisp maxima "
-            "rustc freeglut3-dev mysql-server nasm nmap shc finger"
+            "rustc freeglut3-dev mysql-server nasm nmap shc finger lsof"
         )
 
         # Conditionally install snap packages only when snap is present
-        snap = os.system("snap --version > /dev/null")
-        vscode = os.system("code --version > /dev/null")
-        julia = os.system("julia --version > /dev/null")
-        if snap == 0 and vscode != 0:
+        has_snap = subprocess.run("snap --version", shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode == 0
+        has_vscode = subprocess.run("code --version", shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode == 0
+        has_julia = subprocess.run("julia --version", shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode == 0
+
+        if has_snap and not has_vscode:
             # Install VS Code via snap if not present
-            os.system("sudo snap install --classic code")
-        if snap == 0 and julia != 0:
+            subprocess.run("sudo snap install --classic code", shell=True, check=True)
+        if has_snap and not has_julia:
             # Install Julia via snap if not present
-            os.system("sudo snap install julia --classic")
+            subprocess.run("sudo snap install julia --classic", shell=True, check=True)
 
     # Install apt packages (best-effort). Use --ignore-missing to reduce failures.
-    cmd = "sudo apt-get -y --ignore-missing install "
-    for pkg in packages.split():
-        command = str(cmd) + str(pkg)
-        subprocess.run(command.split())
+    subprocess.run(f"sudo apt-get -y --ignore-missing install {packages}", shell=True, check=True)
 
     # On interactive/local runs ensure the repo exists; clone it if absent.
-    if not githubactions:
-        if repo not in os.getcwd():
-            os.system("git clone https://github.com/godarda/godarda.github.io.git")
-            os.chdir(target_dir + "/")
-
-    # Install language-level dependencies (Ruby gems, pip requirements, bundler)
-    install_dependencies()
+    if not IS_GITHUB_ACTIONS:
+        if REPO_NAME not in os.getcwd():
+            subprocess.run("git clone https://github.com/godarda/godarda.github.io.git", shell=True, check=True)
+            os.chdir(str(REPO_ROOT))
 
 
 def main():
     """
-    Entrypoint for the Ubuntu setup flow.
+    Execute the Ubuntu setup orchestration.
 
-    Flow:
-    - If the "full" CLI flag was provided and basic internet connectivity is available:
-        1) Run environment validation and destructive cleanup (ensure_setup_with_cleanup).
-        2) Install required system packages (install_packages).
-        3) Start or build the Jekyll site (start_server).
-    - Otherwise only attempt to start the server (start_server).
-
-    Rationale:
-    - The internet check prevents long-running package installs when offline.
-    - The "full" flag gates potentially destructive cleanup operations and heavy installs.
+    Delegates to `orchestrate_setup` with the Ubuntu-specific package installer.
     """
-    if full and is_internet_available():
-        ensure_setup_with_cleanup()
-        install_packages()
-        start_server()
-    else:
-        start_server()
+    orchestrate_setup(install_packages)
 
 
 if __name__ == "__main__":

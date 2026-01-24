@@ -1,27 +1,29 @@
 #!/usr/bin/env python3
 """
-Shared utilities and configuration for the test suite.
+Test Suite Utilities (tests/utilities.py)
 
-This module provides:
-- Environment detection (OS, paths, base URLs).
-- Configuration data structures.
-- Helper functions for loading expected test data from YAML files.
-- Cleanup routines.
+Purpose:
+This module provides shared utilities and configuration for the test suite.
+It handles environment detection, data loading, and cleanup routines to ensure
+consistent test execution across platforms.
+
+Key Features:
+1. Environment Detection: Identifies OS, paths, and base URLs.
+2. Configuration: Defines data structures for test settings.
+3. Data Loading: Helper functions to load expected test data from YAML files.
+4. Cleanup: Routines to clean up artifacts like __pycache__.
 """
 
-# --- Standard library imports ---
 import os
 import platform
 import sys
 import shutil
+import yaml
 
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import List, Optional, Tuple, Union
 from concurrent.futures import ThreadPoolExecutor
-
-# --- Third-party imports ---
-import yaml
 
 
 @dataclass(frozen=True)
@@ -101,11 +103,8 @@ def load_expected_data(folder_path: Union[str, Path]) -> List[dict]:
     if not folder.exists() or not folder.is_dir():
         return expected
 
-    files = []
-    for root, _, filenames in os.walk(folder):
-        for filename in filenames:
-            if filename.endswith((".yml", ".yaml")):
-                files.append(Path(root) / filename)
+    # Use rglob for cleaner recursion and filtering
+    files = list(folder.rglob("*.yml")) + list(folder.rglob("*.yaml"))
     if not files:
         return expected
 

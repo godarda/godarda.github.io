@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 """
-Reporting utilities for the test suite.
+Test Reporting Utilities (tests/report.py)
 
-This module handles the generation of console reports, including:
-- Test pass/fail statistics.
-- Details of unmatched titles or uncompiled files.
-- Versions of installed development tools and languages.
+Purpose:
+This module handles the generation of console reports for the test suite.
+It summarizes test execution statistics, details failures, and lists
+installed development tool versions.
+
+Key Features:
+1. Statistics: Displays pass/fail counts for title verification and compilation.
+2. Diagnostics: Lists specific unmatched titles or uncompiled files.
+3. Environment: Reports versions of installed compilers and tools.
 """
 
 import subprocess

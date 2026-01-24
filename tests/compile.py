@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 """
-Module for extracting and compiling code snippets from generated HTML pages.
+Code Compilation Test Script (tests/compile.py)
 
-This module:
-- Parses HTML files to locate code blocks.
-- Writes code to temporary source files with appropriate headers.
-- Attempts to compile or syntax-check snippets using installed toolchains.
-- Ensures that code examples in the documentation are syntactically valid.
+Purpose:
+This script extracts and compiles code snippets from generated HTML pages to
+ensure that code examples in the documentation are syntactically valid. It
+handles parsing, file generation, and toolchain invocation.
+
+Key Features:
+1. Extraction: Parses HTML files to locate code blocks.
+2. Preparation: Writes code to temporary source files with appropriate headers.
+3. Validation: Attempts to compile or syntax-check snippets using installed toolchains.
 """
 
 import os
@@ -172,55 +176,60 @@ def compile_snippets(source: str, destination: str) -> Optional[Tuple[int, int]]
         print("Code compilation only supported on macOS or Ubuntu Linux.")
         return None
 
-    # Use absolute path for destination to avoid chdir
+    # Use absolute path for destination
     destination_path = os.path.abspath(destination)
     os.makedirs(destination_path, exist_ok=True)
 
     paths = load_expected_data(CONFIG.DATAPATH)
+    original_cwd = os.getcwd()
 
-    for entry in paths:
-        url = entry.get("url")
-        if not url or url.count("/") != 2:
-            continue
+    try:
+        os.chdir(destination_path)
+        for entry in paths:
+            url = entry.get("url")
+            if not url or url.count("/") != 2:
+                continue
 
-        path = url.split("/")
-        # Create absolute output directory path
-        output_dir = os.path.join(destination_path, path[0], path[1])
-        os.makedirs(output_dir, exist_ok=True)
+            path = url.split("/")
+            # Create absolute output directory path
+            output_dir = os.path.join(destination_path, path[0], path[1])
+            os.makedirs(output_dir, exist_ok=True)
 
-        source_file = None
-        # Locate the corresponding HTML file in the source directory structure.
-        for folder in os.listdir(source):
-            sub_source_dir = os.path.join(source, folder)
-            if os.path.isdir(sub_source_dir):
-                potential_path = os.path.join(sub_source_dir, url + ".html")
-                if os.path.exists(potential_path):
-                    source_file = potential_path
+            source_file = None
+            # Locate the corresponding HTML file in the source directory structure.
+            for folder in os.listdir(source):
+                sub_source_dir = os.path.join(source, folder)
+                if os.path.isdir(sub_source_dir):
+                    potential_path = os.path.join(sub_source_dir, url + ".html")
+                    if os.path.exists(potential_path):
+                        source_file = potential_path
+                        break
+            if not source_file:
+                continue
+            with open(source_file, "r", encoding="utf-8") as f:
+                html_content = f.read()
+
+            for lang, ext in {
+                    "c": ".c",
+                    "cpp": ".cpp",
+                    "java": ".java",
+                    "nasm": ".asm",
+                    "python": ".py",
+                    "rust": ".rs",
+                    "shell": ".sh"
+                }.items():
+
+                if f'<pre class="code">{{%- highlight {lang} -%}}' in html_content:
+                    if ext == ".java" and path[0] != "java":
+                        continue
+                    if ext == ".java" and path[1] == "jdbc":
+                        continue
+                    if ext == ".cpp" and path[0] == "cg" and path[1] != "opengl":
+                        continue
+                    compiler, args = get_compiler(ext, path)
+                    attempt_compilation(source_file, html_content, compiler, output_dir, path[2], ext, args)
                     break
-        if not source_file:
-            continue
-        with open(source_file, "r", encoding="utf-8") as f:
-            html_content = f.read()
-
-        for lang, ext in {
-                "c": ".c",
-                "cpp": ".cpp",
-                "java": ".java",
-                "nasm": ".asm",
-                "python": ".py",
-                "rust": ".rs",
-                "shell": ".sh"
-            }.items():
-
-            if f'<pre class="code">{{%- highlight {lang} -%}}' in html_content:
-                if ext == ".java" and path[0] != "java":
-                    continue
-                if ext == ".java" and path[1] == "jdbc":
-                    continue
-                if ext == ".cpp" and path[0] == "cg" and path[1] != "opengl":
-                    continue
-                compiler, args = get_compiler(ext, path)
-                attempt_compilation(source_file, html_content, compiler, output_dir, path[2], ext, args)
-                break
+    finally:
+        os.chdir(original_cwd)
 
     return STATS.compiled, STATS.uncompiled
