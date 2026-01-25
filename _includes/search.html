@@ -1,221 +1,51 @@
 <!--
   File: _includes/search.html
-  Purpose: A reusable search component that provides a search input,
-  dynamic suggestions, and a results container. It integrates with
-  search.js for core logic and handles UI-specific behaviors like
-  suggestion blinking and category-based filtering.
+  Purpose: Defines the HTML structure for the site's reusable search component.
+  It includes the search input, icons for voice/close, dynamic suggestion placeholders,
+  and the results container. All interactive logic is handled by /assets/js/search.js.
 -->
 
 {%- assign path = page.url | split: '/' -%}
+<!-- Set global JS variables for search context and JSON URL -->
 <script>window.gd_path1 = '{{ path[1] | default: "search" }}';</script>
 <script>window.gd_search_url = '{{ "/search.json" | relative_url }}';</script>
+<!-- Load the main search script -->
 <script src="{{ site.search_js | relative_url }}"></script>
-<div><center>
-    <div class="col-xs-12 col-sm-11 col-md-9 col-lg-7 col-xl-6 col-xxl-6" style="margin-bottom: 25px;">
-        {%- if path[1] == nil -%}
+<div>
+    <center>
+        <div class="col-xs-12 col-sm-11 col-md-9 col-lg-7 col-xl-6 col-xxl-6" style="margin-bottom: 25px;">
+            {%- if path[1] == nil -%}
+            <!-- Display site title and tagline only on the home page -->
             <h2 style="padding-top: 150px;" id="fc-{{ path[1] }}">GoDarda</h2>
             <h6 style="padding-top: 5px; padding-bottom: 10px;">{{ site.tagline }}</h6>
-        {%- endif -%}
+            {%- endif -%}
 
-        <div id="GDS_input-{{ path[1] | default: 'search' }}" class="input-group input-group-lg">
-        <input id="GDSInput" class="form-control" type="text" tabindex="1" placeholder="{{ page.title }} (type to get the results)"><div id="search_icon" class="input-group-append" style="display: inline-block; padding: 10px 15px 0px 7px; font-size: 20px;"><i class="bi bi-search"></i></div><div id="close_icon" class="input-group-append" style="display: none; padding: 5px; font-size: 25px;"><i class="bi bi-x"></i></div>
+            <!-- Main search input group -->
+            <div id="GDS_input-{{ path[1] | default: 'search' }}" class="input-group input-group-lg">
+                <input id="GDSInput" class="form-control" type="text" tabindex="1"
+                    placeholder="{{ page.title }} (type to get the results)" style="border-right: 0;">
+                <!-- Voice search icon -->
+                <span id="mic_icon" class="input-group-text"
+                    style="cursor: pointer; background-color: var(--bs-body-bg); border-left: 0; border-right: 0; padding-left: 6px; padding-right: 6px;"><i class="bi bi-mic"></i></span>
+                <!-- Search icon (visible by default) -->
+                <span id="search_icon" class="input-group-text"
+                    style="background-color: var(--bs-body-bg); border-left: 0; padding-left: 6px; padding-right: 12px;"><i class="bi bi-search"></i></span>
+                <!-- Close/clear icon (hidden by default) -->
+                <span id="close_icon" class="input-group-text"
+                    style="display: none; cursor: pointer; background-color: var(--bs-body-bg); border-left: 0; padding-left: 6px; padding-right: 12px;"><i class="bi bi-x-lg"></i></span>
+            </div>
+            <!-- Container for search suggestions -->
+            <div id="suggestions-container" style="margin-top: 10px; text-align: left; display: none;">
+                <span class="text-muted" style="margin-right: 5px;"><i id="suggestion-light"
+                        class="bi bi-lightbulb"></i> Suggestions:</span>
+                <span id="search-suggestions"></span>
+            </div>
+            <!-- Container for displaying the number of search results -->
+            <div id="matchCount" class="text-muted small" style="margin-top:8px; display:none; text-align:left"></div>
         </div>
-        <div id="suggestions-container" style="margin-top: 10px; text-align: left; display: none;">
-            <span class="text-muted" style="margin-right: 5px;"><i id="suggestion-light" class="bi bi-lightbulb"></i> Suggestions:</span>
-            <span id="search-suggestions"></span>
-        </div>
-        <div id="matchCount" class="text-muted small" style="margin-top:8px; display:none; text-align:left"></div>
-    </div>
 
-    <div id="{{ path[1] | default: 'search' }}" class="col-xs-12 col-sm-12 col-md-10 col-lg-8 col-xl-7 col-xxl-7" style="text-align: left; margin-bottom: 30px;"></div>
-</center></div>
-
-<script>
-/**
- * @file Manages the search input suggestions feature.
- * @summary This inline script handles the dynamic display of search suggestions
- * based on the current page context (e.g., 'learn', 'tools', or general search).
- * It includes UI effects, event handling, and fetching keywords for suggestions.
- */
-document.addEventListener('DOMContentLoaded', function() {
-    // Safely acquire the jQuery object. If it's not available, exit gracefully.
-    const $ = window.jQuery;
-    if (!$) return;
-
-    // --------------------------------------------------------------------------
-    // SECTION: UI Effects
-    // --------------------------------------------------------------------------
-    // Provides a subtle blinking animation for the suggestion light bulb icon to draw user attention.
-    const $light = $('#suggestion-light');
-    if ($light.length) {
-        const blinkTotal = 3;
-        const intervalTime = 2000;
-        let blinkCount = 0;
-
-        // The interval function toggles the light bulb's state.
-        const intervalId = setInterval(() => {
-            if (blinkCount >= blinkTotal) {
-                clearInterval(intervalId);
-                return;
-            }
-
-            // Turn on
-            $light.removeClass('bi-lightbulb').addClass('bi-lightbulb-fill light-on');
-
-            setTimeout(() => {
-                // Turn off
-                $light.removeClass('bi-lightbulb-fill light-on').addClass('bi-lightbulb');
-            }, intervalTime / 2);
-
-            blinkCount++;
-        }, intervalTime);
-    }
-
-    // --------------------------------------------------------------------------
-    // SECTION: DOM Caching & State
-    // --------------------------------------------------------------------------
-    // Cache jQuery objects for frequently accessed DOM elements to improve performance.
-    const $input = $('#GDSInput');
-    const $suggestionsContainer = $('#search-suggestions');
-    const $suggestionsParentContainer = $('#suggestions-container');
-    const $closeIcon = $('#close_icon');
-    const currentCategory = window.gd_path1;
-
-    // Predefined suggestion lists for primary site sections.
-    const learnSuggestions = [
-        'C', 'C++', 'Java', 'Python', 'R', 'Julia', 'Octave', 'C#', 'F#',
-        'Rust', 'LISP', 'Linux', 'MySQL', 'MongoDB', 'Selenium', 'Algorithm', 'Assembly', 'VBScript',
-        'Ranorex', 'OpenGL', 'AWT', 'Function', 'Method', 'Class', 'Inheritance',
-        'Polymorphism', 'Abstraction', 'Array', 'Bash', 'CLI', 'Exception', 'Database',
-        'Stack', 'Queue', 'Tree', 'Graph', 'Sorting', 'Searching', 'Recursion', 'XPath', 'WebDriver', 'TestNG',
-        'String', 'DataFrame', 'NumPy', 'Pandas', 'Matplotlib', 'List', 'Set', 'Tuple', 'Dictionary',
-        'Expression', 'Log', 'Thread', 'Matrix', 'Math', 'CRUD'
-    ];
-    const toolsSuggestions = [
-        'Calculator', 'Converter', 'Data', 'Length', 'Time', 'Currency', 'Physics', 'Hash', 'Area', 'Volume',
-        'Speed', 'Temperature', 'Pressure', 'Power', 'Energy', 'Age', 'BMI'
-    ];
-
-    // --------------------------------------------------------------------------
-    // SECTION: Helper Functions
-    // --------------------------------------------------------------------------
-    /**
-     * Deactivates any currently active (selected) suggestion button.
-     */
-    function deactivateSuggestions() {
-        $suggestionsContainer.children().removeClass('active');
-    }
-
-    /**
-     * Displays a randomized subset of suggestions in the UI.
-     * @param {string[]} suggestions - An array of suggestion strings to display.
-     */
-    function displaySuggestions(suggestions) {
-        if (!$suggestionsContainer.length || !$suggestionsParentContainer.length || suggestions.length === 0) return;
-
-        // Use the Fisher-Yates algorithm to shuffle the array in-place,
-        // ensuring a random set of suggestions is shown on each page load.
-        for (let i = suggestions.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [suggestions[i], suggestions[j]] = [suggestions[j], suggestions[i]];
-        }
-
-        const suggestionsHtml = suggestions.slice(0, 3).map(suggestion => {
-            const sanitizedSuggestion = $('<div>').text(suggestion).html();
-            return `<a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary rounded-pill" style="margin: 2px; font-size: 12px;">${sanitizedSuggestion}</a>`;
-        }).join(' ');
-
-        $suggestionsContainer.html(suggestionsHtml);
-        $suggestionsParentContainer.show();
-    }
-
-    // --------------------------------------------------------------------------
-    // SECTION: Event Handlers
-    // --------------------------------------------------------------------------
-    // Use event delegation to handle clicks on dynamically generated suggestion buttons.
-    // When a suggestion is clicked, its text is placed in the search input.
-    $suggestionsContainer.on('click', 'a.btn', function(event) {
-        event.preventDefault();
-        const text = $(this).text();
-        $input.val(text);
-        $input.trigger('input'); // jQuery trigger handles the event bubbling
-        $input.trigger('blur');
-        deactivateSuggestions();
-        $(this).addClass('active');
-    });
-
-    // The close icon in the search bar clears the input and hides suggestions.
-    $closeIcon.on('click', function() {
-        if (typeof clear_input === 'function') clear_input();
-        deactivateSuggestions();
-    });
-
-    // When the user types, if the input becomes empty, hide the suggestions.
-    $input.on('input', function() {
-        if (!$(this).val()) deactivateSuggestions();
-    });
-
-    // On page load, ensure the input is cleared by calling the global helper from search.js.
-    if (typeof clear_input === 'function') clear_input();
-
-    // --------------------------------------------------------------------------
-    // SECTION: Main Logic
-    // --------------------------------------------------------------------------
-    /**
-     * Determines which set of suggestions to display based on the current page context.
-     * - For 'search', 'learn', or 'tools' pages, it uses predefined lists.
-     * - For other pages (e.g., specific topic pages like '/java/'), it fetches
-     *   search.json and extracts relevant keywords to generate suggestions.
-     */
-    function loadSuggestions() {
-        if (currentCategory === 'search') {
-            // On the main search page, combine suggestions from both 'learn' and 'tools'.
-            displaySuggestions(learnSuggestions.concat(toolsSuggestions));
-        } else if (currentCategory === 'learn') {
-            displaySuggestions(learnSuggestions);
-        } else if (currentCategory === 'tools') {
-            displaySuggestions(toolsSuggestions);
-        } else {
-            $.getJSON('{{ "/search.json" | relative_url }}')
-                .then(data => {
-                    const keywords = new Set();
-                    let itemsToProcess = data.items;
-
-                    // If on a specific category page, filter the search items to that category.
-                    if (currentCategory) {
-                        const categoryItems = data.items.filter(item => item.category === currentCategory);
-                        if (categoryItems.length > 0) itemsToProcess = categoryItems;
-                    }
-
-                    // Extract potential keywords from the titles of the filtered items.
-                    itemsToProcess.forEach(item => {
-                        const words = item.title.match(/[a-zA-Z0-9+.#-]+/g) || [];
-                        words.forEach(word => {
-                            const firstChar = word.charAt(0);
-                            // Heuristic: A good keyword is 3-15 chars, not a number, and starts
-                            // with a capital letter (likely a proper noun or technology name).
-                            if (word.length > 2 && word.length <= 15 && isNaN(word) && firstChar >= 'A' && firstChar <= 'Z') {
-                                keywords.add(word);
-                            }
-                        });
-                        const cat = item.category?.charAt(0).toUpperCase() + item.category?.slice(1);
-                        if (cat && cat.length > 2 && cat.length <= 15) keywords.add(cat);
-                    });
-
-                    displaySuggestions(Array.from(keywords));
-                })
-                .catch(error => console.error('Error fetching or processing search.json for suggestions:', error));
-        }
-    }
-
-    loadSuggestions();
-
-    // Handle the 'pageshow' event, which fires on back/forward navigation.
-    // If the page is loaded from the browser's cache (persisted), re-run suggestion logic.
-    $(window).on('pageshow', (event) => {
-        if (event.originalEvent.persisted) {
-            loadSuggestions();
-        }
-    });
-});
-</script>
+        <!-- Main container where search results are rendered -->
+        <div id="{{ path[1] | default: 'search' }}" class="col-xs-12 col-sm-12 col-md-10 col-lg-8 col-xl-7 col-xxl-7"
+            style="text-align: left; margin-bottom: 30px;"></div>
+    </center>
+</div>

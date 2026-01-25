@@ -545,6 +545,179 @@
         });
 
         // --------------------------------------------------------------------------
+        // SECTION: Search Suggestions & Voice Input
+        // --------------------------------------------------------------------------
+        const $micIcon = $('#mic_icon');
+        const $suggestionsContainer = $('#search-suggestions');
+        const $suggestionsParentContainer = $('#suggestions-container');
+        const $light = $('#suggestion-light');
+
+        // Voice Search Logic
+        if ($micIcon.length) {
+            const $micIconI = $micIcon.find('i');
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            let recognition;
+            let isListening = false;
+
+            if (SpeechRecognition) {
+                recognition = new SpeechRecognition();
+                recognition.continuous = false;
+                recognition.lang = 'en-US';
+                recognition.interimResults = false;
+                recognition.maxAlternatives = 1;
+
+                $micIcon.on('click', () => {
+                    if (isListening) {
+                        recognition.stop();
+                        return;
+                    }
+                    try {
+                        recognition.start();
+                    } catch (e) {
+                        console.error("Speech recognition could not be started:", e);
+                    }
+                });
+
+                recognition.onstart = () => {
+                    isListening = true;
+                    $micIconI.removeClass('bi-mic').addClass('bi-mic-fill text-danger');
+                };
+
+                recognition.onresult = (event) => {
+                    const transcript = event.results[0][0].transcript;
+                    $input.val(transcript);
+                    $input.trigger('input');
+                };
+
+                recognition.onerror = (event) => {
+                    console.error('Speech recognition error:', event.error);
+                };
+
+                recognition.onend = () => {
+                    isListening = false;
+                    $micIconI.removeClass('bi-mic-fill text-danger').addClass('bi-mic');
+                };
+            } else {
+                $micIcon.hide();
+            }
+        }
+
+        // Suggestions UI Effects
+        if ($light.length) {
+            const blinkTotal = 3;
+            const intervalTime = 2000;
+            let blinkCount = 0;
+            const intervalId = setInterval(() => {
+                if (blinkCount >= blinkTotal) {
+                    clearInterval(intervalId);
+                    return;
+                }
+                $light.removeClass('bi-lightbulb').addClass('bi-lightbulb-fill light-on');
+                setTimeout(() => {
+                    $light.removeClass('bi-lightbulb-fill light-on').addClass('bi-lightbulb');
+                }, intervalTime / 2);
+                blinkCount++;
+            }, intervalTime);
+        }
+
+        // Suggestions Logic
+        const learnSuggestions = [
+            'C', 'C++', 'Java', 'Python', 'R', 'Julia', 'Octave', 'C#', 'F#',
+            'Rust', 'LISP', 'Linux', 'MySQL', 'MongoDB', 'Selenium', 'Algorithm', 'Assembly', 'VBScript',
+            'Ranorex', 'OpenGL', 'AWT', 'Function', 'Method', 'Class', 'Inheritance',
+            'Polymorphism', 'Abstraction', 'Array', 'Bash', 'CLI', 'Exception', 'Database',
+            'Stack', 'Queue', 'Tree', 'Graph', 'Sorting', 'Searching', 'Recursion', 'XPath', 'WebDriver', 'TestNG',
+            'String', 'DataFrame', 'NumPy', 'Pandas', 'Matplotlib', 'List', 'Set', 'Tuple', 'Dictionary',
+            'Expression', 'Log', 'Thread', 'Matrix', 'Math', 'CRUD'
+        ];
+        const toolsSuggestions = [
+            'Calculator', 'Converter', 'Data', 'Length', 'Time', 'Currency', 'Physics', 'Hash', 'Area', 'Volume',
+            'Speed', 'Temperature', 'Pressure', 'Power', 'Energy', 'Age', 'BMI'
+        ];
+
+        const deactivateSuggestions = () => {
+            $suggestionsContainer.children().removeClass('active');
+        };
+
+        const displaySuggestions = (suggestions) => {
+            if (!$suggestionsContainer.length || !$suggestionsParentContainer.length || suggestions.length === 0) return;
+            for (let i = suggestions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [suggestions[i], suggestions[j]] = [suggestions[j], suggestions[i]];
+            }
+            const suggestionsHtml = suggestions.slice(0, 3).map(suggestion => {
+                const sanitizedSuggestion = $('<div>').text(suggestion).html();
+                return `<a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary rounded-pill" style="margin: 2px; font-size: 12px;">${sanitizedSuggestion}</a>`;
+            }).join(' ');
+            $suggestionsContainer.html(suggestionsHtml);
+            $suggestionsParentContainer.show();
+        };
+
+        $suggestionsContainer.on('click', 'a.btn', function(event) {
+            event.preventDefault();
+            const text = $(this).text();
+            $input.val(text);
+            $input.trigger('input');
+            $input.trigger('blur');
+            deactivateSuggestions();
+            $(this).addClass('active');
+        });
+
+        $closeIcon.on('click', function() {
+            if (typeof window.clear_input === 'function') window.clear_input();
+            deactivateSuggestions();
+        });
+
+        $input.on('input', function() {
+            if (!$(this).val()) deactivateSuggestions();
+        });
+
+        const loadSuggestions = () => {
+            const currentCategory = window.gd_path1;
+            if (currentCategory === 'search') {
+                displaySuggestions(learnSuggestions.concat(toolsSuggestions));
+            } else if (currentCategory === 'learn') {
+                displaySuggestions(learnSuggestions);
+            } else if (currentCategory === 'tools') {
+                displaySuggestions(toolsSuggestions);
+            } else {
+                $.getJSON(window.gd_search_url || '/search.json')
+                    .then(data => {
+                        const keywords = new Set();
+                        let itemsToProcess = data.items;
+                        if (currentCategory) {
+                            const categoryItems = data.items.filter(item => item.category === currentCategory);
+                            if (categoryItems.length > 0) itemsToProcess = categoryItems;
+                        }
+                        itemsToProcess.forEach(item => {
+                            const words = item.title.match(/[a-zA-Z0-9+.#-]+/g) || [];
+                            words.forEach(word => {
+                                const firstChar = word.charAt(0);
+                                if (word.length > 2 && word.length <= 15 && isNaN(word) && firstChar >= 'A' && firstChar <= 'Z') {
+                                    keywords.add(word);
+                                }
+                            });
+                            const cat = item.category?.charAt(0).toUpperCase() + item.category?.slice(1);
+                            if (cat && cat.length > 2 && cat.length <= 15) keywords.add(cat);
+                        });
+                        displaySuggestions(Array.from(keywords));
+                    })
+                    .catch(error => console.error('Error fetching or processing search.json for suggestions:', error));
+            }
+        };
+
+        loadSuggestions();
+
+        $(window).on('pageshow', (event) => {
+            if (event.originalEvent.persisted) {
+                loadSuggestions();
+            }
+        });
+
+        // On page load, ensure the input is cleared
+        if (typeof window.clear_input === 'function') window.clear_input();
+
+        // --------------------------------------------------------------------------
         // SECTION: Global Helper Functions
         // --------------------------------------------------------------------------
         // These functions are exposed on the `window` object to be callable from
@@ -567,12 +740,12 @@
 
             if (val.length === 0) {
                 $closeIcon.hide();
-                $searchIcon.css('display', 'inline-block');
+                $searchIcon.css('display', '');
                 $resultsContainer.hide();
                 $matchCount.hide();
             } else {
                 $resultsContainer.show();
-                $closeIcon.css({'display': 'inline-block', 'cursor': 'pointer'});
+                $closeIcon.css({'display': '', 'cursor': 'pointer'});
                 $searchIcon.hide();
             }
         };

@@ -505,7 +505,13 @@ div.box.card-footer {
     border-right: transparent;
 }
 
-#search_icon, #close_icon 
+#mic_icon
+{
+    border: 1px solid var(--color1);
+    color: #999;
+}
+
+#search_icon, #close_icon
 {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
