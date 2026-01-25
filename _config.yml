@@ -1,14 +1,28 @@
-# -----------------------------------------------------------------------------
-# GoDarda — Production Site Configuration
-# Maintainer: Shubham Darda
+
+# =============================================================================
 #
-# This file controls site metadata, asset references, templates, and build settings.
+#   ██████╗  ██████╗ ██████╗  █████╗ ██████╗ ██████╗  █████╗
+#  ██╔════╝ ██╔═══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗
+#  ██║  ███╗██║   ██║██║  ██║███████║██████╔╝██║  ██║███████║
+#  ██║   ██║██║   ██║██║  ██║██╔══██║██╔══██╗██║  ██║██╔══██║
+#  ╚██████╔╝╚██████╔╝██████╔╝██║  ██║██║  ██║██████╔╝██║  ██║
+#   ╚═════╝  ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝
 #
-# Guidelines:
-# - Prefer non-breaking changes for production stability.
-# - Verify external CDN URLs and SRI hashes before committing.
-# - Do not store secrets or private tokens here; use environment variables.
-# -----------------------------------------------------------------------------
+# =============================================================================
+#
+#  Project    : GoDarda
+#  File       : Site Configuration (_config.yml)
+#  Created    : September 1, 2020
+#  Maintainer : Shubham Darda
+#  Purpose    : This file defines the core configuration for the GoDarda site,
+#               including metadata, asset paths, build settings, and plugin management.
+#
+#  Guidelines :
+#  1. Stability First: Prioritize non-breaking changes.
+#  2. Security: Verify all external URLs and SRI hashes upon update.
+#  3. No Secrets: Use environment variables for sensitive data.
+#
+# =============================================================================
 
 title: GoDarda
 url: https://godarda.in
@@ -19,8 +33,9 @@ architect: Shubham Darda
 # --------------------------------------------------------------------------
 # Asset References
 # Define third-party CDN links and local asset paths for consistent usage.
-# When updating resources with SRI hashes, ensure both the URL and 'i' (integrity)
-# fields are updated.
+# When updating resources with Subresource Integrity (SRI) hashes, ensure both the
+# URL and the corresponding integrity field (e.g., 'bs_cssi') are updated to
+# maintain security.
 # --------------------------------------------------------------------------
 gd_css: assets/css/gd.css
 gd_color_css: assets/css/color.css
@@ -35,7 +50,7 @@ bs_jsi: sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI
 
 # Optional icon/font libraries and client-side helpers
 bs_icons: https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css
-jquery: https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js
+jquery: https://code.jquery.com/jquery-4.0.0.min.js
 crypto_js: https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js
 
 # Open Graph / favicon / logos
@@ -49,8 +64,9 @@ analytics: https://www.googletagmanager.com/gtag/js?id=G-8ZJLP1KH1R
 
 # --------------------------------------------------------------------------
 # UI Defaults & File Icons
-# HTML fragments used in templates for file badges, execution hints, and captions.
-# Ensure these remain valid HTML when editing.
+# Defines reusable HTML snippets for UI elements like file-type headers
+# (e.g., 'cfile') and terminal command examples (e.g., 'runc'). These are
+# injected into Markdown files for a consistent look and feel.
 # --------------------------------------------------------------------------
 highlighter: rouge
 cfile: "<div class='d-flex justify-content-between align-items-center'><span class='bi bi-file-code'> gd.c</span><i class='bi bi-copy copy-btn' role='button' title='Copy code' style='cursor: pointer;'></i></div>"
@@ -87,7 +103,9 @@ runasm: "godarda@gd:~$ <mark>nasm -felf64 gd.asm</mark><br>godarda@gd:~$ <mark>l
 output: "<span class='bi bi-terminal'> Output</span>"
 
 # --------------------------------------------------------------------------
-# Defaults: Configure how Jekyll processes files based on their path.
+# Defaults: Sets default front matter values for files based on their path.
+# This configuration applies the 'modern' layout to all pages site-wide,
+# avoiding the need to specify 'layout: modern' in every file.
 # --------------------------------------------------------------------------
 defaults:
   -
@@ -117,8 +135,9 @@ exclude:
   - .jekyll-cache
   - .jekyll-metadata
   - .vscode
+  - .vendor
+  - .venv
   - android
-  - codes
   - CODE_OF_CONDUCT.md
   - CONTRIBUTING.md
   - Gemfile
@@ -129,7 +148,6 @@ exclude:
   - SUPPORT.md
   - setups
   - tests
-  - vendor
 
 # -----------------------------------------------------------------------------
 # End of configuration.

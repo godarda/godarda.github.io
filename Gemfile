@@ -12,6 +12,8 @@ gem "jekyll", "~> 4.4.1"
 group :jekyll_plugins do
   # Generates sitemap.xml for SEO and search engine indexing
   gem "jekyll-sitemap"
+  # Required for Faraday v2.0+ middleware
+  gem "faraday-retry"
 end
 
 # Platform-specific dependencies for Windows and JRuby
@@ -23,7 +25,7 @@ platforms :windows, :jruby do
 end
 
 # File system watcher for Windows platforms
-gem 'wdm', '~> 0.2.0' if Gem.win_platform? && ENV['CI'].nil?
+gem 'wdm', '~> 0.2.0' if Gem.win_platform?
 
 # HTTP parser for JRuby compatibility
 gem "http_parser.rb", "~> 0.6.0", platforms: [:jruby]
@@ -33,4 +35,4 @@ gem "csv"           # CSV parsing and generation
 gem "logger"        # Logging utilities
 gem "base64"        # Base64 encoding and decoding
 gem "webrick"       # Required for Jekyll 4.x on Ruby 3.x
-gem "faraday-retry" # Required for Faraday v2.0+ middleware
+gem "net-http"      # Required for Faraday v2.0+ default adapter

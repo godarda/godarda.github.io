@@ -27,7 +27,6 @@
 // --------------------------------------------------------------------------
 // Frame Busting
 // --------------------------------------------------------------------------
-
 // Ensures the site is not loaded within an iframe, which can be a security risk (clickjacking).
 try {
     if (self !== top) {
@@ -35,37 +34,42 @@ try {
     }
 } catch (e) {
     // If the browser's security policy blocks access, hide the page content.
-    $(function() { $('html').hide(); });
+    $(() => { $('html').hide(); });
 }
 
 // --------------------------------------------------------------------------
 // Swipe Actions
 // --------------------------------------------------------------------------
-
 // Global variables to store touch coordinates for swipe detection.
-let xDown = null, yDown = null, xUp = null, yUp = null;
+let xDown = null;
+let yDown = null;
+let xUp = null;
+let yUp = null;
 
-function touchstart(evt) {
+const handleTouchStart = (evt) => {
     const firstTouch = (evt.touches || evt.originalEvent.touches)[0];
     xDown = firstTouch.clientX;
     yDown = firstTouch.clientY;
-    xUp = null; yUp = null;
-}
+    xUp = null;
+    yUp = null;
+};
 
-function touchmove(evt) {
+const handleTouchMove = (evt) => {
     if (!xDown || !yDown) return;
     xUp = (evt.originalEvent || evt).touches[0].clientX;
     yUp = (evt.originalEvent || evt).touches[0].clientY;
-}
+};
 
-function touchend() {
+const handleTouchEnd = () => {
     // Prevent swipe actions if a modal is open
     if ($('body').hasClass('modal-open')) {
-        xDown = null, yDown = null;
+        xDown = null;
+        yDown = null;
         return;
     }
     if (!xUp || !yUp) return;
-    let xDiff = xUp - xDown, yDiff = yUp - yDown;
+    const xDiff = xUp - xDown;
+    const yDiff = yUp - yDown;
     // Check if the horizontal movement is significant enough to be considered a swipe
     if ((Math.abs(xDiff) > Math.abs(yDiff)) && (Math.abs(xDiff) > 0.6 * document.body.clientWidth)) {
         if (xDiff > 0) {
@@ -76,68 +80,65 @@ function touchend() {
             $('.leftsidebar-collapse').removeClass('open');
         }
     }
-    xDown = null, yDown = null;
-}
+    xDown = null;
+    yDown = null;
+};
 
 // --------------------------------------------------------------------------
 // DOM Ready - Main Execution
 // --------------------------------------------------------------------------
-
-$(function () {
+$(() => {
     // Attach swipe event listeners to the document.
-    $(document).on('touchstart', touchstart);
-    $(document).on('touchmove', touchmove);
-    $(document).on('touchend', touchend);
+    $(document).on('touchstart', handleTouchStart);
+    $(document).on('touchmove', handleTouchMove);
+    $(document).on('touchend', handleTouchEnd);
 
     // --------------------------------------------------------------------------
     // UI Initialization & Event Handlers
     // --------------------------------------------------------------------------
-
     // Force the default cursor to prevent the I-beam from appearing over text.
     $('body').css('cursor', 'default');
     // Ensure input fields and textareas still show the text cursor for editing.
     $('input, textarea').css('cursor', 'text');
 
     // Toggle left sidebar visibility
-    $('[data-bs-toggle="leftsidebar"]').on('click', function () {
+    $('[data-bs-toggle="leftsidebar"]').on('click', () => {
         $('.rightsidebar-collapse').removeClass('open');
         $('.leftsidebar-collapse').toggleClass('open');
     });
     // Toggle right sidebar visibility
-    $('[data-bs-toggle="rightsidebar"]').on('click', function () {
+    $('[data-bs-toggle="rightsidebar"]').on('click', () => {
         $('.leftsidebar-collapse').removeClass('open');
         $('.rightsidebar-collapse').toggleClass('open');
     });
     // Collapse all sidebars
-    $('[data-bs-toggle="collapseall"]').on('click', function () {
+    $('[data-bs-toggle="collapseall"]').on('click', () => {
         $('.leftsidebar-collapse').removeClass('open');
         $('.rightsidebar-collapse').removeClass('open');
     });
     // Prevent dragging of anchor tags
-    $('html').on('dragstart', 'a', function () { return false; });
+    $('html').on('dragstart', 'a', () => false);
 
     // --------------------------------------------------------------------------
     // Security Measures
     // --------------------------------------------------------------------------
-
     // Disable specific keyboard shortcuts, right-click, and text selection
-    $(document).on('keydown', function (event) {
-        if (event.keyCode === 123 || // F12
-            (event.ctrlKey && event.shiftKey && event.keyCode === 73) || // Ctrl+Shift+I
-            (event.ctrlKey && event.keyCode === 85) || // Ctrl+U
-            (event.ctrlKey && event.keyCode === 83)) { // Ctrl+S
+    $(document).on('keydown', (event) => {
+        const { key, ctrlKey, shiftKey } = event;
+        // Use event.key instead of deprecated event.keyCode
+        if (key === 'F12' || // F12
+            (ctrlKey && shiftKey && key.toUpperCase() === 'I') || // Ctrl+Shift+I
+            (ctrlKey && key.toUpperCase() === 'U') || // Ctrl+U
+            (ctrlKey && key.toUpperCase() === 'S')) { // Ctrl+S
             return false;
         }
-    }).on('contextmenu selectstart', function () {
-        return false;
-    });
+    }).on('contextmenu selectstart', () => false);
 
     // --------------------------------------------------------------------------
     // Scroll-based Behaviors
     // --------------------------------------------------------------------------
-
     // Smooth scroll to top
-    $('.back-to-top').on('click', function () {
+    $('.back-to-top').on('click', () => {
         $('html, body').animate({ scrollTop: 0 }, 100);
     });
 
@@ -149,30 +150,34 @@ $(function () {
     }
 
     const today = new Date().toLocaleDateString();
-    let is_shown = sessionStorage.getItem('status');
+    let isShown = sessionStorage.getItem('status');
     const $backToTop = $("#backtotop");
     const $leftSidebar = $('.leftsidebar-collapse');
     const $rightSidebar = $('.rightsidebar-collapse');
     const $staticBackdrop = $('#staticBackdrop');
 
     let ticking = false;
-    $(window).on('scroll', function () {
+    $(window).on('scroll', () => {
         if (!ticking) {
-            window.requestAnimationFrame(function () {
-                var scrollTop = $(window).scrollTop();
+            window.requestAnimationFrame(() => {
+                const scrollTop = $(window).scrollTop();
 
                 // Show modal once per day when user scrolls past 50% of the page
-                if (is_shown !== today) {
+                if (isShown !== today) {
                     const scrollPercent = ((scrollTop) / ($(document).height() - $(window).height())) * 100;
                     if (scrollPercent >= 50) {
                         $staticBackdrop.modal('show');
                         sessionStorage.setItem('status', today);
-                        is_shown = today;
+                        isShown = today;
                     }
                 }
 
                 // Toggle "Back to Top" button visibility
-                $backToTop.toggle(scrollTop > 100);
+                if (scrollTop > 100) {
+                    $backToTop.show();
+                } else {
+                    $backToTop.hide();
+                }
 
                 // Auto-close sidebars on scroll
                 if ($leftSidebar.hasClass('open')) {
@@ -190,7 +195,6 @@ $(function () {
     // --------------------------------------------------------------------------
     // Theme Management (Dark/Light Mode)
     // --------------------------------------------------------------------------
-
     // Updates the theme switcher UI to reflect the active theme.
     const showActiveTheme = (theme, focus = false) => {
         const $themeCard = $('#app-theme-switcher');
@@ -213,9 +217,7 @@ $(function () {
         const $activeThemeIcon = $('#bd-theme-icon');
         const $btnToActive = $(`[data-bs-theme-value="${theme}"]`);
         const svgOfActiveBtn = $btnToActive.find('i').attr('class');
-
         $('[data-bs-theme-value]').removeClass('active').attr('aria-pressed', 'false');
-
         $btnToActive.addClass('active').attr('aria-pressed', 'true');
         $activeThemeIcon.attr('class', svgOfActiveBtn);
         const themeSwitcherLabel = `${$themeSwitcherText.text()} (${$btnToActive.data('bs-theme-value')})`;
@@ -229,9 +231,10 @@ $(function () {
     // Initialize theme on DOM load.
     const storedTheme = getStoredTheme() || 'auto';
     showActiveTheme(storedTheme);
-    $('[data-bs-theme-value], #app-theme-switcher').on('click', function (event) {
+    $('[data-bs-theme-value], #app-theme-switcher').on('click', (event) => {
         event.preventDefault();
-        let theme = $(this).data('bs-theme-value');
+        const $el = $(event.currentTarget);
+        let theme = $el.data('bs-theme-value');
         // If no specific value is set, switch between light/dark
         if (!theme) {
             const stored = getStoredTheme() || 'auto';
@@ -240,22 +243,21 @@ $(function () {
         }
         setStoredTheme(theme);
         setTheme(theme);
-        showActiveTheme(theme, $(this).is('[data-bs-theme-value]'));
+        showActiveTheme(theme, $el.is('[data-bs-theme-value]'));
     });
 
     // --------------------------------------------------------------------------
     // Clipboard Functionality
     // --------------------------------------------------------------------------
-
     // Handles the "copy" button on code blocks.
-    $('.copy-btn').on('click', function () {
-        const $button = $(this);
+    $('.copy-btn').on('click', (event) => {
+        const $button = $(event.currentTarget);
         const $card = $button.closest('.card');
         if ($card.length) {
             const $pre = $card.next('pre');
             if ($pre.length) {
                 const pageUrl = window.location.href;
-                const codeToCopy = pageUrl + '\n\n' + $pre.text();
+                const codeToCopy = `${pageUrl}\n\n${$pre.text()}`;
                 navigator.clipboard.writeText(codeToCopy).then(() => {
                     $button.addClass('show-tooltip').attr('title', 'Copied!');
                     setTimeout(() => {
@@ -272,7 +274,6 @@ $(function () {
 // --------------------------------------------------------------------------
 // User Agent Detection
 // --------------------------------------------------------------------------
-
 window.userAgent = navigator.userAgent;
 const normalizedUserAgent = (window.userAgent || '').toLowerCase();
 const isAndroid = /android/.test(normalizedUserAgent);
@@ -283,9 +284,8 @@ window.isGoDardaApp = window.isWebview || (window.userAgent && window.userAgent.
 // --------------------------------------------------------------------------
 // Google Analytics Configuration
 // --------------------------------------------------------------------------
-
 window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
+function gtag(){ window.dataLayer.push(arguments); }
 gtag('js', new Date());
 
 if (window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1" && window.location.protocol !== "file:") {
@@ -295,6 +295,5 @@ if (window.location.hostname !== "localhost" && window.location.hostname !== "12
 }
 
 // --------------------------------------------------------------------------
-
 // Set the current year for use in the footer or other parts of the site.
 const year = new Date().getFullYear();

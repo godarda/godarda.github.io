@@ -16,21 +16,21 @@
  * 4. Optimized Rendering: Uses caching and efficient DOM updates.
  */
 
-(function () {
+(() => {
     /**
      * Formats a number for display, handling scientific notation for extreme values
      * and limiting precision for readability.
      * @param {number} num - The number to format.
      * @returns {string} The formatted number string.
      */
-    function formatNumber(num) {
+    const formatNumber = (num) => {
         if (num === 0) return '0';
         const abs = Math.abs(num);
         if (abs < 1e-4 || abs > 1e6) {
             return num.toExponential(4);
         }
         return parseFloat(num.toPrecision(6)).toString();
-    }
+    };
 
     /**
      * Normalizes the converter configuration by converting unit factors to functions
@@ -39,7 +39,7 @@
      * @param {Array<string>} [defaultSelectedUnits] - List of unit keys selected by default.
      * @returns {Object} The normalized stats object.
      */
-    function normalizeConverterConfig(units, defaultSelectedUnits) {
+    const normalizeConverterConfig = (units, defaultSelectedUnits) => {
         // Normalize Units: Convert simple factors to toBase/fromBase functions
         Object.keys(units).forEach(key => {
             const u = units[key];
@@ -58,9 +58,9 @@
             };
         });
         return stats;
-    }
+    };
 
-    window.setupTool = function (config) {
+    window.setupTool = (config) => {
         let {
             stats,              // [Calculator] Configuration for output tiles: { key: { name, default } }
             inputs = [],        // [Calculator] Array of input element IDs
@@ -178,7 +178,7 @@
          * Initializes the UI components, including result cards and dropdown menus.
          * Uses DocumentFragment for efficient DOM insertion.
          */
-        function init() {
+        const init = () => {
             // Create "Select All", "Clear All", and "Reset" actions in the dropdown
             if (viewOptionsMenu) {
                 const liActions = document.createElement('li');
@@ -272,12 +272,12 @@
 
             resultsContainer.appendChild(resultsFrag);
             if (viewOptionsMenu && dropdownFrag) viewOptionsMenu.appendChild(dropdownFrag);
-        }
+        };
 
         /**
          * Updates the visibility of result cards based on user selection and mode.
          */
-        function updateVisibility() {
+        const updateVisibility = () => {
             // In Converter Mode, hide the result card corresponding to the selected input unit
             let visibleCount = 0;
             const currentInputUnit = isConverter && inputUnitSelect ? inputUnitSelect.value : null;
@@ -300,12 +300,12 @@
             } else {
                 resultsContainer.classList.add('row-cols-1', 'row-cols-md-2');
             }
-        }
+        };
 
         /**
          * Retrieves input values, executes the calculation, and updates the UI.
          */
-        function updateValues() {
+        const updateValues = () => {
             // Collect values from all configured input elements
             const inputValues = {};
             inputElements.forEach(el => {
@@ -336,7 +336,7 @@
                     s.subElement.style.display = 'none';
                 }
             });
-        }
+        };
 
         /**
          * Debounced input handler to prevent excessive recalculations during typing.
