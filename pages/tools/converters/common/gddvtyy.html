@@ -10,7 +10,7 @@ description: "Instantly convert volumes between liters, milliliters, cubic meter
 <ul>
     <li><strong>Input Value:</strong> Enter the volume you wish to convert in the input field.</li>
     <li><strong>Select Unit:</strong> Choose the starting unit (e.g., Liter, Gallon) from the dropdown next to the input.</li>
-    <li><strong>Customize Results:</strong> Use the "Select Conversion" dropdown to choose which target units to display.</li>
+    <li><strong>Customize Results:</strong> Use the "Select Tiles" dropdown to choose which target units to display.</li>
 </ul><hr>
 <h6><i class="bi bi-box-seam"></i> Supported Units</h6>
 <p class="small text-muted">This tool supports conversion between the following units:</p>
@@ -21,7 +21,7 @@ description: "Instantly convert volumes between liters, milliliters, cubic meter
 </ul>
 {% endcapture %}
 
-{% include converter.html %}
+{% include tools.html %}
 
 <script>
 (function () {
@@ -47,7 +47,7 @@ description: "Instantly convert volumes between liters, milliliters, cubic meter
     const defaultSelectedUnits = ['ml', 'gal'];
 
     // Initialize the shared converter logic
-    setupConverter({
+    setupTool({
         units: units,
         defaultUnit: defaultUnit,
         defaultSelectedUnits: defaultSelectedUnits

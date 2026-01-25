@@ -19,7 +19,7 @@ import shutil
 from compile import compile_snippets
 from unittesting import TitleVerificationTest
 from report import print_report
-from utilities import CONFIG, STATS, clean_pycache
+from utilities import CONFIG, STATS
 
 
 def main() -> None:
@@ -82,10 +82,6 @@ def main() -> None:
         print(f"1. Local server not running at {CONFIG.BASE_URL}")
         print("2. Network connectivity issues.")
         print("3. Environment or configuration errors.")
-
-    finally:
-        # Perform cleanup.
-        clean_pycache()
 
 
 if __name__ == "__main__":

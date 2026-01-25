@@ -147,29 +147,6 @@ def load_expected_data(folder_path: Union[str, Path]) -> List[dict]:
     return unique_entries
 
 
-def clean_pycache(cache_path: Optional[str] = None) -> None:
-    """
-    Removes the __pycache__ directory.
-
-    Args:
-        cache_path: Optional path to the cache directory or its parent.
-                    Defaults to the directory of this module.
-    """
-    try:
-        p = (
-            Path(cache_path)
-            if cache_path
-            else Path(__file__).resolve().parent / "__pycache__"
-        )
-        # Adjust path if a parent directory was provided.
-        if p.name != "__pycache__":
-            p = p / "__pycache__"
-        if p.exists():
-            shutil.rmtree(p)
-    except Exception as e:
-        print(f"Cleanup warning (could not remove {cache_path or 'default'}): {e}")
-
-
 # Initialize global configuration and statistics.
 CONFIG = get_environment_config()
 STATS = TestStats()

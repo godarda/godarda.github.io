@@ -10,7 +10,7 @@ description: "Instantly convert energy between joules, kilojoules, calories, kil
 <ul>
     <li><strong>Input Value:</strong> Enter the energy value you wish to convert in the input field.</li>
     <li><strong>Select Unit:</strong> Choose the starting unit (e.g., Joule, Kilocalorie) from the dropdown next to the input.</li>
-    <li><strong>Customize Results:</strong> Use the "Select Conversion" dropdown to choose which target units to display.</li>
+    <li><strong>Customize Results:</strong> Use the "Select Tiles" dropdown to choose which target units to display.</li>
 </ul><hr>
 <h6><i class="bi bi-lightning-charge"></i> Supported Units</h6>
 <p class="small text-muted">This tool supports conversion between the following energy units:</p>
@@ -21,7 +21,7 @@ description: "Instantly convert energy between joules, kilojoules, calories, kil
 </ul>
 {% endcapture %}
 
-{% include converter.html %}
+{% include tools.html %}
 <script>
 (function () {
     // Configuration: Define units and their conversion factor to Joules (base unit)
@@ -42,7 +42,7 @@ description: "Instantly convert energy between joules, kilojoules, calories, kil
     const defaultSelectedUnits = ['kj', 'kcal'];
 
     // Initialize the shared converter logic
-    setupConverter({
+    setupTool({
         units: units,
         defaultUnit: defaultUnit,
         defaultSelectedUnits: defaultSelectedUnits

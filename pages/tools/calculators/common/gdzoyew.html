@@ -1,0 +1,137 @@
+---
+permalink: calculators/common/gdzoyew
+title: Age Calculator
+description: "Calculate age based on birth date and current date."
+---
+
+{% capture tools_inputs %}
+<div class="row g-3">
+    <div class="col-6">
+        <label for="dobInput" class="form-label small muted">Date of Birth</label>
+        <input type="date" id="dobInput" class="form-control" max="9999-12-31">
+    </div>
+    <div class="col-6">
+        <label for="targetInput" class="form-label small muted">Age at Date</label>
+        <input type="date" id="targetInput" class="form-control" max="9999-12-31">
+    </div>
+</div>
+{% endcapture %}
+
+{% capture help_content %}
+<p><strong>How to use:</strong></p>
+<ul>
+    <li><strong>Date of Birth:</strong> Enter your birth date.</li>
+    <li><strong>Age at Date:</strong> Defaults to today, but you can check your age on past or future dates.</li>
+</ul>
+<p><strong>Features:</strong></p>
+<ul>
+    <li>Calculates exact years, months, and days.</li>
+    <li>Shows total days elapsed since birth.</li>
+    <li>Countdown to your next birthday.</li>
+    <li>Use "Select Tiles" to hide or show specific result cards.</li>
+</ul>
+{% endcapture %}
+
+{% include tools.html %}
+
+<script>
+(function () {
+    const dobInput = document.getElementById('dobInput');
+    const targetInput = document.getElementById('targetInput');
+
+    // Helper to parse "YYYY-MM-DD" as local date
+    function parseDate(str) {
+        if (!str) return null;
+        const [y, m, d] = str.split('-').map(Number);
+        if (y > 9999) return null;
+        return new Date(y, m - 1, d);
+    }
+
+    function getOrdinal(n) {
+        const s = ["th", "st", "nd", "rd"];
+        const v = n % 100;
+        return n + (s[(v - 20) % 10] || s[v] || s[0]);
+    }
+
+    function getGeneration(year) {
+        if (year >= 2100) return "Gen Eta";
+        if (year >= 2085) return "Gen Zeta";
+        if (year >= 2070) return "Gen Epsilon";
+        if (year >= 2055) return "Gen Delta";
+        if (year >= 2040) return "Gen Gamma";
+        if (year >= 2025) return "Gen Beta";
+        if (year >= 2013) return "Gen Alpha";
+        if (year >= 1997) return "Gen Z";
+        if (year >= 1981) return "Millennial";
+        if (year >= 1965) return "Gen X";
+        if (year >= 1946) return "Baby Boomer";
+        if (year >= 1928) return "Silent Gen";
+        if (year >= 1901) return "Greatest Gen";
+        if (year >= 1883) return "Lost Gen";
+        return "-";
+    }
+
+    // Set default target date to today
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    targetInput.value = `${yyyy}-${mm}-${dd}`;
+
+    setupTool({
+        inputs: ['dobInput', 'targetInput'],
+        stats: {
+            current: { name: 'Current Age',   default: true },
+            generation: { name: 'Generation', default: true },
+            exact:   { name: 'Exact Age',     default: false },
+            running: { name: 'Running Age',   default: false },
+            days:    { name: 'Total Days',    default: false },
+            next:    { name: 'Next Birthday', default: false }
+        },
+        calculate: (values) => {
+            const dob = parseDate(values.dobInput);
+            const target = parseDate(values.targetInput);
+            const res = {};
+
+            if (!dob || !target || dob > target) return res;
+
+            // 1. Calculate Years, Months, Days
+            let years = target.getFullYear() - dob.getFullYear();
+            let months = target.getMonth() - dob.getMonth();
+            let days = target.getDate() - dob.getDate();
+
+            if (days < 0) {
+                months--;
+                const prevMonth = new Date(target.getFullYear(), target.getMonth(), 0);
+                days += prevMonth.getDate();
+            }
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            res.current = `${years} Years`;
+            res.running = `${getOrdinal(years + 1)} Year`;
+            res.exact = `${years} Years, ${months} Months, ${days} Days`;
+            res.generation = getGeneration(dob.getFullYear());
+
+            // 2. Total Days Alive
+            const diffTime = target - dob;
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            res.days = diffDays.toLocaleString();
+
+            // 3. Next Birthday
+            const currentYear = target.getFullYear();
+            let nextBday = new Date(dob.getFullYear(), dob.getMonth(), dob.getDate());
+            nextBday.setFullYear(currentYear);
+            if (nextBday < target) nextBday.setFullYear(currentYear + 1);
+
+            const diffBdayTime = nextBday - target;
+            const diffBdayDays = Math.ceil(diffBdayTime / (1000 * 60 * 60 * 24));
+            res.next = (diffBdayDays === 0) ? "Today! 🎂" : (diffBdayDays + " days");
+
+            return res;
+        }
+    });
+})();
+</script>

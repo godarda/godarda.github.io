@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function loadItemsIfNeeded() {
         if (items !== null) return Promise.resolve();
         if (loadPromise) return loadPromise;
-        
+
         if (inputContainer) {
             inputContainer.classList.add('search-loading');
             inputContainer.style.setProperty('--search-progress', '0%');
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const elapsed = time - startTime;
                 const virtualProgress = Math.min((elapsed / animationDuration) * 100, 100);
                 const display = Math.min(realProgress, virtualProgress);
-                
+
                 if (inputContainer) {
                     inputContainer.style.setProperty('--search-progress', display + '%');
                 }
@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     items = allItems.filter(it => it.category === containerId);
                 }
             })
-            .finally(() => { 
+            .finally(() => {
                 loadPromise = null;
                 if (inputContainer) {
                     inputContainer.classList.remove('search-loading');
@@ -166,29 +166,32 @@ document.addEventListener('DOMContentLoaded', function () {
         const blen = b.length;
         if (alen === 0) return blen;
         if (blen === 0) return alen;
-        const matrix = [];
-        for (let i = 0; i <= blen; i++) { matrix[i] = [i]; }
-        for (let j = 0; j <= alen; j++) { matrix[0][j] = j; }
+
+        if (alen > blen) return levenshtein(b, a);
+
+        const row = new Array(alen + 1);
+        for (let i = 0; i <= alen; i++) row[i] = i;
+
         for (let i = 1; i <= blen; i++) {
+            let prev = i;
             for (let j = 1; j <= alen; j++) {
-                if (b.charAt(i - 1) === a.charAt(j - 1)) {
-                    matrix[i][j] = matrix[i - 1][j - 1];
-                } else {
-                    matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, Math.min(matrix[i][j - 1] + 1, matrix[i - 1][j] + 1));
-                }
+                const val = (b.charAt(i - 1) === a.charAt(j - 1)) ? row[j - 1] : Math.min(row[j - 1], prev, row[j]) + 1;
+                row[j - 1] = prev;
+                prev = val;
             }
+            row[alen] = prev;
         }
-        return matrix[blen][alen];
+        return row[alen];
     }
 
     function findCorrection(word) {
         if (vocabulary.has(word)) return null;
-        
+
         // Heuristic: Don't correct short words aggressively.
         const maxDist = (word.length <= 4) ? 1 : 2;
 
         let bestWord = null;
-        let minDistance = maxDist + 1; 
+        let minDistance = maxDist + 1;
         for (const vocabWord of vocabulary) {
             if (Math.abs(vocabWord.length - word.length) > maxDist) continue;
             const dist = levenshtein(word, vocabWord);
@@ -237,11 +240,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 tokensNoApos.forEach(t => { if (t.length > 2) vocabulary.add(t); });
             }
 
-            const item = { 
-                title: (o.title || '').trim(), 
-                href: href, 
-                category: o.category, 
-                safeTitle: escapeHtml(o.title || ''), 
+            const item = {
+                title: (o.title || '').trim(),
+                href: href,
+                category: o.category,
+                safeTitle: escapeHtml(o.title || ''),
                 lowerTitle: matchTitle,
                 lowerContent: lowerContent
             };
@@ -269,7 +272,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (qtrim && lowerTitle.startsWith(qtrim)) return { score: 90, type: 'prefix' };
         if (qtrim.length > 1 && lowerTitle.indexOf(qtrim) !== -1) return { score: 80, type: 'substring' };
         if (tokens.length > 0 && tokens.every(t => lowerTitle.indexOf(t) !== -1)) return { score: 70 + tokens.length, type: 'alltokens' };
-        
+
         // Content matches
         if (lowerContent.indexOf(qtrim) !== -1) return { score: 60, type: 'content' };
         if (tokens.length > 0 && tokens.every(t => lowerContent.indexOf(t) !== -1)) return { score: 50 + tokens.length, type: 'content_all' };
@@ -408,7 +411,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let tid = null;
     input.addEventListener('input', function (e) {
         clearTimeout(tid);
-        
+
         // Autocorrect logic: triggers when the last character typed is a space
         const cursor = input.selectionStart;
         if (items !== null && cursor > 0 && input.value[cursor - 1] === ' ') {

@@ -10,7 +10,7 @@ description: "Instantly convert time between seconds, minutes, hours, days, week
 <ul>
     <li><strong>Input Value:</strong> Enter the time duration you wish to convert in the input field.</li>
     <li><strong>Select Unit:</strong> Choose the starting unit (e.g., Minute, Hour) from the dropdown next to the input.</li>
-    <li><strong>Customize Results:</strong> Use the "Select Conversion" dropdown to choose which target units to display.</li>
+    <li><strong>Customize Results:</strong> Use the "Select Tiles" dropdown to choose which target units to display.</li>
 </ul><hr>
 <h6><i class="bi bi-clock"></i> Supported Units</h6>
 <p class="small text-muted">This tool supports conversion between the following time units:</p>
@@ -21,7 +21,7 @@ description: "Instantly convert time between seconds, minutes, hours, days, week
 </ul>
 {% endcapture %}
 
-{% include converter.html %}
+{% include tools.html %}
 
 <script>
 (function () {
@@ -43,7 +43,7 @@ description: "Instantly convert time between seconds, minutes, hours, days, week
     const defaultSelectedUnits = ['s', 'h'];
 
     // Initialize the shared converter logic
-    setupConverter({
+    setupTool({
         units: units,
         defaultUnit: defaultUnit,
         defaultSelectedUnits: defaultSelectedUnits

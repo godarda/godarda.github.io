@@ -10,7 +10,7 @@ description: "Instantly convert currencies between USD, EUR, GBP, JPY, and more.
 <ul>
     <li><strong>Input Value:</strong> Enter the amount you wish to convert in the input field.</li>
     <li><strong>Select Currency:</strong> Choose the starting currency (e.g., US Dollar) from the dropdown next to the input.</li>
-    <li><strong>Customize Results:</strong> Use the "Select Conversion" dropdown to choose which target currencies to display.</li>
+    <li><strong>Customize Results:</strong> Use the "Select Tiles" dropdown to choose which target currencies to display.</li>
 </ul><hr>
 <h6><i class="bi bi-cash-coin"></i> Supported Currencies</h6>
 <p class="small text-muted">This tool supports conversion between the following currencies:</p>
@@ -22,7 +22,7 @@ description: "Instantly convert currencies between USD, EUR, GBP, JPY, and more.
 <p class="small text-muted mt-2"><em>Note: Exchange rates are sourced from open-source APIs and updated daily.</em></p>
 {% endcapture %}
 
-{% include converter.html %}
+{% include tools.html %}
 <script>
 (function () {
     // Configuration: Define currencies and their conversion factor to USD (base unit)
@@ -70,7 +70,7 @@ description: "Instantly convert currencies between USD, EUR, GBP, JPY, and more.
             const note = document.querySelector('#helpModal em');
             if (note) note.innerText = `Exchange rates updated from live data (${data.date}).`;
 
-            setupConverter({
+            setupTool({
                 units: units,
                 defaultUnit: defaultUnit,
                 defaultSelectedUnits: defaultSelectedUnits

@@ -129,7 +129,7 @@ def scan_markdown_files(all_gdids: Set[str], md_files: List[Path]) -> Dict[str, 
             text = file.read_text(encoding="utf-8", errors="ignore")
             if not GDID_PATTERN.search(text):
                 return found
-            
+
             for match in MARKDOWN_LINK_PATTERN.finditer(text):
                 token = match.group(1)
                 if token in all_gdids:
@@ -282,6 +282,10 @@ def extract_metadata_from_html(html_path: Path) -> Tuple[str, str]:
 
 
 class YamlManager:
+    """
+    Manages thread-safe updates to YAML navigation files.
+    Caches loaded YAML data to minimize disk I/O and writes changes in batches.
+    """
     def __init__(self):
         self.cache = {}
         self.dirty = set()
@@ -301,7 +305,7 @@ class YamlManager:
 
         section_key, subsection_key = parts[0], parts[1]
         data_dir = REPO_ROOT / "_data"
-        
+
         with self.lock:
             yml_path = data_dir / f"{section_key}.yml"
             if not yml_path.exists():
@@ -335,7 +339,7 @@ class YamlManager:
                     children.append({'title': title, 'url': permalink})
                     updated = True
                     break
-            
+
             if updated:
                 self.dirty.add(yml_path)
 

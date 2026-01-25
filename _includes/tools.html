@@ -1,31 +1,38 @@
+<link rel="stylesheet" href="/assets/css/tools.css">
+<script src="/assets/js/tools.js"></script>
+
 <div class="calc-panel">
     <div class="row g-4">
         <div class="col-12">
-            <!-- Result Cards Container -->
-            <div id="resultsContainer" class="row row-cols-1 g-2 mb-3">
-                <!-- Cards will be injected here -->
-            </div>
+            <!-- Results Container (Dynamic) -->
+            <div id="resultsContainer" class="row row-cols-1 row-cols-md-2 g-2 mb-3"></div>
 
-            <!-- Input Section -->
-            <div class="input-group input-group-lg mb-3">
+            <!-- Inputs Section -->
+            {% if tools_inputs %}
+            <div class="mb-2">
+                {{ tools_inputs }}
+            </div>
+            {% else %}
+            <!-- Default Converter Inputs -->
+            <div class="input-group input-group-lg mb-2">
                 <input type="number" id="inputValue" class="form-control" placeholder="Enter value..." aria-label="Input value">
                 <select class="form-select" id="inputUnit" aria-label="Select unit">
                     <!-- Options will be injected here -->
                 </select>
             </div>
+            {% endif %}
 
-            <div class="mt-2 muted small">Tip: results update as you type. Use 'Select Conversions' to customize the output.</div>
             <div class="row g-2 mt-2">
                 <div class="col-auto">
                     <button id="btnClear" class="btn btn-sm btn-outline-secondary">Clear</button>
                 </div>
                 <div class="col-auto">
                     <div class="dropdown">
-                        <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button" id="unitDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
-                            Select Conversions
+                        <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button" id="viewOptionsBtn" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                            {{ select_button_text | default: "Select Tiles" }}
                         </button>
-                        <ul class="dropdown-menu" id="unitDropdownMenu" aria-labelledby="unitDropdownBtn">
-                            <!-- Checkboxes will be injected here -->
+                        <ul class="dropdown-menu" id="viewOptionsMenu" aria-labelledby="viewOptionsBtn" style="min-width: 220px;">
+                            <!-- Options injected via JS -->
                         </ul>
                     </div>
                 </div>
@@ -41,7 +48,7 @@
 
 <!-- Help Modal -->
 <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="helpModalLabel"><i class="bi bi-info-circle"></i> {{ page.title }} Help</h5>
@@ -53,6 +60,3 @@
         </div>
     </div>
 </div>
-
-<script src="/assets/js/converter.js"></script>
-<link rel="stylesheet" href="/assets/css/tools.css">

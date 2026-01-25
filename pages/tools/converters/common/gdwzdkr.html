@@ -12,7 +12,7 @@ description: "Instantly convert timezones between different regions. A simple an
     <li><strong>Input Timezone:</strong> Select the source timezone for the entered time (e.g., Local, UTC).</li>
     <li><strong>Smart Input:</strong> Paste date strings directly to parse and convert them instantly.</li>
     <li><strong>24-Hour Toggle:</strong> Switch result displays between 12-hour (AM/PM) and 24-hour formats.</li>
-    <li><strong>Conversion Options:</strong> Use the "Select Conversion" dropdown to choose which time zones appear in the results panel.</li>
+    <li><strong>Conversion Options:</strong> Use the "Select Tiles" dropdown to choose which time zones appear in the results panel.</li>
 </ul><hr>
 <h6><i class="bi bi-code-slash"></i> Supported Paste Formats</h6>
 <p class="small text-muted">The smart input accepts a wide range of formats, including:</p>
@@ -25,7 +25,7 @@ description: "Instantly convert timezones between different regions. A simple an
 </ul>
 {% endcapture %}
 
-{% include converter.html %}
+{% include tools.html %}
 
 <script>
 (function () {
@@ -177,7 +177,7 @@ description: "Instantly convert timezones between different regions. A simple an
                 if (!parts) continue;
 
                 const { d: day, m: month, y: year, t: time } = parts;
-                
+
                 // Convert text month to number
                 const monthMap = {
                     jan:'01',feb:'02',mar:'03',apr:'04',may:'05',jun:'06',jul:'07',aug:'08',sep:'09',oct:'10',nov:'11',dec:'12',
@@ -204,7 +204,7 @@ description: "Instantly convert timezones between different regions. A simple an
 
                     // Check for Offset-only time (e.g. from YYYYMMDD+0100)
                     const offMatch = tStr.match(/^([+-]\d{2}(?::?\d{2})?|Z)(?:\[[\w\/]+\])?$/);
-                    
+
                     // Support AM/PM, Comma/Dot Decimal, Offset, Bracketed Zone
                     const tMatch = tStr.match(/^(\d{1,2})(?:[:.]|(?:\s*h\s*))?(\d{1,2})?(?:[:.](\d{1,2})(?:[\.,]\d+)?)?(?:\s+o['’]?clock)?(?:\s+uhr)?\s*(?:(am|pm)\s+([a-z]{2,}|Z|[\+\-]\d{2}(?::?\d{2})?)|([a-z]{2,}|Z|[\+\-]\d{2}(?::?\d{2})?)\s+(am|pm)|(am|pm)|([a-z]{2,}|Z|[\+\-]\d{2}(?::?\d{2})?))?(?:\[[\w\/]+\])?$/i);
 
@@ -216,7 +216,7 @@ description: "Instantly convert timezones between different regions. A simple an
                         const s = tMatch[3] ? parseInt(tMatch[3], 10) : 0;
                         const ampm = tMatch[4] || tMatch[7] || tMatch[8];
                         let offset = tMatch[5] || tMatch[6] || tMatch[9];
-                        
+
                         // Map German timezones
                         if (offset && offset.toLowerCase() === 'mez') offset = '+01:00';
                         if (offset && offset.toLowerCase() === 'mesz') offset = '+02:00';
@@ -235,7 +235,7 @@ description: "Instantly convert timezones between different regions. A simple an
                         if (m > 59 || s > 59) isValidTime = false;
                         else if (ampm && (h < 1 || h > 12)) isValidTime = false;
                         else if (!ampm && h > 23) isValidTime = false;
-                        
+
                         if (isValidTime) {
                             cleanTime = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}${ampm ? ' ' + ampm : ''}${offset ? ' ' + offset : ''}`;
                         }
@@ -249,7 +249,7 @@ description: "Instantly convert timezones between different regions. A simple an
                     // Try YYYY/MM/DD format first (better support for AM/PM)
                     const fmtStr = `${year}/${mStr.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')} ${cleanTime || ''}`;
                     const tempD = new Date(fmtStr);
-                    
+
                     if (!isNaN(tempD.getTime())) {
                         d = tempD;
                         break;
@@ -270,7 +270,7 @@ description: "Instantly convert timezones between different regions. A simple an
         if (!isNaN(d.getTime())) {
             freeInput.classList.remove('is-invalid');
             freeInput.classList.add('is-valid');
-            
+
             const unitSelect = document.getElementById('inputUnit');
             if (unitSelect.value !== 'local') {
                 unitSelect.value = 'local';
@@ -307,10 +307,10 @@ description: "Instantly convert timezones between different regions. A simple an
             if (!isoStr) return NaN;
             const [datePart, timePart] = isoStr.split('T');
             if (!datePart || !timePart) return NaN;
-            
+
             const [y, m, d] = datePart.split('-').map(Number);
             const [hr, min] = timePart.split(':').map(Number);
-            
+
             // Treat input as UTC first to get linear time
             const utcBase = Date.UTC(y, m - 1, d, hr, min);
             // Apply offset inversion: UTC = Local - Offset
@@ -321,16 +321,16 @@ description: "Instantly convert timezones between different regions. A simple an
             if (isNaN(utcMs)) return '-';
             // Target Time (shifted) = UTC + Offset
             const d = new Date(utcMs + (offset * 3600 * 1000));
-            
+
             const is24Hr = document.getElementById('chk_24hr_fmt').checked;
-            
+
             const formatted = new Intl.DateTimeFormat(undefined, {
                 timeZone: 'UTC',
                 dateStyle: 'short',
                 timeStyle: 'short',
                 hour12: !is24Hr
             }).format(d);
-            
+
             // Remove comma and ensure uppercase AM/PM
             return formatted.replace(',', '').toUpperCase();
         }
@@ -353,7 +353,7 @@ description: "Instantly convert timezones between different regions. A simple an
     const localOffset = -new Date().getTimezoneOffset() / 60;
     units.local = createTz('Your Local Time', 'Local', localOffset);
 
-    setupConverter({
+    setupTool({
         units: units,
         defaultUnit: 'local',
         defaultSelectedUnits: ['utc', 'est'],
@@ -363,7 +363,7 @@ description: "Instantly convert timezones between different regions. A simple an
 
     // Configure Input for Date & Time
     inputEl.type = 'datetime-local';
-    
+
     // Set default to current local time
     const now = new Date();
     const tzOffsetMs = now.getTimezoneOffset() * 60000;

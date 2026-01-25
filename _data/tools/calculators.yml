@@ -9,6 +9,10 @@ grandparent:
     title: Character Calculator
   - url: calculators/common/gdldvld
     title: Expression Calculator
+  - url: calculators/common/gdpklzu
+    title: BMI Calculator
+  - url: calculators/common/gdzoyew
+    title: Age Calculator
 sidenav:
 - parent: Calculators
   url: calculators

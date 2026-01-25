@@ -213,32 +213,10 @@ def orchestrate_setup(system_installer=None):
     start_jekyll_server()
 
 
-def clean_pycache(cache_path: str | None = None) -> None:
-    """
-    Recursively remove __pycache__ directories.
-
-    Args:
-        cache_path (str | None): Target directory. Defaults to the script's parent.
-    """
-    try:
-        p = (
-            Path(cache_path)
-            if cache_path
-            else Path(__file__).resolve().parent / "__pycache__"
-        )
-        if p.name != "__pycache__":
-            p = p / "__pycache__"
-        if p.exists():
-            shutil.rmtree(p)
-    except Exception as e:
-        print(f"Cleanup warning (could not remove {cache_path or 'default'}): {e}")
-
-
 def start_jekyll_server():
     """
     Start the Jekyll development server.
     """
-    clean_pycache()
     try:
         subprocess.run("bundle exec jekyll serve", shell=True, check=True)
 

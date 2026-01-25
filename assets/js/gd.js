@@ -43,7 +43,7 @@ try {
 // --------------------------------------------------------------------------
 
 // Global variables to store touch coordinates for swipe detection.
-var xDown = null, yDown = null, xUp = null, yUp = null;
+let xDown = null, yDown = null, xUp = null, yUp = null;
 
 function touchstart(evt) {
     const firstTouch = (evt.touches || evt.originalEvent.touches)[0];
@@ -65,7 +65,7 @@ function touchend() {
         return;
     }
     if (!xUp || !yUp) return;
-    var xDiff = xUp - xDown, yDiff = yUp - yDown;
+    let xDiff = xUp - xDown, yDiff = yUp - yDown;
     // Check if the horizontal movement is significant enough to be considered a swipe
     if ((Math.abs(xDiff) > Math.abs(yDiff)) && (Math.abs(xDiff) > 0.6 * document.body.clientWidth)) {
         if (xDiff > 0) {
@@ -142,41 +142,48 @@ $(function () {
     });
 
     // Scroll active sidebar item into view on page load.
-    var $activeItems = $('.sidebar-item-active');
+    const $activeItems = $('.sidebar-item-active');
     if ($activeItems.length > 0) {
-        var lastActiveItem = $activeItems.last()[0];
+        const lastActiveItem = $activeItems.last()[0];
         lastActiveItem.scrollIntoView({ block: 'center', behavior: 'auto' });
     }
 
-    var today = new Date().toLocaleDateString();
-    var is_shown = sessionStorage.getItem('status');
-    var $backToTop = $("#backtotop");
-    var $leftSidebar = $('.leftsidebar-collapse');
-    var $rightSidebar = $('.rightsidebar-collapse');
-    var $staticBackdrop = $('#staticBackdrop');
+    const today = new Date().toLocaleDateString();
+    let is_shown = sessionStorage.getItem('status');
+    const $backToTop = $("#backtotop");
+    const $leftSidebar = $('.leftsidebar-collapse');
+    const $rightSidebar = $('.rightsidebar-collapse');
+    const $staticBackdrop = $('#staticBackdrop');
 
+    let ticking = false;
     $(window).on('scroll', function () {
-        var scrollTop = $(window).scrollTop();
+        if (!ticking) {
+            window.requestAnimationFrame(function () {
+                var scrollTop = $(window).scrollTop();
 
-        // Show modal once per day when user scrolls past 50% of the page
-        if (is_shown !== today) {
-            var scrollPercent = ((scrollTop) / ($(document).height() - $(window).height())) * 100;
-            if (scrollPercent >= 50) {
-                $staticBackdrop.modal('show');
-                sessionStorage.setItem('status', today);
-                is_shown = today;
-            }
-        }
+                // Show modal once per day when user scrolls past 50% of the page
+                if (is_shown !== today) {
+                    const scrollPercent = ((scrollTop) / ($(document).height() - $(window).height())) * 100;
+                    if (scrollPercent >= 50) {
+                        $staticBackdrop.modal('show');
+                        sessionStorage.setItem('status', today);
+                        is_shown = today;
+                    }
+                }
 
-        // Toggle "Back to Top" button visibility
-        $backToTop.toggle(scrollTop > 100);
+                // Toggle "Back to Top" button visibility
+                $backToTop.toggle(scrollTop > 100);
 
-        // Auto-close sidebars on scroll
-        if ($leftSidebar.hasClass('open')) {
-            $leftSidebar.removeClass('open');
-        }
-        if ($rightSidebar.hasClass('open')) {
-            $rightSidebar.removeClass('open');
+                // Auto-close sidebars on scroll
+                if ($leftSidebar.hasClass('open')) {
+                    $leftSidebar.removeClass('open');
+                }
+                if ($rightSidebar.hasClass('open')) {
+                    $rightSidebar.removeClass('open');
+                }
+                ticking = false;
+            });
+            ticking = true;
         }
     });
 
@@ -290,4 +297,4 @@ if (window.location.hostname !== "localhost" && window.location.hostname !== "12
 // --------------------------------------------------------------------------
 
 // Set the current year for use in the footer or other parts of the site.
-var year = new Date().getFullYear();
+const year = new Date().getFullYear();

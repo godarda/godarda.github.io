@@ -10,7 +10,7 @@ description: "Instantly convert temperatures between Celsius, Fahrenheit, Kelvin
 <ul>
     <li><strong>Input Value:</strong> Enter the temperature you wish to convert in the input field.</li>
     <li><strong>Select Unit:</strong> Choose the starting scale (e.g., Celsius, Fahrenheit) from the dropdown next to the input.</li>
-    <li><strong>Customize Results:</strong> Use the "Select Conversions" dropdown to choose which target scales to display.</li>
+    <li><strong>Customize Results:</strong> Use the "Select Tiless" dropdown to choose which target scales to display.</li>
 </ul><hr>
 <h6><i class="bi bi-thermometer-half"></i> Supported Scales</h6>
 <p class="small text-muted">This tool supports conversion between the following temperature scales:</p>
@@ -20,36 +20,36 @@ description: "Instantly convert temperatures between Celsius, Fahrenheit, Kelvin
 </ul>
 {% endcapture %}
 
-{% include converter.html %}
+{% include tools.html %}
 
 <script>
 (function () {
     // Configuration: Define units and their conversion logic to/from Celsius
     const units = {
-        celsius: { 
-            name: 'Celsius', symbol: '°C', 
-            toBase: v => v, 
-            fromBase: v => v 
+        celsius: {
+            name: 'Celsius', symbol: '°C',
+            toBase: v => v,
+            fromBase: v => v
         },
-        fahrenheit: { 
-            name: 'Fahrenheit', symbol: '°F', 
-            toBase: v => (v - 32) * 5 / 9, 
-            fromBase: v => (v * 9 / 5) + 32 
+        fahrenheit: {
+            name: 'Fahrenheit', symbol: '°F',
+            toBase: v => (v - 32) * 5 / 9,
+            fromBase: v => (v * 9 / 5) + 32
         },
-        kelvin: { 
-            name: 'Kelvin', symbol: 'K', 
-            toBase: v => v - 273.15, 
-            fromBase: v => v + 273.15 
+        kelvin: {
+            name: 'Kelvin', symbol: 'K',
+            toBase: v => v - 273.15,
+            fromBase: v => v + 273.15
         },
-        rankine: { 
-            name: 'Rankine', symbol: '°R', 
-            toBase: v => (v - 491.67) * 5 / 9, 
-            fromBase: v => (v + 273.15) * 1.8 
+        rankine: {
+            name: 'Rankine', symbol: '°R',
+            toBase: v => (v - 491.67) * 5 / 9,
+            fromBase: v => (v + 273.15) * 1.8
         },
-        reaumur: { 
-            name: 'Réaumur', symbol: '°Re', 
-            toBase: v => v * 1.25, 
-            fromBase: v => v * 0.8 
+        reaumur: {
+            name: 'Réaumur', symbol: '°Re',
+            toBase: v => v * 1.25,
+            fromBase: v => v * 0.8
         }
     };
 
@@ -57,7 +57,7 @@ description: "Instantly convert temperatures between Celsius, Fahrenheit, Kelvin
     const defaultSelectedUnits = ['fahrenheit', 'kelvin'];
 
     // Initialize the shared converter logic
-    setupConverter({
+    setupTool({
         units: units,
         defaultUnit: defaultUnit,
         defaultSelectedUnits: defaultSelectedUnits
