@@ -1,28 +1,33 @@
 package com.godarda
 
+import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.ViewStub
-import android.webkit.WebResourceError
+import android.webkit.PermissionRequest
+import android.webkit.WebChromeClient
 import android.webkit.WebResourceRequest
-import android.webkit.WebResourceResponse
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Button
 import android.widget.FrameLayout
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.enableEdgeToEdge
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import androidx.core.view.WindowCompat
 import androidx.core.view.isVisible
 
 /**
@@ -31,26 +36,30 @@ import androidx.core.view.isVisible
  */
 class MainActivity : BaseActivity() {
 
-    // Lazily initialized views to improve performance.
+    // UI components, lazily initialized for performance.
     private val webview: WebView by lazy { findViewById(R.id.webView) }
     private val rootLayout: FrameLayout by lazy { findViewById(R.id.webViewContainer) }
     private val noInternetStub: ViewStub by lazy { findViewById(R.id.noInternetStub) }
-    private val appDownStub: ViewStub by lazy { findViewById(R.id.appDownStub) }
 
-    // These views are only inflated when needed, saving resources.
+    // Nullable views that are inflated via ViewStub when needed.
     private var noInternetView: View? = null
     private var appDownView: View? = null
 
-    // Stores the last successfully visited URL to allow for smart reloading.
+    // Holds the pending permission request for audio capture.
+    private var pendingPermissionRequest: PermissionRequest? = null
+    private val recordAudioRequestCode = 101
+
+    // Caches the last successfully visited URL for smart reloading on connectivity changes.
     private var lastVisitedUrl: String = Urls.BASE
 
     private val connectivityManager: ConnectivityManager by lazy {
-        getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        getSystemService(ConnectivityManager::class.java) as ConnectivityManager
     }
 
     /**
-     * A network callback to listen for changes in internet connectivity.
-     * If the internet becomes available, it reloads the last visited URL.
+     * Network callback to monitor connectivity changes.
+     * When an internet connection becomes available, it reloads the last visited URL
+     * if an error screen is currently displayed.
      */
     private val networkCallback by lazy {
         object : ConnectivityManager.NetworkCallback() {
@@ -66,19 +75,23 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Apply insets to the root container, as was the original logic.
+        // Apply window insets to the root layout to handle system UI.
         applyWindowInsetsTo(rootLayout)
-        window.statusBarColor = Color.BLACK
 
-        // Configure the components of the activity.
+        // Configure the status bar for edge-to-edge display.
+        val insetsController = WindowCompat.getInsetsController(window, window.decorView)
+        insetsController.isAppearanceLightStatusBars = false // Use light icons for a dark status bar.
+
+        // Initialize core components.
         setupWebView()
         setupConnectivity()
         setupBackButton()
 
-        // Load the initial URL or show the "No Internet" screen.
+        // Load the initial URL if internet is available, otherwise show the no-internet screen.
         if (isInternetAvailable()) {
             webview.loadUrl(lastVisitedUrl)
         } else {
@@ -97,12 +110,12 @@ class MainActivity : BaseActivity() {
      */
     private fun setupWebView() {
         webview.settings.apply {
-            // JavaScript is required for the website to function correctly.
-            // This is safe as we only load content from our own trusted website.
+            // Enable JavaScript, which is required for site functionality. This is safe as we only load trusted content.
             @SuppressLint("SetJavaScriptEnabled")
             javaScriptEnabled = true
 
             // Standard security and performance settings.
+            @Suppress("DEPRECATION")
             safeBrowsingEnabled = true
             domStorageEnabled = true
             useWideViewPort = false
@@ -110,6 +123,7 @@ class MainActivity : BaseActivity() {
             builtInZoomControls = false
             allowFileAccess = false
             allowContentAccess = false
+            mediaPlaybackRequiresUserGesture = false
             setSupportZoom(false)
             textZoom = 100
             cacheMode = WebSettings.LOAD_DEFAULT
@@ -125,11 +139,25 @@ class MainActivity : BaseActivity() {
 
             // Set the custom WebViewClient to handle URL loading and errors.
             webViewClient = AppWebViewClient()
+            webChromeClient = object : WebChromeClient() {
+                override fun onPermissionRequest(request: PermissionRequest) {
+                    if (request.resources.contains(PermissionRequest.RESOURCE_AUDIO_CAPTURE)) {
+                        if (ContextCompat.checkSelfPermission(this@MainActivity, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
+                            request.grant(request.resources)
+                        } else {
+                            pendingPermissionRequest = request
+                            ActivityCompat.requestPermissions(this@MainActivity, arrayOf(Manifest.permission.RECORD_AUDIO), recordAudioRequestCode)
+                        }
+                    } else {
+                        super.onPermissionRequest(request)
+                    }
+                }
+            }
         }
     }
 
     /**
-     * Registers the network callback to listen for connectivity changes.
+     * Initializes and registers a network callback to monitor for internet connectivity.
      */
     private fun setupConnectivity() {
         val networkRequest = NetworkRequest.Builder()
@@ -149,6 +177,18 @@ class MainActivity : BaseActivity() {
         })
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == recordAudioRequestCode) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                pendingPermissionRequest?.grant(pendingPermissionRequest?.resources)
+            } else {
+                pendingPermissionRequest?.deny()
+            }
+            pendingPermissionRequest = null
+        }
+    }
+
     /**
      * Checks if the device has an active internet connection.
      */
@@ -163,10 +203,10 @@ class MainActivity : BaseActivity() {
      */
     private fun showNoInternet() {
         if (noInternetView == null) {
-            // Inflate the layout only when it's needed for the first time.
+            // Inflate the "No Internet" layout only when needed for the first time.
             noInternetView = noInternetStub.inflate()
 
-            // Set up the buttons in the newly inflated view.
+            // Configure buttons in the newly inflated view.
             val tryAgainBtn: Button = noInternetView!!.findViewById(R.id.tryagain)
             val exitBtn: Button = noInternetView!!.findViewById(R.id.exit_button_no_internet)
 
@@ -182,40 +222,30 @@ class MainActivity : BaseActivity() {
         }
         noInternetView?.isVisible = true
         webview.isVisible = false
+
+        // Match Splash status bar style by updating root background and icon appearance.
+        rootLayout.setBackgroundResource(R.color.backgroundColor)
+        @Suppress("DEPRECATION")
+        window.statusBarColor = ContextCompat.getColor(this, R.color.backgroundColor)
+        val insetsController = WindowCompat.getInsetsController(window, window.decorView)
+        val isLightMode = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_NO
+        insetsController.isAppearanceLightStatusBars = isLightMode
     }
 
     /**
-     * Hides other overlay screens and shows the WebView.
+     * Ensures the WebView is visible and hides any overlay screens like the no-internet view.
      */
     private fun showWebView() {
         noInternetView?.isVisible = false
         appDownView?.isVisible = false
         webview.isVisible = true
-    }
 
-    /**
-     * Inflates and displays the "App Down" screen for handling loading errors.
-     */
-    private fun showAppDown() {
-        if (appDownView == null) {
-            appDownView = appDownStub.inflate()
-            val backButton: Button = appDownView!!.findViewById(R.id.back_button)
-            val exitButton: Button = appDownView!!.findViewById(R.id.exit_button_app_down)
-
-            backButton.setOnClickListener {
-                if (webview.canGoBack()) {
-                    showWebView()
-                    webview.goBack()
-                } else {
-                    finishAffinity()
-                }
-            }
-            exitButton.setOnClickListener {
-                finishAffinity() // Close the app.
-            }
-        }
-        appDownView?.isVisible = true
-        webview.isVisible = false
+        // Revert to WebView status bar style: black background with light icons.
+        rootLayout.setBackgroundResource(android.R.color.black)
+        @Suppress("DEPRECATION")
+        window.statusBarColor = Color.TRANSPARENT
+        val insetsController = WindowCompat.getInsetsController(window, window.decorView)
+        insetsController.isAppearanceLightStatusBars = false
     }
 
     /**
@@ -260,7 +290,7 @@ class MainActivity : BaseActivity() {
      * Navigates back in WebView history if possible, otherwise exits the app.
      */
     private fun handleBackNavigation() {
-        // If an error screen is showing, exit the app on back press.
+        // If an error screen is showing, exit the app on back press instead of navigating.
         if (noInternetView?.isVisible == true || appDownView?.isVisible == true) {
             finishAffinity()
             return
@@ -285,8 +315,8 @@ class MainActivity : BaseActivity() {
 
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
-            // If the URL is part of our website, save it as the last visited URL.
             if (url != null && url.startsWith(Urls.BASE)) {
+                // Cache the URL if it belongs to the base website domain.
                 lastVisitedUrl = url
             }
         }
@@ -297,24 +327,9 @@ class MainActivity : BaseActivity() {
                 showNoInternet()
                 return true
             }
-            // If handleCustomUrl returns true, the URL is handled. Otherwise, let the WebView handle it.
+            // Intercept the URL. If it's a custom scheme, handle it. Otherwise, let the WebView proceed.
+            // A URL that is the same as the current one is also considered handled to prevent reloads.
             return handleCustomUrl(url) || url == view.url
-        }
-
-        override fun onReceivedError(view: WebView, request: WebResourceRequest, error: WebResourceError) {
-            super.onReceivedError(view, request, error)
-            // Show the error screen only for main frame errors on our own domain.
-            if (request.isForMainFrame && request.url.toString().startsWith(Urls.BASE)) {
-                showAppDown()
-            }
-        }
-
-        override fun onReceivedHttpError(view: WebView, request: WebResourceRequest, errorResponse: WebResourceResponse) {
-            super.onReceivedHttpError(view, request, errorResponse)
-            // Show the error screen only for main frame errors on our own domain.
-            if (request.isForMainFrame && request.url.toString().startsWith(Urls.BASE)) {
-                showAppDown()
-            }
         }
     }
 }

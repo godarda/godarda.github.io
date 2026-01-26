@@ -3,7 +3,7 @@
     android:id="@+id/noInternetLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:colorBackground"
+    android:background="@color/backgroundColor"
     android:gravity="center"
     android:orientation="vertical">
 
