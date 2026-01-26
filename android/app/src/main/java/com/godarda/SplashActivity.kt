@@ -1,11 +1,11 @@
 package com.godarda
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Bundle
-import androidx.core.content.ContextCompat
-import androidx.core.view.WindowCompat
+import android.view.View
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -21,14 +21,8 @@ class SplashActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        // Align status bar color with splash background.
-        @Suppress("DEPRECATION")
-        window.statusBarColor = ContextCompat.getColor(this, R.color.backgroundColor)
-
-        // Configure status bar icon appearance based on current theme.
-        val insetsController = WindowCompat.getInsetsController(window, window.decorView)
-        val isLightMode = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_NO
-        insetsController.isAppearanceLightStatusBars = isLightMode
+        // Sync theme with stored preference for the splash screen background
+        applyStoredThemeToBackground()
 
         // Initiate transition delay using lifecycle-aware coroutine.
         lifecycleScope.launch {
@@ -37,5 +31,23 @@ class SplashActivity : BaseActivity() {
             startActivity(i)
             finish()
         }
+    }
+
+    /**
+     * Applies the stored theme color to the splash screen background layout.
+     */
+    private fun applyStoredThemeToBackground() {
+        val sharedPref = getSharedPreferences("app_settings", Context.MODE_PRIVATE)
+        val theme = sharedPref.getString("theme", null)
+        
+        val isDark = when (theme) {
+            "dark" -> true
+            "light" -> false
+            else -> (resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK) == 
+                    android.content.res.Configuration.UI_MODE_NIGHT_YES
+        }
+
+        val bgColor = if (isDark) Color.BLACK else Color.WHITE
+        findViewById<View>(R.id.splashContainer)?.setBackgroundColor(bgColor)
     }
 }

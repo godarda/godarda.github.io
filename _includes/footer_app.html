@@ -24,7 +24,7 @@
     <div class="board">
         <div class="boardtitle">App Settings</div>
         <a id="version" class="card disabled"></a>
-        <a id="cache" class="card" href="clear:">Clear: Cache and History</a>
+        <a id="resetapp" class="card" href="reset:">Reset App</a>
         <a id="app-theme-switcher" class="card" style="cursor: pointer;">Theme: System Default</a>
     </div>
 </div>
@@ -141,8 +141,8 @@ function setupAppView() {
         window.location.href = "share:{{ site.url }}{{ page.url }}";
     });
 
-    $("#cache").on("click", function () {
-        $(this).html("Cleared: Cache and History");
+    $("#resetapp").on("click", function () {
+        $(this).html("Reset Successful!");
         $(this).css("color", "#00b050");
     });
 
