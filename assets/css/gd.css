@@ -152,7 +152,8 @@ nav {
 
 .navbar {
     height: 55px;
-    background-color: #000000;
+    background-color: var(--wvnav);
+    box-shadow: 0 0 9px var(--navbar-shadow);
 }
 
 .navbar-toggler {
@@ -161,10 +162,19 @@ nav {
     z-index: 0;
 }
 
+.navbar-toggler-icon {
+    background-image: var(--navbar-toggler-icon-bg) !important;
+}
+
 li.nav-item,
 li.nav-item>a.nav-link,
 a.nav-link>i {
-    color: #e6e6e6;
+    color: var(--navlink);
+}
+
+li.nav-item>a.nav-link:hover,
+li.nav-item>a.nav-link:focus {
+    color: var(--navlink-hover);
 }
 
 a,
@@ -613,6 +623,7 @@ div.footer {
     padding-left: 2%;
     padding-right: 2%;
     padding-top: 50px;
+    box-shadow: 0 0 9px var(--navbar-shadow);
 }
 
 div.col-6>a>div {
@@ -691,7 +702,7 @@ a.wvnav-item>i.wvsvg {
 /* --------------------------------------------------------------------------------------------- */
 
 .copyright-footer {
-    background-color: var(--color1);
+    background-color: var(--infocard);
     color: var(--bnw);
     padding: 0 15px;
     height: 40px;

@@ -130,7 +130,7 @@ function setupAppView() {
     if (shareButton) {
         let isClickDisabled = false;
         shareButton.addEventListener('click', (event) => {
-            if (isClickDisabled) { event.preventDefault(); } 
+            if (isClickDisabled) { event.preventDefault(); }
             else { isClickDisabled = true; setTimeout(() => { isClickDisabled = false; }, 400); }
         });
         shareButton.addEventListener('dblclick', (event) => { event.preventDefault(); });
@@ -141,7 +141,7 @@ function setupAppView() {
         window.location.href = "share:{{ site.url }}{{ page.url }}";
     });
 
-    $("#cache").click(function () {
+    $("#cache").on("click", function () {
         $(this).html("Cleared: Cache and History");
         $(this).css("color", "#00b050");
     });

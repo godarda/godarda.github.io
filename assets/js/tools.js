@@ -234,8 +234,8 @@
                 col.className = 'col';
                 col.dataset.stat = key;
                 col.innerHTML = `
-            <div class="stat">
-                <div class="muted small">${s.name}</div>
+            <div class="stat" style="color: var(--bnw)">
+                <div class="small">${s.name}</div>
                 <div class="res-val mb-0" id="res_${key}">-</div>
                 <div class="small text-primary mt-1" id="sub_${key}" style="display:none"></div>
             </div>

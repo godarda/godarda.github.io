@@ -48,6 +48,10 @@ layout: none
     --textcolor:           #e6e6e6; /* General text color */
     --wvnav:               #000000; /* Navigation bar color */
     --wvnav-item-active:   #21252c; /* Active navigation item color */
+    --navlink:             #e6e6e6; /* Navigation link color */
+    --navlink-hover:       #ffffff;
+    --navbar-shadow:       rgba(0, 0, 0, 0.4);
+    --navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.55)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 
     --code-literal:        #79c0ff; /* Literal code color for code literals and elements */
     --code-special:        #1f6feb; /* Special code color for special code elements */
@@ -67,27 +71,27 @@ layout: none
 
 [data-bs-theme="light"]
 {
-    --asm:                 #cc8800; /* Bright brown for assembly language */
-    --c:                   #1a8cff; /* Bright blue for C programming language */
-    --cg:                  #ff668c; /* Light pink for computer graphics */
-    --cluster:             #b3b366; /* Light olive for clustering systems */
-    --cpp:                 #80ff00; /* Vibrant green for C++ programming language */
-    --csharp:              #cc66ff; /* Bright purple for C# programming language */
-    --ds:                  #ff6666; /* Light red for data science */
-    --dsa:                 #ffaa00; /* Bright amber for data structures and algorithms */
-    --fsharp:              #33ccff; /* Bright cyan for F# programming language */
-    --java:                #ff8c1a; /* Warm orange for Java programming language */
-    --julia:               #ff3399; /* Vivid magenta for Julia programming language */
-    --linux:               #ff9966; /* Light coral for Linux systems */
-    --lisp:                #9999ff; /* Light indigo for Lisp programming language */
-    --mongodb:             #33cc33; /* Bright green for MongoDB database */
-    --mysql:               #4d94cc; /* Light blue for MySQL database */
-    --octave:              #ff751a; /* Bright orange for Octave programming language */
-    --python:              #ffcc00; /* Bright yellow for Python programming language */
-    --r:                   #b3b3ff; /* Light purple for R programming language */
-    --rust:                #cc6633; /* Lighter brown for Rust programming language */
-    --selenium:            #00e673; /* Bright green for Selenium testing framework */
-    --other:               #00b050; /* Bright green for other miscellaneous categories */
+    --asm:                 #b37400; /* Brown for assembly language */
+    --c:                   #007acc; /* Blue for C programming language */
+    --cg:                  #e65c7d; /* Pink for computer graphics */
+    --cluster:             #99994d; /* Olive for clustering systems */
+    --cpp:                 #66cc00; /* Green for C++ programming language */
+    --csharp:              #b34dff; /* Purple for C# programming language */
+    --ds:                  #e65c5c; /* Red for data science */
+    --dsa:                 #e69900; /* Amber for data structures and algorithms */
+    --fsharp:              #1aa3cc; /* Cyan for F# programming language */
+    --java:                #e67300; /* Orange for Java programming language */
+    --julia:               #e62e8c; /* Magenta for Julia programming language */
+    --linux:               #e6854d; /* Coral for Linux systems */
+    --lisp:                #7979d4; /* Indigo for Lisp programming language */
+    --mongodb:             #29a329; /* Green for MongoDB database */
+    --mysql:               #337ab7; /* Blue for MySQL database */
+    --octave:              #e65c00; /* Orange for Octave programming language */
+    --python:              #e6b800; /* Yellow for Python programming language */
+    --r:                   #9999e6; /* Purple for R programming language */
+    --rust:                #b3591a; /* Brown for Rust programming language */
+    --selenium:            #00b359; /* Green for Selenium testing framework */
+    --other:               #00b050; /* Green for other miscellaneous categories */
 
     --bg_jumbotron:        #c5cbd3; /* Background color for jumbotron */
     --bnw:                 #000000; /* Black and white color */
@@ -110,6 +114,10 @@ layout: none
     --textcolor:           #000000; /* General text color */
     --wvnav:               #ffffff; /* Navigation bar color */
     --wvnav-item-active:   #e2e5e9; /* Active navigation item color */
+    --navlink:             #404040; /* Navigation link color */
+    --navlink-hover:       #000000;
+    --navbar-shadow:       rgba(0, 0, 0, 0.3);
+    --navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0, 0, 0, 0.55)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 
     --code-literal:        #043a7c; /* Literal code color for code literals and elements */
     --code-special:        #0550ae; /* Special code color for special code elements */
@@ -147,7 +155,7 @@ div#GDS_input-{{ s }}
     border-radius: 5px;
 }
 #GDS_input-{{ s }}
-{     
+{
     box-shadow: 0px 0px 20px -13px {{ color_var }};
 }
 div#GDS_input-{{ s }}.search-loading::after
@@ -171,7 +179,7 @@ div#GDS_input-, div#GDS_input-search
     border-radius: 5px;
 }
 #GDS_input-, #GDS_input-search
-{     
+{
     box-shadow: 0px 0px 20px -13px var(--other);
 }
 div#GDS_input-.search-loading::after, div#GDS_input-search.search-loading::after

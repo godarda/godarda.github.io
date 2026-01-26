@@ -7,7 +7,7 @@
 {%- if path[1] == nil or main_pages contains path[1] -%}{%- assign is_sidebar_page = false -%}
 {%- else -%}{%- assign is_sidebar_page = true -%}{%- endif -%}
 
-<nav class="navbar navbar-expand-md navbar-dark fixed-top">
+<nav class="navbar navbar-expand-md fixed-top">
     <div class="container-fluid">
         {%- unless is_sidebar_page -%}
         <div class="navbar-brand" style="margin-left: 0px;">
@@ -21,7 +21,7 @@
             {%- assign tools_data = site.data.tools.tools | default: site.data.tools -%}
             {%- assign learn_matches = learn_data.segments | where: "url", path[1] -%}
             {%- assign tools_matches = tools_data.segments | where: "url", path[1] -%}
-            {%- if learn_matches.size > 0 -%}{%- assign home_url = "learn" -%}{%- elsif tools_matches.size > 0 -%}{%- assign home_url = "tools" -%}{%- endif -%} 
+            {%- if learn_matches.size > 0 -%}{%- assign home_url = "learn" -%}{%- elsif tools_matches.size > 0 -%}{%- assign home_url = "tools" -%}{%- endif -%}
             <a href="{{ home_url }}"><img id="logo" alt="Logo" width="30" height="30" src="{{ site.icon | relative_url }}"></a>
             <a id="fc-{{ path[1] }}" href="{{ path[1] }}">{{ parent }} / </a>
             {%- if path[2] != nil -%}
@@ -35,11 +35,11 @@
                 {%- assign active_item = nil -%}
                 {%- assign active_item = "sidebar-item-active" -%}
                 {%- assign pu = parent.url | split: '/' -%}
-                
+
                 {%- if path[1] == pu[0] and path[2] == nil -%}<a class="nav-link {{ active_item }} {{ path[1] }}" href="{{ parent.url }}">{{ parent.parent }}</a>
                 {%- else -%}<a class="nav-link {{ path[1] }}" href="{{ parent.url }}">{{ parent.parent }}</a>
                 {%- endif -%}
-                
+
                 {%- for child in parent.children -%}
                     {%- assign cu = child.url | split: '/' -%}
                     {%- if cu.size == 2 and path[2] == cu[1] -%}<a class="nav-link {{ active_item }} {{ path[1] }}" href="{{ child.url }}">{{ child.title }}</a>
