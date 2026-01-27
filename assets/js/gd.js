@@ -197,15 +197,9 @@ $(() => {
     // --------------------------------------------------------------------------
     // Updates the theme switcher UI to reflect the active theme.
     const showActiveTheme = (theme, focus = false) => {
-        const $themeCard = $('#app-theme-switcher');
-        if ($themeCard.length) {
-            if (theme === 'auto') {
-                $themeCard.text('Theme: System Default');
-            } else if (theme === 'dark') {
-                $themeCard.text('Theme: Dark');
-            } else {
-                $themeCard.text('Theme: Light');
-            }
+        const $appThemeRadios = $('#app [name="theme-radio"]');
+        if ($appThemeRadios.length) {
+            $appThemeRadios.filter(`[data-bs-theme-value="${theme}"]`).prop('checked', true);
         }
 
         const $themeSwitcher = $('#bd-theme');
@@ -231,20 +225,22 @@ $(() => {
     // Initialize theme on DOM load.
     const storedTheme = getStoredTheme() || 'auto';
     showActiveTheme(storedTheme);
-    $('[data-bs-theme-value], #app-theme-switcher').on('click', (event) => {
+
+    // Handle theme switching from the dropdown menu
+    $('.dropdown-menu [data-bs-theme-value]').on('click', (event) => {
         event.preventDefault();
-        const $el = $(event.currentTarget);
-        let theme = $el.data('bs-theme-value');
-        // If no specific value is set, switch between light/dark
-        if (!theme) {
-            const stored = getStoredTheme() || 'auto';
-            const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const cycles = isSystemDark ? ['auto', 'light', 'dark'] : ['auto', 'dark', 'light'];
-            theme = cycles[(cycles.indexOf(stored) + 1) % cycles.length];
-        }
+        const theme = $(event.currentTarget).data('bs-theme-value');
         setStoredTheme(theme);
         setTheme(theme);
-        showActiveTheme(theme, $el.is('[data-bs-theme-value]'));
+        showActiveTheme(theme, true);
+    });
+
+    // Handle theme switching from the radio buttons in the app footer
+    $('#app input[name="theme-radio"]').on('change', (event) => {
+        const theme = $(event.currentTarget).data('bs-theme-value');
+        setStoredTheme(theme);
+        setTheme(theme);
+        showActiveTheme(theme, true);
     });
 
     // --------------------------------------------------------------------------

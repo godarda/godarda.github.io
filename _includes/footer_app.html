@@ -24,8 +24,18 @@
     <div class="board">
         <div class="boardtitle">App Settings</div>
         <a id="version" class="card disabled"></a>
-        <a id="resetapp" class="card" href="reset:">Reset App</a>
-        <a id="app-theme-switcher" class="card" style="cursor: pointer;">Theme: System Default</a>
+        <a id="resetapp" class="card" href="reset:">Reset App (History, Cache, etc.)</a>
+        <a class="card d-flex flex-row align-items-center justify-content-between">
+            <span>Theme: </span>
+            <div class="btn-group" role="group" aria-label="Theme toggle button group">
+                <input type="radio" class="btn-check" name="theme-radio" id="theme-auto" autocomplete="off" data-bs-theme-value="auto">
+                <label class="btn btn-outline-secondary" for="theme-auto">Auto</label>
+                <input type="radio" class="btn-check" name="theme-radio" id="theme-dark" autocomplete="off" data-bs-theme-value="dark">
+                <label class="btn btn-outline-secondary" for="theme-dark">Dark</label>
+                <input type="radio" class="btn-check" name="theme-radio" id="theme-light" autocomplete="off" data-bs-theme-value="light">
+                <label class="btn btn-outline-secondary" for="theme-light">Light</label>
+            </div>
+        </a>
     </div>
 </div>
 

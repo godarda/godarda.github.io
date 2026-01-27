@@ -177,6 +177,10 @@ li.nav-item>a.nav-link:focus {
     color: var(--navlink-hover);
 }
 
+.dropdown-item.active, .dropdown-item:active {
+    background-color: var(--bs-secondary);
+}
+
 a,
 a:hover,
 a.nav-link,
@@ -581,6 +585,7 @@ option,
 .btn:focus,
 .btn:active {
     border-color: var(--color1);
+    color: var(--textcolor) !important;
 }
 
 .btn.active.focus,
@@ -670,6 +675,7 @@ div.wvnav {
     width: 100%;
     border-top: 1px solid var(--color1);
     background-color: var(--wvnav);
+    box-shadow: 0 0 9px var(--navbar-shadow);
     padding: 8px;
 }
 
