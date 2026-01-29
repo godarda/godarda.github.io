@@ -58,11 +58,11 @@ segments:
   - title: MySQL (Relational Database)
     url: mysql
     parent: " / MySQL "
-    
+
   - title: MongoDB (NoSQL Database)
     url: mongodb
     parent: " / MongoDB "
-    
+
   - title: Selenium WebDriver
     url: selenium
     parent: " / Selenium "
@@ -78,7 +78,7 @@ segments:
   - title: Cluster
     url: cluster
     parent: " / Cluster "
-    
+
   - title: About Us
     url: about
     parent: " / About "
@@ -94,6 +94,10 @@ segments:
   - title: Converters
     url: converters
     parent: " / Converters "
+
+  - title: Generators
+    url: generators
+    parent: " / Generators "
 
   - title: Programming and Tutorials
     url: learn

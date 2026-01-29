@@ -1,0 +1,99 @@
+---
+permalink: generators/common/gdgeldi
+title: Random Number Generator
+description: "Generate a random number of a specified length."
+---
+
+{% capture tools_inputs %}
+<div class="input-group mb-2">
+    <span class="input-group-text" style="min-width: 60px;">Length</span>
+    <input type="number" id="inputLength" class="form-control" placeholder="e.g., 10" value="10" max="2500">
+</div>
+{% endcapture %}
+
+{% capture help_content %}
+<p>The <strong>Random Number Generator</strong> creates a random number of a specified length.</p>
+<h6><i class="bi bi-sliders"></i> How to Use</h6>
+<ul>
+    <li><strong>Length:</strong> Enter the desired length for the random number (up to 2500).</li>
+    <li><strong>Regenerate:</strong> Click the "Regenerate" button to get a new random number with the same length.</li>
+    <li>The tool will automatically generate and display random numbers based on your input.</li>
+</ul><hr>
+<h6><i class="bi bi-lightning-charge"></i> Generated Values</h6>
+<ul>
+    <li><strong>Random Number:</strong> A random whole number of the specified length.</li>
+</ul>
+{% endcapture %}
+
+{% include tools.html %}
+
+<script>
+(function () {
+    const stats = {
+        randomNumber: { name: 'Random Number', default: true }
+    };
+
+    setupTool({
+        inputs: ['inputLength'],
+        stats: stats,
+        calculate: (values) => {
+            const lengthText = values.inputLength;
+            const resEl = stats.randomNumber.valElement;
+
+            if (resEl) resEl.classList.remove('text-danger');
+
+            if (lengthText.trim() === '') {
+                return { randomNumber: '-' };
+            }
+
+            const length = parseInt(lengthText, 10);
+
+            if (isNaN(length) || length <= 0 || length > 2500) {
+                if (resEl) resEl.classList.add('text-danger');
+                if (length <= 0) {
+                    return { randomNumber: '-' };
+                }
+                if (length > 2500) {
+                    return { randomNumber: 'Length must be <= 2500' };
+                }
+                return { randomNumber: 'Invalid input' };
+            }
+
+            let randomNumber = '';
+            if (length === 1) {
+                randomNumber = (Math.floor(Math.random() * 10)).toString();
+            } else {
+                randomNumber += (Math.floor(Math.random() * 9) + 1);
+                for (let i = 1; i < length; i++) {
+                    randomNumber += (Math.floor(Math.random() * 10));
+                }
+            }
+
+            return {
+                randomNumber: randomNumber
+            };
+        }
+    });
+
+    // Ensure the generated number wraps within the result card
+    if (stats.randomNumber.valElement) {
+        stats.randomNumber.valElement.style.wordBreak = 'break-all';
+    }
+
+    // Add a "Regenerate" button to get new random numbers without changing inputs
+    const btnClear = document.getElementById('btnClear');
+    if (btnClear) {
+        const col = document.createElement('div');
+        col.className = 'col-auto';
+        col.innerHTML = '<button id="btnRegenerate" class="btn btn-sm btn-outline-primary"><i class="bi bi-arrow-repeat"></i> Regenerate</button>';
+
+        btnClear.parentNode.after(col);
+
+        const btnRegenerate = document.getElementById('btnRegenerate');
+        btnRegenerate.addEventListener('click', () => {
+            // Trigger a calculation update by dispatching an event on one of the inputs
+            document.getElementById('inputLength').dispatchEvent(new Event('input', { bubbles: true }));
+        });
+    }
+})();
+</script>

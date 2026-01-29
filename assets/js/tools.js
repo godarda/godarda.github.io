@@ -234,10 +234,17 @@
                 col.className = 'col';
                 col.dataset.stat = key;
                 col.innerHTML = `
-            <div class="stat" style="color: var(--bnw)">
+            <div class="stat position-relative text-center" style="color: var(--bnw)">
                 <div class="small">${s.name}</div>
-                <div class="res-val mb-0" id="res_${key}">-</div>
+                <div class="res-val mb-0" id="res_${key}" style="padding-right: 2rem; padding-left: 2rem;">-</div>
                 <div class="small text-primary mt-1" id="sub_${key}" style="display:none"></div>
+                <button class="btn btn-sm btn-link text-secondary position-absolute top-50 end-0 translate-middle-y me-2"
+                        id="btn_copy_${key}"
+                        style="display:none; z-index: 5; text-decoration: none; border: 0;"
+                        data-bs-toggle="tooltip"
+                        title="Copy">
+                    <i class="bi bi-clipboard"></i>
+                </button>
             </div>
         `;
                 resultsFrag.appendChild(col);
@@ -246,6 +253,36 @@
                 s.element = col;
                 s.valElement = col.querySelector(`#res_${key}`);
                 s.subElement = col.querySelector(`#sub_${key}`);
+                s.copyBtn = col.querySelector(`#btn_copy_${key}`);
+
+                // Add click listener for copy button
+                if (s.copyBtn) {
+                    s.copyBtn.addEventListener('click', () => {
+                        const text = s.valElement.textContent;
+                        if (text && text !== '-') {
+                            navigator.clipboard.writeText(text).then(() => {
+                                const icon = s.copyBtn.querySelector('i');
+                                const originalIconClass = icon.className;
+                                icon.className = 'bi bi-clipboard-check';
+
+                                // Tooltip logic is handled here, at click time, to ensure bootstrap is loaded.
+                                if (typeof bootstrap !== 'undefined' && bootstrap.Tooltip) {
+                                    let tooltip = bootstrap.Tooltip.getInstance(s.copyBtn);
+                                    if (!tooltip) {
+                                        tooltip = new bootstrap.Tooltip(s.copyBtn);
+                                    }
+                                    s.copyBtn.setAttribute('data-bs-original-title', 'Copied!');
+                                    tooltip.show();
+                                    setTimeout(() => {
+                                        tooltip.hide();
+                                        s.copyBtn.setAttribute('data-bs-original-title', 'Copy');
+                                        icon.className = originalIconClass;
+                                    }, 2000);
+                                }
+                            }).catch(err => console.error("Copy failed:", err));
+                        }
+                    });
+                }
 
                 // Create the dropdown toggle item
                 if (dropdownFrag) {
@@ -335,6 +372,11 @@
                     s.valElement.textContent = res;
                     s.subElement.style.display = 'none';
                 }
+
+                if (s.copyBtn) {
+                    const text = s.valElement.textContent;
+                    s.copyBtn.style.display = (text !== '-' && text.trim() !== '') ? 'block' : 'none';
+                }
             });
         };
 
@@ -357,7 +399,12 @@
 
         if (btnClear) {
             btnClear.addEventListener('click', () => {
-                inputElements.forEach(el => el.value = '');
+                inputElements.forEach(el => {
+                    // Do not clear select elements, as it can cause unexpected behavior.
+                    if (el.tagName.toLowerCase() !== 'select') {
+                        el.value = '';
+                    }
+                });
                 updateValues();
                 if (inputElements.length > 0) inputElements[0].focus();
             });

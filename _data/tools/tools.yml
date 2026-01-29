@@ -6,3 +6,7 @@ segments:
 - title: Converters
   url: converters
   parent: "Converters"
+
+- title: Generators
+  url: generators
+  parent: "Generators"
