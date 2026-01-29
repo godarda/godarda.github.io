@@ -1,5 +1,3 @@
-gdhzgsg
-gdgeldi
 gddeqcn
 gdcztzc
 gddwork
@@ -4980,6 +4978,8 @@ gdlmggz - pages/tools/converters/physics/gdlmggz.html
 gdsqzva - pages/tools/converters/physics/gdsqzva.html
 gdvmrpd - pages/tools/converters/physics/gdvmrpd.html
 gdxakae - pages/tools/converters/physics/gdxakae.html
+gdgeldi - pages/tools/generators/common/gdgeldi.html
+gdhzgsg - pages/tools/generators/common/gdhzgsg.html
 gdcdhdg - README.md (line 39); README.md (line 84)
 gdyzyvk - README.md (line 39); README.md (line 85)
 gdycyiw - README.md (line 40); README.md (line 86)
