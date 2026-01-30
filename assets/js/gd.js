@@ -75,6 +75,7 @@ const handleTouchEnd = () => {
         if (xDiff > 0) {
             // Swipe right: Open left sidebar
             $('.leftsidebar-collapse').toggleClass('open');
+            if (document.activeElement) document.activeElement.blur();
         } else {
             // Swipe left: Close left sidebar
             $('.leftsidebar-collapse').removeClass('open');

@@ -6,6 +6,8 @@
   Logic is handled by /assets/js/tools.js.
 -->
 
+{%- assign path = page.url | split: '/' -%}
+{%- assign tool_urls = site.data.tools.tools.segments | map: "url" -%}
 <link rel="stylesheet" href="/assets/css/tools.css">
 <script src="/assets/js/tools.js"></script>
 
@@ -17,7 +19,7 @@
               Populated dynamically by tools.js based on the tool's configuration.
               Displays calculation results or conversion outputs in a grid.
             -->
-            <div id="resultsContainer" class="row row-cols-1 row-cols-md-2 g-2 mb-3"></div>
+            <div id="resultsContainer" class="row row-cols-1 row-cols-md-2 g-2 mb-3" data-category="{% if tool_urls contains path[1] %}{{ path[1] }}{% endif %}"></div>
 
             <!--
               Inputs Section:

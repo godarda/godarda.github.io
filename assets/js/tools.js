@@ -226,6 +226,9 @@
                 }
             }
 
+            const category = resultsContainer ? resultsContainer.getAttribute('data-category') : '';
+            const borderStyle = category ? `border-left: 5px solid var(--${category});` : '';
+
             statKeys.forEach(key => {
                 const s = stats[key];
 
@@ -234,7 +237,7 @@
                 col.className = 'col';
                 col.dataset.stat = key;
                 col.innerHTML = `
-            <div class="stat position-relative text-center" style="color: var(--bnw)">
+            <div class="stat position-relative text-center" style="color: var(--bnw); ${borderStyle}">
                 <div class="small">${s.name}</div>
                 <div class="res-val mb-0" id="res_${key}" style="padding-right: 2rem; padding-left: 2rem;">-</div>
                 <div class="small text-primary mt-1" id="sub_${key}" style="display:none"></div>

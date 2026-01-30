@@ -149,42 +149,45 @@ layout: none
 
 /* --------------------------------------------------------------------------------------------- */
 
-{%- assign languages = "asm,c,calculators,cg,cluster,converters,cpp,csharp,ds,dsa,fsharp,generators,java,julia,linux,lisp,mongodb,mysql,octave,python,r,rust,selenium,utilities" | split: ',' -%}
+{%- assign tool_urls = site.data.tools.tools.segments | map: "url" -%}
+{%- assign learn_urls = site.data.learn.learn.segments | map: "url" -%}
+{%- assign urls = tool_urls | concat: learn_urls -%}
+
 {%- for segment in site.data.gd.segments -%}{%- assign s = segment.url | split: '/' -%}
-{%- if languages contains segment.url -%}
-    {%- assign color_var = "var(--" | append: segment.url | append: ")" -%}
-{%- else -%}
-    {%- assign color_var = "var(--other)" -%}
-{%- endif -%}
+    {%- if urls contains segment.url -%}
+        {%- assign color_var = "var(--" | append: segment.url | append: ")" -%}
+    {%- else -%}
+        {%- assign color_var = "var(--other)" -%}
+    {%- endif -%}
 
-a.{{ s }}:hover, a.{{ s }}:focus, #{{ s }} > a:hover, #{{ s }} > a:focus, .procard.{{ s }}, .nav-link.sidebar-item-active.{{ s }}
-{ border-left: 5px solid {{ color_var }}; }
+    a.{{ s }}:hover, a.{{ s }}:focus, #{{ s }} > a:hover, #{{ s }} > a:focus, .procard.{{ s }}, .nav-link.sidebar-item-active.{{ s }}
+    { border-left: 5px solid {{ color_var }}; }
 
-#fc-{{ s }}, #fc-{{ s }}:hover, .wvnav-item-active-{{ s }}
-{ color: {{ color_var }}; }
+    #fc-{{ s }}, #fc-{{ s }}:hover, .wvnav-item-active-{{ s }}
+    { color: {{ color_var }}; }
 
-div#GDS_input-{{ s }}
-{
-    border-bottom: 1px solid {{ color_var }};
-    border-radius: 5px;
-}
-#GDS_input-{{ s }}
-{
-    box-shadow: 0px 0px 20px -13px {{ color_var }};
-}
-div#GDS_input-{{ s }}.search-loading::after
-{
-    background: {{ color_var }};
-}
-div#GDS_input-{{ s }}.search-loading.indeterminate::after
-{
-    background: linear-gradient(90deg, transparent, {{ color_var }}, transparent);
-}
+    div#GDS_input-{{ s }}
+    {
+        border-bottom: 1px solid {{ color_var }};
+        border-radius: 5px;
+    }
+    #GDS_input-{{ s }}
+    {
+        box-shadow: 0px 0px 20px -13px {{ color_var }};
+    }
+    div#GDS_input-{{ s }}.search-loading::after
+    {
+        background: {{ color_var }};
+    }
+    div#GDS_input-{{ s }}.search-loading.indeterminate::after
+    {
+        background: linear-gradient(90deg, transparent, {{ color_var }}, transparent);
+    }
 
-#GDS_input-{{ s }} ~ #suggestions-container #suggestion-light.light-on
-{
-    color: {{ color_var }};
-}
+    #GDS_input-{{ s }} ~ #suggestions-container #suggestion-light.light-on
+    {
+        color: {{ color_var }};
+    }
 {%- endfor -%}
 
 div#GDS_input-, div#GDS_input-search
