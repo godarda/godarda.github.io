@@ -65,6 +65,9 @@ layout: none
     --string:              #a5d6ff; /* String color for string-related classes */
     --text-error:          #f0f6fc; /* Error text color for error-related classes */
     --text-primary:        #c9d1d9; /* Primary text color for general text and specific classes */
+    --tooltip-bg:          #e6e6e6; /* Tooltip background color */
+    --bs-tooltip-bg:       var(--tooltip-bg);
+    --bs-tooltip-color:    var(--other);
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -131,6 +134,9 @@ layout: none
     --string:              #0a3069; /* String color for string-related classes */
     --text-error:          #24292f; /* Error text color for error-related classes */
     --text-primary:        #24292f; /* Primary text color for general text and specific classes */
+    --tooltip-bg:          #000000; /* Tooltip background color */
+    --bs-tooltip-bg:       var(--tooltip-bg);
+    --bs-tooltip-color:    var(--other);
 }
 
 /* --------------------------------------------------------------------------------------------- */

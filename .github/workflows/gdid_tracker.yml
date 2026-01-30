@@ -39,6 +39,7 @@ jobs:
     if: github.event_name == 'push'
     needs: gdid-status-check
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       # Checkout the repository content with full history
@@ -51,7 +52,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.14'
+          python-version: '3.12'
 
       # Install required Python dependencies
       - name: Install dependencies
@@ -82,6 +83,10 @@ jobs:
           delete-branch: true
           labels: automated, gdid-update
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Install GitHub CLI (needed for gh commands, not preinstalled on ubuntu-latest)
+      - name: Install GitHub CLI
+        run: sudo apt-get install -y gh
 
       # Enable auto-merge for the created Pull Request and auto-delete the branch on merge
       - name: Enable Auto-Merge and Auto-Delete Branch

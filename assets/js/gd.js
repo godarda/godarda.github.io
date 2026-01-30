@@ -246,6 +246,32 @@ $(() => {
     // --------------------------------------------------------------------------
     // Clipboard Functionality
     // --------------------------------------------------------------------------
+    // Initialize tooltips for copy buttons
+    $('.copy-btn').each(function () {
+        // Set attributes via JS to avoid repetition in HTML config
+        $(this).attr('data-bs-toggle', 'tooltip');
+        $(this).css('cursor', 'pointer');
+        if (!this.getAttribute('title') && !this.getAttribute('data-bs-original-title')) {
+            this.setAttribute('title', 'Copy');
+        }
+        if (typeof bootstrap !== 'undefined' && bootstrap.Tooltip) {
+            new bootstrap.Tooltip(this);
+        }
+    });
+
+    // Lazy-initialize tooltip on hover to handle cases where Bootstrap loads late.
+    $('.copy-btn').on('mouseenter', function () {
+        // Ensure attributes exist
+        $(this).attr('data-bs-toggle', 'tooltip');
+        $(this).css('cursor', 'pointer');
+        if (!this.getAttribute('title') && !this.getAttribute('data-bs-original-title')) {
+            this.setAttribute('title', 'Copy');
+        }
+        if (typeof bootstrap !== 'undefined' && bootstrap.Tooltip && !bootstrap.Tooltip.getInstance(this)) {
+            new bootstrap.Tooltip(this).show();
+        }
+    });
+
     // Handles the "copy" button on code blocks.
     $('.copy-btn').on('click', (event) => {
         const $button = $(event.currentTarget);
@@ -256,10 +282,24 @@ $(() => {
                 const pageUrl = window.location.href;
                 const codeToCopy = `${pageUrl}\n\n${$pre.text()}`;
                 navigator.clipboard.writeText(codeToCopy).then(() => {
-                    $button.addClass('show-tooltip').attr('title', 'Copied!');
-                    setTimeout(() => {
-                        $button.removeClass('show-tooltip').attr('title', 'Copy code');
-                    }, 2000);
+                    const $icon = $button.find('i');
+                    const originalIconClass = $icon.attr('class');
+                    $icon.attr('class', 'bi bi-clipboard-check');
+
+                    if (typeof bootstrap !== 'undefined' && bootstrap.Tooltip) {
+                        const btnElement = $button[0];
+                        let tooltip = bootstrap.Tooltip.getInstance(btnElement);
+                        if (!tooltip) {
+                            tooltip = new bootstrap.Tooltip(btnElement);
+                        }
+                        $button.attr('data-bs-original-title', 'Copied!');
+                        tooltip.show();
+                        setTimeout(() => {
+                            tooltip.hide();
+                            $button.attr('data-bs-original-title', 'Copy');
+                            $icon.attr('class', originalIconClass);
+                        }, 2000);
+                    }
                 }).catch(err => {
                     console.error('Failed to copy text: ', err);
                 });

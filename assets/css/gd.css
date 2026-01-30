@@ -747,37 +747,3 @@ a.wvnav-item>i.wvsvg {
     0% { transform: translateX(-100%); }
     100% { transform: translateX(100%); }
 }
-
-/* --------------------------------------------------------------------------------------------- */
-
-/* Copy Button Tooltip/Popper */
-/* --------------------------------------------------------------------------------------------- */
-.copy-btn {
-    position: relative;
-}
-
-.copy-btn::after {
-    content: 'Code copied!';
-    position: absolute;
-    top: 50%;
-    right: 100%;
-    transform: translateY(-50%);
-    margin-right: 8px;
-    background-color: rgba(0, 0, 0, 0.85);
-    color: #00b050;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 14px;
-    font-style: normal;
-    white-space: nowrap;
-    z-index: 10;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity .2s ease-in-out, visibility .2s ease-in-out;
-}
-
-.copy-btn.show-tooltip::after {
-    opacity: 1;
-    visibility: visible;
-}
-/* --------------------------------------------------------------------------------------------- */

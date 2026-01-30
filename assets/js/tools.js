@@ -238,7 +238,7 @@
                 <div class="small">${s.name}</div>
                 <div class="res-val mb-0" id="res_${key}" style="padding-right: 2rem; padding-left: 2rem;">-</div>
                 <div class="small text-primary mt-1" id="sub_${key}" style="display:none"></div>
-                <button class="btn btn-sm btn-link text-secondary position-absolute top-50 end-0 translate-middle-y me-2"
+                <button class="btn btn-sm btn-link text-secondary position-absolute top-50 end-0 translate-middle-y me-2 p-0"
                         id="btn_copy_${key}"
                         style="display:none; z-index: 5; text-decoration: none; border: 0;"
                         data-bs-toggle="tooltip"
@@ -255,8 +255,20 @@
                 s.subElement = col.querySelector(`#sub_${key}`);
                 s.copyBtn = col.querySelector(`#btn_copy_${key}`);
 
+                // Initialize tooltip
+                if (s.copyBtn && typeof bootstrap !== 'undefined' && bootstrap.Tooltip) {
+                    new bootstrap.Tooltip(s.copyBtn);
+                }
+
                 // Add click listener for copy button
                 if (s.copyBtn) {
+                    // Initialize tooltip on hover if not already initialized
+                    s.copyBtn.addEventListener('mouseenter', () => {
+                        if (typeof bootstrap !== 'undefined' && bootstrap.Tooltip && !bootstrap.Tooltip.getInstance(s.copyBtn)) {
+                            new bootstrap.Tooltip(s.copyBtn).show();
+                        }
+                    });
+
                     s.copyBtn.addEventListener('click', () => {
                         const text = s.valElement.textContent;
                         if (text && text !== '-') {
