@@ -167,8 +167,7 @@ nav {
 }
 
 li.nav-item,
-li.nav-item>a.nav-link,
-a.nav-link>i {
+li.nav-item>a.nav-link {
     color: var(--navlink);
 }
 
@@ -581,13 +580,6 @@ option,
     font-size: 15px;
 }
 
-.btn:hover,
-.btn:focus,
-.btn:active {
-    border-color: var(--color1);
-    color: var(--textcolor) !important;
-}
-
 .btn.active.focus,
 .btn.focus:active,
 .btn.focus,
@@ -596,7 +588,6 @@ option,
 .btn:focus,
 .navbar-toggler:focus,
 .btn:hover:active {
-    border-color: var(--color1);
     box-shadow: none;
 }
 
