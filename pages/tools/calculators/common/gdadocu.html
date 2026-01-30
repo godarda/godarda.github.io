@@ -33,6 +33,7 @@ description: "Instantly count alphabets, numbers, spaces, and special characters
         },
         calculate: (values) => {
             const text = values.inputText || '';
+            if (text.length === 0) return {};
             let alphabets = 0, numbers = 0, spaces = 0, special = 0;
             for (const char of text) {
                 if (/[a-zA-Z]/.test(char)) alphabets++;

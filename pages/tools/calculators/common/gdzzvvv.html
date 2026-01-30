@@ -26,13 +26,14 @@ description: "Analyze string length instantly: characters, words, lines, and UTF
     setupTool({
         inputs: ['inputText'],
         stats: {
-            chars: { name: 'Characters', default: false },
             words: { name: 'Words',      default: true },
             lines: { name: 'Lines',      default: true },
+            chars: { name: 'Characters', default: false },
             bytes: { name: 'Bytes',      default: false }
         },
         calculate: (values) => {
             const text = values.inputText || '';
+            if (text.length === 0) return {};
             const chars = text.length;
             const words = text.trim().length === 0 ? 0 : text.trim().split(/\s+/).length;
             const lines = text.length === 0 ? 0 : text.split(/\r?\n/).length;

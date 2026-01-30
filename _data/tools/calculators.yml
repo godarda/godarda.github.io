@@ -3,12 +3,14 @@ grandparent:
   subtree: Common
   url: calculators/common
   children:
+  - url: calculators/common/gdldvld
+    title: Expression Calculator
+  - url: calculators/common/gddeqcn
+    title: Number Calculator
   - url: calculators/common/gdzzvvv
     title: String Length Calculator
   - url: calculators/common/gdadocu
     title: Character Calculator
-  - url: calculators/common/gdldvld
-    title: Expression Calculator
   - url: calculators/common/gdpklzu
     title: BMI Calculator
   - url: calculators/common/gdzoyew

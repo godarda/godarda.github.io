@@ -8,13 +8,16 @@ layout: none
 {
     --asm:                 #b37700; /* Brown for assembly language */
     --c:                   #0080ff; /* Blue for C programming language */
+    --calculators:         #66b3ff; /* Light blue for calculators */
     --cg:                  #ff6699; /* Pink for computer graphics */
     --cluster:             #99994d; /* Olive for clustering systems */
+    --converters:          #ff99cc; /* Light pink for converters */
     --cpp:                 #99e600; /* Bright green for C++ programming language */
     --csharp:              #b366ff; /* Purple for C# programming language */
     --ds:                  #cc6666; /* Muted red for data science */
     --dsa:                 #e6b800; /* Amber for data structures and algorithms */
     --fsharp:              #00bfff; /* Cyan for F# programming language */
+    --generators:          #79d2a6; /* Soft green for generators */
     --java:                #ff8533; /* Warm orange for Java programming language */
     --julia:               #cc3399; /* Magenta for Julia programming language */
     --linux:               #ff9966; /* Coral for Linux systems */
@@ -26,6 +29,7 @@ layout: none
     --r:                   #9999ff; /* Light purple for R programming language */
     --rust:                #996633; /* Rustic brown for Rust programming language */
     --selenium:            #00cc66; /* Green for Selenium testing framework */
+    --utilities:           #00ced1; /* Dark Turquoise for utilities */
     --other:               #00b050; /* Green for miscellaneous or other categories, matching search */
 
     --bg_jumbotron:        #050514; /* Background color for jumbotron */
@@ -76,13 +80,16 @@ layout: none
 {
     --asm:                 #b37400; /* Brown for assembly language */
     --c:                   #007acc; /* Blue for C programming language */
+    --calculators:         #0073e6; /* Strong blue for calculators */
     --cg:                  #e65c7d; /* Pink for computer graphics */
     --cluster:             #99994d; /* Olive for clustering systems */
+    --converters:          #ff3399; /* Strong pink for converters */
     --cpp:                 #66cc00; /* Green for C++ programming language */
     --csharp:              #b34dff; /* Purple for C# programming language */
     --ds:                  #e65c5c; /* Red for data science */
     --dsa:                 #e69900; /* Amber for data structures and algorithms */
     --fsharp:              #1aa3cc; /* Cyan for F# programming language */
+    --generators:          #2db373; /* Green for generators */
     --java:                #e67300; /* Orange for Java programming language */
     --julia:               #e62e8c; /* Magenta for Julia programming language */
     --linux:               #e6854d; /* Coral for Linux systems */
@@ -94,6 +101,7 @@ layout: none
     --r:                   #9999e6; /* Purple for R programming language */
     --rust:                #b3591a; /* Brown for Rust programming language */
     --selenium:            #00b359; /* Green for Selenium testing framework */
+    --utilities:           #008b8b; /* Dark Cyan for utilities */
     --other:               #00b050; /* Green for other miscellaneous categories */
 
     --bg_jumbotron:        #c5cbd3; /* Background color for jumbotron */
@@ -141,7 +149,7 @@ layout: none
 
 /* --------------------------------------------------------------------------------------------- */
 
-{%- assign languages = "asm,c,cg,cluster,cpp,csharp,ds,dsa,fsharp,java,julia,linux,lisp,mongodb,mysql,octave,python,r,rust,selenium" | split: ',' -%}
+{%- assign languages = "asm,c,calculators,cg,cluster,converters,cpp,csharp,ds,dsa,fsharp,generators,java,julia,linux,lisp,mongodb,mysql,octave,python,r,rust,selenium,utilities" | split: ',' -%}
 {%- for segment in site.data.gd.segments -%}{%- assign s = segment.url | split: '/' -%}
 {%- if languages contains segment.url -%}
     {%- assign color_var = "var(--" | append: segment.url | append: ")" -%}

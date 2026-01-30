@@ -10,3 +10,7 @@ segments:
 - title: Generators
   url: generators
   parent: "Generators"
+
+- title: Utilities
+  url: utilities
+  parent: "Utilities"

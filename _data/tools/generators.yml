@@ -6,7 +6,7 @@ grandparent:
   - url: generators/common/gdhzgsg
     title: String Generator
   - url: generators/common/gdgeldi
-    title: Random Number Generator
+    title: Number Generator
 sidenav:
 - parent: Generators
   url: generators

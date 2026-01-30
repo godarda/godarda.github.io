@@ -1,6 +1,6 @@
 ---
 permalink: generators/common/gdgeldi
-title: Random Number Generator
+title: Number Generator
 description: "Generate a random number of a specified length."
 ---
 
@@ -12,7 +12,7 @@ description: "Generate a random number of a specified length."
 {% endcapture %}
 
 {% capture help_content %}
-<p>The <strong>Random Number Generator</strong> creates a random number of a specified length.</p>
+<p>The <strong>Number Generator</strong> creates a random number of a specified length.</p>
 <h6><i class="bi bi-sliders"></i> How to Use</h6>
 <ul>
     <li><strong>Length:</strong> Enter the desired length for the random number (up to 2500).</li>
@@ -85,7 +85,7 @@ description: "Generate a random number of a specified length."
     if (btnClear) {
         const col = document.createElement('div');
         col.className = 'col-auto';
-        col.innerHTML = '<button id="btnRegenerate" class="btn btn-sm btn-outline-primary"><i class="bi bi-arrow-repeat"></i> Regenerate</button>';
+        col.innerHTML = '<button id="btnRegenerate" class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-repeat"></i> Regenerate</button>';
 
         btnClear.parentNode.after(col);
 

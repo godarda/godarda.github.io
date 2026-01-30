@@ -1,0 +1,89 @@
+---
+permalink: calculators/common/gddeqcn
+title: Number Calculator
+description: "Calculate the sum of digits in a number. A simple and fast tool for digit sum analysis."
+---
+
+{% capture tools_inputs %}
+<div class="mb-0">
+    <textarea id="inputText" class="form-control" placeholder="Type or paste number here..." aria-label="Number to analyze" rows="3"></textarea>
+</div>
+{% endcapture %}
+
+{% capture help_content %}
+<p><strong>How to use:</strong></p>
+<ul>
+    <li><strong>Input:</strong> Type or paste a number (or text containing digits) into the box.</li>
+    <li><strong>Analysis:</strong> The tool extracts all digits and calculates their sum and average.</li>
+    <li><strong>Trim:</strong> Use the Trim button or <kbd>Ctrl</kbd>+<kbd>Enter</kbd> to remove leading/trailing whitespace.</li>
+</ul>
+<p><strong>Example:</strong> For 10 digits like <code>1234567890</code>:</p>
+<ul>
+    <li><strong>Sum:</strong> 1+2+3+4+5+6+7+8+9+0 = 45</li>
+    <li><strong>Average:</strong> 45 / 10 = 4.5</li>
+</ul>
+{% endcapture %}
+
+{% include tools.html %}
+
+<script>
+(function () {
+    const stats = {
+        sum:     { name: 'Sum',     default: true },
+        average: { name: 'Average', default: true }
+    };
+
+    setupTool({
+        inputs: ['inputText'],
+        stats: stats,
+        calculate: (values) => {
+            const text = values.inputText || '';
+            const digits = text.match(/\d/g);
+
+            if (!digits || digits.length === 0) return {};
+
+            let sum = 0;
+            for (const d of digits) {
+                sum += parseInt(d, 10);
+            }
+
+            const count = digits.length;
+            const avg = sum / count;
+            const average = Number.isInteger(avg) ? avg.toString() : avg.toFixed(2);
+
+            return { sum, average };
+        }
+    });
+
+    // Inject Trim Button and Logic
+    const btnClear = document.getElementById('btnClear');
+    if (btnClear) {
+        const col = document.createElement('div');
+        col.className = 'col-auto';
+        col.innerHTML = '<button id="btnTrim" class="btn btn-sm btn-outline-secondary">Trim</button>';
+        btnClear.parentNode.after(col);
+
+        const btnTrim = document.getElementById('btnTrim');
+        const input = document.getElementById('inputText');
+
+        const doTrim = () => {
+            input.value = input.value.trim();
+            input.dispatchEvent(new Event('input'));
+        };
+
+        btnTrim.addEventListener('click', doTrim);
+        input.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                e.preventDefault();
+                doTrim();
+            }
+        });
+    }
+
+    // Hide Select Tiles dropdown
+    const viewOptionsBtn = document.getElementById('viewOptionsBtn');
+    if (viewOptionsBtn) {
+        viewOptionsBtn.closest('.col-auto').style.display = 'none';
+    }
+})();
+</script>

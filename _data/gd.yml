@@ -99,6 +99,10 @@ segments:
     url: generators
     parent: " / Generators "
 
+  - title: Utilities
+    url: utilities
+    parent: " / Utilities "
+
   - title: Programming and Tutorials
     url: learn
     parent: " / Learn "
