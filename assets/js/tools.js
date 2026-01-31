@@ -361,7 +361,7 @@
             // Collect values from all configured input elements
             const inputValues = {};
             inputElements.forEach(el => {
-                inputValues[el.id] = el.value;
+                inputValues[el.id] = (el.type === 'checkbox') ? el.checked : el.value;
             });
 
             // Execute the calculation function

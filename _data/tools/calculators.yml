@@ -15,9 +15,17 @@ grandparent:
     title: BMI Calculator
   - url: calculators/common/gdzoyew
     title: Age Calculator
+- parent: Scientific Calculators
+  subtree: Scientific
+  url: calculators/scientific
+  children:
+  - url: calculators/scientific/gdizhat
+    title: Trigonometry Calculator
 sidenav:
 - parent: Calculators
   url: calculators
   children:
   - title: Common Calculators
     url: calculators/common
+  - title: Scientific Calculators
+    url: calculators/scientific

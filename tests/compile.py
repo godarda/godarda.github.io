@@ -154,10 +154,12 @@ def attempt_compilation(source_file: str, html_content: str, compiler: str, outp
         if CONFIG.OS_NAME in ("macOS", "Ubuntu"):
             try:
                 cmd = f"{compiler} {file_path}{args}"
+                if compiler in ["gcc", "g++"]:
+                    cmd += " -o /dev/null"
                 subprocess.run(cmd, shell=True, check=True, stderr=subprocess.DEVNULL)
                 STATS.compiled += 1
             except subprocess.CalledProcessError:
-                STATS.uncompiled_entries.append(output_dir + file_name)
+                STATS.uncompiled_entries.append(os.path.join(output_dir, file_name))
                 STATS.uncompiled += 1
 
     except Exception as exc:

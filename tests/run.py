@@ -35,7 +35,7 @@ def main() -> None:
         start = time.time()
         cwd = os.getcwd()
         source = os.path.join(cwd, "pages")
-        destination = os.path.join(cwd, "codes")
+        destination = os.path.join(cwd, ".codes")
 
         # Verify that the source directory exists.
         if not os.path.exists(source):

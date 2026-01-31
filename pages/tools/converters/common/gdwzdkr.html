@@ -41,17 +41,6 @@ description: "Instantly convert timezones between different regions. A simple an
     const inputEl = document.getElementById('inputValue');
     const resultsContainer = document.getElementById('resultsContainer');
 
-    // Inject 24h Toggle
-    const toggleDiv = document.createElement('div');
-    toggleDiv.className = 'd-flex justify-content-end mb-2';
-    toggleDiv.innerHTML = `
-        <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="chk_24hr_fmt">
-            <label class="form-check-label" for="chk_24hr_fmt">Display Results in 24-Hour Format</label>
-        </div>
-    `;
-    resultsContainer.parentNode.insertBefore(toggleDiv, resultsContainer);
-
     // Inject Free Text Input
     const freeTextDiv = document.createElement('div');
     freeTextDiv.className = 'mb-3';
@@ -59,6 +48,17 @@ description: "Instantly convert timezones between different regions. A simple an
         <input type="text" class="form-control" id="freeTextInput" placeholder="Or paste date/time string... (e.g. 2019-04-29T00:01:28.561)">
     `;
     inputEl.parentElement.insertAdjacentElement('afterend', freeTextDiv);
+
+    // Inject 24h Toggle
+    const toggleDiv = document.createElement('div');
+    toggleDiv.className = 'd-flex mb-2';
+    toggleDiv.innerHTML = `
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="chk_24hr_fmt">
+            <label class="form-check-label" for="chk_24hr_fmt">Display Results in 24-Hour Format</label>
+        </div>
+    `;
+    freeTextDiv.insertAdjacentElement('afterend', toggleDiv);
 
     const freeInput = freeTextDiv.querySelector('input');
 
