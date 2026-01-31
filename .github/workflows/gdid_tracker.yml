@@ -10,11 +10,6 @@ on:
     branches:
       - develop
 
-# Prevent multiple tracker workflows from running simultaneously
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: false
-
 # Grant write permissions to contents and pull requests
 permissions:
   contents: write
@@ -28,7 +23,7 @@ jobs:
     steps:
       # Checkout the repository content
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       # Execute a dummy check to verify workflow initiation
       - name: Run dummy check
@@ -37,22 +32,20 @@ jobs:
   create-pr:
     name: Create and Merge GDID PR
     if: github.event_name == 'push'
-    needs: gdid-status-check
     runs-on: ubuntu-latest
-    timeout-minutes: 15
 
     steps:
       # Checkout the repository content with full history
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
-      # Set up the Python environment
+      # Set up the Python 3.13 environment
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
-          python-version: '3.12'
+          python-version: '3.13'
 
       # Install required Python dependencies
       - name: Install dependencies
@@ -84,13 +77,11 @@ jobs:
           labels: automated, gdid-update
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      # Install GitHub CLI (needed for gh commands, not preinstalled on ubuntu-latest)
-      - name: Install GitHub CLI
-        run: sudo apt-get install -y gh
-
-      # Enable auto-merge for the created Pull Request and auto-delete the branch on merge
-      - name: Enable Auto-Merge and Auto-Delete Branch
+      # Enable auto-merge for the created Pull Request
+      - name: Enable Auto-Merge
         if: steps.cpr.outputs.pull-request-number != ''
-        run: gh pr merge --auto --squash --delete-branch ${{ steps.cpr.outputs.pull-request-number }}
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
+          merge-method: squash
+          token: ${{ secrets.GITHUB_TOKEN }}
