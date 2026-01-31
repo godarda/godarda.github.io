@@ -2,5 +2,9 @@ _site
 .jekyll-cache
 .jekyll-metadata
 .bundle
+.vendor
+.venv
 vendor
+venv
 Gemfile.lock
+__pycache__

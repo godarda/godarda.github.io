@@ -1,11 +1,18 @@
+<!--
+  File: _includes/pagination.html
+  Purpose: Generates the "What Next?" navigation section at the bottom of pages.
+  It iterates through the site's navigation structure (gd.grandparent) to find
+  the current page and display links to the subsequent pages or the next section.
+-->
+
 {%- assign i = 0 -%}
 {%- assign j = 0 -%}
 
 {%- for parent in gd.grandparent -%}
-{%- assign j = j | plus:1 -%}
+    {%- assign j = j | plus:1 -%}
     {%- if page.url contains parent.url -%}
     {%- for child in parent.children -%}
-    {%- assign i = i | plus:1 -%}
+        {%- assign i = i | plus:1 -%}
         {%- if page.url contains child.url -%}
             {%- assign first = i | plus: 0 -%}{%- assign second = i | plus:1 -%}{%- assign third = i | plus:2 -%}
             {%- if parent.children[third].url != null -%}

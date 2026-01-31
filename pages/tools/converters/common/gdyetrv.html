@@ -4,7 +4,24 @@ title: Weight Converter
 description: "Instantly convert weights between grams, kilograms, pounds, ounces, tons, and more. A simple and fast weight conversion tool."
 ---
 
-{% include converter.html %}
+{% capture help_content %}
+<p>The <strong>Weight Converter</strong> is a comprehensive tool designed to perform accurate conversions between metric and imperial weight units. Whether for scientific research, shipping logistics, or daily use, it provides instant results across a wide range of mass measurements.</p>
+<h6><i class="bi bi-sliders"></i> How to Use</h6>
+<ul>
+    <li><strong>Input Value:</strong> Enter the weight you wish to convert in the input field.</li>
+    <li><strong>Select Unit:</strong> Choose the starting unit (e.g., Kilogram, Pound) from the dropdown next to the input.</li>
+    <li><strong>Customize Results:</strong> Use the "Select Tiles" dropdown to choose which target units to display.</li>
+</ul><hr>
+<h6><i class="bi bi-box-seam"></i> Supported Units</h6>
+<p class="small text-muted">This tool supports conversion between the following weight units:</p>
+<ul>
+    <li><strong>Metric:</strong> Microgram (µg), Milligram (mg), Gram (g), Kilogram (kg), Metric Ton (t)</li>
+    <li><strong>Imperial / US:</strong> Ounce (oz), Pound (lb), Stone (st), US Ton (ton), Imperial Ton (long ton)</li>
+</ul>
+{% endcapture %}
+
+{% include tools.html %}
+
 <script>
 (function () {
     // Configuration: Define units and their conversion factor to Grams (base unit)
@@ -22,10 +39,10 @@ description: "Instantly convert weights between grams, kilograms, pounds, ounces
     };
 
     const defaultUnit = 'kg';
-    const defaultSelectedUnits = ['lb'];
+    const defaultSelectedUnits = ['g', 'lb'];
 
     // Initialize the shared converter logic
-    setupConverter({
+    setupTool({
         units: units,
         defaultUnit: defaultUnit,
         defaultSelectedUnits: defaultSelectedUnits

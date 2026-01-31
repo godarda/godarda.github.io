@@ -21,8 +21,11 @@ gddankd: https://en.wikipedia.org/wiki/A._P._J._Abdul_Kalam
 linkedin: https://in.linkedin.com/company/godarda
 github: https://github.com/godarda
 repo: https://github.com/godarda/godarda.github.io
+teams: https://github.com/orgs/godarda/teams/orbit/teams
+issues: https://github.com/godarda/godarda.github.io/issues
+releases: https://github.com/orgs/godarda/discussions/categories/releases
 sponsor: https://github.com/sponsors/godarda
 discord: https://discord.gg/GxDtSkFqKQ
 slack: https://join.slack.com/t/godarda/shared_invite/zt-36lxefpki-dor9VzLkHrV51n7XbHencw
-android_app: https://raw.githubusercontent.com/godarda/godarda.github.io/master/android/app/release/godarda.apk
+android_app: https://raw.githubusercontent.com/godarda/godarda.github.io/main/android/app/release/godarda.apk
 sd_resume: https://raw.githubusercontent.com/shubhamrdarda/shubhamrdarda/master/assets/pdf/Resume%20-%20Shubham%20Darda.pdf

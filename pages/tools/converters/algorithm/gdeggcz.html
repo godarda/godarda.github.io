@@ -5,7 +5,25 @@ description: "Convert strings to various hashing algorithms including MD5, SHA-1
 ---
 
 <script src="{{ site.crypto_js }}"></script>
-{% include converter.html %}
+{% capture help_content %}
+<p>The <strong>Hashing Converter</strong> is a secure tool designed to generate cryptographic hashes from text input. Essential for data verification, password storage simulation, and digital fingerprinting, it supports a wide array of industry-standard algorithms.</p>
+<h6><i class="bi bi-sliders"></i> How to Use</h6>
+<ul>
+    <li><strong>Input Text:</strong> Enter the text string you wish to hash in the input area.</li>
+    <li><strong>Customize Results:</strong> Use the "Select Tiles" dropdown to choose which hash algorithms to display.</li>
+</ul><hr>
+<h6><i class="bi bi-shield-lock"></i> Supported Algorithms</h6>
+<p class="small text-muted">This tool supports the following cryptographic hash functions:</p>
+<ul>
+    <li><strong>MD5:</strong> MD5</li>
+    <li><strong>SHA-1:</strong> SHA-1</li>
+    <li><strong>SHA-2:</strong> SHA-256, SHA-384, SHA-512</li>
+    <li><strong>SHA-3:</strong> SHA3-224, SHA3-256, SHA3-384, SHA3-512</li>
+    <li><strong>Others:</strong> RIPEMD-160</li>
+</ul>
+{% endcapture %}
+
+{% include tools.html %}
 
 <script>
     // Hide the input unit dropdown immediately to prevent UI flashing.
@@ -29,29 +47,29 @@ description: "Convert strings to various hashing algorithms including MD5, SHA-1
 
     // Configuration for Hashing Converter
     const units = {
-        text: { 
-            name: 'Plain Text', 
+        text: {
+            name: 'Plain Text',
             symbol: 'txt',
             toBase: v => v,
             fromBase: v => v
         },
-        md5: { 
-            name: 'MD5', 
+        md5: {
+            name: 'MD5',
             symbol: 'MD5',
             fromBase: v => hash('MD5', v)
         },
-        sha1: { 
-            name: 'SHA-1', 
+        sha1: {
+            name: 'SHA-1',
             symbol: 'SHA-1',
             fromBase: v => hash('SHA1', v)
         },
-        sha256: { 
-            name: 'SHA-256', 
+        sha256: {
+            name: 'SHA-256',
             symbol: 'SHA-256',
             fromBase: v => hash('SHA256', v)
         },
-        sha512: { 
-            name: 'SHA-512', 
+        sha512: {
+            name: 'SHA-512',
             symbol: 'SHA-512',
             fromBase: v => hash('SHA512', v)
         },
@@ -91,7 +109,7 @@ description: "Convert strings to various hashing algorithms including MD5, SHA-1
     const defaultSelectedUnits = ['sha256'];
 
     // Initialize the shared converter logic
-    setupConverter({
+    setupTool({
         units: units,
         defaultUnit: defaultUnit,
         defaultSelectedUnits: defaultSelectedUnits,

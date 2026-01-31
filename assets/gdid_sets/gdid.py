@@ -1,68 +1,66 @@
 #!/usr/bin/env python3
 """
-Author:  GoDarda Site Automation
+GDID Maintenance Utility (assets/gdid_sets/gdid.py)
+
 Purpose:
-    Maintain and reconcile GDID sets used across the repository.
+This script maintains the integrity of GoDarda IDs (GDIDs) across
+the repository. GDIDs are unique identifiers for webpages within the project.
+It reconciles usage, updates set files, and ensures consistency in navigation data.
 
-Description:
-    This module provides utilities to:
-      - Locate the repository root dynamically from the script location.
-      - Load GDID identifiers from gdid_set*.txt files.
-      - Scan markdown, yaml, and other repository files for usages of GDIDs.
-      - Detect non-standard page filenames and write them to an invalid.txt file.
-      - Extract title and permalink metadata from generated HTML and update
-        the corresponding YAML navigation data.
-      - Update gdid_set*.txt files with usage references and trigger YAML updates.
-
-Guidelines:
-    - Keep functions small and focused; prefer explicit error messages to aid CI/debugging.
-    - Concurrency is used for IO-bound scans to improve performance on large repos.
-    - Avoid destructive operations; updates are limited to known metadata and set files.
+Key Features:
+1. Usage Scanning: Scans Markdown, YAML, and other files for GDID references.
+2. Reconciliation: Updates `gdid_set*.txt` files to reflect current usage.
+3. Metadata Sync: Updates YAML navigation data from generated HTML metadata.
+4. Validation: Reports non-standard filenames or invalid IDs.
 """
+
 import re
 import yaml
+import os
+import logging
+import functools
 from pathlib import Path
+from threading import Lock
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from collections import defaultdict
+from typing import Set, Dict, List, Tuple, Optional, Callable
 
+# Configure logging
+logging.basicConfig(level=logging.INFO, format="%(message)s")
+logger = logging.getLogger(__name__)
 
-# ------------------------------------------------------------
-# Resolve repo root dynamically
-# ------------------------------------------------------------
-def find_repo_root(start_path: Path) -> Path:
-    """
-    Ascend the filesystem from start_path until a repository sentinel is found.
+# Use C-based YAML loader/dumper if available for performance
+try:
+    from yaml import CSafeLoader as Loader, CSafeDumper as Dumper
+except ImportError:
+    from yaml import SafeLoader as Loader, SafeDumper as Dumper
 
-    Behavior:
-      - Recognizes repository root by presence of a .git folder or an index.html file.
-      - Raises RuntimeError if no repo root is found up to filesystem root.
-
-    Notes:
-      - Using Path.resolve() upstream is recommended so symlinks are handled.
-    """
-    current = start_path
-    while current != current.parent:
-        if (current / ".git").exists() or (current / "index.html").exists():
-            return current
-        current = current.parent
-    raise RuntimeError("Repo root not found")
-
+# Compiled Regex Patterns
+GDID_PATTERN = re.compile(r"\b(gd[a-z]{5})\b")
+MARKDOWN_LINK_PATTERN = re.compile(r"\[(gd[a-z]{5})\]")
 
 SCRIPT_PATH = Path(__file__).resolve()
-REPO_ROOT = find_repo_root(SCRIPT_PATH)
+REPO_ROOT = SCRIPT_PATH
+while REPO_ROOT != REPO_ROOT.parent:
+    if (REPO_ROOT / ".git").exists() or (REPO_ROOT / "index.html").exists():
+        break
+    REPO_ROOT = REPO_ROOT.parent
+else:
+    raise RuntimeError("Repo root not found")
+
 SETS_DIR = REPO_ROOT / "assets" / "gdid_sets"
 GITIGNORE_FILE = REPO_ROOT / ".gitignore"
 INVALID_FILE = SETS_DIR / "invalid.txt"
 URL_YML_FILE = REPO_ROOT / "_data" / "url.yml"
 
 
-def load_gitignore() -> set:
+def load_gitignore() -> Set[str]:
     """
-    Read the repository .gitignore and return a set of top-level ignored paths.
+    Loads ignored paths from the repository's .gitignore file.
+    Comments and empty lines are skipped. Trailing slashes are removed.
 
-    Behavior:
-      - Strips comments and trailing slashes.
-      - Returns an empty set if .gitignore is missing.
+    Returns:
+        A set of top-level ignored path strings.
     """
     ignored = set()
     if GITIGNORE_FILE.exists():
@@ -73,61 +71,85 @@ def load_gitignore() -> set:
     return ignored
 
 
-def load_gdids_by_file() -> dict:
+def collect_all_files(ignored: Set[str]) -> Tuple[List[Path], List[Path]]:
     """
-    Parse gdid_set*.txt files in the assets/gdid_sets directory.
+    Collects all relevant files in a single pass.
+    Returns (md_files, other_files).
+    """
+    md_files = []
+    other_files = []
+    for root, dirs, files in os.walk(REPO_ROOT):
+        # Prune ignored directories
+        dirs[:] = [d for d in dirs if d not in ignored and d != ".git" and d != "_site"]
+        for filename in files:
+            if filename in ignored:
+                continue
+            path = Path(root) / filename
+            if filename.endswith(".md"):
+                md_files.append(path)
+            elif filename != "url.yml":
+                other_files.append(path)
+    return md_files, other_files
+
+
+def load_gdids_by_file() -> Dict[Path, List[str]]:
+    """
+    Parses `gdid_set*.txt` files to load GDIDs.
 
     Returns:
-      dict mapping Path -> list of GDID tokens found in the file.
-
-    Notes:
-      - Tokens are validated to match the expected 'gd' prefix and length.
-      - Non-matching lines are ignored (comments/blank lines preserved elsewhere).
+        A dictionary mapping each set file path to a list of GDIDs found within it.
     """
     gdid_map = defaultdict(list)
     for txt_file in sorted(SETS_DIR.glob("gdid_set*.txt")):
         for line in txt_file.read_text(encoding="utf-8").splitlines():
             token = line.strip().split(" -")[0]
-            if token.startswith("gd") and len(token) == 7 and token.isalpha():
+            if GDID_PATTERN.fullmatch(token):
                 gdid_map[txt_file].append(token)
     return gdid_map
 
 
-def scan_markdown_files(all_gdids: set) -> dict:
+def scan_markdown_files(all_gdids: Set[str], md_files: List[Path]) -> Dict[str, List[str]]:
     """
-    Concurrently scan all markdown (.md) files in the repo for referenced GDIDs.
+    Scans all Markdown files for GDID references.
+    This function concurrently searches for `[gdid]` patterns in `.md` files.
+
+    Args:
+        all_gdids: A set of all known GDIDs to validate against.
+        md_files: List of markdown files to scan.
 
     Returns:
-      defaultdict(list) mapping gdid -> list of "relative_path (line N)" references.
-
-    Implementation notes:
-      - Uses a regex to locate bracketed tokens like [gdxxxxx].
-      - Skips binary/unreadable files by ignoring read errors.
-      - ThreadPoolExecutor is used to parallelize IO-bound scanning.
+        A dictionary mapping each found GDID to a list of its locations.
     """
     usage = defaultdict(list)
-    md_files = list(REPO_ROOT.rglob("*.md"))
 
     def process_md(file: Path):
         rel_path = file.relative_to(REPO_ROOT).as_posix()
         found = []
         try:
-            for i, line in enumerate(
-                file.read_text(encoding="utf-8", errors="ignore").splitlines(), 1
-            ):
-                for token in re.findall(r"\[([^\]]+)\]", line):
-                    if (
-                        token.startswith("gd")
-                        and len(token) == 7
-                        and token in all_gdids
-                    ):
-                        found.append((token, f"{rel_path} (line {i})"))
+            text = file.read_text(encoding="utf-8", errors="ignore")
+            if not GDID_PATTERN.search(text):
+                return found
+
+            for match in MARKDOWN_LINK_PATTERN.finditer(text):
+                token = match.group(1)
+                if token in all_gdids:
+                    line_num = text.count('\n', 0, match.start()) + 1
+                    found.append((token, f"{rel_path} (line {line_num})"))
         except Exception:
             pass
         return found
 
+    def process_batch(files: List[Path]) -> List[Tuple[str, str]]:
+        results = []
+        for file in files:
+            results.extend(process_md(file))
+        return results
+
+    chunk_size = 50
+    chunks = [md_files[i : i + chunk_size] for i in range(0, len(md_files), chunk_size)]
+
     with ThreadPoolExecutor() as executor:
-        futures = [executor.submit(process_md, file) for file in md_files]
+        futures = [executor.submit(process_batch, chunk) for chunk in chunks]
         for future in as_completed(futures):
             for gid, ref in future.result():
                 usage[gid].append(ref)
@@ -135,16 +157,15 @@ def scan_markdown_files(all_gdids: set) -> dict:
     return usage
 
 
-def scan_url_yml(all_gdids: set) -> dict:
+def scan_url_yml(all_gdids: Set[str]) -> Dict[str, List[str]]:
     """
-    Scan the _data/url.yml file for GDID keys.
+    Scans the `_data/url.yml` file for GDID keys.
+
+    Args:
+        all_gdids: A set of all known GDIDs to validate against.
 
     Returns:
-      defaultdict(list) mapping gdid -> list of "url.yml (line N)" references.
-
-    Notes:
-      - Only checks top-level YAML keys in "key: value" lines for GDID-like keys.
-      - Returns empty mapping if file doesn't exist.
+        A dictionary mapping each found GDID to its location in `url.yml`.
     """
     usage = defaultdict(list)
     if not URL_YML_FILE.exists():
@@ -158,72 +179,60 @@ def scan_url_yml(all_gdids: set) -> dict:
             line = line.strip()
             if ":" in line:
                 key = line.split(":", 1)[0].strip()
-                if (
-                    key.startswith("gd")
-                    and len(key) == 7
-                    and key.isalpha()
-                    and key in all_gdids
-                ):
+                if GDID_PATTERN.fullmatch(key) and key in all_gdids:
                     usage[key].append(f"{rel_path} (line {i})")
     except Exception as e:
-        print(f"Failed to read {rel_path}: {e}")
+        logger.error(f"Failed to read {rel_path}: {e}")
 
     return usage
 
 
-def scan_repo_files(all_gdids: set, ignored: set) -> dict:
+def scan_repo_files(all_gdids: Set[str], files_to_scan: List[Path]) -> Dict[str, List[str]]:
     """
-    Scan non-markdown repo files for GDID usage and collect non-standard page IDs.
+    Scans repository files for GDID usage and non-standard filenames.
+    This scan looks for GDIDs in filenames and identifies page files that
+    do not follow the standard `gdid.html` naming convention. Non-standard
+    filenames are written to `invalid.txt`.
+
+    Args:
+        all_gdids: A set of all known GDIDs to validate against.
+        files_to_scan: List of files to scan.
 
     Returns:
-      defaultdict(list) mapping gdid -> list of relative path references.
-
-    Side-effects:
-      - Writes a list of non-standard IDs and their paths to assets/gdid_sets/invalid.txt.
-
-    Behavior:
-      - Skips files under .git and paths matching .gitignore entries.
-      - Looks for gd-prefixed 7-letter tokens in filenames.
-      - Flags pages/* files whose stem does not match the expected gdxxxxxx pattern.
+        A dictionary mapping each found GDID to a list of file paths.
     """
     usage = defaultdict(list)
     nonstandard_ids = []
 
-    files = [
-        f
-        for f in REPO_ROOT.rglob("*")
-        if f.is_file() and not f.name.endswith(".md") and f.name != "url.yml"
-    ]
+    def process_batch(files: List[Path]) -> Tuple[List[Tuple[str, str]], List[str]]:
+        batch_usage = []
+        batch_nonstandard = []
+        for file in files:
+            rel_path = file.relative_to(REPO_ROOT).as_posix()
+            name = file.name
+            stem = file.stem.strip()
 
-    def process_file(file: Path):
-        rel_path = file.relative_to(REPO_ROOT).as_posix()
-        if ".git" in rel_path or any(part in Path(rel_path).parts for part in ignored):
-            return [], None
+            # Match GDID-style filenames
+            for word in GDID_PATTERN.findall(name):
+                if word in all_gdids:
+                    batch_usage.append((word, rel_path))
 
-        found = []
-        name = file.name
-        stem = file.stem.strip()
+            # Detect nonstandard filenames in pages/
+            if "pages" in rel_path and name != "index.html":
+                if not stem.startswith("gd") or len(stem) != 7:
+                    batch_nonstandard.append(f"{stem},{rel_path}")
+        return batch_usage, batch_nonstandard
 
-        # Match GDID-style filenames
-        for word in re.findall(r"\b[a-z]{7}\b", name):
-            if word.startswith("gd") and word in all_gdids:
-                found.append((word, rel_path))
-
-        # Detect nonstandard filenames in pages/
-        if "pages" in rel_path and name != "index.html":
-            if not stem.startswith("gd") or len(stem) != 7:
-                return found, f"{stem},{rel_path}"
-
-        return found, None
+    chunk_size = 200
+    chunks = [files_to_scan[i : i + chunk_size] for i in range(0, len(files_to_scan), chunk_size)]
 
     with ThreadPoolExecutor() as executor:
-        futures = [executor.submit(process_file, file) for file in files]
+        futures = [executor.submit(process_batch, chunk) for chunk in chunks]
         for future in as_completed(futures):
             found, nonstandard = future.result()
             for gid, ref in found:
                 usage[gid].append(ref)
-            if nonstandard:
-                nonstandard_ids.append(nonstandard)
+            nonstandard_ids.extend(nonstandard)
 
     INVALID_FILE.write_text(
         (
@@ -237,99 +246,128 @@ def scan_repo_files(all_gdids: set, ignored: set) -> dict:
     return usage
 
 
-def extract_metadata_from_html(html_path: Path) -> tuple:
+@functools.lru_cache(maxsize=None)
+def extract_metadata_from_html(html_path: Path) -> Tuple[str, str]:
     """
-    Extract permalink and title metadata lines from a generated HTML file.
+    Extracts permalink and title from a Jekyll-generated HTML file.
+
+    Args:
+        html_path: The path to the HTML file.
 
     Returns:
-      (permalink, title)
+        A tuple containing the permalink and title.
 
     Raises:
-      ValueError if either permalink or title cannot be found.
-
-    Notes:
-      - Assumes YAML front-matter style lines like "permalink: /path" and "title: My Title".
-      - Stops early once both values are discovered.
+        ValueError: If permalink or title metadata is missing.
     """
     permalink, title = None, None
-    for line in html_path.read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if line.startswith("permalink:"):
-            permalink = line.split("permalink:")[1].strip()
-        elif line.startswith("title:"):
-            title = line.split("title:")[1].strip()
-        if permalink and title:
-            break
+    try:
+        with html_path.open("r", encoding="utf-8") as f:
+            for _ in range(50):  # Read first 50 lines only
+                line = f.readline()
+                if not line: break
+                line = line.strip()
+                if line.startswith("permalink:"):
+                    permalink = line.split("permalink:", 1)[1].strip()
+                elif line.startswith("title:"):
+                    title = line.split("title:", 1)[1].strip()
+                if permalink and title:
+                    break
+    except Exception:
+        pass
+
     if not permalink or not title:
         raise ValueError(f"Missing permalink or title in {html_path}")
     return permalink, title
 
 
-def update_yaml(html_path: Path):
+class YamlManager:
     """
-    Given a path to a generated HTML page under pages/, insert its title/permalink
-    into the appropriate section YAML file under _data.
-
-    Behavior:
-      - Normalizes permalink (removes trailing .html for matching).
-      - Locates a YAML file named <section_key>.yml under _data.
-      - Searches 'grandparent' sections for a matching parent URL and appends a child.
-      - Writes back the YAML preserving key order (sort_keys=False).
-
-    Raises:
-      FileNotFoundError if the expected YAML file is missing.
-      ValueError if the permalink format is unexpected or the matching section isn't found.
+    Manages thread-safe updates to YAML navigation files.
+    Caches loaded YAML data to minimize disk I/O and writes changes in batches.
     """
-    permalink, title = extract_metadata_from_html(html_path)
-    normalized_permalink = permalink.rstrip('.html')
-    parts = normalized_permalink.split('/')
+    def __init__(self):
+        self.cache = {}
+        self.dirty = set()
+        self.lock = Lock()
 
-    if len(parts) < 2:
-        raise ValueError(f"Invalid permalink format: {permalink}")
-
-    section_key, subsection_key = parts[0], parts[1]
-    yml_path = REPO_ROOT / "_data" / f"{section_key}.yml"
-
-    if not yml_path.exists():
-        raise FileNotFoundError(f"YAML file not found: {yml_path}")
-
-    data = yaml.safe_load(yml_path.read_text(encoding='utf-8')) or {}
-
-    # Traverse grandparent sections safely
-    for section in data.get('grandparent', []):
-        if not isinstance(section, dict):
-            continue  # skip malformed entries
-
-        if section.get('url', '').strip('/') == f"{section_key}/{subsection_key}":
-            children = section.get('children')
-            if not isinstance(children, list):
-                children = []
-                section['children'] = children  # initialize if missing
-
-            # Skip if permalink already exists (normalized)
-            if any(child.get('url', '').rstrip('.html') == normalized_permalink for child in children):
-                return  # silently skip
-
-            children.append({'title': title, 'url': permalink})
-            yml_path.write_text(yaml.dump(data, sort_keys=False, allow_unicode=True, width=float("inf")), encoding='utf-8')
-            print(f"Updated {yml_path.name} \nTitle: {title}  \nPermalink: {permalink}")
+    def update(self, html_path: Path):
+        try:
+            permalink, title = extract_metadata_from_html(html_path)
+        except (ValueError, FileNotFoundError):
             return
 
-    raise ValueError(f"No matching section found for path: {section_key}/{subsection_key} in {yml_path}")
+        normalized_permalink = permalink.rstrip('.html')
+        parts = normalized_permalink.lstrip('/').split('/')
+
+        if len(parts) < 2:
+            return
+
+        section_key, subsection_key = parts[0], parts[1]
+        data_dir = REPO_ROOT / "_data"
+
+        with self.lock:
+            yml_path = data_dir / f"{section_key}.yml"
+            if not yml_path.exists():
+                candidates = list(data_dir.rglob(f"{section_key}.yml"))
+                if candidates:
+                    yml_path = candidates[0]
+                else:
+                    return
+
+            if yml_path not in self.cache:
+                try:
+                    self.cache[yml_path] = yaml.load(yml_path.read_text(encoding='utf-8'), Loader=Loader) or {}
+                except Exception:
+                    self.cache[yml_path] = {}
+
+            data = self.cache[yml_path]
+            updated = False
+            for section in data.get('grandparent', []):
+                if not isinstance(section, dict):
+                    continue
+
+                if section.get('url', '').strip('/') == f"{section_key}/{subsection_key}":
+                    children = section.get('children')
+                    if not isinstance(children, list):
+                        children = []
+                        section['children'] = children
+
+                    if any(child.get('url', '').rstrip('.html') == normalized_permalink for child in children):
+                        continue
+
+                    children.append({'title': title, 'url': permalink})
+                    updated = True
+                    break
+
+            if updated:
+                self.dirty.add(yml_path)
+
+    def save(self):
+        for yml_path in self.dirty:
+            try:
+                data = self.cache[yml_path]
+                yml_path.write_text(yaml.dump(data, Dumper=Dumper, sort_keys=False, allow_unicode=True, width=float("inf")), encoding='utf-8')
+                logger.info(f"Updated {yml_path.name}")
+            except Exception as e:
+                logger.error(f"Failed to save {yml_path}: {e}")
+
+YAML_MANAGER = YamlManager()
+
+def update_yaml(html_path: Path):
+    YAML_MANAGER.update(html_path)
 
 
-def update_set_files(gdid_map: dict, usage: dict):
+def update_set_files(gdid_map: Dict[Path, List[str]], usage: Dict[str, List[str]]):
     """
-    Reconcile each gdid_set*.txt file with discovered usage information.
+    Reconciles `gdid_set*.txt` files with current GDID usage.
+    For each set file, this function updates entries with usage references,
+    separates used and unused GDIDs, and preserves comments. It also triggers
+    YAML navigation updates for GDIDs linked to HTML pages.
 
-    Behavior:
-      - Preserves comment lines and originally unrelated lines.
-      - Collects unused GDIDs and used GDIDs with reference lists.
-      - For used GDIDs that reference pages/*.html entries, attempts to update YAML navigation.
-      - Writes back the file with unused entries first then used entries sorted by first usage.
-
-    Concurrency:
-      - Processes each set file concurrently using ThreadPoolExecutor.
+    Args:
+        gdid_map: A dictionary mapping set file paths to their GDIDs.
+        usage: A dictionary mapping GDIDs to their usage locations.
     """
     def process_file(txt_file: Path, gdids: list):
         original_lines = txt_file.read_text(encoding="utf-8").splitlines()
@@ -394,25 +432,19 @@ def update_set_files(gdid_map: dict, usage: dict):
 
 def main():
     """
-    Orchestrate the full GDID reconciliation run.
-
-    Steps:
-      1. Load .gitignore patterns to exclude irrelevant paths.
-      2. Load GDIDs from set files.
-      3. Scan markdown, url.yml, and other repo files concurrently for usage.
-      4. Merge usage maps and update set files (and YAML nav files as needed).
-
-    Notes:
-      - This function is intentionally simple: most work is delegated to helpers.
+    Orchestrates the GDID reconciliation process.
+    This involves loading GDIDs and ignore patterns, scanning all repository
+    files for GDID usage, and updating the set files with the findings.
     """
     ignored = load_gitignore()
     gdid_map = load_gdids_by_file()
     all_gdids = {gid for gid_list in gdid_map.values() for gid in gid_list}
+    md_files, repo_files = collect_all_files(ignored)
 
     with ThreadPoolExecutor() as executor:
-        future_md = executor.submit(scan_markdown_files, all_gdids)
+        future_md = executor.submit(scan_markdown_files, all_gdids, md_files)
         future_yml = executor.submit(scan_url_yml, all_gdids)
-        future_repo = executor.submit(scan_repo_files, all_gdids, ignored)
+        future_repo = executor.submit(scan_repo_files, all_gdids, repo_files)
 
         usage_md = future_md.result()
         usage_yml = future_yml.result()
@@ -425,6 +457,7 @@ def main():
             usage[gid].extend(refs)
 
     update_set_files(gdid_map, usage)
+    YAML_MANAGER.save()
 
 
 if __name__ == "__main__":

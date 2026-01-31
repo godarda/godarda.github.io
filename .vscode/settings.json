@@ -11,9 +11,24 @@
     // Editor Clarity
     "editor.wordWrap": "on",                     // Wrap long lines for readability
 
+    // Files and Folders Visibility
+    "explorer.excludeGitIgnore": true,
+
     // Python Linting & IntelliSense
     "python.linting.enabled": true,              // Enables linting in VS Code
     "python.linting.pylintEnabled": true,        // Uses Pylint for linting
     "python.formatting.provider": "black",       // Uses Black for consistent formatting
-    "python.analysis.typeCheckingMode": "basic"  // Enables basic type checking
+    "python.analysis.typeCheckingMode": "basic", // Enables basic type checking
+
+    // General Formatting & Whitespace
+    "files.trimTrailingWhitespace": true,        // Removes trailing whitespace on save
+    "files.insertFinalNewline": true,            // Ensures files end with a newline
+
+    // Performance: Exclude vendor directories from search and watchers
+    "search.exclude": {
+        "**/.vendor": true
+    },
+    "files.watcherExclude": {
+        "**/.vendor/**": true
+    }
 }

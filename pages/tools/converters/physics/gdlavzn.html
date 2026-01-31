@@ -4,7 +4,24 @@ title: Power Converter
 description: "Instantly convert power between watts, kilowatts, megawatts, gigawatts, horsepower, and more. A simple and fast power conversion tool."
 ---
 
-{% include converter.html %}
+{% capture help_content %}
+<p>The <strong>Power Converter</strong> is a robust tool designed to perform instant conversions between various units of power. Whether for electrical engineering, automotive mechanics, or physics calculations, it provides accurate results across a wide range of energy transfer rate measurements.</p>
+<h6><i class="bi bi-sliders"></i> How to Use</h6>
+<ul>
+    <li><strong>Input Value:</strong> Enter the power value you wish to convert in the input field.</li>
+    <li><strong>Select Unit:</strong> Choose the starting unit (e.g., Watt, Horsepower) from the dropdown next to the input.</li>
+    <li><strong>Customize Results:</strong> Use the "Select Tiles" dropdown to choose which target units to display.</li>
+</ul><hr>
+<h6><i class="bi bi-lightning"></i> Supported Units</h6>
+<p class="small text-muted">This tool supports conversion between the following power units:</p>
+<ul>
+    <li><strong>Metric / SI:</strong> Milliwatt (mW), Watt (W), Kilowatt (kW), Megawatt (MW), Gigawatt (GW)</li>
+    <li><strong>Mechanical:</strong> Horsepower (Mechanical) (hp), Horsepower (Metric) (PS), Foot-pound per second (ft⋅lb/s)</li>
+    <li><strong>Thermal:</strong> BTU per hour (BTU/h)</li>
+</ul>
+{% endcapture %}
+
+{% include tools.html %}
 <script>
 (function () {
     // Configuration: Define units and their conversion factor to Watts (base unit)
@@ -24,7 +41,7 @@ description: "Instantly convert power between watts, kilowatts, megawatts, gigaw
     const defaultSelectedUnits = ['kw', 'hp'];
 
     // Initialize the shared converter logic
-    setupConverter({
+    setupTool({
         units: units,
         defaultUnit: defaultUnit,
         defaultSelectedUnits: defaultSelectedUnits

@@ -4,7 +4,24 @@ title: Speed Converter
 description: "Instantly convert speeds between meters per second, kilometers per hour, miles per hour, feet per second, and more. A simple and fast speed conversion tool."
 ---
 
-{% include converter.html %}
+{% capture help_content %}
+<p>The <strong>Speed Converter</strong> is a dynamic tool designed to perform instant conversions between various units of speed. Whether for automotive travel, aviation, or physics calculations, it provides accurate results across a wide range of velocity measurements.</p>
+<h6><i class="bi bi-sliders"></i> How to Use</h6>
+<ul>
+    <li><strong>Input Value:</strong> Enter the speed you wish to convert in the input field.</li>
+    <li><strong>Select Unit:</strong> Choose the starting unit (e.g., Kilometer per hour, Mile per hour) from the dropdown next to the input.</li>
+    <li><strong>Customize Results:</strong> Use the "Select Tiles" dropdown to choose which target units to display.</li>
+</ul><hr>
+<h6><i class="bi bi-speedometer"></i> Supported Units</h6>
+<p class="small text-muted">This tool supports conversion between the following speed units:</p>
+<ul>
+    <li><strong>Metric / SI:</strong> Meter per second (m/s), Kilometer per hour (km/h)</li>
+    <li><strong>Imperial / US:</strong> Mile per hour (mph), Foot per second (ft/s)</li>
+    <li><strong>Marine / Aviation:</strong> Knot (kn), Mach (Ma)</li>
+</ul>
+{% endcapture %}
+
+{% include tools.html %}
 <script>
 (function () {
     // Configuration: Define units and their conversion factor to Meters per Second (m/s)
@@ -21,7 +38,7 @@ description: "Instantly convert speeds between meters per second, kilometers per
     const defaultSelectedUnits = ['mph', 'ms'];
 
     // Initialize the shared converter logic
-    setupConverter({
+    setupTool({
         units: units,
         defaultUnit: defaultUnit,
         defaultSelectedUnits: defaultSelectedUnits

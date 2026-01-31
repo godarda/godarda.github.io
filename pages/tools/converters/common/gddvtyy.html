@@ -4,7 +4,25 @@ title: Volume Converter
 description: "Instantly convert volumes between liters, milliliters, cubic meters, gallons, quarts, pints, and more. A simple and fast volume conversion tool."
 ---
 
-{% include converter.html %}
+{% capture help_content %}
+<p>The <strong>Volume Converter</strong> is a versatile tool designed to perform accurate conversions between metric and imperial volume units. Whether for culinary, scientific, or industrial use, it provides instant results across a wide range of measurements.</p>
+<h6><i class="bi bi-sliders"></i> How to Use</h6>
+<ul>
+    <li><strong>Input Value:</strong> Enter the volume you wish to convert in the input field.</li>
+    <li><strong>Select Unit:</strong> Choose the starting unit (e.g., Liter, Gallon) from the dropdown next to the input.</li>
+    <li><strong>Customize Results:</strong> Use the "Select Tiles" dropdown to choose which target units to display.</li>
+</ul><hr>
+<h6><i class="bi bi-box-seam"></i> Supported Units</h6>
+<p class="small text-muted">This tool supports conversion between the following units:</p>
+<ul>
+    <li><strong>Metric:</strong> Milliliter (ml), Centiliter (cl), Deciliter (dl), Liter (l), Cubic Meter (m³), Cubic Centimeter (cm³)</li>
+    <li><strong>US Customary:</strong> Teaspoon (tsp), Tablespoon (tbsp), Fluid Ounce (fl oz), Cup, Pint (pt), Quart (qt), Gallon (gal)</li>
+    <li><strong>Imperial:</strong> Imperial Gallon (imp gal)</li>
+</ul>
+{% endcapture %}
+
+{% include tools.html %}
+
 <script>
 (function () {
     // Configuration: Define units and their conversion factor to Liters (base unit)
@@ -29,7 +47,7 @@ description: "Instantly convert volumes between liters, milliliters, cubic meter
     const defaultSelectedUnits = ['ml', 'gal'];
 
     // Initialize the shared converter logic
-    setupConverter({
+    setupTool({
         units: units,
         defaultUnit: defaultUnit,
         defaultSelectedUnits: defaultSelectedUnits

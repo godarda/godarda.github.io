@@ -4,7 +4,25 @@ title: Length Converter
 description: "Instantly convert lengths between meters, kilometers, inches, feet, miles, light-years, and more. A simple and fast length conversion tool."
 ---
 
-{% include converter.html %}
+{% capture help_content %}
+<p>The <strong>Length Converter</strong> is a versatile tool designed to perform accurate conversions between metric and imperial length units. Whether for engineering, construction, or scientific calculations, it provides instant results across a wide range of distance measurements.</p>
+<h6><i class="bi bi-sliders"></i> How to Use</h6>
+<ul>
+    <li><strong>Input Value:</strong> Enter the length you wish to convert in the input field.</li>
+    <li><strong>Select Unit:</strong> Choose the starting unit (e.g., Meter, Foot) from the dropdown next to the input.</li>
+    <li><strong>Customize Results:</strong> Use the "Select Tiles" dropdown to choose which target units to display.</li>
+</ul><hr>
+<h6><i class="bi bi-arrow-left-right"></i> Supported Units</h6>
+<p class="small text-muted">This tool supports conversion between the following length units:</p>
+<ul>
+    <li><strong>Metric:</strong> Nanometer (nm), Micrometer (µm), Millimeter (mm), Centimeter (cm), Meter (m), Kilometer (km)</li>
+    <li><strong>Imperial / US:</strong> Inch (in), Foot (ft), Yard (yd), Mile (mi)</li>
+    <li><strong>Astronomical:</strong> Light-year (ly)</li>
+</ul>
+{% endcapture %}
+
+{% include tools.html %}
+
 <script>
 (function () {
     // Configuration: Define units and their conversion factor to Meters
@@ -26,10 +44,10 @@ description: "Instantly convert lengths between meters, kilometers, inches, feet
     };
 
     const defaultUnit = 'm';
-    const defaultSelectedUnits = ['km'];
+    const defaultSelectedUnits = ['cm','in'];
 
     // Initialize the shared converter logic
-    setupConverter({
+    setupTool({
         units: units,
         defaultUnit: defaultUnit,
         defaultSelectedUnits: defaultSelectedUnits

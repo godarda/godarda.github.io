@@ -4,7 +4,23 @@ title: Data Storage Converter
 description: "Instantly convert data storage between bytes, kilobytes, megabytes, gigabytes, terabytes, and more. A simple and fast data storage conversion tool."
 ---
 
-{% include converter.html %}
+{% capture help_content %}
+<p>The <strong>Data Storage Converter</strong> is a vital tool for developers, system administrators, and digital professionals. It enables precise conversion between decimal (SI) and binary (IEC) storage units, ensuring accuracy when calculating disk space, file sizes, and memory capacity.</p>
+<h6><i class="bi bi-sliders"></i> How to Use</h6>
+<ul>
+    <li><strong>Input Value:</strong> Enter the storage amount you wish to convert in the input field.</li>
+    <li><strong>Select Unit:</strong> Choose the starting unit (e.g., Gigabyte, Mebibyte) from the dropdown next to the input.</li>
+    <li><strong>Customize Results:</strong> Use the "Select Tiles" dropdown to choose which target units to display.</li>
+</ul><hr>
+<h6><i class="bi bi-hdd"></i> Supported Units</h6>
+<p class="small text-muted">This tool supports conversion between the following units:</p>
+<ul>
+    <li><strong>Decimal (SI):</strong> Byte (B), Kilobyte (KB), Megabyte (MB), Gigabyte (GB), Terabyte (TB), Petabyte (PB)</li>
+    <li><strong>Binary (IEC):</strong> Kibibyte (KiB), Mebibyte (MiB), Gibibyte (GiB), Tebibyte (TiB), Pebibyte (PiB)</li>
+</ul>
+{% endcapture %}
+
+{% include tools.html %}
 <script>
 (function () {
     // Configuration: Define units and their conversion factor to Bytes (base unit)
@@ -26,7 +42,7 @@ description: "Instantly convert data storage between bytes, kilobytes, megabytes
     const defaultSelectedUnits = ['gb', 'mib'];
 
     // Initialize the shared converter logic
-    setupConverter({
+    setupTool({
         units: units,
         defaultUnit: defaultUnit,
         defaultSelectedUnits: defaultSelectedUnits

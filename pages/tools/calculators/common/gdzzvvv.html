@@ -4,77 +4,36 @@ title: String Length Calculator
 description: "Analyze string length instantly: characters, words, lines, and UTF-8 byte size. Built for speed and accuracy."
 ---
 
-<link rel="stylesheet" href="../../assets/css/tools.css">
-
-<div class="calc-panel">
-    <div class="row g-4">
-        <div class="col-12">
-            <div class="row row-cols-2 row-cols-sm-4 g-2 mb-3">
-                <div class="col">
-                    <div class="stat">
-                        <div class="muted small">Characters</div>
-                        <div id="charCount" class="mb-0">0</div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="stat">
-                        <div class="muted small">Words</div>
-                        <div id="wordCount" class="mb-0">0</div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="stat">
-                        <div class="muted small">Lines</div>
-                        <div id="lineCount" class="mb-0">0</div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="stat">
-                        <div class="muted small">Bytes</div>
-                        <div id="byteCount" class="mb-0">0</div>
-                    </div>
-                </div>
-            </div>
-            <textarea id="inputText" class="form-control" placeholder="Type or paste text here..."
-                aria-label="Text to analyze"></textarea>
-
-            <div class="mt-2 muted small">Tip: results update as you type. Use <kbd>Ctrl</kbd>+<kbd>Enter</kbd> to trim whitespace.
-            </div>
-
-            <div class="row g-2 mt-2">
-                <div class="col-auto">
-                    <button id="btnClear" class="btn btn-sm btn-outline-secondary">Clear</button>
-                </div>
-                <div class="col-auto">
-                    <button id="btnTrim" class="btn btn-sm btn-outline-primary">Trim</button>
-                </div>
-            </div>
-        </div>
-    </div>
+{% capture tools_inputs %}
+<div class="mb-0">
+    <textarea id="inputText" class="form-control" placeholder="Type or paste text here..." aria-label="Text to analyze" rows="3"></textarea>
 </div>
+{% endcapture %}
+
+{% capture help_content %}
+<p><strong>How to use:</strong></p>
+<ul>
+    <li><strong>Input:</strong> Type or paste text into the box.</li>
+    <li><strong>Analysis:</strong> The tool counts characters, words, lines, and the UTF-8 byte size.</li>
+    <li><strong>Trim:</strong> Use the Trim button or <kbd>Ctrl</kbd>+<kbd>Enter</kbd> to remove leading/trailing whitespace.</li>
+</ul>
+{% endcapture %}
+
+{% include tools.html %}
 
 <script>
-    (function () {
-        // --- DOM Element Selection ---
-        // Get references to all necessary UI elements from the document.
-        const input = document.getElementById('inputText');
-        const charCount = document.getElementById('charCount');
-        const wordCount = document.getElementById('wordCount');
-        const lineCount = document.getElementById('lineCount');
-        const byteCount = document.getElementById('byteCount');
-        const btnClear = document.getElementById('btnClear');
-        const btnTrim = document.getElementById('btnTrim');
-
-        /**
-         * Analyzes the input text and returns counts for characters, words, lines, and bytes.
-         * @param {string} text The text to analyze.
-         * @returns {object} An object containing the counts.
-         * @property {number} chars - The count of characters.
-         * @property {number} words - The count of words.
-         * @property {number} lines - The count of lines.
-         * @property {number} bytes - The count of bytes (UTF-8).
-         */
-        function computeCounts(text) {
+(function () {
+    setupTool({
+        inputs: ['inputText'],
+        stats: {
+            words: { name: 'Words',      default: true },
+            lines: { name: 'Lines',      default: true },
+            chars: { name: 'Characters', default: false },
+            bytes: { name: 'Bytes',      default: false }
+        },
+        calculate: (values) => {
+            const text = values.inputText || '';
+            if (text.length === 0) return {};
             const chars = text.length;
             const words = text.trim().length === 0 ? 0 : text.trim().split(/\s+/).length;
             const lines = text.length === 0 ? 0 : text.split(/\r?\n/).length;
@@ -89,51 +48,31 @@ description: "Analyze string length instantly: characters, words, lines, and UTF
             }
             return { chars, words, lines, bytes };
         }
+    });
 
-        /**
-         * Reads the input, computes the various counts, and updates the UI.
-         */
-        function update() {
-            const text = input.value || '';
-            const { chars, words, lines, bytes } = computeCounts(text);
+    // Inject Trim Button and Logic
+    const btnClear = document.getElementById('btnClear');
+    if (btnClear) {
+        const col = document.createElement('div');
+        col.className = 'col-auto';
+        col.innerHTML = '<button id="btnTrim" class="btn btn-sm btn-outline-secondary">Trim</button>';
+        btnClear.parentNode.after(col);
 
-            // Update the text content of the result elements.
-            charCount.textContent = chars;
-            wordCount.textContent = words;
-            lineCount.textContent = lines;
-            byteCount.textContent = bytes;
-        }
+        const btnTrim = document.getElementById('btnTrim');
+        const input = document.getElementById('inputText');
 
-        // --- Event Listeners ---
-        // Debounce the update function to improve performance while typing.
-        let tId = null;
-        input.addEventListener('input', () => {
-            clearTimeout(tId);
-            tId = setTimeout(update, 120);
-        });
-
-        // Clears the input field and recalculates the counts.
-        btnClear.addEventListener('click', () => {
-            input.value = '';
-            update();
-            input.focus();
-        });
-
-        // Trims leading/trailing whitespace from the input and recalculates.
-        btnTrim.addEventListener('click', () => {
+        const doTrim = () => {
             input.value = input.value.trim();
-            update();
-        });
+            input.dispatchEvent(new Event('input'));
+        };
 
-        // Adds a Ctrl+Enter keyboard shortcut to trigger the trim functionality.
+        btnTrim.addEventListener('click', doTrim);
         input.addEventListener('keydown', (e) => {
             if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
                 e.preventDefault();
-                btnTrim.click();
+                doTrim();
             }
         });
-
-        // Perform an initial update on page load to set the default '0' values.
-        update();
-    })();
+    }
+})();
 </script>

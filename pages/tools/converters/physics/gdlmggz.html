@@ -4,7 +4,22 @@ title: Sound Level Converter
 description: "Instantly convert sound levels between different units. A simple and fast sound level conversion tool."
 ---
 
-{% include converter.html %}
+{% capture help_content %}
+<p>The <strong>Sound Level Converter</strong> is a specialized tool designed to perform instant conversions between logarithmic units used to express the ratio of two values of a physical quantity, often power or field strength. It is essential for acoustics, electronics, and telecommunications.</p>
+<h6><i class="bi bi-sliders"></i> How to Use</h6>
+<ul>
+    <li><strong>Input Value:</strong> Enter the sound level value you wish to convert in the input field.</li>
+    <li><strong>Select Unit:</strong> Choose the starting unit (e.g., Decibel, Neper) from the dropdown next to the input.</li>
+    <li><strong>Customize Results:</strong> Use the "Select Tiles" dropdown to choose which target units to display.</li>
+</ul><hr>
+<h6><i class="bi bi-volume-up"></i> Supported Units</h6>
+<p class="small text-muted">This tool supports conversion between the following units:</p>
+<ul>
+    <li><strong>Logarithmic Units:</strong> Decibel (dB), Bel (B), Neper (Np)</li>
+</ul>
+{% endcapture %}
+
+{% include tools.html %}
 <script>
 (function () {
     // Configuration: Define units and their conversion factor to Decibel (dB) - Base unit
@@ -18,7 +33,7 @@ description: "Instantly convert sound levels between different units. A simple a
     const defaultSelectedUnits = ['b', 'np'];
 
     // Initialize the shared converter logic
-    setupConverter({
+    setupTool({
         units: units,
         defaultUnit: defaultUnit,
         defaultSelectedUnits: defaultSelectedUnits

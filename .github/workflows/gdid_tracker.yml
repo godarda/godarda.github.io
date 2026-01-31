@@ -41,11 +41,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Set up the Python 3.14 environment
+      # Set up the Python 3.13 environment
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.14'
+          python-version: '3.13'
 
       # Install required Python dependencies
       - name: Install dependencies
@@ -64,7 +64,7 @@ jobs:
       # Create a Pull Request with updated GDID sets
       - name: Create Pull Request
         id: cpr
-        uses: peter-evans/create-pull-request@v8
+        uses: peter-evans/create-pull-request@v7
         with:
           commit-message: Auto-update GDID sets
           title: Auto-update GDID sets
@@ -77,9 +77,11 @@ jobs:
           labels: automated, gdid-update
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      # Enable auto-merge for the created Pull Request and auto-delete the branch on merge
-      - name: Enable Auto-Merge and Auto-Delete Branch
+      # Enable auto-merge for the created Pull Request
+      - name: Enable Auto-Merge
         if: steps.cpr.outputs.pull-request-number != ''
-        run: gh pr merge --auto --squash --delete-branch ${{ steps.cpr.outputs.pull-request-number }}
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
+          merge-method: squash
+          token: ${{ secrets.GITHUB_TOKEN }}

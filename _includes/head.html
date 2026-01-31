@@ -8,13 +8,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
+    {%- if page.robots -%}<meta name="robots" content="{{ page.robots }}" />{%- endif -%}
     <meta name="keywords" content="{{ page.title }}" />
-    {%- if page.description == nil -%}
-    <meta name="description" content="{{ page.title }}" />
-    {%- else -%}
-    <meta name="description" content="{{ page.description }}" />{%- endif -%}
+    {%- if page.description == nil -%}<meta name="description" content="{{ page.title }}" />{%- else -%}<meta name="description" content="{{ page.description }}" />{%- endif -%}
     <meta name="author" content="{{ site.architect }}" />
-    <meta name="google-adsense-account" content="ca-pub-4176662360028728">
     <link rel="icon" href="{{ site.icon | relative_url }}">
     <link rel="stylesheet" href="{{ site.bs_css }}" integrity="{{ site.bs_cssi }}" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ site.bs_icons }}">
@@ -29,7 +26,11 @@
 
     const getPreferredTheme = () => {
         const storedTheme = getStoredTheme();
-        return storedTheme ? storedTheme : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (storedTheme) {
+            return storedTheme;
+        }
+        setStoredTheme('auto');
+        return 'auto';
     };
 
     const setTheme = theme => {
@@ -53,13 +54,6 @@
     <base href="{{ '/' | relative_url }}">
 </head>
 
-{%- comment -%}
-    Data-driven segment lookup with explicit per-segment `parent` support.
-    Uses `site.data.gd.segments` for titles and `site.data.<seg_key>` for the
-    segment's dataset (grandparent/children). If a segment entry includes a
-    `parent` field, that exact string is used (preserves values like ` / DS / `).
-{%- endcomment -%}
-
 {%- assign path = page.url | split: '/' -%}
 {%- assign seg_key = path[1] | default: '' -%}
 {%- assign seg_obj = site.data.gd.segments | where: 'url', seg_key | first -%}
@@ -74,8 +68,21 @@
 {%- endif -%}
 
 {%- assign gd = nil -%}
-{%- if seg_key != '' and site.data[seg_key] -%}
-    {%- assign gd = site.data[seg_key] -%}
+{%- if seg_key != '' -%}
+    {%- if site.data[seg_key] -%}
+        {%- assign gd_temp = site.data[seg_key] -%}
+        {%- if gd_temp.grandparent -%}{%- assign gd = gd_temp -%}
+        {%- elsif gd_temp[seg_key] and gd_temp[seg_key].grandparent -%}{%- assign gd = gd_temp[seg_key] -%}{%- endif -%}
+    {%- endif -%}
+    {%- if gd == nil -%}
+        {%- for data_file in site.data -%}
+            {%- assign sub_data = data_file[1] -%}
+            {%- if sub_data[seg_key] and sub_data[seg_key].grandparent -%}
+                {%- assign gd = sub_data[seg_key] -%}
+                {%- break -%}
+            {%- endif -%}
+        {%- endfor -%}
+    {%- endif -%}
 {%- endif -%}
 
 {%- if gd -%}

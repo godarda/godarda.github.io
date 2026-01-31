@@ -4,7 +4,24 @@ title: Data Transfer Speed Converter
 description: "Instantly convert data transfer speeds between different units. A simple and fast data transfer speed conversion tool."
 ---
 
-{% include converter.html %}
+{% capture help_content %}
+<p>The <strong>Data Transfer Speed Converter</strong> is an essential tool for network engineers, developers, and IT professionals. It allows for instant and accurate conversion between various data transfer rate units, helping to visualize bandwidth and transfer speeds across different scales.</p>
+<h6><i class="bi bi-sliders"></i> How to Use</h6>
+<ul>
+    <li><strong>Input Value:</strong> Enter the speed you wish to convert in the input field.</li>
+    <li><strong>Select Unit:</strong> Choose the starting unit (e.g., Megabit per second) from the dropdown next to the input.</li>
+    <li><strong>Customize Results:</strong> Use the "Select Tiles" dropdown to choose which target units to display.</li>
+</ul><hr>
+<h6><i class="bi bi-speedometer2"></i> Supported Units</h6>
+<p class="small text-muted">This tool supports conversion between the following units:</p>
+<ul>
+    <li><strong>Bits per second:</strong> Bit (bps), Kilobit (Kbps), Megabit (Mbps), Gigabit (Gbps), Terabit (Tbps)</li>
+    <li><strong>Bytes per second:</strong> Byte (B/s), Kilobyte (KB/s), Megabyte (MB/s), Gigabyte (GB/s), Terabyte (TB/s)</li>
+    <li><strong>Binary (IEC):</strong> Kibibyte (KiB/s), Mebibyte (MiB/s), Gibibyte (GiB/s), Tebibyte (TiB/s)</li>
+</ul>
+{% endcapture %}
+
+{% include tools.html %}
 <script>
 (function () {
     // Configuration: Define units and their conversion factor to Bits per second (bps) - Base unit
@@ -29,7 +46,7 @@ description: "Instantly convert data transfer speeds between different units. A 
     const defaultSelectedUnits = ['mB_s', 'gbps'];
 
     // Initialize the shared converter logic
-    setupConverter({
+    setupTool({
         units: units,
         defaultUnit: defaultUnit,
         defaultSelectedUnits: defaultSelectedUnits

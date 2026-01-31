@@ -1,0 +1,89 @@
+<!--
+  File: _includes/tools.html
+  Purpose: A reusable template for tools.
+  It provides a standard layout with a results grid, input area (custom or default),
+  and control buttons.
+  Logic is handled by /assets/js/tools.js.
+-->
+
+{%- assign path = page.url | split: '/' -%}
+{%- assign tool_urls = site.data.tools.tools.segments | map: "url" -%}
+<link rel="stylesheet" href="/assets/css/tools.css">
+<script src="/assets/js/tools.js"></script>
+
+<div class="calc-panel">
+    <div class="row g-4">
+        <div class="col-12">
+            <!--
+              Results Container:
+              Populated dynamically by tools.js based on the tool's configuration.
+              Displays calculation results or conversion outputs in a grid.
+            -->
+            <div id="resultsContainer" class="row row-cols-1 row-cols-md-2 g-2 mb-3" data-category="{% if tool_urls contains path[1] %}{{ path[1] }}{% endif %}"></div>
+
+            <!--
+              Inputs Section:
+              If 'tools_inputs' is defined in the parent layout, render custom inputs.
+              Otherwise, render the default input group used for standard unit converters.
+            -->
+            {% if tools_inputs %}
+            <div class="mb-2">
+                {{ tools_inputs }}
+            </div>
+            {% else %}
+            <!-- Default Converter Inputs: Numeric input + Unit dropdown -->
+            <div class="input-group mb-2">
+                <input type="number" id="inputValue" class="form-control" placeholder="Enter value..." aria-label="Input value">
+                <select class="form-select" id="inputUnit" aria-label="Select unit">
+                    <!-- Options will be injected here by tools.js -->
+                </select>
+            </div>
+            {% endif %}
+
+            <!-- Control Buttons: Clear, Select Tiles (Dropdown), Help -->
+            <div class="row g-2 mt-2">
+                <div class="col-auto">
+                    <button id="btnClear" class="btn btn-sm btn-outline-secondary">Clear</button>
+                </div>
+                <div class="col-auto">
+                    <!--
+                      Select Tiles Dropdown:
+                      Allows users to toggle visibility of specific result tiles.
+                      Options are generated dynamically based on the tool's stats.
+                    -->
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button" id="viewOptionsBtn" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                            {{ select_button_text | default: "Select Tiles" }}
+                        </button>
+                        <ul class="dropdown-menu" id="viewOptionsMenu" aria-labelledby="viewOptionsBtn" style="min-width: 220px;">
+                            <!-- Options will be injected here by tools.js -->
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#helpModal">
+                        Help
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--
+  Help Modal:
+  Displays context-specific help content passed via the 'help_content' variable.
+-->
+<div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="helpModalLabel"><i class="bi bi-info-circle"></i> {{ page.title }} Help</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{ help_content }}
+            </div>
+        </div>
+    </div>
+</div>

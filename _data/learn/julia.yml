@@ -1,0 +1,17 @@
+grandparent:
+- parent: Julia Fundamentals
+  subtree: Fundamentals
+  url: julia/fundamentals
+  children:
+  - url: julia/fundamentals/gdxkekw
+    title: Julia Arithmetic Operations
+  - url: julia/fundamentals/gdavgeq
+    title: Julia Logical Operations
+  - url: julia/fundamentals/gdadvew
+    title: Julia Exponents and Logarithms
+sidenav:
+- parent: Julia Programming
+  url: julia
+  children:
+  - title: Julia Fundamentals
+    url: julia/fundamentals

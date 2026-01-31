@@ -1,0 +1,156 @@
+---
+permalink: utilities/common/gdcztzc
+title: Timer
+description: "A simple timer utility for tracking time."
+---
+
+<style>
+  /* Custom styles for the timer display */
+  #res_timer {
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+</style>
+
+{% capture tools_inputs %}
+<div class="input-group mb-4">
+    <span class="input-group-text">Duration (HH:MM:SS)</span>
+    <input type="text" id="inputTime" class="form-control fs-4" value="00:05:00" placeholder="HH:MM:SS" maxlength="8">
+</div>
+
+<div class="d-flex justify-content-center flex-wrap gap-2 mb-2">
+    <button id="btnStartPause" class="btn btn-lg btn-outline-secondary px-4">Start</button>
+    <button id="btnReset" class="btn btn-lg btn-outline-secondary px-4">Reset</button>
+</div>
+{% endcapture %}
+
+{% include tools.html %}
+
+<script>
+(function() {
+    const stats = {
+        timer: { name: 'Time Remaining', default: true }
+    };
+
+    const timer = {
+        totalSeconds: 0,
+        remainingSeconds: 0,
+        interval: null,
+        running: false,
+        isPaused: false,
+
+        toggle: function() {
+            if (this.running) this.pause();
+            else this.start();
+        },
+
+        start: function() {
+            if (!this.isPaused) {
+                const val = document.getElementById('inputTime').value;
+                this.totalSeconds = this.parseTime(val);
+                if (this.totalSeconds <= 0) return;
+                this.remainingSeconds = this.totalSeconds;
+                this.toggleInputs(false);
+            }
+            this.running = true;
+            this.isPaused = false;
+            this.updateUI();
+            if (this.interval) clearInterval(this.interval);
+            this.interval = setInterval(() => this.tick(), 1000);
+            this.tick();
+        },
+
+        pause: function() {
+            this.running = false;
+            this.isPaused = true;
+            clearInterval(this.interval);
+            this.updateUI();
+        },
+
+        reset: function() {
+            this.running = false;
+            this.isPaused = false;
+            clearInterval(this.interval);
+            this.toggleInputs(true);
+            document.getElementById('inputTime').value = "00:05:00"; // Set to original default
+            // Trigger input event to reset display via setupTool logic
+            document.getElementById('inputTime').dispatchEvent(new Event('input'));
+            this.updateUI();
+        },
+
+        tick: function() {
+            if (this.remainingSeconds <= 0) {
+                this.finish();
+                return;
+            }
+            this.updateDisplay(this.remainingSeconds);
+            this.remainingSeconds--;
+        },
+
+        finish: function() {
+            this.running = false;
+            this.isPaused = false;
+            clearInterval(this.interval);
+            this.toggleInputs(true);
+            this.updateUI();
+            if (stats.timer.valElement) stats.timer.valElement.textContent = "Time's Up!";
+        },
+
+        updateDisplay: function(s) {
+            if (stats.timer.valElement) stats.timer.valElement.textContent = this.format(s);
+        },
+
+        format: function(totalSeconds) {
+            const h = Math.floor(totalSeconds / 3600).toString().padStart(2, '0');
+            const m = Math.floor((totalSeconds % 3600) / 60).toString().padStart(2, '0');
+            const s = (totalSeconds % 60).toString().padStart(2, '0');
+            return (h > 0 ? h + ':' : '') + `${m}:${s}`;
+        },
+
+        parseTime: function(str) {
+            const parts = str.split(':').map(p => parseInt(p) || 0);
+            let h = 0, m = 0, s = 0;
+            if (parts.length === 3) { [h, m, s] = parts; }
+            else if (parts.length === 2) { [m, s] = parts; }
+            else if (parts.length === 1) { [s] = parts; }
+            return (h * 3600) + (m * 60) + s;
+        },
+
+        toggleInputs: function(enabled) {
+            document.getElementById('inputTime').disabled = !enabled;
+        },
+
+        updateUI: function() {
+            const btn = document.getElementById('btnStartPause');
+            if (this.running) {
+                btn.textContent = "Pause";
+                btn.classList.replace('btn-primary', 'btn-warning');
+            } else {
+                btn.textContent = this.isPaused ? "Resume" : "Start";
+                btn.classList.replace('btn-warning', 'btn-primary');
+            }
+        }
+    };
+
+    setupTool({
+        inputs: ['inputTime'],
+        stats: stats,
+        calculate: (vals) => {
+            if (timer.running || timer.isPaused) return { timer: timer.format(timer.remainingSeconds) };
+            const s = timer.parseTime(vals.inputTime);
+            return { timer: timer.format(s) };
+        }
+    });
+
+    // Hide control row
+    const btnClear = document.getElementById('btnClear');
+    if (btnClear) {
+        const row = btnClear.closest('.row');
+        if (row) row.style.display = 'none';
+    }
+
+    document.getElementById('btnStartPause').addEventListener('click', () => timer.toggle());
+    document.getElementById('btnReset').addEventListener('click', () => timer.reset());
+})();
+</script>

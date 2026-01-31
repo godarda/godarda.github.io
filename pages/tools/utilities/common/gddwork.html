@@ -1,0 +1,152 @@
+---
+permalink: utilities/common/gddwork
+title: Stopwatch
+description: "A simple stopwatch utility for tracking elapsed time."
+---
+
+<style>
+  /* Custom styles for the stopwatch display */
+  #res_time {
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+</style>
+
+{% capture tools_inputs %}
+<div class="d-flex justify-content-center flex-wrap gap-2 mb-2">
+    <button id="btnStartStop" class="btn btn-lg btn-outline-secondary px-4">Start</button>
+    <button id="btnLap" class="btn btn-lg btn-outline-secondary px-4" disabled style="display: none;">Lap</button>
+    <button id="btnReset" class="btn btn-lg btn-outline-secondary px-4">Reset</button>
+</div>
+
+<div class="board" id="lapsCard" style="display: none; margin-top: 20px;">
+    <div class="boardtitle">Laps</div>
+    <div style="padding: 5px;">
+        <ul id="lapsList" class="list-group list-group-flush" style="max-height: 300px; overflow-y: auto;"></ul>
+    </div>
+</div>
+{% endcapture %}
+
+{% include tools.html %}
+
+<script>
+(function() {
+    const stats = {
+        time: { name: 'Elapsed Time', default: true }
+    };
+
+    const stopwatch = {
+        startTime: 0,
+        elapsed: 0,
+        interval: null,
+        running: false,
+        lapCount: 0,
+
+        toggle: function() {
+            if (this.running) {
+                this.stop();
+            } else {
+                this.start();
+            }
+        },
+
+        start: function() {
+            this.startTime = Date.now() - this.elapsed;
+            this.interval = setInterval(() => this.tick(), 10);
+            this.running = true;
+            this.updateUI();
+        },
+
+        stop: function() {
+            clearInterval(this.interval);
+            this.elapsed = Date.now() - this.startTime;
+            this.running = false;
+            this.updateUI();
+        },
+
+        reset: function() {
+            this.stop();
+            this.elapsed = 0;
+            this.lapCount = 0;
+            this.updateDisplay(0);
+            document.getElementById('lapsList').innerHTML = "";
+            document.getElementById('lapsCard').style.display = 'none';
+            this.updateUI();
+        },
+
+        lap: function() {
+            if (!this.running) return;
+            this.lapCount++;
+
+            const lapsCard = document.getElementById('lapsCard');
+            if (lapsCard.style.display === 'none') lapsCard.style.display = 'block';
+
+            const li = document.createElement('li');
+            li.className = 'list-group-item bg-transparent d-flex justify-content-between align-items-center lap-item';
+            li.innerHTML = `
+                <span class="fw-bold text-secondary">#${this.lapCount}</span>
+                <span class="fs-5">${this.format(Date.now() - this.startTime)}</span>
+            `;
+            document.getElementById('lapsList').prepend(li);
+        },
+
+        tick: function() {
+            const time = Date.now() - this.startTime;
+            this.updateDisplay(time);
+        },
+
+        updateDisplay: function(ms) {
+            if (stats.time && stats.time.valElement) {
+                stats.time.valElement.textContent = this.format(ms);
+            }
+        },
+
+        format: function(ms) {
+            const date = new Date(ms);
+            const m = date.getUTCMinutes().toString().padStart(2, '0');
+            const s = date.getUTCSeconds().toString().padStart(2, '0');
+            const cs = Math.floor(date.getUTCMilliseconds() / 10).toString().padStart(2, '0');
+            const h = Math.floor(ms / 3600000).toString().padStart(2, '0');
+            return (h > 0 ? h + ':' : '') + `${m}:${s}.${cs}`;
+        },
+
+        updateUI: function() {
+            const btnStartStop = document.getElementById('btnStartStop');
+            const btnLap = document.getElementById('btnLap');
+
+            if (this.running) {
+                btnStartStop.textContent = "Stop";
+                btnStartStop.classList.replace('btn-primary', 'btn-danger');
+                btnLap.style.display = '';
+                btnLap.disabled = false;
+            } else {
+                btnStartStop.textContent = this.elapsed > 0 ? "Resume" : "Start";
+                btnStartStop.classList.replace('btn-danger', 'btn-primary');
+                btnLap.style.display = 'none';
+                btnLap.disabled = true;
+            }
+        }
+    };
+
+    setupTool({
+        inputs: [],
+        stats: stats,
+        calculate: () => {
+            return { time: stopwatch.format(stopwatch.elapsed) };
+        }
+    });
+
+    // Hide the entire control row (Clear, Select Tiles, Help)
+    const btnClear = document.getElementById('btnClear');
+    if (btnClear) {
+        const controlRow = btnClear.closest('.row');
+        if (controlRow) controlRow.style.display = 'none';
+    }
+
+    // Event Listeners
+    document.getElementById('btnStartStop').addEventListener('click', () => stopwatch.toggle());
+    document.getElementById('btnLap').addEventListener('click', () => stopwatch.lap());
+    document.getElementById('btnReset').addEventListener('click', () => stopwatch.reset());
+})();
+</script>

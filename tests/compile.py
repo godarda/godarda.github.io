@@ -1,28 +1,16 @@
 #!/usr/bin/env python3
 """
-Author: Shubham Darda
+Code Compilation Test Script (tests/compile.py)
 
 Purpose:
-    Extract highlighted code blocks from generated HTML pages and perform a
-    best-effort compile or syntax-check for supported languages during CI runs.
+This script extracts and compiles code snippets from generated HTML pages to
+ensure that code examples in the documentation are syntactically valid. It
+handles parsing, file generation, and toolchain invocation.
 
-Description:
-    This test helper is used by the GoDarda site's automated tooling. It:
-      - Parses generated HTML produced by the static site generator.
-      - Writes highlighted code blocks to temporary source files with a small
-        comment header (including detected toolchain version and page title).
-      - Attempts compilation or syntax-only checks on macOS and Ubuntu CI
-        runners, recording outcomes in utilities.stats for consolidated reports.
-
-    The compilation step is intentionally lightweight and non-destructive.
-    Compiler selection and comment styles are driven by LANGUAGE_STYLES and
-    heuristics defined in the module.
-
-Guidelines:
-    - Keep functions focused, readable and deterministic for CI logs.
-    - Use utilities.config and utilities.stats for shared configuration and counters.
-    - Avoid side-effects outside the provided destination directory.
-    - Prefer minimal, stable external calls when probing toolchain versions.
+Key Features:
+1. Extraction: Parses HTML files to locate code blocks.
+2. Preparation: Writes code to temporary source files with appropriate headers.
+3. Validation: Attempts to compile or syntax-check snippets using installed toolchains.
 """
 
 import os
@@ -30,11 +18,10 @@ import re
 import sys
 import subprocess
 from typing import Tuple, Optional
-from utilities import config, stats, load_expected_data
+from utilities import CONFIG, STATS, load_expected_data
 
-# Mapping of extensions to comment styles and a lightweight "version" check
-# command used when building file headers. Keep this mapping in sync with the
-# languages supported by the site's code highlighter.
+# Configuration mapping for supported file extensions.
+# Defines the comment syntax and the command to retrieve the compiler version.
 LANGUAGE_STYLES = {
     '.asm':  {'comment': ';',    'compiler': ['nasm', '-v']},
     '.c':    {'comment': '//',   'compiler': ['gcc', '--version']},
@@ -51,12 +38,13 @@ LANGUAGE_STYLES = {
 
 def extract_code_block(html: str) -> Optional[str]:
     """
-    Extract the raw code block text from an HTML file.
+    Extracts the raw code block text from the provided HTML content.
 
-    The site's templates wrap highlighted code in:
-      <pre class="code">{%- highlight <lang> -%}} ... {%- endhighlight -%}</pre>
+    Args:
+        html: The HTML content string.
 
-    Returns the inner text when found, otherwise None.
+    Returns:
+        The extracted code string if found, otherwise None.
     """
     match = re.search(r'<pre class="code">(.+?){%- endhighlight -%}</pre>', html, flags=re.DOTALL)
     return match.group(1) if match else None
@@ -64,20 +52,24 @@ def extract_code_block(html: str) -> Optional[str]:
 
 def get_compiler(extension: str, path: list) -> Tuple[str, str]:
     """
-    Return (compiler_command, extra_args) appropriate for the file extension.
+    Determines the appropriate compiler command and arguments for a given file extension.
 
-    The `path` parameter is the split URL path from the site's expected data
-    and is used for language-specific heuristics (for example, OpenGL linking).
+    Args:
+        extension: The file extension (e.g., '.cpp').
+        path: The URL path segments, used for applying specific compilation flags.
+
+    Returns:
+        A tuple containing the compiler command and any additional arguments.
     """
     args = ""
     if extension == ".asm":
-        compiler = "nasm -fmacho64" if config.is_macos else "nasm -felf64"
+        compiler = "nasm -fmacho64" if CONFIG.OS_NAME == "macOS" else "nasm -felf64"
     elif extension == ".cpp":
         compiler = "g++"
         if path[1] == "opengl":
-            args = " -framework OpenGL -framework GLUT" if config.is_macos else " -lGL -lGLU -lglut"
+            args = " -framework OpenGL -framework GLUT" if CONFIG.OS_NAME == "macOS" else " -lGL -lGLU -lglut"
         elif path[0] == "cg":
-            args = " -lgraph" if config.is_ubuntu else ""
+            args = " -lgraph" if CONFIG.OS_NAME == "Ubuntu" else ""
     elif extension == ".java":
         compiler = "javac"
     elif extension == ".sh":
@@ -95,11 +87,15 @@ def get_compiler(extension: str, path: list) -> Tuple[str, str]:
 
 def build_header_block(file_path: str, file_name: str, extension: str) -> str:
     """
-    Construct a small comment header that is prepended to generated source files.
+    Generates a comment header for the source file.
 
-    The header includes a detected compiler/tool version, the original page title,
-    author and license metadata. The comment style is selected based on the
-    file extension using LANGUAGE_STYLES.
+    Args:
+        file_path: Path to the original HTML file (used to extract the title).
+        file_name: The base name of the file.
+        extension: The file extension.
+
+    Returns:
+        A formatted string containing metadata about the file and toolchain.
     """
     style = LANGUAGE_STYLES.get(extension)
     cmd = style.get('compiler', []) if style else []
@@ -129,86 +125,91 @@ def build_header_block(file_path: str, file_name: str, extension: str) -> str:
     return '\n'.join(lines)
 
 
-def attempt_compilation(source_file: str, html_input: str, compiler: str, subpath: str, file_name: str, extension: str, args: str) -> None:
+def attempt_compilation(source_file: str, html_content: str, compiler: str, output_dir: str, file_name: str, extension: str, args: str) -> None:
     """
-    Write extracted code to disk with a header and attempt to compile or syntax-check it.
+    Extracts code, writes it to disk, and attempts compilation.
 
-    Successful compilations increment stats.compiled; failures are recorded in
-    stats.uncompiled_entries and increment stats.uncompiled. All exceptions are
-    caught and printed so the caller can continue processing other entries.
+    Updates the global stats object with the result (compiled/uncompiled).
+    Exceptions are caught and logged to allow the process to continue.
     """
     try:
-        output = extract_code_block(html_input)
+        output = extract_code_block(html_content)
         if not output:
             return
 
-        os.makedirs(subpath, exist_ok=True)
-        file_path = os.path.join(subpath, file_name + extension)
+        os.makedirs(output_dir, exist_ok=True)
+        file_path = os.path.join(output_dir, file_name + extension)
 
         header = build_header_block(source_file, file_name, extension)
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(header + "\n" + output)
 
-        # Remove first non-header line (preserves header and rest of file)
+        # Remove the first line after the header to clean up potential formatting artifacts.
         with open(file_path, "r", encoding="utf-8") as f:
             lines = f.readlines()
         header_end = next((i for i, line in enumerate(lines) if line.strip() == ""), 0)
         with open(file_path, "w", encoding="utf-8") as f:
             f.writelines(lines[:header_end+1] + lines[header_end+2:])
 
-        if config.is_macos or config.is_ubuntu:
+        if CONFIG.OS_NAME in ("macOS", "Ubuntu"):
             try:
                 cmd = f"{compiler} {file_path}{args}"
+                if compiler in ["gcc", "g++"]:
+                    cmd += " -o /dev/null"
                 subprocess.run(cmd, shell=True, check=True, stderr=subprocess.DEVNULL)
-                stats.compiled += 1
+                STATS.compiled += 1
             except subprocess.CalledProcessError:
-                stats.uncompiled_entries.append(subpath + file_name)
-                stats.uncompiled += 1
+                STATS.uncompiled_entries.append(os.path.join(output_dir, file_name))
+                STATS.uncompiled += 1
 
     except Exception as exc:
-        print(exc)
+        print(f"Failed to process {file_name}{extension}: {exc}")
 
 
 def compile_snippets(source: str, destination: str) -> Optional[Tuple[int, int]]:
     """
-    Main entry point to scan expected site pages and attempt compilation for
-    supported languages.
+    Scans the source directory for HTML files and attempts to compile extracted code snippets.
 
-    Returns a tuple (compiled_count, uncompiled_count) when run on supported OSes,
-    otherwise returns None.
+    Returns:
+        A tuple of (compiled_count, uncompiled_count) if the OS is supported,
+        otherwise None.
     """
-    if not (config.is_macos or config.is_ubuntu):
+    if CONFIG.OS_NAME not in ("macOS", "Ubuntu"):
         print("Code compilation only supported on macOS or Ubuntu Linux.")
         return None
 
-    os.makedirs(destination, exist_ok=True)
-    original_cwd = os.getcwd()
-    try:
-        os.chdir(destination)
-        paths = load_expected_data(config.datapath)
+    # Use absolute path for destination
+    destination_path = os.path.abspath(destination)
+    os.makedirs(destination_path, exist_ok=True)
 
+    paths = load_expected_data(CONFIG.DATAPATH)
+    original_cwd = os.getcwd()
+
+    try:
+        os.chdir(destination_path)
         for entry in paths:
             url = entry.get("url")
             if not url or url.count("/") != 2:
                 continue
 
             path = url.split("/")
-            subpath = f"{path[0]}/{path[1]}/"
-            os.makedirs(subpath, exist_ok=True)
+            # Create absolute output directory path
+            output_dir = os.path.join(destination_path, path[0], path[1])
+            os.makedirs(output_dir, exist_ok=True)
 
             source_file = None
-            # Search for the url in the subdirectories of `source`
+            # Locate the corresponding HTML file in the source directory structure.
             for folder in os.listdir(source):
                 sub_source_dir = os.path.join(source, folder)
                 if os.path.isdir(sub_source_dir):
                     potential_path = os.path.join(sub_source_dir, url + ".html")
                     if os.path.exists(potential_path):
                         source_file = potential_path
-                        break  # Found it, stop searching subdirectories
+                        break
             if not source_file:
-                continue  # This URL doesn't correspond to any file, skip it
+                continue
             with open(source_file, "r", encoding="utf-8") as f:
-                html_input = f.read()
+                html_content = f.read()
 
             for lang, ext in {
                     "c": ".c",
@@ -220,7 +221,7 @@ def compile_snippets(source: str, destination: str) -> Optional[Tuple[int, int]]
                     "shell": ".sh"
                 }.items():
 
-                if f'<pre class="code">{{%- highlight {lang} -%}}' in html_input:
+                if f'<pre class="code">{{%- highlight {lang} -%}}' in html_content:
                     if ext == ".java" and path[0] != "java":
                         continue
                     if ext == ".java" and path[1] == "jdbc":
@@ -228,9 +229,9 @@ def compile_snippets(source: str, destination: str) -> Optional[Tuple[int, int]]
                     if ext == ".cpp" and path[0] == "cg" and path[1] != "opengl":
                         continue
                     compiler, args = get_compiler(ext, path)
-                    attempt_compilation(source_file, html_input, compiler, subpath, path[2], ext, args)
+                    attempt_compilation(source_file, html_content, compiler, output_dir, path[2], ext, args)
                     break
     finally:
         os.chdir(original_cwd)
 
-    return stats.compiled, stats.uncompiled
+    return STATS.compiled, STATS.uncompiled

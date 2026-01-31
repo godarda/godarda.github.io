@@ -4,7 +4,24 @@ title: Energy Converter
 description: "Instantly convert energy between joules, kilojoules, calories, kilocalories, watt-hours, and more. A simple and fast energy conversion tool."
 ---
 
-{% include converter.html %}
+{% capture help_content %}
+<p>The <strong>Energy Converter</strong> is a powerful tool designed to facilitate instant conversions between various units of energy. Whether for physics, engineering, or nutritional calculations, it provides accurate results across a wide range of energy measurements.</p>
+<h6><i class="bi bi-sliders"></i> How to Use</h6>
+<ul>
+    <li><strong>Input Value:</strong> Enter the energy value you wish to convert in the input field.</li>
+    <li><strong>Select Unit:</strong> Choose the starting unit (e.g., Joule, Kilocalorie) from the dropdown next to the input.</li>
+    <li><strong>Customize Results:</strong> Use the "Select Tiles" dropdown to choose which target units to display.</li>
+</ul><hr>
+<h6><i class="bi bi-lightning-charge"></i> Supported Units</h6>
+<p class="small text-muted">This tool supports conversion between the following energy units:</p>
+<ul>
+    <li><strong>Metric / SI:</strong> Joule (J), Kilojoule (kJ), Watt-hour (Wh), Kilowatt-hour (kWh)</li>
+    <li><strong>Thermal / Nutritional:</strong> Gram Calorie (cal), Kilocalorie (kcal), British Thermal Unit (BTU), US Therm (thm)</li>
+    <li><strong>Physics / Mechanical:</strong> Electronvolt (eV), Foot-pound (ft⋅lb)</li>
+</ul>
+{% endcapture %}
+
+{% include tools.html %}
 <script>
 (function () {
     // Configuration: Define units and their conversion factor to Joules (base unit)
@@ -22,10 +39,10 @@ description: "Instantly convert energy between joules, kilojoules, calories, kil
     };
 
     const defaultUnit = 'j';
-    const defaultSelectedUnits = ['kj', 'kcal', 'kwh'];
+    const defaultSelectedUnits = ['kj', 'kcal'];
 
     // Initialize the shared converter logic
-    setupConverter({
+    setupTool({
         units: units,
         defaultUnit: defaultUnit,
         defaultSelectedUnits: defaultSelectedUnits

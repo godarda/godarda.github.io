@@ -1,0 +1,83 @@
+grandparent:
+- parent: Common Converters
+  subtree: Common
+  url: converters/common
+  children:
+  - url: converters/common/gdkaznn
+    title: Length Converter
+  - url: converters/common/gdyetrv
+    title: Weight Converter
+  - url: converters/common/gdmzkka
+    title: Temperature Converter
+  - url: converters/common/gddvtyy
+    title: Volume Converter
+  - url: converters/common/gdegcwx
+    title: Area Converter
+  - url: converters/common/gdwaaal
+    title: Time Converter
+  - url: converters/common/gdwzdkr
+    title: Timezone Converter
+- parent: Physics Converters
+  subtree: Physics
+  url: converters/physics
+  children:
+  - url: converters/physics/gdvmrpd
+    title: Speed Converter
+  - url: converters/physics/gdeiafn
+    title: Energy Converter
+  - url: converters/physics/gdergua
+    title: Pressure Converter
+  - url: converters/physics/gdlavzn
+    title: Power Converter
+  - url: converters/physics/gdsqzva
+    title: Angle Converter
+  - url: converters/physics/gdeekgp
+    title: Radiation Converter
+  - url: converters/physics/gdckceg
+    title: Frequency Converter
+  - url: converters/physics/gdxakae
+    title: Illuminance Converter
+  - url: converters/physics/gdilgye
+    title: Magnetic Field Converter
+  - url: converters/physics/gdekyui
+    title: Torque Converter
+  - url: converters/physics/gdlmggz
+    title: Sound Level Converter
+- parent: Digital Converters
+  subtree: Digital
+  url: converters/digital
+  children:
+  - url: converters/digital/gdvadte
+    title: Data Storage Converter
+  - url: converters/digital/gdeybab
+    title: Data Transfer Speed Converter
+- parent: Lifestyle Converters
+  subtree: Lifestyle
+  url: converters/lifestyle
+  children:
+  - url: converters/lifestyle/gdigzed
+    title: Currency Converter
+  - url: converters/lifestyle/gdkywah
+    title: Cooking Converter
+  - url: converters/lifestyle/gdmkzcy
+    title: Fuel Consumption Converter
+- parent: Algorithm Converters
+  subtree: Algorithm
+  url: converters/algorithm
+  children:
+  - url: converters/algorithm/gdeggcz
+    title: Hashing Converter
+sidenav:
+- parent: Converters
+  url: converters
+  children:
+  - title: Common Converters
+    url: converters/common
+  - title: Physics Converters
+    url: converters/physics
+  - title: Digital Converters
+    url: converters/digital
+  - title: Lifestyle Converters
+    url: converters/lifestyle
+  - title: Algorithm Converters
+    url: converters/algorithm

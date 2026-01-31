@@ -1,0 +1,15 @@
+grandparent:
+- parent: Common Generators
+  subtree: Common
+  url: generators/common
+  children:
+  - url: generators/common/gdhzgsg
+    title: String Generator
+  - url: generators/common/gdgeldi
+    title: Number Generator
+sidenav:
+- parent: Generators
+  url: generators
+  children:
+  - title: Common Generators
+    url: generators/common

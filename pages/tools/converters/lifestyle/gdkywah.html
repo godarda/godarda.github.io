@@ -4,7 +4,24 @@ title: Cooking Converter
 description: "Instantly convert cooking measurements between cups, tablespoons, teaspoons, and more. A simple and fast cooking conversion tool."
 ---
 
-{% include converter.html %}
+{% capture help_content %}
+<p>The <strong>Cooking Converter</strong> is a handy tool designed to simplify kitchen conversions. Whether you're following an international recipe or scaling up a meal, it provides instant and accurate conversions between common cooking measurements.</p>
+<h6><i class="bi bi-sliders"></i> How to Use</h6>
+<ul>
+    <li><strong>Input Value:</strong> Enter the quantity you wish to convert in the input field.</li>
+    <li><strong>Select Unit:</strong> Choose the starting unit (e.g., Cup, Tablespoon) from the dropdown next to the input.</li>
+    <li><strong>Customize Results:</strong> Use the "Select Tiles" dropdown to choose which target units to display.</li>
+</ul><hr>
+<h6><i class="bi bi-cup-hot"></i> Supported Units</h6>
+<p class="small text-muted">This tool supports conversion between the following cooking units:</p>
+<ul>
+    <li><strong>Metric:</strong> Milliliter (ml), Liter (l)</li>
+    <li><strong>US Customary:</strong> Teaspoon (tsp), Tablespoon (tbsp), Fluid Ounce (fl oz), Cup, Pint (pt), Quart (qt), Gallon (gal)</li>
+    <li><strong>Imperial:</strong> Imperial Tablespoon, Imperial Cup, Imperial Fluid Ounce</li>
+</ul>
+{% endcapture %}
+
+{% include tools.html %}
 <script>
 (function () {
     // Configuration: Define units and their conversion factor to Milliliters (base unit)
@@ -27,7 +44,7 @@ description: "Instantly convert cooking measurements between cups, tablespoons, 
     const defaultSelectedUnits = ['ml', 'tbsp'];
 
     // Initialize the shared converter logic
-    setupConverter({
+    setupTool({
         units: units,
         defaultUnit: defaultUnit,
         defaultSelectedUnits: defaultSelectedUnits

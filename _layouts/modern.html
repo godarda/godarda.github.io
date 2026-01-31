@@ -3,17 +3,27 @@
 {% include head.html %}
 
 <body>
-<nav class="navbar navbar-expand-md navbar-dark fixed-top">
+{%- assign main_pages = "shubhamrdarda,testapp,learn,tools" | split: ',' -%}
+{%- if path[1] == nil or main_pages contains path[1] -%}{%- assign is_sidebar_page = false -%}
+{%- else -%}{%- assign is_sidebar_page = true -%}{%- endif -%}
+
+<nav class="navbar navbar-expand-md fixed-top">
     <div class="container-fluid">
-        {%- if path[1] == nil or path[1] == "tools" or path[1] == "learn" or path[1] == "testapp" or path[1] == "shubhamrdarda" -%}
+        {%- unless is_sidebar_page -%}
         <div class="navbar-brand" style="margin-left: 0px;">
             <a><img id="logo" alt="Logo" width="30" height="30" src="{{ site.icon | relative_url }}"></a>
             <a id="fc-{{ path[1] }}"> {{ parent }}</a>
         </div>
         {%- else -%}
         <div id="navbar-brand" class="navbar-brand">
-            <a href=""><img id="logo" alt="Logo" width="30" height="30" src="{{ site.icon | relative_url }}"></a>
-            <a id="fc-{{ path[1] }}" href="{{ path[1] }}">{{ parent }}</a>
+            {%- assign home_url = "" -%}
+            {%- assign learn_data = site.data.learn.learn | default: site.data.learn -%}
+            {%- assign tools_data = site.data.tools.tools | default: site.data.tools -%}
+            {%- assign learn_matches = learn_data.segments | where: "url", path[1] -%}
+            {%- assign tools_matches = tools_data.segments | where: "url", path[1] -%}
+            {%- if learn_matches.size > 0 -%}{%- assign home_url = "learn" -%}{%- elsif tools_matches.size > 0 -%}{%- assign home_url = "tools" -%}{%- endif -%}
+            <a href="{{ home_url }}"><img id="logo" alt="Logo" width="30" height="30" src="{{ site.icon | relative_url }}"></a>
+            <a id="fc-{{ path[1] }}" href="{{ path[1] }}">{{ parent }} / </a>
             {%- if path[2] != nil -%}
                 <a id="fc-{{ path[1] }}" href="{{ path[1] }}/{{ path[2] }}">{{ child }} / </a>
             {%- endif -%}
@@ -25,11 +35,11 @@
                 {%- assign active_item = nil -%}
                 {%- assign active_item = "sidebar-item-active" -%}
                 {%- assign pu = parent.url | split: '/' -%}
-                
+
                 {%- if path[1] == pu[0] and path[2] == nil -%}<a class="nav-link {{ active_item }} {{ path[1] }}" href="{{ parent.url }}">{{ parent.parent }}</a>
                 {%- else -%}<a class="nav-link {{ path[1] }}" href="{{ parent.url }}">{{ parent.parent }}</a>
                 {%- endif -%}
-                
+
                 {%- for child in parent.children -%}
                     {%- assign cu = child.url | split: '/' -%}
                     {%- if cu.size == 2 and path[2] == cu[1] -%}<a class="nav-link {{ active_item }} {{ path[1] }}" href="{{ child.url }}">{{ child.title }}</a>
@@ -39,7 +49,7 @@
             {%- endif -%}
         {%- endfor -%}
         </div>
-        {%- endif -%}
+        {%- endunless -%}
 
         <button id="rsidebar" class="ms-auto navbar-toggler p-0" type="button" data-bs-toggle="rightsidebar" data-bs-target="#rightsidebar" aria-label="rsidebar" style="display: none;"><span class="navbar-toggler-icon"></span></button>
         <div id="rightsidebar" class="rightsidebar-collapse navbar-collapse justify-content-end">
@@ -56,13 +66,12 @@
                 {%- if path[1] != "about" -%}
                     <li class="nav-item"><a class="nav-link" href="about"><i class="navsvg bi bi-info-circle"></i> About Us</a></li>
                 {%- endif -%}
-                <li class="nav-item"><a style="cursor: pointer;" class="nav-link" data-bs-toggle="modal" data-bs-target="#appmodal"><i class="navsvg bi bi-android2"></i> Android App</a></li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" aria-label="theme (auto)"><i class="bi bi-circle-half me-2" id="bd-theme-icon"></i><span id="bd-theme-text">Theme</span></a>
+                    <a class="nav-link dropdown-toggle" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" aria-label="theme (dark)"><i class="bi bi-moon-stars me-2" id="bd-theme-icon"></i><span id="bd-theme-text">Theme</span></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme" style="top: 45px;">
+                        <li><button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto" aria-pressed="false"><i class="bi bi-circle-half me-2"></i>Auto</button></li>
+                        <li><button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="true"><i class="bi bi-moon-stars me-2"></i>Dark</button></li>
                         <li><button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false"><i class="bi bi-sun me-2"></i>Light</button></li>
-                        <li><button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false"><i class="bi bi-moon-stars me-2"></i>Dark</button></li>
-                        <li><button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto" aria-pressed="true"><i class="bi bi-circle-half me-2"></i>Auto</button></li>
                     </ul>
                 </li>
             </ul>
@@ -70,52 +79,52 @@
     </div>
 </nav>
 
-<div data-bs-toggle="collapseall" style="min-height: 100vh;">
-{%- if path[1] == nil or path[1] == "shubhamrdarda" or path[1] == "testapp" -%}
-<main role="main"><div class="container">{{ content }}</div></main>{%- include footer.html -%}
-
-{%- elsif path[1] == "learn" or path[1] == "tools" -%}
-<div class="jumbotron text-center">
-    <h3>{{ site.title }}</h3>
-    {%- if path[1] == nil -%}<h6>{{ site.tagline }}</h6>
-    {%- else -%}<h6>{{ segment }}</h6>{%- endif -%}
-</div>
-<main role="main"><div class="container">{{ content }}</div></main>
-{%- include footer.html -%}
-
-{%- else -%}
-<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-xxl-10 ms-sm-auto px-md-4 jumbotron text-center">
-    <h3>{{ site.title }}</h3>
-    {%- if path[1] != "converters" and path[1] != "calculators" -%}<h6>{{ segment }}</h6>
-    {%- else -%}<h6>{{ page.title }}</h6>{%- endif -%}
-</div>
-
-<main class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-xxl-10 ms-sm-auto px-md-4" role="main">
-    <div class="container">
-        {%- if path[2] == nil and path[1] != "about" -%}{%- include search.html -%}{%- endif -%}
-        {{ content }}
-        {%- for parent in gd.grandparent -%}
-        {% if path[1] != "about" and path[2] == nil %}
-        <div class="board"><div class="boardtitle">{{ parent.parent }}</div>
-            {% for child in parent.children limit:4 %}<a class="card" href="{{ child.url }}">{{ child.title }}</a>{% endfor %}
-            {%- assign count = parent.children | size -%}
-            {%- if count >= 5 -%}<a class="card" href="{{ parent.url }}">Show More &#187</a>{%- endif -%}
-        </div>
-        {%- else -%}
-        {%- if path[1] != "about" and path[3] == nil -%}
-            {%- assign pu = parent.url | split: '/' -%}
-            {%- if pu[1] == path[2] -%}
-            <div class="board"><div class="boardtitle">{{ parent.parent }}</div>{%- for child in parent.children -%}<a class="card" href="{{ child.url }}">{{ child.title }}</a>{%- endfor -%}</div>
-            {%- endif -%}
-        {%- endif -%}{%- endif -%}{%- endfor -%}
-        {%- if path[2] != nil -%}{%- include comments.html -%}{%- endif -%}
-        {% include pagination.html %}
-        {% include ads.html %}
+<div data-bs-toggle="collapseall" class="d-flex flex-column flex-grow-1">
+    {%- unless is_sidebar_page -%}
+    {%- if path[1] == "learn" or path[1] == "tools" -%}
+    <div class="jumbotron text-center">
+        <h3>{{ site.title }}</h3>
+        <h6 id="fc-{{ path[1] }}">{{ segment }}</h6>
     </div>
-</main>
+    {%- endif -%}
+    <main role="main" class="flex-grow-1"><div class="container">{{ content }}</div></main>
 
-<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-xxl-10 ms-sm-auto" style="padding: 0px;">{%- include footer.html -%}</div>
-{%- endif -%}
+    {%- else -%}
+    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-xxl-10 ms-sm-auto px-md-4 jumbotron text-center">
+        <h3>{{ site.title }}</h3>
+        {%- assign tool_urls = site.data.tools.tools.segments | map: "url" -%}
+        {%- if tool_urls contains path[1] -%}<h6 id="fc-{{ path[1] }}">{{ page.title }}</h6>
+        {%- else -%}<h6 id="fc-{{ path[1] }}">{{ segment }}</h6>{%- endif -%}
+    </div>
+
+    <main class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-xxl-10 ms-sm-auto px-md-4 flex-grow-1" role="main">
+        <div class="container">
+            {%- if path[2] == nil and path[1] != "about" -%}{%- include search.html -%}{%- endif -%}
+            {{ content }}
+            {%- for parent in gd.grandparent -%}
+            {% if path[1] != "about" and path[2] == nil %}
+            <div class="board"><div class="boardtitle">{{ parent.parent }}</div>
+                {% for child in parent.children limit:4 %}<a class="card" href="{{ child.url }}">{{ child.title }}</a>{% endfor %}
+                {%- assign count = parent.children | size -%}
+                {%- if count >= 5 -%}<a class="card" href="{{ parent.url }}">Show More &#187</a>{%- endif -%}
+            </div>
+            {%- else -%}
+            {%- if path[1] != "about" and path[3] == nil -%}
+                {%- assign pu = parent.url | split: '/' -%}
+                {%- if pu[1] == path[2] -%}
+                <div class="board"><div class="boardtitle">{{ parent.parent }}</div>{%- for child in parent.children -%}<a class="card" href="{{ child.url }}">{{ child.title }}</a>{%- endfor -%}</div>
+                {%- endif -%}
+            {%- endif -%}{%- endif -%}{%- endfor -%}
+            {%- if path[1] != nil and path[1] != "about" -%}
+                {%- include comments.html -%}
+                {% include pagination.html %}
+            {%- endif -%}
+        </div>
+    </main>
+    {%- endunless -%}
+
+    {%- if is_sidebar_page -%}{%- assign footer_class = "col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-xxl-10 ms-sm-auto footer-no-padding" -%}{%- else -%}{%- assign footer_class = "" -%}{%- endif -%}
+    <div class="{{ footer_class }}">{%- include footer_app.html -%}{%- include footer_web.html -%}</div>
 </div>
 
 {%- if path[3] != nil -%}
@@ -128,20 +137,19 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p class="h6 text-center">Thank you for visiting GoDarda!</p>
+                <p class="h6">Thank you for visiting GoDarda!</p>
                 <p>If you've found GoDarda helpful, please consider supporting our mission to provide free, high-quality content for developers. Your support makes a difference!</p>
                 <p>Don't forget to show your appreciation by starring our repo, following us, and becoming a sponsor!</p>
             </div>
             <div class="modal-footer justify-content-center">
-                <a class="btn" href="{{ site.data.url.repo }}" title="GitHub Star" target="_blank" rel="noopener noreferrer"><i class="bi bi-star"></i> Star</a>
-                <a href="{{ site.data.url.linkedin }}" class="btn" title="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin"></i> LinkedIn</a>
-                <a href="{{ site.data.url.sponsor }}" class="btn" title="Sponsor" target="_blank" rel="noopener noreferrer"><i class="bi bi-suit-heart"></i> Sponsor</a>
+                <a class="btn btn-sm btn-outline-secondary" href="{{ site.data.url.repo }}" title="GitHub Star" target="_blank" rel="noopener noreferrer"><i class="bi bi-star"></i> Star</a>
+                <a href="{{ site.data.url.linkedin }}" class="btn btn-sm btn-outline-secondary" title="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin"></i> LinkedIn</a>
+                <a href="{{ site.data.url.sponsor }}" class="btn btn-sm btn-outline-secondary" title="Sponsor" target="_blank" rel="noopener noreferrer"><i class="bi bi-suit-heart"></i> Sponsor</a>
             </div>
         </div>
     </div>
 </div>
 {%- endif -%}
 
-<script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
 </html>

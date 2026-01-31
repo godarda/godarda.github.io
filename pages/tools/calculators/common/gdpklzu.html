@@ -1,0 +1,66 @@
+---
+permalink: calculators/common/gdpklzu
+title: BMI Calculator
+description: "Calculate Body Mass Index (BMI) for adult humans using height and weight inputs."
+---
+
+{% capture tools_inputs %}
+<div class="row g-3">
+    <div class="col-12">
+        <div class="muted small">Note: Designed for adults (20+). Minimums: 20 kg and 100 cm.</div>
+    </div>
+    <div class="col-6">
+        <input type="number" id="weightInput" class="form-control" placeholder="Weight (kg) *" step="0.1">
+    </div>
+    <div class="col-6">
+        <input type="number" id="heightInput" class="form-control" placeholder="Height (cm) *" step="0.1">
+    </div>
+</div>
+{% endcapture %}
+
+{% capture help_content %}
+<p><strong>How to use:</strong></p>
+<ul>
+    <li><strong>Weight:</strong> Enter your weight in kilograms (kg).</li>
+    <li><strong>Height:</strong> Enter your height in centimeters (cm).</li>
+</ul>
+<p><strong>Features:</strong></p>
+<ul>
+    <li>Calculates Body Mass Index (BMI).</li>
+    <li>Determines weight category (Underweight, Normal, Overweight, Obese).</li>
+</ul>
+{% endcapture %}
+
+{% include tools.html %}
+
+<script>
+(function () {
+    setupTool({
+        inputs: ['weightInput', 'heightInput'],
+        stats: {
+            score: { name: 'BMI Score', default: true },
+            category: { name: 'Category', default: true }
+        },
+        calculate: (values) => {
+            const weight = parseFloat(values.weightInput);
+            const height = parseFloat(values.heightInput);
+            const res = {};
+
+            // Enforce reasonable minimums for adults (e.g., 20kg, 100cm)
+            if (!weight || !height || weight < 20 || height < 100) return res;
+
+            // BMI = kg / m^2
+            const bmi = weight / Math.pow(height / 100, 2);
+            res.score = bmi.toFixed(1);
+
+            let category = 'Obese';
+            if (bmi < 18.5) category = 'Underweight';
+            else if (bmi < 25) category = 'Normal';
+            else if (bmi < 30) category = 'Overweight';
+
+            res.category = category;
+            return res;
+        }
+    });
+})();
+</script>

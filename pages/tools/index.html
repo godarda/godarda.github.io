@@ -1,12 +1,13 @@
 ---
-permalink: tools
+permalink: tools/
 title: GoDarda Tools
 description: "A collection of online tools for calculations, text analysis, and more. Explore our versatile utilities designed to simplify your tasks."
 ---
 
 {%- include search.html -%}
 <div class="row">
-    {%- for segment in site.data.tools.segments -%}
+    {%- assign tools_data = site.data.tools.tools -%}
+    {%- for segment in tools_data.segments -%}
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-3">
         <a href="{{ segment.url }}"><div class="{{ segment.url | split: '/' }} procard">{{ segment.title }}</div></a>
     </div>

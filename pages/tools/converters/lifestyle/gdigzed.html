@@ -4,32 +4,81 @@ title: Currency Converter
 description: "Instantly convert currencies between USD, EUR, GBP, JPY, and more. A simple and fast currency conversion tool."
 ---
 
-{% include converter.html %}
+{% capture help_content %}
+<p>The <strong>Currency Converter</strong> is a convenient tool designed to perform instant estimates for currency exchange. Whether for travel planning, international shopping, or financial comparisons, it provides quick conversions between major global currencies based on approximate exchange rates.</p>
+<h6><i class="bi bi-sliders"></i> How to Use</h6>
+<ul>
+    <li><strong>Input Value:</strong> Enter the amount you wish to convert in the input field.</li>
+    <li><strong>Select Currency:</strong> Choose the starting currency (e.g., US Dollar) from the dropdown next to the input.</li>
+    <li><strong>Customize Results:</strong> Use the "Select Tiles" dropdown to choose which target currencies to display.</li>
+</ul><hr>
+<h6><i class="bi bi-cash-coin"></i> Supported Currencies</h6>
+<p class="small text-muted">This tool supports conversion between the following currencies:</p>
+<ul>
+    <li><strong>Americas:</strong> US Dollar (USD), Canadian Dollar (CAD)</li>
+    <li><strong>Europe:</strong> Euro (EUR), British Pound (GBP), Swiss Franc (CHF), Russian Ruble (RUB)</li>
+    <li><strong>Asia/Pacific:</strong> Indian Rupee (INR), Japanese Yen (JPY), Chinese Yuan (CNY), Australian Dollar (AUD)</li>
+</ul>
+<p class="small text-muted mt-2"><em>Note: Exchange rates are sourced from open-source APIs and updated daily.</em></p>
+{% endcapture %}
+
+{% include tools.html %}
 <script>
 (function () {
     // Configuration: Define currencies and their conversion factor to USD (base unit)
-    // Note: Factors are approximate exchange rates relative to 1 USD.
+    // Note: Factors are populated dynamically from the API.
     const units = {
-        usd: { name: 'US Dollar',        symbol: '$',   factor: 1 },
-        eur: { name: 'Euro',             symbol: '€',   factor: 1.08 },
-        gbp: { name: 'British Pound',    symbol: '£',   factor: 1.27 },
-        inr: { name: 'Indian Rupee',     symbol: '₹',   factor: 0.012 },
-        jpy: { name: 'Japanese Yen',     symbol: '¥',   factor: 0.0068 },
-        aud: { name: 'Australian Dollar',symbol: 'A$',  factor: 0.66 },
-        cad: { name: 'Canadian Dollar',  symbol: 'C$',  factor: 0.74 },
-        chf: { name: 'Swiss Franc',      symbol: 'Fr',  factor: 1.15 },
-        cny: { name: 'Chinese Yuan',     symbol: '¥',   factor: 0.14 },
-        rub: { name: 'Russian Ruble',    symbol: '₽',   factor: 0.011 }
+        usd: { name: 'US Dollar',        symbol: 'US $', factor: 1 },
+        eur: { name: 'Euro',             symbol: '€',   factor: 0 },
+        gbp: { name: 'British Pound',    symbol: '£',   factor: 0 },
+        inr: { name: 'Indian Rupee',     symbol: '₹',   factor: 0 },
+        jpy: { name: 'Japanese Yen',     symbol: '¥',   factor: 0 },
+        aud: { name: 'Australian Dollar',symbol: 'A$',  factor: 0 },
+        cad: { name: 'Canadian Dollar',  symbol: 'C$',  factor: 0 },
+        chf: { name: 'Swiss Franc',      symbol: 'Fr',  factor: 0 },
+        cny: { name: 'Chinese Yuan',     symbol: '¥',   factor: 0 },
+        rub: { name: 'Russian Ruble',    symbol: '₽',   factor: 0 }
     };
 
     const defaultUnit = 'usd';
     const defaultSelectedUnits = ['eur', 'inr'];
 
-    // Initialize the shared converter logic
-    setupConverter({
-        units: units,
-        defaultUnit: defaultUnit,
-        defaultSelectedUnits: defaultSelectedUnits
-    });
+    // Show loading state
+    const resultsContainer = document.getElementById('resultsContainer');
+    resultsContainer.innerHTML = '<div class="text-center py-4"><div class="spinner-border text-secondary" role="status"></div><div class="mt-2 small text-muted">Fetching latest rates...</div></div>';
+
+    // Initialize converter after attempting to fetch live rates
+    // Source: https://github.com/fawazahmed0/exchange-api (Open Source, Free)
+    fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json')
+        .then(res => res.json())
+        .then(data => {
+            const rates = data.usd;
+            // Update factors: 1 Unit = (1 / Rate) USD
+            if (rates.eur) units.eur.factor = 1 / rates.eur;
+            if (rates.gbp) units.gbp.factor = 1 / rates.gbp;
+            if (rates.inr) units.inr.factor = 1 / rates.inr;
+            if (rates.jpy) units.jpy.factor = 1 / rates.jpy;
+            if (rates.aud) units.aud.factor = 1 / rates.aud;
+            if (rates.cad) units.cad.factor = 1 / rates.cad;
+            if (rates.chf) units.chf.factor = 1 / rates.chf;
+            if (rates.cny) units.cny.factor = 1 / rates.cny;
+            if (rates.rub) units.rub.factor = 1 / rates.rub;
+
+            // Clear loading spinner
+            resultsContainer.innerHTML = '';
+
+            const note = document.querySelector('#helpModal em');
+            if (note) note.innerText = `Exchange rates updated from live data (${data.date}).`;
+
+            setupTool({
+                units: units,
+                defaultUnit: defaultUnit,
+                defaultSelectedUnits: defaultSelectedUnits
+            });
+        })
+        .catch(e => {
+            console.error('Currency fetch failed', e);
+            resultsContainer.innerHTML = '<div class="alert alert-warning small">Unable to load exchange rates. Please check your connection.</div>';
+        });
 })();
 </script>

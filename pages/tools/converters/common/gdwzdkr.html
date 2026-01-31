@@ -1,0 +1,392 @@
+---
+permalink: converters/common/gdwzdkr
+title: Timezone Converter
+description: "Instantly convert timezones between different regions. A simple and fast timezone conversion tool."
+---
+
+{% capture help_content %}
+<p>The <strong>Timezone Converter</strong> is a professional tool designed to facilitate accurate date and time conversions across global time zones. It automatically handles offsets and Daylight Saving Time (DST) adjustments to ensure precision.</p>
+<h6><i class="bi bi-sliders"></i> Interface Controls</h6>
+<ul>
+    <li><strong>Date & Time Picker:</strong> Select a precise local time for conversion.</li>
+    <li><strong>Input Timezone:</strong> Select the source timezone for the entered time (e.g., Local, UTC).</li>
+    <li><strong>Smart Input:</strong> Paste date strings directly to parse and convert them instantly.</li>
+    <li><strong>24-Hour Toggle:</strong> Switch result displays between 12-hour (AM/PM) and 24-hour formats.</li>
+    <li><strong>Conversion Options:</strong> Use the "Select Tiles" dropdown to choose which time zones appear in the results panel.</li>
+</ul><hr>
+<h6><i class="bi bi-code-slash"></i> Supported Paste Formats</h6>
+<p class="small text-muted">The smart input accepts a wide range of formats, including:</p>
+<ul>
+    <li><strong>ISO 8601:</strong> <code>2023-12-25</code>, <code>2023-12-25T14:30:00</code></li>
+    <li><strong>Regional:</strong> <code>12/25/2023</code> (US), <code>25.12.2023</code> (EU), <code>2023年12月25日</code> (CN)</li>
+    <li><strong>Text:</strong> <code>Dec 25, 2023</code>, <code>25 March 1999</code></li>
+    <li><strong>Timezones:</strong> <code>14:30 IST</code>, <code>5:00 PM EST</code>, <code>+05:30</code></li>
+    <li><strong>Special:</strong> <code>2023-W52-1</code> (Week Date), <code>2023-365</code> (Ordinal)</li>
+</ul>
+{% endcapture %}
+
+{% include tools.html %}
+
+<script>
+(function () {
+    /**
+     * Timezone Converter Module
+     *
+     * Handles the logic for converting times between different timezones.
+     * Features include:
+     * - "Smart" free-text input parsing for various date formats.
+     * - Dynamic UI injection (24h toggle, text input).
+     * - Timezone offset calculations relative to UTC.
+     */
+    const inputEl = document.getElementById('inputValue');
+    const resultsContainer = document.getElementById('resultsContainer');
+
+    // Inject Free Text Input
+    const freeTextDiv = document.createElement('div');
+    freeTextDiv.className = 'mb-3';
+    freeTextDiv.innerHTML = `
+        <input type="text" class="form-control" id="freeTextInput" placeholder="Or paste date/time string... (e.g. 2019-04-29T00:01:28.561)">
+    `;
+    inputEl.parentElement.insertAdjacentElement('afterend', freeTextDiv);
+
+    // Inject 24h Toggle
+    const toggleDiv = document.createElement('div');
+    toggleDiv.className = 'd-flex mb-2';
+    toggleDiv.innerHTML = `
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="chk_24hr_fmt">
+            <label class="form-check-label" for="chk_24hr_fmt">Display Results in 24-Hour Format</label>
+        </div>
+    `;
+    freeTextDiv.insertAdjacentElement('afterend', toggleDiv);
+
+    const freeInput = freeTextDiv.querySelector('input');
+
+    /**
+     * Smart Input Event Listener
+     * Attempts to parse free-text input into a valid Date object.
+     * Uses a waterfall strategy: native Date parsing -> regex heuristics.
+     */
+    freeInput.addEventListener('input', (e) => {
+        const val = e.target.value.trim();
+        let d = new Date(val);
+
+        // Strict Time Validation: Reject 24:00 or invalid ranges even if Date() accepts them (rollover)
+        // This prevents "25:00" from rolling over to the next day, which is often a user error.
+        const timeMatch = val.match(/(?:^|[\sT])(\d{1,2}):(\d{1,2})(?::(\d{1,2})(?:\.\d+)?)?\s*(am|pm)?/i);
+        if (timeMatch) {
+            const h = parseInt(timeMatch[1], 10);
+            const m = parseInt(timeMatch[2], 10);
+            const s = timeMatch[3] ? parseInt(timeMatch[3], 10) : 0;
+            const ampm = timeMatch[4];
+            if (m > 59 || s > 59 || (!ampm && h > 23) || (ampm && (h < 1 || h > 12))) {
+                d = new Date("Invalid"); // Force invalid
+            }
+        }
+
+        // Fallback: Support DD/MM/YYYY, YYYYMMDD, or DDMMYYYY format
+        // If native parsing fails, iterate through custom parsers.
+        if (isNaN(d.getTime())) {
+            // Array of parser functions returning { d, m, y, t } or null.
+            const parsers = [
+                // DD/MM/YYYY, DD-MM-YYYY, DD.MM.YY
+                v => {
+                    const m = v.match(/^(\d{1,2})[\/\-\.](\d{1,2})[\/\-\.](\d{2}|\d{4})(?:[\sT](.*))?$/);
+                    if (!m) return null;
+                    if (parseInt(m[1], 10) > 31) return null; // Reject invalid days to avoid conflict with yy-MM-dd
+                    let y = m[3];
+                    if (y.length === 2) {
+                        // Sliding window for 2-digit year
+                        const curY = new Date().getFullYear();
+                        let fullY = parseInt(String(curY).slice(0, 2) + y, 10);
+                        if (fullY > curY + 20) fullY -= 100;
+                        y = String(fullY);
+                    }
+                    return { d: m[1], m: m[2], y: y, t: m[4] };
+                },
+                // YYYY-MM-DD or YYYY/MM/DD
+                v => {
+                    const m = v.match(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})(?:[\sT](.*)|([Z+\-].*))?$/);
+                    return m ? { y: m[1], m: m[2], d: m[3], t: m[4] || m[5] } : null;
+                },
+                // yy-MM-dd
+                v => {
+                    const m = v.match(/^(\d{2})[\/\-](\d{1,2})[\/\-](\d{1,2})(?:[\sT](.*)|([Z+\-].*))?$/);
+                    if (!m) return null;
+                    if (parseInt(m[3], 10) > 31) return null;
+                    let y = m[1];
+                    const curY = new Date().getFullYear();
+                    let fullY = parseInt(String(curY).slice(0, 2) + y, 10);
+                    if (fullY > curY + 20) fullY -= 100;
+                    return { y: String(fullY), m: m[2], d: m[3], t: m[4] || m[5] };
+                },
+                // YYYYMMDD
+                v => {
+                    const m = v.match(/^(\d{4})(\d{2})(\d{2})(?:[\sT](.*)|([Z+\-].*))?$/);
+                    return m ? { y: m[1], m: m[2], d: m[3], t: m[4] || m[5] } : null;
+                },
+                // DDMMYYYY
+                v => {
+                    const m = v.match(/^(\d{2})(\d{2})(\d{4})(?:[\sT](.*))?$/);
+                    return m ? { d: m[1], m: m[2], y: m[3], t: m[4] } : null;
+                },
+                // Text Month: MMM.DD.YYYY, MMM/DD/YYYY, MMM DD, YYYY
+                v => {
+                    const m = v.match(/^(?:[a-zA-Z\u00C0-\u00FF]+,?\s+)?([a-zA-Z\u00C0-\u00FF]{3,})[\s\.\/\-,]+(\d{1,2})[\s\.\/\-,]+(\d{2}|\d{4})(?:[\sT](.*))?$/);
+                    if (!m) return null;
+                    let y = m[3];
+                    if (y.length === 2) y = String(new Date().getFullYear()).slice(0, 2) + y;
+                    return { m: m[1], d: m[2], y: y, t: m[4] };
+                },
+                // Text Month: DD/MMM/YYYY, DD-MMM-YYYY
+                v => {
+                    const m = v.match(/^(?:[a-zA-Z\u00C0-\u00FF]+,?\s+)?(\d{1,2})[\s\.\/\-,]+([a-zA-Z\u00C0-\u00FF]{3,})[\s\.\/\-,]+(\d{2}|\d{4})(?:[\sT](.*))?$/);
+                    if (!m) return null;
+                    let y = m[3];
+                    if (y.length === 2) y = String(new Date().getFullYear()).slice(0, 2) + y;
+                    return { d: m[1], m: m[2], y: y, t: m[4] };
+                },
+                // Chinese Date: YYYY年M月D日
+                v => {
+                    const m = v.match(/^(\d{4})年(\d{1,2})月(\d{1,2})日(?:\s*星期[一二三四五六日])?(?:[\sT](.*))?$/);
+                    return m ? { y: m[1], m: m[2], d: m[3], t: m[4] } : null;
+                },
+                // Ordinal Date: YYYY-DDD or YYYYDDD
+                v => {
+                    const m = v.match(/^(\d{4})-?(\d{3})(?:[\sT](.*))?$/);
+                    if (!m) return null;
+                    const d = new Date(parseInt(m[1], 10), 0, parseInt(m[2], 10));
+                    return { d: d.getDate(), m: d.getMonth() + 1, y: d.getFullYear(), t: m[3] };
+                },
+                // Week Date: YYYY-Www-d or YYYYWwwd
+                v => {
+                    const m = v.match(/^(\d{4})-?W(\d{2})-?(\d{1})(?:[\sT](.*))?$/);
+                    if (!m) return null;
+                    const y = parseInt(m[1], 10), w = parseInt(m[2], 10), wd = parseInt(m[3], 10);
+                    const jan4 = new Date(y, 0, 4);
+                    const day = jan4.getDay() || 7;
+                    const monday1 = new Date(jan4.getTime() - (day - 1) * 86400000);
+                    const target = new Date(monday1.getTime() + (w - 1) * 604800000 + (wd - 1) * 86400000);
+                    return { d: target.getDate(), m: target.getMonth() + 1, y: target.getFullYear(), t: m[4] };
+                }
+            ];
+
+            // Iterate parsers until a valid date is constructed
+            for (const parser of parsers) {
+                const parts = parser(val);
+                if (!parts) continue;
+
+                const { d: day, m: month, y: year, t: time } = parts;
+
+                // Convert text month to number
+                const monthMap = {
+                    jan:'01',feb:'02',mar:'03',apr:'04',may:'05',jun:'06',jul:'07',aug:'08',sep:'09',oct:'10',nov:'11',dec:'12',
+                    mär:'03',mai:'05',okt:'10',dez:'12'
+                };
+                const mStr = isNaN(month) ? (monthMap[month.toLowerCase().substring(0,3)] || month) : month;
+
+                let isValidTime = true;
+                let cleanTime = time;
+
+                // Normalize time string (handle Chinese characters, AM/PM placement, offsets)
+                if (time) {
+                    let tStr = time.trim();
+
+                    // Chinese Localization: Remove Weekdays, Normalize AM/PM & Separators
+                    tStr = tStr.replace(/星期[一二三四五六日]/g, '').trim();
+                    tStr = tStr.replace(/上午/g, 'AM ').replace(/下午/g, 'PM ');
+                    tStr = tStr.replace(/[时時分]/g, ':').replace(/秒/g, '');
+
+                    // Move prefix AM/PM to suffix
+                    const prefixAmPm = tStr.match(/^(AM|PM)\s+/i);
+                    if (prefixAmPm) tStr = tStr.replace(/^(AM|PM)\s+/i, '') + ' ' + prefixAmPm[1];
+                    tStr = tStr.trim();
+
+                    // Check for Offset-only time (e.g. from YYYYMMDD+0100)
+                    const offMatch = tStr.match(/^([+-]\d{2}(?::?\d{2})?|Z)(?:\[[\w\/]+\])?$/);
+
+                    // Support AM/PM, Comma/Dot Decimal, Offset, Bracketed Zone
+                    const tMatch = tStr.match(/^(\d{1,2})(?:[:.]|(?:\s*h\s*))?(\d{1,2})?(?:[:.](\d{1,2})(?:[\.,]\d+)?)?(?:\s+o['’]?clock)?(?:\s+uhr)?\s*(?:(am|pm)\s+([a-z]{2,}|Z|[\+\-]\d{2}(?::?\d{2})?)|([a-z]{2,}|Z|[\+\-]\d{2}(?::?\d{2})?)\s+(am|pm)|(am|pm)|([a-z]{2,}|Z|[\+\-]\d{2}(?::?\d{2})?))?(?:\[[\w\/]+\])?$/i);
+
+                    if (offMatch) {
+                        cleanTime = `00:00:00${offMatch[1]}`;
+                    } else if (tMatch) {
+                        const h = parseInt(tMatch[1], 10);
+                        const m = tMatch[2] ? parseInt(tMatch[2], 10) : 0;
+                        const s = tMatch[3] ? parseInt(tMatch[3], 10) : 0;
+                        const ampm = tMatch[4] || tMatch[7] || tMatch[8];
+                        let offset = tMatch[5] || tMatch[6] || tMatch[9];
+
+                        // Map German timezones
+                        if (offset && offset.toLowerCase() === 'mez') offset = '+01:00';
+                        if (offset && offset.toLowerCase() === 'mesz') offset = '+02:00';
+
+                        // Map from units if available
+                        if (offset && /^[a-z]+$/i.test(offset)) {
+                            const u = Object.values(units).find(u => u.symbol.toLowerCase() === offset.toLowerCase());
+                            if (u) {
+                                const abs = Math.abs(u.offset);
+                                const oh = Math.floor(abs);
+                                const om = Math.round((abs - oh) * 60);
+                                offset = (u.offset >= 0 ? '+' : '-') + oh.toString().padStart(2, '0') + ':' + om.toString().padStart(2, '0');
+                            }
+                        }
+
+                        if (m > 59 || s > 59) isValidTime = false;
+                        else if (ampm && (h < 1 || h > 12)) isValidTime = false;
+                        else if (!ampm && h > 23) isValidTime = false;
+
+                        if (isValidTime) {
+                            cleanTime = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}${ampm ? ' ' + ampm : ''}${offset ? ' ' + offset : ''}`;
+                        }
+                    } else {
+                        isValidTime = false;
+                    }
+                }
+
+                // Construct Date object from normalized parts
+                if (isValidTime) {
+                    // Try YYYY/MM/DD format first (better support for AM/PM)
+                    const fmtStr = `${year}/${mStr.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')} ${cleanTime || ''}`;
+                    const tempD = new Date(fmtStr);
+
+                    if (!isNaN(tempD.getTime())) {
+                        d = tempD;
+                        break;
+                    } else {
+                        // Fallback to ISO with T separator
+                        const isoStr = `${year}-${mStr.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}${cleanTime ? 'T' + cleanTime : ''}`;
+                        const tempD2 = new Date(isoStr);
+                        if (!isNaN(tempD2.getTime())) {
+                            d = tempD2;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Update UI based on validity of the parsed date
+        if (!isNaN(d.getTime())) {
+            freeInput.classList.remove('is-invalid');
+            freeInput.classList.add('is-valid');
+
+            const unitSelect = document.getElementById('inputUnit');
+            if (unitSelect.value !== 'local') {
+                unitSelect.value = 'local';
+                unitSelect.dispatchEvent(new Event('change'));
+            }
+
+            const pad = n => n.toString().padStart(2, '0');
+            const iso = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+            inputEl.value = iso;
+            inputEl.dispatchEvent(new Event('input'));
+        } else {
+            if (val.trim()) {
+                freeInput.classList.add('is-invalid');
+                freeInput.classList.remove('is-valid');
+            } else {
+                freeInput.classList.remove('is-invalid');
+                freeInput.classList.remove('is-valid');
+            }
+        }
+    });
+
+    // Helper to create timezone unit
+    /**
+     * Creates a timezone unit object for the converter.
+     *
+     * @param {string} name - Display name (e.g., "Eastern Standard Time").
+     * @param {string} symbol - Short symbol (e.g., "EST").
+     * @param {number} offset - Offset in hours from UTC (negative for West, positive for East).
+     */
+    const createTz = (name, symbol, offset) => ({
+        name, symbol, offset,
+        // toBase: Takes ISO String (YYYY-MM-DDTHH:mm) -> Returns UTC Timestamp (ms)
+        toBase: isoStr => {
+            if (!isoStr) return NaN;
+            const [datePart, timePart] = isoStr.split('T');
+            if (!datePart || !timePart) return NaN;
+
+            const [y, m, d] = datePart.split('-').map(Number);
+            const [hr, min] = timePart.split(':').map(Number);
+
+            // Treat input as UTC first to get linear time
+            const utcBase = Date.UTC(y, m - 1, d, hr, min);
+            // Apply offset inversion: UTC = Local - Offset
+            return utcBase - (offset * 3600 * 1000);
+        },
+        // fromBase: Takes UTC Timestamp (ms) -> Returns Formatted Date & Time String
+        fromBase: utcMs => {
+            if (isNaN(utcMs)) return '-';
+            // Target Time (shifted) = UTC + Offset
+            const d = new Date(utcMs + (offset * 3600 * 1000));
+
+            const is24Hr = document.getElementById('chk_24hr_fmt').checked;
+
+            const formatted = new Intl.DateTimeFormat(undefined, {
+                timeZone: 'UTC',
+                dateStyle: 'short',
+                timeStyle: 'short',
+                hour12: !is24Hr
+            }).format(d);
+
+            // Remove comma and ensure uppercase AM/PM
+            return formatted.replace(',', '').toUpperCase();
+        }
+    });
+
+    const units = {
+        utc: createTz('Coordinated Universal Time', 'UTC', 0),
+        gmt: createTz('Greenwich Mean Time', 'GMT', 0),
+        est: createTz('Eastern Standard Time', 'EST', -5),
+        cst: createTz('Central Standard Time', 'CST', -6),
+        mst: createTz('Mountain Standard Time', 'MST', -7),
+        pst: createTz('Pacific Standard Time', 'PST', -8),
+        ist: createTz('Indian Standard Time', 'IST', 5.5),
+        cet: createTz('Central European Time', 'CET', 1),
+        jst: createTz('Japan Standard Time', 'JST', 9),
+        aest: createTz('Australian Eastern Standard Time', 'AEST', 10)
+    };
+
+    // Calculate local offset dynamically
+    const localOffset = -new Date().getTimezoneOffset() / 60;
+    units.local = createTz('Your Local Time', 'Local', localOffset);
+
+    setupTool({
+        units: units,
+        defaultUnit: 'local',
+        defaultSelectedUnits: ['utc', 'est'],
+        converterType: 'datetime', // Custom type to handle string input
+        inputPlaceholder: 'Select date and time'
+    });
+
+    // Configure Input for Date & Time
+    inputEl.type = 'datetime-local';
+
+    // Set default to current local time
+    const now = new Date();
+    const tzOffsetMs = now.getTimezoneOffset() * 60000;
+    // Adjust to local time for ISO string generation
+    inputEl.value = new Date(now.getTime() - tzOffsetMs).toISOString().slice(0, 16);
+
+    // Override Clear Button behavior to clear only free text input
+    const btnClear = document.getElementById('btnClear');
+    const newBtnClear = btnClear.cloneNode(true);
+    btnClear.parentNode.replaceChild(newBtnClear, btnClear);
+
+    newBtnClear.addEventListener('click', () => {
+        freeInput.value = '';
+        freeInput.classList.remove('is-invalid');
+        freeInput.classList.remove('is-valid');
+    });
+
+    // Listen for toggle changes
+    document.getElementById('chk_24hr_fmt').addEventListener('change', () => {
+        inputEl.dispatchEvent(new Event('input'));
+    });
+
+    // Trigger initial calculation
+    setTimeout(() => inputEl.dispatchEvent(new Event('input')), 50);
+})();
+</script>

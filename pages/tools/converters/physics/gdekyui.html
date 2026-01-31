@@ -4,7 +4,23 @@ title: Torque Converter
 description: "Instantly convert torque measurements between different units. A simple and fast torque conversion tool."
 ---
 
-{% include converter.html %}
+{% capture help_content %}
+<p>The <strong>Torque Converter</strong> is a specialized tool designed to perform instant conversions between various units of torque (rotational force). Whether for automotive engineering, mechanical design, or physics calculations, it provides accurate results across a wide range of measurements.</p>
+<h6><i class="bi bi-sliders"></i> How to Use</h6>
+<ul>
+    <li><strong>Input Value:</strong> Enter the torque value you wish to convert in the input field.</li>
+    <li><strong>Select Unit:</strong> Choose the starting unit (e.g., Newton-meter, Pound-force foot) from the dropdown next to the input.</li>
+    <li><strong>Customize Results:</strong> Use the "Select Tiles" dropdown to choose which target units to display.</li>
+</ul><hr>
+<h6><i class="bi bi-arrow-clockwise"></i> Supported Units</h6>
+<p class="small text-muted">This tool supports conversion between the following torque units:</p>
+<ul>
+    <li><strong>Metric / SI:</strong> Newton-meter (N·m), Dyne-centimeter (dyn·cm), Kilogram-force meter (kgf·m), Kilogram-force centimeter (kgf·cm)</li>
+    <li><strong>Imperial / US:</strong> Pound-force foot (lbf·ft), Pound-force inch (lbf·in), Ounce-force inch (ozf·in)</li>
+</ul>
+{% endcapture %}
+
+{% include tools.html %}
 <script>
 (function () {
     // Configuration: Define units and their conversion factor to Newton-meter (N·m) - Base unit
@@ -22,7 +38,7 @@ description: "Instantly convert torque measurements between different units. A s
     const defaultSelectedUnits = ['lbfft', 'kgfm'];
 
     // Initialize the shared converter logic
-    setupConverter({
+    setupTool({
         units: units,
         defaultUnit: defaultUnit,
         defaultSelectedUnits: defaultSelectedUnits

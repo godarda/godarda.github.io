@@ -8,8 +8,7 @@ pymongo
 PyMySQL
 pytest
 PyYAML
+requests
 scipy
-selenium
 toml
-webdriver-manager
 beautifulsoup4

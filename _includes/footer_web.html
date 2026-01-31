@@ -1,0 +1,94 @@
+<div id="backtotop" class="text-center" style="display: none; padding-top: 15px; margin-bottom: 15px;"><a
+        class="back-to-top" style="cursor: pointer;" title="Back to top"><i
+            class="svgicon bi bi-arrow-bar-up"></i></a>
+</div>
+
+<div id="web-footer-container" style="display: none;">
+    {%- if path[1] == nil or path[1] == "testapp" -%}{%- assign flag = "block_webfooter" -%}{%- endif -%}
+    <footer class="isWebsite {{ flag }}" id="isWebsite" style="padding-top: 15px;">
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 col-md-3" style="padding-bottom: 50px;">
+                    <h6>What's new</h6>
+                    <a href="learn"><div><i class="bi bi-lightbulb"></i> Learn</div></a>
+                    <a href="tools"><div><i class="bi bi-gear"></i> Tools</div></a>
+                    <a style="cursor: pointer;" class="nav-link" data-bs-toggle="modal" data-bs-target="#appmodal"><div><i class="navsvg bi bi-android2"></i> Android App</div></a>
+                </div>
+                <div class="col-6 col-md-3" style="padding-bottom: 50px;">
+                    <h6>Contribute</h6>
+                    <a href="{{ site.data.url.teams }}" target="_blank" rel="noopener noreferrer"><div><i class="bi bi-people"></i> Join Teams</div></a>
+                    <a href="{{ site.data.url.issues }}" target="_blank" rel="noopener noreferrer"><div><i class="bi bi-bug"></i> Report Bug</div></a>
+                    <a href="{{ site.data.url.releases }}" target="_blank" rel="noopener noreferrer"><div><i class="bi bi-box-seam"></i> Releases</div></a>
+                </div>
+                <div class="col-6 col-md-3" style="padding-bottom: 50px;">
+                    <h6>GoDarda</h6>
+                    <a href="about"><div><i class="bi bi-question-circle"></i> About Us</div></a>
+                    <a href="about/faqs"><div><i class="bi bi-star"></i> FAQs</div></a>
+                    <a href="shubhamrdarda"><div><i class="bi bi-person-square"></i> Meet Architect</div></a>
+                </div>
+                <div class="col-6 col-md-3" style="padding-bottom: 50px;">
+                    <h6>Social Handles</h6>
+                    <a href="{{ site.data.url.linkedin }}" target="_blank" rel="noopener noreferrer"><div><i class="bi bi-linkedin"></i> LinkedIn</div></a>
+                    <a href="{{ site.data.url.github }}" target="_blank" rel="noopener noreferrer"><div><i class="bi bi-github"></i> GitHub</div></a>
+                    <a href="{{ site.data.url.discord }}" target="_blank" rel="noopener noreferrer"><div><i class="bi bi-discord"></i> Discord</div></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </footer>
+
+    <footer id="webCopyright" class="{% if flag == 'block_webfooter' %}fixed-bottom{% endif %}">
+        <div class="d-flex justify-content-between copyright-footer">
+            <small>&copy; {% assign current_year = 'now' | date: '%Y' %}{{ current_year }} {{ site.title }}.</small>
+            <div>
+                <a href="about/terms" class="me-3"><small>Terms</small></a><a href="about/privacy"><small>Privacy</small></a>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<div class="modal fade" id="appmodal" data-bs-backdrop="static" data-bs-keyboard="false"
+    aria-labelledby="appmodalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="appmodalLabel"><i class="bi bi-android2"></i> GoDarda Android App</h5>
+            </div>
+            <div class="modal-body">Thank you for your interest in the GoDarda Android app!<br>We're preparing for our
+                official launch on the Google Play Store, but you can get early access now by installing the app
+                manually. Would you like to download the APK?<br><b>Minimum Requirement:</b> Android 11<br><b>Note:</b>
+                The app requires microphone access for voice search.</div>
+            <div class="modal-footer justify-content-center">
+                <a style="cursor: pointer;" class="btn btn-sm btn-outline-danger" data-bs-dismiss="modal"><i class="bi bi-cloud-slash"></i> No</a>
+                <a href="{{ site.data.url.android_app }}" class="btn btn-sm btn-outline-success"
+                    onclick="$('#appmodal').modal('hide');"><i class="bi bi-cloud-arrow-down"></i> Yes</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function setupWebAppView() {
+    const rsidebar = document.getElementById("rsidebar");
+    if (rsidebar) { rsidebar.removeAttribute("style"); }
+
+    const webFooterContainer = document.getElementById("web-footer-container");
+    const webfooter = document.getElementById("isWebsite");
+    const webCopyright = document.getElementById("webCopyright");
+    const backToTop = document.getElementById("backtotop");
+
+    if (webFooterContainer) {
+        webFooterContainer.style.display = "block";
+        if (webfooter && webfooter.classList.contains("block_webfooter")) { webfooter.style.display = "none"; }
+    }
+
+    // If the copyright footer is fixed (Home Page), add extra margin to the Back to Top button
+    if (webCopyright && webCopyright.classList.contains("fixed-bottom") && backToTop) {
+        backToTop.style.marginBottom = "70px";
+    }
+}
+
+window.addEventListener('DOMContentLoaded', () => { if (!window.isGoDardaApp) setupWebAppView(); });
+
+</script>

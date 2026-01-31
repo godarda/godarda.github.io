@@ -1,0 +1,16 @@
+segments:
+- title: Calculators
+  url: calculators
+  parent: "Calculators"
+
+- title: Converters
+  url: converters
+  parent: "Converters"
+
+- title: Generators
+  url: generators
+  parent: "Generators"
+
+- title: Utilities
+  url: utilities
+  parent: "Utilities"
