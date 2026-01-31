@@ -1,4 +1,3 @@
-gdizhat
 gdyszgl
 gdsdiad
 gdvmeeo
@@ -4952,6 +4951,7 @@ gdldvld - pages/tools/calculators/common/gdldvld.html
 gdpklzu - pages/tools/calculators/common/gdpklzu.html
 gdzoyew - pages/tools/calculators/common/gdzoyew.html
 gdzzvvv - pages/tools/calculators/common/gdzzvvv.html
+gdizhat - pages/tools/calculators/scientific/gdizhat.html
 gdeggcz - pages/tools/converters/algorithm/gdeggcz.html
 gddvtyy - pages/tools/converters/common/gddvtyy.html
 gdegcwx - pages/tools/converters/common/gdegcwx.html
