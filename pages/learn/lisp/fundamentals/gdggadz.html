@@ -8,47 +8,56 @@ title: Maxima Command Line Interface (CLI)
 <span><pre>
 godarda@gd:~$ <mark>maxima</mark>
 ...
+<comment># Calculate the factorial of 50</comment>
 (%i1) <mark>50!;</mark>
 (%o1)  30414093201713378043612608166064768844377641568960512000000000000
 
+<comment># Calculate 2 to the power of 64</comment>
 (%i2) <mark>2^64;</mark>
 (%o2)                        18446744073709551616
 
+<comment># Define a function f(x)</comment>
 (%i3) <mark>f(x):=x^8;</mark>
                                            8
 (%o3)                             f(x) := x
 
+<comment># Evaluate f(10)</comment>
 (%i4) <mark>f(10);</mark>
 (%o4)                              100000000
 
+<comment># Evaluate f(5)</comment>
 (%i5) <mark>f(5);</mark>
 (%o5)                               390625
 
+<comment># Calculate the sine of pi/3</comment>
 (%i6) <mark>sin(%pi/3);</mark>
                                     sqrt(3)
 (%o6)                               -------
                                        2
 
+<comment># Factor the polynomial</comment>
 (%i7) <mark>factor(x^2+x-20);</mark>
 (%o7)                           (x - 4) (x + 5)
 </pre></span>
 
 <div class="terminalcard">Units</div>
 <span><pre>
+<comment># Load the unit package</comment>
 (%i8) <mark>load(unit);</mark>
-******************************************************************* 
-*                       Units version 0.50                        * 
-*          Definitions based on the NIST Reference on             * 
-*              Constants, Units, and Uncertainty                  * 
-*       Conversion factors from various sources including         * 
-*                   NIST and the GNU units package                * 
-******************************************************************* 
- 
-Redefining necessary functions... 
-Initializing unit arrays... 
-Done. 
+*******************************************************************
+*                       Units version 0.50                        *
+*          Definitions based on the NIST Reference on             *
+*              Constants, Units, and Uncertainty                  *
+*       Conversion factors from various sources including         *
+*                   NIST and the GNU units package                *
+*******************************************************************
+
+Redefining necessary functions...
+Initializing unit arrays...
+Done.
 (%o8)        /usr/share/maxima/5.41.0/share/contrib/unit/unit.mac
 
+<comment># Check definitions of derived units</comment>
 (%i9) <mark>[N,Pa,J,W,C,V,F];</mark>
                                   2      2           2   2  4
                   kg m   kg   kg m   kg m        kg m   A  s
@@ -56,6 +65,7 @@ Done.
                     2      2    2      3            3       2
                    s    m s    s      s          A s    kg m
 
+<comment># Check definitions of derived units</comment>
 (%i10) <mark>[Ohm,T,H,lm,lx];</mark>
                               2            2
                           kg m    kg   kg m       cd
@@ -63,11 +73,13 @@ Done.
                            2  3     2   2  2       2
                           A  s   A s   A  s       m
 
+<comment># Calculate force from mass and acceleration</comment>
 (%i11) <mark>mass:5*kg $ acc:1.8*m/s^2 $ force:mass*acc;</mark>
                                        kg m
 (%o13)                            (9) (----)
                                          2
                                         s
+<comment># Calculate kinetic energy</comment>
 (%i14) <mark>mass:15*kg $ velocity:5*m/s $ KE=0.5*mass*velocity^2;</mark>
                                                2
                                            kg m
@@ -75,17 +87,21 @@ Done.
                                              2
                                             s
 
+<comment># Set preferred units for output</comment>
 (%i17) <mark>setunits([N,J]);</mark>
 (%o17)                               done
 
+<comment># Calculate using preferred units</comment>
 (%i18) <mark>[(5*kg)*(26.8*m/s^2),(1.5*N)*(3*m)];</mark>
                                           9
 (%o18)                       [(134) (N), (-) (J)]
                                           2
 
+<comment># Forget preferred units</comment>
 (%i19) <mark>uforget([N,J]);</mark>
 (%o19)                          [false, false]
 
+<comment># Calculate showing base units</comment>
 (%i20) <mark>[(5*kg)*(26.8*m/s^2),(1.5*N)*(3*m)];</mark>
                                                    2
                                    kg m    9   kg m

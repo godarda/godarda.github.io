@@ -7,6 +7,7 @@ title: MySQL WHERE Clause
 
 <div class="terminalcard">Selecting specific records</div>
 <span><pre>
+<comment># List all databases</comment>
 mysql> <mark>SHOW DATABASES;</mark>
 +--------------------+
 | Database           |
@@ -19,9 +20,11 @@ mysql> <mark>SHOW DATABASES;</mark>
 +--------------------+
 5 rows in set (0.00 sec)
 
+<comment># Switch to the DB database</comment>
 mysql> <mark>USE DB;</mark>
 Database changed
 
+<comment># List all tables</comment>
 mysql> <mark>SHOW TABLES;</mark>
 +--------------+
 | Tables_in_DB |
@@ -30,6 +33,7 @@ mysql> <mark>SHOW TABLES;</mark>
 +--------------+
 1 row in set (0.01 sec)
 
+<comment># Retrieve all records from holders</comment>
 mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 | account_no  | name          | city    | dob        | bank     | amount |
@@ -44,14 +48,16 @@ mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 7 rows in set (0.00 sec)
 
+<comment># Select records where city is Mumbai</comment>
 mysql> <mark>SELECT * FROM holders WHERE city = 'Mumbai';</mark>
 +------------+-------------+--------+------------+------+--------+
 | account_no | name        | city   | dob        | bank | amount |
 +------------+-------------+--------+------------+------+--------+
 | 2562348992 | Ryan Bakshi | Mumbai | 1982-01-14 | Citi |  50000 |
 +------------+-------------+--------+------------+------+--------+
-1 row in set (0.01 sec) 
+1 row in set (0.01 sec)
 
+<comment># Select record by account number</comment>
 mysql> <mark>SELECT * FROM holders WHERE account_no = 25622348995;</mark>
 +-------------+-------------+------+------------+------+--------+
 | account_no  | name        | city | dob        | bank | amount |
@@ -60,6 +66,7 @@ mysql> <mark>SELECT * FROM holders WHERE account_no = 25622348995;</mark>
 +-------------+-------------+------+------------+------+--------+
 1 row in set (0.00 sec)
 
+<comment># Select records with amount >= 50000</comment>
 mysql> <mark>SELECT * FROM holders WHERE amount >= 50000;</mark>
 +-------------+---------------+--------+------------+-------+--------+
 | account_no  | name          | city   | dob        | bank  | amount |
@@ -74,6 +81,7 @@ mysql> <mark>SELECT * FROM holders WHERE amount >= 50000;</mark>
 
 <div class="terminalcard">Using IS NULL and IS NOT NULL conditions</div>
 <span><pre>
+<comment># Select records where city is NULL</comment>
 mysql> <mark>SELECT *  FROM holders WHERE city IS NULL;</mark>
 +-------------+-------------+------+------------+------+--------+
 | account_no  | name        | city | dob        | bank | amount |
@@ -82,6 +90,7 @@ mysql> <mark>SELECT *  FROM holders WHERE city IS NULL;</mark>
 +-------------+-------------+------+------------+------+--------+
 1 row in set (0.00 sec)
 
+<comment># Select records where city is NOT NULL</comment>
 mysql> <mark>SELECT *  FROM holders WHERE city IS NOT NULL;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 | account_no  | name          | city    | dob        | bank     | amount |

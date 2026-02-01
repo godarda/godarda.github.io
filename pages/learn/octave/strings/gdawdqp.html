@@ -7,33 +7,42 @@ title: Octave strings comparison
 <span><pre>
 godarda@gd:~$ <mark>octave</mark>
 ...
+<comment># Create a string variable</comment>
 octave> <mark>gd = "GoDarda"</mark>
 gd = GoDarda
 
+<comment># Compare two strings for equality</comment>
 octave> <mark>strcmp(gd, "GoDarda")</mark>
 ans = 1
 
-octave> <mark>strcmp(gd, "KODINGWINDOW")</mark>
+<comment># Compare strings case-sensitively</comment>
+octave> <mark>strcmp(gd, "GODARDA")</mark>
 ans = 0
 
-octave> <mark>strncmp(gd, "Koding", 6)</mark>
+<comment># Compare the first n characters of strings</comment>
+octave> <mark>strncmp(gd, "Go", 2)</mark>
 ans = 1
 
+<comment># Compare strings ignoring case</comment>
 octave> <mark>strcmpi("GD#12","gd#12")</mark>
 ans = 1
 
 octave> <mark>strcmpi("GD#12","gd#21")</mark>
 ans = 0
 
+<comment># Compare the first n characters ignoring case</comment>
 octave> <mark>strncmpi("GD#12","gd",2)</mark>
 ans = 1
 
-octave> <mark>strrep(gd, "in", "#")</mark>
-ans = Kod#gw#dow
+<comment># Replace occurrences of a substring</comment>
+octave> <mark>strrep(gd, "a", "#")</mark>
+ans = GoD#rd#
 
+<comment># Check if the variable is a string</comment>
 octave> <mark>ischar(gd)</mark>
 ans = 1
 
+<comment># Compare strings character by character</comment>
 octave> <mark>a="Hello"</mark>
 a = Hello
 

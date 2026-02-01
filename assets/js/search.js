@@ -476,7 +476,7 @@
 
                 // Performance: Build a single HTML string instead of creating DOM nodes in a loop.
                 const html = displayed.map(r => {
-                    return `<a class="codecard card" href="${r.href}" style="display:block; margin-bottom:6px;">${buildHighlighted(r, qtrim, tokens, r.type)}</a>`;
+                    return `<a class="codecard card" href="${r.href}" data-category="${r.category}" style="display:block; margin-bottom:6px;">${buildHighlighted(r, qtrim, tokens, r.type)}</a>`;
                 }).join('');
 
                 // Batch the DOM update using requestAnimationFrame for smoother rendering.

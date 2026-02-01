@@ -6,17 +6,20 @@ title: Linux commands to display the system processes information
 <div class="titlecard">{{ page.title }}</div>
 <div class="terminalcard">ps command</div>
 <span><pre>
+<comment># Report a snapshot of current processes</comment>
 godarda@gd:~$ <mark>ps</mark>
     PID TTY          TIME CMD
    3368 pts/0    00:00:00 bash
    3372 pts/0    00:00:00 ps
 
+<comment># View all running processes</comment>
 godarda@gd:~$ <mark>ps -a</mark>
     PID TTY          TIME CMD
    2377 tty2     00:00:08 Xorg
    2417 tty2     00:00:00 gnome-session-b
    3373 pts/0    00:00:00 ps
 
+<comment># View all running processes with user</comment>
 godarda@gd:~$ <mark>ps -aux</mark>
 USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 root           1  0.5  0.1 167952 11684 ?        Ss   18:24   0:01 /sbin/init sp
@@ -32,12 +35,13 @@ root        3380  0.0  0.0  24724  5840 ?        S    18:30   0:00 /lib/systemd/
 root        3579  0.0  0.0   9492  3348 ?        S    18:30   0:00 /bin/bash /et
 root        3585  0.0  0.0   8272   776 ?        S    18:30   0:00 flock --nonbl
 root        3586  4.5  0.0   8168  2328 ?        DN   18:30   0:00 /usr/bin/upda
-kodingw+    3587  0.0  0.0  11888  3724 pts/0    R+   18:30   0:00 ps -aux
+godarda     3587  0.0  0.0  11888  3724 pts/0    R+   18:30   0:00 ps -aux
 godarda@gd:~$ <mark>
 </pre></span>
 
 <div class="terminalcard">Extract specific columns</div>
 <span><pre>
+<comment># View all processes</comment>
 godarda@gd:~$ <mark>ps -e</mark>
     PID TTY          TIME CMD
       1 ?        00:00:02 systemd
@@ -50,6 +54,7 @@ godarda@gd:~$ <mark>ps -e</mark>
       9 ?        00:00:00 mm_percpu_wq
      10 ?        00:00:00 ksoftirqd/0
 
+<comment># View specific columns</comment>
 godarda@gd:~$ <mark>ps -eo pid,ppid,ni</mark>
     PID    PPID  NI
       1       0   0
@@ -64,31 +69,36 @@ godarda@gd:~$ <mark>ps -eo pid,ppid,ni</mark>
 
 <div class="terminalcard">Sort processes based on column attributes</div>
 <span><pre>
+<comment># Sort processes by user</comment>
 godarda@gd:~$ <mark>ps aux --sort user</mark>
 USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 avahi        949  0.0  0.0   8808  3676 ?        Ss   18:25   0:00 avahi-daemon:
 avahi       1003  0.0  0.0   8544   356 ?        S    18:25   0:00 avahi-daemon:
-kodingw+    2286  0.0  0.1  19472 10760 ?        Ss   18:26   0:00 /lib/systemd/
-kodingw+    2287  0.0  0.0 169324  3816 ?        S    18:26   0:00 (sd-pam)
-kodingw+    2300  0.0  0.2 2268840 19676 ?       S&lt;sl 18:27   0:00 /usr/bin/puls
-kodingw+    2302  0.0  0.3 511384 24320 ?        SNsl 18:27   0:00 /usr/libexec/
-kodingw+    2305  0.0  0.0   8452  5624 ?        Ss   18:27   0:00 /usr/bin/dbus
-kodingw+    2310  0.0  0.0 240184  7716 ?        Sl   18:27   0:00 /usr/bin/gnom
-kodingw+    2325  0.0  0.0 239696  7820 ?        Ssl  18:27   0:00 /usr/libexec/
+godarda     2286  0.0  0.1  19472 10760 ?        Ss   18:26   0:00 /lib/systemd/
+godarda     2287  0.0  0.0 169324  3816 ?        S    18:26   0:00 (sd-pam)
+godarda     2300  0.0  0.2 2268840 19676 ?       S&lt;sl 18:27   0:00 /usr/bin/puls
+godarda     2302  0.0  0.3 511384 24320 ?        SNsl 18:27   0:00 /usr/libexec/
+godarda     2305  0.0  0.0   8452  5624 ?        Ss   18:27   0:00 /usr/bin/dbus
+godarda     2310  0.0  0.0 240184  7716 ?        Sl   18:27   0:00 /usr/bin/gnom
+godarda     2325  0.0  0.0 239696  7820 ?        Ssl  18:27   0:00 /usr/libexec/
 </pre></span>
 
 <div class="terminalcard">Extract specific process</div>
 <span><pre>
+<comment># Filter specific process</comment>
 godarda@gd:~$ <mark>ps -aux | grep mysql</mark>
 mysql       1172  1.1  4.4 2120856 352952 ?      Ssl  18:25   0:04 /usr/sbin/mysqld
-kodingw+    3607  0.0  0.0   8900   724 pts/0    S+   18:32   0:00 grep mysql
+godarda     3607  0.0  0.0   8900   724 pts/0    S+   18:32   0:00 grep mysql
 
+<comment># Look up process ID</comment>
 godarda@gd:~$ <mark>pgrep mysql</mark>
 1172
 
+<comment># List process name and ID</comment>
 godarda@gd:~$ <mark>pgrep -l mysql</mark>
 1172 mysqld
 
+<comment># View process by ID</comment>
 godarda@gd:~$ <mark>ps -lp 1172</mark>
 F S   UID     PID    PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
 4 S   122    1172       1  1  80   0 - 530214 -     ?        00:00:10 mysqld
@@ -96,25 +106,32 @@ F S   UID     PID    PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
 
 <div class="terminalcard">Assign and change the process priority</div>
 <span><pre>
+<comment># Switch to root user</comment>
 godarda@gd:~$ <mark>su</mark>
-Password: 
+Password:
+<comment># View processes in long format</comment>
 root@gd:/home/godarda# <mark> ps -l</mark>
 F S   UID     PID    PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
 4 S     0    4426    4424  0  80   0 -  2875 do_wai pts/0    00:00:00 su
 4 S     0    4427    4426  0  80   0 -  2546 do_wai pts/0    00:00:00 bash
 4 R     0    4440    4427  0  80   0 -  2849 -      pts/0    00:00:00 ps
+<comment># Print current niceness</comment>
 root@gd:/home/godarda# <mark> nice</mark>
 0
+<comment># Run program with modified scheduling priority</comment>
 root@gd:/home/godarda# <mark> nice -n 5 bash</mark>
+<comment># View processes in long format</comment>
 root@gd:/home/godarda# <mark> ps -l</mark>
 F S   UID     PID    PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
 4 S     0    4426    4424  0  80   0 -  2875 do_wai pts/0    00:00:00 su
 4 S     0    4427    4426  0  80   0 -  2546 do_wai pts/0    00:00:00 bash
 0 S     0    4442    4427  0  85   5 -  2545 do_wai pts/0    00:00:00 bash
 4 R     0    4453    4442  0  85   5 -  2849 -      pts/0    00:00:00 ps
+<comment># Alter priority of running process</comment>
 root@gd:/home/godarda# <mark> renice -0 4442</mark>
 4442 (process ID) old priority 5, new priority 0
 
+<comment># View processes in long format</comment>
 root@gd:/home/godarda# <mark> ps -l</mark>
 F S   UID     PID    PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
 4 S     0    4426    4424  0  80   0 -  2875 do_wai pts/0    00:00:00 su
@@ -123,20 +140,23 @@ F S   UID     PID    PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
 4 R     0    4455    4442  0  80   0 -  2849 -      pts/0    00:00:00 ps
 
 
+<comment># Alter priority of running process</comment>
 root@gd:/home/godarda# <mark> renice -21 4442</mark>
 4442 (process ID) old priority 0, new priority -20
 
+<comment># View processes in long format</comment>
 root@gd:/home/godarda# <mark> ps -l</mark>
 F S   UID     PID    PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
 4 S     0    4426    4424  0  80   0 -  2875 do_wai pts/0    00:00:00 su
 4 S     0    4427    4426  0  80   0 -  2546 do_wai pts/0    00:00:00 bash
 0 S     0    4442    4427  0  60 -20 -  2545 do_wai pts/0    00:00:00 bash
 4 R     0    4476    4442  0  60 -20 -  2849 -      pts/0    00:00:00 ps
-root@gd:/home/godarda# <mark> 
+root@gd:/home/godarda# <mark>
 </pre></span>
 
 <div class="terminalcard">pstree command</div>
 <span><pre>
+<comment># Display a tree of processes</comment>
 godarda@gd:~$ <mark>pstree</mark>
 systemd─┬─ModemManager───2*[{ModemManager}]
         ├─NetworkManager───2*[{NetworkManager}]
@@ -161,34 +181,35 @@ systemd─┬─ModemManager───2*[{ModemManager}]
         │             ├─ibus-engine-sim───2*[{ibus-engine-sim}]
         │             ├─ibus-extension-───3*[{ibus-extension-}]
         │             ├─ibus-ui-gtk3───3*[{ibus-ui-gtk3}]
-...  
+...
 </pre></span>
 
 <div class="terminalcard">top command</div>
 <span><pre>
+<comment># Display Linux processes</comment>
 godarda@gd:~$ <mark>top</mark>
 top - 18:38:14 up 13 min,  1 user,  load average: 0.63, 0.87, 0.87
 Tasks: 224 total,   1 running, 223 sleeping,   0 stopped,   0 zombie
 %Cpu(s):  4.7 us,  2.0 sy,  0.0 ni, 93.1 id,  0.0 wa,  0.0 hi,  0.2 si,  0.0 st
 MiB Mem :   7744.8 total,   4550.7 free,   1583.5 used,   1610.6 buff/cache
-MiB Swap:   3815.0 total,   3815.0 free,      0.0 used.   5675.2 avail Mem 
+MiB Swap:   3815.0 total,   3815.0 free,      0.0 used.   5675.2 avail Mem
 
-    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND  
-   3099 kodingw+  20   0 2987604 367320 170248 S   8.0   4.6   0:40.19 MainThr+ 
-   2377 kodingw+  20   0 1143856  87276  54980 S   7.0   1.1   0:32.62 Xorg     
-   2629 kodingw+  20   0 4488208 257140 101068 S   6.0   3.2   0:40.69 gnome-s+ 
-   3357 kodingw+  20   0  962192  51452  39424 S   3.0   0.6   0:08.14 gnome-t+ 
-   3296 kodingw+  20   0 2684072 250256 153392 S   2.0   3.2   0:18.56 Web Con+ 
-    433 root     -51   0       0      0      0 S   1.0   0.0   0:02.03 irq/87-+ 
-      1 root      20   0  167952  11684   8228 S   0.7   0.1   0:02.50 systemd  
-   1172 mysql     20   0 2120856 352952  33540 S   0.7   4.5   0:08.17 mysqld   
-   2506 kodingw+  20   0  311420   7728   6056 S   0.7   0.1   0:03.57 ibus-da+ 
-   3737 kodingw+  20   0   12168   4240   3444 R   0.7   0.1   0:00.14 top      
-      8 root      20   0       0      0      0 I   0.3   0.0   0:01.17 kworker+ 
-   2515 kodingw+  20   0  674584  58852  39052 S   0.3   0.7   0:01.86 ibus-ex+ 
-   2592 kodingw+  20   0  162684   7048   6412 S   0.3   0.1   0:00.99 ibus-en+ 
-   3203 kodingw+  20   0 2765492 248912 139908 S   0.3   3.1   1:08.42 Web Con+ 
-   3610 root      20   0       0      0      0 I   0.3   0.0   0:00.56 kworker+ 
-      2 root      20   0       0      0      0 S   0.0   0.0   0:00.00 kthreadd 
-      3 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 rcu_gp   
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+   3099 godarda   20   0 2987604 367320 170248 S   8.0   4.6   0:40.19 MainThr+
+   2377 godarda   20   0 1143856  87276  54980 S   7.0   1.1   0:32.62 Xorg
+   2629 godarda   20   0 4488208 257140 101068 S   6.0   3.2   0:40.69 gnome-s+
+   3357 godarda   20   0  962192  51452  39424 S   3.0   0.6   0:08.14 gnome-t+
+   3296 godarda   20   0 2684072 250256 153392 S   2.0   3.2   0:18.56 Web Con+
+    433 root     -51   0       0      0      0 S   1.0   0.0   0:02.03 irq/87-+
+      1 root      20   0  167952  11684   8228 S   0.7   0.1   0:02.50 systemd
+   1172 mysql     20   0 2120856 352952  33540 S   0.7   4.5   0:08.17 mysqld
+   2506 godarda   20   0  311420   7728   6056 S   0.7   0.1   0:03.57 ibus-da+
+   3737 godarda   20   0   12168   4240   3444 R   0.7   0.1   0:00.14 top
+      8 root      20   0       0      0      0 I   0.3   0.0   0:01.17 kworker+
+   2515 godarda   20   0  674584  58852  39052 S   0.3   0.7   0:01.86 ibus-ex+
+   2592 godarda   20   0  162684   7048   6412 S   0.3   0.1   0:00.99 ibus-en+
+   3203 godarda   20   0 2765492 248912 139908 S   0.3   3.1   1:08.42 Web Con+
+   3610 root      20   0       0      0      0 I   0.3   0.0   0:00.56 kworker+
+      2 root      20   0       0      0      0 S   0.0   0.0   0:00.00 kthreadd
+      3 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 rcu_gp
 </pre></span>

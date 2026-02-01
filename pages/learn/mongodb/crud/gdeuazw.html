@@ -8,15 +8,18 @@ title: MongoDB Insert the Documents into a Collection
 godarda@gd:~$ <mark>mongosh</mark>
 ...
 
+<comment># List all databases</comment>
 DB> <mark>show dbs</mark>
 DB        8.00 KiB
 admin    40.00 KiB
 config  108.00 KiB
 local    40.00 KiB
 
+<comment># List all collections</comment>
 DB> <mark>db.getCollectionNames()</mark>
 [ "holders" ]
 
+<comment># Insert a single document</comment>
 DB> <mark>db.holders.insertOne(
 ... {
 ... account_no: 2562348989,
@@ -38,6 +41,7 @@ DB> <mark>db.holders.insertOne(
 
 <div class="terminalcard">Insert multiple documents</div>
 <span><pre>
+<comment># Insert multiple documents</comment>
 DB> <mark>db.holders.insertMany([
 ... {
 ... account_no: 2562348990,
@@ -90,18 +94,22 @@ DB> <mark>db.holders.insertMany([
 
 <div class="terminalcard">Show databases and collection info</div>
 <span><pre>
+<comment># List all databases</comment>
 DB> <mark>show databases</mark>
 DB       40.00 KiB
 admin    40.00 KiB
 config  108.00 KiB
 local    40.00 KiB
 
+<comment># Count total documents</comment>
 DB> <mark>db.holders.countDocuments()</mark>
 4
 
+<comment># Estimate total documents</comment>
 DB> <mark>db.holders.estimatedDocumentCount()</mark>
 4
 
+<comment># Get collection details</comment>
 DB> <mark>db.getCollectionInfos()</mark>
 [
   {

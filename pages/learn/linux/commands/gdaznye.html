@@ -6,19 +6,25 @@ title: Linux commands to create and remove the directories/sub-directories
 <div class="titlecard">{{ page.title }}</div>
 <div class="terminalcard">mkdir command with options</div>
 <span><pre>
+<comment># List files in current directory</comment>
 godarda@gd:~$ <mark>ls</mark>
 a.out  gd.cpp   gd.py    Documents  Music     Public     Videos
 gd.c   GD.java  Desktop  Downloads  Pictures  Templates  Weekdays
 
+<comment># Print working directory</comment>
 godarda@gd:~$ <mark>pwd</mark>
 /home/godarda
 
+<comment># Create a new directory</comment>
 godarda@gd:~$ <mark>mkdir Linux</mark>
+<comment># Change directory</comment>
 godarda@gd:~$ <mark>cd Linux/</mark>
 
 godarda@gd:~/Linux$ <mark>pwd</mark>
 /home/godarda/Linux
-<hr>godarda@gd:~/Linux$ <mark>ls</mark>
+<hr>
+godarda@gd:~/Linux$ <mark>ls</mark>
+<comment># Create nested directories (parent directories)</comment>
 godarda@gd:~/Linux$ <mark>mkdir -p Flavours/{Ubuntu/{Ubuntu_18.04,Ubuntu_20.04},Fedora/{Fedora_31,Fedora_32}}</mark>
 godarda@gd:~/Linux$ <mark>ls</mark>
 Flavours
@@ -27,10 +33,12 @@ godarda@gd:~/Linux$ <mark>cd Flavours/Ubuntu/</mark>
 godarda@gd:~/Linux/Flavours/Ubuntu$ <mark>ls</mark>
 Ubuntu_18.04  Ubuntu_20.04
 
+<comment># Go up one directory level</comment>
 godarda@gd:~/Linux/Flavours/Ubuntu$ <mark>cd ..</mark>
 godarda@gd:~/Linux/Flavours$ <mark>ls</mark>
 Fedora  Ubuntu
 
+<comment># Create directory with specific permissions</comment>
 godarda@gd:~/Linux/Flavours$ <mark>mkdir -m a=r KaliLinux</mark>
 godarda@gd:~/Linux/Flavours$ <mark>ls</mark>
 Fedora  KaliLinux  Ubuntu
@@ -41,6 +49,7 @@ drwxrwxr-x 4 godarda godarda 4096 Jun 13 12:03 Fedora
 dr--r--r-- 2 godarda godarda 4096 Jun 13 12:04 KaliLinux
 drwxrwxr-x 4 godarda godarda 4096 Jun 13 12:03 Ubuntu
 
+<comment># Create directories with verbose output</comment>
 godarda@gd:~/Linux/Flavours$ <mark>mkdir -v CentOS LinuxMint</mark>
 mkdir: created directory 'CentOS'
 mkdir: created directory 'LinuxMint'
@@ -51,24 +60,28 @@ CentOS  Fedora  KaliLinux  LinuxMint  Ubuntu
 
 <div class="terminalcard">rmdir command with options</div>
 <span><pre>
+<comment># Remove an empty directory</comment>
 godarda@gd:~/Linux/Flavours$ <mark>rmdir CentOS/</mark>
 godarda@gd:~/Linux/Flavours$ <mark>ls</mark>
 Fedora  KaliLinux  LinuxMint  Ubuntu
 
+<comment># Remove a directory recursively</comment>
 godarda@gd:~/Linux/Flavours$ <mark>rm -r KaliLinux/</mark>
 rm: remove write-protected directory 'KaliLinux/'? y
 
 godarda@gd:~/Linux/Flavours$ <mark>ls</mark>
 Fedora LinuxMint Ubuntu
 
+<comment># Return to home directory</comment>
 godarda@gd:~/Linux/Flavours$ <mark>cd</mark>
 godarda@gd:~$ <mark>ls</mark>
 a.out  gd.cpp   gd.py    Documents  Linux  Pictures  Templates  Weekdays
 gd.c   GD.java  Desktop  Downloads  Music  Public    Videos
 
+<comment># Force remove a directory recursively</comment>
 godarda@gd:~$ <mark>rm -rf Linux/</mark>
 godarda@gd:~$ <mark>ls</mark>
 a.out  gd.cpp   gd.py    Documents  Music     Public     Videos
 gd.c   GD.java  Desktop  Downloads  Pictures  Templates  Weekdays
-godarda@gd:~$ 
+godarda@gd:~$
 </pre></span>

@@ -8,15 +8,18 @@ title: MongoDB Projection (limiting and sorting data)
 godarda@gd:~$ <mark>mongosh</mark>
 ...
 
+<comment># List all databases</comment>
 DB> <mark>show dbs</mark>
 DB       72.00 KiB
 admin    40.00 KiB
 config  108.00 KiB
 local    40.00 KiB
 
+<comment># List all collections</comment>
 DB> <mark>db.getCollectionNames()</mark>
 [ "holders" ]
 
+<comment># Projection to include specific fields</comment>
 DB> <mark>db.holders.find({},{name:1,city:1,_id:0})</mark>
 [
   { name: 'James Moore', city: 'Phoenix' },
@@ -28,6 +31,7 @@ DB> <mark>db.holders.find({},{name:1,city:1,_id:0})</mark>
 
 <div class="terminalcard">{{ page.title }} - limit() and skip() methods</div>
 <span><pre>
+<comment># Limit the result set</comment>
 DB> <mark>db.holders.find({},{account_no: 2562348989,city: 'Irvine'}).limit(2)</mark>
 [
   {
@@ -42,6 +46,7 @@ DB> <mark>db.holders.find({},{account_no: 2562348989,city: 'Irvine'}).limit(2)</
   }
 ]
 
+<comment># Skip and limit the result set</comment>
 DB> <mark>db.holders.find({},{account_no: 2562348989,city: 'Irvine'}).limit(2).skip(1)</mark>
 [
   {
@@ -59,6 +64,7 @@ DB> <mark>db.holders.find({},{account_no: 2562348989,city: 'Irvine'}).limit(2).s
 
 <div class="terminalcard">City names are in ascending order</div>
 <span><pre>
+<comment># Sort by city in ascending order</comment>
 DB> <mark>db.holders.find().sort({city: 1})</mark>
 [
   {
@@ -106,6 +112,7 @@ DB> <mark>db.holders.find().sort({city: 1})</mark>
 
 <div class="terminalcard">Account numbers are in descending order</div>
 <span><pre>
+<comment># Sort by account_no in descending order</comment>
 DB> <mark>db.holders.find().sort({account_no: -1})</mark>
 [
   {

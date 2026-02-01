@@ -8,36 +8,49 @@ title: Python Mathematical Functions
 godarda@gd:~$ <mark>python3</mark>
 ...
 >>> <mark>import math</mark>
+<comment># Get the value of pi</comment>
 >>> <mark>math.pi</mark>
 3.141592653589793
 
+<comment># Get the value of Euler's number</comment>
 >>> <mark>math.e</mark>
 2.718281828459045
 
+<comment># Exponential function e^x</comment>
 >>> <mark>math.exp(1)</mark>
 2.718281828459045
 
+<comment># Positive infinity constant</comment>
 >>> <mark>math.inf</mark>
 inf
 
+<comment># Not a Number (NaN) constant</comment>
 >>> <mark>math.nan</mark>
 nan
-<hr>>>> <mark>math.factorial(10)</mark>
+<hr>
+<comment># Calculate factorial</comment>
+>>> <mark>math.factorial(10)</mark>
 3628800
 
+<comment># Floating point remainder</comment>
 >>> <mark>math.fmod(7,3)</mark>
 1.0
 
 >>> <mark>math.fmod(10.5,3.5)</mark>
 0.0
 
+<comment># Accurate floating point sum</comment>
 >>> <mark>math.fsum([1,1.1,3.14])</mark>
 5.24
 
+<comment># Split into fractional and integer parts</comment>
 >>> <mark>math.modf(10.5)</mark>
 (0.5, 10.0)
-<hr>>>> <mark>math.gcd(18,21)</mark>
+<hr>
+<comment># Greatest Common Divisor (GCD)</comment>
+>>> <mark>math.gcd(18,21)</mark>
 3
+<comment># Least Common Multiple (LCM)</comment>
 >>> <mark>math.lcm(24,36)</mark>
 72
 </pre></span>
@@ -45,15 +58,19 @@ nan
 <div class="terminalcard">Logarithm functions</div>
 <span><pre>
 >>> <mark>import math</mark>
+<comment># Natural logarithm (base e)</comment>
 >>> <mark>math.log(2)</mark>
 0.6931471805599453
 
+<comment># Base-10 logarithm</comment>
 >>> <mark>math.log10(2)</mark>
 0.3010299956639812
 
+<comment># Base-2 logarithm</comment>
 >>> <mark>math.log2(2)</mark>
 1.0
 
+<comment># Logarithm with specific base</comment>
 >>> <mark>math.log(2,10)</mark>
 0.30102999566398114
 
@@ -64,24 +81,29 @@ nan
 <div class="terminalcard">sqrt(), cbrt() and pow() functions</div>
 <span><pre>
 >>> <mark>import math</mark>
+<comment># Square root</comment>
 >>> <mark>math.sqrt(25)</mark>
 5.0
 
 >>> <mark>math.sqrt(20)</mark>
 4.47213595499958
 
+<comment># Cube root</comment>
 >>> <mark>math.cbrt(27)</mark>
 3.0000000000000004
 
+<comment># Power function</comment>
 >>> <mark>math.pow(2,10)</mark>
 1024.0
 
+<comment># Power operator</comment>
 >>> <mark>2**10</mark>
 1024
 </pre></span>
 
 <div class="terminalcard">round(), floor(), ceil() and trunc() functions</div>
 <span><pre>
+<comment># Round float to nearest integer</comment>
 >>> <mark>round(2.3)</mark>
 2
 
@@ -93,12 +115,16 @@ nan
 
 >>> <mark>round(-2.8)</mark>
 -3
-<hr>>>> <mark>abs(2.3)</mark>
+<hr>
+<comment># Absolute value</comment>
+>>> <mark>abs(2.3)</mark>
 2.3
 
 >>> <mark>abs(-2.3)</mark>
 2.3
-<hr>>>> <mark>import math</mark>
+<hr>
+<comment># Floor: largest integer <= x</comment>
+>>> <mark>import math</mark>
 >>> <mark>math.floor(2.3)</mark>
 2
 
@@ -110,7 +136,9 @@ nan
 
 >>> <mark>math.floor(-2.8)</mark>
 -3
-<hr>>>> <mark>math.ceil(2.3)</mark>
+<hr>
+<comment># Ceil: smallest integer >= x</comment>
+>>> <mark>math.ceil(2.3)</mark>
 3
 
 >>> <mark>math.ceil(2.8)</mark>
@@ -121,7 +149,9 @@ nan
 
 >>> <mark>math.ceil(-2.8)</mark>
 -2
-<hr>>>> <mark>math.trunc(2.3)</mark>
+<hr>
+<comment># Truncate to integer</comment>
+>>> <mark>math.trunc(2.3)</mark>
 2
 
 >>> <mark>math.trunc(2.8)</mark>
@@ -132,7 +162,9 @@ nan
 
 >>> <mark>math.trunc(-2.8)</mark>
 -2
-<hr>>>> <mark>math.fabs(2.3)</mark>
+<hr>
+<comment># Absolute value as float</comment>
+>>> <mark>math.fabs(2.3)</mark>
 2.3
 
 >>> <mark>math.fabs(-2.3)</mark>
@@ -141,30 +173,38 @@ nan
 
 <div class="terminalcard">Explicit type conversion using int() and float() functions</div>
 <span><pre>
+<comment># Convert float to int</comment>
 >>> <mark>int(7.99)</mark>
 7
 
+<comment># Convert int to float</comment>
 >>> <mark>float(7)</mark>
 7.0
 
+<comment># Convert string to integer</comment>
 >>> <mark>a=int('10')</mark>
 >>> <mark>b=int('20')</mark>
 >>> <mark>c=a+b</mark>
 >>> <mark>c</mark>
 30
-<hr>>>> <mark>float('inf')</mark>
+<hr>
+<comment># Infinity constant</comment>
+>>> <mark>float('inf')</mark>
 inf
 
+<comment># Not a Number (NaN) constant</comment>
 >>> <mark>float('nan')</mark>
 nan
 
 >>> <mark>import math</mark>
+<comment># Check for infinity</comment>
 >>> <mark>math.isinf(0)</mark>
 False
 
 >>> <mark>math.isinf(float('inf'))</mark>
 True
 
+<comment># Check for NaN</comment>
 >>> <mark>math.isnan(float('nan'))</mark>
 True
 </pre></span>
@@ -172,36 +212,50 @@ True
 <div class="terminalcard">Number conversion using int(), bin(), oct(), and hex() functions</div>
 <span><pre>
 >>> <mark>n=255</mark>
+<comment># Convert to binary string</comment>
 >>> <mark>print("Binary",bin(n))</mark>
 Binary 0b11111111
 
+<comment># Convert to octal string</comment>
 >>> <mark>print("Octal",oct(n))</mark>
 Octal 0o377
 
+<comment># Convert to hexadecimal string</comment>
 >>> <mark>print("Hexadecimal",hex(n))</mark>
 Hexadecimal 0xff
-<hr>>>> <mark>n="11111111"</mark>
+<hr>
+<comment># Convert binary string to decimal</comment>
+>>> <mark>n="11111111"</mark>
 >>> <mark>print("Decimal",int(n,2))</mark>
 Decimal 255
 
+<comment># Convert binary string to octal</comment>
 >>> <mark>print("Octal",oct(int(n,2)))</mark>
 Octal 0o377
 
+<comment># Convert binary string to hexadecimal</comment>
 >>> <mark>print("Hexadecimal",hex(int(n,2)))</mark>
 Hexadecimal 0xff
-<hr>>>> <mark>n=0o377</mark>
+<hr>
+<comment># Convert octal string to decimal</comment>
+>>> <mark>n=0o377</mark>
 >>> <mark>print("Decimal",int(n))</mark>
 Decimal 255
 
+<comment># Convert octal string to hexadecimal</comment>
 >>> <mark>print("Hexadecimal",hex(n))</mark>
 Hexadecimal 0xff
-<hr>>>> <mark>n=0Xff</mark>
+<hr>
+<comment># Convert hexadecimal string to decimal</comment>
+>>> <mark>n=0Xff</mark>
 >>> <mark>print("Decimal",int(n))</mark>
 Decimal 255
 
+<comment># Convert hexadecimal string to octal</comment>
 >>> <mark>print("Octal",oct(n))</mark>
 Octal 0o377
 
+<comment># Convert hexadecimal string to binary</comment>
 >>> <mark>print("Binary",bin(n))</mark>
 Binary 0b11111111
 </pre></span>

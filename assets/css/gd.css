@@ -1,19 +1,4 @@
-@media(min-width: 767px) {
-    img#logo {
-        width: 40px;
-        height: 40px;
-        border-radius: 5px;
-    }
-}
-
 @media (max-width: 767.98px) {
-    img#logo {
-        margin: -4px 0px 0px 0px;
-        width: 35px;
-        height: 35px;
-        border-radius: 5px;
-    }
-
     div.navbar-brand {
         margin-left: 40px;
         position: fixed;

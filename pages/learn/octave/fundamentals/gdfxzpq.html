@@ -7,57 +7,71 @@ title: Octave Arithmetic Operations
 <span><pre>
 godarda@gd:~$ <mark>octave</mark>
 ...
+<comment># Addition</comment>
 octave> <mark>10+20</mark>
 ans = 30
 
+<comment># Subtraction</comment>
 octave> <mark>10-20</mark>
 ans = -10
 
+<comment># Multiplication</comment>
 octave> <mark>10*20</mark>
 ans = 200
 
+<comment># Division</comment>
 octave> <mark>10/20</mark>
 ans = 0.5000
 
+<comment># Exponentiation</comment>
 octave> <mark>2^10</mark>
 ans = 1024
 
+<comment># Modulo operation</comment>
 octave> <mark>mod(-7,4)</mark>
 ans = 1
 
 octave> <mark>mod(7,4)</mark>
 ans = 3
 
+<comment># Remainder after division</comment>
 octave> <mark>rem(-7,4)</mark>
 ans = -3
 </pre></span>
 
 <div class="terminalcard">Arithmetic operations on complex numbers</div>
 <span><pre>
+<comment># Add complex numbers directly</comment>
 octave> <mark>complex(4+5j)+complex(2+6j)</mark>
 ans =   6 + 11i
-    
+
+<comment># Define complex variables</comment>
 octave> <mark>c1=4+5j</mark>
 c1 =  4 + 5i
 
 octave> <mark>c2=2+6j</mark>
 c2 =  2 + 6i
 
+<comment># Add complex variables</comment>
 octave> <mark>c1+c2</mark>
 ans =   6 + 11i
 
+<comment># Subtract complex variables</comment>
 octave> <mark>c1-c2</mark>
 ans =  2 - 1i
 
+<comment># Multiply complex variables</comment>
 octave> <mark>c1*c2</mark>
 ans = -22 + 34i
 
+<comment># Divide complex variables</comment>
 octave> <mark>c1/c2</mark>
 ans =  0.9500 - 0.3500i
 </pre></span>
 
 <div class="terminalcard">round(), floor(), ceil() and fix() functions</div>
 <span><pre>
+<comment># Round to nearest integer</comment>
 octave> <mark>round(2.3)</mark>
 ans = 2
 
@@ -69,7 +83,9 @@ ans = -2
 
 octave> <mark>round(-2.8)</mark>
 ans = -3
-<hr>octave> <mark>floor(2.3)</mark>
+<hr>
+<comment># Round down to nearest integer</comment>
+octave> <mark>floor(2.3)</mark>
 ans = 2
 
 octave> <mark>floor(2.8)</mark>
@@ -80,7 +96,9 @@ ans = -3
 
 octave> <mark>floor(-2.8)</mark>
 ans = -3
-<hr>octave> <mark>ceil(2.3)</mark>
+<hr>
+<comment># Round up to nearest integer</comment>
+octave> <mark>ceil(2.3)</mark>
 ans = 3
 
 octave> <mark>ceil(2.8)</mark>
@@ -91,7 +109,9 @@ ans = -2
 
 octave> <mark>ceil(-2.8)</mark>
 ans = -2
-<hr>octave> <mark>fix(2.3)</mark>
+<hr>
+<comment># Round towards zero</comment>
+octave> <mark>fix(2.3)</mark>
 ans = 2
 
 octave> <mark>fix(2.8)</mark>
@@ -101,5 +121,5 @@ octave> <mark>fix(-2.3)</mark>
 ans = -2
 
 octave> <mark>fix(-2.8)</mark>
-ans = -2    
+ans = -2
 </pre></span>

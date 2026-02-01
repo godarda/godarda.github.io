@@ -7,6 +7,7 @@ title: Octave Logical Operations
 <span><pre>
 godarda@gd:~$ <mark>octave</mark>
 ...
+<comment># Logical OR with numbers</comment>
 octave> <mark>1 | 1</mark>
 ans = 1
 
@@ -18,7 +19,9 @@ ans = 1
 
 octave> <mark>0 | 0</mark>
 ans = 0
-<hr>octave> <mark>true | true</mark>
+<hr>
+<comment># Logical OR with booleans</comment>
+octave> <mark>true | true</mark>
 ans = 1
 
 octave> <mark>true | false</mark>
@@ -29,7 +32,9 @@ ans = 1
 
 octave> <mark>false | false</mark>
 ans = 0
-<hr>octave> <mark>1 & 1</mark>
+<hr>
+<comment># Logical AND with numbers</comment>
+octave> <mark>1 & 1</mark>
 ans = 1
 
 octave> <mark>1 & 0</mark>
@@ -40,7 +45,9 @@ ans = 0
 
 octave> <mark>0 & 0</mark>
 ans = 0
-<hr>octave> <mark>true & true</mark>
+<hr>
+<comment># Logical AND with booleans</comment>
+octave> <mark>true & true</mark>
 ans = 1
 
 octave> <mark>true & false</mark>
@@ -51,7 +58,9 @@ ans = 0
 
 octave> <mark>false & false</mark>
 ans = 0
-<hr>octave> <mark>true+true</mark>
+<hr>
+<comment># Arithmetic operations with booleans</comment>
+octave> <mark>true+true</mark>
 ans = 2
 
 octave> <mark>false-true</mark>
@@ -62,7 +71,9 @@ ans = 1
 
 octave> <mark>true-true</mark>
 ans = 0
-<hr>octave> <mark>1==1</mark>
+<hr>
+<comment># Comparison operators</comment>
+octave> <mark>1==1</mark>
 ans = 1
 
 octave> <mark>1<1</mark>

@@ -7,12 +7,15 @@ title: Octave Exponents and Logarithms
 <span><pre>
 godarda@gd:~$ <mark>octave</mark>
 ...
+<comment># Euler's number</comment>
 octave> <mark>e</mark>
 ans = 2.7183
 
+<comment># Exponential function e^x</comment>
 octave> <mark>exp(0)</mark>
 ans = 1
 
+<comment># Compute e^x - 1 accurately</comment>
 octave> <mark>expm1(0)</mark>
 ans = 0
 
@@ -31,12 +34,14 @@ ans = 6.3891
 
 <div class="terminalcard">Logarithms</div>
 <span><pre>
+<comment># Natural logarithm (base e)</comment>
 octave> <mark>log(0)</mark>
 ans = -Inf
 
 octave> <mark>log(1)</mark>
 ans = 0
 
+<comment># Compute log(1+x) accurately</comment>
 octave> <mark>log1p(0)</mark>
 ans = 0
 
@@ -46,6 +51,7 @@ ans = 0.6931
 octave> <mark>log(-1)</mark>
 ans =       0 + 3.1416i
 
+<comment># Natural logarithm for real inputs</comment>
 octave> <mark>reallog(0)</mark>
 ans = -Inf
 
@@ -55,6 +61,7 @@ ans = 0
 octave> <mark>reallog(-1)</mark>
 error: reallog: produced complex result
 
+<comment># Base-10 logarithm</comment>
 octave> <mark>log10(0)</mark>
 ans = -Inf
 
@@ -64,6 +71,7 @@ ans = 0
 octave> <mark>log10(2)</mark>
 ans = 0.3010
 
+<comment># Base-2 logarithm</comment>
 octave> <mark>log2(0)</mark>
 ans = -Inf
 
@@ -76,27 +84,33 @@ ans = 1
 
 <div class="terminalcard">Power, Square root and Cube root functions</div>
 <span><pre>
+<comment># Base-2 power</comment>
 octave> <mark>pow2(10)</mark>
 ans = 1024
 
+<comment># Power function for real inputs</comment>
 octave:80> realpow(2,10)</mark>
 ans = 1024
 
+<comment># Square root</comment>
 octave> <mark>sqrt(100)</mark>
 ans = 10
 
 octave> <mark>sqrt(-1)</mark>
 ans =  0 + 1i
 
+<comment># Square root for non-negative real inputs</comment>
 octave> <mark>realsqrt(10)</mark>
 ans = 3.1623
 
 octave> <mark>realsqrt(-1)</mark>
 error: realsqrt: produced complex result
 
+<comment># Cube root</comment>
 octave> <mark>cbrt(27)</mark>
 ans = 3.0000
 
+<comment># Nth root of a number</comment>
 octave> <mark>nthroot(1,2)</mark>
 ans = 1
 

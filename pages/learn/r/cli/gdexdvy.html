@@ -7,56 +7,71 @@ title: R Date and Time Functions
 <span><pre>
 godarda@gd:~$ <mark>R</mark>
 ...
+<comment># current date</comment>
 > <mark>Sys.Date()</mark>
 [1] "2020-06-18"
 
+<comment># current date and time</comment>
 > <mark>Sys.time()</mark>
 [1] "2020-06-18 17:41:48 IST"
 
+<comment># convert to date</comment>
 > <mark>as.Date(Sys.Date())</mark>
 [1] "2020-06-18"
 
+<comment># convert string to date</comment>
 > <mark>as.Date('2020/06/18')</mark>
 [1] "2020-06-18"
 
+<comment># convert date with format</comment>
 > <mark>as.Date(Sys.Date(),format='%Y-%m-%d')</mark>
 [1] "2020-06-18"
 
+<comment># convert string to date with format</comment>
 > <mark>as.Date('June 18, 2020',format='%B %d, %Y')</mark>
 [1] "2020-06-18"
 
+<comment># convert string to date with format</comment>
 > <mark>as.Date('18JUN20',format='%d%b%y')</mark>
 [1] "2020-06-18"
 
+<comment># get day of the week</comment>
 > <mark>weekdays(Sys.Date())</mark>
 [1] "Thursday"
-<hr>> <mark>date1 <- Sys.Date()</mark>
+<hr><comment># date difference</comment>
+> <mark>date1 <- Sys.Date()</mark>
 > <mark>date2 <- as.Date("2020-06-30")</mark>
 > <mark>date1-date2</mark>
 Time difference of -12 days
-  
+
 > <mark>date1</mark>
 [1] "2020-06-18"
 
 > <mark>date2</mark>
 [1] "2020-06-30"
 
+<comment># date difference</comment>
 > <mark>date2-date1</mark>
 Time difference of 12 days
 
+<comment># date difference in weeks</comment>
 > <mark>difftime(date2,date1,units="weeks")</mark>
 Time difference of 1.714286 weeks
 
+<comment># add days to date</comment>
 > <mark>date2 + 20</mark>
 [1] "2020-07-20"
 
+<comment># date difference in weeks</comment>
 > <mark>difftime(date2+20,date1,units="weeks")</mark>
 Time difference of 4.571429 weeks
-<hr>> <mark>seq(Sys.Date(),by='days',length=12)</mark>
+<hr><comment># sequence of dates</comment>
+> <mark>seq(Sys.Date(),by='days',length=12)</mark>
  [1] "2020-06-18" "2020-06-19" "2020-06-20" "2020-06-21" "2020-06-22"
  [6] "2020-06-23" "2020-06-24" "2020-06-25" "2020-06-26" "2020-06-27"
 [11] "2020-06-28" "2020-06-29"
 
+<comment># sequence of dates</comment>
 > <mark>seq(Sys.Date(),to=as.Date("2020-12-31"),by='4 weeks')</mark>
 [1] "2020-06-18" "2020-07-16" "2020-08-13" "2020-09-10" "2020-10-08"
 [6] "2020-11-05" "2020-12-03" "2020-12-31"

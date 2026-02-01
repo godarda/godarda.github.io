@@ -7,60 +7,77 @@ title: Python Strings Comparison
 <span><pre>
 godarda@gd:~$ <mark>python3</mark>
 ...
->>> <mark>s1="Koding"</mark>
->>> <mark>s2="window"</mark>
+<comment># Assign string variables</comment>
+>>> <mark>s1="Go"</mark>
+>>> <mark>s2="Darda"</mark>
+<comment># Concatenate strings</comment>
 >>> <mark>s3=s1+s2</mark>
 >>> <mark>s3</mark>
 'GoDarda'
 
+<comment># Check for equality</comment>
 >>> <mark>s1==s2</mark>
 False
 
+<comment># Check for inequality</comment>
 >>> <mark>s1!=s2</mark>
 True
 
+<comment># Check if s1 is greater than s2</comment>
 >>> <mark>s1>s2</mark>
-False
-
->>> <mark>s1&lt;s2</mark>
 True
 
+<comment># Check if s1 is less than s2</comment>
+>>> <mark>s1&lt;s2</mark>
+False
+
+<comment># Check if greater than or equal</comment>
 >>> <mark>s3>=s3</mark>
 True
 
+<comment># Check if less than or equal</comment>
 >>> <mark>s3<=s3</mark>
 True
 
+<comment># Check for equality</comment>
 >>> <mark>s3==s3</mark>
 True
 
+<comment># Check for inequality</comment>
 >>> <mark>s3!=s3</mark>
 False
 
+<comment># Check if objects are identical</comment>
 >>> <mark>s3 is s3</mark>
 True
 
+<comment># Check if objects are not identical</comment>
 >>> <mark>s3 is not s3</mark>
 False
 </pre></span>
 
 <div class="terminalcard">Strings are immutable (one can't alter the contents of the object)</div>
 <span><pre>
->>> <mark>s1="Koding"</mark>
->>> <mark>s2="window"</mark>
+<comment># Assign string variables</comment>
+>>> <mark>s1="Go"</mark>
+>>> <mark>s2="Darda"</mark>
+<comment># Get the unique identifier of the object</comment>
 >>> <mark>id(s1)</mark>
 140269279579312
 
 >>> <mark>id(s2)</mark>
 140269256679152
 
+<comment># Reassign s1 to point to s2</comment>
 >>> <mark>s1=s2</mark>
+<comment># Check IDs after reassignment</comment>
 >>> <mark>id(s1)</mark>
 140269256679152
 
 >>> <mark>id(s2)</mark>
 140269256679152
 
+<comment># Try to modify a character (raises error)</comment>
 >>> <mark>s2[0]="W"</mark>
 <error>Traceback (most recent call last):
   File "&lt;stdin&gt;", line 1, in &lt;module&gt;

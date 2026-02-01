@@ -7,33 +7,43 @@ title: Octave basic string operations
 <span><pre>
 godarda@gd:~$ <mark>octave</mark>
 ...
-octave> <mark>gd = "Koding"</mark>
-gd = Koding
+<comment># Create a string variable</comment>
+octave> <mark>gd = "Go"</mark>
+gd = Go
 
-octave> <mark>gd = [gd, "window"]</mark>
+<comment># Concatenate strings</comment>
+octave> <mark>gd = [gd, "Darda"]</mark>
 gd = GoDarda
 
+<comment># Check variable type</comment>
 octave> <mark>typeinfo(gd)</mark>
 ans = string
 
-octave> <mark>gd(6)</mark>
-ans = g
+<comment># Access character at specific index</comment>
+octave> <mark>gd(3)</mark>
+ans = D
 
-octave> <mark>gd(2:11)</mark>
-ans = odingwindo
+<comment># Extract a substring</comment>
+octave> <mark>gd(2:6)</mark>
+ans = oDard
 
+<comment># Get string length</comment>
 octave> <mark>length(gd)</mark>
-ans = 12
+ans = 7
 
+<comment># Reverse the string</comment>
 octave> <mark>fliplr(gd)</mark>
-ans = wodniwgnidoK
+ans = adraDoG
 
+<comment># Convert to uppercase</comment>
 octave> <mark>toupper(gd)</mark>
-ans = KODINGWINDOW
+ans = GODARDA
 
+<comment># Convert to lowercase</comment>
 octave> <mark>tolower(gd)</mark>
 ans = godarda
 
+<comment># Sort characters in the string</comment>
 octave> <mark>sort(gd)</mark>
-ans = Kddgiinnooww
+ans = DGaador
 </pre></span>

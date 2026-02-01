@@ -8,15 +8,18 @@ title: MongoDB find() method
 godarda@gd:~$ <mark>mongosh</mark>
 ...
 
+<comment># List all databases</comment>
 DB> <mark>show dbs</mark>
 DB       72.00 KiB
 admin    40.00 KiB
 config  108.00 KiB
 local    40.00 KiB
 
+<comment># List all collections</comment>
 DB> <mark>db.getCollectionNames()</mark>
 [ "holders" ]
 
+<comment># Find all documents</comment>
 DB> <mark>db.holders.find()</mark>
 [
   {

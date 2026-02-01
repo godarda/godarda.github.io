@@ -7,6 +7,7 @@ title: MySQL AND OR NOT Operators
 
 <div class="terminalcard">Extracting the records using operators</div>
 <span><pre>
+<comment># List all available databases</comment>
 mysql> <mark>SHOW DATABASES;</mark>
 +--------------------+
 | Database           |
@@ -19,9 +20,11 @@ mysql> <mark>SHOW DATABASES;</mark>
 +--------------------+
 5 rows in set (0.00 sec)
 
+<comment># Switch to the 'DB' database</comment>
 mysql> <mark>USE DB;</mark>
 Database changed
 
+<comment># List all tables in the current database</comment>
 mysql> <mark>SHOW TABLES;</mark>
 +--------------+
 | Tables_in_DB |
@@ -30,6 +33,7 @@ mysql> <mark>SHOW TABLES;</mark>
 +--------------+
 1 row in set (0.01 sec)
 
+<comment># Retrieve all records from the 'holders' table</comment>
 mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 | account_no  | name          | city    | dob        | bank     | amount |
@@ -44,6 +48,7 @@ mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 7 rows in set (0.00 sec)
 
+<comment># Select records where amount is >= 50000 AND bank is 'Citi'</comment>
 mysql> <mark>SELECT * FROM holders WHERE amount >= 50000 AND bank = 'Citi';</mark>
 +-------------+-------------+--------+------------+------+--------+
 | account_no  | name        | city   | dob        | bank | amount |
@@ -53,6 +58,7 @@ mysql> <mark>SELECT * FROM holders WHERE amount >= 50000 AND bank = 'Citi';</mar
 +-------------+-------------+--------+------------+------+--------+
 2 rows in set (0.00 sec)
 
+<comment># Select records where amount is > 50000 AND bank is 'Citi'</comment>
 mysql> <mark>SELECT * FROM holders WHERE amount > 50000 AND bank = 'Citi';</mark>
 +-------------+-------------+------+------------+------+--------+
 | account_no  | name        | city | dob        | bank | amount |
@@ -61,6 +67,7 @@ mysql> <mark>SELECT * FROM holders WHERE amount > 50000 AND bank = 'Citi';</mark
 +-------------+-------------+------+------------+------+--------+
 1 row in set (0.00 sec)
 
+<comment># Select records where amount is >= 50000 OR bank is 'Citi'</comment>
 mysql> <mark>SELECT * FROM holders WHERE amount >= 50000 OR bank = 'Citi';</mark>
 +-------------+---------------+--------+------------+-------+--------+
 | account_no  | name          | city   | dob        | bank  | amount |
@@ -73,6 +80,7 @@ mysql> <mark>SELECT * FROM holders WHERE amount >= 50000 OR bank = 'Citi';</mark
 +-------------+---------------+--------+------------+-------+--------+
 5 rows in set (0.00 sec)
 
+<comment># Select records where bank is NOT 'Citi'</comment>
 mysql> <mark>SELECT * FROM holders WHERE NOT bank = 'Citi';</mark>
 +------------+---------------+---------+------------+----------+--------+
 | account_no | name          | city    | dob        | bank     | amount |

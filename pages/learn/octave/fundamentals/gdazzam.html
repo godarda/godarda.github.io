@@ -7,20 +7,24 @@ title: Octave Trigonometric Functions
 <span><pre>
 godarda@gd:~$ <mark>octave</mark>
 ...
+<comment># Get the value of pi</comment>
 octave> <mark>pi</mark>
 ans = 3.1416
 
+<comment># Convert degrees to radians</comment>
 octave> <mark>deg2rad([0, 90, 180, 270, 360])</mark>
 ans =
 
         0   1.5708   3.1416   4.7124   6.2832
 
 
+<comment># Convert radians to degrees</comment>
 octave> <mark>rad2deg([0, pi/2, pi, 3/2*pi, 2*pi])</mark>
 ans =
 
      0    90   180   270   360
 
+<comment># Sine of angle in radians</comment>
 octave> <mark>sin(0)</mark>
 ans = 0
 
@@ -38,7 +42,9 @@ ans = 1.1186
 
 octave> <mark>cot(180)</mark>
 ans = 0.7470
-<hr>octave> <mark>sind(0)</mark>
+<hr>
+<comment># Sine of angle in degrees</comment>
+octave> <mark>sind(0)</mark>
 ans = 0
 
 octave> <mark>cosd(30)</mark>
@@ -59,6 +65,7 @@ ans = Inf
 
 <div class="terminalcard">Compute inverse trigonometric ratios (angles are in radians and degrees)</div>
 <span><pre>
+<comment># Inverse sine in radians</comment>
 octave> <mark>asin(0)</mark>
 ans = 0
 
@@ -76,7 +83,9 @@ ans = 0.011111
 
 octave> <mark>acot(180)</mark>
 ans = 5.5555e-03
-<hr>octave> <mark>asind(0)</mark>
+<hr>
+<comment># Inverse sine in degrees</comment>
+octave> <mark>asind(0)</mark>
 ans = 0
 
 octave> <mark>acosd(30)</mark>

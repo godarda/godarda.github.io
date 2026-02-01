@@ -8,143 +8,184 @@ title: CLISP Command Line Interface (CLI)
 <span><pre>
 godarda@gd:~$ <mark>clisp</mark>
 ...
+<comment># Add two numbers</comment>
 [1]> <mark>(+ 7 19)</mark>
 26
 
+<comment># Add multiple numbers</comment>
 [2]> <mark>(+ 7 93 100 900)</mark>
-1100 
+1100
 
+<comment># Add two numbers</comment>
 [3]> <mark>(+ 7 93)</mark>
-100 
+100
 
-[4]> <mark>(- 7 93)</mark> 
--86 
+<comment># Subtract two numbers</comment>
+[4]> <mark>(- 7 93)</mark>
+-86
 
+<comment># Multiply two numbers</comment>
 [5]> <mark>(* 7 93)</mark>
-651 
+651
 
+<comment># Attempt division by zero</comment>
 [6]> <mark>(/ 1 0)</mark>
-*** - /: division by zero 
-The following restarts are available: 
-ABORT          :R1      Abort main loop 
+*** - /: division by zero
+The following restarts are available:
+ABORT          :R1      Abort main loop
+<comment># Exit the error loop</comment>
 [7]> <mark>:q</mark>
 
+<comment># Divide two numbers returning a rational</comment>
 [8]> <mark>(/ 7 93)</mark>
-7/93 
+7/93
 
+<comment># Divide two numbers returning a float</comment>
 [9]> <mark>(/ 7 93.0)</mark>
 0.07526882
 
+<comment># Check if the expression equals 100</comment>
 [10]> <mark>(= 100(+ 7 93))</mark>
 T
+<comment># Display the value of PI</comment>
 [11]<hr>><mark> PI</mark>
-3.1415926535897932385L0 
+3.1415926535897932385L0
 
+<comment># Display the value of pi (case-insensitive)</comment>
 [12]> <mark>pi</mark>
 3.1415926535897932385L0
 </span></pre>
 
 <div class="terminalcard">String operations</div>
 <span><pre>
+<comment># Print a string literal</comment>
 [1]> <mark>"Hello World"</mark>
 "Hello World"
 
+<comment># Get the length of the string</comment>
 [2]> <mark>(length "Hello World")</mark>
-11 
+11
 
+<comment># Get the character at index 0</comment>
 [3]> <mark>(char "Hello World"0)</mark>
-#\H 
+#\H
 
+<comment># Get the character at index 10</comment>
 [4]> <mark>(char "Hello World"10)</mark>
-#\d 
+#\d
 
+<comment># Return the symbol HELLO</comment>
 [5]> <mark>'hello</mark>
-HELLO 
+HELLO
 
+<comment># Return a symbol with mixed case using escape</comment>
 [6]> <mark>'h\ello</mark>
-|HeLLO| 
+|HeLLO|
 
+<comment># Return a symbol preserving case using bars</comment>
 [7]> <mark>'h|ello|</mark>
 |Hello|
 </span></pre>
 
 <div class="terminalcard">type-of function</div>
 <span><pre>
+<comment># Check the type of the number 0</comment>
 [1]> <mark>(type-of 0)</mark>
-BIT 
+BIT
 
+<comment># Check the type of the number 1</comment>
 [2]> <mark>(type-of 1)</mark>
-BIT 
+BIT
 
+<comment># Check the type of the number 2</comment>
 [3]> <mark>(type-of 2)</mark>
-(INTEGER 0 281474976710655) 
+(INTEGER 0 281474976710655)
 
+<comment># Check the type of a float literal</comment>
 [4]> <mark>(type-of '1e2)</mark>
-SINGLE-FLOAT 
+SINGLE-FLOAT
 
+<comment># Check the type of the constant pi</comment>
 [5]> <mark>(type-of pi)</mark>
-LONG-FLOAT 
+LONG-FLOAT
 
+<comment># Check the type of the symbol pi</comment>
 [6]> <mark>(type-of 'pi)</mark>
-SYMBOL 
+SYMBOL
 
+<comment># Check the type of the + variable</comment>
 [7]> <mark>(type-of +)</mark>
-CONS 
+CONS
 
+<comment># Check the type of the - variable</comment>
 [8]> <mark>(type-of -)</mark>
-CONS 
+CONS
 
+<comment># Check the type of the * variable</comment>
 [9]> <mark>(type-of *)</mark>
-SYMBOL 
+SYMBOL
 
+<comment># Check the type of the / variable</comment>
 [10]> <mark>(type-of /)</mark>
-CONS 
+CONS
 
+<comment># Check the type of a string</comment>
 [11]> <mark>(type-of "Hello World")</mark>
-(SIMPLE-BASE-STRING 11) 
+(SIMPLE-BASE-STRING 11)
 
+<comment># Check the type of the *package* variable</comment>
 [12]> <mark>(type-of *package*)</mark>
-PACKAGE 
+PACKAGE
 </span></pre>
 
 <div class="terminalcard">symbol-name function</div>
 <span><pre>
+<comment># Get the name of the symbol 'hello</comment>
 [1]> <mark>(symbol-name 'hello)</mark>
-"HELLO" 
+"HELLO"
 
+<comment># Get the name of the symbol '|hello|</comment>
 [2]> <mark>(symbol-name '|hello|)</mark>
 "hello"
 
+<comment># Check if the symbol name equals "Hello"</comment>
 [3]> <mark>(string=(symbol-name'h|ello|)"Hello")</mark>
-T 
+T
 </span></pre>
 
 <div class="terminalcard">eql function</div>
 <span><pre>
+<comment># Check if symbol 'A is eql to 'a</comment>
 [1]> <mark>(eql'A'a)</mark>
-T 
+T
 
+<comment># Check if integer 50 is eql to float 50.0</comment>
 [2]> <mark>(eql 50 50.0)</mark>
-NIL 
+NIL
 
+<comment># Check if two integers are equal</comment>
 [3]> <mark>(eql 50 50)</mark>
-T 
+T
 </span></pre>
 
 <div class="terminalcard">random function</div>
 <span><pre>
+<comment># Generate a random integer up to 500</comment>
 [1]> <mark>(random 500)</mark>
-153 
+153
 
+<comment># Generate a random float up to 500.0</comment>
 [2]> <mark>(random 500.0)</mark>
-497.5427 
+497.5427
 </span></pre>
 
 <div class="terminalcard">remove function</div>
 <span><pre>
+<comment># Remove all occurrences of 1 from the list</comment>
 [1]> <mark>(remove 1'(4 1 5 1 7 2 9 1 5 2 1))</mark>
-(4 5 7 2 9 5 2) 
+(4 5 7 2 9 5 2)
 
+<comment># Remove all occurrences of 'r from the list</comment>
 [2]> <mark>(remove 'r'(r a d a r))</mark>
 (A D A)
 </pre></span>

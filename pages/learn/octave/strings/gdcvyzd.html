@@ -7,43 +7,52 @@ title: Octave to check the given string is alphanumeric
 <span><pre>
 godarda@gd:~$ <mark>octave</mark>
 ...
+<comment># Create a string variable</comment>
 octave> <mark>gd = "GoDarda#12"</mark>
 gd = GoDarda#12
+<comment># Check if characters are alphabetic</comment>
 octave> <mark>isalpha(gd)</mark>
 ans =
 
   1  1  1  1  1  1  1  1  1  1  1  1  0  0  0
 
+<comment># Check if characters are alphanumeric</comment>
 octave> <mark>isalnum(gd)</mark>
 ans =
 
   1  1  1  1  1  1  1  1  1  1  1  1  0  1  1
 
+<comment># Check if characters are digits</comment>
 octave> <mark>isdigit(gd)</mark>
 ans =
 
   0  0  0  0  0  0  0  0  0  0  0  0  0  1  1
 
+<comment># Check if characters are ASCII</comment>
 octave> <mark>isascii(gd)</mark>
 ans =
 
   1  1  1  1  1  1  1  1  1  1  1  1  1  1  1
 
+<comment># Check if characters are letters</comment>
 octave> <mark>isletter(gd)</mark>
 ans =
 
   1  1  1  1  1  1  1  1  1  1  1  1  0  0  0
 
+<comment># Check if characters are uppercase</comment>
 octave> <mark>isupper(gd)</mark>
 ans =
 
   1  0  0  0  0  0  0  0  0  0  0  0  0  0  0
 
+<comment># Check if characters are lowercase</comment>
 octave> <mark>islower(gd)</mark>
 ans =
 
   0  1  1  1  1  1  1  1  1  1  1  1  0  0  0
 
+<comment># Check if characters are whitespace</comment>
 octave> <mark>isspace(gd)</mark>
 ans =
 

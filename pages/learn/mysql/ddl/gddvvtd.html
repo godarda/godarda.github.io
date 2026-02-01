@@ -10,6 +10,7 @@ title: MySQL NOT NULL Constraint
 
 <div class="terminalcard">Defining NOT NULL constraint</div>
 <span><pre>
+<comment># List all databases</comment>
 mysql> <mark>SHOW DATABASES;</mark>
 +--------------------+
 | Database           |
@@ -22,9 +23,11 @@ mysql> <mark>SHOW DATABASES;</mark>
 +--------------------+
 5 rows in set (0.00 sec)
 
+<comment># Switch to the DB database</comment>
 mysql> <mark>USE DB;</mark>
 Database changed
 
+<comment># Create a table with NOT NULL constraints</comment>
 mysql> <mark>CREATE TABLE holders(
     -> account_no BIGINT PRIMARY KEY,
     -> name VARCHAR(30) NOT NULL,
@@ -34,6 +37,7 @@ mysql> <mark>CREATE TABLE holders(
     -> amount BIGINT NOT NULL);</mark>
 Query OK, 0 rows affected (0.52 sec)
 
+<comment># Show table structure</comment>
 mysql> <mark>DESCRIBE holders;</mark>
 +------------+-------------+------+-----+---------+-------+
 | Field      | Type        | Null | Key | Default | Extra |
@@ -50,10 +54,12 @@ mysql> <mark>DESCRIBE holders;</mark>
 
 <div class="terminalcard">Adding NOT NULL constraint to a column</div>
 <span><pre>
+<comment># Add NOT NULL constraint to the dob column</comment>
 mysql> <mark>ALTER TABLE holders MODIFY dob DATE NOT NULL;</mark>
 Query OK, 0 rows affected (2.77 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
+<comment># Show table structure</comment>
 mysql> <mark>DESC holders</mark>;
 +------------+-------------+------+-----+---------+-------+
 | Field      | Type        | Null | Key | Default | Extra |
@@ -71,9 +77,11 @@ mysql> <mark>DESC holders</mark>;
 <div class="terminalcard">Retrieving records from a table</div>
 <div class="infocard">If you observe the records, the last record's city is NULL. Hence, while adding the NOT NULL constraint to a city column, got ERROR 1138 (22004): Invalid use of NULL value. To fix this issue, we need to update the last record's city in the holders table.</div>
 <span><pre>
+<comment># Attempt to add NOT NULL constraint to city column</comment>
 mysql> <mark>ALTER TABLE holders MODIFY city VARCHAR(20) NOT NULL;</mark>
 <error>ERROR 1138 (22004): Invalid use of NULL value</error>
 
+<comment># Retrieve all records from the table</comment>
 mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 | account_no  | name          | city    | dob        | bank     | amount |
@@ -91,10 +99,12 @@ mysql> <mark>SELECT * FROM holders;</mark>
 
 <div class="terminalcard">Updating a record and fixing ERROR 1138 (22004): Invalid use of NULL value</div>
 <span><pre>
+<comment># Update the city for a specific account</comment>
 mysql> <mark>UPDATE holders SET city='New York' where account_no=25622348995;</mark>
 Query OK, 1 row affected (0.15 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
 
+<comment># Retrieve all records from the table</comment>
 mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+----------+------------+----------+--------+
 | account_no  | name          | city     | dob        | bank     | amount |
@@ -109,10 +119,12 @@ mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+----------+------------+----------+--------+
 7 rows in set (0.00 sec)
 
+<comment># Add NOT NULL constraint to the city column</comment>
 mysql> <mark>ALTER TABLE holders MODIFY city VARCHAR(20) NOT NULL;</mark>
 Query OK, 0 rows affected (1.31 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
+<comment># Show table structure</comment>
 mysql> <mark>DESC holders;</mark>
 +------------+-------------+------+-----+---------+-------+
 | Field      | Type        | Null | Key | Default | Extra |
@@ -129,10 +141,12 @@ mysql> <mark>DESC holders;</mark>
 
 <div class="terminalcard">Removing NOT NULL constraint</div>
 <span><pre>
+<comment># Remove NOT NULL constraint from the city column</comment>
 mysql> <mark>ALTER TABLE holders MODIFY city VARCHAR(20) NULL;</mark>
 Query OK, 0 rows affected (1.48 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
+<comment># Show table structure</comment>
 mysql> <mark>DESC holders;</mark>
 +------------+-------------+------+-----+---------+-------+
 | Field      | Type        | Null | Key | Default | Extra |

@@ -1,116 +1,116 @@
 segments:
   - title: C Programming
     url: c
-    parent: " / C "
+    parent: " C "
 
   - title: C++ Programming
     url: cpp
-    parent: " / C++ "
+    parent: " C++ "
 
   - title: Java Programming
     url: java
-    parent: " / Java "
+    parent: " Java "
 
   - title: Python Programming
     url: python
-    parent: " / Python "
+    parent: " Python "
 
   - title: Data Science
     url: ds
-    parent: " / DS "
+    parent: " DS "
 
   - title: R Programming
     url: r
-    parent: " / R "
+    parent: " R "
 
   - title: Julia Programming
     url: julia
-    parent: " / Julia "
+    parent: " Julia "
 
   - title: GNU Octave
     url: octave
-    parent: " / Octave "
+    parent: " Octave "
 
   - title: C# Programming
     url: csharp
-    parent: " / CSharp "
+    parent: " CSharp "
 
   - title: F# Programming
     url: fsharp
-    parent: " / FSharp "
+    parent: " FSharp "
 
   - title: Rust Programming
     url: rust
-    parent: " / Rust "
+    parent: " Rust "
 
   - title: LISP Programming
     url: lisp
-    parent: " / LISP "
+    parent: " LISP "
 
   - title: Data Structures and Algorithms
     url: dsa
-    parent: " / DSA "
+    parent: " DSA "
 
   - title: Linux Commands and Scripting
     url: linux
-    parent: " / Linux "
+    parent: " Linux "
 
   - title: MySQL (Relational Database)
     url: mysql
-    parent: " / MySQL "
+    parent: " MySQL "
 
   - title: MongoDB (NoSQL Database)
     url: mongodb
-    parent: " / MongoDB "
+    parent: " MongoDB "
 
   - title: Selenium WebDriver
     url: selenium
-    parent: " / Selenium "
+    parent: " Selenium "
 
   - title: Computer Graphics
     url: cg
-    parent: " / CG "
+    parent: " CG "
 
   - title: Assembly Programming
     url: asm
-    parent: " / ASM "
+    parent: " ASM "
 
   - title: Cluster
     url: cluster
-    parent: " / Cluster "
+    parent: " Cluster "
 
   - title: About Us
     url: about
-    parent: " / About "
+    parent: " About "
 
   - title: Tools
     url: tools
-    parent: " / Tools "
+    parent: " Tools "
 
   - title: Calculators
     url: calculators
-    parent: " / Calculators "
+    parent: " Calculators "
 
   - title: Converters
     url: converters
-    parent: " / Converters "
+    parent: " Converters "
 
   - title: Generators
     url: generators
-    parent: " / Generators "
+    parent: " Generators "
 
   - title: Utilities
     url: utilities
-    parent: " / Utilities "
+    parent: " Utilities "
 
   - title: Programming and Tutorials
     url: learn
-    parent: " / Learn "
+    parent: " Learn "
 
   - title: Shubham Darda
     url: shubhamrdarda
-    parent: " / Shubham Darda "
+    parent: " Shubham Darda "
 
   - title: GoDarda's TestApp
     url: testapp
-    parent: " / TestApp "
+    parent: " TestApp "

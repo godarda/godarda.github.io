@@ -153,6 +153,17 @@ layout: none
 {%- assign learn_urls = site.data.learn.learn.segments | map: "url" -%}
 {%- assign urls = tool_urls | concat: learn_urls -%}
 
+/* Generic highlight color fallback */
+a.card.codecard[data-category]:hover {
+    border-left: 5px solid var(--other);
+}
+
+.codecard[data-category] mark {
+    background-color: transparent;
+    color: var(--other);
+    font-weight: bold;
+}
+
 {%- for segment in site.data.gd.segments -%}{%- assign s = segment.url | split: '/' -%}
     {%- if urls contains segment.url -%}
         {%- assign color_var = "var(--" | append: segment.url | append: ")" -%}
@@ -160,7 +171,7 @@ layout: none
         {%- assign color_var = "var(--other)" -%}
     {%- endif -%}
 
-    a.{{ s }}:hover, a.{{ s }}:focus, #{{ s }} > a:hover, #{{ s }} > a:focus, .procard.{{ s }}, .nav-link.sidebar-item-active.{{ s }}
+    .procard.{{ s }}, .nav-link.sidebar-item-active.{{ s }}
     { border-left: 5px solid {{ color_var }}; }
 
     #fc-{{ s }}, #fc-{{ s }}:hover, .wvnav-item-active-{{ s }}
@@ -188,6 +199,14 @@ layout: none
     {
         color: {{ color_var }};
     }
+
+    /* Specific highlight color based on category */
+    a.card.codecard[data-category="{{ segment.url }}"]:hover {
+        border-left: 5px solid {{ color_var }};
+    }
+    .codecard[data-category="{{ segment.url }}"] mark {
+        color: {{ color_var }};
+    }
 {%- endfor -%}
 
 div#GDS_input-, div#GDS_input-search
@@ -213,7 +232,7 @@ div#GDS_input-.search-loading.indeterminate::after, div#GDS_input-search.search-
     color: var(--other);
 }
 
-#other > a:hover, #other > a:focus, #search > a:hover, #search > a:focus, .nav-link.sidebar-item-active.about, a.about:hover, a.about:focus
+#other > a:hover, #other > a:focus, .nav-link.sidebar-item-active.about, a.about:hover, a.about:focus
 { border-left: 5px solid var(--other); }
 
 #fc-, #fc-search, #fc-about, #fc-shubhamrdarda, .wvnav-item-active-, .wvnav-item-active-search, .wvnav-item-active-about, #fc-:hover, #fc-search:hover, #fc-about:hover, #fc-shubhamrdarda:hover

@@ -6,15 +6,18 @@ title: Linux commands for sorting and searching information
 <div class="titlecard">{{ page.title }}</div>
 <div class="terminalcard">sort tsort and grep commands with options</div>
 <span><pre>
+<comment># List files in current directory</comment>
 godarda@gd:~$ <mark>ls</mark>
 a.out  gd.cpp   gd.py    Documents  Music     Public     Videos
 gd.c   GD.java  Desktop  Downloads  Pictures  Templates
 
+<comment># Create a file</comment>
 godarda@gd:~$ <mark>touch Weekdays</mark>
 godarda@gd:~$ <mark>ls</mark>
 a.out  gd.cpp   gd.py    Documents  Music     Public     Videos
 gd.c   GD.java  Desktop  Downloads  Pictures  Templates  Weekdays
 
+<comment># Display file content</comment>
 godarda@gd:~$ <mark>cat Weekdays</mark>
 Weekdays
 Monday
@@ -28,6 +31,7 @@ Wednesday
 Thursday
 Friday
 
+<comment># Sort lines of text file</comment>
 godarda@gd:~$ <mark>sort Weekdays</mark>
 Friday
 Friday
@@ -41,6 +45,7 @@ Wednesday
 Wednesday
 Weekdays
 
+<comment># Sort and remove duplicates</comment>
 godarda@gd:~$ <mark>sort Weekdays | uniq</mark>
 Friday
 Monday
@@ -48,10 +53,13 @@ Thursday
 Tuesday
 Wednesday
 Weekdays
-<hr>godarda@gd:~$ <mark>tsort Weekdays</mark>
+<hr>
+<comment># Perform topological sort</comment>
+godarda@gd:~$ <mark>tsort Weekdays</mark>
 <error>tsort: Weekdays: input contains an odd number of tokens</error>
 
-godarda@gd:~$ <mark>cat Weekdays</mark> 
+<comment># Display file content</comment>
+godarda@gd:~$ <mark>cat Weekdays</mark>
 Weekdays
 Monday
 Tuesday
@@ -63,6 +71,7 @@ Tuesday
 Wednesday
 Thursday
 
+<comment># Perform topological sort</comment>
 godarda@gd:~$ <mark>tsort Weekdays</mark>
 Weekdays
 Monday
@@ -71,7 +80,8 @@ Wednesday
 Thursday
 Friday
 
-godarda@gd:~$ <mark>tac Weekdays</mark> 
+<comment># Concatenate and print file in reverse</comment>
+godarda@gd:~$ <mark>tac Weekdays</mark>
 Thursday
 Wednesday
 Tuesday
@@ -82,7 +92,9 @@ Wednesday
 Tuesday
 Monday
 Weekdays
-<hr>godarda@gd:~$ <mark>cat Weekdays | grep day</mark>
+<hr>
+<comment># Print lines matching a pattern</comment>
+godarda@gd:~$ <mark>cat Weekdays | grep day</mark>
 Weekdays
 Monday
 Tuesday
@@ -94,6 +106,7 @@ Tuesday
 Wednesday
 Thursday
 
+<comment># Print lines matching a pattern</comment>
 godarda@gd:~$ <mark>grep day Weekdays</mark>
 Weekdays
 Monday
@@ -106,7 +119,8 @@ Tuesday
 Wednesday
 Thursday
 
-godarda@gd:~$ <mark>grep -v days Weekdays</mark> 
+<comment># Invert match</comment>
+godarda@gd:~$ <mark>grep -v days Weekdays</mark>
 Monday
 Tuesday
 Wednesday
@@ -117,7 +131,8 @@ Tuesday
 Wednesday
 Thursday
 
-godarda@gd:~$ <mark>grep -i days Weekdays</mark> 
+<comment># Ignore case</comment>
+godarda@gd:~$ <mark>grep -i days Weekdays</mark>
 Weekdays
-godarda@gd:~$ 
+godarda@gd:~$
 </pre></span>

@@ -7,32 +7,41 @@ title: Python Basic String Operations
 <span><pre>
 godarda@gd:~$ <mark>python3</mark>
 ...
+<comment># Create string with double quotes</comment>
 >>> <mark>"GoDarda"</mark>
 'GoDarda'
 
+<comment># Create string with single quotes</comment>
 >>> <mark>'GoDarda'</mark>
 'GoDarda'
 
+<comment># Print a string</comment>
 >>> <mark>print("GoDarda")</mark>
 GoDarda
 
+<comment># Print string with escaped single quotes</comment>
 >>> <mark>print("\'GoDarda\'")</mark>
 'GoDarda'
 
+<comment># Print string with escaped double quotes</comment>
 >>> <mark>print('\"GoDarda\"')</mark>
 "GoDarda"
 
->>> <mark>print("Koding\nwindow")</mark>
-Koding
-window
+<comment># Print string with newline character</comment>
+>>> <mark>print("Go\nDarda")</mark>
+Go
+Darda
 
+<comment># Assign string to a variable</comment>
 >>> <mark>gd="GoDarda"</mark>
 >>> <mark>gd</mark>
 'GoDarda'
 
+<comment># Get length of the string</comment>
 >>> <mark>len(gd)</mark>
-12
+7
 
+<comment># Delete the variable</comment>
 >>> <mark>del gd</mark>
 >>> <mark>gd</mark>
 <error>Traceback (most recent call last):
@@ -42,40 +51,49 @@ NameError: name 'gd' is not defined</error>
 
 <div class="terminalcard">Strings Concatenation</div>
 <span><pre>
->>> <mark>s1="Koding"</mark>
->>> <mark>s2="window"</mark>
+>>> <mark>s1="Go"</mark>
+>>> <mark>s2="Darda"</mark>
+<comment># Concatenate string with itself</comment>
 >>> <mark>s1+s1</mark>
-'KodingKoding'
+'GoGo'
 
+<comment># Concatenate two strings</comment>
 >>> <mark>s1+s2</mark>
 'GoDarda'
 
+<comment># Repeat string n times</comment>
 >>> <mark>s1*5</mark>
-'KodingKodingKodingKodingKoding'
+'GoGoGoGoGo'
 
+<comment># Create a tuple of strings</comment>
 >>> <mark>s1,s2</mark>
-('Koding', 'window')
+('Go', 'Darda')
 </pre></span>
 
 <div class="terminalcard">Escape Characters</div>
 <span><pre>
->>> <mark>gd="Koding\nwindow"</mark>
+<comment># String with newline escape sequence</comment>
+>>> <mark>gd="Go\nDarda"</mark>
 >>> <mark>gd</mark>
-'Koding\nwindow'
+'Go\nDarda'
 
->>> <mark>gd="Koding\nwindow"</mark>
+<comment># Print interpreting escape sequences</comment>
+>>> <mark>gd="Go\nDarda"</mark>
 >>> <mark>print(gd)</mark>
-Koding
-window
- 
->>> <mark>gd=r"Koding\nwindow"</mark>
+Go
+Darda
+
+<comment># Raw string (ignores escape sequences)</comment>
+>>> <mark>gd=r"Go\nDarda"</mark>
 >>> <mark>print(gd)</mark>
-Koding\nwindow
- 
+Go\nDarda
+
+<comment># Escape double quotes</comment>
 >>> <mark>print('\"GoDarda\"')</mark>
 "GoDarda"
 
->>> <mark>gd="Koding\twindow"</mark>
+<comment># String with tab escape sequence</comment>
+>>> <mark>gd="Go\tDarda"</mark>
 >>> <mark>print(gd)</mark>
-Koding	window
+Go	Darda
 </pre></span>

@@ -7,103 +7,132 @@ title: R Functions
 <span><pre>
 godarda@gd:~$ <mark>R</mark>
 ...
+<comment># check class of object</comment>
 > <mark>class(1)</mark>
 [1] "numeric"
 
+<comment># check class of object</comment>
 > <mark>class(TRUE)</mark>
 [1] "logical"
 
+<comment># check class of object</comment>
 > <mark>class(F)</mark>
 [1] "logical"
 
+<comment># check class of object</comment>
 > <mark>class(matrix())</mark>
 [1] "matrix"
 
+<comment># check class of object</comment>
 > <mark>class("GoDarda")</mark>
 [1] "character"
 
+<comment># check class of object</comment>
 > <mark>class(Sys.time())</mark>
-[1] "POSIXct" "POSIXt" 
+[1] "POSIXct" "POSIXt"
 
+<comment># check class of object</comment>
 > <mark>class(15L)</mark>
 [1] "integer"
 
+<comment># check class of object</comment>
 > <mark>class(15+9i)</mark>
 [1] "complex"
 
+<comment># check class of object</comment>
 > <mark>class(charToRaw("Hello World"))</mark>
 [1] "raw"
 </pre></span>
 
 <div class="terminalcard">R typeof() function</div>
 <span><pre>
+<comment># check type of object</comment>
 > <mark>typeof(1)</mark>
 [1] "double"
 
+<comment># check type of object</comment>
 > <mark>typeof(1.1)</mark>
 [1] "double"
 
+<comment># check type of object</comment>
 > <mark>typeof("GoDarda")</mark>
 [1] "character"
 
+<comment># check type of object</comment>
 > <mark>typeof(1L)</mark>
 [1] "integer"
 
+<comment># check type of object</comment>
 > <mark>typeof(TRUE)</mark>
 [1] "logical"
 
+<comment># check type of object</comment>
 > <mark>typeof(F)</mark>
 [1] "logical"
 
+<comment># check type of object</comment>
 > <mark>typeof(-3+4i)</mark>
 [1] "complex"
 
+<comment># check type of object</comment>
 > <mark>typeof(raw())</mark>
 [1] "raw"
 
+<comment># check type of object</comment>
 > <mark>typeof(NULL)</mark>
 [1] "NULL"
 </pre></span>
 
 <div class="terminalcard">R round() function</div>
 <span><pre>
+<comment># round to nearest integer</comment>
 > <mark>round(3.14)</mark>
 [1] 3
 
+<comment># round to nearest integer</comment>
 > <mark>round(9.87)</mark>
 [1] 10
 
+<comment># round to 3 decimal places</comment>
 > <mark>round(3.141492,digits=3)</mark>
 [1] 3.141
 
+<comment># create raw vector</comment>
 > <mark>raw(10)</mark>
 [1] 00 00 00 00 00 00 00 00 00 00
 </pre></span>
 
 <div class="terminalcard">R sample() function</div>
 <span><pre>
+<comment># sample from sequence</comment>
 > <mark>sample(1:36)</mark>
  [1]  9 15 20 16  3 30 26  4  5 10 33 36 24 32 12 19 22  8 13 34  2 35 23 18 29
 [26]  1 14 17  6  7 28 31 11 27 25 21
 
+<comment># sample 1 element</comment>
 > <mark>sample(1:36,size=1)</mark>
 [1] 2
 
+<comment># sample 1 element</comment>
 > <mark>sample(1:36,size=1)</mark>
 [1] 16
 
+<comment># sample 1 element</comment>
 > <mark>sample(1:36,size=1)</mark>
 [1] 5
 
+<comment># sample 5 elements</comment>
 > <mark>sample(1:36,size=5)</mark>
 [1]  7 13 33  6 22
 </pre></span>
 
 <div class="terminalcard">R replicate() function</div>
 <span><pre>
+<comment># replicate string</comment>
 > <mark>replicate(3,'GoDarda')</mark>
 [1] "GoDarda" "GoDarda" "GoDarda"
 
+<comment># replicate sequence</comment>
 > <mark>replicate(3,1:6)</mark>
      [,1] [,2] [,3]
 [1,]    1    1    1
@@ -116,25 +145,32 @@ godarda@gd:~$ <mark>R</mark>
 
 <div class="terminalcard">R format() function</div>
 <span><pre>
+<comment># format number</comment>
 > <mark>format(3.141492,digits=3)</mark>
 [1] "3.14"
 
+<comment># format string with width</comment>
 > <mark>format("GoDarda",width=20)</mark>
 [1] "GoDarda        "
 
+<comment># format string with justify</comment>
 > <mark>format("GoDarda",width=20,justify="")</mark>
-<error>Error in match.arg(justify) : 
+<error>Error in match.arg(justify) :
   'arg' should be one of “left”, “right”, “centre”, “none”</error>
 
+<comment># format string with justify left</comment>
 > <mark>format("GoDarda",width=20,justify="l")</mark>
 [1] "GoDarda        "
 
+<comment># format string with justify center</comment>
 > <mark>format("GoDarda",width=20,justify="c")</mark>
 [1] "    GoDarda    "
 
+<comment># format string with justify right</comment>
 > <mark>format("GoDarda",width=20,justify="r")</mark>
 [1] "        GoDarda"
 
+<comment># format string with justify none</comment>
 > <mark>format("GoDarda",width=20,justify="n")</mark>
 [1] "GoDarda"
 </pre></span>

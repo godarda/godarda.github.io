@@ -10,6 +10,7 @@ title: MySQL JOINS (INNER, LEFT, RIGHT)
 
 <div class="terminalcard">Show databases and tables</div>
 <span><pre>
+<comment># List all databases</comment>
 mysql> <mark>SHOW DATABASES;</mark>
 +--------------------+
 | Database           |
@@ -22,11 +23,13 @@ mysql> <mark>SHOW DATABASES;</mark>
 +--------------------+
 5 rows in set (0.07 sec)
 
+<comment># Switch to the DB database</comment>
 mysql> <mark>USE DB;</mark>
 Reading table information for completion of table and column names
 You can turn off this feature to get a quicker startup with -A
 
 Database changed
+<comment># List all tables</comment>
 mysql> <mark>SHOW TABLES;</mark>
 +--------------+
 | Tables_in_DB |
@@ -39,7 +42,8 @@ mysql> <mark>SHOW TABLES;</mark>
 
 <div class="terminalcard">Retrieving all the records from a parent table</div>
 <span><pre>
-mysql> <mark>DESC holders;</mark>                                                          
+<comment># Show table structure</comment>
+mysql> <mark>DESC holders;</mark>
 +------------+-------------+------+-----+---------+-------+
 | Field      | Type        | Null | Key | Default | Extra |
 +------------+-------------+------+-----+---------+-------+
@@ -52,6 +56,7 @@ mysql> <mark>DESC holders;</mark>
 +------------+-------------+------+-----+---------+-------+
 6 rows in set (0.00 sec)
 
+<comment># Retrieve all records from holders</comment>
 mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 | account_no  | name          | city    | dob        | bank     | amount |
@@ -69,6 +74,7 @@ mysql> <mark>SELECT * FROM holders;</mark>
 
 <div class="terminalcard">Retrieving all the records from a child table</div>
 <span><pre>
+<comment># Show table structure</comment>
 mysql> <mark>DESC loans;</mark>
 +-------------+-------------+------+-----+---------+----------------+
 | Field       | Type        | Null | Key | Default | Extra          |
@@ -80,6 +86,7 @@ mysql> <mark>DESC loans;</mark>
 +-------------+-------------+------+-----+---------+----------------+
 4 rows in set (0.01 sec)
 
+<comment># Retrieve all records from loans</comment>
 mysql> <mark>SELECT * FROM loans;</mark>
 +---------+-----------+-------------+-------------+
 | loan_id | loan_type | loan_amount | account_no  |
@@ -94,6 +101,7 @@ mysql> <mark>SELECT * FROM loans;</mark>
 
 <div class="terminalcard">Inner Join</div>
 <span><pre>
+<comment># Perform Inner Join</comment>
 mysql> <mark>SELECT loans.account_no,holders.name,loans.loan_type FROM loans INNER JOIN holders ON loans.account_no=holders.account_no;</mark>
 +-------------+-------------+-----------+
 | account_no  | name        | loan_type |
@@ -105,6 +113,7 @@ mysql> <mark>SELECT loans.account_no,holders.name,loans.loan_type FROM loans INN
 +-------------+-------------+-----------+
 4 rows in set (0.00 sec)
 
+<comment># Inner Join with condition and sorting</comment>
 mysql> <mark>SELECT loans.account_no,holders.name,loans.loan_type FROM loans INNER JOIN holders ON loans.account_no=holders.account_no WHERE loan_type="Home" ORDER BY name;</mark>
 +-------------+-------------+-----------+
 | account_no  | name        | loan_type |
@@ -117,6 +126,7 @@ mysql> <mark>SELECT loans.account_no,holders.name,loans.loan_type FROM loans INN
 
 <div class="terminalcard">Left Join</div>
 <span><pre>
+<comment># Perform Left Join</comment>
 mysql> <mark>SELECT holders.account_no,holders.name,loans.loan_amount FROM holders LEFT JOIN loans ON holders.account_no=loans.account_no;</mark>
 +-------------+---------------+-------------+
 | account_no  | name          | loan_amount |
@@ -131,6 +141,7 @@ mysql> <mark>SELECT holders.account_no,holders.name,loans.loan_amount FROM holde
 +-------------+---------------+-------------+
 7 rows in set (0.00 sec)
 
+<comment># Left Join with sorting</comment>
 mysql> <mark>SELECT holders.account_no,holders.name,loans.loan_amount FROM holders LEFT JOIN loans ON holders.account_no=loans.account_no ORDER BY name;</mark>
 +-------------+---------------+-------------+
 | account_no  | name          | loan_amount |
@@ -145,6 +156,7 @@ mysql> <mark>SELECT holders.account_no,holders.name,loans.loan_amount FROM holde
 +-------------+---------------+-------------+
 7 rows in set (0.00 sec)
 
+<comment># Left Join finding unmatched records</comment>
 mysql> <mark>SELECT holders.account_no,holders.name,loans.loan_amount FROM holders LEFT JOIN loans ON holders.account_no=loans.account_no WHERE loan_amount IS NULL;</mark>
 +-------------+---------------+-------------+
 | account_no  | name          | loan_amount |
@@ -158,6 +170,7 @@ mysql> <mark>SELECT holders.account_no,holders.name,loans.loan_amount FROM holde
 
 <div class="terminalcard">Right Join</div>
 <span><pre>
+<comment># Perform Right Join</comment>
 mysql> <mark>SELECT holders.account_no,holders.name,loans.loan_amount FROM holders RIGHT JOIN loans ON holders.account_no=loans.account_no;</mark>
 +-------------+-------------+-------------+
 | account_no  | name        | loan_amount |
@@ -169,6 +182,7 @@ mysql> <mark>SELECT holders.account_no,holders.name,loans.loan_amount FROM holde
 +-------------+-------------+-------------+
 4 rows in set (0.00 sec)
 
+<comment># Right Join with condition</comment>
 mysql> <mark>SELECT holders.account_no,holders.name,loans.loan_amount FROM holders RIGHT JOIN loans ON holders.account_no=loans.account_no WHERE loan_amount>=40000;</mark>
 +-------------+-------------+-------------+
 | account_no  | name        | loan_amount |
@@ -179,6 +193,7 @@ mysql> <mark>SELECT holders.account_no,holders.name,loans.loan_amount FROM holde
 +-------------+-------------+-------------+
 3 rows in set (0.00 sec)
 
+<comment># Right Join finding unmatched records</comment>
 mysql> <mark>SELECT holders.account_no,holders.name,loans.loan_amount FROM holders RIGHT JOIN loans ON holders.account_no=loans.account_no WHERE loan_amount IS NULL;</mark>
 Empty set (0.00 sec)
 </pre></span>

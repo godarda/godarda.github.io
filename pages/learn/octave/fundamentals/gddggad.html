@@ -8,36 +8,45 @@ title: How to generate random numbers in Octave
 <span><pre>
 godarda@gd:~$ <mark>octave</mark>
 ...
+<comment># Generate a random number between 0 and 1</comment>
 octave> <mark>rand(1)</mark>
 ans = 0.7154
 
+<comment># Generate a random number between 0 and 10</comment>
 octave> <mark>rand(1)*10</mark>
 ans = 8.7886
 
+<comment># Generate a random number between 0 and 100</comment>
 octave> <mark>rand(1)*100</mark>
 ans = 78.646
 
+<comment># Generate a random number between 0 and 1000</comment>
 octave> <mark>rand(1)*1000</mark>
 ans = 387.05
 
+<comment># Generate a random integer by rounding</comment>
 octave> <mark>round(rand(1)*1000)</mark>
 ans = 779
 </pre></span>
 
 <div class="terminalcard">Generate random integer numbers</div>
 <span><pre>
+<comment># Generate a random integer between 1 and 100</comment>
 octave> <mark>randi(100)</mark>
 ans = 21
 
+<comment># Generate a random integer between 1 and 1000</comment>
 octave> <mark>randi(1000)</mark>
 ans = 848
 
+<comment># Generate a random integer in a specific range</comment>
 octave> <mark>randi([10,15])</mark>
 ans = 14
 
 octave> <mark>randi([10,15])</mark>
 ans = 10
 
+<comment># Generate a matrix of random integers</comment>
 octave> <mark>randi(5,5)</mark>
 ans =
 

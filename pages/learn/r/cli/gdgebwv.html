@@ -20,41 +20,41 @@ Hello World
 [1] 1
 
 > <mark>nchar("GoDarda")</mark>
-[1] 12
+[1] 7
 
 > <mark>toupper("GoDarda")</mark>
-[1] "KODINGWINDOW"
+[1] "GODARDA"
 
-> <mark>tolower("KODINGWINDOW")</mark>
+> <mark>tolower("GODARDA")</mark>
 [1] "godarda"
 
-> <mark>substring("GoDarda",7,12)</mark>
-[1] "Window"
+> <mark>substring("GoDarda",3,7)</mark>
+[1] "Darda"
 
-> <mark>paste("Koding","Window")</mark>
-[1] "Koding Window"
+> <mark>paste("Go","Darda")</mark>
+[1] "Go Darda"
 
-> <mark>paste("Koding","Window",sep="")</mark>
+> <mark>paste("Go","Darda",sep="")</mark>
 [1] "GoDarda"
 
-> <mark>paste("Koding","Window",sep="@@@")</mark>
-[1] "Koding@@@Window"
+> <mark>paste("Go","Darda",sep="@@@")</mark>
+[1] "Go@@@Darda"
 <hr>
 > <mark>format("GoDarda",width=20)</mark>
-[1] "GoDarda        "
+[1] "GoDarda             "
 
 > <mark>format("GoDarda",width=20,justify="")</mark>
-<error>Error in match.arg(justify) : 
+<error>Error in match.arg(justify) :
   'arg' should be one of “left”, “right”, “centre”, “none”</error>
 
 > <mark>format("GoDarda",width=20,justify="l")</mark>
-[1] "GoDarda        "
+[1] "GoDarda             "
 
 > <mark>format("GoDarda",width=20,justify="c")</mark>
-[1] "    GoDarda    "
+[1] "      GoDarda       "
 
 > <mark>format("GoDarda",width=20,justify="r")</mark>
-[1] "        GoDarda"
+[1] "             GoDarda"
 
 > <mark>format("GoDarda",width=20,justify="n")</mark>
 [1] "GoDarda"

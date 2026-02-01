@@ -6,6 +6,7 @@ title: MySQL String Functions
 <div class="titlecard">{{ page.title }}</div>
 <div class="terminalcard">ASCII and ORD Functions</div>
 <span><pre>
+<comment># Return ASCII value of 'A'</comment>
 mysql> <mark>SELECT ASCII('A');</mark>
 +------------+
 | ASCII('A') |
@@ -14,6 +15,7 @@ mysql> <mark>SELECT ASCII('A');</mark>
 +------------+
 1 row in set (0.00 sec)
 
+<comment># Return ASCII value of 'a'</comment>
 mysql> <mark>SELECT ASCII('a');</mark>
 +------------+
 | ASCII('a') |
@@ -22,6 +24,7 @@ mysql> <mark>SELECT ASCII('a');</mark>
 +------------+
 1 row in set (0.00 sec)
 
+<comment># Return ORD value of 'A'</comment>
 mysql> <mark>SELECT ORD('A');</mark>
 +----------+
 | ORD('A') |
@@ -30,6 +33,7 @@ mysql> <mark>SELECT ORD('A');</mark>
 +----------+
 1 row in set (0.00 sec)
 
+<comment># Return ORD value of 'a'</comment>
 mysql> <mark>SELECT ORD('a');</mark>
 +----------+
 | ORD('a') |
@@ -39,189 +43,210 @@ mysql> <mark>SELECT ORD('a');</mark>
 1 row in set (0.00 sec)
 </pre></span>
 
-<div class="terminalcard">LENGHT and CHAR_LENGTH Functions</div>
+<div class="terminalcard">LENGTH and CHAR_LENGTH Functions</div>
 <span><pre>
+<comment># Get length of string in bytes</comment>
 mysql> <mark>SELECT LENGTH("GoDarda") AS Length;</mark>
 +--------+
 | Length |
 +--------+
-|     12 |
+|      7 |
 +--------+
 1 row in set (0.00 sec)
 
+<comment># Get length of string in characters</comment>
 mysql> <mark>SELECT CHAR_LENGTH("GoDarda") AS Length;</mark>
 +--------+
 | Length |
 +--------+
-|     12 |
+|      7 |
 +--------+
 1 row in set (0.00 sec)
 </pre></span>
 
 <div class="terminalcard">CONCAT Function</div>
 <span><pre>
-mysql> <mark>SELECT CONCAT("Koding","Window") AS Concatenation;</mark>
+<comment># Concatenate two strings</comment>
+mysql> <mark>SELECT CONCAT("Go","Darda") AS Concatenation;</mark>
 +---------------+
 | Concatenation |
 +---------------+
-| GoDarda  |
+| GoDarda       |
 +---------------+
 1 row in set (0.00 sec)
 
-mysql> <mark>SELECT CONCAT("Koding","Window"," Experiments") AS Concatenation;</mark>
+<comment># Concatenate multiple strings</comment>
+mysql> <mark>SELECT CONCAT("Go","Darda"," Experiments") AS Concatenation;</mark>
 +--------------------------+
 | Concatenation            |
 +--------------------------+
-| GoDarda Experiments |
+| GoDarda Experiments      |
 +--------------------------+
 1 row in set (0.00 sec)
 </pre></span>
 
 <div class="terminalcard">LCASE and UCASE Functions</div>
 <span><pre>
-mysql> <mark>SELECT LOWER("KoDiNgWiNdOw") AS Lowercase;</mark>
+<comment># Convert string to lowercase</comment>
+mysql> <mark>SELECT LOWER("GoDaRdA") AS Lowercase;</mark>
 +--------------+
 | Lowercase    |
 +--------------+
-| godarda |
+| godarda      |
 +--------------+
 1 row in set (0.12 sec)
 
+<comment># Convert string to uppercase</comment>
 mysql> <mark>SELECT UPPER("GoDarda") AS Uppercase;</mark>
 +--------------+
 | Uppercase    |
 +--------------+
-| KODINGWINDOW |
+| GODARDA      |
 +--------------+
 1 row in set (0.00 sec)
 
-mysql> <mark>SELECT LCASE("KoDiNgWiNdOw") AS Lowercase;</mark>
+<comment># Convert string to lowercase</comment>
+mysql> <mark>SELECT LCASE("GoDaRdA") AS Lowercase;</mark>
 +--------------+
 | Lowercase    |
 +--------------+
-| godarda |
+| godarda      |
 +--------------+
 1 row in set (0.00 sec)
 
+<comment># Convert string to uppercase</comment>
 mysql> <mark>SELECT UCASE("GoDarda") AS Uppdercase;</mark>
 +--------------+
 | Uppdercase   |
 +--------------+
-| KODINGWINDOW |
+| GODARDA      |
 +--------------+
 1 row in set (0.00 sec)
 </pre></span>
 
 <div class="terminalcard">LEFT and RIGHT Functions</div>
 <span><pre>
-mysql> <mark>SELECT LEFT("GoDarda",6) AS Extraction;</mark>
+<comment># Extract 2 characters from left</comment>
+mysql> <mark>SELECT LEFT("GoDarda",2) AS Extraction;</mark>
 +------------+
 | Extraction |
 +------------+
-| Koding     |
+| Go         |
 +------------+
 1 row in set (0.00 sec)
 
-mysql> <mark>SELECT RIGHT("GoDarda",6) AS Extraction;</mark>
+<comment># Extract 5 characters from right</comment>
+mysql> <mark>SELECT RIGHT("GoDarda",5) AS Extraction;</mark>
 +------------+
 | Extraction |
 +------------+
-| Window     |
+| Darda      |
 +------------+
 1 row in set (0.00 sec)
 </pre></span>
 
 <div class="terminalcard">LOCATE and POSITION Functions</div>
 <span><pre>
-mysql> <mark>SELECT LOCATE("O","KODINGWINDOW") AS Locate;</mark>
+<comment># Find position of substring</comment>
+mysql> <mark>SELECT LOCATE("D","GoDarda") AS Locate;</mark>
 +--------+
 | Locate |
 +--------+
-|      2 |
+|      3 |
 +--------+
 1 row in set (0.00 sec)
 
-mysql> <mark>SELECT LOCATE("window","KODINGWINDOW") AS Locate;</mark>
+<comment># Find position of substring</comment>
+mysql> <mark>SELECT LOCATE("Darda","GoDarda") AS Locate;</mark>
 +--------+
 | Locate |
 +--------+
-|      7 |
+|      3 |
 +--------+
 1 row in set (0.00 sec)
 
-mysql> <mark>SELECT POSITION("O" IN "KODINGWINDOW") AS Position;</mark>
+<comment># Find position of substring</comment>
+mysql> <mark>SELECT POSITION("D" IN "GoDarda") AS Position;</mark>
 +----------+
 | Position |
 +----------+
-|        2 |
+|        3 |
 +----------+
 1 row in set (0.00 sec)
 
-mysql> <mark>SELECT POSITION("window" IN "KODINGWINDOW") AS Position;</mark>
+<comment># Find position of substring</comment>
+mysql> <mark>SELECT POSITION("Darda" IN "GoDarda") AS Position;</mark>
 +----------+
 | Position |
 +----------+
-|        7 |
+|        3 |
 +----------+
 1 row in set (0.00 sec)
 </pre></span>
 
 <div class="terminalcard">SUBSTR and MID Functions</div>
 <span><pre>
-mysql> <mark>SELECT SUBSTR("GoDarda",7,12) AS Substring;</mark>
+<comment># Extract substring starting at 3</comment>
+mysql> <mark>SELECT SUBSTR("GoDarda",3,5) AS Substring;</mark>
 +-----------+
 | Substring |
 +-----------+
-| Window    |
+| Darda     |
 +-----------+
 1 row in set (0.00 sec)
 
-mysql> <mark>SELECT SUBSTRING("GoDarda",7,12) AS Substring;</mark>
+<comment># Extract substring starting at 3</comment>
+mysql> <mark>SELECT SUBSTRING("GoDarda",3,5) AS Substring;</mark>
 +-----------+
 | Substring |
 +-----------+
-| Window    |
+| Darda     |
 +-----------+
 1 row in set (0.00 sec)
 
-mysql> <mark>SELECT MID("GoDarda",7,12) AS Substring;</mark>
+<comment># Extract substring starting at 3</comment>
+mysql> <mark>SELECT MID("GoDarda",3,5) AS Substring;</mark>
 +-----------+
 | Substring |
 +-----------+
-| Window    |
+| Darda     |
 +-----------+
 1 row in set (0.00 sec)
 </pre></span>
 
 <div class="terminalcard">LTRIM, RTRIM, and TRIM Functions</div>
 <span><pre>
+<comment># Remove leading spaces</comment>
 mysql> <mark>SELECT LTRIM("  GoDarda   ") AS "Left Trim";</mark>
 +-----------------+
 | Left Trim       |
 +-----------------+
-| GoDarda    |
+| GoDarda   |
 +-----------------+
 1 row in set (0.00 sec)
 
+<comment># Remove trailing spaces</comment>
 mysql> <mark>SELECT RTRIM("  GoDarda   ") AS "Right Trim";</mark>
 +----------------+
 | Right Trim     |
 +----------------+
-|   GoDarda |
+|   GoDarda      |
 +----------------+
 1 row in set (0.00 sec)
 
+<comment># Remove leading and trailing spaces</comment>
 mysql> <mark>SELECT TRIM("  GoDarda   ") AS "Trim";</mark>
 +--------------+
 | Trim         |
 +--------------+
-| GoDarda |
+| GoDarda      |
 +--------------+
 1 row in set (0.00 sec)
 </pre></span>
 
 <div class="terminalcard">REPEAT, REPLACE, and REVERSE Functions</div>
 <span><pre>
+<comment># Repeat a number</comment>
 mysql> <mark>SELECT REPEAT(2,10) AS "Repeat";</mark>
 +------------+
 | Repeat     |
@@ -230,41 +255,46 @@ mysql> <mark>SELECT REPEAT(2,10) AS "Repeat";</mark>
 +------------+
 1 row in set (0.00 sec)
 
+<comment># Repeat a string</comment>
 mysql> <mark>SELECT REPEAT("GD",5) AS "Repeat";</mark>
 +------------+
 | Repeat     |
 +------------+
-| KWKWKWKWKW |
+| GDGDGDGDGD |
 +------------+
 1 row in set (0.00 sec)
 
-mysql> <mark>SELECT REPLACE("GoDarda","Koding","Learning") AS "Replace";</mark>
+<comment># Replace substring</comment>
+mysql> <mark>SELECT REPLACE("GoDarda","Go","Come") AS "Replace";</mark>
 +----------------+
 | Replace        |
 +----------------+
-| LearningWindow |
+| ComeDarda      |
 +----------------+
 1 row in set (0.00 sec)
 
+<comment># Reverse a string</comment>
 mysql> <mark>SELECT REVERSE("GoDarda") AS "Reverse";</mark>
 +--------------+
 | Reverse      |
 +--------------+
-| wodniWgnidoK |
+| adraDoG      |
 +--------------+
 1 row in set (0.00 sec)
 </pre></span>
 
 <div class="terminalcard">LPAD and RPAD Functions</div>
 <span><pre>
-mysql> <mark>SELECT LPAD("K",10,"W") AS "Left Padding";</mark>
+<comment># Left pad string</comment>
+mysql> <mark>SELECT LPAD("G",10,"D") AS "Left Padding";</mark>
 +--------------+
 | Left Padding |
 +--------------+
-| WWWWWWWWWK   |
+| DDDDDDDDDG   |
 +--------------+
 1 row in set (0.00 sec)
 
+<comment># Left pad number</comment>
 mysql> <mark>SELECT LPAD(152212,10,0) AS "Left Padding";</mark>
 +--------------+
 | Left Padding |
@@ -273,25 +303,28 @@ mysql> <mark>SELECT LPAD(152212,10,0) AS "Left Padding";</mark>
 +--------------+
 1 row in set (0.00 sec)
 
-mysql> <mark>SELECT RPAD("K",10,"W") AS "Right Padding";</mark>
+<comment># Right pad string</comment>
+mysql> <mark>SELECT RPAD("G",10,"D") AS "Right Padding";</mark>
 +---------------+
 | Right Padding |
 +---------------+
-| KWWWWWWWWW    |
+| GDDDDDDDDD    |
 +---------------+
 1 row in set (0.00 sec)
 
-mysql> <mark>SELECT RPAD("K",10,"Z") AS "Right Padding";</mark>
+<comment># Right pad string</comment>
+mysql> <mark>SELECT RPAD("G",10,"Z") AS "Right Padding";</mark>
 +---------------+
 | Right Padding |
 +---------------+
-| KZZZZZZZZZ    |
+| GZZZZZZZZZ    |
 +---------------+
 1 row in set (0.00 sec)
 </pre></span>
 
 <div class="terminalcard">SPACE Function</div>
 <span><pre>
+<comment># Generate string of spaces</comment>
 mysql> <mark>SELECT SPACE(50);</mark>
 +----------------------------------------------------+
 | SPACE(50)                                          |
@@ -303,6 +336,7 @@ mysql> <mark>SELECT SPACE(50);</mark>
 
 <div class="terminalcard">FORMAT Function</div>
 <span><pre>
+<comment># Format number with 1 decimal</comment>
 mysql> <mark>SELECT FORMAT(15247892233,1);</mark>
 +-----------------------+
 | FORMAT(15247892233,1) |
@@ -311,6 +345,7 @@ mysql> <mark>SELECT FORMAT(15247892233,1);</mark>
 +-----------------------+
 1 row in set (0.00 sec)
 
+<comment># Format number with 2 decimals</comment>
 mysql> <mark>SELECT FORMAT(15247892233,2);</mark>
 +-----------------------+
 | FORMAT(15247892233,2) |

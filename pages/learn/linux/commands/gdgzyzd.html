@@ -6,6 +6,7 @@ title: Linux commands to display the system hardware information
 <div class="titlecard">{{ page.title }}</div>
 <div class="terminalcard">lscpu command</div>
 <span><pre>
+<comment># Display CPU architecture information</comment>
 godarda@gd:~$ <mark>lscpu</mark>
 Architecture:             x86_64
   CPU op-mode(s):         32-bit, 64-bit
@@ -30,9 +31,10 @@ Vendor ID:                GenuineIntel
 
 <div class="terminalcard">lshw command</div>
 <span><pre>
+<comment># List hardware configuration</comment>
 godarda@gd:~$ <mark>lshw</mark>
 WARNING: you should run this program as super-user.
-gd                          
+gd
     description: Computer
     width: 64 bits
     capabilities: smp vsyscall32
@@ -57,6 +59,7 @@ gd
 
 <div class="terminalcard">lspci command</div>
 <span><pre>
+<comment># List all PCI devices</comment>
 godarda@gd:~$ <mark>lspci</mark>
 0000:00:00.0 Host bridge: Intel Corporation Device 9a04 (rev 01)
 0000:00:02.0 VGA compatible controller: Intel Corporation Tiger Lake-LP GT2 [UHD Graphics G4] (rev 01)
@@ -66,8 +69,9 @@ godarda@gd:~$ <mark>lspci</mark>
 
 <div class="terminalcard">Hardware information using cat command</div>
 <span><pre>
+<comment># Show interrupts per CPU</comment>
 godarda@gd:~$ <mark>cat /proc/interrupts | head -10</mark>
-            CPU0       CPU1       CPU2       CPU3       
+            CPU0       CPU1       CPU2       CPU3
    1:          0          0       2955          0  IR-IO-APIC    1-edge      i8042
    8:          0          0          0          0  IR-IO-APIC    8-edge      rtc0
    9:          0      10273          0          0  IR-IO-APIC    9-fasteoi   acpi
@@ -77,7 +81,9 @@ godarda@gd:~$ <mark>cat /proc/interrupts | head -10</mark>
   37:          0          0          0          0  IR-IO-APIC   37-fasteoi   idma64.3, pxa2xx-spi.3
   40:          0       1678          0          0  IR-IO-APIC   40-fasteoi   idma64.1, i2c_designware.1
  120:          0          0          0          0  DMAR-MSI    0-edge      dmar0
-<hr>godarda@gd:~$ <mark>cat /proc/cpuinfo | head -10</mark>
+<hr>
+<comment># Show CPU information</comment>
+godarda@gd:~$ <mark>cat /proc/cpuinfo | head -10</mark>
 processor   : 0
 vendor_id   : GenuineIntel
 cpu family  : 6
@@ -88,7 +94,9 @@ microcode   : 0xb6
 cpu MHz     : 1300.127
 cache size  : 6144 KB
 physical id : 0
-<hr>godarda@gd:~$ <mark>cat /proc/meminfo | head -10</mark>
+<hr>
+<comment># Show memory information</comment>
+godarda@gd:~$ <mark>cat /proc/meminfo | head -10</mark>
 MemTotal:        7911628 kB
 MemFree:         2623644 kB
 MemAvailable:    4531468 kB
@@ -99,7 +107,9 @@ Active:          1854048 kB
 Inactive:        2654764 kB
 Active(anon):    1218664 kB
 Inactive(anon):  1305352 kB
-<hr>godarda@gd:~$ <mark>cat /proc/zoneinfo | head -10</mark>
+<hr>
+<comment># Show memory zone information</comment>
+godarda@gd:~$ <mark>cat /proc/zoneinfo | head -10</mark>
 Node 0, zone      DMA
   per-node stats
       nr_inactive_anon 326267
@@ -114,16 +124,19 @@ Node 0, zone      DMA
 
 <div class="terminalcard">Commands to display memory information</div>
 <span><pre>
+<comment># Display amount of free and used memory</comment>
 godarda@gd:~$ <mark>free</mark>
                total        used        free      shared  buff/cache   available
 Mem:         7911628     3369904     2633604      504844     2725544     4541724
 Swap:        4194300      104960     4089340
 
+<comment># Report virtual memory statistics</comment>
 godarda@gd:~$ <mark>vmstat</mark>
 procs -----------memory---------- ---swap-- -----io---- -system-- -------cpu-------
  r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st gu
  0  0 104960 2643164  51876 2668680    0   19   503  1955 2596   12  9  3 88  0  0  0
 
+<comment># Report file system disk space usage</comment>
 godarda@gd:~$ <mark>df</mark>
 Filesystem     1K-blocks     Used Available Use% Mounted on
 tmpfs             791164     2244    788920   1% /run
@@ -134,7 +147,9 @@ efivarfs             184      178         1 100% /sys/firmware/efi/efivars
 /dev/nvme0n1p1    262144    63860    198284  25% /boot/efi
 tmpfs             791160     2568    788592   1% /run/user/1000
 
-<hr>godarda@gd:~$ <mark>lsusb</mark>
+<hr>
+<comment># List USB devices</comment>
+godarda@gd:~$ <mark>lsusb</mark>
 Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
 Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
@@ -142,7 +157,9 @@ Bus 003 Device 002: ID 1ea7:0066 SHARKOON Technologies GmbH [Mediatrack Edge Min
 Bus 003 Device 003: ID 5986:2137 Bison Electronics Inc. Integrated Camera
 Bus 003 Device 004: ID 8087:0aaa Intel Corp. Bluetooth 9460/9560 Jefferson Peak (JfP)
 Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
-<hr>godarda@gd:~$ <mark>id</mark>
+<hr>
+<comment># Print user and group IDs</comment>
+godarda@gd:~$ <mark>id</mark>
 uid=1000(godarda) gid=1000(godarda) groups=1000(godarda),
 4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin)
 </pre></span>

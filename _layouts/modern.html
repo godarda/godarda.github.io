@@ -12,7 +12,7 @@
         {%- unless is_sidebar_page -%}
         <div class="navbar-brand" style="margin-left: 0px;">
             <a><img id="logo" alt="Logo" width="30" height="30" src="{{ site.icon | relative_url }}"></a>
-            <a id="fc-{{ path[1] }}"> {{ parent }}</a>
+            <a id="fc-{{ path[1] }}"> {%- if path[1] != nil %}<i class="bi bi-chevron-compact-right"></i>{%- endif -%} {{ parent }} </a>
         </div>
         {%- else -%}
         <div id="navbar-brand" class="navbar-brand">
@@ -23,9 +23,9 @@
             {%- assign tools_matches = tools_data.segments | where: "url", path[1] -%}
             {%- if learn_matches.size > 0 -%}{%- assign home_url = "learn" -%}{%- elsif tools_matches.size > 0 -%}{%- assign home_url = "tools" -%}{%- endif -%}
             <a href="{{ home_url }}"><img id="logo" alt="Logo" width="30" height="30" src="{{ site.icon | relative_url }}"></a>
-            <a id="fc-{{ path[1] }}" href="{{ path[1] }}">{{ parent }} / </a>
+            </i><a id="fc-{{ path[1] }}" href="{{ path[1] }}"><i class="bi bi-chevron-compact-right"></i> {{ parent }} <i class="bi bi-chevron-compact-right"></i></a>
             {%- if path[2] != nil -%}
-                <a id="fc-{{ path[1] }}" href="{{ path[1] }}/{{ path[2] }}">{{ child }} / </a>
+                <a id="fc-{{ path[1] }}" href="{{ path[1] }}/{{ path[2] }}"> {{ child }} <i class="bi bi-chevron-compact-right"></i></a>
             {%- endif -%}
         </div>
         <button id="lsidebar" class="navbar-toggler p-0" type="button" data-bs-toggle="leftsidebar" data-bs-target="#leftsidebar" aria-label="lsidebar"><span class="navbar-toggler-icon"></span></button>

@@ -7,6 +7,7 @@ title: MySQL Date and Time Functions
 <div class="terminalcard">CURDATE and CURTIME Functions</div>
 <div class="infocard">CURDATE(): It returns the current date as a value in 'YYYY-MM-DD' or YYYYMMDD format, depending on which function is used.</div>
 <span><pre>
+<comment># Get current date</comment>
 mysql> <mark>SELECT CURDATE();</mark>
 +------------+
 | CURDATE()  |
@@ -15,6 +16,7 @@ mysql> <mark>SELECT CURDATE();</mark>
 +------------+
 1 row in set (0.00 sec)
 
+<comment># Get current date as numeric value</comment>
 mysql> <mark>SELECT CURDATE() + 0;</mark>
 +---------------+
 | CURDATE() + 0 |
@@ -23,6 +25,7 @@ mysql> <mark>SELECT CURDATE() + 0;</mark>
 +---------------+
 1 row in set (0.00 sec)
 
+<comment># Get current time</comment>
 mysql> <mark>SELECT CURTIME();</mark>
 +-----------+
 | CURTIME() |
@@ -31,6 +34,7 @@ mysql> <mark>SELECT CURTIME();</mark>
 +-----------+
 1 row in set (0.00 sec)
 
+<comment># Get current time as numeric value</comment>
 mysql> <mark>SELECT CURTIME() + 0;</mark>
 +---------------+
 | CURTIME() + 0 |
@@ -43,6 +47,7 @@ mysql> <mark>SELECT CURTIME() + 0;</mark>
 <div class="terminalcard">NOW, SLEEP, and SYSDATE Functions</div>
 <div class="infocard">NOW(): It returns a constant time that indicates the time at which the statement start to execute, and SYSDATE() returns the exact time at which it executes.</div>
 <span><pre>
+<comment># Get current date and time</comment>
 mysql> <mark>SELECT NOW();</mark>
 +---------------------+
 | NOW()               |
@@ -51,6 +56,7 @@ mysql> <mark>SELECT NOW();</mark>
 +---------------------+
 1 row in set (0.00 sec)
 
+<comment># Demonstrate NOW() remains constant during query execution</comment>
 mysql> <mark>SELECT NOW(), SLEEP(2), NOW();</mark>
 +---------------------+----------+---------------------+
 | NOW()               | SLEEP(2) | NOW()               |
@@ -59,6 +65,7 @@ mysql> <mark>SELECT NOW(), SLEEP(2), NOW();</mark>
 +---------------------+----------+---------------------+
 1 row in set (2.34 sec)
 
+<comment># Demonstrate SYSDATE() returns time at execution</comment>
 mysql> <mark>SELECT SYSDATE(), SLEEP(2), SYSDATE();</mark>
 +---------------------+----------+---------------------+
 | SYSDATE()           | SLEEP(2) | SYSDATE()           |
@@ -71,6 +78,7 @@ mysql> <mark>SELECT SYSDATE(), SLEEP(2), SYSDATE();</mark>
 <div class="terminalcard">DATEDIFF and DATE_ADD Functions</div>
 <div class="infocard">DATEDIFF(): It returns expr1 − expr2 (date or date-and-time expressions) expressed as a value in days from one date to the other</div>
 <span><pre>
+<comment># Calculate difference in days</comment>
 mysql> <mark>SELECT DATEDIFF(CURDATE(),'2018-02-19');</mark>
 +----------------------------------+
 | DATEDIFF(CURDATE(),'2018-02-19') |
@@ -79,6 +87,7 @@ mysql> <mark>SELECT DATEDIFF(CURDATE(),'2018-02-19');</mark>
 +----------------------------------+
 1 row in set (0.00 sec)
 
+<comment># Add 1 day to current date</comment>
 mysql> <mark>SELECT DATE_ADD(CURDATE(), INTERVAL 1 DAY);</mark>
 +-------------------------------------+
 | DATE_ADD(CURDATE(), INTERVAL 1 DAY) |
@@ -87,6 +96,7 @@ mysql> <mark>SELECT DATE_ADD(CURDATE(), INTERVAL 1 DAY);</mark>
 +-------------------------------------+
 1 row in set (0.01 sec)
 
+<comment># Add 5 months to current date</comment>
 mysql> <mark>SELECT DATE_ADD(CURDATE(), INTERVAL 5 MONTH);</mark>
 +---------------------------------------+
 | DATE_ADD(CURDATE(), INTERVAL 5 MONTH) |
@@ -98,6 +108,7 @@ mysql> <mark>SELECT DATE_ADD(CURDATE(), INTERVAL 5 MONTH);</mark>
 
 <div class="terminalcard">DATE_FORMAT Function</div>
 <span><pre>
+<comment># Format date as Weekday Month Year</comment>
 mysql> <mark>SELECT DATE_FORMAT(CURDATE(), '%W %M %Y');</mark>
 +------------------------------------+
 | DATE_FORMAT(CURDATE(), '%W %M %Y') |
@@ -106,6 +117,7 @@ mysql> <mark>SELECT DATE_FORMAT(CURDATE(), '%W %M %Y');</mark>
 +------------------------------------+
 1 row in set (0.00 sec)
 
+<comment># Format date with various specifiers</comment>
 mysql> <mark>SELECT DATE_FORMAT(CURDATE(), '%D %y %a %d %m %b %j') AS DATE_FORMAT;</mark>
 +---------------------------+
 | DATE_FORMAT               |
@@ -114,6 +126,7 @@ mysql> <mark>SELECT DATE_FORMAT(CURDATE(), '%D %y %a %d %m %b %j') AS DATE_FORMA
 +---------------------------+
 1 row in set (0.00 sec)
 
+<comment># Format date using USA standard</comment>
 mysql> <mark>SELECT DATE_FORMAT('2018-02-19', GET_FORMAT(DATE,'USA')) AS USA_DATE_FORMAT;</mark>
 +-----------------+
 | USA_DATE_FORMAT |
@@ -122,6 +135,7 @@ mysql> <mark>SELECT DATE_FORMAT('2018-02-19', GET_FORMAT(DATE,'USA')) AS USA_DAT
 +-----------------+
 1 row in set (0.00 sec)
 
+<comment># Format date using EUR standard</comment>
 mysql> <mark>SELECT DATE_FORMAT('2018-02-19', GET_FORMAT(DATE,'EUR')) AS EUR_DATE_FORMAT;</mark>
 +-----------------+
 | EUR_DATE_FORMAT |
@@ -133,6 +147,7 @@ mysql> <mark>SELECT DATE_FORMAT('2018-02-19', GET_FORMAT(DATE,'EUR')) AS EUR_DAT
 
 <div class="terminalcard">DAYNAME Function</div>
 <span><pre>
+<comment># Get day name of current date</comment>
 mysql> <mark>SELECT DAYNAME(CURDATE());</mark>
 +--------------------+
 | DAYNAME(CURDATE()) |
@@ -141,6 +156,7 @@ mysql> <mark>SELECT DAYNAME(CURDATE());</mark>
 +--------------------+
 1 row in set (0.00 sec)
 
+<comment># Get day name of specific date</comment>
 mysql> <mark>SELECT DAYNAME('2018-02-19');</mark>
 +-----------------------+
 | DAYNAME('2018-02-19') |
@@ -153,6 +169,7 @@ mysql> <mark>SELECT DAYNAME('2018-02-19');</mark>
 <div class="terminalcard">DAYOFMONTH, DAYOFWEEK, and DAYOFYEAR Functions</div>
 <div class="infocard">WEEKDAY(): It Returns the weekday index for date (0 = Monday, 1 = Tuesday, … 6 = Sunday)</div>
 <span><pre>
+<comment># Get day of the month</comment>
 mysql> <mark>SELECT DAYOFMONTH(CURDATE());</mark>
 +-----------------------+
 | DAYOFMONTH(CURDATE()) |
@@ -161,6 +178,7 @@ mysql> <mark>SELECT DAYOFMONTH(CURDATE());</mark>
 +-----------------------+
 1 row in set (0.00 sec)
 
+<comment># Get day of the week index</comment>
 mysql> <mark>SELECT DAYOFWEEK('2018-02-19');</mark>
 +-------------------------+
 | DAYOFWEEK('2018-02-19') |
@@ -169,6 +187,7 @@ mysql> <mark>SELECT DAYOFWEEK('2018-02-19');</mark>
 +-------------------------+
 1 row in set (0.00 sec)
 
+<comment># Get day of the week index</comment>
 mysql> <mark>SELECT DAYOFWEEK(CURDATE());</mark>
 +----------------------+
 | DAYOFWEEK(CURDATE()) |
@@ -177,6 +196,7 @@ mysql> <mark>SELECT DAYOFWEEK(CURDATE());</mark>
 +----------------------+
 1 row in set (0.00 sec)
 
+<comment># Get day of the year</comment>
 mysql> <mark>SELECT DAYOFYEAR(CURDATE());</mark>
 +----------------------+
 | DAYOFYEAR(CURDATE()) |
@@ -185,6 +205,7 @@ mysql> <mark>SELECT DAYOFYEAR(CURDATE());</mark>
 +----------------------+
 1 row in set (0.00 sec)
 
+<comment># Get day of the year</comment>
 mysql> <mark>SELECT DAYOFYEAR('2018-02-19');</mark>
 +-------------------------+
 | DAYOFYEAR('2018-02-19') |
@@ -196,6 +217,7 @@ mysql> <mark>SELECT DAYOFYEAR('2018-02-19');</mark>
 
 <div class="terminalcard">EXTRACT Function</div>
 <span><pre>
+<comment># Extract year from current date</comment>
 mysql> <mark>SELECT EXTRACT(YEAR FROM CURDATE()) AS YEAR;</mark>
 +------+
 | YEAR |
@@ -204,6 +226,7 @@ mysql> <mark>SELECT EXTRACT(YEAR FROM CURDATE()) AS YEAR;</mark>
 +------+
 1 row in set (0.00 sec)
 
+<comment># Extract month from current date</comment>
 mysql> <mark>SELECT EXTRACT(MONTH FROM CURDATE()) AS MONTH;</mark>
 +-------+
 | MONTH |
@@ -215,6 +238,7 @@ mysql> <mark>SELECT EXTRACT(MONTH FROM CURDATE()) AS MONTH;</mark>
 
 <div class="terminalcard">LAST_DAY and MONTHNAME Functions</div>
 <span><pre>
+<comment># Get last day of the month</comment>
 mysql> <mark>SELECT LAST_DAY('2018-02-19');</mark>
 +------------------------+
 | LAST_DAY('2018-02-19') |
@@ -223,6 +247,7 @@ mysql> <mark>SELECT LAST_DAY('2018-02-19');</mark>
 +------------------------+
 1 row in set (0.00 sec)
 
+<comment># Get month name</comment>
 mysql> <mark>SELECT MONTHNAME(CURDATE());</mark>
 +----------------------+
 | MONTHNAME(CURDATE()) |
@@ -234,6 +259,7 @@ mysql> <mark>SELECT MONTHNAME(CURDATE());</mark>
 
 <div class="terminalcard">SEC_TO_TIME and SUBDATE Functions</div>
 <span><pre>
+<comment># Convert seconds to time</comment>
 mysql> <mark>SELECT SEC_TO_TIME(4500);</mark>
 +-------------------+
 | SEC_TO_TIME(4500) |
@@ -242,6 +268,7 @@ mysql> <mark>SELECT SEC_TO_TIME(4500);</mark>
 +-------------------+
 1 row in set (0.00 sec)
 
+<comment># Subtract days from current date</comment>
 mysql> <mark>SELECT SUBDATE(CURDATE(), INTERVAL 107 DAY) AS DIFFERENCE;</mark>
 +------------+
 | DIFFERENCE |
@@ -253,6 +280,7 @@ mysql> <mark>SELECT SUBDATE(CURDATE(), INTERVAL 107 DAY) AS DIFFERENCE;</mark>
 
 <div class="terminalcard">UTC_DATE and UTC_TIME Functions</div>
 <span><pre>
+<comment># Get UTC date</comment>
 mysql> <mark>SELECT UTC_DATE();</mark>
 +------------+
 | UTC_DATE() |
@@ -261,6 +289,7 @@ mysql> <mark>SELECT UTC_DATE();</mark>
 +------------+
 1 row in set (0.01 sec)
 
+<comment># Get UTC time</comment>
 mysql> <mark>SELECT UTC_TIME();</mark>
 +------------+
 | UTC_TIME() |
@@ -269,6 +298,7 @@ mysql> <mark>SELECT UTC_TIME();</mark>
 +------------+
 1 row in set (0.00 sec)
 
+<comment># Get UTC timestamp</comment>
 mysql> <mark>SELECT UTC_TIMESTAMP();</mark>
 +---------------------+
 | UTC_TIMESTAMP()     |
@@ -277,6 +307,7 @@ mysql> <mark>SELECT UTC_TIMESTAMP();</mark>
 +---------------------+
 1 row in set (0.00 sec)
 
+<comment># Get week number</comment>
 mysql> <mark>SELECT WEEK(CURDATE());</mark>
 +-----------------+
 | WEEK(CURDATE()) |

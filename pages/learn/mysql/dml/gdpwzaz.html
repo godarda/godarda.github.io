@@ -10,6 +10,7 @@ title: MySQL LIMIT Clause
 
 <div class="terminalcard">Retrieving the existing databases and table records</div>
 <span><pre>
+<comment># List all databases</comment>
 mysql> <mark>SHOW DATABASES;</mark>
 +--------------------+
 | Database           |
@@ -22,9 +23,11 @@ mysql> <mark>SHOW DATABASES;</mark>
 +--------------------+
 5 rows in set (0.00 sec)
 
+<comment># Switch to the DB database</comment>
 mysql> <mark>USE DB;</mark>
 Database changed
 
+<comment># List all tables</comment>
 mysql> <mark>SHOW TABLES;</mark>
 +--------------+
 | Tables_in_DB |
@@ -33,6 +36,7 @@ mysql> <mark>SHOW TABLES;</mark>
 +--------------+
 1 row in set (0.01 sec)
 
+<comment># Retrieve all records from holders</comment>
 mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 | account_no  | name          | city    | dob        | bank     | amount |
@@ -50,6 +54,7 @@ mysql> <mark>SELECT * FROM holders;</mark>
 
 <div class="terminalcard">Using LIMIT clause</div>
 <span><pre>
+<comment># Retrieve the first 3 records</comment>
 mysql> <mark>SELECT * FROM holders LIMIT 3;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 | account_no  | name          | city    | dob        | bank     | amount |
@@ -60,6 +65,7 @@ mysql> <mark>SELECT * FROM holders LIMIT 3;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 3 rows in set (0.00 sec)
 
+<comment># Retrieve first 3 records ordered by dob</comment>
 mysql> <mark>SELECT * FROM holders ORDER BY dob LIMIT 3;</mark>
 +-------------+--------------+-------+------------+--------+--------+
 | account_no  | name         | city  | dob        | bank   | amount |
@@ -73,6 +79,7 @@ mysql> <mark>SELECT * FROM holders ORDER BY dob LIMIT 3;</mark>
 
 <div class="terminalcard">Retrieving first and last three records</div>
 <span><pre>
+<comment># Retrieve all records ordered by bank and amount</comment>
 mysql> <mark>SELECT * FROM holders ORDER BY bank,amount;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 | account_no  | name          | city    | dob        | bank     | amount |
@@ -87,6 +94,7 @@ mysql> <mark>SELECT * FROM holders ORDER BY bank,amount;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 7 rows in set (0.00 sec)
 
+<comment># Retrieve first 3 records ordered by bank and amount</comment>
 mysql> <mark>SELECT * FROM holders ORDER BY bank,amount LIMIT 3;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 | account_no  | name          | city    | dob        | bank     | amount |
@@ -97,6 +105,7 @@ mysql> <mark>SELECT * FROM holders ORDER BY bank,amount LIMIT 3;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 3 rows in set (0.01 sec)
 
+<comment># Retrieve last 3 records by account number</comment>
 mysql> <mark>SELECT * FROM holders ORDER BY account_no DESC LIMIT 3;</mark>
 +-------------+--------------+-------+------------+--------+--------+
 | account_no  | name         | city  | dob        | bank   | amount |

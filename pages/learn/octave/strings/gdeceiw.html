@@ -7,35 +7,42 @@ title: Octave string indexing
 <span><pre>
 godarda@gd:~$ <mark>octave</mark>
 ...
+<comment># Create a string variable</comment>
 octave> <mark>gd = "GoDarda"</mark>
 gd = GoDarda
 
-octave> <mark>startsWith(gd, "KODING")</mark>
+<comment># Check if string starts with pattern</comment>
+octave> <mark>startsWith(gd, "GO")</mark>
 ans = 0
 
-octave> <mark>startsWith(gd, "Koding")</mark>
+octave> <mark>startsWith(gd, "Go")</mark>
 ans = 1
 
-octave> <mark>endsWith(gd, "ing")</mark>
+<comment># Check if string ends with pattern</comment>
+octave> <mark>endsWith(gd, "ar")</mark>
 ans = 0
 
-octave> <mark>endsWith(gd, "dow")</mark>
+octave> <mark>endsWith(gd, "da")</mark>
 ans = 1
 
-octave> <mark>index(gd, "in")</mark>
+<comment># Find index of first occurrence</comment>
+octave> <mark>index(gd, "a")</mark>
 ans = 4
 
-octave> <mark>rindex(gd, "in")</mark>
-ans = 8
+<comment># Find index of last occurrence</comment>
+octave> <mark>rindex(gd, "a")</mark>
+ans = 7
 
+<comment># Get character indices</comment>
 octave> <mark>unicode_idx(gd)</mark>
 ans =
 
-    1    2    3    4    5    6    7    8    9   10   11   12
+   1   2   3   4   5   6   7
 
-octave> <mark>strfind(gd, "WINDOW")</mark>
+<comment># Find substring index</comment>
+octave> <mark>strfind(gd, "DARDA")</mark>
 ans = [](0x0)
 
-octave> <mark>strfind(gd, "window")</mark>
-ans = 7
+octave> <mark>strfind(gd, "Darda")</mark>
+ans = 3
 </pre></span>
