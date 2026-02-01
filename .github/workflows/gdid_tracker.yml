@@ -64,7 +64,7 @@ jobs:
       # Create a Pull Request with updated GDID sets
       - name: Create Pull Request
         id: cpr
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           commit-message: Auto-update GDID sets
           title: Auto-update GDID sets
