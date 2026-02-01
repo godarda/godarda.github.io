@@ -6,27 +6,23 @@ layout: none
 
 [data-bs-theme="dark"]
 {
-    --asm:                 #b37700; /* Brown for assembly language */
     --c:                   #0080ff; /* Blue for C programming language */
     --calculators:         #66b3ff; /* Light blue for calculators */
     --cg:                  #ff6699; /* Pink for computer graphics */
-    --cluster:             #99994d; /* Olive for clustering systems */
+    --cluster:             #00bfff; /* Cyan for F# programming language */
     --converters:          #ff99cc; /* Light pink for converters */
     --cpp:                 #99e600; /* Bright green for C++ programming language */
     --csharp:              #b366ff; /* Purple for C# programming language */
     --ds:                  #cc6666; /* Muted red for data science */
     --dsa:                 #e6b800; /* Amber for data structures and algorithms */
-    --fsharp:              #00bfff; /* Cyan for F# programming language */
     --generators:          #79d2a6; /* Soft green for generators */
     --java:                #ff8533; /* Warm orange for Java programming language */
     --julia:               #cc3399; /* Magenta for Julia programming language */
     --linux:               #ff9966; /* Coral for Linux systems */
-    --lisp:                #8080ff; /* Indigo for Lisp programming language */
     --mongodb:             #29a329; /* Green for MongoDB database */
     --mysql:               #4080bf; /* Blue for MySQL database */
-    --octave:              #ff6600; /* Bright orange for Octave programming language */
     --python:              #e6e600; /* Vibrant yellow for Python programming language */
-    --r:                   #9999ff; /* Light purple for R programming language */
+    --r:                   #8080ff; /* Indigo for Lisp programming language */
     --rust:                #996633; /* Rustic brown for Rust programming language */
     --selenium:            #00cc66; /* Green for Selenium testing framework */
     --utilities:           #00ced1; /* Dark Turquoise for utilities */
@@ -78,27 +74,23 @@ layout: none
 
 [data-bs-theme="light"]
 {
-    --asm:                 #b37400; /* Brown for assembly language */
     --c:                   #007acc; /* Blue for C programming language */
     --calculators:         #0073e6; /* Strong blue for calculators */
     --cg:                  #e65c7d; /* Pink for computer graphics */
-    --cluster:             #99994d; /* Olive for clustering systems */
+    --cluster:             #1aa3cc; /* Cyan for F# programming language */
     --converters:          #ff3399; /* Strong pink for converters */
     --cpp:                 #66cc00; /* Green for C++ programming language */
     --csharp:              #b34dff; /* Purple for C# programming language */
     --ds:                  #e65c5c; /* Red for data science */
     --dsa:                 #e69900; /* Amber for data structures and algorithms */
-    --fsharp:              #1aa3cc; /* Cyan for F# programming language */
     --generators:          #2db373; /* Green for generators */
     --java:                #e67300; /* Orange for Java programming language */
     --julia:               #e62e8c; /* Magenta for Julia programming language */
     --linux:               #e6854d; /* Coral for Linux systems */
-    --lisp:                #7979d4; /* Indigo for Lisp programming language */
     --mongodb:             #29a329; /* Green for MongoDB database */
     --mysql:               #337ab7; /* Blue for MySQL database */
-    --octave:              #e65c00; /* Orange for Octave programming language */
     --python:              #e6b800; /* Yellow for Python programming language */
-    --r:                   #9999e6; /* Purple for R programming language */
+    --r:                   #7979d4; /* Indigo for Lisp programming language */
     --rust:                #b3591a; /* Brown for Rust programming language */
     --selenium:            #00b359; /* Green for Selenium testing framework */
     --utilities:           #008b8b; /* Dark Cyan for utilities */

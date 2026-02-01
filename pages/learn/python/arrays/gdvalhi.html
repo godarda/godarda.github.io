@@ -8,6 +8,7 @@ title: How to create arrays using the arange(), zeros(), and ones() functions
 godarda@gd:~$ <mark>python3</mark>
 ...
 >>> <mark>from numpy import *</mark>
+<comment># Create array with range and step</comment>
 >>> <mark>arr = arange(0, 50, 2)</mark>
 >>> <mark>arr</mark>
 array([ 0,  2,  4,  6,  8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32,
@@ -21,13 +22,16 @@ array([ 1,  3,  5,  7,  9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33,
 <div class="terminalcard">Create an array using zeros() function</div>
 <span><pre>
 >>> <mark>from numpy import *</mark>
+<comment># Create integer array of zeros</comment>
 >>> <mark>arr = zeros(5, int)</mark>
 >>> <mark>arr</mark>
 array([0, 0, 0, 0, 0])
 
+<comment># Adding scalar to array</comment>
 >>> <mark>arr + 3</mark>
 array([3, 3, 3, 3, 3])
 
+<comment># Create float array of zeros</comment>
 >>> <mark>arr = zeros(5, float)</mark>
 >>> <mark>arr</mark>
 array([0., 0., 0., 0., 0.])
@@ -36,13 +40,16 @@ array([0., 0., 0., 0., 0.])
 <div class="terminalcard">Create an array using ones() function</div>
 <span><pre>
 >>> <mark>from numpy import *</mark>
+<comment># Create integer array of ones</comment>
 >>> <mark>arr = ones(5, int)</mark>
 >>> <mark>arr</mark>
 array([1, 1, 1, 1, 1])
 
+<comment># Adding scalar to array</comment>
 >>> <mark>arr + 3</mark>
 array([4, 4, 4, 4, 4])
 
+<comment># Create float array of ones</comment>
 >>> <mark>arr = ones(5, float)</mark>
 >>> <mark>arr</mark>
 array([1., 1., 1., 1., 1.])

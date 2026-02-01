@@ -8,14 +8,14 @@ title: R Data Frames
 <span><pre>
 godarda@gd:~$ <mark>R</mark>
 ...
-<comment># create vectors</comment>
+<comment># Create vectors</comment>
 ><mark> f &lt;- c("Apple","Orange","Mango")</mark>
 ><mark> c &lt;- c("Red","Orange","Yellow")</mark>
 ><mark> r &lt;- c(200,100,500)</mark>
 ><mark> q &lt;- c(12,12,12)</mark>
 ><mark> a &lt;- c(FALSE,FALSE,TRUE)</mark>
 
-<comment># create a data frame</comment>
+<comment># Create a data frame</comment>
 ><mark> df &lt;- data.frame(f,c,r,q,a)</mark>
 ><mark> df</mark>
        f      c   r  q     a
@@ -23,7 +23,7 @@ godarda@gd:~$ <mark>R</mark>
 2 Orange Orange 100 12 FALSE
 3  Mango Yellow 500 12  TRUE
 
-<comment># rename columns</comment>
+<comment># Rename columns</comment>
 ><mark> names(df) &lt;- c("Fruits","Colors","Rates","Quantity","Availability")</mark>
 ><mark> df</mark>
   Fruits Colors Rates Quantity Availability
@@ -31,7 +31,7 @@ godarda@gd:~$ <mark>R</mark>
 2 Orange Orange   100       12        FALSE
 3  Mango Yellow   500       12         TRUE
 
-<comment># display structure of data frame</comment>
+<comment># Display structure of data frame</comment>
 ><mark> str(df)</mark>
 'data.frame':	3 obs. of  5 variables:
  $ Fruits      : Factor w/ 3 levels "Apple","Mango",..: 1 3 2

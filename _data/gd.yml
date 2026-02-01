@@ -27,25 +27,13 @@ segments:
     url: julia
     parent: " Julia "
 
-  - title: GNU Octave
-    url: octave
-    parent: " Octave "
-
   - title: C# Programming
     url: csharp
     parent: " CSharp "
 
-  - title: F# Programming
-    url: fsharp
-    parent: " FSharp "
-
   - title: Rust Programming
     url: rust
     parent: " Rust "
-
-  - title: LISP Programming
-    url: lisp
-    parent: " LISP "
 
   - title: Data Structures and Algorithms
     url: dsa
@@ -71,11 +59,7 @@ segments:
     url: cg
     parent: " CG "
 
-  - title: Assembly Programming
-    url: asm
-    parent: " ASM "
-
-  - title: Cluster
+  - title: Explore Cluster
     url: cluster
     parent: " Cluster "
 

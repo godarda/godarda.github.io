@@ -88,7 +88,7 @@ h6 {
 
 hr {
     margin: 12px 0px 12px 0px;
-    color: var(--color1);
+    color: var(--board-tc);
 }
 
 p {
