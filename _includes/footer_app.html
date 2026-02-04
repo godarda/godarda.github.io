@@ -1,8 +1,10 @@
-{%- if path[1] == "about" and path[2] == nil -%}{%- assign about_section = "about_home_true" -%}
-{%- elsif path[1] == "about" and path[2] != nil -%}{%- assign about_section = "about_home_false" -%}{%- endif -%}
-<div id="app" class="container {{ about_section }}" style="display: none;">
+{%- if path[1] == "settings" and path[2] == nil -%}{%- assign settings = "settings_true" -%}
+{%- elsif path[1] == "settings" and path[2] != nil -%}{%- assign settings = "settings_false" -%}{%- endif -%}
+
+<div id="app" class="container {{ settings }}" style="display: none;">
     <div class="board">
         <div class="boardtitle">Resources</div>
+        <a class="card" href="about/">About Us</a>
         <a class="card" href="about/faqs">Frequently Asked Questions</a>
         <a class="card" href="about/contribute">Contribution Guide</a>
         <a class="card" href="about/terms">Terms of Use</a>
@@ -23,17 +25,17 @@
     </div>
     <div class="board">
         <div class="boardtitle">App Settings</div>
-        <a id="version" class="card disabled"></a>
-        <a id="resetapp" class="card" href="reset:">Reset App (History, Cache, etc.)</a>
-        <a class="card d-flex flex-row align-items-center justify-content-between">
-            <span>Theme: </span>
-            <div class="btn-group" role="group" aria-label="Theme toggle button group">
+        <a id="version" class="card disabled">App Version: Loading...</a>
+        <a id="resetapp" class="card" href="reset:">Reset Application</a>
+        <a class="card p-0" style="overflow: hidden;">
+            <div class="btn-group w-100" role="group" aria-label="Theme toggle button group">
+                <button class="btn btn-outline-secondary border-0 rounded-0 disabled flex-grow-1 py-2" style="opacity: 1; color: var(--textcolor); text-align: left;">Theme:</button>
                 <input type="radio" class="btn-check" name="theme-radio" id="theme-auto" autocomplete="off" data-bs-theme-value="auto">
-                <label class="btn btn-outline-secondary" for="theme-auto">Auto</label>
+                <label class="btn btn-outline-secondary border-0 rounded-0 flex-grow-1 py-2" for="theme-auto">System Default</label>
                 <input type="radio" class="btn-check" name="theme-radio" id="theme-dark" autocomplete="off" data-bs-theme-value="dark">
-                <label class="btn btn-outline-secondary" for="theme-dark">Dark</label>
+                <label class="btn btn-outline-secondary border-0 rounded-0 flex-grow-1 py-2" for="theme-dark">Dark</label>
                 <input type="radio" class="btn-check" name="theme-radio" id="theme-light" autocomplete="off" data-bs-theme-value="light">
-                <label class="btn btn-outline-secondary" for="theme-light">Light</label>
+                <label class="btn btn-outline-secondary border-0 rounded-0 flex-grow-1 py-2" for="theme-light">Light</label>
             </div>
         </a>
     </div>
@@ -46,17 +48,17 @@
     {% assign f_home="wvnav-item-active" %}
 {% elsif path[1] == "tools" or tool_urls contains path[1] %}
     {% assign f_tools="wvnav-item-active" %}
-{% elsif path[1] == "about" or path[1] == "shubhamrdarda" %}
-    {% assign f_about="wvnav-item-active" %}
 {% elsif path[1] == "learn" or learn_urls contains path[1] %}
     {% assign f_learn="wvnav-item-active" %}
+{% else %}
+    {% assign f_settings="wvnav-item-active" %}
 {% endif %}
 <div class="d-flex justify-content-between wvnav">
     <a class="wvnav-item {{ f_home }}" href="{{ site.url }}"><i class="wvsvg {{ f_home }}- bi {% if f_home == "wvnav-item-active" %}bi-house-heart-fill{% else %}bi-house-heart{% endif %}"></i><div class="text-center">Home</div></a>
     <a class="wvnav-item {{ f_learn }}" href="{{ site.url }}/learn"><i class="wvsvg {{ f_learn }}-{{ path[1] }} bi {% if f_learn == "wvnav-item-active" %}bi-lightbulb-fill{% else %}bi-lightbulb{% endif %}"></i><div class="text-center">Learn</div></a>
     <a id="share-button" class="wvnav-item" href="share:{{ site.url }}{{ page.url }}"><i class="wvsvg bi bi-share"></i><div class="text-center">Share</div></a>
-    <a class="wvnav-item {{ f_tools }}" href="{{ site.url }}/tools"><i class="wvsvg {{ f_tools }}-{{ path[1] }} bi {% if f_tools == "wvnav-item-active" %}bi-gear-fill{% else %}bi-gear{% endif %}"></i><div class="text-center">Tools</div></a>
-    <a class="wvnav-item {{ f_about }}" href="{{ site.url }}/about"><i class="wvsvg {{ f_about }}-about bi {% if f_about == "wvnav-item-active" %}bi-info-circle-fill{% else %}bi-info-circle{% endif %}"></i><div class="text-center">About</div></a>
+    <a class="wvnav-item {{ f_tools }}" href="{{ site.url }}/tools"><i class="wvsvg {{ f_tools }}-{{ path[1] }} bi {% if f_tools == "wvnav-item-active" %}bi-tools{% else %}bi-tools{% endif %}"></i><div class="text-center">Tools</div></a>
+    <a class="wvnav-item {{ f_settings }}" href="{{ site.url }}/settings"><i class="wvsvg {{ f_settings }}-about bi {% if f_settings == "wvnav-item-active" %}bi-gear-fill{% else %}bi-gear{% endif %}"></i><div class="text-center">Settings</div></a>
 </div>
 </footer>
 
@@ -127,13 +129,13 @@ function setupAppView() {
     document.onselectstart = (e) => e.preventDefault();
     $('body').on('contextmenu', () => false);
 
-    const aboutSection = document.getElementById("app");
-    if (aboutSection && aboutSection.classList.contains("about_home_true")) {
-        aboutSection.style.display = "block";
+    const settings = document.getElementById("app");
+    if (settings && settings.classList.contains("settings_true")) {
+        settings.style.display = "block";
         document.getElementById("navbar-brand").style.marginLeft = "0px";
         document.getElementById("lsidebar").style.display = "none";
         document.getElementById("leftsidebar").style.display = "none";
-    } else if (aboutSection && aboutSection.classList.contains("about_home_false")) {
+    } else if (settings && settings.classList.contains("settings_false")) {
         document.getElementById("navbar-brand").style.marginLeft = "0px";
         document.getElementById("lsidebar").style.display = "none";
     }

@@ -653,6 +653,7 @@ div.wvnav {
     background-color: var(--wvnav);
     box-shadow: 0 0 9px var(--navbar-shadow);
     padding: 8px;
+    z-index: 1030;
 }
 
 a.wvnav-item>i {

@@ -63,10 +63,6 @@ segments:
     url: cluster
     parent: " Cluster "
 
-  - title: About Us
-    url: about
-    parent: " About "
-
   - title: Tools
     url: tools
     parent: " Tools "
@@ -90,6 +86,14 @@ segments:
   - title: Programming and Tutorials
     url: learn
     parent: " Learn "
+
+  - title: About Us
+    url: about
+    parent: " About "
+
+  - title: Settings and More
+    url: settings
+    parent: " Settings "
 
   - title: Shubham Darda
     url: shubhamrdarda
