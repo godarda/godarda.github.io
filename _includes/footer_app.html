@@ -3,33 +3,33 @@
 
 <div id="app" class="container {{ settings }}" style="display: none;">
     <div class="board">
-        <div class="boardtitle">Resources</div>
-        <a class="card" href="about/">About Us</a>
-        <a class="card" href="about/faqs">Frequently Asked Questions</a>
-        <a class="card" href="about/contribute">Contribution Guide</a>
-        <a class="card" href="about/terms">Terms of Use</a>
-        <a class="card" href="about/privacy">Privacy Policy</a>
-        <a class="card" href="about/disclaimer">Disclaimer</a>
+        <div class="boardtitle"><i class="bi bi-collection pe-2"></i> Resources</div>
+        <a class="card flex-row align-items-center" href="about/"><i class="bi bi-question-circle pe-2"></i> About Us</a>
+        <a class="card flex-row align-items-center" href="about/faqs"><i class="bi bi-star pe-2"></i> Frequently Asked Questions</a>
+        <a class="card flex-row align-items-center" href="about/contribute"><i class="bi bi-git pe-2"></i> Contribution Guide</a>
+        <a class="card flex-row align-items-center" href="about/terms"><i class="bi bi-file-text pe-2"></i> Terms of Use</a>
+        <a class="card flex-row align-items-center" href="about/privacy"><i class="bi bi-shield-check pe-2"></i> Privacy Policy</a>
+        <a class="card flex-row align-items-center" href="about/disclaimer"><i class="bi bi-exclamation-triangle pe-2"></i> Disclaimer</a>
     </div>
     <div class="board">
-        <div class="boardtitle">Contribute</div>
-        <a class="card" href="{{ site.data.url.teams }}">Join Teams</a>
-        <a class="card" href="{{ site.data.url.issues }}">Report Bug</a>
-        <a class="card" href="{{ site.data.url.releases }}">Releases</a>
+        <div class="boardtitle"><i class="bi bi-heart pe-2"></i> Contribute</div>
+        <a class="card flex-row align-items-center" href="{{ site.data.url.teams }}"><i class="bi bi-people pe-2"></i> Join Teams</a>
+        <a class="card flex-row align-items-center" href="{{ site.data.url.issues }}"><i class="bi bi-bug pe-2"></i> Report Bug</a>
+        <a class="card flex-row align-items-center" href="{{ site.data.url.releases }}"><i class="bi bi-box-seam pe-2"></i> Releases</a>
     </div>
     <div class="board">
-        <div class="boardtitle">Social Handles</div>
-        <a class="card" href="{{ site.data.url.linkedin }}">LinkedIn</a>
-        <a class="card" href="{{ site.data.url.github }}">GitHub</a>
-        <a class="card" href="{{ site.data.url.discord }}">Discord</a>
+        <div class="boardtitle"><i class="bi bi-share pe-2"></i> Social Handles</div>
+        <a class="card flex-row align-items-center" href="{{ site.data.url.linkedin }}"><i class="bi bi-linkedin pe-2"></i> LinkedIn</a>
+        <a class="card flex-row align-items-center" href="{{ site.data.url.github }}"><i class="bi bi-github pe-2"></i> GitHub</a>
+        <a class="card flex-row align-items-center" href="{{ site.data.url.discord }}"><i class="bi bi-discord pe-2"></i> Discord</a>
     </div>
     <div class="board">
-        <div class="boardtitle">App Settings</div>
-        <a id="version" class="card disabled">App Version: Loading...</a>
-        <a id="resetapp" class="card" href="reset:">Reset Application</a>
+        <div class="boardtitle"><i class="bi bi-sliders pe-2"></i> App Settings</div>
+        <a id="version" class="card disabled flex-row align-items-center"><i class="bi bi-info-circle pe-2"></i> App Version: Loading...</a>
+        <a id="resetapp" class="card flex-row align-items-center" href="reset:"><i class="bi bi-arrow-counterclockwise pe-2"></i> Reset Application</a>
         <a class="card p-0" style="overflow: hidden;">
             <div class="btn-group w-100" role="group" aria-label="Theme toggle button group">
-                <button class="btn btn-outline-secondary border-0 rounded-0 disabled flex-grow-1 py-2" style="opacity: 1; color: var(--textcolor); text-align: left;">Theme:</button>
+                <button class="btn btn-outline-secondary border-0 rounded-0 disabled flex-grow-1 py-2" style="opacity: 1; color: var(--textcolor); text-align: left;"><i class="bi bi-palette pe-2"></i> Theme:</button>
                 <input type="radio" class="btn-check" name="theme-radio" id="theme-auto" autocomplete="off" data-bs-theme-value="auto">
                 <label class="btn btn-outline-secondary border-0 rounded-0 flex-grow-1 py-2" for="theme-auto">System Default</label>
                 <input type="radio" class="btn-check" name="theme-radio" id="theme-dark" autocomplete="off" data-bs-theme-value="dark">
@@ -38,6 +38,9 @@
                 <label class="btn btn-outline-secondary border-0 rounded-0 flex-grow-1 py-2" for="theme-light">Light</label>
             </div>
         </a>
+    </div>
+    <div class="text-center">
+        <small>&copy; {% assign current_year = 'now' | date: '%Y' %}{{ current_year }} {{ site.title }}.</small>
     </div>
 </div>
 
@@ -53,7 +56,7 @@
 {% else %}
     {% assign f_settings="wvnav-item-active" %}
 {% endif %}
-<div class="d-flex justify-content-between wvnav">
+<div class="wvnav">
     <a class="wvnav-item {{ f_home }}" href="{{ site.url }}"><i class="wvsvg {{ f_home }}- bi {% if f_home == "wvnav-item-active" %}bi-house-heart-fill{% else %}bi-house-heart{% endif %}"></i><div class="text-center">Home</div></a>
     <a class="wvnav-item {{ f_learn }}" href="{{ site.url }}/learn"><i class="wvsvg {{ f_learn }}-{{ path[1] }} bi {% if f_learn == "wvnav-item-active" %}bi-lightbulb-fill{% else %}bi-lightbulb{% endif %}"></i><div class="text-center">Learn</div></a>
     <a id="share-button" class="wvnav-item" href="share:{{ site.url }}{{ page.url }}"><i class="wvsvg bi bi-share"></i><div class="text-center">Share</div></a>
