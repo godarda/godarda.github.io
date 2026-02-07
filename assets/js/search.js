@@ -95,13 +95,13 @@
                     $matchCount.css({ 'width': targetWidth, 'top': nextTop + 'px', 'left': targetLeft + 'px' });
                     nextTop += $matchCount.outerHeight() + 5;
                 }
-                const maxHeight = $(window).height() - nextTop - 20;
-                $resultsContainer.css({ 'width': targetWidth, 'top': nextTop + 'px', 'left': targetLeft + 'px', 'max-height': maxHeight + 'px' });
+                const maxHeight = ($(window).height() * 0.90) - nextTop;
+                $resultsContainer.css({ 'width': targetWidth, 'top': nextTop + 'px', 'left': targetLeft + 'px', 'max-height': maxHeight + 'px', 'overflow-y': 'auto' });
             } else {
                 if (isSticky) {
                     $inputContainer.removeClass('sticky-search').css({ 'width': '', 'top': '', 'left': '' });
                     $stickyPlaceholder.hide();
-                    $resultsContainer.removeClass('sticky-results').css({ 'width': '', 'top': '', 'left': '', 'background-color': '', 'max-height': '' });
+                    $resultsContainer.removeClass('sticky-results').css({ 'width': '', 'top': '', 'left': '', 'background-color': '', 'max-height': '', 'overflow-y': '' });
                     $matchCount.removeClass('sticky-count').css({ 'width': '', 'top': '', 'left': '' });
                     $hintsParentContainer.removeClass('sticky-hints').css({ 'width': '', 'top': '', 'left': '' });
                 }

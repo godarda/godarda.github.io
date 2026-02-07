@@ -187,6 +187,10 @@ $(() => {
                 if ($rightSidebar.hasClass('open')) {
                     $rightSidebar.removeClass('open');
                 }
+                // Hide keyboard on scroll
+                if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) {
+                    document.activeElement.blur();
+                }
                 ticking = false;
             });
             ticking = true;

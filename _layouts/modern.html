@@ -88,8 +88,8 @@
     {%- if path[1] == "learn" or path[1] == "tools" or path[1] == "settings" -%}
     <div class="jumbotron text-center">
         <h3>{{ site.title }}</h3>
-        <h6 id="fc-{{ path[1] }}">{{ segment }}</h6>
-        {%- if path[2] == nil and path[1] != "about" and path[1] != "settings" -%}{%- include search.html -%}{%- endif -%}
+        <h6 id="fc-{{ path[1] }}" style="padding-bottom: 5px;">{{ segment }}</h6>
+        {%- if path[2] == nil and path[1] != "settings" -%}{%- include search.html -%}{%- endif -%}
     </div>
     {%- endif -%}
     <main role="main" class="flex-grow-1"><div class="container">{{ content }}</div></main>
@@ -99,8 +99,8 @@
         <h3>{{ site.title }}</h3>
         {%- assign tool_urls = site.data.tools.tools.segments | map: "url" -%}
         {%- if tool_urls contains path[1] -%}<h6 id="fc-{{ path[1] }}">{{ page.title }}</h6>
-        {%- else -%}<h6 id="fc-{{ path[1] }}">{{ segment }}</h6>{%- endif -%}
-        {%- if path[2] == nil and path[1] != "about" and path[1] != "settings" -%}{%- include search.html -%}{%- endif -%}
+        {%- else -%}<h6 id="fc-{{ path[1] }}" style="padding-bottom: 5px;">{{ segment }}</h6>{%- endif -%}
+        {%- if path[2] == nil and path[1] != "settings" -%}{%- include search.html -%}{%- endif -%}
     </div>
 
     <main class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-xxl-10 ms-sm-auto px-md-4 flex-grow-1" role="main">
