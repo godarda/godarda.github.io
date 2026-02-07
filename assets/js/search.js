@@ -44,6 +44,71 @@
         const $searchIcon = $('#search_icon');
         // Fallback to the generic 'search' container if a context-specific one isn't present.
         const $resultsContainer = $container.length ? $container : $('#search');
+        const $hintsParentContainer = $('#hints-container');
+
+        // --------------------------------------------------------------------------
+        // SECTION: Sticky Search Bar
+        // --------------------------------------------------------------------------
+        const $navbar = $('.navbar');
+        const $stickyPlaceholder = $('<div>').attr('id', 'search-placeholder').hide();
+        $inputContainer.before($stickyPlaceholder);
+        const $backdrop = $('#search-backdrop');
+
+        $backdrop.on('click', () => window.clear_input());
+
+        const updateSticky = () => {
+            const navHeight = $navbar.outerHeight() || 0;
+            const isSticky = $inputContainer.hasClass('sticky-search');
+            const refElement = isSticky ? $stickyPlaceholder : $inputContainer;
+
+            // Calculate trigger point with a small buffer
+            const triggerPos = refElement.offset().top - navHeight - 15;
+            const isSearchActive = $input.val().length > 0;
+
+            if ($(window).scrollTop() > triggerPos || isSearchActive) {
+                const targetWidth = refElement.width();
+                const targetLeft = refElement.offset().left;
+                if (!isSticky) {
+                    const height = $inputContainer.outerHeight(true);
+                    $stickyPlaceholder.css({ height: height }).show();
+                    $inputContainer.addClass('sticky-search');
+                    $resultsContainer.addClass('sticky-results');
+                    $matchCount.addClass('sticky-count');
+                }
+                const topPos = navHeight + 10;
+                $inputContainer.css({ 'width': targetWidth, 'top': topPos + 'px', 'left': targetLeft + 'px' });
+
+                const inputHeight = $inputContainer.outerHeight();
+                let nextTop = topPos + inputHeight + 5;
+
+                if (isSearchActive) {
+                    $hintsParentContainer.addClass('sticky-hints');
+                    if ($hintsParentContainer.is(':visible')) {
+                        $hintsParentContainer.css({ 'width': targetWidth, 'top': nextTop + 'px', 'left': targetLeft + 'px' });
+                        nextTop += $hintsParentContainer.outerHeight() + 5;
+                    }
+                } else {
+                    $hintsParentContainer.removeClass('sticky-hints').css({ 'width': '', 'top': '', 'left': '' });
+                }
+
+                if ($matchCount.is(':visible')) {
+                    $matchCount.css({ 'width': targetWidth, 'top': nextTop + 'px', 'left': targetLeft + 'px' });
+                    nextTop += $matchCount.outerHeight() + 5;
+                }
+                const maxHeight = $(window).height() - nextTop - 20;
+                $resultsContainer.css({ 'width': targetWidth, 'top': nextTop + 'px', 'left': targetLeft + 'px', 'max-height': maxHeight + 'px' });
+            } else {
+                if (isSticky) {
+                    $inputContainer.removeClass('sticky-search').css({ 'width': '', 'top': '', 'left': '' });
+                    $stickyPlaceholder.hide();
+                    $resultsContainer.removeClass('sticky-results').css({ 'width': '', 'top': '', 'left': '', 'background-color': '', 'max-height': '' });
+                    $matchCount.removeClass('sticky-count').css({ 'width': '', 'top': '', 'left': '' });
+                    $hintsParentContainer.removeClass('sticky-hints').css({ 'width': '', 'top': '', 'left': '' });
+                }
+            }
+        };
+
+        $(window).on('scroll resize', () => window.requestAnimationFrame(updateSticky));
 
         // --------------------------------------------------------------------------
         // SECTION: Utilities
@@ -481,17 +546,26 @@
 
                 // Batch the DOM update using requestAnimationFrame for smoother rendering.
                 window.requestAnimationFrame(() => {
-                    $container.html(html).show();
+                    if (totalMatches > 0) {
+                        $container.html(html).show();
 
-                    // Event delegation: attach a single click handler to the container.
-                    // This is more efficient than attaching one to each result link.
-                    $container.find('a').on('click', window.clear_input);
+                        // Event delegation: attach a single click handler to the container.
+                        // This is more efficient than attaching one to each result link.
+                        $container.find('a').on('click', window.clear_input);
 
-                    // Update the match count display.
-                    if ($matchCount.length) {
-                        $matchCount.text('Showing ' + Math.min(25, totalMatches) + ' of ' + totalMatches + (totalMatches === 1 ? ' result' : ' results'));
-                        $matchCount.show();
+                        // Update the match count display.
+                        if ($matchCount.length) {
+                            $matchCount.text(Math.min(25, totalMatches) + ' of ' + totalMatches + (totalMatches === 1 ? ' result' : ' results'));
+                            $matchCount.show();
+                        }
+                    } else {
+                        $container.hide();
+                        if ($matchCount.length) {
+                            $matchCount.text('No results found');
+                            $matchCount.show();
+                        }
                     }
+                    if ($inputContainer.hasClass('sticky-search')) updateSticky();
                 });
             });
         };
@@ -549,7 +623,6 @@
         // --------------------------------------------------------------------------
         const $micIcon = $('#mic_icon');
         const $hintsContainer = $('#search-hints');
-        const $hintsParentContainer = $('#hints-container');
         const $hintIcon = $('#hint-icon');
 
         // Voice Search Logic
@@ -787,6 +860,7 @@
          */
         window.clear_input = () => {
             $input.val("");
+            $input.blur();
             window.display_results(); // Trigger UI update.
         };
 
@@ -796,15 +870,29 @@
          */
         window.display_results = () => {
             const val = $input.val();
+            const isSticky = $inputContainer.hasClass('sticky-search');
+            const shouldShow = val.length > 0;
 
-            if (val.length === 0) {
+            if (!shouldShow) {
                 $closeIcon.hide();
                 $resultsContainer.hide();
                 $matchCount.hide();
+                $backdrop.fadeOut(200);
+                $inputContainer.removeClass('search-elevated');
+                $resultsContainer.removeClass('search-results-elevated');
+                $matchCount.removeClass('search-elevated');
+                $hintsParentContainer.removeClass('search-elevated');
+                deactivateHints();
             } else {
                 $resultsContainer.show();
                 $closeIcon.css({'display': 'flex', 'align-items': 'center', 'cursor': 'pointer'});
+                $backdrop.fadeIn(200);
+                $inputContainer.addClass('search-elevated');
+                $resultsContainer.addClass('search-results-elevated');
+                $matchCount.addClass('search-elevated');
+                $hintsParentContainer.addClass('search-elevated');
             }
+            updateSticky();
         };
 
         // --------------------------------------------------------------------------

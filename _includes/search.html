@@ -97,8 +97,60 @@
     }
     @keyframes spin { 100% { transform: rotate(360deg); } }
     .spin-animation { animation: spin 0.5s linear; }
+    .sticky-search {
+        position: fixed !important;
+        z-index: 1020;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        background-color: var(--wvnav);
+    }
+    .sticky-results {
+        position: fixed !important;
+        z-index: 1019;
+        background-color: transparent;
+        overflow-y: auto;
+        box-shadow: none;
+        border-radius: 0 0 5px 5px;
+    }
+    .sticky-count {
+        position: fixed !important;
+        z-index: 1020;
+        margin-top: 0 !important;
+    }
+    .sticky-hints {
+        position: fixed !important;
+        z-index: 1020;
+        margin-top: 0 !important;
+    }
+    .sticky-results::-webkit-scrollbar {
+        width: 6px;
+    }
+    .sticky-results::-webkit-scrollbar-thumb {
+        background-color: rgba(128, 128, 128, 0.5);
+        border-radius: 10px;
+    }
+    #search-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1010;
+        background-color: rgba(0,0,0,0.5);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        display: none;
+    }
+    .search-elevated {
+        position: relative;
+        z-index: 1020;
+    }
+    .search-results-elevated {
+        position: relative;
+        z-index: 1019;
+    }
 </style>
-<div>
+<div class="container">
+    <div id="search-backdrop"></div>
     <center>
         <div class="col-xs-12 col-sm-11 col-md-9 col-lg-7 col-xl-6 col-xxl-6" style="margin-bottom: 25px;">
             {%- if path[1] == nil -%}

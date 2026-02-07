@@ -59,7 +59,7 @@
     }
 
     body.is-webview .leftsidebar-collapse {
-        bottom: 67px;
+        bottom: 65px;
     }
 }
 
@@ -177,7 +177,7 @@ span.nav-link:hover {
 }
 
 .jumbotron {
-    padding: 100px 0px 44px 0px;
+    padding: 90px 0px 15px 0px;
     margin-bottom: 60px;
     border-radius: 0px;
     border-bottom: 1px solid var(--color1);
@@ -493,9 +493,6 @@ div.box.card-footer {
     color: var(--textcolor);
     border-radius: 0px 0px 5px 5px;
 }
-
-/* --------------------------------------------------------------------------------------------- */
-
 
 /* --------------------------------------------------------------------------------------------- */
 
