@@ -15,9 +15,9 @@ grandparent:
   subtree: Disclaimer
   url: about/disclaimer
 sidenav:
-- parent: About Us
+- parent: About
   url: about
-  children: 
+  children:
   - title: Frequently Asked Questions
     url: about/faqs
   - title: Contribution Guide

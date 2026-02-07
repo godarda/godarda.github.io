@@ -3,16 +3,16 @@
             class="svgicon bi bi-arrow-bar-up"></i></a>
 </div>
 
-<div id="web-footer-container" style="display: none;">
-    {%- if path[1] == nil or path[1] == "testapp" -%}{%- assign flag = "block_webfooter" -%}{%- endif -%}
+{%- if path[1] == nil or path[1] == "testapp" -%}{%- assign flag = "block_webfooter" -%}{%- endif -%}
+<div id="web-footer-container" style="display: none;" class="{% if flag == 'block_webfooter' %}mt-auto{% endif %}">
     <footer class="isWebsite {{ flag }}" id="isWebsite" style="padding-top: 15px;">
     <div class="footer">
         <div class="container">
             <div class="row">
                 <div class="col-6 col-md-3" style="padding-bottom: 50px;">
                     <h6>What's new</h6>
-                    <a href="learn"><div><i class="bi bi-lightbulb"></i> Learn</div></a>
-                    <a href="tools"><div><i class="bi bi-gear"></i> Tools</div></a>
+                    <a href="learn"><div><i class="bi-journal-code"></i> Learn</div></a>
+                    <a href="tools"><div><i class="bi bi-tools"></i> Tools</div></a>
                     <a style="cursor: pointer;" class="nav-link" data-bs-toggle="modal" data-bs-target="#appmodal"><div><i class="navsvg bi bi-android2"></i> Android App</div></a>
                 </div>
                 <div class="col-6 col-md-3" style="padding-bottom: 50px;">
@@ -23,7 +23,7 @@
                 </div>
                 <div class="col-6 col-md-3" style="padding-bottom: 50px;">
                     <h6>GoDarda</h6>
-                    <a href="about"><div><i class="bi bi-question-circle"></i> About Us</div></a>
+                    <a href="about"><div><i class="bi bi-question-circle"></i> About</div></a>
                     <a href="about/faqs"><div><i class="bi bi-star"></i> FAQs</div></a>
                     <a href="shubhamrdarda"><div><i class="bi bi-person-square"></i> Meet Architect</div></a>
                 </div>
@@ -38,7 +38,7 @@
     </div>
     </footer>
 
-    <footer id="webCopyright" class="{% if flag == 'block_webfooter' %}fixed-bottom{% endif %}">
+    <footer id="webCopyright">
         <div class="d-flex justify-content-between copyright-footer">
             <small>&copy; {% assign current_year = 'now' | date: '%Y' %}{{ current_year }} {{ site.title }}.</small>
             <div>
@@ -83,9 +83,9 @@ function setupWebAppView() {
         if (webfooter && webfooter.classList.contains("block_webfooter")) { webfooter.style.display = "none"; }
     }
 
-    // If the copyright footer is fixed (Home Page), add extra margin to the Back to Top button
-    if (webCopyright && webCopyright.classList.contains("fixed-bottom") && backToTop) {
-        backToTop.style.marginBottom = "70px";
+    // If on Home Page (webfooter hidden), add extra margin to Back to Top to match spacing of other pages
+    if (webfooter && webfooter.classList.contains("block_webfooter") && backToTop) {
+        backToTop.style.marginBottom = "30px";
     }
 }
 

@@ -172,7 +172,7 @@ a.card.codecard[data-category]:hover {
     div#GDS_input-{{ s }}
     {
         border-bottom: 1px solid {{ color_var }};
-        border-radius: 5px;
+        border-radius: 50rem;
     }
     #GDS_input-{{ s }}
     {
@@ -187,7 +187,7 @@ a.card.codecard[data-category]:hover {
         background: linear-gradient(90deg, transparent, {{ color_var }}, transparent);
     }
 
-    #GDS_input-{{ s }} ~ #suggestions-container #suggestion-light.light-on
+    #GDS_input-{{ s }} ~ #hints-container #hint-icon.light-on
     {
         color: {{ color_var }};
     }
@@ -204,7 +204,7 @@ a.card.codecard[data-category]:hover {
 div#GDS_input-, div#GDS_input-search
 {
     border-bottom: 1px solid var(--other);
-    border-radius: 5px;
+    border-radius: 50rem;
 }
 #GDS_input-, #GDS_input-search
 {
@@ -219,7 +219,7 @@ div#GDS_input-.search-loading.indeterminate::after, div#GDS_input-search.search-
     background: linear-gradient(90deg, transparent, var(--other), transparent);
 }
 
-#GDS_input- ~ #suggestions-container #suggestion-light.light-on, #GDS_input-search ~ #suggestions-container #suggestion-light.light-on
+#GDS_input- ~ #hints-container #hint-icon.light-on, #GDS_input-search ~ #hints-container #hint-icon.light-on
 {
     color: var(--other);
 }

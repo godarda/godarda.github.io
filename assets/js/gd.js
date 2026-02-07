@@ -319,6 +319,10 @@ const isAndroid = /android/.test(normalizedUserAgent);
 window.isWebview = (isAndroid && /; wv\)/.test(normalizedUserAgent));
 window.isGoDardaApp = window.isWebview || (window.userAgent && window.userAgent.includes("GoDarda"));
 
+if (!window.isGoDardaApp && window.location.pathname.includes("/settings")) {
+    window.location.replace("/404");
+}
+
 // --------------------------------------------------------------------------
 // Google Analytics Configuration
 // --------------------------------------------------------------------------

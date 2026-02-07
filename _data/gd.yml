@@ -87,7 +87,7 @@ segments:
     url: learn
     parent: " Learn "
 
-  - title: About Us
+  - title: About
     url: about
     parent: " About "
 

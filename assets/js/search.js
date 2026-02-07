@@ -548,9 +548,9 @@
         // SECTION: Search Suggestions & Voice Input
         // --------------------------------------------------------------------------
         const $micIcon = $('#mic_icon');
-        const $suggestionsContainer = $('#search-suggestions');
-        const $suggestionsParentContainer = $('#suggestions-container');
-        const $light = $('#suggestion-light');
+        const $hintsContainer = $('#search-hints');
+        const $hintsParentContainer = $('#hints-container');
+        const $hintIcon = $('#hint-icon');
 
         // Voice Search Logic
         if ($micIcon.length) {
@@ -603,7 +603,7 @@
         }
 
         // Suggestions UI Effects
-        if ($light.length) {
+        if ($hintIcon.length) {
             const blinkTotal = 3;
             const intervalTime = 2000;
             let blinkCount = 0;
@@ -612,16 +612,16 @@
                     clearInterval(intervalId);
                     return;
                 }
-                $light.removeClass('bi-lightbulb').addClass('bi-lightbulb-fill light-on');
+                $hintIcon.removeClass('bi-lightbulb').addClass('bi-lightbulb-fill light-on');
                 setTimeout(() => {
-                    $light.removeClass('bi-lightbulb-fill light-on').addClass('bi-lightbulb');
+                    $hintIcon.removeClass('bi-lightbulb-fill light-on').addClass('bi-lightbulb');
                 }, intervalTime / 2);
                 blinkCount++;
             }, intervalTime);
         }
 
         // Suggestions Logic
-        const learnSuggestions = [
+        const learnHints = [
             'C', 'C++', 'Java', 'Python', 'R', 'Julia', 'Octave', 'C#', 'F#',
             'Rust', 'LISP', 'Linux', 'MySQL', 'MongoDB', 'Selenium', 'Algorithm', 'Assembly', 'VBScript',
             'Ranorex', 'OpenGL', 'AWT', 'Function', 'Method', 'Class', 'Inheritance',
@@ -630,56 +630,96 @@
             'String', 'DataFrame', 'NumPy', 'Pandas', 'Matplotlib', 'List', 'Set', 'Tuple', 'Dictionary',
             'Expression', 'Log', 'Thread', 'Matrix', 'Math', 'CRUD'
         ];
-        const toolsSuggestions = [
+        const toolsHints = [
             'Calculator', 'Converter', 'Data', 'Length', 'Time', 'Currency', 'Physics', 'Hash', 'Area', 'Volume',
             'Speed', 'Temperature', 'Pressure', 'Power', 'Energy', 'Age', 'BMI'
         ];
 
-        const deactivateSuggestions = () => {
-            $suggestionsContainer.children().removeClass('active');
+        const deactivateHints = () => {
+            $hintsContainer.children().removeClass('active');
         };
 
-        const displaySuggestions = (suggestions) => {
-            if (!$suggestionsContainer.length || !$suggestionsParentContainer.length || suggestions.length === 0) return;
-            for (let i = suggestions.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [suggestions[i], suggestions[j]] = [suggestions[j], suggestions[i]];
+        const displayHints = (hints, spin = false) => {
+            if (!$hintsContainer.length || !$hintsParentContainer.length || hints.length === 0) return;
+
+            const $activeBtn = $hintsContainer.find('a.btn.active');
+            const activeText = $activeBtn.length ? $activeBtn.text() : null;
+            let pool = hints.slice();
+
+            if (activeText) {
+                pool = pool.filter(h => h !== activeText);
             }
-            const suggestionsHtml = suggestions.slice(0, 3).map(suggestion => {
-                const sanitizedSuggestion = $('<div>').text(suggestion).html();
-                return `<a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary rounded-pill" style="margin: 2px; font-size: 12px;">${sanitizedSuggestion}</a>`;
+
+            for (let i = pool.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [pool[i], pool[j]] = [pool[j], pool[i]];
+            }
+
+            let selected = pool.slice(0, 3);
+            if (activeText) {
+                const activeIndex = Math.max(0, $hintsContainer.children('a.btn').not('#refresh-hints').index($activeBtn));
+                selected = pool.slice(0, 2);
+                selected.splice(activeIndex, 0, activeText);
+            }
+
+            const hintsHtml = selected.map(hint => {
+                const sanitizedHint = $('<div>').text(hint).html();
+                const activeClass = (hint === activeText) ? ' active' : '';
+                return `<a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary rounded-pill${activeClass}" style="margin: 2px; font-size: 12px;">${sanitizedHint}</a>`;
             }).join(' ');
-            $suggestionsContainer.html(suggestionsHtml);
-            $suggestionsParentContainer.show();
+
+            const spinClass = spin ? 'spin-animation' : '';
+            const refreshBtn = `<a href="javascript:void(0);" id="refresh-hints" class="btn btn-sm btn-outline-secondary rounded-pill" style="margin: 2px; font-size: 12px;" title="Refresh hints"><i class="bi bi-arrow-clockwise ${spinClass}"></i></a>`;
+
+            $hintsContainer.html(hintsHtml + refreshBtn);
+
+            if (spin) {
+                $hintsContainer.find('#refresh-hints i').one('animationend', function() {
+                    $(this).removeClass('spin-animation');
+                });
+            }
+
+            $hintsParentContainer.show();
         };
 
-        $suggestionsContainer.on('click', 'a.btn', function(event) {
+        $hintsContainer.on('click', 'a.btn', function(event) {
+            if (this.id === 'refresh-hints') return;
             event.preventDefault();
             const text = $(this).text();
             $input.val(text);
             $input.trigger('input');
             $input.trigger('blur');
-            deactivateSuggestions();
+            deactivateHints();
             $(this).addClass('active');
+        });
+
+        $hintsContainer.on('click', '#refresh-hints', function(event) {
+            event.preventDefault();
+            displayHints(currentAllHints, true);
         });
 
         $closeIcon.on('click', function() {
             if (typeof window.clear_input === 'function') window.clear_input();
-            deactivateSuggestions();
+            deactivateHints();
         });
 
         $input.on('input', function() {
-            if (!$(this).val()) deactivateSuggestions();
+            if (!$(this).val()) deactivateHints();
         });
 
-        const loadSuggestions = () => {
+        let currentAllHints = [];
+
+        const loadHints = () => {
             const currentCategory = window.gd_path1;
             if (currentCategory === 'search') {
-                displaySuggestions(learnSuggestions.concat(toolsSuggestions));
+                currentAllHints = learnHints.concat(toolsHints);
+                displayHints(currentAllHints);
             } else if (currentCategory === 'learn') {
-                displaySuggestions(learnSuggestions);
+                currentAllHints = learnHints;
+                displayHints(currentAllHints);
             } else if (currentCategory === 'tools') {
-                displaySuggestions(toolsSuggestions);
+                currentAllHints = toolsHints;
+                displayHints(currentAllHints);
             } else {
                 $.getJSON(window.gd_search_url || '/search.json')
                     .then(data => {
@@ -700,18 +740,20 @@
                             const cat = item.category?.charAt(0).toUpperCase() + item.category?.slice(1);
                             if (cat && cat.length > 2 && cat.length <= 15) keywords.add(cat);
                         });
-                        displaySuggestions(Array.from(keywords));
+                        currentAllHints = Array.from(keywords);
+                        displayHints(currentAllHints);
                     })
                     .catch(error => console.error('Error fetching or processing search.json for suggestions:', error));
             }
         };
 
-        loadSuggestions();
+        loadHints();
 
         $(window).on('pageshow', (event) => {
             if (event.originalEvent.persisted) {
-                loadSuggestions();
+                loadHints();
             }
+            if (typeof window.clear_input === 'function') window.clear_input();
         });
 
         // On page load, ensure the input is cleared
@@ -740,13 +782,11 @@
 
             if (val.length === 0) {
                 $closeIcon.hide();
-                $searchIcon.css('display', '');
                 $resultsContainer.hide();
                 $matchCount.hide();
             } else {
                 $resultsContainer.show();
-                $closeIcon.css({'display': '', 'cursor': 'pointer'});
-                $searchIcon.hide();
+                $closeIcon.css({'display': 'flex', 'align-items': 'center', 'cursor': 'pointer'});
             }
         };
 
