@@ -622,17 +622,34 @@
 
         // Suggestions Logic
         const learnHints = [
-            'C', 'C++', 'Java', 'Python', 'R', 'Julia', 'Octave', 'C#', 'F#',
-            'Rust', 'LISP', 'Linux', 'MySQL', 'MongoDB', 'Selenium', 'Algorithm', 'Assembly', 'VBScript',
-            'Ranorex', 'OpenGL', 'AWT', 'Function', 'Method', 'Class', 'Inheritance',
-            'Polymorphism', 'Abstraction', 'Array', 'Bash', 'CLI', 'Exception', 'Database',
-            'Stack', 'Queue', 'Tree', 'Graph', 'Sorting', 'Searching', 'Recursion', 'XPath', 'WebDriver', 'TestNG',
-            'String', 'DataFrame', 'NumPy', 'Pandas', 'Matplotlib', 'List', 'Set', 'Tuple', 'Dictionary',
-            'Expression', 'Log', 'Thread', 'Matrix', 'Math', 'CRUD'
+        '32 Bit', '64 Bit', 'ALP', 'API', 'ASCII',
+        'Abstraction', 'Abstract', 'Algorithm', 'Area', 'Array',
+        'Assembly', 'AWT', 'Bash', 'Binary', 'BMI',
+        'C', 'C#', 'C++', 'CLI', 'Class',
+        'Compile', 'Constructor', 'Control', 'CRUD', 'Currency',
+        'DataFrame', 'Database', 'Delete', 'Destructor', 'Dictionary',
+        'Dynamic', 'Energy', 'Exception', 'Execute', 'Expression',
+        'File', 'Framework', 'F#', 'Function', 'Game',
+        'Graph', 'HashMap', 'Heap', 'Inheritance', 'Insert',
+        'Input', 'Interface', 'Java', 'Join', 'Julia',
+        'LISP', 'Library', 'LinkedList', 'Linux', 'List',
+        'Log', 'Loop', 'Math', 'Matrix', 'Memory',
+        'Method', 'Module', 'MongoDB', 'MySQL', 'Namespace',
+        'NumPy', 'Octave', 'OpenGL', 'Output', 'Pandas',
+        'Path', 'Pointer', 'Polymorphism', 'Python', 'Queue',
+        'Ranorex', 'R', 'Recursion', 'Reflection', 'Retrieve',
+        'Rust', 'Search', 'Searching', 'Select', 'Selenium',
+        'Set', 'Socket', 'Sort', 'Sorting', 'Stack',
+        'Static', 'Stream', 'String', 'TestNG', 'Thread',
+        'Tree', 'Tuple', 'Update', 'VBScript', 'WebDriver',
+        'XPath'
         ];
+
         const toolsHints = [
-            'Calculator', 'Converter', 'Data', 'Length', 'Time', 'Currency', 'Physics', 'Hash', 'Area', 'Volume',
-            'Speed', 'Temperature', 'Pressure', 'Power', 'Energy', 'Age', 'BMI'
+        'Age', 'Area', 'BMI', 'Calculator', 'Converter',
+        'Currency', 'Data', 'Energy', 'Hash', 'Length',
+        'Number', 'Physics', 'Power', 'Pressure', 'Speed',
+        'String', 'Temperature', 'Time', 'Volume'
         ];
 
         const deactivateHints = () => {

@@ -635,8 +635,7 @@ div.wvnav {
     box-shadow: 0 0 9px var(--navbar-shadow);
     padding: 5px 0px 5px 0px;
     z-index: 1030;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    display: flex;
 }
 
 a.wvnav-item {
@@ -644,6 +643,7 @@ a.wvnav-item {
     min-width: 0;
     margin: 0;
     padding: 0;
+    flex: 1;
 }
 
 a.wvnav-item>i {
@@ -665,7 +665,7 @@ a.wvnav-item>i.wvsvg {
 a.wvnav-item.wvnav-item-active>i {
     background-color: var(--wvnav-item-active);
     border-radius: 25px;
-    padding: 3px 15px;
+    padding: 3px 20px;
 }
 
 /* --------------------------------------------------------------------------------------------- */

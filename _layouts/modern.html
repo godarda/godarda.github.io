@@ -25,7 +25,7 @@
             <a href="{{ home_url }}"><img id="logo" alt="Logo" width="30" height="30" src="{{ site.icon | relative_url }}"></a>
             </i><a id="fc-{{ path[1] }}" href="{{ path[1] }}"><i class="bi bi-chevron-compact-right"></i> {{ parent }} <i class="bi bi-chevron-compact-right"></i></a>
             {%- if path[2] != nil -%}
-                <a id="fc-{{ path[1] }}" href="{{ path[1] }}/{{ path[2] }}"> {{ child }} <i class="bi bi-chevron-compact-right"></i></a>
+                <a id="fc-{{ path[1] }}" href="{{ path[1] }}/{{ path[2] }}" class="d-inline-flex align-items-center"><span class="d-inline-block text-truncate" style="max-width: 20ch;">{{ child }}</span><i class="bi bi-chevron-compact-right ms-1"></i></a>
             {%- endif -%}
         </div>
         <button id="lsidebar" class="navbar-toggler p-0" type="button" data-bs-toggle="leftsidebar" data-bs-target="#leftsidebar" aria-label="lsidebar"><span class="navbar-toggler-icon"></span></button>
@@ -51,6 +51,7 @@
         </div>
         {%- endunless -%}
 
+        <a id="settings" href="settings" style="display: none; font-size: 20px; color: #999;" class="ms-auto bi bi-gear"></a>
         <button id="rsidebar" class="ms-auto navbar-toggler p-0" type="button" data-bs-toggle="rightsidebar" data-bs-target="#rightsidebar" aria-label="rsidebar" style="display: none;"><span class="navbar-toggler-icon"></span></button>
         <div id="rightsidebar" class="rightsidebar-collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav mr-auto">
