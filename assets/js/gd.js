@@ -58,14 +58,6 @@ const handleTouchMove = (evt) => {
     if (!xDown || !yDown) return;
     xUp = (evt.originalEvent || evt).touches[0].clientX;
     yUp = (evt.originalEvent || evt).touches[0].clientY;
-    if (Math.abs(yDown - yUp) > 1) {
-        if (document.activeElement) {
-            const tagName = document.activeElement.tagName.toLowerCase();
-            if (tagName === 'input' || tagName === 'textarea') {
-                document.activeElement.blur();
-            }
-        }
-    }
 };
 
 const handleTouchEnd = () => {
@@ -109,6 +101,9 @@ $(() => {
     $('body').css('cursor', 'default');
     // Ensure input fields and textareas still show the text cursor for editing.
     $('input, textarea').css('cursor', 'text');
+
+    // Remove focus from buttons after click to prevent persistent hover/focus states
+    $(document).on('click', '.btn', (event) => $(event.currentTarget).blur());
 
     // Toggle left sidebar visibility
     $('[data-bs-toggle="leftsidebar"]').on('click', () => {
@@ -167,22 +162,13 @@ $(() => {
 
     let ticking = false;
     $(window).on('scroll', () => {
-        // Hide keyboard immediately on scroll if an input is focused
-        if (document.activeElement) {
-            const tagName = document.activeElement.tagName.toLowerCase();
-            if (tagName === 'input' || tagName === 'textarea') {
-                document.activeElement.blur();
-            }
-        }
-
         if (!ticking) {
             window.requestAnimationFrame(() => {
                 const scrollTop = $(window).scrollTop();
 
                 // Show modal once per day when user scrolls past 50% of the page
                 if (isShown !== today) {
-                    const docHeight = (window.isGoDardaApp || isAndroid) ? document.body.scrollHeight : $(document).height();
-                    const scrollPercent = ((scrollTop) / (docHeight - $(window).height())) * 100;
+                    const scrollPercent = ((scrollTop) / ($(document).height() - $(window).height())) * 100;
                     if (scrollPercent >= 50) {
                         $staticBackdrop.modal('show');
                         sessionStorage.setItem('status', today);

@@ -629,52 +629,6 @@ a.back-to-top>i.svgicon {
 
 /* --------------------------------------------------------------------------------------------- */
 
-div.wvnav {
-    position: fixed;
-    height: auto;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    border-top: 1px solid var(--color1);
-    background-color: var(--wvnav);
-    box-shadow: 0 0 9px var(--navbar-shadow);
-    padding: 5px 0px 5px 0px;
-    z-index: 1030;
-    display: flex;
-}
-
-a.wvnav-item {
-    text-align: center;
-    min-width: 0;
-    margin: 0;
-    padding: 0;
-    flex: 1;
-}
-
-a.wvnav-item>i {
-    padding: 3px 0px;
-}
-
-a.wvnav-item>div {
-    color: var(--bnw);
-    font-size: 13px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-a.wvnav-item>i.wvsvg {
-    font-size: 23px;
-}
-
-a.wvnav-item.wvnav-item-active>i {
-    background-color: var(--wvnav-item-active);
-    border-radius: 25px;
-    padding: 3px 20px;
-}
-
-/* --------------------------------------------------------------------------------------------- */
-
 .copyright-footer {
     background-color: var(--infocard);
     color: var(--bnw);
