@@ -775,7 +775,7 @@
         ];
 
         const deactivateHints = () => {
-            $hintsContainer.children().removeClass('active');
+            $hintsContainer.find('.active').removeClass('active');
             if ($hintsContainer.length && document.activeElement && $hintsContainer[0].contains(document.activeElement)) {
                 document.activeElement.blur();
             }
@@ -897,6 +897,7 @@
                 loadHints();
                 if (typeof window.clear_input === 'function') window.clear_input();
             }
+            deactivateHints();
         });
 
         // --------------------------------------------------------------------------
@@ -914,6 +915,7 @@
             if (searchHistoryStatePushed) {
                 searchHistoryStatePushed = false;
                 // Close the search overlay without triggering another history.back()
+                deactivateHints();
                 window.clear_input('popstate');
             }
         });
