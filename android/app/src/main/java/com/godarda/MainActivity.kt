@@ -13,6 +13,7 @@ import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.view.ViewStub
 import android.webkit.CookieManager
 import android.webkit.JavascriptInterface
@@ -116,11 +117,14 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         // Install the official splash screen before super.onCreate and edge-to-edge
         installSplashScreen()
-        
+
         // Enable edge-to-edge display early in the lifecycle
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // Prevent the layout from resizing when the keyboard appears
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
 
         // Adjust padding to account for status and navigation bars
         applyWindowInsetsTo(rootLayout)
@@ -129,7 +133,7 @@ class MainActivity : BaseActivity() {
         val sharedPref = getSharedPreferences("app_settings", MODE_PRIVATE)
         currentTheme = sharedPref.getString("theme", null)
         applyThemeToSystemBars(currentTheme)
-        
+
         // Setup splash screen background
         applyStoredThemeToSplash()
 
@@ -253,7 +257,7 @@ class MainActivity : BaseActivity() {
     private fun applyStoredThemeToSplash() {
         val sharedPref = getSharedPreferences("app_settings", MODE_PRIVATE)
         val theme = sharedPref.getString("theme", null)
-        
+
         val isDark = when (theme) {
             "dark" -> true
             "light" -> false
@@ -490,7 +494,7 @@ class MainActivity : BaseActivity() {
          */
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
-            
+
             isInitialPageLoaded = true
             maybeHideSplash()
 

@@ -58,6 +58,14 @@ const handleTouchMove = (evt) => {
     if (!xDown || !yDown) return;
     xUp = (evt.originalEvent || evt).touches[0].clientX;
     yUp = (evt.originalEvent || evt).touches[0].clientY;
+    if (Math.abs(yDown - yUp) > 1) {
+        if (document.activeElement) {
+            const tagName = document.activeElement.tagName.toLowerCase();
+            if (tagName === 'input' || tagName === 'textarea') {
+                document.activeElement.blur();
+            }
+        }
+    }
 };
 
 const handleTouchEnd = () => {
