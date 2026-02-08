@@ -148,7 +148,8 @@ layout: none
 {%- assign urls = tool_urls | concat: learn_urls -%}
 
 /* Generic highlight color fallback */
-a.card.codecard[data-category]:hover {
+a.card.codecard[data-category]:hover,
+a.card.codecard[data-category]:focus {
     border-left: 5px solid var(--other);
 }
 
@@ -195,7 +196,8 @@ a.card.codecard[data-category]:hover {
     }
 
     /* Specific highlight color based on category */
-    a.card.codecard[data-category="{{ segment.url }}"]:hover {
+    a.card.codecard[data-category="{{ segment.url }}"]:hover,
+    a.card.codecard[data-category="{{ segment.url }}"]:focus {
         border-left: 5px solid {{ color_var }};
     }
     .codecard[data-category="{{ segment.url }}"] mark {

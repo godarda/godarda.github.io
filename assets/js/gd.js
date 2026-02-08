@@ -142,7 +142,8 @@ $(() => {
     // Scroll-based Behaviors
     // --------------------------------------------------------------------------
     // Smooth scroll to top
-    $('.back-to-top').on('click', () => {
+    $('.back-to-top').on('click', (e) => {
+        e.preventDefault();
         $('html, body').animate({ scrollTop: 0 }, 100);
     });
 

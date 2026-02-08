@@ -626,6 +626,17 @@
         // SECTION: Event Listeners
         // --------------------------------------------------------------------------
         let tid = null; // Timer ID for debouncing.
+
+        $(document).on('keydown', (event) => {
+            if (event.key === 'Tab' && !event.shiftKey && document.activeElement === document.body) {
+                event.preventDefault();
+                $input.focus();
+            }
+            if (event.key === 'Escape' && $input.val().length > 0) {
+                window.clear_input();
+            }
+        });
+
         $input.on('input', function(e) {
             clearTimeout(tid);
 
@@ -850,7 +861,7 @@
         });
 
         $input.on('input', function() {
-            if (!$(this).val()) deactivateHints();
+            if (!$backdrop.is(':visible')) deactivateHints();
         });
 
         let currentAllHints = [];
