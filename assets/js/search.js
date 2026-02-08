@@ -45,9 +45,9 @@
         const $resultsContainer = $container;
         const $hintsParentContainer = $('#hints-container');
 
-        // Hide keyboard on scroll of results (GoDarda App specific)
+        // Hide keyboard on scroll of results
         $resultsContainer.on('scroll', () => {
-            if (window.isGoDardaApp && document.activeElement) {
+            if (document.activeElement) {
                 document.activeElement.blur();
             }
         });
@@ -897,7 +897,6 @@
                 loadHints();
                 if (typeof window.clear_input === 'function') window.clear_input();
             }
-            deactivateHints();
         });
 
         // --------------------------------------------------------------------------
@@ -915,7 +914,6 @@
             if (searchHistoryStatePushed) {
                 searchHistoryStatePushed = false;
                 // Close the search overlay without triggering another history.back()
-                deactivateHints();
                 window.clear_input('popstate');
             }
         });

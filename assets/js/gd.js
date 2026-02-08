@@ -89,11 +89,6 @@ const handleTouchEnd = () => {
 // DOM Ready - Main Execution
 // --------------------------------------------------------------------------
 $(() => {
-    if (window.isGoDardaApp || isAndroid) {
-        $('html').addClass('is-webview');
-        $('body').addClass('is-webview');
-    }
-
     // Attach swipe event listeners to the document.
     $(document).on('touchstart', handleTouchStart);
     $(document).on('touchmove', handleTouchMove);
@@ -163,16 +158,22 @@ $(() => {
     const $staticBackdrop = $('#staticBackdrop');
 
     let ticking = false;
-    const $scrollContainer = (window.isGoDardaApp || isAndroid) ? $('body') : $(window);
-    $scrollContainer.on('scroll', () => {
+    $(window).on('scroll', () => {
         if (!ticking) {
             window.requestAnimationFrame(() => {
-                const scrollTop = $scrollContainer.scrollTop();
+                const scrollTop = $(window).scrollTop();
+
+                // Hide keyboard on scroll if an input is focused
+                if (document.activeElement) {
+                    const tagName = document.activeElement.tagName.toLowerCase();
+                    if (tagName === 'input' || tagName === 'textarea') {
+                        document.activeElement.blur();
+                    }
+                }
 
                 // Show modal once per day when user scrolls past 50% of the page
                 if (isShown !== today) {
-                    const docHeight = (window.isGoDardaApp || isAndroid) ? document.body.scrollHeight : $(document).height();
-                    const scrollPercent = ((scrollTop) / (docHeight - $(window).height())) * 100;
+                    const scrollPercent = ((scrollTop) / ($(document).height() - $(window).height())) * 100;
                     if (scrollPercent >= 50) {
                         $staticBackdrop.modal('show');
                         sessionStorage.setItem('status', today);
