@@ -89,6 +89,25 @@ const handleTouchEnd = () => {
 // DOM Ready - Main Execution
 // --------------------------------------------------------------------------
 $(() => {
+    if (window.isWebview) {
+        $('body').addClass('is-webview');
+
+        // Hide bottom navbar when keyboard is active
+        const $wvnav = $('.wvnav');
+        if ($wvnav.length) {
+            $(document).on('focus', 'input, textarea', () => {
+                $wvnav.hide();
+            });
+            $(document).on('blur', 'input, textarea', () => {
+                setTimeout(() => {
+                    if (!$(document.activeElement).is('input, textarea')) {
+                        $wvnav.show();
+                    }
+                }, 200);
+            });
+        }
+    }
+
     // Attach swipe event listeners to the document.
     $(document).on('touchstart', handleTouchStart);
     $(document).on('touchmove', handleTouchMove);

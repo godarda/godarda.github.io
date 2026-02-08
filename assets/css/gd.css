@@ -77,6 +77,12 @@ body:not(.is-webview) {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    min-height: 100lvh;
+}
+
+body.is-webview {
+    min-height: 100vh;
+    min-height: 100lvh;
 }
 
 body {
