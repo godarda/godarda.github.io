@@ -41,74 +41,121 @@
 
         const $inputContainer = $('#GDS_input-' + containerId);
         const $closeIcon = $('#close_icon');
-        const $searchIcon = $('#search_icon');
         // Fallback to the generic 'search' container if a context-specific one isn't present.
-        const $resultsContainer = $container.length ? $container : $('#search');
+        const $resultsContainer = $container;
         const $hintsParentContainer = $('#hints-container');
+
+        // Hide keyboard on scroll of results (GoDarda App specific)
+        $resultsContainer.on('scroll', () => {
+            if (window.isGoDardaApp && document.activeElement) {
+                document.activeElement.blur();
+            }
+        });
 
         // --------------------------------------------------------------------------
         // SECTION: Sticky Search Bar
         // --------------------------------------------------------------------------
         const $navbar = $('.navbar');
+
+        // Create a placeholder element to occupy the space of the search input when it becomes fixed.
+        // This prevents layout shifts in the navbar/header when the input is taken out of the document flow.
         const $stickyPlaceholder = $('<div>').attr('id', 'search-placeholder').hide();
         $inputContainer.before($stickyPlaceholder);
-        const $backdrop = $('#search-backdrop');
 
+        const $backdrop = $('#search-backdrop');
         $backdrop.on('click', () => window.clear_input());
 
-        const updateSticky = () => {
-            const navHeight = $navbar.outerHeight() || 0;
-            const isSticky = $inputContainer.hasClass('sticky-search');
-            const refElement = isSticky ? $stickyPlaceholder : $inputContainer;
-
-            // Calculate trigger point with a small buffer
-            const triggerPos = refElement.offset().top - navHeight - 15;
+        /**
+         * Updates the position and visual state of the search container.
+         *
+         * This function handles the transition of the search bar from its natural flow position
+         * to a fixed "overlay" position when a search is active.
+         *
+         * Key behaviors:
+         * 1. Activates the placeholder to maintain layout stability.
+         * 2. Calculates the exact screen coordinates to position the fixed search bar.
+         * 3. Adjusts z-indices to ensure the search UI sits above the backdrop (1050).
+         * 4. Dynamically sizes the results container to fit within the viewport (90% height).
+         */
+        const updateSearchPosition = () => {
             const isSearchActive = $input.val().length > 0;
+            if (isSearchActive) {
+                // Calculate top offset based on navbar height to position just below it.
+                const navHeight = ($navbar.outerHeight() || 0) + 10;
+                $stickyPlaceholder.css({ height: $inputContainer.outerHeight(true) }).show();
 
-            if ($(window).scrollTop() > triggerPos || isSearchActive) {
-                const targetWidth = refElement.width();
-                const targetLeft = refElement.offset().left;
-                if (!isSticky) {
-                    const height = $inputContainer.outerHeight(true);
-                    $stickyPlaceholder.css({ height: height }).show();
-                    $inputContainer.addClass('sticky-search');
-                    $resultsContainer.addClass('sticky-results');
-                    $matchCount.addClass('sticky-count');
-                }
-                const topPos = navHeight + 10;
-                $inputContainer.css({ 'width': targetWidth, 'top': topPos + 'px', 'left': targetLeft + 'px' });
+                const rect = $stickyPlaceholder[0].getBoundingClientRect();
+                const targetWidth = rect.width;
+                const targetLeft = rect.left;
+                const topPos = navHeight;
+
+                // Promote input container to fixed position.
+                $inputContainer.css({
+                    'position': 'fixed',
+                    'width': targetWidth,
+                    'top': topPos + 'px',
+                    'left': targetLeft + 'px',
+                    'z-index': '1050'
+                });
 
                 const inputHeight = $inputContainer.outerHeight();
                 let nextTop = topPos + inputHeight + 5;
 
-                if (isSearchActive) {
-                    $hintsParentContainer.addClass('sticky-hints');
-                    if ($hintsParentContainer.is(':visible')) {
-                        $hintsParentContainer.css({ 'width': targetWidth, 'top': nextTop + 'px', 'left': targetLeft + 'px' });
-                        nextTop += $hintsParentContainer.outerHeight() + 5;
-                    }
+                // Position hints container if visible.
+                if ($hintsParentContainer.is(':visible')) {
+                    $hintsParentContainer.css({
+                        'position': 'fixed',
+                        'width': targetWidth,
+                        'top': nextTop + 'px',
+                        'left': targetLeft + 'px',
+                        'z-index': '1050'
+                    });
+                    nextTop += $hintsParentContainer.outerHeight() + 5;
                 } else {
-                    $hintsParentContainer.removeClass('sticky-hints').css({ 'width': '', 'top': '', 'left': '' });
+                    $hintsParentContainer.css({ 'position': '', 'width': '', 'top': '', 'left': '', 'z-index': '' });
                 }
 
+                // Position match count indicator if visible.
                 if ($matchCount.is(':visible')) {
-                    $matchCount.css({ 'width': targetWidth, 'top': nextTop + 'px', 'left': targetLeft + 'px' });
-                    nextTop += $matchCount.outerHeight() + 5;
+                    $matchCount.css({
+                        'position': 'fixed',
+                        'width': targetWidth,
+                        'top': nextTop + 'px',
+                        'left': targetLeft + 'px',
+                        'z-index': '1050'
+                    });
+                    nextTop += $matchCount.outerHeight() + 15;
+                } else {
+                    $matchCount.css({ 'position': '', 'width': '', 'top': '', 'left': '', 'z-index': '' });
                 }
+
+                // Position and size the results container.
                 const maxHeight = ($(window).height() * 0.90) - nextTop;
-                $resultsContainer.css({ 'width': targetWidth, 'top': nextTop + 'px', 'left': targetLeft + 'px', 'max-height': maxHeight + 'px', 'overflow-y': 'auto' });
+                $resultsContainer.css({
+                    'position': 'fixed',
+                    'width': targetWidth,
+                    'top': nextTop + 'px',
+                    'left': targetLeft + 'px',
+                    'max-height': maxHeight + 'px',
+                    'overflow-y': 'auto',
+                    'z-index': '1050'
+                });
             } else {
-                if (isSticky) {
-                    $inputContainer.removeClass('sticky-search').css({ 'width': '', 'top': '', 'left': '' });
-                    $stickyPlaceholder.hide();
-                    $resultsContainer.removeClass('sticky-results').css({ 'width': '', 'top': '', 'left': '', 'background-color': '', 'max-height': '', 'overflow-y': '' });
-                    $matchCount.removeClass('sticky-count').css({ 'width': '', 'top': '', 'left': '' });
-                    $hintsParentContainer.removeClass('sticky-hints').css({ 'width': '', 'top': '', 'left': '' });
-                }
+                // Reset all elements to their default static positioning.
+                $stickyPlaceholder.hide();
+                $inputContainer.css({ 'position': '', 'width': '', 'top': '', 'left': '', 'z-index': '' });
+                $hintsParentContainer.css({ 'position': '', 'width': '', 'top': '', 'left': '', 'z-index': '' });
+                $matchCount.css({ 'position': '', 'width': '', 'top': '', 'left': '', 'z-index': '' });
+                $resultsContainer.css({ 'position': '', 'width': '', 'top': '', 'left': '', 'max-height': '', 'overflow-y': '', 'z-index': '' });
             }
         };
 
-        $(window).on('scroll resize', () => window.requestAnimationFrame(updateSticky));
+        // Update position on resize to handle orientation changes or window resizing.
+        $(window).on('resize', () => {
+            if ($input.val().length > 0) window.requestAnimationFrame(updateSearchPosition);
+        });
+        // Ensure position is correct once all page resources (images, fonts) are loaded.
+        $(window).on('load', updateSearchPosition);
 
         // --------------------------------------------------------------------------
         // SECTION: Utilities
@@ -556,16 +603,18 @@
                         // Update the match count display.
                         if ($matchCount.length) {
                             $matchCount.text(Math.min(25, totalMatches) + ' of ' + totalMatches + (totalMatches === 1 ? ' result' : ' results'));
+                            $matchCount[0].style.color = '';
                             $matchCount.show();
                         }
                     } else {
                         $container.hide();
                         if ($matchCount.length) {
                             $matchCount.text('No results found');
+                            $matchCount[0].style.setProperty('color', '#e63636', 'important');
                             $matchCount.show();
                         }
                     }
-                    if ($inputContainer.hasClass('sticky-search')) updateSticky();
+                    updateSearchPosition();
                 });
             });
         };
@@ -840,37 +889,53 @@
         loadHints();
 
         $(window).on('pageshow', (event) => {
+            // If the page is loaded from the bfcache (back/forward cache), reload hints and reset input.
             if (event.originalEvent.persisted) {
                 loadHints();
+                if (typeof window.clear_input === 'function') window.clear_input();
             }
-            if (typeof window.clear_input === 'function') window.clear_input();
         });
 
-        // On page load, ensure the input is cleared
-        if (typeof window.clear_input === 'function') window.clear_input();
+        // --------------------------------------------------------------------------
+        // SECTION: Global Helper Functions & History Management
+        // --------------------------------------------------------------------------
+        // These functions are exposed globally to allow interaction from inline HTML
+        // or other scripts. They also manage the browser history state to support
+        // "Back button to close" functionality.
 
-        // --------------------------------------------------------------------------
-        // SECTION: Global Helper Functions
-        // --------------------------------------------------------------------------
-        // These functions are exposed on the `window` object to be callable from
-        // other scripts or inline HTML event attributes (like the close icon's onclick).
+        // Flag to track if a history state has been pushed for the open search overlay.
+        let searchHistoryStatePushed = false;
+
+        // Listen for the browser's "Back" action.
+        $(window).on('popstate', () => {
+            if (searchHistoryStatePushed) {
+                searchHistoryStatePushed = false;
+                // Close the search overlay without triggering another history.back()
+                window.clear_input('popstate');
+            }
+        });
 
         /**
-         * Clears the search input field and hides the results.
+         * Clears the search input field, hides results, and resets the UI.
+         * @param {string} [mode] - Context flag (e.g., 'popstate') to control history manipulation.
          */
-        window.clear_input = () => {
+        window.clear_input = (mode) => {
             $input.val("");
             $input.blur();
-            window.display_results(); // Trigger UI update.
+            window.display_results(mode); // Trigger UI update.
         };
 
         /**
-         * Updates the visibility of UI controls (close/search icons, results container)
-         * based on whether the input field has text.
+         * Controls the visibility of the search overlay and results.
+         *
+         * Logic:
+         * - If input is empty: Hides overlay, restores body scroll, and reverts history state if needed.
+         * - If input has text: Shows overlay, locks body scroll, and pushes a new history state.
+         *
+         * @param {string} [mode] - Context flag to determine specific history handling behavior.
          */
-        window.display_results = () => {
+        window.display_results = (mode) => {
             const val = $input.val();
-            const isSticky = $inputContainer.hasClass('sticky-search');
             const shouldShow = val.length > 0;
 
             if (!shouldShow) {
@@ -883,7 +948,28 @@
                 $matchCount.removeClass('search-elevated');
                 $hintsParentContainer.removeClass('search-elevated');
                 deactivateHints();
+                $('body').css('overflow', '');
+                updateSearchPosition();
+
+                if (searchHistoryStatePushed) {
+                    searchHistoryStatePushed = false;
+                    if (mode === 'popstate') {
+                        // History navigation already happened (user pressed Back), just update UI.
+                    } else if (mode) {
+                        // Link click or other skip: replace state to remove the search flag without navigating.
+                        history.replaceState(null, '', window.location.href);
+                    } else {
+                        // Manual close (e.g., close icon): trigger a history back action.
+                        history.back();
+                    }
+                }
             } else {
+                // Push a new history state so the Back button closes the search instead of leaving the page.
+                if (!searchHistoryStatePushed) {
+                    history.pushState({ searchOpen: true }, '', window.location.href);
+                    searchHistoryStatePushed = true;
+                }
+
                 $resultsContainer.show();
                 $closeIcon.css({'display': 'flex', 'align-items': 'center', 'cursor': 'pointer'});
                 $backdrop.fadeIn(200);
@@ -891,9 +977,13 @@
                 $resultsContainer.addClass('search-results-elevated');
                 $matchCount.addClass('search-elevated');
                 $hintsParentContainer.addClass('search-elevated');
+                $('body').css('overflow', 'hidden');
+                updateSearchPosition();
             }
-            updateSticky();
         };
+
+        // On page load, ensure the input is cleared (called after definition)
+        if (typeof window.clear_input === 'function') window.clear_input();
 
         // --------------------------------------------------------------------------
         // SECTION: Security Measures

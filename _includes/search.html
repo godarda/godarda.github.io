@@ -97,37 +97,11 @@
     }
     @keyframes spin { 100% { transform: rotate(360deg); } }
     .spin-animation { animation: spin 0.5s linear; }
-    .sticky-search {
-        position: fixed !important;
-        z-index: 1020;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        background-color: var(--wvnav);
-    }
-    .sticky-results {
-        position: fixed !important;
-        z-index: 1019;
-        background-color: transparent;
-        overflow-y: auto;
-        box-shadow: none;
-        border-radius: 0 0 5px 5px;
-    }
-    .sticky-count {
-        position: fixed !important;
-        z-index: 1020;
-        margin-top: 0 !important;
-    }
-    .sticky-hints {
-        position: fixed !important;
-        z-index: 1020;
-        margin-top: 0 !important;
-    }
-    .sticky-results::-webkit-scrollbar {
-        width: 6px;
-    }
-    .sticky-results::-webkit-scrollbar-thumb {
-        background-color: rgba(128, 128, 128, 0.5);
-        border-radius: 10px;
-    }
+    .search-results-elevated::-webkit-scrollbar { width: 6px; }
+    .search-results-elevated::-webkit-scrollbar-track { background: transparent; }
+    .search-results-elevated::-webkit-scrollbar-thumb { background-color: rgba(150, 150, 150, 0.5); border-radius: 3px; }
+    .search-results-elevated { scrollbar-width: thin; scrollbar-color: rgba(150, 150, 150, 0.5) transparent; }
+
     #search-backdrop {
         position: fixed;
         top: 0;
