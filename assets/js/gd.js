@@ -158,22 +158,24 @@ $(() => {
     const $staticBackdrop = $('#staticBackdrop');
 
     let ticking = false;
-    $(window).on('scroll', () => {
+    const $scrollContainer = (window.isGoDardaApp || isAndroid) ? $('body') : $(window);
+    $scrollContainer.on('scroll', () => {
+        // Hide keyboard immediately on scroll if an input is focused
+        if (document.activeElement) {
+            const tagName = document.activeElement.tagName.toLowerCase();
+            if (tagName === 'input' || tagName === 'textarea') {
+                document.activeElement.blur();
+            }
+        }
+
         if (!ticking) {
             window.requestAnimationFrame(() => {
-                const scrollTop = $(window).scrollTop();
-
-                // Hide keyboard on scroll if an input is focused
-                if (document.activeElement) {
-                    const tagName = document.activeElement.tagName.toLowerCase();
-                    if (tagName === 'input' || tagName === 'textarea') {
-                        document.activeElement.blur();
-                    }
-                }
+                const scrollTop = $scrollContainer.scrollTop();
 
                 // Show modal once per day when user scrolls past 50% of the page
                 if (isShown !== today) {
-                    const scrollPercent = ((scrollTop) / ($(document).height() - $(window).height())) * 100;
+                    const docHeight = (window.isGoDardaApp || isAndroid) ? document.body.scrollHeight : $(document).height();
+                    const scrollPercent = ((scrollTop) / (docHeight - $(window).height())) * 100;
                     if (scrollPercent >= 50) {
                         $staticBackdrop.modal('show');
                         sessionStorage.setItem('status', today);

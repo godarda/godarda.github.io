@@ -48,7 +48,10 @@
         // Hide keyboard on scroll of results
         $resultsContainer.on('scroll', () => {
             if (document.activeElement) {
-                document.activeElement.blur();
+                const tagName = document.activeElement.tagName.toLowerCase();
+                if (tagName === 'input' || tagName === 'textarea') {
+                    document.activeElement.blur();
+                }
             }
         });
 
@@ -911,6 +914,8 @@
 
         // Listen for the browser's "Back" action.
         $(window).on('popstate', () => {
+            deactivateHints();
+            setTimeout(deactivateHints, 50);
             if (searchHistoryStatePushed) {
                 searchHistoryStatePushed = false;
                 // Close the search overlay without triggering another history.back()
