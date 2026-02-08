@@ -158,8 +158,7 @@ $(() => {
     const $staticBackdrop = $('#staticBackdrop');
 
     let ticking = false;
-    const $scrollContainer = (window.isGoDardaApp || isAndroid) ? $('body') : $(window);
-    $scrollContainer.on('scroll', () => {
+    $(window).on('scroll', () => {
         // Hide keyboard immediately on scroll if an input is focused
         if (document.activeElement) {
             const tagName = document.activeElement.tagName.toLowerCase();
@@ -170,7 +169,7 @@ $(() => {
 
         if (!ticking) {
             window.requestAnimationFrame(() => {
-                const scrollTop = $scrollContainer.scrollTop();
+                const scrollTop = $(window).scrollTop();
 
                 // Show modal once per day when user scrolls past 50% of the page
                 if (isShown !== today) {
