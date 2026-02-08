@@ -89,23 +89,9 @@ const handleTouchEnd = () => {
 // DOM Ready - Main Execution
 // --------------------------------------------------------------------------
 $(() => {
-    if (window.isWebview) {
+    if (window.isGoDardaApp || isAndroid) {
+        $('html').addClass('is-webview');
         $('body').addClass('is-webview');
-
-        // Hide bottom navbar when keyboard is active
-        const $wvnav = $('.wvnav');
-        if ($wvnav.length) {
-            $(document).on('focus', 'input, textarea', () => {
-                $wvnav.hide();
-            });
-            $(document).on('blur', 'input, textarea', () => {
-                setTimeout(() => {
-                    if (!$(document.activeElement).is('input, textarea')) {
-                        $wvnav.show();
-                    }
-                }, 200);
-            });
-        }
     }
 
     // Attach swipe event listeners to the document.
@@ -177,14 +163,16 @@ $(() => {
     const $staticBackdrop = $('#staticBackdrop');
 
     let ticking = false;
-    $(window).on('scroll', () => {
+    const $scrollContainer = (window.isGoDardaApp || isAndroid) ? $('body') : $(window);
+    $scrollContainer.on('scroll', () => {
         if (!ticking) {
             window.requestAnimationFrame(() => {
-                const scrollTop = $(window).scrollTop();
+                const scrollTop = $scrollContainer.scrollTop();
 
                 // Show modal once per day when user scrolls past 50% of the page
                 if (isShown !== today) {
-                    const scrollPercent = ((scrollTop) / ($(document).height() - $(window).height())) * 100;
+                    const docHeight = (window.isGoDardaApp || isAndroid) ? document.body.scrollHeight : $(document).height();
+                    const scrollPercent = ((scrollTop) / (docHeight - $(window).height())) * 100;
                     if (scrollPercent >= 50) {
                         $staticBackdrop.modal('show');
                         sessionStorage.setItem('status', today);

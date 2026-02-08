@@ -775,7 +775,7 @@
         ];
 
         const deactivateHints = () => {
-            $hintsContainer.find('.active').removeClass('active');
+            $hintsContainer.children().removeClass('active');
             if ($hintsContainer.length && document.activeElement && $hintsContainer[0].contains(document.activeElement)) {
                 document.activeElement.blur();
             }
