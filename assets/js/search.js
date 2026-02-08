@@ -922,6 +922,7 @@
         window.clear_input = (mode) => {
             $input.val("");
             $input.blur();
+            deactivateHints();
             window.display_results(mode); // Trigger UI update.
         };
 
@@ -937,6 +938,10 @@
         window.display_results = (mode) => {
             const val = $input.val();
             const shouldShow = val.length > 0;
+
+            if (window.AndroidInterface && window.AndroidInterface.onSearchStateChanged) {
+                window.AndroidInterface.onSearchStateChanged(shouldShow);
+            }
 
             if (!shouldShow) {
                 $closeIcon.hide();
