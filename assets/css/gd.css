@@ -65,6 +65,14 @@
 
 /* --------------------------------------------------------------------------------------------- */
 
+:root[data-bs-theme="light"] {
+    color-scheme: light;
+}
+
+:root[data-bs-theme="dark"] {
+    color-scheme: dark;
+}
+
 body:not(.is-webview) {
     display: flex;
     flex-direction: column;

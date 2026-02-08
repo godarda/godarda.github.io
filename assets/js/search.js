@@ -776,6 +776,9 @@
 
         const deactivateHints = () => {
             $hintsContainer.children().removeClass('active');
+            if ($hintsContainer.length && document.activeElement && $hintsContainer[0].contains(document.activeElement)) {
+                document.activeElement.blur();
+            }
         };
 
         const displayHints = (hints, spin = false) => {
