@@ -4,7 +4,7 @@
 
 <body>
 {%- assign main_pages = "settings,shubhamrdarda,testapp,learn,tools" | split: ',' -%}
-{%- if path[1] == nil or main_pages contains path[1] -%}{%- assign is_sidebar_page = false -%}
+{%- if home or main_pages contains path[1] -%}{%- assign is_sidebar_page = false -%}
 {%- else -%}{%- assign is_sidebar_page = true -%}{%- endif -%}
 
 <nav class="navbar navbar-expand-md fixed-top">
@@ -81,7 +81,7 @@
 </nav>
 
 <div data-bs-toggle="collapseall" class="d-flex flex-column flex-grow-1">
-    {%- if path[1] == nil -%}
+    {%- if home -%}
         {%- include search.html -%}
     {%- endif -%}
     {%- unless is_sidebar_page -%}

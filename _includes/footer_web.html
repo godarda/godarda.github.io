@@ -3,7 +3,7 @@
             class="svgicon bi bi-arrow-bar-up"></i></a>
 </div>
 
-{%- if path[1] == nil or path[1] == "testapp" -%}{%- assign flag = "block_webfooter" -%}{%- endif -%}
+{%- if home or path[1] == "testapp" -%}{%- assign flag = "block_webfooter" -%}{%- endif -%}
 <div id="web-footer-container" style="display: none;" class="{% if flag == 'block_webfooter' %}mt-auto{% endif %}">
     <footer class="isWebsite {{ flag }}" id="isWebsite" style="padding-top: 15px;">
     <div class="footer">
@@ -38,7 +38,7 @@
     </div>
     </footer>
 
-    <footer id="webCopyright">
+    <footer id="webCopyright" class="{% if flag == 'block_webfooter' %}fixed-bottom{% endif %}">
         <div class="d-flex justify-content-between copyright-footer">
             <small>&copy; {% assign current_year = 'now' | date: '%Y' %}{{ current_year }} {{ site.title }}.</small>
             <div>

@@ -6,6 +6,7 @@
 -->
 
 {%- assign path = page.url | split: '/' -%}
+{%- if path[1] == nil -%}{%- assign home = true -%}{%- endif -%}
 <!-- Set global JS variables for search context and JSON URL -->
 <script>window.gd_path1 = '{{ path[1] | default: "search" }}';</script>
 <script>window.gd_search_url = '{{ "/search.json" | relative_url }}';</script>
@@ -123,13 +124,13 @@
         z-index: 1019;
     }
 </style>
-<div class="container">
+<div class="container" {% if home %}style="min-height: 80vh; display: flex; flex-direction: column; justify-content: center;"{% endif %}>
     <div id="search-backdrop"></div>
     <center>
         <div class="col-xs-12 col-sm-11 col-md-9 col-lg-7 col-xl-6 col-xxl-6" style="margin-bottom: 25px;">
-            {%- if path[1] == nil -%}
+            {%- if home -%}
             <!-- Display site title and tagline only on the home page -->
-            <h2 style="padding-top: 150px;" id="fc-{{ path[1] }}">GoDarda</h2>
+            <h2 id="fc-{{ path[1] }}">GoDarda</h2>
             <h6 style="padding-top: 5px; padding-bottom: 10px;">{{ site.tagline }}</h6>
             {%- endif -%}
 
