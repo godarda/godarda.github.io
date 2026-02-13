@@ -80,12 +80,21 @@
          * 3. Adjusts z-indices to ensure the search UI sits above the backdrop (1050).
          * 4. Dynamically sizes the results container to fit within the viewport (90% height).
          */
-        const updateSearchPosition = () => {
+        const updateSearchPosition = (isResize = false) => {
             const isSearchActive = $input.val().length > 0;
             if (isSearchActive) {
                 // Calculate top offset based on navbar height to position just below it.
                 const navHeight = ($navbar.outerHeight() || 0) + 10;
-                $stickyPlaceholder.css({ height: $inputContainer.outerHeight(true) }).show();
+
+                // Only update placeholder height if it's not visible (initial open) or forced (resize)
+                // This prevents the background from jumping when hints change or match count appears.
+                if (!$stickyPlaceholder.is(':visible') || isResize === true) {
+                    let h = $inputContainer.outerHeight(true);
+                    if ($hintsParentContainer.is(':visible')) h += $hintsParentContainer.outerHeight(true);
+                    $stickyPlaceholder.css({ height: h }).show();
+                } else {
+                    $stickyPlaceholder.show();
+                }
 
                 const rect = $stickyPlaceholder[0].getBoundingClientRect();
                 const targetWidth = rect.width;
@@ -155,7 +164,7 @@
 
         // Update position on resize to handle orientation changes or window resizing.
         $(window).on('resize', () => {
-            if ($input.val().length > 0) window.requestAnimationFrame(updateSearchPosition);
+            if ($input.val().length > 0) window.requestAnimationFrame(() => updateSearchPosition(true));
         });
         // Ensure position is correct once all page resources (images, fonts) are loaded.
         $(window).on('load', updateSearchPosition);
@@ -716,7 +725,7 @@
 
                 recognition.onstart = () => {
                     isListening = true;
-                    $micIconI.removeClass('bi-mic').addClass('bi-mic-fill text-danger');
+                    $micIconI.removeClass('bi-mic').addClass('bi-mic-fill text-success');
                 };
 
                 recognition.onresult = (event) => {
@@ -731,7 +740,7 @@
 
                 recognition.onend = () => {
                     isListening = false;
-                    $micIconI.removeClass('bi-mic-fill text-danger').addClass('bi-mic');
+                    $micIconI.removeClass('bi-mic-fill text-success').addClass('bi-mic');
                 };
             } else {
                 $micIcon.hide();
@@ -792,12 +801,18 @@
             $hintsContainer.children().removeClass('active');
             $hintsContainer.find('.active').removeClass('active');
             if ($hintsContainer.length && document.activeElement && $hintsContainer[0].contains(document.activeElement)) {
-                document.activeElement.blur();
+                const elToBlur = document.activeElement;
+                setTimeout(() => elToBlur.blur(), 0);
             }
         };
 
         const displayHints = (hints, spin = false) => {
-            if (!$hintsContainer.length || !$hintsParentContainer.length || hints.length === 0) return;
+            if (!$hintsContainer.length || !$hintsParentContainer.length) return;
+
+            if (hints.length === 0) {
+                $hintsParentContainer.hide();
+                return;
+            }
 
             const $activeBtn = $hintsContainer.find('a.btn.active');
             const activeText = $activeBtn.length ? $activeBtn.text() : null;
@@ -844,9 +859,11 @@
             event.preventDefault();
             const text = $(this).text();
             $input.val(text);
+            // Explicitly trigger the display logic to ensure the overlay opens reliably
+            if (typeof window.display_results === 'function') window.display_results();
             $input.trigger('input');
-            $input.trigger('blur');
             deactivateHints();
+            $input.blur();
             $(this).addClass('active');
         });
 
@@ -900,7 +917,10 @@
                         currentAllHints = Array.from(keywords);
                         displayHints(currentAllHints);
                     })
-                    .catch(error => console.error('Error fetching or processing search.json for suggestions:', error));
+                    .catch(error => {
+                        console.error('Error fetching or processing search.json for suggestions:', error);
+                        $hintsParentContainer.hide();
+                    });
             }
         };
 

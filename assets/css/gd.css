@@ -642,3 +642,41 @@ a.back-to-top>i.svgicon {
 .footer-no-padding {
     padding: 0px;
 }
+
+/* --------------------------------------------------------------------------------------------- */
+
+#global-action-pill {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1040;
+    display: none;
+    background-color: var(--wvnav);
+    opacity: 0.90;
+    backdrop-filter: blur(2px);
+    border-radius: 25px;
+    border: 1px solid var(--color1);
+    box-shadow: 0 0 9px var(--navbar-shadow);
+    padding: 5px 20px;
+    align-items: center;
+    gap: 15px;
+}
+
+#global-action-pill > a {
+    cursor: pointer;
+    color: var(--bnw);
+    display: flex;
+    align-items: center;
+}
+
+#global-action-pill > a > i {
+    font-size: 20px;
+}
+
+#global-action-pill > div {
+    width: 1px;
+    height: 20px;
+    background-color: var(--bnw);
+    opacity: 0.2;
+}

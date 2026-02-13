@@ -1,11 +1,6 @@
-<div id="backtotop" class="text-center" style="display: none; padding-top: 15px; margin-bottom: 15px;"><a
-        class="back-to-top" href="#" style="cursor: pointer;" title="Back to top"><i
-            class="svgicon bi bi-arrow-bar-up"></i></a>
-</div>
-
 {%- if home or path[1] == "testapp" -%}{%- assign flag = "block_webfooter" -%}{%- endif -%}
 <div id="web-footer-container" style="display: none;" class="{% if flag == 'block_webfooter' %}mt-auto{% endif %}">
-    <footer class="isWebsite {{ flag }}" id="isWebsite" style="padding-top: 15px;">
+    <footer class="isWebsite {{ flag }}" id="isWebsite" style="padding-top: 30px;">
     <div class="footer">
         <div class="container">
             <div class="row">
@@ -72,23 +67,12 @@
 function setupWebAppView() {
     const rsidebar = document.getElementById("rsidebar");
     if (rsidebar) { rsidebar.removeAttribute("style"); }
-
     const webFooterContainer = document.getElementById("web-footer-container");
     const webfooter = document.getElementById("isWebsite");
-    const webCopyright = document.getElementById("webCopyright");
-    const backToTop = document.getElementById("backtotop");
 
     if (webFooterContainer) {
         webFooterContainer.style.display = "block";
         if (webfooter && webfooter.classList.contains("block_webfooter")) { webfooter.style.display = "none"; }
     }
-
-    // If on Home Page (webfooter hidden), add extra margin to Back to Top to match spacing of other pages
-    if (webfooter && webfooter.classList.contains("block_webfooter") && backToTop) {
-        backToTop.style.marginBottom = "30px";
-    }
 }
-
-window.addEventListener('DOMContentLoaded', () => { if (!window.isGoDardaApp) setupWebAppView(); });
-
 </script>

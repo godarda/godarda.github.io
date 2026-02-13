@@ -65,6 +65,9 @@ div.wvnav {
     z-index: 1030;
     display: flex;
 }
+#isWebView {
+    padding-bottom: 150px;
+}
 a.wvnav-item {
     text-align: center;
     min-width: 0;
@@ -105,7 +108,6 @@ a.wvnav-item.wvnav-item-active>i {
 <div class="wvnav">
     <a class="wvnav-item {{ f_home }}" href="{{ site.url }}"><i class="wvsvg {{ f_home }}- bi {% if f_home == "wvnav-item-active" %}bi-house-heart{% else %}bi-house-heart{% endif %}"></i><div class="text-center">Home</div></a>
     <a class="wvnav-item {{ f_learn }}" href="{{ site.url }}/learn"><i class="wvsvg {{ f_learn }}-{{ path[1] }} bi {% if f_learn == "wvnav-item-active" %}bi-journal-code{% else %}bi-journal-code{% endif %}"></i><div class="text-center">Learn</div></a>
-    <a id="share-button" class="wvnav-item" href="share:{{ site.url }}{{ page.url }}"><i class="wvsvg bi bi-share"></i><div class="text-center">Share</div></a>
     <a class="wvnav-item {{ f_tools }}" href="{{ site.url }}/tools"><i class="wvsvg {{ f_tools }}-{{ path[1] }} bi {% if f_tools == "wvnav-item-active" %}bi-tools{% else %}bi-tools{% endif %}"></i><div class="text-center">Tools</div></a>
 </div>
 </footer>
@@ -178,8 +180,8 @@ function setupAppView() {
         navbarSettings.style.display = "block";
     }
 
-    const backToTop = document.getElementById("backtotop");
-    if (backToTop) { backToTop.style.marginBottom = "100px"; }
+    const globalPill = document.getElementById("global-action-pill");
+    if (globalPill) { globalPill.style.bottom = "85px"; }
 
     document.onselectstart = (e) => e.preventDefault();
     $('body').on('contextmenu', () => false);
@@ -200,22 +202,6 @@ function setupAppView() {
         if (navbarBrand) { navbarBrand.style.marginLeft = "0px"; }
         const lsidebar = document.getElementById("lsidebar");
         if (lsidebar) { lsidebar.style.display = "none"; }
-    }
-
-    const shareButton = document.getElementById("share-button");
-    if (shareButton) {
-        if (isSettingsPage) { shareButton.style.opacity = "0.5"; }
-        let isClickDisabled = false;
-        shareButton.addEventListener('click', (event) => {
-            if (isSettingsPage) { event.preventDefault(); return; }
-            if (isClickDisabled) { event.preventDefault(); }
-            else { isClickDisabled = true; setTimeout(() => { isClickDisabled = false; }, 400); }
-        });
-        shareButton.addEventListener('dblclick', (event) => {
-            if (isSettingsPage) { event.preventDefault(); return; }
-            if (localStorage.getItem('doubleTapShare') === 'false') { return; }
-            event.preventDefault();
-        });
     }
 
     document.documentElement.addEventListener('dblclick', (event) => {
@@ -243,6 +229,4 @@ function setupAppView() {
 
     showVersion();
 }
-
-window.addEventListener('DOMContentLoaded', () => { if (window.isGoDardaApp) setupAppView(); });
 </script>

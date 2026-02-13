@@ -1,6 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-{% include head.html %}
+<head>
+    <title>{{ page.title }}</title>
+    <meta property="og:title" content="{{ page.title }}" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="{{ site.title }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="{{ site.og }}" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
+    <meta name="color-scheme" content="light dark">
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    {%- if page.robots -%}<meta name="robots" content="{{ page.robots }}" />{%- endif -%}
+    <meta name="keywords" content="{{ page.title }}" />
+    {%- if page.description == nil -%}<meta name="description" content="{{ page.title }}" />{%- else -%}<meta name="description" content="{{ page.description }}" />{%- endif -%}
+    <meta name="author" content="{{ site.architect }}" />
+    <link rel="icon" href="{{ site.icon | relative_url }}">
+    <link rel="stylesheet" href="{{ site.bs_css }}" integrity="{{ site.bs_cssi }}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ site.bs_icons }}">
+    <link rel="stylesheet" type="text/css" href="{{ site.gd_color_css | relative_url }}">
+    <link rel="stylesheet" type="text/css" href="{{ site.gd_css | relative_url }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <script>
+    const getStoredTheme = () => localStorage.getItem('theme');
+    const setStoredTheme = theme => localStorage.setItem('theme', theme);
+
+    const getPreferredTheme = () => {
+        const storedTheme = getStoredTheme();
+        if (storedTheme) {
+            return storedTheme;
+        }
+        setStoredTheme('auto');
+        return 'auto';
+    };
+
+    const setTheme = theme => {
+        document.documentElement.setAttribute('data-bs-theme', (theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme));
+        document.dispatchEvent(new Event('themeChanged'));
+    };
+
+    setTheme(getPreferredTheme());
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        const storedTheme = getStoredTheme();
+        if (storedTheme !== 'light' && storedTheme !== 'dark') {
+            setTheme(getPreferredTheme());
+        }
+    });
+    </script>
+    <script defer src="{{ site.jquery }}"></script>
+    <script defer src="{{ site.bs_js }}" integrity="{{ site.bs_jsi }}" crossorigin="anonymous"></script>
+    <script defer src="{{ site.gd_js | relative_url }}"></script>
+    <script async src="{{ site.analytics }}"></script>
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <base href="{{ '/' | relative_url }}">
+</head>
+
+{%- assign path = page.url | split: '/' -%}
+{%- if path[1] == nil -%}{%- assign home = true -%}{%- endif -%}
+{%- assign seg_key = path[1] | default: '' -%}
+{%- assign seg_obj = site.data.gd.segments | where: 'url', seg_key | first -%}
+
+{%- if seg_obj -%}
+    {%- assign segment = seg_obj.title -%}
+    {%- if seg_obj.parent -%}
+        {%- assign parent = seg_obj.parent -%}
+    {%- endif -%}
+{%- else -%}
+    {%- assign segment = site.title -%}
+{%- endif -%}
+
+{%- assign gd = nil -%}
+{%- if seg_key != '' -%}
+    {%- if site.data[seg_key] -%}
+        {%- assign gd_temp = site.data[seg_key] -%}
+        {%- if gd_temp.grandparent -%}{%- assign gd = gd_temp -%}
+        {%- elsif gd_temp[seg_key] and gd_temp[seg_key].grandparent -%}{%- assign gd = gd_temp[seg_key] -%}{%- endif -%}
+    {%- endif -%}
+    {%- if gd == nil -%}
+        {%- for data_file in site.data -%}
+            {%- assign sub_data = data_file[1] -%}
+            {%- if sub_data[seg_key] and sub_data[seg_key].grandparent -%}
+                {%- assign gd = sub_data[seg_key] -%}
+                {%- break -%}
+            {%- endif -%}
+        {%- endfor -%}
+    {%- endif -%}
+{%- endif -%}
+
+{%- if gd -%}
+    {%- for item in gd.grandparent -%}
+        {%- if page.url contains item.url -%}
+            {%- assign child = item.subtree -%}
+            {%- if item.parent -%}
+                {%- assign segment = item.parent -%}
+            {%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endif -%}
+
+{%- unless parent -%}
+    {%- if seg_key == '' -%}
+        {%- assign parent = ' GoDarda' -%}
+    {%- else -%}
+        {%- assign parent = ' / ' | append: segment | append: ' / ' -%}
+    {%- endif -%}
+{%- endunless -%}
 
 <body>
 {%- assign main_pages = "settings,shubhamrdarda,testapp,learn,tools" | split: ',' -%}
@@ -11,7 +117,7 @@
     <div class="container-fluid">
         {%- unless is_sidebar_page -%}
         <div class="navbar-brand" style="margin-left: 0px;">
-            <a><img id="logo" alt="Logo" width="30" height="30" src="{{ site.icon | relative_url }}"></a>
+            <a {% unless home %}href=""{% endunless %}><img id="logo" alt="Logo" width="30" height="30" src="{{ site.icon | relative_url }}"></a>
             <a id="fc-{{ path[1] }}"> {%- if path[1] != nil %}<i class="bi bi-chevron-compact-right"></i>{%- endif -%} {{ parent }} </a>
         </div>
         {%- else -%}
@@ -105,7 +211,6 @@
 
     <main class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-xxl-10 ms-sm-auto px-md-4 flex-grow-1" role="main">
         <div class="container">
-
             {{ content }}
             {%- for parent in gd.grandparent -%}
             {% if path[1] != "about" and path[2] == nil %}
@@ -133,6 +238,20 @@
     <div class="{{ footer_class }}">{%- include footer_app.html -%}{%- include footer_web.html -%}</div>
 </div>
 
+<div id="global-action-pill">
+    <a href="{{ site.data.url.sponsor }}" target="_blank" rel="noopener noreferrer" title="Sponsor">
+        <i class="bi bi-suit-heart"></i>
+    </a>
+    <div></div>
+    <a id="pill-back-to-top" title="Back to Top">
+        <i class="bi bi-arrow-up-circle"></i>
+    </a>
+    <div></div>
+    <a id="pill-share-button" href="share:{{ site.url }}{{ page.url }}" title="Share">
+        <i class="bi bi-share"></i>
+    </a>
+</div>
+
 {%- if path[3] != nil -%}
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -144,13 +263,11 @@
             </div>
             <div class="modal-body">
                 <p class="h6">Thank you for visiting GoDarda!</p>
-                <p>If you've found GoDarda helpful, please consider supporting our mission to provide free, high-quality content for developers. Your support makes a difference!</p>
-                <p>Don't forget to show your appreciation by starring our repo, following us, and becoming a sponsor!</p>
+                <p>If you've found GoDarda helpful, please consider supporting our mission by starring our repo and following us. Your support helps us provide free, high-quality content for developers!</p>
             </div>
             <div class="modal-footer justify-content-center">
                 <a class="btn btn-sm btn-outline-secondary" href="{{ site.data.url.repo }}" title="GitHub Star" target="_blank" rel="noopener noreferrer"><i class="bi bi-star"></i> Star</a>
                 <a href="{{ site.data.url.linkedin }}" class="btn btn-sm btn-outline-secondary" title="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin"></i> LinkedIn</a>
-                <a href="{{ site.data.url.sponsor }}" class="btn btn-sm btn-outline-secondary" title="Sponsor" target="_blank" rel="noopener noreferrer"><i class="bi bi-suit-heart"></i> Sponsor</a>
             </div>
         </div>
     </div>
