@@ -634,7 +634,7 @@ a.back-to-top>i.svgicon {
     background-color: var(--infocard);
     color: var(--bnw);
     padding: 0 15px;
-    height: 40px;
+    height: 50px;
     align-items: center;
     margin: 0px;
 }
@@ -647,7 +647,7 @@ a.back-to-top>i.svgicon {
 
 #global-action-pill {
     position: fixed;
-    bottom: 20px;
+    bottom: 24px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1040;
@@ -655,12 +655,12 @@ a.back-to-top>i.svgicon {
     background-color: var(--wvnav);
     opacity: 0.90;
     backdrop-filter: blur(2px);
-    border-radius: 25px;
+    border-radius: 30px;
     border: 1px solid var(--color1);
     box-shadow: 0 0 9px var(--navbar-shadow);
-    padding: 5px 20px;
+    padding: 4px 12px;
     align-items: center;
-    gap: 15px;
+    gap: 5px;
 }
 
 #global-action-pill > a {
@@ -668,6 +668,13 @@ a.back-to-top>i.svgicon {
     color: var(--bnw);
     display: flex;
     align-items: center;
+    padding: 8px 14px;
+    border-radius: 25px;
+    transition: background-color .2s ease-in-out;
+}
+
+#global-action-pill > a:hover {
+    background-color: var(--color1);
 }
 
 #global-action-pill > a > i {
@@ -676,7 +683,7 @@ a.back-to-top>i.svgicon {
 
 #global-action-pill > div {
     width: 1px;
-    height: 20px;
+    height: 24px;
     background-color: var(--bnw);
     opacity: 0.2;
 }

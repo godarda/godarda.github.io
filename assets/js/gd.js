@@ -125,9 +125,9 @@ $(() => {
     $('input, textarea').css('cursor', 'text');
 
     // Remove focus from buttons after click to prevent persistent hover/focus states
-    $(document).on('click', '.btn', (event) => {
+    $(document).on('click mouseup touchend', '.btn', (event) => {
         const $btn = $(event.currentTarget);
-        setTimeout(() => $btn.blur(), 0);
+        setTimeout(() => $btn.blur(), 10);
     });
 
     // Toggle left sidebar visibility
@@ -226,8 +226,8 @@ $(() => {
                     }
                 }
 
-                // Toggle Global Pill visibility at 80% scroll
-                if (scrollPercent >= 80) {
+                // Toggle Global Pill visibility at 75% scroll
+                if (scrollPercent >= 75) {
                     if (!isPillVisible) {
                         $globalPill.stop(true).fadeIn(250).css('display', 'flex');
                         isPillVisible = true;
@@ -364,6 +364,29 @@ $(() => {
                     console.error('Failed to copy text: ', err);
                 });
             }
+        }
+    });
+
+    // --------------------------------------------------------------------------
+    // Modal Back Button Support
+    // --------------------------------------------------------------------------
+    $(document).on('shown.bs.modal', '.modal', () => {
+        history.pushState({ modalOpen: true }, '', window.location.href);
+    });
+
+    $(document).on('hidden.bs.modal', '.modal', function() {
+        if ($(this).data('is-popstate')) {
+            $(this).removeData('is-popstate');
+        } else if (history.state && history.state.modalOpen) {
+            history.back();
+        }
+    });
+
+    $(window).on('popstate', () => {
+        const $openModal = $('.modal.show');
+        if ($openModal.length) {
+            $openModal.data('is-popstate', true);
+            $openModal.modal('hide');
         }
     });
 });
