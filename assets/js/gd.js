@@ -125,9 +125,9 @@ $(() => {
     $('input, textarea').css('cursor', 'text');
 
     // Remove focus from buttons after click to prevent persistent hover/focus states
-    $(document).on('click mouseup touchend', '.btn', (event) => {
+    $(document).on('click', '.btn, a.card, .wvnav-item, #global-action-pill a', (event) => {
         const $btn = $(event.currentTarget);
-        setTimeout(() => $btn.blur(), 10);
+        setTimeout(() => $btn.blur(), 50);
     });
 
     // Toggle left sidebar visibility
@@ -210,45 +210,58 @@ $(() => {
 
     let ticking = false;
     let isPillVisible = false;
+
+    const checkScrollDependentUI = () => {
+        const scrollTop = $(window).scrollTop();
+        const scrollableHeight = $(document).height() - $(window).height();
+        const scrollPercent = scrollableHeight > 0 ? (scrollTop / scrollableHeight) * 100 : 0;
+
+        // Show modal once per day when user scrolls past 50% of the page
+        if (scrollPercent >= 50 && !isScrollingToTop) {
+            const currentDate = new Date().toLocaleDateString();
+            const lastShownDate = localStorage.getItem('status');
+            if (lastShownDate !== currentDate) {
+                $staticBackdrop.modal('show');
+                localStorage.setItem('status', currentDate);
+            }
+        }
+
+        // Toggle Global Pill visibility at 75% scroll
+        if (scrollPercent >= 75) {
+            if (!isPillVisible) {
+                $globalPill.stop(true).fadeIn(250).css('display', 'flex');
+                isPillVisible = true;
+            }
+        } else {
+            if (isPillVisible) {
+                $globalPill.stop(true).fadeOut(500);
+                isPillVisible = false;
+            }
+        }
+    };
+
     $(window).on('scroll', () => {
         if (!ticking) {
             window.requestAnimationFrame(() => {
-                const scrollTop = $(window).scrollTop();
-                const scrollPercent = ((scrollTop) / ($(document).height() - $(window).height())) * 100;
-
-                // Show modal once per day when user scrolls past 50% of the page
-                if (scrollPercent >= 50 && !isScrollingToTop) {
-                    const currentDate = new Date().toLocaleDateString();
-                    const lastShownDate = localStorage.getItem('status');
-                    if (lastShownDate !== currentDate) {
-                        $staticBackdrop.modal('show');
-                        localStorage.setItem('status', currentDate);
-                    }
-                }
-
-                // Toggle Global Pill visibility at 75% scroll
-                if (scrollPercent >= 75) {
-                    if (!isPillVisible) {
-                        $globalPill.stop(true).fadeIn(250).css('display', 'flex');
-                        isPillVisible = true;
-                    }
-                } else {
-                    if (isPillVisible) {
-                        $globalPill.stop(true).fadeOut(500);
-                        isPillVisible = false;
-                    }
-                }
+                checkScrollDependentUI();
 
                 // Auto-close sidebars on scroll
-                if ($leftSidebar.hasClass('open')) {
-                    $leftSidebar.removeClass('open');
-                }
-                if ($rightSidebar.hasClass('open')) {
-                    $rightSidebar.removeClass('open');
-                }
+                if ($leftSidebar.hasClass('open')) $leftSidebar.removeClass('open');
+                if ($rightSidebar.hasClass('open')) $rightSidebar.removeClass('open');
+
                 ticking = false;
             });
             ticking = true;
+        }
+    });
+
+    // Check scroll state on load to handle pages that load at the bottom (e.g., from bfcache)
+    checkScrollDependentUI();
+
+    // Also specifically handle pageshow for bfcache
+    $(window).on('pageshow', (event) => {
+        if (event.originalEvent && event.originalEvent.persisted) {
+            checkScrollDependentUI();
         }
     });
 

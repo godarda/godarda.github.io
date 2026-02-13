@@ -51,13 +51,13 @@ segments:
     url: mongodb
     parent: "MongoDB"
 
-  - title: Selenium WebDriver
-    url: selenium
-    parent: "Selenium"
-
   - title: Computer Graphics
     url: cg
     parent: "CG"
+
+  - title: Selenium WebDriver
+    url: selenium
+    parent: "Selenium"
 
   - title: Explore Cluster
     url: cluster
