@@ -185,19 +185,4 @@ grandparent:
     title: VBScript to create an Excel in one folder and paste into another folder
   - url: cluster/vbscript/gdyueyg
     title: VBScript to read the data from an Excel sheet using ADODB object
-sidenav:
-- parent: Cluster
-  url: cluster
-  children:
-  - title: Assembly Programming
-    url: cluster/asm
-  - title: F# Programming
-    url: cluster/fsharp
-  - title: LISP Programming
-    url: cluster/lisp
-  - title: GNU Octave
-    url: cluster/octave
-  - title: Ranorex
-    url: cluster/ranorex
-  - title: VBScript
-    url: cluster/vbscript
+

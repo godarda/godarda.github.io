@@ -25,11 +25,3 @@ grandparent:
     title: MongoDB Projection (limiting and sorting data)
   - url: mongodb/crud/gdwawvv
     title: MongoDB Update a Document
-sidenav:
-- parent: MongoDB (NoSQL Database)
-  url: mongodb
-  children:
-  - title: MongoDB Fundamentals
-    url: mongodb/fundamentals
-  - title: MongoDB CRUD Operations
-    url: mongodb/crud

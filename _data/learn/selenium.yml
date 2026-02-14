@@ -133,23 +133,3 @@ grandparent:
     title: How to use and implement TestNG Listeners
   - url: selenium/testng/gdysafu
     title: How to generate Extent Reports in Selenium WebDriver
-sidenav:
-- parent: Selenium WebDriver
-  url: selenium
-  children:
-  - title: Selenium Fundamentals
-    url: selenium/fundamentals
-  - title: Selenium Locators
-    url: selenium/locators
-  - title: Selenium XPath
-    url: selenium/xpath
-  - title: Classes in Selenium
-    url: selenium/classes
-  - title: Interfaces in Selenium
-    url: selenium/interfaces
-  - title: Selenium Page Object Model
-    url: selenium/pom
-  - title: Selenium Data Driven Framework
-    url: selenium/ddf
-  - title: Selenium TestNG
-    url: selenium/testng

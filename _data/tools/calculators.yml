@@ -21,11 +21,3 @@ grandparent:
   children:
   - url: calculators/scientific/gdizhat
     title: Trigonometry Calculator
-sidenav:
-- parent: Calculators
-  url: calculators
-  children:
-  - title: Common Calculators
-    url: calculators/common
-  - title: Scientific Calculators
-    url: calculators/scientific

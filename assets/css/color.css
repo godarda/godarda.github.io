@@ -6,6 +6,7 @@ layout: none
 
 [data-bs-theme="dark"]
 {
+    color-scheme: dark;
     --c:                   #0080ff; /* Blue for C programming language */
     --calculators:         #66b3ff; /* Light blue for calculators */
     --cg:                  #ff6699; /* Pink for computer graphics */
@@ -75,6 +76,7 @@ layout: none
 
 [data-bs-theme="light"]
 {
+    color-scheme: light;
     --c:                   #007acc; /* Blue for C programming language */
     --calculators:         #0073e6; /* Strong blue for calculators */
     --cg:                  #e65c7d; /* Pink for computer graphics */

@@ -19,9 +19,3 @@ grandparent:
     title: R Matrices
   - url: r/cli/gdazeek
     title: R Data Frames
-sidenav:
-- parent: R Programming
-  url: r
-  children:
-  - title: R Command Line Interface (CLI)
-    url: r/cli

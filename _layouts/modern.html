@@ -6,7 +6,7 @@
     <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="{{ site.title }}" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="{{ site.og }}" />
+    <meta property="og:image" content="{{ site.og | absolute_url }}" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
     <meta name="color-scheme" content="light dark">
@@ -127,33 +127,26 @@
             {%- assign tools_data = site.data.tools.tools | default: site.data.tools -%}
             {%- assign learn_matches = learn_data.segments | where: "url", path[1] -%}
             {%- assign tools_matches = tools_data.segments | where: "url", path[1] -%}
-            {%- if learn_matches.size > 0 -%}{%- assign home_url = "learn" -%}{%- elsif tools_matches.size > 0 -%}{%- assign home_url = "tools" -%}{%- endif -%}
-            <a href="{{ home_url }}"><img id="logo" alt="Logo" width="30" height="30" src="{{ site.icon | relative_url }}"></a>
-            </i><a id="fc-{{ path[1] }}" href="{{ path[1] }}"><i class="bi bi-chevron-compact-right"></i> {{ parent }} <i class="bi bi-chevron-compact-right"></i></a>
+            {%- if learn_matches.size > 0 -%}{%- assign home_url = "learn" -%}{%- elsif tools_matches.size > 0 -%}{%- assign home_url = "tools" -%}{%- else -%}{%- assign home_url = "/" -%}{%- endif -%}
+            <a href="{{ home_url | relative_url }}" aria-label="{{ site.title }}"><img id="logo" alt="{{ site.title }} Logo" width="30" height="30" src="{{ site.icon | relative_url }}"></a>
+            <a id="fc-{{ path[1] }}" href="{{ path[1] }}"><i class="bi bi-chevron-compact-right"></i> {{ parent }} <i class="bi bi-chevron-compact-right"></i></a>
             {%- if path[2] != nil -%}
                 <a id="fc-{{ path[1] }}" href="{{ path[1] }}/{{ path[2] }}" class="d-inline-flex align-items-center"><span class="d-inline-block text-truncate" style="max-width: 20ch;">{{ child }}</span><i class="bi bi-chevron-compact-right ms-1"></i></a>
             {%- endif -%}
         </div>
         <button id="lsidebar" class="navbar-toggler p-0" type="button" data-bs-toggle="leftsidebar" data-bs-target="#leftsidebar" aria-label="lsidebar"><span class="navbar-toggler-icon"></span></button>
         <div id="leftsidebar" class="sidebar leftsidebar-collapse col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-2 col-xxl-2">
-        {%- for parent in gd.sidenav -%}
-            {%- if page.url contains parent.url -%}
-                {%- assign active_item = nil -%}
-                {%- assign active_item = "sidebar-item-active" -%}
-                {%- assign pu = parent.url | split: '/' -%}
-
-                {%- if path[1] == pu[0] and path[2] == nil -%}<a class="nav-link {{ active_item }} {{ path[1] }}" href="{{ parent.url }}">{{ parent.parent }}</a>
-                {%- else -%}<a class="nav-link {{ path[1] }}" href="{{ parent.url }}">{{ parent.parent }}</a>
-                {%- endif -%}
-
-                {%- for child in parent.children -%}
-                    {%- assign cu = child.url | split: '/' -%}
-                    {%- if cu.size == 2 and path[2] == cu[1] -%}<a class="nav-link {{ active_item }} {{ path[1] }}" href="{{ child.url }}">{{ child.title }}</a>
-                    {%- else -%}<a class="nav-link {{ path[1] }}" href="{{ child.url }}">{{ child.title }}</a>
-                    {%- endif -%}
-                {%- endfor -%}
-            {%- endif -%}
-        {%- endfor -%}
+            {%- assign root_title = seg_obj.title | default: segment -%}
+            {%- assign root_url = seg_obj.url | default: path[1] -%}
+            {%- assign active_root = "" -%}
+            {%- if path[1] == root_url and path[2] == nil -%}{%- assign active_root = "sidebar-item-active" -%}{%- endif -%}
+            <a class="nav-link {{ active_root }} {{ path[1] }}" href="{{ root_url }}">{{ root_title }}</a>
+            {%- for item in gd.grandparent -%}
+                {%- assign active_item = "" -%}
+                {%- assign item_parts = item.url | split: '/' -%}
+                {%- if path[2] == item_parts[1] -%}{%- assign active_item = "sidebar-item-active" -%}{%- endif -%}
+                <a class="nav-link {{ active_item }} {{ path[1] }}" href="{{ item.url }}">{{ item.parent }}</a>
+            {%- endfor -%}
         </div>
         {%- endunless -%}
 
@@ -198,7 +191,7 @@
         {%- if path[2] == nil and path[1] != "settings" -%}{%- include search.html -%}{%- endif -%}
     </div>
     {%- endif -%}
-    <main role="main" class="flex-grow-1"><div class="container">{{ content }}</div></main>
+    <main class="flex-grow-1"><div class="container">{{ content }}</div></main>
 
     {%- else -%}
     <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-xxl-10 ms-sm-auto px-md-4 jumbotron text-center">

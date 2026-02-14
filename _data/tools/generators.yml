@@ -7,9 +7,3 @@ grandparent:
     title: String Generator
   - url: generators/common/gdgeldi
     title: Number Generator
-sidenav:
-- parent: Generators
-  url: generators
-  children:
-  - title: Common Generators
-    url: generators/common

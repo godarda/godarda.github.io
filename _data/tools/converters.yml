@@ -67,17 +67,3 @@ grandparent:
   children:
   - url: converters/algorithm/gdeggcz
     title: Hashing Converter
-sidenav:
-- parent: Converters
-  url: converters
-  children:
-  - title: Common Converters
-    url: converters/common
-  - title: Physics Converters
-    url: converters/physics
-  - title: Digital Converters
-    url: converters/digital
-  - title: Lifestyle Converters
-    url: converters/lifestyle
-  - title: Algorithm Converters
-    url: converters/algorithm

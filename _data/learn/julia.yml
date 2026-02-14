@@ -8,10 +8,3 @@ grandparent:
   - url: julia/fundamentals/gdavgeq
     title: Julia Logical Operations
   - url: julia/fundamentals/gdadvew
-    title: Julia Exponents and Logarithms
-sidenav:
-- parent: Julia Programming
-  url: julia
-  children:
-  - title: Julia Fundamentals
-    url: julia/fundamentals

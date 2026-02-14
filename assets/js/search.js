@@ -2,12 +2,12 @@
  * GoDarda - Search Functionality (search.js)
  *
  * @file This script implements the client-side search engine for the GoDarda website.
- * @summary It handles lazy loading of search data, fuzzy matching, auto-correction,
+ * @summary It handles lazy loading of search data, optimized matching,
  * and dynamic result rendering in a performant and context-aware manner.
  *
  * Key Features:
  * 1. Lazy Loading: Fetches search data (JSON) only on user interaction to minimize initial page load.
- * 2. Fuzzy Search: Employs Levenshtein distance for typo tolerance and suggests corrections.
+ * 2. Optimized Search: Uses a tiered scoring system (exact, prefix, substring, token) for relevant results.
  * 3. Real-time Feedback: Provides a progress bar during data fetch and debounced result rendering.
  * 4. Context-Aware Filtering: Narrows down search results based on the current site section (e.g., /learn, /tools).
  * 5. Performant Rendering: Uses string concatenation and requestAnimationFrame for efficient result display.
@@ -324,81 +324,15 @@
         };
 
         // --------------------------------------------------------------------------
-        // SECTION: Fuzzy Search & Auto-Correction
-        // --------------------------------------------------------------------------
-        // A vocabulary of all known words from search data and page content.
-        // Used for efficient auto-correction.
-        let vocabulary = new Set();
-
-        /**
-         * Calculates the Levenshtein distance between two strings.
-         * This is a measure of the difference between two sequences.
-         * @param {string} a - The first string.
-         * @param {string} b - The second string.
-         * @returns {number} The Levenshtein distance.
-         */
-        const levenshtein = (a, b) => {
-            // Standard, optimized Levenshtein implementation.
-            const alen = a.length;
-            const blen = b.length;
-            if (alen === 0) return blen;
-            if (blen === 0) return alen;
-
-            if (alen > blen) return levenshtein(b, a); // Ensure a is the shorter string.
-
-            const row = new Array(alen + 1);
-            for (let i = 0; i <= alen; i++) {
-                row[i] = i;
-            }
-
-            for (let i = 1; i <= blen; i++) {
-                let prev = i;
-                for (let j = 1; j <= alen; j++) {
-                    const val = (b.charAt(i - 1) === a.charAt(j - 1)) ? row[j - 1] : Math.min(row[j - 1], prev, row[j]) + 1;
-                    row[j - 1] = prev;
-                    prev = val;
-                }
-                row[alen] = prev;
-            }
-            return row[alen];
-        };
-
-        /**
-         * Finds the closest matching word from the vocabulary for a given misspelled word.
-         * @param {string} word - The word to correct.
-         * @returns {string|null} The corrected word, or null if no good match is found.
-         */
-        const findCorrection = (word) => {
-            if (vocabulary.has(word)) return null;
-
-            // Heuristic: Allow more typos for longer words.
-            const maxDist = (word.length <= 4) ? 1 : 2;
-
-            let bestWord = null;
-            let minDistance = maxDist + 1;
-            for (const vocabWord of vocabulary) {
-                // Optimization: skip words with a large length difference.
-                if (Math.abs(vocabWord.length - word.length) > maxDist) continue;
-                const dist = levenshtein(word, vocabWord);
-                if (dist < minDistance) {
-                    minDistance = dist;
-                    bestWord = vocabWord;
-                }
-            }
-            return bestWord;
-        };
-
-        // --------------------------------------------------------------------------
         // SECTION: Data Processing & Scoring
         // --------------------------------------------------------------------------
         /**
          * Processes the raw search data array into a structured, optimized format.
-         * This includes de-duplication, building the vocabulary, and pre-calculating values.
+         * This includes de-duplication and pre-calculating values.
          * @param {Array<Object>} data - The raw array of search items from JSON.
          * @returns {Array<Object>} The processed array of search items.
          */
         const processItems = (data) => {
-            vocabulary.clear();
             const seen = new Map(); // Used to de-duplicate items by their href.
             const processed = [];
 
@@ -416,22 +350,11 @@
                     return;
                 }
 
-                // Add all words from the title and content to the vocabulary.
-                const tokens = lowerTitle.split(/[^a-z0-9]+/);
-                tokens.forEach(t => { if (t.length > 2) vocabulary.add(t); });
-
-                if (lowerContent) {
-                    const contentTokens = lowerContent.split(/[^a-z0-9]+/);
-                    contentTokens.forEach(t => { if (t.length > 2) vocabulary.add(t); });
-                }
-
                 // Handle apostrophes by creating a version of the title without them for matching.
                 let matchTitle = lowerTitle;
                 if (lowerTitle.indexOf("'") > -1) {
                     const lowerNoApos = lowerTitle.replace(/'/g, '');
                     matchTitle += ' ' + lowerNoApos;
-                    const tokensNoApos = lowerNoApos.split(/[^a-z0-9]+/);
-                    tokensNoApos.forEach(t => { if (t.length > 2) vocabulary.add(t); });
                 }
 
                 // Create the final processed item object.
@@ -446,14 +369,6 @@
                 seen.set(href, item);
                 processed.push(item);
             });
-
-            // Dynamic Vocabulary Enhancement: Add words from the current page's visible text.
-            // This helps auto-correction recognize context-specific terms not in the search index.
-            try {
-                const pageText = ($('body').text() || '').slice(0, 100000).toLowerCase();
-                const pageTokens = pageText.split(/[^a-z0-9]+/);
-                pageTokens.forEach(t => { if (t.length > 2) vocabulary.add(t); });
-            } catch (e) { /* Ignore errors, this is a non-critical enhancement */ }
 
             return processed;
         };
@@ -503,10 +418,7 @@
 
             // Creates a regex pattern that can handle optional apostrophes between letters.
             const getPattern = (t) => {
-                if (/^[a-zA-Z0-9]+$/.test(t)) {
-                    return t.split('').map(c => escapeRegExp(c) + "[']?").join('');
-                }
-                return escapeRegExp(t);
+                return t.split('').map(c => escapeRegExp(c) + "[']?").join('');
             };
 
             try {
@@ -606,6 +518,7 @@
                 // Batch the DOM update using requestAnimationFrame for smoother rendering.
                 window.requestAnimationFrame(() => {
                     if (totalMatches > 0) {
+                        $container.css({'position': 'fixed', 'z-index': '1050'});
                         $container.html(html).show();
 
                         // Event delegation: attach a single click handler to the container.
@@ -619,7 +532,7 @@
                             $matchCount.show();
                         }
                     } else {
-                        $container.hide();
+                        $container.empty().hide();
                         if ($matchCount.length) {
                             $matchCount.text('No results found');
                             $matchCount[0].style.setProperty('color', '#e63636', 'important');
@@ -648,30 +561,6 @@
 
         $input.on('input', function(e) {
             clearTimeout(tid);
-
-            // Auto-correction logic: triggers when the user types a space.
-            const cursor = this.selectionStart;
-            if (items !== null && cursor > 0 && this.value[cursor - 1] === ' ') {
-                const val = this.value;
-                const textBefore = val.slice(0, cursor - 1);
-                const match = textBefore.match(/([a-zA-Z0-9]+)$/); // Find the last word.
-                if (match) {
-                    const word = match[1];
-                    const lowerWord = word.toLowerCase();
-                    // Check if the word is short and not in our vocabulary.
-                    if (word.length > 2 && !vocabulary.has(lowerWord)) {
-                        const correction = findCorrection(lowerWord);
-                        if (correction) {
-                            // Replace the misspelled word and restore cursor position.
-                            const before = val.slice(0, match.index);
-                            const after = val.slice(cursor);
-                            this.value = before + correction + ' ' + after;
-                            const newCursor = before.length + correction.length + 1;
-                            this.setSelectionRange(newCursor, newCursor);
-                        }
-                    }
-                }
-            }
 
             const v = $(this).val() || '';
             // Update UI icons immediately for a responsive feel.
@@ -978,16 +867,19 @@
         window.display_results = (mode) => {
             const val = $input.val();
             const shouldShow = val.length > 0;
+            const isSearchActive = $inputContainer.hasClass('search-elevated');
 
             if (window.AndroidInterface && window.AndroidInterface.onSearchStateChanged) {
                 window.AndroidInterface.onSearchStateChanged(shouldShow);
             }
 
+            if (shouldShow === isSearchActive && mode !== 'popstate') return;
+
             if (!shouldShow) {
                 $closeIcon.hide();
                 $resultsContainer.hide();
                 $matchCount.hide();
-                $backdrop.fadeOut(200);
+                $backdrop.stop(true).fadeOut(200);
                 $inputContainer.removeClass('search-elevated');
                 $resultsContainer.removeClass('search-results-elevated');
                 $matchCount.removeClass('search-elevated');
@@ -1015,7 +907,6 @@
                     searchHistoryStatePushed = true;
                 }
 
-                $resultsContainer.show();
                 $closeIcon.css({'display': 'flex', 'align-items': 'center', 'cursor': 'pointer'});
                 $backdrop.fadeIn(200);
                 $inputContainer.addClass('search-elevated');

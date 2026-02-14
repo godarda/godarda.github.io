@@ -17,11 +17,3 @@ grandparent:
   children:
   - url: ds/visualization/gdleovy
     title: Python Pandas to create a bar graph using the matplotlib module
-sidenav:
-- parent: Data Science
-  url: ds
-  children:
-  - title: Data Analysis
-    url: ds/analysis
-  - title: Data Visualization
-    url: ds/visualization

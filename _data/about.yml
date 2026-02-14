@@ -14,17 +14,3 @@ grandparent:
 - parent: Disclaimer
   subtree: Disclaimer
   url: about/disclaimer
-sidenav:
-- parent: About
-  url: about
-  children:
-  - title: Frequently Asked Questions
-    url: about/faqs
-  - title: Contribution Guide
-    url: about/contribute
-  - title: Terms of Use
-    url: about/terms
-  - title: Privacy Policy
-    url: about/privacy
-  - title: Disclaimer
-    url: about/disclaimer
