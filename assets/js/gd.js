@@ -92,8 +92,13 @@ const handleTouchEnd = () => {
     if (!xUp || !yUp) return;
     const xDiff = xUp - xDown;
     const yDiff = yUp - yDown;
+
     // Check if the horizontal movement is significant enough to be considered a swipe
-    if ((Math.abs(xDiff) > Math.abs(yDiff)) && (Math.abs(xDiff) > 0.6 * document.body.clientWidth)) {
+    // Dynamic threshold: Low (50px) if starting from left edge (gutter), High (60%) otherwise to protect code blocks.
+    const isEdgeSwipe = xDown < 70;
+    const threshold = isEdgeSwipe ? 50 : (0.6 * document.body.clientWidth);
+
+    if ((Math.abs(xDiff) > Math.abs(yDiff)) && (Math.abs(xDiff) > threshold)) {
         if (xDiff > 0) {
             // Swipe right: Open left sidebar
             $('.leftsidebar-collapse').toggleClass('open');

@@ -28,6 +28,7 @@ layout: none
     --selenium:            #00cc66; /* Green for Selenium testing framework */
     --utilities:           #00ced1; /* Dark Turquoise for utilities */
     --other:               #00b050; /* Green for miscellaneous or other categories, matching search */
+    --settings:            var(--other);
 
     --bg_jumbotron:        #050514; /* Background color for jumbotron */
     --bnw:                 #ffffff; /* Black and white color */
@@ -98,6 +99,7 @@ layout: none
     --selenium:            #00b359; /* Green for Selenium testing framework */
     --utilities:           #008b8b; /* Dark Cyan for utilities */
     --other:               #00b050; /* Green for other miscellaneous categories */
+    --settings:            var(--other);
 
     --bg_jumbotron:        #c5cbd3; /* Background color for jumbotron */
     --bnw:                 #000000; /* Black and white color */
@@ -235,6 +237,9 @@ div#GDS_input-.search-loading.indeterminate::after, div#GDS_input-search.search-
 
 #fc-, #fc-search, #fc-about, #fc-shubhamrdarda, .wvnav-item-active-, .wvnav-item-active-search, .wvnav-item-active-about, #fc-:hover, #fc-search:hover, #fc-about:hover, #fc-shubhamrdarda:hover
 { color: var(--other); }
+
+#settings { color: #999; }
+#settings.active { color: var(--settings); }
 
 /* --------------------------------------------------------------------------------------------- */
 

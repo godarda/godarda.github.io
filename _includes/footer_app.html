@@ -34,17 +34,17 @@
                 <input class="form-check-input" type="checkbox" role="switch" id="doubleTapSwitch">
             </div>
         </a>
-        <a class="card p-0" style="overflow: hidden;">
-            <div class="btn-group w-100" role="group" aria-label="Theme toggle button group">
-                <button class="btn btn-outline-secondary border-0 rounded-0 disabled flex-grow-1 py-2" style="opacity: 1; color: var(--textcolor); text-align: left;"><i class="bi bi-palette pe-2"></i> Theme:</button>
+        <div class="card p-2 d-flex flex-row align-items-center">
+            <div class="me-2 text-nowrap" style="color: var(--textcolor);"><i class="bi bi-palette pe-2"></i> Theme:</div>
+            <div class="d-flex flex-grow-1 justify-content-end" role="group" aria-label="Theme toggle button group">
                 <input type="radio" class="btn-check" name="theme-radio" id="theme-auto" autocomplete="off" data-bs-theme-value="auto">
-                <label class="btn btn-outline-secondary border-0 rounded-0 flex-grow-1 py-2" for="theme-auto">System Default</label>
+                <label class="btn btn-outline-secondary rounded-pill me-1 py-1 px-3" for="theme-auto">System Default</label>
                 <input type="radio" class="btn-check" name="theme-radio" id="theme-dark" autocomplete="off" data-bs-theme-value="dark">
-                <label class="btn btn-outline-secondary border-0 rounded-0 flex-grow-1 py-2" for="theme-dark">Dark</label>
+                <label class="btn btn-outline-secondary rounded-pill me-1 py-1 px-3" for="theme-dark">Dark</label>
                 <input type="radio" class="btn-check" name="theme-radio" id="theme-light" autocomplete="off" data-bs-theme-value="light">
-                <label class="btn btn-outline-secondary border-0 rounded-0 flex-grow-1 py-2" for="theme-light">Light</label>
+                <label class="btn btn-outline-secondary rounded-pill py-1 px-3" for="theme-light">Light</label>
             </div>
-        </a>
+        </div>
     </div>
     <div class="text-center">
         <small>&copy; {% assign current_year = 'now' | date: '%Y' %}{{ current_year }} {{ site.title }}.</small>

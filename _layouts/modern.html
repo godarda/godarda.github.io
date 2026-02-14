@@ -150,7 +150,7 @@
         </div>
         {%- endunless -%}
 
-        <a id="settings" href="settings" style="display: none; font-size: 20px; color: #999;" class="ms-auto bi bi-gear"></a>
+        <a id="settings" href="settings" style="display: none; font-size: 20px;" class="ms-auto bi bi-gear{% if path[1] == 'settings' %} active{% endif %}"></a>
         <button id="rsidebar" class="ms-auto navbar-toggler p-0" type="button" data-bs-toggle="rightsidebar" data-bs-target="#rightsidebar" aria-label="rsidebar" style="display: none;"><span class="navbar-toggler-icon"></span></button>
         <div id="rightsidebar" class="rightsidebar-collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav mr-auto">
