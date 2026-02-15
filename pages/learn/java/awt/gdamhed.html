@@ -9,17 +9,17 @@ title: Java program to draw a Circle using Graphics2D class
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
-class GD extends Frame 
+class GD extends Frame
 {
     Shape circle=new Ellipse2D.Float(100.0f,100.0f,100.0f,100.0f);
-    public void paint(Graphics g) 
+    public void paint(Graphics g)
     {
         Graphics2D ga=(Graphics2D)g;
         ga.draw(circle);
         ga.setPaint(Color.blue);
         ga.fill(circle);
     }
-    public static void main(String args[]) 
+    public static void main(String args[])
     {
         Frame frame=new GD();
         frame.addWindowListener(new WindowAdapter()
@@ -38,5 +38,5 @@ class GD extends Frame
 <span><pre>
 {{ site.runjava }}
 
-<img src="pages/java/images/gdylzyf.png" loading="lazy">
+<img src="pages/learn/java/images/gdylzyf.png" loading="lazy">
 </pre></span>

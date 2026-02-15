@@ -12,13 +12,13 @@ import java.awt.geom.*;
 class GD extends Frame
 {
     Line2D line=new Line2D.Double(0,0,200,200);
-    public void paint(Graphics g) 
+    public void paint(Graphics g)
     {
         Graphics2D ga=(Graphics2D)g;
         ga.setPaint(Color.blue);
         ga.draw(line);
     }
-    public static void main(String args[]) 
+    public static void main(String args[])
     {
         Frame frame=new GD();
         frame.addWindowListener(new WindowAdapter()
@@ -37,5 +37,5 @@ class GD extends Frame
 <span><pre>
 {{ site.runjava }}
 
-<img src="pages/java/images/gdyqata.png" loading="lazy">
+<img src="pages/learn/java/images/gdyqata.png" loading="lazy">
 </pre></span>

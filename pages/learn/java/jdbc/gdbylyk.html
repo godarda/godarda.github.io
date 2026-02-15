@@ -5,7 +5,7 @@ title: Java MySQL to perform JDBC CRUD operations
 
 <div class="board"><div class="boardtitle">Objective and Prerequisites</div>
     <p><b>Objective: </b>This segment introduces CRUD (create, read, update, and delete) operations in MySQL table using Java.<br><br>
-    <b>Prerequisites: </b>MySQL setup is installed and running in the background. Also, the project has been developed and executed in Eclipse IDE (Integrated Development Environment). 
+    <b>Prerequisites: </b>MySQL setup is installed and running in the background. Also, the project has been developed and executed in Eclipse IDE (Integrated Development Environment).
     <br><br>To run the following program, you need to download the <a href="{{ site.data.url.gdamwnw }}" target="_blank" class="hlink">Download JDBC driver</a> jar file. Once downloaded, you can import the library by right-clicking on your project in Eclipse -> Properties -> Java Build Path -> Libraries -> Add External JARs...</p>
 </div>
 
@@ -33,7 +33,7 @@ public class Employee
     static String city="";
     static Scanner sc = new Scanner(System.in);
     static DataStoreHelper dsh = new DataStoreHelper();
-    
+
     public Employee(String empid, String fname, String lname, String mob, String designation, double salary, String city)
     {
         Employee.empid=empid;
@@ -44,7 +44,7 @@ public class Employee
         Employee.salary=salary;
         Employee.city=city;
     }
-    
+
     public static String empid()
     {
         String alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -67,7 +67,7 @@ public class Employee
         System.out.println("\nGenerated Employee ID " + empid);
         return empid;
     }
-    
+
     static String mobile()
     {
         System.out.print("\nEnter Mobile Number ");
@@ -83,7 +83,7 @@ public class Employee
         }
         return mob;
     }
-    
+
     static String select_desig()
     {
         do
@@ -124,11 +124,11 @@ public class Employee
                 default:
                     System.out.println("\nWrong Choice Entered... Please Try Again");
             }
-            
+
         } while (ch!=1&ch!=2&ch!=3&ch!=4);
         return designation;
     }
-    
+
     static String city()
     {
         String regex = "^[a-zA-Z]+$";
@@ -145,13 +145,13 @@ public class Employee
         }
         return city;
     }
-    
+
     static String firstname()
     {
         String regex = "^[a-zA-Z]+$";
         System.out.print("\nEnter First Name ");
         fname=sc.next();
-        
+
         if(fname.matches(regex)&&fname.length()>=2)
         {
             System.out.println("FirstName is Accepted");
@@ -163,13 +163,13 @@ public class Employee
         }
         return fname;
     }
-    
+
     static String lastname()
     {
         String regex = "^[a-zA-Z]+$";
         System.out.print("\nEnter Last Name ");
         lname=sc.next();
-        
+
         if(lname.matches(regex)&&lname.length()>=2)
         {
             System.out.println("LastName is Accepted");
@@ -181,7 +181,7 @@ public class Employee
         }
         return lname;
     }
-    
+
     public static void mainMenu() throws ClassNotFoundException, SQLException, IOException
     {
         do
@@ -201,7 +201,7 @@ public class Employee
                 System.out.println("\nWrong Choice Entered... Please Try Again");
                 mainMenu();
             }
-            
+
             switch(ch)
             {
                 case 1:
@@ -209,7 +209,7 @@ public class Employee
                     String uname=sc.next();
                     System.out.print("\nEnter Password ");
                     String password=sc.next();
-                    
+
                     if(uname.equalsIgnoreCase("admin")&&password.equalsIgnoreCase("admin"))
                     {
                         do
@@ -256,7 +256,7 @@ public class Employee
                                     System.out.println("\nWrong Choice Entered... Please Try Again");
                             }
                         } while (ch!=4);
-                        
+
                     }
                     else
                     {
@@ -267,7 +267,7 @@ public class Employee
                 case 2:
                     System.out.print("\nEnter Employee ID ");
                     String emp=sc.next();
-                    
+
                     if(emp.equals(empid))
                     {
                         do
@@ -317,17 +317,17 @@ public class Employee
                     break;
                 case 3:
                     empid();
-                    
+
                     firstname();
-                    
+
                     lastname();
-                    
+
                     mobile();
-                    
+
                     select_desig();
-                    
+
                     city();
-                    
+
                     Employee e = new Employee(empid,fname,lname,mob,designation,salary,city);
                     try
                     {
@@ -337,7 +337,7 @@ public class Employee
                     {
                         System.out.println(ex);
                     }
-                    
+
                     break;
                 case 4:
                     System.exit(0);
@@ -364,7 +364,7 @@ public class Employee
         {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root", "godarda");
             System.out.println("Connection Established");
-            
+
         }
         catch (SQLException e)
         {
@@ -372,14 +372,14 @@ public class Employee
             e.printStackTrace();
             return;
         }
-        
+
         Statement st=con.createStatement();
         //st.executeUpdate("DROP TABLE EMPLOYEES");
         st.executeUpdate("CREATE TABLE EMPLOYEES(EMPID VARCHAR(11) PRIMARY KEY,FNAME VARCHAR(20),LNAME VARCHAR(20),MOB INT(10),DESIGNATION VARCHAR(20), SALARY INT(20), CITY VARCHAR(15))");
         System.out.println("Employees Table Created Successfully");
         mainMenu();
     }
-    
+
 }
 {%- endhighlight -%}</pre>
 
@@ -403,7 +403,7 @@ public class DataStoreHelper
         st.executeUpdate("INSERT INTO EMPLOYEES VALUES('"+Employee.empid+"','"+Employee.fname+"','"+Employee.lname+"','"+Employee.mob+"','"+Employee.designation+"','"+Employee.salary+"','"+Employee.city+"')");
         System.out.println("\nValues Inserted Successfully");
     }
-    
+
     public void viewEmployee(String empid) throws ClassNotFoundException, IOException
     {
         System.out.println("________________________________");
@@ -423,7 +423,7 @@ public class DataStoreHelper
         }
         System.out.println("________________________________\n");
     }
-    
+
     public void viewAllEmployee(String empid) throws ClassNotFoundException, IOException
     {
         int count=0;
@@ -494,7 +494,7 @@ public class DataStoreHelper
         }
         System.out.println("Record Updated Successfully");
     }
-    
+
     public void updateEmployeeDesig(String empid, String designation) throws ClassNotFoundException, SQLException, IOException
     {
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/data","root", "godarda");
@@ -514,6 +514,6 @@ public class DataStoreHelper
 
 <div class="card">{{ site.output }}</div>
 <span><pre>
-<img src="pages/java/images/gdloeob.png" loading="lazy"><br>
-<img src="pages/java/images/gdzpwav.png" loading="lazy">
+<img src="pages/learn/java/images/gdloeob.png" loading="lazy"><br>
+<img src="pages/learn/java/images/gdzpwav.png" loading="lazy">
 </pre></span>

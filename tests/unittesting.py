@@ -21,7 +21,9 @@ import concurrent.futures
 import urllib.parse
 from requests.adapters import HTTPAdapter
 from bs4 import BeautifulSoup
-from utilities import CONFIG, STATS, load_expected_data
+from config import CONFIG
+from utilities import load_expected_data
+from stats import STATS
 
 
 def fetch_page_title(
@@ -60,7 +62,7 @@ class TitleVerificationTest(unittest.TestCase):
         expected_data = load_expected_data(CONFIG.DATAPATH)
         if not expected_data:
             self.skipTest("No expected data loaded; skipping title verification test.")
-        
+
         # Initialize a session with connection pooling.
         session = requests.Session()
         session.headers.update({"User-Agent": "GoDarda-TitleChecker/1.0"})
@@ -85,13 +87,13 @@ class TitleVerificationTest(unittest.TestCase):
             for future in concurrent.futures.as_completed(futures):
                 expected_entry = futures[future]
                 rel_url, actual_title = future.result()
-                
+
                 if actual_title == expected_entry["title"]:
                     STATS.matched += 1
                 else:
                     STATS.unmatched += 1
                     STATS.unmatched_entries.append((rel_url, expected_entry["title"]))
-                    
+
                     # Abort early if a significant number of mismatches occur.
                     if STATS.unmatched > 10:
                         print("\n\033[91mToo many unmatched titles.\033[0m")

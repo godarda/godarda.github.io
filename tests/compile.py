@@ -18,7 +18,9 @@ import re
 import sys
 import subprocess
 from typing import Tuple, Optional
-from utilities import CONFIG, STATS, load_expected_data
+from utilities import load_expected_data
+from stats import STATS
+from config import CONFIG
 
 # Configuration mapping for supported file extensions.
 # Defines the comment syntax and the command to retrieve the compiler version.

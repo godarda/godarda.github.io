@@ -12,3 +12,5 @@ requests
 scipy
 toml
 beautifulsoup4
+playwright
+pytest-playwright

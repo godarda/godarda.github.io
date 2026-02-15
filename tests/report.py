@@ -15,7 +15,8 @@ Key Features:
 
 import subprocess
 import platform
-from utilities import STATS, CONFIG
+from stats import STATS
+from config import CONFIG
 
 
 def get_version(cmd: str) -> str:

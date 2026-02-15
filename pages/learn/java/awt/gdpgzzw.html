@@ -13,14 +13,14 @@ class GD extends Frame
 {
     Stroke s=new BasicStroke(5);
     QuadCurve2D curve=new QuadCurve2D.Double(320,50,200,500,50,50);
-    public void paint(Graphics g) 
+    public void paint(Graphics g)
     {
         Graphics2D ga=(Graphics2D)g;
         ga.setStroke(s);
         ga.setPaint(Color.blue);
         ga.draw(curve);
     }
-    public static void main(String args[]) 
+    public static void main(String args[])
     {
         Frame frame=new GD();
         frame.addWindowListener(new WindowAdapter()
@@ -39,5 +39,5 @@ class GD extends Frame
 <span><pre>
 {{ site.runjava }}
 
-<img src="pages/java/images/gdnwxdq.png" loading="lazy">
+<img src="pages/learn/java/images/gdnwxdq.png" loading="lazy">
 </pre></span>

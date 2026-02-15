@@ -8,7 +8,7 @@ performs code compilation, and generates a summary report.
 
 Key Features:
 1. Orchestration: Coordinates title verification and code compilation steps.
-2. Validation: Checks Python version and directory structure before running.
+2. Environment Validation: Checks Python version and directory structure.
 3. Reporting: Calculates execution time and displays final results.
 """
 
@@ -18,8 +18,10 @@ import time
 import shutil
 from compile import compile_snippets
 from unittesting import TitleVerificationTest
+from smoke import verify_page_titles
 from report import print_report
-from utilities import CONFIG, STATS
+from stats import STATS
+from config import CONFIG
 
 
 def main() -> None:
@@ -46,7 +48,10 @@ def main() -> None:
         print("Please wait, execution in progress...")
 
         # Execute title verification.
-        TitleVerificationTest("test_site_titles").test_site_titles()
+        if CONFIG.IS_GITHUB_ACTIONS:
+            TitleVerificationTest("test_site_titles").test_site_titles()
+        else:
+            verify_page_titles()
 
         # Execute snippet compilation if supported.
         if CONFIG.OS_NAME != "Windows":
