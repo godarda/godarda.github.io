@@ -39,6 +39,11 @@ jobs:
           pip install --quiet -r setups/requirements.txt > /dev/null 2>&1
         shell: bash
 
+      # Install Playwright browsers and dependencies
+      - name: Install Playwright Browsers
+        run: python3 -m playwright install --with-deps
+        shell: bash
+
       # Set up the Oracle Java 24 environment
       - name: Setup Java
         uses: actions/setup-java@v5

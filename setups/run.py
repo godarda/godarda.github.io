@@ -17,6 +17,7 @@ Key Features:
 import os
 import subprocess
 import sys
+from pathlib import Path
 
 from utilities import CONFIG, orchestrate_setup
 
@@ -38,7 +39,7 @@ def install_ubuntu_packages():
     # Define package sets depending on environment (local)
     packages = (
         "build-essential", "clisp", "dotnet-sdk-8.0", "finger", "freeglut3-dev",
-        "git-all", "lsof", "maxima", "mysql-server", "nasm",
+        "git-all", "libasound2-dev", "lsof", "maxima", "mysql-server", "nasm",
         "nmap", "octave", "openjdk-21-jdk", "openjdk-21-jre", "python3-pip",
         "python3-venv", "r-base", "ruby-full", "rustc", "shc", "zlib1g-dev",
     )
@@ -95,6 +96,12 @@ def install_macos_packages():
 
     # Install each CLI package via Homebrew. Use subprocess.run in a loop to keep behavior simple.
     subprocess.run(f"brew install {' '.join(packages)}", shell=True, check=True)
+
+    # Add Homebrew's Ruby to the PATH for this script's execution to ensure
+    # the correct `gem` and `bundle` commands are used.
+    brew_prefix = subprocess.check_output(["brew", "--prefix"]).strip().decode("utf-8")
+    ruby_bin_path = Path(brew_prefix) / "opt" / "ruby" / "bin"
+    os.environ["PATH"] = str(ruby_bin_path) + os.pathsep + os.environ["PATH"]
 
 
 def main():

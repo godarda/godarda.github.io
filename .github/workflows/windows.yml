@@ -39,6 +39,11 @@ jobs:
           pip install --quiet -r setups/requirements.txt > $null 2>&1
         shell: pwsh
 
+      # Install Playwright browsers and dependencies
+      - name: Install Playwright Browsers
+        run: python -m playwright install --with-deps
+        shell: pwsh
+
       # Set up Ruby environment and install dependencies
       - name: Setup Ruby and Install Gems
         run: |
@@ -82,7 +87,7 @@ jobs:
             Write-Error "Server failed to start within timeout. Aborting tests."
             exit 1
           }
-          
+
           # Execute the Python test suite
           python tests/run.py
         shell: pwsh

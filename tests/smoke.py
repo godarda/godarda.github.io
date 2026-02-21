@@ -15,33 +15,34 @@ Key Features:
 
 import urllib.parse
 import math
-from concurrent.futures import ThreadPoolExecutor
-from playwright.sync_api import sync_playwright
+import os
+import sys
+import concurrent.futures
+from playwright.sync_api import sync_playwright  # type: ignore
 from config import CONFIG
 from utilities import load_expected_data
 from stats import STATS
 
+
 def verify_chunk(urls):
     """
     Worker function to verify a chunk of URLs in a separate browser instance.
+    Updates global STATS object directly.
     """
-    local_matched = 0
-    local_unmatched = 0
-    local_unmatched_entries = []
-
     with sync_playwright() as p:
         browser_type = getattr(p, CONFIG.BROWSER)
         try:
-            # Note: --start-maximized is a Chromium-specific flag.
-            launch_args = ["--start-maximized"] if CONFIG.BROWSER == "chromium" else []
+            launch_args = []
+            # Use a fixed viewport size (1280x720) to ensure the browser window
+            # fits within standard screen resolutions without overflowing.
+            context_args = {"viewport": {"width": 1280, "height": 720}}
             browser = browser_type.launch(headless=CONFIG.IS_GITHUB_ACTIONS, args=launch_args)
-            page = browser.new_page(no_viewport=True)
-        except Exception:
+            page = browser.new_page(**context_args)
+        except Exception as e:
             # Mark all as failed if browser fails to launch
             for entry in urls:
-                local_unmatched += 1
-                local_unmatched_entries.append((entry["url"], "Browser Launch Failed"))
-            return local_matched, local_unmatched, local_unmatched_entries
+                STATS.add_title_result(False, (entry["url"], f"Browser Launch Failed: {e}"))
+            return
 
         for entry in urls:
             relative_url = entry["url"]
@@ -54,18 +55,15 @@ def verify_chunk(urls):
                 actual_title = page.title()
 
                 if actual_title == expected_title:
-                    local_matched += 1
+                    STATS.add_title_result(True, (relative_url, actual_title))
                 else:
-                    local_unmatched += 1
-                    local_unmatched_entries.append((relative_url, expected_title))
+                    STATS.add_title_result(False, (relative_url, expected_title))
 
             except Exception as e:
-                local_unmatched += 1
-                local_unmatched_entries.append((relative_url, f"Error: {str(e)}"))
+                STATS.add_title_result(False, (relative_url, f"Error: {str(e)}"), is_error=True)
 
         browser.close()
 
-    return local_matched, local_unmatched, local_unmatched_entries
 
 def verify_page_titles():
     """
@@ -74,26 +72,26 @@ def verify_page_titles():
     """
     # Load expected data.
     expected_data = load_expected_data(CONFIG.DATAPATH)
+    STATS.total_urls = len(expected_data)
 
     if not expected_data:
         return
 
     total_urls = len(expected_data)
 
-    num_instances = 5
-    # Calculate chunk size
+    num_instances = CONFIG.OPTIMAL_WORKERS
+    print(f"Using {num_instances} browser instances (Available RAM: {CONFIG.AVAILABLE_RAM_GB:.2f} GB)")
     chunk_size = math.ceil(total_urls / num_instances)
 
     # Create chunks
     chunks = [expected_data[i:i + chunk_size] for i in range(0, total_urls, chunk_size)]
 
-    with ThreadPoolExecutor(max_workers=num_instances) as executor:
-        futures = []
-        for chunk in chunks:
-            futures.append(executor.submit(verify_chunk, chunk))
-
-        for future in futures:
-            matched, unmatched, unmatched_entries = future.result()
-            STATS.matched += matched
-            STATS.unmatched += unmatched
-            STATS.unmatched_entries.extend(unmatched_entries)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=num_instances) as executor:
+        # Use executor.map to run verify_chunk for each chunk.
+        # This blocks until all tasks are complete. We wrap it in a list
+        # to ensure execution and to catch exceptions from workers.
+        try:
+            # list() consumes the iterator returned by map, ensuring all tasks run.
+            list(executor.map(verify_chunk, chunks))
+        except Exception as exc:
+            print(f'\n\033[91mA test chunk generated an exception: {exc}\033[0m')

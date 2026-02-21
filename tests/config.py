@@ -23,9 +23,9 @@ Key Features:
 import os
 import sys
 import platform
+import psutil
 from pathlib import Path
 from dataclasses import dataclass
-from playwright.sync_api import Playwright
 
 SYSTEM_NAME = platform.system()
 
@@ -63,6 +63,17 @@ else:
     print(f"Unsupported OS: {SYSTEM_NAME}. Only macOS, Ubuntu, and Windows are supported.")
     sys.exit(1)
 
+# --- System Resource Analysis ---
+CPU_COUNT = os.cpu_count() or 1
+MEM_STATS = psutil.virtual_memory()
+AVAILABLE_RAM_GB = MEM_STATS.available / (1024 ** 3)
+
+# Default assumptions for worker calculation
+ESTIMATED_GB_PER_WORKER = 1.0
+MAX_WORKERS = 8
+MEM_CAPACITY = int(AVAILABLE_RAM_GB / ESTIMATED_GB_PER_WORKER)
+OPTIMAL_WORKERS = max(1, min(CPU_COUNT, MEM_CAPACITY, MAX_WORKERS))
+
 BASE_URL = "http://localhost:4000/"
 DATAPATH = Path(os.path.join(os.path.dirname(__file__), "..", "_data/"))
 DEFAULT_TIMEOUT = 30000
@@ -84,6 +95,9 @@ class EnvironmentConfig:
     DEFAULT_TIMEOUT: int
     NAVIGATION_TIMEOUT: int
     IS_GITHUB_ACTIONS: bool
+    CPU_COUNT: int
+    AVAILABLE_RAM_GB: float
+    OPTIMAL_WORKERS: int
 
 CONFIG = EnvironmentConfig(
     SYSTEM_NAME=SYSTEM_NAME,
@@ -95,5 +109,8 @@ CONFIG = EnvironmentConfig(
     BROWSER=BROWSER,
     DEFAULT_TIMEOUT=DEFAULT_TIMEOUT,
     NAVIGATION_TIMEOUT=NAVIGATION_TIMEOUT,
-    IS_GITHUB_ACTIONS=IS_GITHUB_ACTIONS
+    IS_GITHUB_ACTIONS=IS_GITHUB_ACTIONS,
+    CPU_COUNT=CPU_COUNT,
+    AVAILABLE_RAM_GB=AVAILABLE_RAM_GB,
+    OPTIMAL_WORKERS=OPTIMAL_WORKERS
 )

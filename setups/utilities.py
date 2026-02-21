@@ -156,6 +156,7 @@ def run_command(cmd, shell=True, check=True, sudo=False):
     if check and result.returncode != 0:
         print(f"Command failed: {cmd}")
         sys.exit(result.returncode)
+    return result.returncode
 
 
 def install_python_dependencies():
@@ -163,27 +164,52 @@ def install_python_dependencies():
     Install Python dependencies from requirements.txt into a virtual environment.
     """
     venv_dir = Path.cwd() / ".venv"
+    python_exe = sys.executable
+
+    if CONFIG.OS_NAME == "Darwin":
+        # On macOS, ensure we use the Homebrew-installed Python for the venv
+        try:
+            brew_prefix = subprocess.check_output(["brew", "--prefix"], text=True, encoding="utf-8").strip()
+            homebrew_python = Path(brew_prefix) / "bin" / "python3"
+            if homebrew_python.exists():
+                python_exe = str(homebrew_python)
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            print("Warning: Homebrew not found or 'brew --prefix' failed. Using current python for venv.")
+
     if not venv_dir.exists():
-        print(f"Creating virtual environment in {venv_dir}...")
-        subprocess.run([sys.executable, "-m", "venv", str(venv_dir)], check=True)
+        print(f"Creating virtual environment in {venv_dir} using {python_exe}...")
+        subprocess.run([python_exe, "-m", "venv", str(venv_dir)], check=True)
 
     if CONFIG.OS_NAME == "Windows":
-        pip_exe = venv_dir / "Scripts" / "pip.exe"
+        venv_python = venv_dir / "Scripts" / "python.exe"
+        venv_playwright = venv_dir / "Scripts" / "playwright.exe"
     else:
-        pip_exe = venv_dir / "bin" / "pip"
+        venv_python = venv_dir / "bin" / "python"
+        venv_playwright = venv_dir / "bin" / "playwright"
 
-    run_command(f'"{pip_exe}" install --upgrade pip')
-    pip_cmd = f'"{pip_exe}" install --upgrade -r setups/requirements.txt'
+    run_command(f'"{venv_python}" -m pip install --upgrade pip')
+    pip_cmd = f'"{venv_python}" -m pip install --upgrade -r setups/requirements.txt'
     run_command(pip_cmd)
+    print("Installing Playwright browsers...")
+    playwright_cmd = f'"{venv_playwright}" install'
+    if CONFIG.OS_NAME == "Linux":
+        # Try installing with dependencies first; fallback to browsers-only on failure.
+        if run_command(playwright_cmd + " --with-deps", check=False) != 0:
+            print("Warning: Failed to install Playwright system dependencies. Attempting to install browsers only...")
+            run_command(playwright_cmd)
+    else:
+        run_command(playwright_cmd)
 
 
 def install_ruby_dependencies():
     """
     Install Ruby dependencies (Gems, Bundler) and configure the bundle.
     """
-    run_command("gem install rubygems-update", sudo=True)
-    run_command("update_rubygems", sudo=True)
-    run_command("gem install bundler", sudo=True)
+    # On macOS, Homebrew manages Ruby, and `sudo` should not be used for `gem`.
+    # On Linux, we may need `sudo` if using the system Ruby.
+    use_sudo = CONFIG.OS_NAME == "Linux"
+
+    run_command("gem install bundler", sudo=use_sudo)
 
     if subprocess.run("bundle config set --local path .vendor/bundle", shell=True).returncode == 0:
         run_command("bundle install")
