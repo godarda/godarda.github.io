@@ -23,9 +23,31 @@ Key Features:
 import os
 import sys
 import platform
+import shutil
 import psutil
 from pathlib import Path
 from dataclasses import dataclass
+
+# Static Configuration
+BASE_URL = "http://localhost:4000/"
+DATAPATH = Path(os.path.join(os.path.dirname(__file__), "..", "_data/"))
+DEFAULT_TIMEOUT = 30000
+NAVIGATION_TIMEOUT = 60000
+IS_GITHUB_ACTIONS = os.environ.get("GITHUB_ACTIONS") == "true"
+
+# Worker Configuration
+ESTIMATED_GB_PER_WORKER = 1
+MAX_WORKERS = 8
+
+CPU_COUNT = os.cpu_count() or 1
+MEM_STATS = psutil.virtual_memory()
+AVAILABLE_RAM_GB = MEM_STATS.available / (1024 ** 3)
+DISK_STATS = shutil.disk_usage(os.getcwd())
+AVAILABLE_DISK_GB = DISK_STATS.free / (1024 ** 3)
+
+# Dynamic Calculation
+MEM_CAPACITY = int(AVAILABLE_RAM_GB / ESTIMATED_GB_PER_WORKER)
+OPTIMAL_WORKERS = max(1, min(CPU_COUNT, MEM_CAPACITY, MAX_WORKERS))
 
 SYSTEM_NAME = platform.system()
 
@@ -63,22 +85,6 @@ else:
     print(f"Unsupported OS: {SYSTEM_NAME}. Only macOS, Ubuntu, and Windows are supported.")
     sys.exit(1)
 
-# --- System Resource Analysis ---
-CPU_COUNT = os.cpu_count() or 1
-MEM_STATS = psutil.virtual_memory()
-AVAILABLE_RAM_GB = MEM_STATS.available / (1024 ** 3)
-
-# Default assumptions for worker calculation
-ESTIMATED_GB_PER_WORKER = 1.0
-MAX_WORKERS = 8
-MEM_CAPACITY = int(AVAILABLE_RAM_GB / ESTIMATED_GB_PER_WORKER)
-OPTIMAL_WORKERS = max(1, min(CPU_COUNT, MEM_CAPACITY, MAX_WORKERS))
-
-BASE_URL = "http://localhost:4000/"
-DATAPATH = Path(os.path.join(os.path.dirname(__file__), "..", "_data/"))
-DEFAULT_TIMEOUT = 30000
-NAVIGATION_TIMEOUT = 60000
-IS_GITHUB_ACTIONS = os.environ.get("GITHUB_ACTIONS") == "true"
 
 @dataclass(frozen=True)
 class EnvironmentConfig:
@@ -97,6 +103,7 @@ class EnvironmentConfig:
     IS_GITHUB_ACTIONS: bool
     CPU_COUNT: int
     AVAILABLE_RAM_GB: float
+    AVAILABLE_DISK_GB: float
     OPTIMAL_WORKERS: int
 
 CONFIG = EnvironmentConfig(
@@ -112,5 +119,6 @@ CONFIG = EnvironmentConfig(
     IS_GITHUB_ACTIONS=IS_GITHUB_ACTIONS,
     CPU_COUNT=CPU_COUNT,
     AVAILABLE_RAM_GB=AVAILABLE_RAM_GB,
+    AVAILABLE_DISK_GB=AVAILABLE_DISK_GB,
     OPTIMAL_WORKERS=OPTIMAL_WORKERS
 )

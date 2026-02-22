@@ -36,7 +36,7 @@ jobs:
       - name: Install Python Dependencies
         run: |
           python -m pip install --upgrade pip > $null 2>&1
-          pip install --quiet -r setups/requirements.txt > $null 2>&1
+          pip install --quiet -r tests/requirements.txt > $null 2>&1
         shell: pwsh
 
       # Install Playwright browsers and dependencies

@@ -50,7 +50,6 @@ def get_all_versions(os_name: str) -> dict:
         "Java": "javac --version",
         "Python": "python3 --version",
         "Ruby": "ruby -v",
-        "Gem": "gem -v",
         "Bundler": "bundler -v",
         "Jekyll": "bundle exec jekyll -v",
     }
@@ -87,9 +86,9 @@ def print_report(
         print(f"{'URLs Processed':<25}: {processed_urls}")
         print(f"{'Titles Matched':<25}: \033[92m{STATS.matched}\033[0m")
         print(f"{'Titles Unmatched':<25}: \033[91m{STATS.unmatched}\033[0m")
-        if interrupted and processed_urls != STATS.total_urls:
+        if processed_urls != STATS.total_urls:
             print("\033[93mExecution interrupted. Partial verification completed.\033[0m")
-        elif not interrupted and processed_urls == STATS.matched:
+        elif processed_urls == STATS.matched:
             print("\033[92mAll page titles matched successfully.\033[0m")
 
     # --------------------------------------------------------------------------
@@ -110,9 +109,9 @@ def print_report(
         print(f"{'Files Processed':<25}: {processed_files}")
         print(f"{'Compilation Passed':<25}: \033[92m{passed}\033[0m")
         print(f"{'Compilation Failed':<25}: \033[91m{failed}\033[0m")
-        if interrupted and processed_files != STATS.total_files:
+        if processed_files != STATS.total_files:
             print("\033[93mExecution interrupted. Partial compilation completed.\033[0m")
-        elif not interrupted and processed_files == STATS.compiled:
+        elif processed_files == STATS.compiled:
             print("\033[92mAll source files compiled successfully.\033[0m")
 
     # --------------------------------------------------------------------------

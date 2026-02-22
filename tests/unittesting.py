@@ -16,7 +16,6 @@ Key Features:
 import os
 import requests
 import unittest
-import sys
 import concurrent.futures
 import urllib.parse
 from requests.adapters import HTTPAdapter
@@ -83,7 +82,7 @@ class TitleVerificationTest(unittest.TestCase):
         session.mount("https://", adapter)
 
         # Calculate an appropriate thread pool size.
-        max_workers = min(20, (os.cpu_count() or 4) * 5)
+        max_workers = min(20, CONFIG.CPU_COUNT * 5)
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
             # Create a list of arguments for each task.
