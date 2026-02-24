@@ -6,12 +6,11 @@ Whether you're here to contribute, need support, or just exploring how things wo
 
 ## 📚 Table of Contents
 
-- [Introduction](#introduction) 
+- [Introduction](#introduction)
 - [Project Status](#project-status)
 - [Cross-Platform CI Status](#cross-platform-ci-status)
 - [Technology Stack](#technology-stack)
 - [Contribution Guide](CONTRIBUTING.md)
-- [Support Guide](SUPPORT.md)
 - [Contributors](#contributors)
 - [License](#license)
 
@@ -81,20 +80,20 @@ We believe in recognition without noise, collaboration without ego, and learning
 
 Keep Learning, Keep Building, Keep Inspiring
 
-[gdcdhdg]: https://img.shields.io/badge/platforms-macOS%2C%20Ubuntu%2C%20Windows-blueviolet?logo=microsoft  
-[gdyzyvk]: https://img.shields.io/badge/GoDarda-Android%20App-bluegreen?logo=android  
-[gdycyiw]: https://img.shields.io/github/license/godarda/godarda.github.io?color=blue&logo=open-source-initiative  
-[gdypvzk]: https://img.shields.io/github/repo-size/godarda/godarda.github.io?color=orange&logo=github  
-[gdpgpdw]: https://img.shields.io/github/contributors/godarda/godarda.github.io?color=brightgreen&logo=git  
-[gdkgddy]: https://img.shields.io/github/commit-activity/m/godarda/godarda.github.io?color=yellow&logo=git  
-[gdzveyt]: https://img.shields.io/github/last-commit/godarda/godarda.github.io?color=red&logo=github  
-[gddaakl]: https://img.shields.io/github/issues/godarda/godarda.github.io?color=purple&logo=github  
-[gdwgvye]: https://img.shields.io/github/issues-pr/godarda/godarda.github.io?color=cyan&logo=github  
+[gdcdhdg]: https://img.shields.io/badge/platforms-macOS%2C%20Ubuntu%2C%20Windows-blueviolet?logo=microsoft
+[gdyzyvk]: https://img.shields.io/badge/GoDarda-Android%20App-bluegreen?logo=android
+[gdycyiw]: https://img.shields.io/github/license/godarda/godarda.github.io?color=blue&logo=open-source-initiative
+[gdypvzk]: https://img.shields.io/github/repo-size/godarda/godarda.github.io?color=orange&logo=github
+[gdpgpdw]: https://img.shields.io/github/contributors/godarda/godarda.github.io?color=brightgreen&logo=git
+[gdkgddy]: https://img.shields.io/github/commit-activity/m/godarda/godarda.github.io?color=yellow&logo=git
+[gdzveyt]: https://img.shields.io/github/last-commit/godarda/godarda.github.io?color=red&logo=github
+[gddaakl]: https://img.shields.io/github/issues/godarda/godarda.github.io?color=purple&logo=github
+[gdwgvye]: https://img.shields.io/github/issues-pr/godarda/godarda.github.io?color=cyan&logo=github
 [gdgnlyl]: https://img.shields.io/github/discussions/godarda/godarda.github.io?color=gold&logo=github
 [gdzytwa]: https://github.com/godarda/godarda.github.io/actions/workflows/macos.yml/badge.svg
-[gdzynzx]: https://github.com/godarda/godarda.github.io/actions/workflows/macos.yml  
+[gdzynzx]: https://github.com/godarda/godarda.github.io/actions/workflows/macos.yml
 [gdkvdbh]: https://github.com/godarda/godarda.github.io/actions/workflows/ubuntu.yml/badge.svg
-[gdiagyq]: https://github.com/godarda/godarda.github.io/actions/workflows/ubuntu.yml  
+[gdiagyq]: https://github.com/godarda/godarda.github.io/actions/workflows/ubuntu.yml
 [gdwwzzn]: https://github.com/godarda/godarda.github.io/actions/workflows/windows.yml/badge.svg
 [gdabdte]: https://github.com/godarda/godarda.github.io/actions/workflows/windows.yml
 [gddndwy]: https://contrib.rocks/image?repo=godarda/godarda.github.io

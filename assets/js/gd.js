@@ -231,8 +231,8 @@ $(() => {
             }
         }
 
-        // Toggle Global Pill visibility at 75% scroll
-        if (scrollPercent >= 75) {
+        // Toggle Global Pill visibility at 50% scroll
+        if (scrollPercent >= 50) {
             if (!isPillVisible) {
                 $globalPill.stop(true).fadeIn(250).css('display', 'flex');
                 isPillVisible = true;
