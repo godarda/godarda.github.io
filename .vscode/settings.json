@@ -15,6 +15,7 @@
     "explorer.excludeGitIgnore": true,
 
     // Python Linting & IntelliSense
+    "python.terminal.activateEnvironment": true, // Auto-activates the venv in new terminals
     "python.linting.enabled": true,              // Enables linting in VS Code
     "python.linting.pylintEnabled": true,        // Uses Pylint for linting
     "python.formatting.provider": "black",       // Uses Black for consistent formatting

@@ -5,6 +5,9 @@ grandparent:
 - parent: Contribution Guide
   subtree: Contribute
   url: about/contribute
+- parent: Support Guide
+  subtree: Support
+  url: about/support
 - parent: Terms of Use
   subtree: Terms
   url: about/terms
