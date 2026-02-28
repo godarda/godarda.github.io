@@ -2,12 +2,12 @@
  * GoDarda - Search Functionality (search.js)
  *
  * @file This script implements the client-side search engine for the GoDarda website.
- * @summary It handles lazy loading of search data, fuzzy matching, auto-correction,
+ * @summary It handles lazy loading of search data, optimized matching,
  * and dynamic result rendering in a performant and context-aware manner.
  *
  * Key Features:
  * 1. Lazy Loading: Fetches search data (JSON) only on user interaction to minimize initial page load.
- * 2. Fuzzy Search: Employs Levenshtein distance for typo tolerance and suggests corrections.
+ * 2. Optimized Search: Uses a tiered scoring system (exact, prefix, substring, token) for relevant results.
  * 3. Real-time Feedback: Provides a progress bar during data fetch and debounced result rendering.
  * 4. Context-Aware Filtering: Narrows down search results based on the current site section (e.g., /learn, /tools).
  * 5. Performant Rendering: Uses string concatenation and requestAnimationFrame for efficient result display.
@@ -41,9 +41,133 @@
 
         const $inputContainer = $('#GDS_input-' + containerId);
         const $closeIcon = $('#close_icon');
-        const $searchIcon = $('#search_icon');
         // Fallback to the generic 'search' container if a context-specific one isn't present.
-        const $resultsContainer = $container.length ? $container : $('#search');
+        const $resultsContainer = $container;
+        const $hintsParentContainer = $('#hints-container');
+
+        // Hide keyboard on scroll of results
+        $resultsContainer.on('scroll', () => {
+            if (document.activeElement) {
+                const tagName = document.activeElement.tagName.toLowerCase();
+                if (tagName === 'input' || tagName === 'textarea') {
+                    document.activeElement.blur();
+                }
+            }
+        });
+
+        // --------------------------------------------------------------------------
+        // SECTION: Sticky Search Bar
+        // --------------------------------------------------------------------------
+        const $navbar = $('.navbar');
+
+        // Create a placeholder element to occupy the space of the search input when it becomes fixed.
+        // This prevents layout shifts in the navbar/header when the input is taken out of the document flow.
+        const $stickyPlaceholder = $('<div>').attr('id', 'search-placeholder').hide();
+        $inputContainer.before($stickyPlaceholder);
+
+        const $backdrop = $('#search-backdrop');
+        $backdrop.on('click', () => window.clear_input());
+
+        /**
+         * Updates the position and visual state of the search container.
+         *
+         * This function handles the transition of the search bar from its natural flow position
+         * to a fixed "overlay" position when a search is active.
+         *
+         * Key behaviors:
+         * 1. Activates the placeholder to maintain layout stability.
+         * 2. Calculates the exact screen coordinates to position the fixed search bar.
+         * 3. Adjusts z-indices to ensure the search UI sits above the backdrop (1050).
+         * 4. Dynamically sizes the results container to fit within the viewport (90% height).
+         */
+        const updateSearchPosition = (isResize = false) => {
+            const isSearchActive = $input.val().length > 0;
+            if (isSearchActive) {
+                // Calculate top offset based on navbar height to position just below it.
+                const navHeight = ($navbar.outerHeight() || 0) + 10;
+
+                // Only update placeholder height if it's not visible (initial open) or forced (resize)
+                // This prevents the background from jumping when hints change or match count appears.
+                if (!$stickyPlaceholder.is(':visible') || isResize === true) {
+                    let h = $inputContainer.outerHeight(true);
+                    if ($hintsParentContainer.is(':visible')) h += $hintsParentContainer.outerHeight(true);
+                    $stickyPlaceholder.css({ height: h }).show();
+                } else {
+                    $stickyPlaceholder.show();
+                }
+
+                const rect = $stickyPlaceholder[0].getBoundingClientRect();
+                const targetWidth = rect.width;
+                const targetLeft = rect.left;
+                const topPos = navHeight;
+
+                // Promote input container to fixed position.
+                $inputContainer.css({
+                    'position': 'fixed',
+                    'width': targetWidth,
+                    'top': topPos + 'px',
+                    'left': targetLeft + 'px',
+                    'z-index': '1050'
+                });
+
+                const inputHeight = $inputContainer.outerHeight();
+                let nextTop = topPos + inputHeight + 5;
+
+                // Position hints container if visible.
+                if ($hintsParentContainer.is(':visible')) {
+                    $hintsParentContainer.css({
+                        'position': 'fixed',
+                        'width': targetWidth,
+                        'top': nextTop + 'px',
+                        'left': targetLeft + 'px',
+                        'z-index': '1050'
+                    });
+                    nextTop += $hintsParentContainer.outerHeight() + 5;
+                } else {
+                    $hintsParentContainer.css({ 'position': '', 'width': '', 'top': '', 'left': '', 'z-index': '' });
+                }
+
+                // Position match count indicator if visible.
+                if ($matchCount.is(':visible')) {
+                    $matchCount.css({
+                        'position': 'fixed',
+                        'width': targetWidth,
+                        'top': nextTop + 'px',
+                        'left': targetLeft + 'px',
+                        'z-index': '1050'
+                    });
+                    nextTop += $matchCount.outerHeight() + 15;
+                } else {
+                    $matchCount.css({ 'position': '', 'width': '', 'top': '', 'left': '', 'z-index': '' });
+                }
+
+                // Position and size the results container.
+                const maxHeight = ($(window).height() * 0.90) - nextTop;
+                $resultsContainer.css({
+                    'position': 'fixed',
+                    'width': targetWidth,
+                    'top': nextTop + 'px',
+                    'left': targetLeft + 'px',
+                    'max-height': maxHeight + 'px',
+                    'overflow-y': 'auto',
+                    'z-index': '1050'
+                });
+            } else {
+                // Reset all elements to their default static positioning.
+                $stickyPlaceholder.hide();
+                $inputContainer.css({ 'position': '', 'width': '', 'top': '', 'left': '', 'z-index': '' });
+                $hintsParentContainer.css({ 'position': '', 'width': '', 'top': '', 'left': '', 'z-index': '' });
+                $matchCount.css({ 'position': '', 'width': '', 'top': '', 'left': '', 'z-index': '' });
+                $resultsContainer.css({ 'position': '', 'width': '', 'top': '', 'left': '', 'max-height': '', 'overflow-y': '', 'z-index': '' });
+            }
+        };
+
+        // Update position on resize to handle orientation changes or window resizing.
+        $(window).on('resize', () => {
+            if ($input.val().length > 0) window.requestAnimationFrame(() => updateSearchPosition(true));
+        });
+        // Ensure position is correct once all page resources (images, fonts) are loaded.
+        $(window).on('load', updateSearchPosition);
 
         // --------------------------------------------------------------------------
         // SECTION: Utilities
@@ -200,81 +324,15 @@
         };
 
         // --------------------------------------------------------------------------
-        // SECTION: Fuzzy Search & Auto-Correction
-        // --------------------------------------------------------------------------
-        // A vocabulary of all known words from search data and page content.
-        // Used for efficient auto-correction.
-        let vocabulary = new Set();
-
-        /**
-         * Calculates the Levenshtein distance between two strings.
-         * This is a measure of the difference between two sequences.
-         * @param {string} a - The first string.
-         * @param {string} b - The second string.
-         * @returns {number} The Levenshtein distance.
-         */
-        const levenshtein = (a, b) => {
-            // Standard, optimized Levenshtein implementation.
-            const alen = a.length;
-            const blen = b.length;
-            if (alen === 0) return blen;
-            if (blen === 0) return alen;
-
-            if (alen > blen) return levenshtein(b, a); // Ensure a is the shorter string.
-
-            const row = new Array(alen + 1);
-            for (let i = 0; i <= alen; i++) {
-                row[i] = i;
-            }
-
-            for (let i = 1; i <= blen; i++) {
-                let prev = i;
-                for (let j = 1; j <= alen; j++) {
-                    const val = (b.charAt(i - 1) === a.charAt(j - 1)) ? row[j - 1] : Math.min(row[j - 1], prev, row[j]) + 1;
-                    row[j - 1] = prev;
-                    prev = val;
-                }
-                row[alen] = prev;
-            }
-            return row[alen];
-        };
-
-        /**
-         * Finds the closest matching word from the vocabulary for a given misspelled word.
-         * @param {string} word - The word to correct.
-         * @returns {string|null} The corrected word, or null if no good match is found.
-         */
-        const findCorrection = (word) => {
-            if (vocabulary.has(word)) return null;
-
-            // Heuristic: Allow more typos for longer words.
-            const maxDist = (word.length <= 4) ? 1 : 2;
-
-            let bestWord = null;
-            let minDistance = maxDist + 1;
-            for (const vocabWord of vocabulary) {
-                // Optimization: skip words with a large length difference.
-                if (Math.abs(vocabWord.length - word.length) > maxDist) continue;
-                const dist = levenshtein(word, vocabWord);
-                if (dist < minDistance) {
-                    minDistance = dist;
-                    bestWord = vocabWord;
-                }
-            }
-            return bestWord;
-        };
-
-        // --------------------------------------------------------------------------
         // SECTION: Data Processing & Scoring
         // --------------------------------------------------------------------------
         /**
          * Processes the raw search data array into a structured, optimized format.
-         * This includes de-duplication, building the vocabulary, and pre-calculating values.
+         * This includes de-duplication and pre-calculating values.
          * @param {Array<Object>} data - The raw array of search items from JSON.
          * @returns {Array<Object>} The processed array of search items.
          */
         const processItems = (data) => {
-            vocabulary.clear();
             const seen = new Map(); // Used to de-duplicate items by their href.
             const processed = [];
 
@@ -292,22 +350,11 @@
                     return;
                 }
 
-                // Add all words from the title and content to the vocabulary.
-                const tokens = lowerTitle.split(/[^a-z0-9]+/);
-                tokens.forEach(t => { if (t.length > 2) vocabulary.add(t); });
-
-                if (lowerContent) {
-                    const contentTokens = lowerContent.split(/[^a-z0-9]+/);
-                    contentTokens.forEach(t => { if (t.length > 2) vocabulary.add(t); });
-                }
-
                 // Handle apostrophes by creating a version of the title without them for matching.
                 let matchTitle = lowerTitle;
                 if (lowerTitle.indexOf("'") > -1) {
                     const lowerNoApos = lowerTitle.replace(/'/g, '');
                     matchTitle += ' ' + lowerNoApos;
-                    const tokensNoApos = lowerNoApos.split(/[^a-z0-9]+/);
-                    tokensNoApos.forEach(t => { if (t.length > 2) vocabulary.add(t); });
                 }
 
                 // Create the final processed item object.
@@ -322,14 +369,6 @@
                 seen.set(href, item);
                 processed.push(item);
             });
-
-            // Dynamic Vocabulary Enhancement: Add words from the current page's visible text.
-            // This helps auto-correction recognize context-specific terms not in the search index.
-            try {
-                const pageText = ($('body').text() || '').slice(0, 100000).toLowerCase();
-                const pageTokens = pageText.split(/[^a-z0-9]+/);
-                pageTokens.forEach(t => { if (t.length > 2) vocabulary.add(t); });
-            } catch (e) { /* Ignore errors, this is a non-critical enhancement */ }
 
             return processed;
         };
@@ -379,10 +418,7 @@
 
             // Creates a regex pattern that can handle optional apostrophes between letters.
             const getPattern = (t) => {
-                if (/^[a-zA-Z0-9]+$/.test(t)) {
-                    return t.split('').map(c => escapeRegExp(c) + "[']?").join('');
-                }
-                return escapeRegExp(t);
+                return t.split('').map(c => escapeRegExp(c) + "[']?").join('');
             };
 
             try {
@@ -476,22 +512,34 @@
 
                 // Performance: Build a single HTML string instead of creating DOM nodes in a loop.
                 const html = displayed.map(r => {
-                    return `<a class="codecard card" href="${r.href}" style="display:block; margin-bottom:6px;">${buildHighlighted(r, qtrim, tokens, r.type)}</a>`;
+                    return `<a class="codecard card" href="${r.href}" data-category="${r.category}" style="display:block; margin-bottom:6px;">${buildHighlighted(r, qtrim, tokens, r.type)}</a>`;
                 }).join('');
 
                 // Batch the DOM update using requestAnimationFrame for smoother rendering.
                 window.requestAnimationFrame(() => {
-                    $container.html(html).show();
+                    if (totalMatches > 0) {
+                        $container.css({'position': 'fixed', 'z-index': '1050'});
+                        $container.html(html).show();
 
-                    // Event delegation: attach a single click handler to the container.
-                    // This is more efficient than attaching one to each result link.
-                    $container.find('a').on('click', window.clear_input);
+                        // Event delegation: attach a single click handler to the container.
+                        // This is more efficient than attaching one to each result link.
+                        $container.find('a').on('click', window.clear_input);
 
-                    // Update the match count display.
-                    if ($matchCount.length) {
-                        $matchCount.text('Showing ' + Math.min(25, totalMatches) + ' of ' + totalMatches + (totalMatches === 1 ? ' result' : ' results'));
-                        $matchCount.show();
+                        // Update the match count display.
+                        if ($matchCount.length) {
+                            $matchCount.text(Math.min(25, totalMatches) + ' of ' + totalMatches + (totalMatches === 1 ? ' result' : ' results'));
+                            $matchCount[0].style.color = '';
+                            $matchCount.show();
+                        }
+                    } else {
+                        $container.empty().hide();
+                        if ($matchCount.length) {
+                            $matchCount.text('No results found');
+                            $matchCount[0].style.setProperty('color', '#e63636', 'important');
+                            $matchCount.show();
+                        }
                     }
+                    updateSearchPosition();
                 });
             });
         };
@@ -500,32 +548,19 @@
         // SECTION: Event Listeners
         // --------------------------------------------------------------------------
         let tid = null; // Timer ID for debouncing.
+
+        $(document).on('keydown', (event) => {
+            if (event.key === 'Tab' && !event.shiftKey && document.activeElement === document.body) {
+                event.preventDefault();
+                $input.focus();
+            }
+            if (event.key === 'Escape' && $input.val().length > 0) {
+                window.clear_input();
+            }
+        });
+
         $input.on('input', function(e) {
             clearTimeout(tid);
-
-            // Auto-correction logic: triggers when the user types a space.
-            const cursor = this.selectionStart;
-            if (items !== null && cursor > 0 && this.value[cursor - 1] === ' ') {
-                const val = this.value;
-                const textBefore = val.slice(0, cursor - 1);
-                const match = textBefore.match(/([a-zA-Z0-9]+)$/); // Find the last word.
-                if (match) {
-                    const word = match[1];
-                    const lowerWord = word.toLowerCase();
-                    // Check if the word is short and not in our vocabulary.
-                    if (word.length > 2 && !vocabulary.has(lowerWord)) {
-                        const correction = findCorrection(lowerWord);
-                        if (correction) {
-                            // Replace the misspelled word and restore cursor position.
-                            const before = val.slice(0, match.index);
-                            const after = val.slice(cursor);
-                            this.value = before + correction + ' ' + after;
-                            const newCursor = before.length + correction.length + 1;
-                            this.setSelectionRange(newCursor, newCursor);
-                        }
-                    }
-                }
-            }
 
             const v = $(this).val() || '';
             // Update UI icons immediately for a responsive feel.
@@ -548,9 +583,8 @@
         // SECTION: Search Suggestions & Voice Input
         // --------------------------------------------------------------------------
         const $micIcon = $('#mic_icon');
-        const $suggestionsContainer = $('#search-suggestions');
-        const $suggestionsParentContainer = $('#suggestions-container');
-        const $light = $('#suggestion-light');
+        const $hintsContainer = $('#search-hints');
+        const $hintIcon = $('#hint-icon');
 
         // Voice Search Logic
         if ($micIcon.length) {
@@ -580,7 +614,7 @@
 
                 recognition.onstart = () => {
                     isListening = true;
-                    $micIconI.removeClass('bi-mic').addClass('bi-mic-fill text-danger');
+                    $micIconI.removeClass('bi-mic').addClass('bi-mic-fill text-success');
                 };
 
                 recognition.onresult = (event) => {
@@ -595,7 +629,7 @@
 
                 recognition.onend = () => {
                     isListening = false;
-                    $micIconI.removeClass('bi-mic-fill text-danger').addClass('bi-mic');
+                    $micIconI.removeClass('bi-mic-fill text-success').addClass('bi-mic');
                 };
             } else {
                 $micIcon.hide();
@@ -603,7 +637,7 @@
         }
 
         // Suggestions UI Effects
-        if ($light.length) {
+        if ($hintIcon.length) {
             const blinkTotal = 3;
             const intervalTime = 2000;
             let blinkCount = 0;
@@ -612,74 +646,143 @@
                     clearInterval(intervalId);
                     return;
                 }
-                $light.removeClass('bi-lightbulb').addClass('bi-lightbulb-fill light-on');
+                $hintIcon.removeClass('bi-lightbulb').addClass('bi-lightbulb-fill light-on');
                 setTimeout(() => {
-                    $light.removeClass('bi-lightbulb-fill light-on').addClass('bi-lightbulb');
+                    $hintIcon.removeClass('bi-lightbulb-fill light-on').addClass('bi-lightbulb');
                 }, intervalTime / 2);
                 blinkCount++;
             }, intervalTime);
         }
 
         // Suggestions Logic
-        const learnSuggestions = [
-            'C', 'C++', 'Java', 'Python', 'R', 'Julia', 'Octave', 'C#', 'F#',
-            'Rust', 'LISP', 'Linux', 'MySQL', 'MongoDB', 'Selenium', 'Algorithm', 'Assembly', 'VBScript',
-            'Ranorex', 'OpenGL', 'AWT', 'Function', 'Method', 'Class', 'Inheritance',
-            'Polymorphism', 'Abstraction', 'Array', 'Bash', 'CLI', 'Exception', 'Database',
-            'Stack', 'Queue', 'Tree', 'Graph', 'Sorting', 'Searching', 'Recursion', 'XPath', 'WebDriver', 'TestNG',
-            'String', 'DataFrame', 'NumPy', 'Pandas', 'Matplotlib', 'List', 'Set', 'Tuple', 'Dictionary',
-            'Expression', 'Log', 'Thread', 'Matrix', 'Math', 'CRUD'
-        ];
-        const toolsSuggestions = [
-            'Calculator', 'Converter', 'Data', 'Length', 'Time', 'Currency', 'Physics', 'Hash', 'Area', 'Volume',
-            'Speed', 'Temperature', 'Pressure', 'Power', 'Energy', 'Age', 'BMI'
+        const learnHints = [
+        '32 Bit', '64 Bit', 'ALP', 'API', 'ASCII',
+        'Abstraction', 'Abstract', 'Algorithm', 'Area', 'Array',
+        'Assembly', 'AWT', 'Bash', 'Binary', 'BMI',
+        'C', 'C#', 'C++', 'CLI', 'Class',
+        'Compile', 'Constructor', 'Control', 'CRUD', 'Currency',
+        'DataFrame', 'Database', 'Delete', 'Destructor', 'Dictionary',
+        'Dynamic', 'Energy', 'Exception', 'Execute', 'Expression',
+        'File', 'Framework', 'F#', 'Function', 'Game',
+        'Graph', 'HashMap', 'Heap', 'Inheritance', 'Insert',
+        'Input', 'Interface', 'Java', 'Join', 'Julia',
+        'LISP', 'Library', 'LinkedList', 'Linux', 'List',
+        'Log', 'Loop', 'Math', 'Matrix', 'Memory',
+        'Method', 'Module', 'MongoDB', 'MySQL', 'Namespace',
+        'NumPy', 'Octave', 'OpenGL', 'Output', 'Pandas',
+        'Path', 'Pointer', 'Polymorphism', 'Python', 'Queue',
+        'Ranorex', 'R', 'Recursion', 'Reflection', 'Retrieve',
+        'Rust', 'Search', 'Searching', 'Select', 'Selenium',
+        'Set', 'Socket', 'Sort', 'Sorting', 'Stack',
+        'Static', 'Stream', 'String', 'TestNG', 'Thread',
+        'Tree', 'Tuple', 'Update', 'VBScript', 'WebDriver',
+        'XPath'
         ];
 
-        const deactivateSuggestions = () => {
-            $suggestionsContainer.children().removeClass('active');
-        };
+        const toolsHints = [
+        'Age', 'Area', 'BMI', 'Calculator', 'Converter',
+        'Currency', 'Data', 'Energy', 'Hash', 'Length',
+        'Number', 'Physics', 'Power', 'Pressure', 'Speed',
+        'String', 'Temperature', 'Time', 'Volume'
+        ];
 
-        const displaySuggestions = (suggestions) => {
-            if (!$suggestionsContainer.length || !$suggestionsParentContainer.length || suggestions.length === 0) return;
-            for (let i = suggestions.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [suggestions[i], suggestions[j]] = [suggestions[j], suggestions[i]];
+        const deactivateHints = () => {
+            $hintsContainer.children().removeClass('active');
+            $hintsContainer.find('.active').removeClass('active');
+            if ($hintsContainer.length && document.activeElement && $hintsContainer[0].contains(document.activeElement)) {
+                const elToBlur = document.activeElement;
+                setTimeout(() => elToBlur.blur(), 0);
             }
-            const suggestionsHtml = suggestions.slice(0, 3).map(suggestion => {
-                const sanitizedSuggestion = $('<div>').text(suggestion).html();
-                return `<a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary rounded-pill" style="margin: 2px; font-size: 12px;">${sanitizedSuggestion}</a>`;
-            }).join(' ');
-            $suggestionsContainer.html(suggestionsHtml);
-            $suggestionsParentContainer.show();
         };
 
-        $suggestionsContainer.on('click', 'a.btn', function(event) {
+        const displayHints = (hints, spin = false) => {
+            if (!$hintsContainer.length || !$hintsParentContainer.length) return;
+
+            if (hints.length === 0) {
+                $hintsParentContainer.hide();
+                return;
+            }
+
+            const $activeBtn = $hintsContainer.find('a.btn.active');
+            const activeText = $activeBtn.length ? $activeBtn.text() : null;
+            let pool = hints.slice();
+
+            if (activeText) {
+                pool = pool.filter(h => h !== activeText);
+            }
+
+            for (let i = pool.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [pool[i], pool[j]] = [pool[j], pool[i]];
+            }
+
+            let selected = pool.slice(0, 3);
+            if (activeText) {
+                const activeIndex = Math.max(0, $hintsContainer.children('a.btn').not('#refresh-hints').index($activeBtn));
+                selected = pool.slice(0, 2);
+                selected.splice(activeIndex, 0, activeText);
+            }
+
+            const hintsHtml = selected.map(hint => {
+                const sanitizedHint = $('<div>').text(hint).html();
+                const activeClass = (hint === activeText) ? ' active' : '';
+                return `<a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary rounded-pill${activeClass}" style="margin: 2px; font-size: 12px;">${sanitizedHint}</a>`;
+            }).join(' ');
+
+            const spinClass = spin ? 'spin-animation' : '';
+            const refreshBtn = `<a href="javascript:void(0);" id="refresh-hints" class="btn btn-sm btn-outline-secondary rounded-pill" style="margin: 2px; font-size: 12px;" title="Refresh hints"><i class="bi bi-arrow-clockwise ${spinClass}"></i></a>`;
+
+            $hintsContainer.html(hintsHtml + refreshBtn);
+
+            if (spin) {
+                $hintsContainer.find('#refresh-hints i').one('animationend', function() {
+                    $(this).removeClass('spin-animation');
+                });
+            }
+
+            $hintsParentContainer.show();
+        };
+
+        $hintsContainer.on('click', 'a.btn', function(event) {
+            if (this.id === 'refresh-hints') return;
             event.preventDefault();
             const text = $(this).text();
             $input.val(text);
+            // Explicitly trigger the display logic to ensure the overlay opens reliably
+            if (typeof window.display_results === 'function') window.display_results();
             $input.trigger('input');
-            $input.trigger('blur');
-            deactivateSuggestions();
+            deactivateHints();
+            $input.blur();
             $(this).addClass('active');
+        });
+
+        $hintsContainer.on('click', '#refresh-hints', function(event) {
+            event.preventDefault();
+            displayHints(currentAllHints, true);
         });
 
         $closeIcon.on('click', function() {
             if (typeof window.clear_input === 'function') window.clear_input();
-            deactivateSuggestions();
+            deactivateHints();
         });
 
         $input.on('input', function() {
-            if (!$(this).val()) deactivateSuggestions();
+            if (!$backdrop.is(':visible')) deactivateHints();
         });
 
-        const loadSuggestions = () => {
+        let currentAllHints = [];
+
+        const loadHints = () => {
             const currentCategory = window.gd_path1;
             if (currentCategory === 'search') {
-                displaySuggestions(learnSuggestions.concat(toolsSuggestions));
+                currentAllHints = learnHints.concat(toolsHints);
+                displayHints(currentAllHints);
             } else if (currentCategory === 'learn') {
-                displaySuggestions(learnSuggestions);
+                currentAllHints = learnHints;
+                displayHints(currentAllHints);
             } else if (currentCategory === 'tools') {
-                displaySuggestions(toolsSuggestions);
+                currentAllHints = toolsHints;
+                displayHints(currentAllHints);
             } else {
                 $.getJSON(window.gd_search_url || '/search.json')
                     .then(data => {
@@ -700,55 +803,123 @@
                             const cat = item.category?.charAt(0).toUpperCase() + item.category?.slice(1);
                             if (cat && cat.length > 2 && cat.length <= 15) keywords.add(cat);
                         });
-                        displaySuggestions(Array.from(keywords));
+                        currentAllHints = Array.from(keywords);
+                        displayHints(currentAllHints);
                     })
-                    .catch(error => console.error('Error fetching or processing search.json for suggestions:', error));
+                    .catch(error => {
+                        console.error('Error fetching or processing search.json for suggestions:', error);
+                        $hintsParentContainer.hide();
+                    });
             }
         };
 
-        loadSuggestions();
+        loadHints();
 
         $(window).on('pageshow', (event) => {
+            // If the page is loaded from the bfcache (back/forward cache), reload hints and reset input.
             if (event.originalEvent.persisted) {
-                loadSuggestions();
+                loadHints();
+                if (typeof window.clear_input === 'function') window.clear_input();
             }
         });
 
-        // On page load, ensure the input is cleared
-        if (typeof window.clear_input === 'function') window.clear_input();
+        // --------------------------------------------------------------------------
+        // SECTION: Global Helper Functions & History Management
+        // --------------------------------------------------------------------------
+        // These functions are exposed globally to allow interaction from inline HTML
+        // or other scripts. They also manage the browser history state to support
+        // "Back button to close" functionality.
 
-        // --------------------------------------------------------------------------
-        // SECTION: Global Helper Functions
-        // --------------------------------------------------------------------------
-        // These functions are exposed on the `window` object to be callable from
-        // other scripts or inline HTML event attributes (like the close icon's onclick).
+        // Flag to track if a history state has been pushed for the open search overlay.
+        let searchHistoryStatePushed = false;
+
+        // Listen for the browser's "Back" action.
+        $(window).on('popstate', () => {
+            deactivateHints();
+            setTimeout(deactivateHints, 50);
+            if (searchHistoryStatePushed) {
+                searchHistoryStatePushed = false;
+                // Close the search overlay without triggering another history.back()
+                window.clear_input('popstate');
+            }
+        });
 
         /**
-         * Clears the search input field and hides the results.
+         * Clears the search input field, hides results, and resets the UI.
+         * @param {string} [mode] - Context flag (e.g., 'popstate') to control history manipulation.
          */
-        window.clear_input = () => {
+        window.clear_input = (mode) => {
             $input.val("");
-            window.display_results(); // Trigger UI update.
+            $input.blur();
+            deactivateHints();
+            window.display_results(mode); // Trigger UI update.
         };
 
         /**
-         * Updates the visibility of UI controls (close/search icons, results container)
-         * based on whether the input field has text.
+         * Controls the visibility of the search overlay and results.
+         *
+         * Logic:
+         * - If input is empty: Hides overlay, restores body scroll, and reverts history state if needed.
+         * - If input has text: Shows overlay, locks body scroll, and pushes a new history state.
+         *
+         * @param {string} [mode] - Context flag to determine specific history handling behavior.
          */
-        window.display_results = () => {
+        window.display_results = (mode) => {
             const val = $input.val();
+            const shouldShow = val.length > 0;
+            const isSearchActive = $inputContainer.hasClass('search-elevated');
 
-            if (val.length === 0) {
+            if (window.AndroidInterface && window.AndroidInterface.onSearchStateChanged) {
+                window.AndroidInterface.onSearchStateChanged(shouldShow);
+            }
+
+            if (shouldShow === isSearchActive && mode !== 'popstate') return;
+
+            if (!shouldShow) {
                 $closeIcon.hide();
-                $searchIcon.css('display', '');
                 $resultsContainer.hide();
                 $matchCount.hide();
+                $backdrop.stop(true).fadeOut(200);
+                $inputContainer.removeClass('search-elevated');
+                $resultsContainer.removeClass('search-results-elevated');
+                $matchCount.removeClass('search-elevated');
+                $hintsParentContainer.removeClass('search-elevated');
+                deactivateHints();
+                $('body').css('overflow', '');
+                updateSearchPosition();
+
+                if (searchHistoryStatePushed) {
+                    searchHistoryStatePushed = false;
+                    if (mode === 'popstate') {
+                        // History navigation already happened (user pressed Back), just update UI.
+                    } else if (mode) {
+                        // Link click or other skip: replace state to remove the search flag without navigating.
+                        history.replaceState(null, '', window.location.href);
+                    } else {
+                        // Manual close (e.g., close icon): trigger a history back action.
+                        history.back();
+                    }
+                }
             } else {
-                $resultsContainer.show();
-                $closeIcon.css({'display': '', 'cursor': 'pointer'});
-                $searchIcon.hide();
+                // Push a new history state so the Back button closes the search instead of leaving the page.
+                if (!searchHistoryStatePushed) {
+                    history.pushState({ searchOpen: true }, '', window.location.href);
+                    searchHistoryStatePushed = true;
+                }
+
+                $closeIcon.css({'display': 'flex', 'align-items': 'center', 'cursor': 'pointer'});
+                $backdrop.fadeIn(200);
+                $inputContainer.addClass('search-elevated');
+                $resultsContainer.addClass('search-results-elevated');
+                $matchCount.addClass('search-elevated');
+                $hintsParentContainer.addClass('search-elevated');
+                $('body').css('overflow', 'hidden');
+                updateSearchPosition();
             }
         };
+
+        // On page load, ensure the input is cleared (called after definition)
+        if (typeof window.clear_input === 'function') window.clear_input();
 
         // --------------------------------------------------------------------------
         // SECTION: Security Measures

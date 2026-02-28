@@ -7,11 +7,12 @@ title: Python Strings Methods
 <span><pre>
 godarda@gd:~$ <mark>python3</mark>
 ...
->>> <mark>gd="KoDiNgWiNdOw"</mark>
+<comment># Casefold string (stronger lowercase)</comment>
+>>> <mark>gd="GoDaRdA"</mark>
 >>> <mark>gd.casefold()</mark>
 'godarda'
 
->>> <mark>gd="KODINGWINDOW"</mark>
+>>> <mark>gd="GODARDA"</mark>
 >>> <mark>gd.casefold()</mark>
 'godarda'
 
@@ -19,76 +20,90 @@ godarda@gd:~$ <mark>python3</mark>
 >>> <mark>gd.casefold()</mark>
 'godarda'
 
->>> <mark>gd="koding window"</mark>
+<comment># Capitalize first character</comment>
+>>> <mark>gd="go darda"</mark>
 >>> <mark>gd.capitalize()</mark>
-'Koding window'
+'Go darda'
 
+<comment># Convert to title case</comment>
 >>> <mark>gd.title()</mark>
-'Koding Window'    
+'Go Darda'
 </pre></span>
 
 <div class="terminalcard">String upper(), lower() and swapcase() methods</div>
 <span><pre>
+<comment># Convert to uppercase</comment>
 >>> <mark>gd="godarda"</mark>
 >>> <mark>gd.upper()</mark>
-'KODINGWINDOW'
+'GODARDA'
 
->>> <mark>gd="KODINGWINDOW"</mark>
+<comment># Convert to lowercase</comment>
+>>> <mark>gd="GODARDA"</mark>
 >>> <mark>gd.lower()</mark>
 'godarda'
 
+<comment># Swap case</comment>
 >>> <mark>gd="GoDarda"</mark>
 >>> <mark>gd.swapcase()</mark>
-'kODINGwINDOW'    
+'gOdARDA'
 </pre></span>
 
 <div class="terminalcard">String rjust() and ljust() methods</div>
 <span><pre>
+<comment># Right justify string</comment>
 >>> <mark>gd="GoDarda"</mark>
 >>> <mark>gd.rjust(20)</mark>
-'        GoDarda'
+'             GoDarda'
 
+<comment># Left justify string</comment>
 >>> <mark>gd.ljust(20)</mark>
-'GoDarda        '
+'GoDarda             '
 </pre></span>
 
 <div class="terminalcard">String strip(), rstrip(), and lstrip() methods</div>
 <span><pre>
+<comment># Remove leading and trailing whitespace</comment>
 >>> <mark>gd="    GoDarda           "</mark>
 >>> <mark>gd.strip()</mark>
-'GoDarda' 
+'GoDarda'
 
+<comment># Remove trailing whitespace</comment>
 >>> <mark>gd.rstrip()</mark>
 '    GoDarda'
 
+<comment># Remove leading whitespace</comment>
 >>> <mark>gd.lstrip()</mark>
 'GoDarda           '
 </pre></span>
 
 <div class="terminalcard">String find() and count() methods</div>
 <span><pre>
+<comment># Find substring index</comment>
 >>> <mark>gd="GoDarda"</mark>
->>> <mark>gd.find("W",0,len(gd))</mark>
-6
-
->>> <mark>gd.find("in",0,len(gd))</mark>
-3
-
->>> <mark>gd.count("in",1,len(gd))</mark>
+>>> <mark>gd.find("D",0,len(gd))</mark>
 2
 
->>> <mark>gd.count("o",1,len(gd))</mark>
-2  
+>>> <mark>gd.find("ar",0,len(gd))</mark>
+3
+
+<comment># Count occurrences of substring</comment>
+>>> <mark>gd.count("a",1,len(gd))</mark>
+2
+
+>>> <mark>gd.count("d",1,len(gd))</mark>
+1
 </pre></span>
 
 <div class="terminalcard">Strings sort() method</div>
 <span><pre>
->>> <mark>gd=["K","O","D","I","N","G","W","I","N","D","O","W"]</mark>
+<comment># Sort list in place</comment>
+>>> <mark>gd=["G","o","D","a","r","d","a"]</mark>
 >>> <mark>gd.sort()</mark>
 >>> <mark>gd</mark>
-['D', 'D', 'G', 'I', 'I', 'K', 'N', 'N', 'O', 'O', 'W', 'W']
+['D', 'G', 'a', 'a', 'd', 'o', 'r']
 
->>> <mark>gd=("K","O","D","I","N","G","W","I","N","D","O","W")</mark>
+<comment># Tuples are immutable and cannot be sorted in place</comment>
+>>> <mark>gd=("G","o","D","a","r","d","a")</mark>
 >>> <mark>gd.sort()</mark>
 <error>Traceback (most recent call last):
   File "&lt;stdin&gt;", line 1, in &lt;module&gt;
@@ -97,79 +112,92 @@ AttributeError: 'tuple' object has no attribute 'sort'</error>
 
 <div class="terminalcard">String startswith() and endswith() methods</div>
 <span><pre>
+<comment># Check if string starts with pattern</comment>
 >>> <mark>gd="GoDarda"</mark>
->>> <mark>gd.startswith("k")</mark>
+>>> <mark>gd.startswith("g")</mark>
 False
 
->>> <mark>gd.startswith("K")</mark>
+>>> <mark>gd.startswith("G")</mark>
 True
 
 >>> <mark>gd.startswith("GoDarda")</mark>
 True
 
+<comment># Check if string ends with pattern</comment>
 >>> <mark>gd.endswith("GoDarda")</mark>
 True
 
->>> <mark>gd.endswith("ow")</mark>
+>>> <mark>gd.endswith("da")</mark>
 True
 
->>> <mark>gd.endswith("W")</mark>
-False  
+>>> <mark>gd.endswith("A")</mark>
+False
 </pre></span>
 
 <div class="terminalcard">String zfill() and replace() method</div>
 <span><pre>
+<comment># Pad string with zeros</comment>
 >>> <mark>gd="GoDarda"</mark>
 >>> <mark>len(gd)</mark>
-12
+7
 
->>> <mark>gd.zfill(12)</mark>
+>>> <mark>gd.zfill(7)</mark>
 'GoDarda'
 
->>> <mark>gd.zfill(15)</mark>
-'000KodingWindow'
+>>> <mark>gd.zfill(10)</mark>
+'000GoDarda'
 
 >>> <mark>gd.zfill(0)</mark>
-'GoDarda'    
+'GoDarda'
 
->>> <mark>gd.replace("i","###")</mark>
-'Kod###ngW###ndow'
+<comment># Replace substring</comment>
+>>> <mark>gd.replace("a","###")</mark>
+'GoD###rd###'
 
->>> <mark>gd.replace("W","###",1)</mark>
-'Koding###indow'
+<comment># Replace first occurrence</comment>
+>>> <mark>gd.replace("D","###",1)</mark>
+'Go###arda'
 
->>> <mark>gd.replace("d","###",2)</mark>
-'Ko###ingWin###ow'
+>>> <mark>gd.replace("a","###",1)</mark>
+'GoD###rda'
 </pre></span>
 
 <div class="terminalcard">String split() and splitlines() methods</div>
 <span><pre>
->>> <mark>gd="Koding\nWindow"</mark>
+<comment># Split string at line breaks</comment>
+>>> <mark>gd="Go\nDarda"</mark>
 >>> <mark>gd.splitlines()</mark>
-['Koding', 'Window']
+['Go', 'Darda']
 
+<comment># Split string by separator</comment>
 >>> <mark>gd.split("\n")</mark>
-['Koding', 'Window']    
+['Go', 'Darda']
 </pre></span>
 
 <div class="terminalcard">String functions and operations</div>
 <span><pre>
+<comment># Split string by whitespace</comment>
 >>> <mark>'Hello, World!'.split()</mark>
-['hello,', 'world!']
+['Hello,', 'World!']
 
+<comment># Sort characters in string</comment>
 >>> <mark>s1=("Hello, World!")</mark>
 >>> <mark>''.join(sorted(s1))</mark>
 ' !,HWdellloor'
 
+<comment># Sort and strip whitespace</comment>
 >>> <mark>''.join(sorted(s1)).strip()</mark>
 '!,HWdellloor'
 
+<comment># Print sorted characters list</comment>
 >>> <mark>print(sorted(s1))</mark>
 [' ', '!', ',', 'H', 'W', 'd', 'e', 'l', 'l', 'l', 'o', 'o', 'r']
 
+<comment># Sort unique characters</comment>
 >>> <mark>''.join(sorted(set(s1)))</mark>
 ' !,HWdelor'
 
+<comment># Remove duplicates preserving order</comment>
 >>> <mark>strings="Kiwi Apple Orange Banana Kiwi Apple Kiwi"</mark>
 >>> <mark>words=strings.split()</mark>
 >>> <mark>print(' '.join(sorted(set(words),key=words.index)))</mark>

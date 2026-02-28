@@ -1,0 +1,17 @@
+pip
+matplotlib
+mysql-connector-python
+netaddr
+numpy
+pandas
+pymongo
+PyMySQL
+pytest
+PyYAML
+requests
+scipy
+toml
+beautifulsoup4
+playwright
+pytest-playwright
+psutil

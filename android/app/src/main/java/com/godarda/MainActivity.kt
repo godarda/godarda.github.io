@@ -13,11 +13,13 @@ import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.view.ViewStub
 import android.webkit.CookieManager
 import android.webkit.JavascriptInterface
 import android.webkit.PermissionRequest
 import android.webkit.WebChromeClient
+import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
 import android.webkit.WebSettings
 import android.webkit.WebStorage
@@ -29,10 +31,17 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.Insets
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.content.edit
 import androidx.core.net.toUri
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * The main activity of the application, serving as a container for the WebView-based UI.
@@ -48,6 +57,9 @@ class MainActivity : BaseActivity() {
 
     /** Root container layout for applying system window insets. */
     private val rootLayout: FrameLayout by lazy { findViewById(R.id.webViewContainer) }
+
+    /** Splash screen overlay layout. */
+    private val splashOverlay: View by lazy { findViewById(R.id.splashOverlay) }
 
     /** ViewStub for lazily inflating the 'No Internet' error view. */
     private val noInternetStub: ViewStub by lazy { findViewById(R.id.noInternetStub) }
@@ -71,6 +83,15 @@ class MainActivity : BaseActivity() {
 
     /** Tracks the current active theme (light/dark) synchronization status. */
     private var currentTheme: String? = null
+
+    /** Tracks if the search overlay is currently open in the webview. */
+    private var isSearchOpen = false
+
+    /** Tracks if the minimum splash display time has elapsed. */
+    private var minSplashTimeElapsed = false
+
+    /** Tracks if the initial page has finished loading. */
+    private var isInitialPageLoaded = false
 
     // --- Hardware & Services ---
 
@@ -97,22 +118,44 @@ class MainActivity : BaseActivity() {
     // --- Lifecycle Methods ---
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Install the official splash screen before super.onCreate and edge-to-edge
+        installSplashScreen()
+
         // Enable edge-to-edge display early in the lifecycle
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Prevent the layout from resizing when the keyboard appears
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+
         // Adjust padding to account for status and navigation bars
-        applyWindowInsetsTo(rootLayout)
+        ViewCompat.setOnApplyWindowInsetsListener(rootLayout) { v, insets ->
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())
+            v.setPadding(bars.left, bars.top, bars.right, bars.bottom)
+            WindowInsetsCompat.Builder(insets)
+                .setInsets(WindowInsetsCompat.Type.ime(), Insets.NONE)
+                .build()
+        }
 
         // Pre-emptively apply the last saved theme to prevent UI flashing
         val sharedPref = getSharedPreferences("app_settings", MODE_PRIVATE)
         currentTheme = sharedPref.getString("theme", null)
         applyThemeToSystemBars(currentTheme)
 
+        // Setup splash screen background
+        applyStoredThemeToSplash()
+
         setupWebView()
         setupConnectivity()
         setupBackButton()
+
+        // Start minimum splash timer
+        lifecycleScope.launch {
+            delay(1500)
+            minSplashTimeElapsed = true
+            maybeHideSplash()
+        }
 
         // Initial load based on connectivity status
         if (isInternetAvailable()) {
@@ -154,7 +197,7 @@ class MainActivity : BaseActivity() {
             // Append custom identification to User Agent
             userAgentString += " GoDarda"
         }
-        
+
         webview.apply {
             isVerticalScrollBarEnabled = false
             isHorizontalScrollBarEnabled = false
@@ -198,9 +241,9 @@ class MainActivity : BaseActivity() {
         }
 
         val bgColor = if (isDark) Color.BLACK else Color.WHITE
-        
+
         rootLayout.setBackgroundColor(bgColor)
-        
+
         // Apply theme to error views if they are currently inflated
         noInternetView?.let { view ->
             view.findViewById<View>(R.id.noInternetLayout)?.setBackgroundColor(bgColor)
@@ -215,6 +258,23 @@ class MainActivity : BaseActivity() {
         val insetsController = WindowCompat.getInsetsController(window, window.decorView)
         insetsController.isAppearanceLightStatusBars = !isDark
         insetsController.isAppearanceLightNavigationBars = !isDark
+    }
+
+    /**
+     * Applies the stored theme color to the splash screen background layout.
+     */
+    private fun applyStoredThemeToSplash() {
+        val sharedPref = getSharedPreferences("app_settings", MODE_PRIVATE)
+        val theme = sharedPref.getString("theme", null)
+
+        val isDark = when (theme) {
+            "dark" -> true
+            "light" -> false
+            else -> (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+        }
+
+        val bgColor = if (isDark) Color.BLACK else Color.WHITE
+        splashOverlay.setBackgroundColor(bgColor)
     }
 
     /**
@@ -296,6 +356,27 @@ class MainActivity : BaseActivity() {
     }
 
     /**
+     * Hides the custom splash overlay once pre-loading is done.
+     */
+    private fun maybeHideSplash() {
+        if (minSplashTimeElapsed && (isInitialPageLoaded || !isInternetAvailable())) {
+            hideSplash()
+        }
+    }
+
+    private fun hideSplash() {
+        if (splashOverlay.isVisible) {
+            splashOverlay.animate()
+                .alpha(0f)
+                .setDuration(400)
+                .withEndAction {
+                    splashOverlay.isVisible = false
+                }
+                .start()
+        }
+    }
+
+    /**
      * Processes custom URL schemes (like share: or reset:) and external links.
      * @return True if the URL was handled by native logic, False to let WebView process it.
      */
@@ -316,17 +397,17 @@ class MainActivity : BaseActivity() {
                 webview.clearHistory()
                 webview.clearCache(true)
                 webview.clearFormData()
-                
+
                 // 2. Clear Cookies
                 CookieManager.getInstance().removeAllCookies(null)
                 CookieManager.getInstance().flush()
-                
+
                 // 3. Clear Web Storage (localStorage, WebSQL, IndexedDB)
                 WebStorage.getInstance().deleteAllData()
-                
+
                 // 4. Clear App Preferences (including theme)
                 getSharedPreferences("app_settings", MODE_PRIVATE).edit { clear() }
-                
+
                 // 5. Reset internal state and re-apply system theme
                 currentTheme = null
                 applyThemeToSystemBars(null)
@@ -353,6 +434,8 @@ class MainActivity : BaseActivity() {
      * Manages internal WebView navigation history for a consistent user experience.
      */
     private fun handleBackNavigation() {
+        if (splashOverlay.isVisible) return
+
         if (noInternetView?.isVisible == true || appDownView?.isVisible == true) {
             finishAffinity()
             return
@@ -361,7 +444,7 @@ class MainActivity : BaseActivity() {
         val homeUrl = "${Urls.BASE}/"
         val currentUrl = webview.url
 
-        if (webview.canGoBack() && currentUrl != homeUrl) {
+        if (webview.canGoBack() && (currentUrl != homeUrl || isSearchOpen)) {
             webview.goBack()
         } else if (currentUrl != homeUrl) {
             webview.loadUrl(homeUrl)
@@ -386,12 +469,21 @@ class MainActivity : BaseActivity() {
             runOnUiThread {
                 val sharedPref = getSharedPreferences("app_settings", MODE_PRIVATE)
                 val oldTheme = sharedPref.getString("theme", null)
-                
+
                 if (oldTheme != theme) {
                     sharedPref.edit { putString("theme", theme) }
                     applyThemeToSystemBars(theme)
                 }
             }
+        }
+
+        /**
+         * Triggered by web content when the search overlay state changes.
+         */
+        @JavascriptInterface
+        @Suppress("unused")
+        fun onSearchStateChanged(isOpen: Boolean) {
+            isSearchOpen = isOpen
         }
     }
 
@@ -411,6 +503,10 @@ class MainActivity : BaseActivity() {
          */
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
+
+            isInitialPageLoaded = true
+            maybeHideSplash()
+
             view?.evaluateJavascript("""
                 (function() {
                     function notifyTheme() {
@@ -432,6 +528,12 @@ class MainActivity : BaseActivity() {
                     notifyTheme();
                 })();
             """.trimIndent(), null)
+        }
+
+        override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
+            super.onReceivedError(view, request, error)
+            isInitialPageLoaded = true
+            maybeHideSplash()
         }
 
         override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {

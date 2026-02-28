@@ -8,6 +8,7 @@ title: How to create arrays using the linspace() and logspace() functions
 godarda@gd:~$ <mark>python3</mark>
 ...
 >>> <mark>from numpy import *</mark>
+<comment># Create arrays with specific number of elements</comment>
 >>> <mark>linspace(0, 24, 3)</mark>
 array([ 0., 12., 24.])
 
@@ -23,6 +24,8 @@ array([ 0. ,  4.8,  9.6, 14.4, 19.2, 24. ])
 >>> <mark>arr = linspace(0, 24, 5)</mark>
 >>> <mark>arr</mark>
 array([ 0.,  6., 12., 18., 24.])
+
+<comment># Array properties</comment>
 >>> <mark>len(arr)</mark>
 5
 
@@ -35,6 +38,7 @@ array([ 0.,  6., 12., 18., 24.])
 >>> <mark>sort(arr)</mark>
 array([ 0.,  6., 12., 18., 24.])
 
+<comment># Modifying elements</comment>
 >>> <mark>arr=append(arr, 30)</mark>
 >>> <mark>arr</mark>
 array([ 0.,  6., 12., 18., 24., 30.])
@@ -48,9 +52,11 @@ array([ 6., 18., 24., 30.])
 >>> <mark>arr</mark>
 array([ 6., 12., 18., 24., 30.])
 
+<comment># Convert to list</comment>
 >>> <mark>arr.tolist()</mark>
 [6.0, 12.0, 18.0, 24.0, 30.0]
 
+<comment># Reverse array</comment>
 >>> <mark>arr[::-1]</mark>
 array([30., 24., 18., 12.,  6.])
 </pre></span>
@@ -58,6 +64,7 @@ array([30., 24., 18., 12.,  6.])
 <div class="terminalcard">Create arrays using the logspace() function</div>
 <span><pre>
 >>> <mark>from numpy import *</mark>
+<comment># Logarithmic spacing</comment>
 >>> <mark>arr = logspace(0, 20, 5)</mark>
 >>> <mark>arr</mark>
 array([1.e+00, 1.e+05, 1.e+10, 1.e+15, 1.e+20])

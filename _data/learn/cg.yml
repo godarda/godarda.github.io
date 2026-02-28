@@ -112,17 +112,3 @@ grandparent:
     title: C++ program for Bresenham's circle drawing algorithm using OpenGL
   - url: cg/opengl/gdfuygg
     title: C++ program for 8 X 8 Chess Board using OpenGL
-sidenav:
-- parent: Computer Graphics
-  url: cg
-  children:
-  - title: Line Drawing Programs
-    url: cg/line
-  - title: Circle Drawing Programs
-    url: cg/circle
-  - title: Geometric Shapes
-    url: cg/shapes
-  - title: Computer Graphics Algorithms
-    url: cg/algorithms
-  - title: OpenGL
-    url: cg/opengl

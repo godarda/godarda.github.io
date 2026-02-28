@@ -12,9 +12,10 @@ godarda@gd:~$ <mark>python3</mark>
 >>> <mark>arr2 = array(['x', 'y', 'z'])</mark>
 >>> <mark>arr3 = array(["Orange", "Pineapple", "Banana", "Blueberry", "Grapes", "Fig"])</mark>
 
+<comment># Accessing elements using index</comment>
 >>> <mark>for i in range(len(arr1)):</mark>
 ...     <mark>print(arr[i])</mark>
-... 
+...
 40
 96
 24
@@ -24,14 +25,16 @@ godarda@gd:~$ <mark>python3</mark>
 
 >>> <mark>for s in range(len(arr3)):</mark>
 ...     <mark>print(arr3[s])</mark>
-... 
+...
 Orange
 Pineapple
 Banana
 Blueberry
 Grapes
 Fig
-<hr>>>> <mark>arr1[3:]</mark>
+<hr>
+<comment># Slicing the array</comment>
+>>> <mark>arr1[3:]</mark>
 array([  55,   78, -111])
 
 >>> <mark>arr1[-3:]</mark>
@@ -42,7 +45,9 @@ array([40, 96, 24])
 
 >>> <mark>arr1[:]</mark>
 array([  40,   96,   24,   55,   78, -111])
-<hr>>>> <mark>arr1[0:6:1]</mark>
+<hr>
+<comment># Slicing with step</comment>
+>>> <mark>arr1[0:6:1]</mark>
 array([  40,   96,   24,   55,   78, -111])
 
 >>> <mark>arr1[0:6:2]</mark>
@@ -65,4 +70,8 @@ array([-111,   78,   55,   24,   96,   40])
 
 >>> <mark>arr2[::-1]</mark>
 array(['z', 'y', 'x'], dtype='&lt;U1')
+
+<comment># Accessing elements using take()</comment>
+>>> <mark>take(arr1, [0, 2, 4])</mark>
+array([40, 24, 78])
 </pre></span>

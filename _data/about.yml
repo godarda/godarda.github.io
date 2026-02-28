@@ -5,6 +5,9 @@ grandparent:
 - parent: Contribution Guide
   subtree: Contribute
   url: about/contribute
+- parent: Support Guide
+  subtree: Support
+  url: about/support
 - parent: Terms of Use
   subtree: Terms
   url: about/terms
@@ -14,17 +17,3 @@ grandparent:
 - parent: Disclaimer
   subtree: Disclaimer
   url: about/disclaimer
-sidenav:
-- parent: About Us
-  url: about
-  children: 
-  - title: Frequently Asked Questions
-    url: about/faqs
-  - title: Contribution Guide
-    url: about/contribute
-  - title: Terms of Use
-    url: about/terms
-  - title: Privacy Policy
-    url: about/privacy
-  - title: Disclaimer
-    url: about/disclaimer

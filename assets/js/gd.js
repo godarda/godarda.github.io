@@ -25,6 +25,28 @@
  */
 
 // --------------------------------------------------------------------------
+// User Agent Detection
+// --------------------------------------------------------------------------
+window.userAgent = navigator.userAgent;
+const normalizedUserAgent = (window.userAgent || '').toLowerCase();
+const isAndroid = /android/.test(normalizedUserAgent);
+// Detect if running inside an Android WebView
+window.isWebview = (isAndroid && /; wv\)/.test(normalizedUserAgent));
+window.isGoDardaApp = window.isWebview || (window.userAgent && window.userAgent.includes("GoDarda"));
+
+if (!window.isGoDardaApp && window.location.pathname.includes("/settings")) {
+    window.location.replace("/404");
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    if (window.isGoDardaApp) {
+        if (typeof setupAppView === 'function') setupAppView();
+    } else {
+        if (typeof setupWebAppView === 'function') setupWebAppView();
+    }
+});
+
+// --------------------------------------------------------------------------
 // Frame Busting
 // --------------------------------------------------------------------------
 // Ensures the site is not loaded within an iframe, which can be a security risk (clickjacking).
@@ -70,8 +92,13 @@ const handleTouchEnd = () => {
     if (!xUp || !yUp) return;
     const xDiff = xUp - xDown;
     const yDiff = yUp - yDown;
+
     // Check if the horizontal movement is significant enough to be considered a swipe
-    if ((Math.abs(xDiff) > Math.abs(yDiff)) && (Math.abs(xDiff) > 0.6 * document.body.clientWidth)) {
+    // Dynamic threshold: Low (50px) if starting from left edge (gutter), High (60%) otherwise to protect code blocks.
+    const isEdgeSwipe = xDown < 70;
+    const threshold = isEdgeSwipe ? 50 : (0.6 * document.body.clientWidth);
+
+    if ((Math.abs(xDiff) > Math.abs(yDiff)) && (Math.abs(xDiff) > threshold)) {
         if (xDiff > 0) {
             // Swipe right: Open left sidebar
             $('.leftsidebar-collapse').toggleClass('open');
@@ -101,6 +128,12 @@ $(() => {
     $('body').css('cursor', 'default');
     // Ensure input fields and textareas still show the text cursor for editing.
     $('input, textarea').css('cursor', 'text');
+
+    // Remove focus from buttons after click to prevent persistent hover/focus states
+    $(document).on('click', '.btn, a.card, .wvnav-item, #global-action-pill a', (event) => {
+        const $btn = $(event.currentTarget);
+        setTimeout(() => $btn.blur(), 50);
+    });
 
     // Toggle left sidebar visibility
     $('[data-bs-toggle="leftsidebar"]').on('click', () => {
@@ -139,7 +172,8 @@ $(() => {
     // Scroll-based Behaviors
     // --------------------------------------------------------------------------
     // Smooth scroll to top
-    $('.back-to-top').on('click', () => {
+    $('.back-to-top').on('click', (e) => {
+        e.preventDefault();
         $('html, body').animate({ scrollTop: 0 }, 100);
     });
 
@@ -150,46 +184,89 @@ $(() => {
         lastActiveItem.scrollIntoView({ block: 'center', behavior: 'auto' });
     }
 
-    const today = new Date().toLocaleDateString();
-    let isShown = sessionStorage.getItem('status');
-    const $backToTop = $("#backtotop");
     const $leftSidebar = $('.leftsidebar-collapse');
     const $rightSidebar = $('.rightsidebar-collapse');
     const $staticBackdrop = $('#staticBackdrop');
+    const $globalPill = $("#global-action-pill");
+    const $pillShare = $("#pill-share-button");
+    const $pillTop = $("#pill-back-to-top");
+
+    // Share Button Logic
+    $pillShare.on('click', async (e) => {
+        if (window.isGoDardaApp) return; // App handles "share:" protocol natively
+        e.preventDefault();
+        const url = window.location.href;
+        const title = document.title;
+        if (navigator.share) {
+            try { await navigator.share({ title, url }); } catch (err) { console.error('Share failed:', err); }
+        } else {
+            navigator.clipboard.writeText(url);
+            alert("Link copied to clipboard!");
+        }
+    });
+
+    let isScrollingToTop = false;
+    // Back to Top Logic
+    $pillTop.on('click', (e) => {
+        e.preventDefault();
+        isScrollingToTop = true;
+        $('html, body').animate({ scrollTop: 0 }, 100).promise().then(() => { isScrollingToTop = false; });
+    });
 
     let ticking = false;
+    let isPillVisible = false;
+
+    const checkScrollDependentUI = () => {
+        const scrollTop = $(window).scrollTop();
+        const scrollableHeight = $(document).height() - $(window).height();
+        const scrollPercent = scrollableHeight > 0 ? (scrollTop / scrollableHeight) * 100 : 0;
+
+        // Show modal once per day when user scrolls past 50% of the page
+        if (scrollPercent >= 50 && !isScrollingToTop) {
+            const currentDate = new Date().toLocaleDateString();
+            const lastShownDate = localStorage.getItem('status');
+            if (lastShownDate !== currentDate) {
+                $staticBackdrop.modal('show');
+                localStorage.setItem('status', currentDate);
+            }
+        }
+
+        // Toggle Global Pill visibility at 50% scroll
+        if (scrollPercent >= 50) {
+            if (!isPillVisible) {
+                $globalPill.stop(true).fadeIn(250).css('display', 'flex');
+                isPillVisible = true;
+            }
+        } else {
+            if (isPillVisible) {
+                $globalPill.stop(true).fadeOut(500);
+                isPillVisible = false;
+            }
+        }
+    };
+
     $(window).on('scroll', () => {
         if (!ticking) {
             window.requestAnimationFrame(() => {
-                const scrollTop = $(window).scrollTop();
-
-                // Show modal once per day when user scrolls past 50% of the page
-                if (isShown !== today) {
-                    const scrollPercent = ((scrollTop) / ($(document).height() - $(window).height())) * 100;
-                    if (scrollPercent >= 50) {
-                        $staticBackdrop.modal('show');
-                        sessionStorage.setItem('status', today);
-                        isShown = today;
-                    }
-                }
-
-                // Toggle "Back to Top" button visibility
-                if (scrollTop > 100) {
-                    $backToTop.show();
-                } else {
-                    $backToTop.hide();
-                }
+                checkScrollDependentUI();
 
                 // Auto-close sidebars on scroll
-                if ($leftSidebar.hasClass('open')) {
-                    $leftSidebar.removeClass('open');
-                }
-                if ($rightSidebar.hasClass('open')) {
-                    $rightSidebar.removeClass('open');
-                }
+                if ($leftSidebar.hasClass('open')) $leftSidebar.removeClass('open');
+                if ($rightSidebar.hasClass('open')) $rightSidebar.removeClass('open');
+
                 ticking = false;
             });
             ticking = true;
+        }
+    });
+
+    // Check scroll state on load to handle pages that load at the bottom (e.g., from bfcache)
+    checkScrollDependentUI();
+
+    // Also specifically handle pageshow for bfcache
+    $(window).on('pageshow', (event) => {
+        if (event.originalEvent && event.originalEvent.persisted) {
+            checkScrollDependentUI();
         }
     });
 
@@ -307,17 +384,30 @@ $(() => {
             }
         }
     });
-});
 
-// --------------------------------------------------------------------------
-// User Agent Detection
-// --------------------------------------------------------------------------
-window.userAgent = navigator.userAgent;
-const normalizedUserAgent = (window.userAgent || '').toLowerCase();
-const isAndroid = /android/.test(normalizedUserAgent);
-// Detect if running inside an Android WebView
-window.isWebview = (isAndroid && /; wv\)/.test(normalizedUserAgent));
-window.isGoDardaApp = window.isWebview || (window.userAgent && window.userAgent.includes("GoDarda"));
+    // --------------------------------------------------------------------------
+    // Modal Back Button Support
+    // --------------------------------------------------------------------------
+    $(document).on('shown.bs.modal', '.modal', () => {
+        history.pushState({ modalOpen: true }, '', window.location.href);
+    });
+
+    $(document).on('hidden.bs.modal', '.modal', function() {
+        if ($(this).data('is-popstate')) {
+            $(this).removeData('is-popstate');
+        } else if (history.state && history.state.modalOpen) {
+            history.back();
+        }
+    });
+
+    $(window).on('popstate', () => {
+        const $openModal = $('.modal.show');
+        if ($openModal.length) {
+            $openModal.data('is-popstate', true);
+            $openModal.modal('hide');
+        }
+    });
+});
 
 // --------------------------------------------------------------------------
 // Google Analytics Configuration

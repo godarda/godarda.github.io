@@ -43,17 +43,3 @@ grandparent:
   children:
   - url: dsa/applications/gdzdguw
     title: C++ program for Tic-Tac-Toe game
-sidenav:
-- parent: Data Structures and Algorithms
-  url: dsa
-  children:
-  - title: Data Structures Fundamentals
-    url: dsa/fundamentals
-  - title: Searching Algorithms
-    url: dsa/searching
-  - title: Sorting Algorithms
-    url: dsa/sorting
-  - title: Shortest Path Algorithms
-    url: dsa/trees
-  - title: Applications of Data Structures
-    url: dsa/applications

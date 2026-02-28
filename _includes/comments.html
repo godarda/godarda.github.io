@@ -1,5 +1,18 @@
 <div class="board"><div class="boardtitle">Comments and Reactions</div>
-    <div style="padding: 10px 10px 5px 10px;">
+    <div style="position: relative; padding: 10px 10px 5px 10px;">
+        <!-- Invisible gutter to capture edge swipes over the iframe on touch devices -->
+        <style>
+            .giscus-swipe-gutter { display: none; }
+            @media (pointer: coarse) {
+                .giscus-swipe-gutter {
+                    display: block;
+                    position: absolute;
+                    top: 0; left: 0; bottom: 0;
+                    width: 40px; z-index: 10;
+                }
+            }
+        </style>
+        <div class="giscus-swipe-gutter"></div>
         <div id="giscus-container"></div>
         <script>
             function loadGiscus() {

@@ -6,10 +6,13 @@ title: Linux commands to copy and move the files
 <div class="titlecard">{{ page.title }}</div>
 <div class="terminalcard">mv command to rename a file</div>
 <span><pre>
+<comment># List files in current directory</comment>
 godarda@gd:~$ <mark>ls</mark>
 a.out  gd.cpp   gd.py    Documents  Fedora.txt  Pictures  Templates   Videos
 gd.c   GD.java  Desktop  Downloads  Music   Public    Ubuntu.txt  Weekdays
-<hr>godarda@gd:~$ <mark>mv Fedora.txt FEDORA.TXT</mark>
+<hr>
+<comment># Rename a file</comment>
+godarda@gd:~$ <mark>mv Fedora.txt FEDORA.TXT</mark>
 godarda@gd:~$ <mark>ls</mark>
 a.out  gd.cpp   gd.py    Documents  FEDORA.TXT  Pictures  Templates   Videos
 gd.c   GD.java  Desktop  Downloads  Music   Public    Ubuntu.txt  Weekdays
@@ -17,6 +20,7 @@ gd.c   GD.java  Desktop  Downloads  Music   Public    Ubuntu.txt  Weekdays
 
 <div class="terminalcard">cp command to copy a file</div>
 <span><pre>
+<comment># Copy a file to another directory</comment>
 godarda@gd:~$ <mark>cp FEDORA.TXT /home/godarda/Documents/</mark>
 godarda@gd:~$ <mark>ls $cat /home/godarda/Documents/</mark>
 FEDORA.TXT
@@ -24,18 +28,23 @@ FEDORA.TXT
 
 <div class="terminalcard">cp and mv commands to copy and move the files</div>
 <span><pre>
+<comment># Create a new directory</comment>
 godarda@gd:~$ <mark>mkdir Linux</mark>
+<comment># Create empty files</comment>
 godarda@gd:~$ <mark>touch Ubuntu.txt Fedora.txt</mark>
+<comment># Copy a file</comment>
 godarda@gd:~$ <mark>cp Ubuntu.txt Fedora.txt</mark>
 godarda@gd:~$ <mark>ls</mark>
 a.out   GD.java  Documents   Linux     Public      Videos
 gd.c    gd.py    Downloads   Music     Templates   Weekdays
 gd.cpp  Desktop  Fedora.txt  Pictures  Ubuntu.txt
 
+<comment># Copy a file into a directory</comment>
 godarda@gd:~$ <mark>cp Ubuntu.txt /home/godarda/Linux/</mark>
 godarda@gd:~$ <mark>ls $cat /home/godarda/Linux/</mark>
 Ubuntu.txt
 
+<comment># Move a file into a directory</comment>
 godarda@gd:~$ <mark>mv Fedora.txt /home/godarda/Linux/</mark>
 godarda@gd:~$ <mark>ls $cat /home/godarda/Linux/</mark>
 Fedora.txt  Ubuntu.txt
@@ -43,6 +52,7 @@ Fedora.txt  Ubuntu.txt
 godarda@gd:~$ <mark>ls</mark>
 a.out  gd.cpp   gd.py    Documents  Linux  Pictures  Templates   Videos
 gd.c   GD.java  Desktop  Downloads  Music  Public    Ubuntu.txt  Weekdays
+<comment># Change directory</comment>
 godarda@gd:~$ <mark>cd Linux/</mark>
 godarda@gd:~/Linux$ <mark>ls</mark>
 Fedora.txt  Ubuntu.txt

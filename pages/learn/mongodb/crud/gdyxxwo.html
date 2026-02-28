@@ -8,26 +8,33 @@ title: MongoDB Create a Database and Collection
 godarda@gd:~$ <mark>mongosh</mark>
 ...
 
+<comment># List all databases</comment>
 test> <mark>show databases</mark>
 admin    40.00 KiB
 config  108.00 KiB
 local    40.00 KiB
 
+<comment># Switch to database</comment>
 test> <mark>use DB</mark>
 switched to db DB
 
+<comment># Check current database</comment>
 DB> <mark>db</mark>
 DB
 
+<comment># Get database name</comment>
 DB> <mark>db.getName()</mark>
 DB
 
+<comment># Create a collection</comment>
 DB> <mark>db.createCollection("holders")</mark>
 { "ok" : 1 }
 
+<comment># List all collections</comment>
 DB> <mark>db.getCollectionNames()</mark>
 [ "holders" ]
 
+<comment># List all databases</comment>
 DB> <mark>show dbs</mark>
 DB        8.00 KiB
 admin    40.00 KiB

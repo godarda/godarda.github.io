@@ -8,15 +8,18 @@ title: MongoDB Logical Query Operators ($and $or $nor $not)
 godarda@gd:~$ <mark>mongosh</mark>
 ...
 
+<comment># List all databases</comment>
 DB> <mark>show dbs</mark>
 DB       72.00 KiB
 admin    40.00 KiB
 config  108.00 KiB
 local    40.00 KiB
 
+<comment># List all collections</comment>
 DB> <mark>db.getCollectionNames()</mark>
 [ "holders" ]
 
+<comment># Find by city</comment>
 DB> <mark>db.holders.find({city: 'Phoenix'})</mark>
 [
   {
@@ -31,6 +34,7 @@ DB> <mark>db.holders.find({city: 'Phoenix'})</mark>
   }
 ]
 
+<comment># Find by account number</comment>
 DB> <mark>db.holders.find({account_no: 2562348989})</mark>
 [
   {
@@ -48,6 +52,7 @@ DB> <mark>db.holders.find({account_no: 2562348989})</mark>
 
 <div class="terminalcard">Find documents using $and operator</div>
 <span><pre>
+<comment># Find using AND operator</comment>
 DB> <mark>db.holders.find(
 ... {$and: [{city: 'Irvine'},{account_no: 2562348991}]}
 ... )</mark>
@@ -67,6 +72,7 @@ DB> <mark>db.holders.find(
 
 <div class="terminalcard">Find documents using $or operator</div>
 <span><pre>
+<comment># Find using OR operator</comment>
 DB> <mark>db.holders.find(
 ... {$or: [{city: 'Irvine'},{account_no: 2562348991}]}
 ... )</mark>
@@ -96,6 +102,7 @@ DB> <mark>db.holders.find(
 
 <div class="terminalcard">Find documents using $lte operator</div>
 <span><pre>
+<comment># Find using Less Than or Equal</comment>
 DB> <mark>db.holders.find(
 ... {account_no:{$lte: 2562348990}}
 ... )</mark>
@@ -125,6 +132,7 @@ DB> <mark>db.holders.find(
 
 <div class="terminalcard">Find documents using $not operator</div>
 <span><pre>
+<comment># Find using NOT operator</comment>
 DB> <mark>db.holders.find(
 ... {account_no:{$not:{$lte: 2562348990}}}
 ... )</mark>
@@ -154,7 +162,8 @@ DB> <mark>db.holders.find(
 
 <div class="terminalcard">Find documents using $nor operator</div>
 <span><pre>
-DB> <mark>db.holders.find( 
+<comment># Find using NOR operator</comment>
+DB> <mark>db.holders.find(
 ... {$nor:[{account_no: 2562348989},{account_no: 2562348991}]}
 ... )</mark>
 [

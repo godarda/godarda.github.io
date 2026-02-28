@@ -3,90 +3,20 @@
 Test Suite Utilities (tests/utilities.py)
 
 Purpose:
-This module provides shared utilities and configuration for the test suite.
-It handles environment detection, data loading, and cleanup routines to ensure
-consistent test execution across platforms.
+This module provides shared utilities for the test suite.
+It handles data loading to ensure consistent test execution across platforms.
 
 Key Features:
-1. Environment Detection: Identifies OS, paths, and base URLs.
-2. Configuration: Defines data structures for test settings.
-3. Data Loading: Helper functions to load expected test data from YAML files.
-4. Cleanup: Routines to clean up artifacts like __pycache__.
+1. Data Loading: Helper functions to load expected test data from YAML files.
+2. Concurrency: Utilizes thread pools for efficient file processing.
 """
 
 import os
-import platform
-import sys
-import shutil
 import yaml
 
-from dataclasses import dataclass, field
 from pathlib import Path
-from typing import List, Optional, Tuple, Union
+from typing import List, Union
 from concurrent.futures import ThreadPoolExecutor
-
-
-@dataclass(frozen=True)
-class EnvironmentConfig:
-    """Configuration object holding environment-specific settings."""
-    BASE_URL: str
-    DATAPATH: Path
-    OS_NAME: str
-
-
-@dataclass
-class TestStats:
-    """Tracks statistics for the test run."""
-    matched: int = 0
-    unmatched: int = 0
-    unmatched_entries: List[Tuple[str, str]] = field(default_factory=list)
-    compiled: int = 0
-    uncompiled: int = 0
-    uncompiled_entries: List[str] = field(default_factory=list)
-
-
-def get_environment_config() -> EnvironmentConfig:
-    """
-    Detects the host operating system and validates environment requirements.
-
-    Returns:
-        An EnvironmentConfig object containing the base URL, data path, and OS name.
-        Exits the process if the OS or version is unsupported.
-    """
-    system_name = platform.system()
-    base_url = "http://localhost:4000/"
-    datapath = os.path.join(os.path.dirname(__file__), "..", "_data/")
-
-    if system_name == "Darwin":
-        os_name = "macOS"
-    elif system_name == "Linux":
-        # Verify that the Linux distribution is Ubuntu.
-        distro_id = platform.freedesktop_os_release().get("ID", "").lower()
-        if distro_id != "ubuntu":
-            print(f"Unsupported Linux distribution: {distro_id}. Only Ubuntu is supported.")
-            sys.exit(1)
-        os_name = "Ubuntu"
-    elif system_name == "Windows":
-        # Verify minimum Windows build version.
-        _, ver, _, _ = platform.win32_ver()
-        try:
-            build_number = int(ver.split(".")[2])
-        except (IndexError, ValueError):
-            print(f"Failed to parse Windows build from version string: {ver}")
-            sys.exit(1)
-        if build_number < 20348:
-            print(f"Unsupported Windows build {build_number}. Requires Server 2022 (20348+) or Windows 11 (22000+).")
-            sys.exit(1)
-        os_name = "Windows"
-    else:
-        print(f"Unsupported OS: {system_name}. Only macOS, Ubuntu, and Windows are supported.")
-        sys.exit(1)
-
-    return EnvironmentConfig(
-        BASE_URL=base_url,
-        DATAPATH=Path(datapath),
-        OS_NAME=os_name,
-    )
 
 
 def load_expected_data(folder_path: Union[str, Path]) -> List[dict]:
@@ -117,8 +47,8 @@ def load_expected_data(folder_path: Union[str, Path]) -> List[dict]:
             return []
 
         entries = []
-        # Extract entries from 'sidenav' and 'grandparent' sections.
-        for section_name in ("sidenav", "grandparent"):
+        # Extract entries from 'grandparent' sections.
+        for section_name in ("grandparent",):
             for section in data.get(section_name, []):
                 if "url" in section and "parent" in section:
                     entries.append((section["url"], section["parent"]))
@@ -145,8 +75,3 @@ def load_expected_data(folder_path: Union[str, Path]) -> List[dict]:
             seen.add(key)
 
     return unique_entries
-
-
-# Initialize global configuration and statistics.
-CONFIG = get_environment_config()
-STATS = TestStats()

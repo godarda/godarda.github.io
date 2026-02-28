@@ -10,6 +10,7 @@ title: MySQL ALTER TABLE (ADD, DROP, MODIFY, CHANGE, RENAME TO)
 
 <div class="terminalcard">Showing existing records</div>
 <span><pre>
+<comment># List all databases</comment>
 mysql> <mark>SHOW DATABASES;</mark>
 +--------------------+
 | Database           |
@@ -22,9 +23,11 @@ mysql> <mark>SHOW DATABASES;</mark>
 +--------------------+
 5 rows in set (0.00 sec)
 
+<comment># Switch to the DB database</comment>
 mysql> <mark>USE DB;</mark>
 Database changed
 
+<comment># List all tables</comment>
 mysql> <mark>SHOW TABLES;</mark>
 +--------------+
 | Tables_in_DB |
@@ -33,6 +36,7 @@ mysql> <mark>SHOW TABLES;</mark>
 +--------------+
 1 row in set (0.01 sec)
 
+<comment># Retrieve all records from holders</comment>
 mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 | account_no  | name          | city    | dob        | bank     | amount |
@@ -50,10 +54,12 @@ mysql> <mark>SELECT * FROM holders;</mark>
 
 <div class="terminalcard">Drop column</div>
 <span><pre>
+<comment># Drop the city column</comment>
 mysql> <mark>ALTER TABLE holders DROP COLUMN city;</mark>
 Query OK, 0 rows affected (1.32 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
+<comment># Retrieve all records from holders</comment>
 mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+------------+----------+--------+
 | account_no  | name          | dob        | bank     | amount |
@@ -71,10 +77,12 @@ mysql> <mark>SELECT * FROM holders;</mark>
 
 <div class="terminalcard">Add single column</div>
 <span><pre>
+<comment># Add the city column</comment>
 mysql> <mark>ALTER TABLE holders ADD COLUMN city VARCHAR(20);</mark>
 Query OK, 0 rows affected (0.43 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
+<comment># Retrieve all records from holders</comment>
 mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+------------+----------+--------+------+
 | account_no  | name          | dob        | bank     | amount | city |
@@ -89,6 +97,7 @@ mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+------------+----------+--------+------+
 7 rows in set (0.00 sec)
 
+<comment># Drop the city column</comment>
 mysql> <mark>ALTER TABLE holders DROP COLUMN city;</mark>
 Query OK, 0 rows affected (1.41 sec)
 Records: 0  Duplicates: 0  Warnings: 0
@@ -96,10 +105,12 @@ Records: 0  Duplicates: 0  Warnings: 0
 
 <div class="terminalcard">Add multiple columns</div>
 <span><pre>
+<comment># Add city and email columns</comment>
 mysql> <mark>ALTER TABLE holders ADD COLUMN city VARCHAR(20) AFTER name, ADD email VARCHAR(35) FIRST;</mark>
 Query OK, 0 rows affected (3.36 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
+<comment># Retrieve all records from holders</comment>
 mysql> <mark>SELECT * FROM holders;</mark>
 +-------+-------------+---------------+------+------------+----------+--------+
 | email | account_no  | name          | city | dob        | bank     | amount |
@@ -117,6 +128,7 @@ mysql> <mark>SELECT * FROM holders;</mark>
 
 <div class="terminalcard">Modify data type of single field</div>
 <span><pre>
+<comment># Show table structure</comment>
 mysql> <mark>DESC holders;</mark>
 +------------+-------------+------+-----+---------+-------+
 | Field      | Type        | Null | Key | Default | Extra |
@@ -131,10 +143,12 @@ mysql> <mark>DESC holders;</mark>
 +------------+-------------+------+-----+---------+-------+
 7 rows in set (0.00 sec)
 
+<comment># Modify email column type</comment>
 mysql> <mark>ALTER TABLE holders MODIFY email VARCHAR(30);</mark>
 Query OK, 7 rows affected (1.75 sec)
 Records: 7  Duplicates: 0  Warnings: 0
 
+<comment># Show table structure</comment>
 mysql> <mark>DESC holders;</mark>
 +------------+-------------+------+-----+---------+-------+
 | Field      | Type        | Null | Key | Default | Extra |
@@ -152,11 +166,13 @@ mysql> <mark>DESC holders;</mark>
 
 <div class="terminalcard">Modify data type of multiple fields</div>
 <span><pre>
+<comment># Modify email and dob columns</comment>
 mysql> <mark>ALTER TABLE holders MODIFY email VARCHAR(25), MODIFY dob DATE NOT NULL;</mark>
 Query OK, 7 rows affected (1.85 sec)
 Records: 7  Duplicates: 0  Warnings: 0
 
-mysql> <mark>DESC holders;</mark>                                                            
+<comment># Show table structure</comment>
+mysql> <mark>DESC holders;</mark>
 +------------+-------------+------+-----+---------+-------+
 | Field      | Type        | Null | Key | Default | Extra |
 +------------+-------------+------+-----+---------+-------+
@@ -173,10 +189,12 @@ mysql> <mark>DESC holders;</mark>
 
 <div class="terminalcard">Change column name</div>
 <span><pre>
+<comment># Rename name column to flname</comment>
 mysql> <mark>ALTER TABLE holders CHANGE COLUMN name flname VARCHAR(30);</mark>
 Query OK, 0 rows affected (1.46 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
+<comment># Retrieve all records from holders</comment>
 mysql> <mark>SELECT * FROM holders;</mark>
 +-------+-------------+---------------+------+------------+----------+--------+
 | email | account_no  | flname        | city | dob        | bank     | amount |
@@ -194,10 +212,12 @@ mysql> <mark>SELECT * FROM holders;</mark>
 
 <div class="terminalcard">Drop multiple columns</div>
 <span><pre>
+<comment># Drop email and city columns</comment>
 mysql> <mark>ALTER TABLE holders DROP COLUMN email, DROP COLUMN city;</mark>
 Query OK, 0 rows affected (1.49 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
+<comment># Retrieve all records from holders</comment>
 mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+------------+----------+--------+
 | account_no  | flname        | dob        | bank     | amount |
@@ -215,12 +235,15 @@ mysql> <mark>SELECT * FROM holders;</mark>
 
 <div class="terminalcard">Rename table name</div>
 <span><pre>
+<comment># Rename table holders to proprietor</comment>
 mysql> <mark>ALTER TABLE holders RENAME TO proprietor;</mark>
 Query OK, 0 rows affected (0.81 sec)
 
+<comment># Attempt to select from old table name</comment>
 mysql> <mark>SELECT * FROM holders;</mark>
 <error>ERROR 1146 (42S02): Table 'DB.holders' doesn't exist</error>
 
+<comment># Retrieve all records from new table name</comment>
 mysql> <mark>SELECT * FROM proprietor;</mark>
 +-------------+---------------+------------+----------+--------+
 | account_no  | flname        | dob        | bank     | amount |

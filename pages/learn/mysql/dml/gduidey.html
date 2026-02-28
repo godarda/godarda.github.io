@@ -6,6 +6,7 @@ title: MySQL SELECT and SELECT DISTINCT Statements
 <div class="titlecard">{{ page.title }}</div>
 <div class="terminalcard">Show databases and tables</div>
 <span><pre>
+<comment># List all databases</comment>
 mysql> <mark>SHOW DATABASES;</mark>
 +--------------------+
 | Database           |
@@ -18,11 +19,13 @@ mysql> <mark>SHOW DATABASES;</mark>
 +--------------------+
 5 rows in set (0.07 sec)
 
+<comment># Switch to the DB database</comment>
 mysql> <mark>USE DB;</mark>
 Reading table information for completion of table and column names
 You can turn off this feature to get a quicker startup with -A
 
 Database changed
+<comment># List all tables</comment>
 mysql> <mark>SHOW TABLES;</mark>
 +--------------+
 | Tables_in_DB |
@@ -35,6 +38,7 @@ mysql> <mark>SHOW TABLES;</mark>
 
 <div class="terminalcard">Retrieving all the records from a parent table</div>
 <span><pre>
+<comment># Retrieve all records from holders</comment>
 mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 | account_no  | name          | city    | dob        | bank     | amount |
@@ -49,6 +53,7 @@ mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 7 rows in set (0.00 sec)
 
+<comment># Retrieve city column from holders</comment>
 mysql> <mark>SELECT city FROM holders;</mark>
 +---------+
 | city    |
@@ -66,6 +71,7 @@ mysql> <mark>SELECT city FROM holders;</mark>
 
 <div class="terminalcard">Retrieving distinct records</div>
 <span><pre>
+<comment># Retrieve distinct cities</comment>
 mysql> <mark>SELECT DISTINCT city FROM holders;</mark>
 +---------+
 | city    |
@@ -79,6 +85,7 @@ mysql> <mark>SELECT DISTINCT city FROM holders;</mark>
 +---------+
 6 rows in set (0.00 sec)
 
+<comment># Retrieve distinct name and city combinations</comment>
 mysql> <mark>SELECT DISTINCT name, city FROM holders;</mark>
 +---------------+---------+
 | name          | city    |
@@ -96,6 +103,7 @@ mysql> <mark>SELECT DISTINCT name, city FROM holders;</mark>
 
 <div class="terminalcard">COUNT, MIN, and MAX Functions</div>
 <span><pre>
+<comment># Count distinct cities</comment>
 mysql> <mark>SELECT COUNT(DISTINCT city) AS Count FROM holders;</mark>
 +-------+
 | Count |
@@ -104,6 +112,7 @@ mysql> <mark>SELECT COUNT(DISTINCT city) AS Count FROM holders;</mark>
 +-------+
 1 row in set (0.00 sec)
 
+<comment># Find minimum amount</comment>
 mysql> <mark>SELECT MIN(amount) FROM holders;</mark>
 +-------------+
 | MIN(amount) |
@@ -112,6 +121,7 @@ mysql> <mark>SELECT MIN(amount) FROM holders;</mark>
 +-------------+
 1 row in set (0.00 sec)
 
+<comment># Find maximum amount</comment>
 mysql> <mark>SELECT MAX(amount) FROM holders;</mark>
 +-------------+
 | MAX(amount) |
@@ -123,6 +133,7 @@ mysql> <mark>SELECT MAX(amount) FROM holders;</mark>
 
 <div class="terminalcard">Retrieving all the records from a child table</div>
 <span><pre>
+<comment># Retrieve all records from loans</comment>
 mysql> <mark>SELECT * FROM loans;</mark>
 +---------+-----------+-------------+-------------+
 | loan_id | loan_type | loan_amount | account_no  |
@@ -134,9 +145,11 @@ mysql> <mark>SELECT * FROM loans;</mark>
 +---------+-----------+-------------+-------------+
 4 rows in set (0.00 sec)
 
+<comment># Delete record with loan_id 4</comment>
 mysql> <mark>DELETE FROM loans WHERE loan_id=4;</mark>
 Query OK, 1 row affected (0.17 sec)
 
+<comment># Retrieve all records from loans</comment>
 mysql> <mark>SELECT * FROM loans;</mark>
 +---------+-----------+-------------+-------------+
 | loan_id | loan_type | loan_amount | account_no  |
@@ -147,9 +160,11 @@ mysql> <mark>SELECT * FROM loans;</mark>
 +---------+-----------+-------------+-------------+
 3 rows in set (0.00 sec)
 
+<comment># Insert a new loan record</comment>
 mysql> <mark>INSERT INTO loans(loan_type,loan_amount,account_no) VALUES ("Home",40000,25622348995);</mark>
 Query OK, 1 row affected (0.19 sec)
 
+<comment># Retrieve all records from loans</comment>
 mysql> <mark>SELECT * FROM loans;</mark>
 +---------+-----------+-------------+-------------+
 | loan_id | loan_type | loan_amount | account_no  |

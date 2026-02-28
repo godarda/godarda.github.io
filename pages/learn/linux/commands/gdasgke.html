@@ -6,10 +6,12 @@ title: Linux commands to display the lists of files and directories
 <div class="titlecard">{{ page.title }}</div>
 <div class="terminalcard">ls command with options</div>
 <span><pre>
+<comment># List files in the current directory</comment>
 godarda@gd:~$ <mark>ls</mark>
 a.out  GD.class  GD.java  Desktop    Downloads	Pictures  Templates  Weekdays
 gd.c   gd.csv	 gd.py	  Documents  Music	Public	  Videos
 
+<comment># List all files including hidden ones</comment>
 godarda@gd:~$ <mark>ls -a</mark>
 .	       gd.csv	  .mozilla	    .ssh
 ..	       GD.java	  Music		    .sudo_as_admin_successful
@@ -21,6 +23,7 @@ a.out	       gd.py	  Pictures	    Templates
 gd.c	       .keras	  .Rhistory
 GD.class       .local	  .rstudio-desktop
 
+<comment># List almost all files (excluding . and ..)</comment>
 godarda@gd:~$ <mark>ls -A</mark>
 a.out	       gd.csv	  .keras    .python_history	       .theano
 .bash_history  GD.java	  .local    .r			       Videos
@@ -30,6 +33,7 @@ a.out	       gd.csv	  .keras    .python_history	       .theano
 gd.c	       Downloads  .pki	    .sudo_as_admin_successful
 GD.class       .gnupg	  Public    Templates
 
+<comment># List one file per line</comment>
 godarda@gd:~$ <mark>ls -1</mark>
 a.out
 gd.c
@@ -46,11 +50,12 @@ Public
 Templates
 Videos
 Weekdays
-godarda@gd:~$ 
+godarda@gd:~$
 </pre></span>
 
 <div class="terminalcard">Display the permissions of files/directories</div>
 <span><pre>
+<comment># List files in long format</comment>
 godarda@gd:~$ <mark>ls -l</mark>
 total 72
 -rwxr-xr-x 1 godarda godarda 13968 May 16  2019 a.out
@@ -72,6 +77,7 @@ drwxr-xr-x 2 godarda godarda  4096 Jun  4 20:38 Videos
 
 <div class="terminalcard">Display the inode (index number) of files/directories</div>
 <span><pre>
+<comment># List files with inode numbers in long format</comment>
 godarda@gd:~$ <mark>ls -li</mark>
 total 72
 3408466 -rwxr-xr-x 1 godarda godarda 13968 May 16  2019 a.out
@@ -90,6 +96,7 @@ total 72
 3407947 drwxr-xr-x 2 godarda godarda  4096 Jun  4 20:38 Videos
 3408355 -rw-rw-r-- 1 godarda godarda    84 May 31 11:23 Weekdays
 
+<comment># List files with inode numbers</comment>
 godarda@gd:~$ <mark>ls -i</mark>
 3408466 a.out	  3413037 GD.java    3407941 Downloads	3407942 Templates
 3408372 gd.c	  3419358 gd.py      3407945 Music	3407947 Videos
@@ -99,6 +106,7 @@ godarda@gd:~$ <mark>ls -i</mark>
 
 <div class="terminalcard">Explore the ls command with man page(s)</div>
 <span><pre>
+<comment># Display manual page for ls</comment>
 godarda@gd:~$ <mark>man ls</mark>
 
 LS(1)                            User Commands                           LS(1)
@@ -140,6 +148,7 @@ DESCRIPTION
 
 <div class="terminalcard">Explore the ls command with info page(s)</div>
 <span><pre>
+<comment># Display info page for ls</comment>
 godarda@gd:~$ <mark>info ls</mark>
 
 Next: dir invocation,  Up: Directory listing
@@ -162,6 +171,7 @@ if it had been invoked with a single argument of ‘.’.
 
 <div class="terminalcard">Explore the ls command with help option(s)</div>
 <span><pre>
+<comment># Display help message</comment>
 godarda@gd:~$ <mark>ls --help</mark>
 Usage: ls [OPTION]... [FILE]...
 List information about the FILEs (the current directory by default).

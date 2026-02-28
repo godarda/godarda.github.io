@@ -8,20 +8,26 @@ title: MongoDB Getting started with the mongosh
 godarda@gd:~$ <mark>mongosh</mark>
 ...
 
+<comment># Check DB Version</comment>
 test> <mark>db.version()</mark>
 7.0.9
 
+<comment># Check Shell Version</comment>
 test> <mark>version()</mark>
 2.2.5
-<hr>test> <mark>db.runCommand({whatsmyuri:1})</mark>
+<hr><comment># Run Command</comment>
+test> <mark>db.runCommand({whatsmyuri:1})</mark>
 { you: '127.0.0.1:57612', ok: 1 }
 
+<comment># Get Mongo Connection</comment>
 test> <mark>db.getMongo()</mark>
 mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.5
 
-<hr>test> <mark>"Hello World"</mark>
+<hr><comment># Print String</comment>
+test> <mark>"Hello World"</mark>
 Hello World
 
+<comment># Replace String</comment>
 test> <mark>"Hello World".replace("World","Learners")</mark>
 Hello Learners
 </pre></span>
@@ -34,21 +40,26 @@ test> <mark>a=1000</mark>
 test> <mark>b=30</mark>
 30
 
+<comment># Addition</comment>
 test> <mark>a+b</mark>
 1030
 
+<comment># Multiplication</comment>
 test> <mark>a*b</mark>
 30000
 
+<comment># Subtraction</comment>
 test> <mark>a-b</mark>
 970
 
+<comment># Subtraction</comment>
 test> <mark>b-a</mark>
 -970
 
 test> <mark>(a+b)*a</mark>
 1030000
 
+<comment># Division</comment>
 test> <mark>a/b</mark>
 33.333333333333336
 
@@ -56,27 +67,33 @@ test> <mark>a=1</mark>
 1
 test> <mark>b=0</mark>
 0
+<comment># Division by Zero</comment>
 test> <mark>a/b</mark>
 Infinity
 </pre></span>
 
 <div class="terminalcard">Date and Time Functions</div>
 <span><pre>
+<comment># Date as String</comment>
 test> <mark>Date()</mark>
 Thu Sep 28 2023 15:15:51 GMT+0530 (India Standard Time)
 
+<comment># Date Object</comment>
 test> <mark>new Date()</mark>
 ISODate("2023-09-28T09:46:17.052Z")
 
+<comment># Get Time</comment>
 test> <mark>new Date().getTime()</mark>
 1695894392513
 
+<comment># Get Timezone Offset</comment>
 test> <mark>new Date().getTimezoneOffset()</mark>
 -330
 </pre></span>
 
 <div class="terminalcard">db.hostInfo() Function</div>
 <span><pre>
+<comment># Host Info</comment>
 test> <mark>db.hostInfo()</mark>
 {
     system: {
@@ -100,9 +117,11 @@ test> <mark>db.hostInfo()</mark>
 <div class="terminalcard">Running Hosts and Services</div>
 <span><pre>
 godarda@gd:~$ <mark>su</mark>
-Password: 
+Password:
+<comment># Install nmap</comment>
 root@gd:/home/godarda# <mark>apt-get install nmap</mark>
 
+<comment># Scan localhost</comment>
 godarda@gd:~$ <mark>nmap -p- localhost</mark>
 Starting Nmap 7.93 ( https://nmap.org ) at 2023-09-28 15:18 IST
 Nmap scan report for localhost (127.0.0.1)

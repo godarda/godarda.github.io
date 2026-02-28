@@ -123,21 +123,3 @@ grandparent:
     title: C program to find the address of variables
   - url: c/pointers/gdlwgzw
     title: C program to print the length of a given array without using sizeof
-sidenav:
-- parent: C Programming
-  url: c
-  children:
-  - title: C Fundamentals
-    url: c/fundamentals
-  - title: C Control Statements
-    url: c/controls
-  - title: C Loops
-    url: c/loops
-  - title: C Strings
-    url: c/strings
-  - title: C Arrays
-    url: c/arrays
-  - title: C Functions
-    url: c/functions
-  - title: C Pointers
-    url: c/pointers

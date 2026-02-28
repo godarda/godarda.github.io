@@ -3,34 +3,42 @@ permalink: linux/commands/gdfyvze
 title: Linux commands to display the logged-in user and information
 ---
 
-<div class="titlecard">{{ page.title }}</div> 
+<div class="titlecard">{{ page.title }}</div>
 <div class="terminalcard">who command with options</div>
 <span><pre>
+<comment># Show who is logged on</comment>
 godarda@gd:~$ <mark>who</mark>
 godarda :0           2020-05-31 10:48 (:0)
 
+<comment># Print effective user ID</comment>
 godarda@gd:~$ <mark>whoami</mark>
 godarda
 
+<comment># Show all information</comment>
 godarda@gd:~$ <mark>who -a</mark>
            system boot  2020-05-31 16:15
            run-level 5  2020-05-31 10:46
 godarda ? :0           2020-05-31 10:48   ?          1859 (:0)
 
+<comment># Show time of last system boot</comment>
 godarda@gd:~$ <mark>who -b</mark>
          system boot  2020-05-31 16:15
 
+<comment># Print heading and list logged in users</comment>
 godarda@gd:~$ <mark>who -Hu</mark>
 NAME     LINE         TIME             IDLE          PID COMMENT
 godarda :0           2020-05-31 10:48   ?          1859 (:0)
 
+<comment># Count all login names and number of users</comment>
 godarda@gd:~$ <mark>who -q</mark>
 godarda
 # users=1
 
+<comment># Show user's message status</comment>
 godarda@gd:~$ <mark>who -T</mark>
 godarda ? :0           2020-05-31 10:48 (:0)
 
+<comment># Display help message</comment>
 godarda@gd:~$ <mark>who --help</mark>
 Usage: who [OPTION]... [ FILE | ARG1 ARG2 ]
 Print information about users who are currently logged in.
@@ -63,5 +71,5 @@ If ARG1 ARG2 given, -m presumed: 'am i' or 'mom likes' are usual.
 GNU coreutils online help: https://www.gnu.org/software/coreutils/
 Full documentation at: https://www.gnu.org/software/coreutils/who
 or available locally via: info '(coreutils) who invocation'
-godarda@gd:~$ 
+godarda@gd:~$
 </pre></span>

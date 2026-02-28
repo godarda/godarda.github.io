@@ -6,42 +6,153 @@
 -->
 
 {%- assign path = page.url | split: '/' -%}
+{%- if path[1] == nil -%}{%- assign home = true -%}{%- endif -%}
 <!-- Set global JS variables for search context and JSON URL -->
 <script>window.gd_path1 = '{{ path[1] | default: "search" }}';</script>
 <script>window.gd_search_url = '{{ "/search.json" | relative_url }}';</script>
 <!-- Load the main search script -->
 <script src="{{ site.search_js | relative_url }}"></script>
-<div>
+<style>
+    #GDSInput {
+        border-radius: 0px;
+        border-right: none;
+        border-left: none;
+        padding-left: 0px;
+        font-size: 15px;
+    }
+
+    #mic_icon {
+        border-top-right-radius: 50rem;
+        border-bottom-right-radius: 50rem;
+        border: 1px solid var(--color1);
+        border-left: none;
+        color: #999;
+        padding-left: 10px;
+        padding-right: 15px;
+        background-color: var(--bs-body-bg);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+
+    #search_icon {
+        border-top-left-radius: 50rem;
+        border-bottom-left-radius: 50rem;
+        border: 1px solid var(--color1);
+        border-right: none;
+        color: #999;
+        padding-left: 15px;
+        padding-right: 10px;
+        background-color: var(--bs-body-bg);
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+    }
+
+    #close_icon {
+        border: 1px solid var(--color1);
+        border-left: none;
+        border-right: none;
+        color: #999;
+        padding-left: 0px;
+        padding-right: 0px;
+        background-color: var(--bs-body-bg);
+        cursor: pointer;
+    }
+
+    #search-hints .btn-outline-secondary.active,
+    #search-hints .btn-outline-secondary:focus {
+        box-shadow: none;
+    }
+
+    .search-loading {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .search-loading::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 2px;
+        z-index: 5;
+        width: var(--search-progress, 0%);
+        transition: width 0.1s linear;
+    }
+
+    .search-loading.indeterminate::after {
+        width: 100%;
+        transform: translateX(-100%);
+        animation: loading-slide 1.5s infinite;
+    }
+
+    @keyframes loading-slide {
+        0% {
+            transform: translateX(-100%);
+        }
+
+        100% {
+            transform: translateX(100%);
+        }
+    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    .spin-animation { animation: spin 0.5s linear; }
+    .search-results-elevated::-webkit-scrollbar { width: 6px; }
+    .search-results-elevated::-webkit-scrollbar-track { background: transparent; }
+    .search-results-elevated::-webkit-scrollbar-thumb { background-color: rgba(150, 150, 150, 0.5); border-radius: 3px; }
+    .search-results-elevated { scrollbar-width: thin; scrollbar-color: rgba(150, 150, 150, 0.5) transparent; }
+
+    #search-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1010;
+        background-color: var(--search-backdrop-color);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        display: none;
+    }
+    .search-elevated {
+        position: relative;
+        z-index: 1020;
+    }
+    .search-results-elevated {
+        position: relative;
+        z-index: 1019;
+    }
+</style>
+<div class="container" {% if home %}style="min-height: 80vh; display: flex; flex-direction: column; justify-content: center;"{% endif %}>
+    <div id="search-backdrop"></div>
     <center>
         <div class="col-xs-12 col-sm-11 col-md-9 col-lg-7 col-xl-6 col-xxl-6" style="margin-bottom: 25px;">
-            {%- if path[1] == nil -%}
+            {%- if home -%}
             <!-- Display site title and tagline only on the home page -->
-            <h2 style="padding-top: 150px;" id="fc-{{ path[1] }}">GoDarda</h2>
+            <h2 id="fc-{{ path[1] }}">GoDarda</h2>
             <h6 style="padding-top: 5px; padding-bottom: 10px;">{{ site.tagline }}</h6>
             {%- endif -%}
 
             <!-- Main search input group -->
             <div id="GDS_input-{{ path[1] | default: 'search' }}" class="input-group input-group-lg">
-                <input id="GDSInput" class="form-control" type="text" tabindex="1"
-                    placeholder="{{ page.title }} (type to get the results)" style="border-right: 0;">
-                <!-- Voice search icon -->
-                <span id="mic_icon" class="input-group-text"
-                    style="cursor: pointer; background-color: var(--bs-body-bg); border-left: 0; border-right: 0; padding-left: 6px; padding-right: 6px;"><i class="bi bi-mic"></i></span>
                 <!-- Search icon (visible by default) -->
-                <span id="search_icon" class="input-group-text"
-                    style="background-color: var(--bs-body-bg); border-left: 0; padding-left: 6px; padding-right: 12px;"><i class="bi bi-search"></i></span>
+                <span id="search_icon" class="input-group-text"><i class="bi bi-search"></i></span>
+                <input id="GDSInput" class="form-control" type="text" tabindex="1"
+                    placeholder="{{ page.title }} (type to get the results)">
                 <!-- Close/clear icon (hidden by default) -->
-                <span id="close_icon" class="input-group-text"
-                    style="display: none; cursor: pointer; background-color: var(--bs-body-bg); border-left: 0; padding-left: 6px; padding-right: 12px;"><i class="bi bi-x-lg"></i></span>
+                <span id="close_icon" class="input-group-text" style="display: none;"><i class="bi bi-x-lg"></i></span>
+                <!-- Voice search icon -->
+                <span id="mic_icon" class="input-group-text"><i class="bi bi-mic"></i></span>
             </div>
             <!-- Container for search suggestions -->
-            <div id="suggestions-container" style="margin-top: 10px; text-align: left; display: none;">
-                <span class="text-muted" style="margin-right: 5px;"><i id="suggestion-light"
-                        class="bi bi-lightbulb"></i> Suggestions:</span>
-                <span id="search-suggestions"></span>
+            <div id="hints-container" style="margin-top: 10px; text-align: center; min-height: 35px;">
+                <span class="text-muted" style="margin-right: 5px;"><i id="hint-icon"
+                        class="bi bi-lightbulb"></i> Hints:</span>
+                <span id="search-hints"></span>
             </div>
             <!-- Container for displaying the number of search results -->
-            <div id="matchCount" class="text-muted small" style="margin-top:8px; display:none; text-align:left"></div>
+            <div id="matchCount" class="text-muted small" style="margin-top:8px; display:none; text-align:center"></div>
         </div>
 
         <!-- Main container where search results are rendered -->

@@ -113,21 +113,3 @@ grandparent:
     title: C++ program to demonstrate the use of math library functions
   - url: cpp/functions/gdvzzwn
     title: C++ program to print the current date and time
-sidenav:
-- parent: C++ Programming
-  url: cpp
-  children:
-  - title: C++ Fundamentals
-    url: cpp/fundamentals
-  - title: C++ Control Statements
-    url: cpp/controls
-  - title: C++ Loops
-    url: cpp/loops
-  - title: C++ Strings
-    url: cpp/strings
-  - title: C++ Arrays
-    url: cpp/arrays
-  - title: C++ Classes
-    url: cpp/classes
-  - title: C++ Functions
-    url: cpp/functions

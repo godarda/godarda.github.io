@@ -7,6 +7,7 @@ title: MySQL CREATE a DATABASE and TABLE
 <div class="terminalcard">Showing existing databases</div>
 <div class="infocard">The SHOW DATABASES statement used to retrieve the existing databases. This statement returns the databases that are currently in the MySQL server, and the results are useful to avoid the conflicts while creating a new database.</div>
 <span><pre>
+<comment># List all databases</comment>
 mysql> <mark>SHOW DATABASES;</mark>
 +--------------------+
 | Database           |
@@ -22,9 +23,11 @@ mysql> <mark>SHOW DATABASES;</mark>
 <div class="terminalcard">Creating and using a databasse</div>
 <div class="infocard">The CREATE DATABASE statement used to create a database where all the tables maintained in the DATABASE directory. The USE statement notifies MySQL to use the mentioned database for subsequent database and table operations.</div>
 <span><pre>
+<comment># Create a new database</comment>
 mysql> <mark>CREATE DATABASE DB;</mark>
 Query OK, 1 row affected (0.11 sec)
 
+<comment># List all databases</comment>
 mysql> <mark>SHOW DATABASES;</mark>
 +--------------------+
 | Database           |
@@ -37,6 +40,7 @@ mysql> <mark>SHOW DATABASES;</mark>
 +--------------------+
 5 rows in set (0.00 sec)
 
+<comment># Switch to the DB database</comment>
 mysql> <mark>USE DB;</mark>
 Database changed
 </pre></span>
@@ -44,6 +48,7 @@ Database changed
 <div class="terminalcard">Creating Table</div>
 <div class="infocard">The CREATE TABLE statement used to create a table, and the DESCRIBE statement used to obtain information about the table structure. Please consult the following syntax to create a database and table.</div>
 <span><pre>
+<comment># Create a new table</comment>
 mysql> <mark>CREATE TABLE holders(
     -> account_no BIGINT PRIMARY KEY,
     -> name VARCHAR(30) NOT NULL,
@@ -56,6 +61,7 @@ Query OK, 0 rows affected (0.52 sec)
 
 <div class="terminalcard">Show and describe a table</div>
 <span><pre>
+<comment># List all tables</comment>
 mysql> <mark>SHOW TABLES;</mark>
 +--------------+
 | Tables_in_DB |
@@ -64,6 +70,7 @@ mysql> <mark>SHOW TABLES;</mark>
 +--------------+
 1 row in set (0.01 sec)
 
+<comment># Show table structure</comment>
 mysql> <mark>DESCRIBE holders;</mark>
 mysql> <mark>DESC holders;</mark>
 +------------+-------------+------+-----+---------+-------+

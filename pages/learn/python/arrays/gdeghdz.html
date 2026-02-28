@@ -8,17 +8,20 @@ title: Python to print the transpose of a given matrix
 godarda@gd:~$ <mark>python3</mark>
 ...
 >>> <mark>from numpy import *</mark>
+<comment># Create a matrix</comment>
 >>> <mark>m = matrix("1 2 3; 4 5 6; 7 8 9")</mark>
 >>> <mark>m</mark>
 matrix([[1, 2, 3],
         [4, 5, 6],
         [7, 8, 9]])
 
+<comment># Transpose using getT()</comment>
 >>> <mark>m.getT()</mark>
 matrix([[1, 4, 7],
         [2, 5, 8],
         [3, 6, 9]])
 
+<comment># Transpose using transpose()</comment>
 >>> <mark>m.transpose()</mark>
 matrix([[1, 4, 7],
         [2, 5, 8],

@@ -7,6 +7,7 @@ title: MySQL DELETE Statement
 
 <div class="terminalcard">Retrieving the existing databases and table records</div>
 <span><pre>
+<comment># List all databases</comment>
 mysql> <mark>SHOW DATABASES;</mark>
 +--------------------+
 | Database           |
@@ -19,9 +20,11 @@ mysql> <mark>SHOW DATABASES;</mark>
 +--------------------+
 5 rows in set (0.00 sec)
 
+<comment># Switch to the DB database</comment>
 mysql> <mark>USE DB;</mark>
 Database changed
 
+<comment># List all tables</comment>
 mysql> <mark>SHOW TABLES;</mark>
 +--------------+
 | Tables_in_DB |
@@ -30,6 +33,7 @@ mysql> <mark>SHOW TABLES;</mark>
 +--------------+
 1 row in set (0.01 sec)
 
+<comment># Retrieve all records from holders</comment>
 mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 | account_no  | name          | city    | dob        | bank     | amount |
@@ -47,9 +51,11 @@ mysql> <mark>SELECT * FROM holders;</mark>
 
 <div class="terminalcard">Deleting the records</div>
 <span><pre>
+<comment># Delete records where city is NULL</comment>
 mysql> <mark>DELETE FROM holders WHERE city IS NULL;</mark>
 Query OK, 1 row affected (0.20 sec)
 
+<comment># Retrieve all records from holders</comment>
 mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 | account_no  | name          | city    | dob        | bank     | amount |
@@ -63,9 +69,11 @@ mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 6 rows in set (0.00 sec)
 
+<comment># Delete records where dob is before 1980-12-31</comment>
 mysql> <mark>DELETE FROM holders WHERE dob < '1980-12-31';</mark>
 Query OK, 2 rows affected (0.21 sec)
 
+<comment># Retrieve all records from holders</comment>
 mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 | account_no  | name          | city    | dob        | bank     | amount |
@@ -77,9 +85,11 @@ mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 4 rows in set (0.00 sec)
 
+<comment># Delete records where city contains 'nix'</comment>
 mysql> <mark>DELETE FROM holders WHERE city LIKE '%nix%';</mark>
 Query OK, 1 row affected (1.34 sec)
 
+<comment># Retrieve all records from holders</comment>
 mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+--------+------------+-------+--------+
 | account_no  | name          | city   | dob        | bank  | amount |
@@ -93,12 +103,15 @@ mysql> <mark>SELECT * FROM holders;</mark>
 
 <div class="terminalcard">Deleting all the records</div>
 <span><pre>
+<comment># Delete all records from holders</comment>
 mysql> <mark>DELETE FROM holders;</mark>
 Query OK, 3 rows affected (0.17 sec)
 
+<comment># Retrieve all records from holders</comment>
 mysql> <mark>SELECT * FROM holders;</mark>
 Empty set (0.00 sec)
 
+<comment># Show table structure</comment>
 mysql> <mark>DESC holders;</mark>
 +------------+-------------+------+-----+---------+-------+
 | Field      | Type        | Null | Key | Default | Extra |

@@ -7,6 +7,7 @@ title: MySQL UPDATE Clause
 
 <div class="terminalcard">Retrieving the existing databases and table records</div>
 <span><pre>
+<comment># List all databases</comment>
 mysql> <mark>SHOW DATABASES;</mark>
 +--------------------+
 | Database           |
@@ -19,9 +20,11 @@ mysql> <mark>SHOW DATABASES;</mark>
 +--------------------+
 5 rows in set (0.00 sec)
 
+<comment># Switch to the DB database</comment>
 mysql> <mark>USE DB;</mark>
 Database changed
 
+<comment># List all tables</comment>
 mysql> <mark>SHOW TABLES;</mark>
 +--------------+
 | Tables_in_DB |
@@ -30,6 +33,7 @@ mysql> <mark>SHOW TABLES;</mark>
 +--------------+
 1 row in set (0.01 sec)
 
+<comment># Retrieve all records from holders</comment>
 mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 | account_no  | name          | city    | dob        | bank     | amount |
@@ -47,10 +51,12 @@ mysql> <mark>SELECT * FROM holders;</mark>
 
 <div class="terminalcard">Updating the specific records</div>
 <span><pre>
+<comment># Update amount where city is Irvine</comment>
 mysql> <mark>UPDATE holders SET amount = amount + 2000 WHERE city = 'Irvine';</mark>
 Query OK, 2 rows affected (0.16 sec)
 Rows matched: 2  Changed: 2  Warnings: 0
 
+<comment># Retrieve all records from holders</comment>
 mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 | account_no  | name          | city    | dob        | bank     | amount |
@@ -65,10 +71,12 @@ mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 7 rows in set (0.00 sec)
 
+<comment># Update city for a specific account</comment>
 mysql> <mark>UPDATE holders SET city = 'New York' WHERE account_no = 25622348995;</mark>
 Query OK, 1 row affected (0.19 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
 
+<comment># Retrieve all records from holders</comment>
 mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+----------+------------+----------+--------+
 | account_no  | name          | city     | dob        | bank     | amount |
@@ -86,10 +94,12 @@ mysql> <mark>SELECT * FROM holders;</mark>
 
 <div class="terminalcard">Updating all the records</div>
 <span><pre>
+<comment># Update amount for all records</comment>
 mysql> <mark>UPDATE holders SET amount = amount + 2000;</mark>
 Query OK, 7 rows affected (0.19 sec)
 Rows matched: 7  Changed: 7  Warnings: 0
 
+<comment># Retrieve all records from holders</comment>
 mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+----------+------------+----------+--------+
 | account_no  | name          | city     | dob        | bank     | amount |

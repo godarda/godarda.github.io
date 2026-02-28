@@ -10,16 +10,19 @@ godarda@gd:~$ <mark>python3</mark>
 >>> <mark>set1 = {'Sunday','Monday','Tuesday','Sunday'}</mark>
 >>> <mark>set2 = {'Wednesday','Thursday','Friday','Friday','Saturday'}</mark>
 
+<comment># Display sets (duplicates removed)</comment>
 >>> <mark>set1</mark>
 {'Monday', 'Sunday', 'Tuesday'}
 >>> <mark>set2</mark>
 {'Wednesday', 'Friday', 'Thursday', 'Saturday'}
 
+<comment># Length of set</comment>
 >>> <mark>len(set1)</mark>
 3
 >>> <mark>len(set2)</mark>
 4
 
+<comment># Max and Min values</comment>
 >>> <mark>max(set1)</mark>
 'Tuesday'
 >>> <mark>min(set1)</mark>
@@ -96,6 +99,7 @@ KeyError: 'Friday'</error>
 >>> <mark>set2</mark>
 {'Wednesday', 'Thursday', 'Saturday'}
 
+<comment># Clear set</comment>
 >>> <mark>set2.clear()</mark>
 >>> <mark>set2</mark>
 set()
@@ -111,10 +115,11 @@ set()
 >>> <mark>set2 = {'Wednesday','Thursday','Friday','Friday','Saturday'}</mark>
 
 >>> <mark>set1</mark>
-{'Monday', 'Friday', 'Sunday'} 
+{'Monday', 'Friday', 'Sunday'}
 >>> <mark>set2</mark>
 {'Wednesday', 'Friday', 'Thursday', 'Saturday'}
- 
+
+<comment># Union of sets</comment>
 >>> <mark>set1.union(set2)</mark>
 {'Wednesday', 'Monday', 'Friday', 'Sunday', 'Thursday', 'Saturday'}
 
@@ -123,7 +128,13 @@ set()
 >>> <mark>set2</mark>
 {'Wednesday', 'Friday', 'Thursday', 'Saturday'}
 
+<comment># Intersection of sets</comment>
 >>> <mark>set1.intersection(set2)</mark>
+{'Friday'}
+
+<comment># Intersection update</comment>
+>>> <mark>set1.intersection_update(set2)</mark>
+>>> <mark>set1</mark>
 {'Friday'}
 </pre></span>
 
@@ -132,16 +143,19 @@ set()
 >>> <mark>set1 = {'Sunday','Monday','Friday','Sunday'}</mark>
 >>> <mark>set2 = {'Wednesday','Thursday','Friday','Friday','Saturday'}</mark>
 
+<comment># Difference of sets</comment>
 >>> <mark>set1.difference(set2)</mark>
 {'Monday', 'Sunday'}
 >>> <mark>set2.difference(set1)</mark>
 {'Thursday', 'Saturday', 'Wednesday'}
 
+<comment># Symmetric difference</comment>
 >>> <mark>set1.symmetric_difference(set2)</mark>
 {'Sunday', 'Monday', 'Saturday', 'Thursday', 'Wednesday'}
 >>> <mark>set1</mark>
 {'Monday', 'Sunday', 'Friday'}
 
+<comment># Symmetric difference update</comment>
 >>> <mark>set1.symmetric_difference_update(set2)</mark>
 >>> <mark>set1</mark>
 {'Sunday', 'Monday', 'Saturday', 'Thursday', 'Wednesday'}
@@ -149,19 +163,23 @@ set()
 
 <div class="terminalcard">Built-in set() function and operations</div>
 <span><pre>
+<comment># Create set with duplicates</comment>
 >>> <mark>s={1, 1, 2, 2, 1, 4, 3, 3, 6, 6, 5, 6}</mark>
 >>> <mark>s</mark>
 {1, 2, 3, 4, 5, 6}
 
+<comment># Indexing not supported</comment>
 >>> <mark>s[1:3]</mark>
 <error>Traceback (most recent call last):
   File "&lt;stdin>", line 1, in &lt;module>
 TypeError: 'set' object is not subscriptable</error>
 
+<comment># Update set</comment>
 >>> <mark>s.update([7, 4, 0, 2])</mark>
 >>> <mark>s</mark>
 {0, 1, 2, 3, 4, 5, 6, 7}
 
+<comment># Remove element</comment>
 >>> <mark>s.remove(10)</mark>
 <error>Traceback (most recent call last):
   File "&lt;stdin>", line 1, in &lt;module>
@@ -171,7 +189,8 @@ KeyError: 10</error>
 >>> <mark>s</mark>
 {0, 2, 3, 4, 5, 6, 7}
 
+<comment># Create set from string</comment>
 >>> <mark>s=set("Hello, World!")</mark>
 >>> <mark>s</mark>
-{'l', 'o', ' ', 'd', ',', '!', 'e', 'W', 'H', 'r'} 
+{'l', 'o', ' ', 'd', ',', '!', 'e', 'W', 'H', 'r'}
 </pre></span>

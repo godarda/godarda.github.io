@@ -7,43 +7,54 @@ title: Python String Slicing
 <span><pre>
 godarda@gd:~$ <mark>python3</mark>
 ...
+<comment># Create a string variable</comment>
 >>> <mark>gd="GoDarda"</mark>
 >>> <mark>gd</mark>
 'GoDarda'
 
+<comment># Get string length</comment>
 >>> <mark>len(gd)</mark>
-12
+7
 
+<comment># Access character at index 0</comment>
 >>> <mark>gd[0]</mark>
-'K'
+'G'
 
->>> <mark>gd[11]</mark>
-'w'
-<hr>>>> <mark>gd[0:12:1]</mark>
+<comment># Access character at index 6</comment>
+>>> <mark>gd[6]</mark>
+'a'
+<hr>
+<comment># Slice with start, stop, step</comment>
+>>> <mark>gd[0:7:1]</mark>
 'GoDarda'
 
->> <mark>gd[0:12:2]</mark>
-'KdnWno'
+>> <mark>gd[0:7:2]</mark>
+'GDra'
 
->>> <mark>gd[0:12:3]</mark>
-'KiWd'
+>>> <mark>gd[0:7:3]</mark>
+'Gaa'
 
->>> <mark>gd[::-1]</mark>    <comment>reverse the given string</comment>
-'wodniWgnidoK'
-<hr>>>> <mark>gd[::1]</mark>
+<comment># Reverse the string</comment>
+>>> <mark>gd[::-1]</mark>
+'adraDoG'
+<hr>
+<comment># Slice with step only</comment>
+>>> <mark>gd[::1]</mark>
 'GoDarda'
 
 >>> <mark>gd[::2]</mark>
-'KdnWno'
+'GDra'
 
 >>> <mark>gd[::3]</mark>
-'KiWd'
-<hr>>>> <mark>gd[1::]</mark>
-'odingWindow'
+'Gaa'
+<hr>
+<comment># Slice from index to end</comment>
+>>> <mark>gd[1::]</mark>
+'oDarda'
 
 >>> <mark>gd[2::]</mark>
-'dingWindow'
+'Darda'
 
 >>> <mark>gd[3::]</mark>
-'ingWindow'
+'arda'
 </pre></span>

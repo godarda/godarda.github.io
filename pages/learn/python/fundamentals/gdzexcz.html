@@ -7,29 +7,36 @@ title: Python Built-in Functions
 <span><pre>
 godarda@gd:~$ <mark>python3</mark>
 ...
+<comment># Check type of string</comment>
 >>> <mark>type('Hello, World!')</mark>
 &lt;class 'str'&gt;
 
+<comment># Check type of integer</comment>
 >>> <mark>type(7)</mark>
 &lt;class 'int'&gt;
 
+<comment># Check type of float</comment>
 >>> <mark>type(7.23)</mark>
 &lt;class 'float'&gt;
 
+<comment># Check type of boolean</comment>
 >>> <mark>type(True)</mark>
 &lt;class 'bool'&gt;
 
 >>> <mark>type(False)</mark>
 &lt;class 'bool'&gt;
 
+<comment># Check type of list</comment>
 >>> <mark>a=[1, 2, 3, 4, 5]</mark>
 >>> <mark>type(a)</mark>
 &lt;class 'list'&gt;
 
+<comment># Check type of integer (parentheses don't make a tuple)</comment>
 >>> <mark>a=(1)</mark>
 >>> <mark>type(a)</mark>
 &lt;class 'int'&gt;
 
+<comment># Check type of tuple</comment>
 >>> <mark>a=(1, 1.1)</mark>
 >>> <mark>type(a)</mark>
 &lt;class 'tuple'&gt;
@@ -37,33 +44,41 @@ godarda@gd:~$ <mark>python3</mark>
 
 <div class="terminalcard">range() function</div>
 <span><pre>
+<comment># Create a range object</comment>
 >>> <mark>range(10)</mark>
 range(0, 10)
 
+<comment># Convert range to list (0 to 9)</comment>
 >>> <mark>list(range(10))</mark>
 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
+<comment># Range with start and stop (5 to 9)</comment>
 >>> <mark>list(range(5,10))</mark>
 [5, 6, 7, 8, 9]
 
+<comment># Range with step 1</comment>
 >>> <mark>list(range(0,10,1))</mark>
 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
+<comment># Range with step 2</comment>
 >>> <mark>list(range(0,10,2))</mark>
 [0, 2, 4, 6, 8]
- 
+
+<comment># Range with step 3</comment>
 >>> <mark>list(range(0,10,3))</mark>
 [0, 3, 6, 9]
 </pre></span>
 
 <div class="terminalcard">chr() and ord() functions</div>
 <span><pre>
+<comment># Get character from ASCII code</comment>
 >>> <mark>chr(42)</mark>
 '*'
 
 >>> <mark>chr(65)</mark>
 'A'
 
+<comment># Get ASCII code of character</comment>
 >>> <mark>ord('A')</mark>
 65
 
@@ -74,42 +89,55 @@ range(0, 10)
 <div class="terminalcard">bytes() and bytearray() functions</div>
 <span><pre>
 >>> <mark>a=[1,2,3,4,5,6]</mark>
+<comment># Access first element</comment>
 >>> a[0]</mark>
 1
 
+<comment># Access last element</comment>
 >>> <mark>a[-1]</mark>
 6
 
+<comment># Modify last element</comment>
 >>> <mark>a[-1]=-1000</mark>
 >>> <mark>a</mark>
 [1, 2, 3, 4, 5, -1000]
 
+<comment># Try converting invalid list to bytes</comment>
 >>> <mark>exp=bytes(a)</mark>
 <error>Traceback (most recent call last):
   File "&lt;stdin>", line 1, in &lt;module>
 ValueError: bytes must be in range(0, 256)</error>
 
+<comment># Modify last element to valid byte</comment>
 >>> <mark>a[-1]=255</mark>
 >>> <mark>a</mark>
 [1, 2, 3, 4, 5, 255]
 
+<comment># Convert list to bytes</comment>
 >>> <mark>exp=bytes(a)</mark>
+<comment># Bytes are immutable (error)</comment>
 >>> <mark>exp[-1]=6</mark>
 <error>Traceback (most recent call last):
   File "&lt;stdin>", line 1, in &lt;module>
 TypeError: 'bytes' object does not support item assignment</error>
-<hr>>>> <mark>a=[1,2,3,4,5,6]</mark>
+<hr>
+>>> <mark>a=[1,2,3,4,5,6]</mark>
+<comment># Convert list to bytearray</comment>
 >>> <mark>exp=bytearray(a)</mark>
+<comment># Access first element</comment>
 >>> <mark>exp[0]</mark>
 1
 
+<comment># Access last element</comment>
 >>> <mark>exp[-1]</mark>
 6
 
+<comment># Bytearray is mutable</comment>
 >>> <mark>exp[-1]=255</mark>
 >>> <mark>exp</mark>
 bytearray(b'\x01\x02\x03\x04\x05\xff')
 
+<comment># Iterate over bytearray</comment>
 >>> <mark>for i in exp: print(i)
 ... </mark>
 1
@@ -118,5 +146,5 @@ bytearray(b'\x01\x02\x03\x04\x05\xff')
 4
 5
 255
->>> 
+>>>
 </pre></span>

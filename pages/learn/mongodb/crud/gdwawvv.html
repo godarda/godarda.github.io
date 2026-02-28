@@ -8,15 +8,18 @@ title: MongoDB Update a Document
 godarda@gd:~$ <mark>mongosh</mark>
 ...
 
+<comment># List all databases</comment>
 DB> <mark>show dbs</mark>
 DB       72.00 KiB
 admin    40.00 KiB
 config  108.00 KiB
 local    40.00 KiB
 
+<comment># List all collections</comment>
 DB> <mark>db.getCollectionNames()</mark>
 [ "holders" ]
 
+<comment># Update a single document</comment>
 DB> <mark>db.holders.updateOne(
 ... {city: 'Phoenix'},
 ... {$set: {currency: 'USD'}}
@@ -29,6 +32,7 @@ DB> <mark>db.holders.updateOne(
   upsertedCount: 0
 }
 
+<comment># Find all documents</comment>
 DB> <mark>db.holders.find()</mark>
 [
   {
@@ -77,6 +81,7 @@ DB> <mark>db.holders.find()</mark>
 
 <div class="terminalcard">Set a new field value (updating all matches)</div>
 <span><pre>
+<comment># Update multiple documents</comment>
 DB> <mark>db.holders.updateMany(
 ... {city: 'Irvine'},
 ... {$set: {currency: 'USD'}},
@@ -90,6 +95,7 @@ DB> <mark>db.holders.updateMany(
   upsertedCount: 0
 }
 
+<comment># Find all documents</comment>
 DB> <mark>db.holders.find()</mark>
 [
   {
@@ -140,6 +146,7 @@ DB> <mark>db.holders.find()</mark>
 
 <div class="terminalcard">Unset field value (updating all matches)</div>
 <span><pre>
+<comment># Unset field in documents</comment>
 DB> <mark>db.holders.updateMany(
 ... {account_no: {$lte: 2562348991}},
 ... {$unset: {currency:1}},
@@ -153,6 +160,7 @@ DB> <mark>db.holders.updateMany(
   upsertedCount: 0
 }
 
+<comment># Find all documents</comment>
 DB> <mark>db.holders.find()</mark>
 [
   {

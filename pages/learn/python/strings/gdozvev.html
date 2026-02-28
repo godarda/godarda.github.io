@@ -7,6 +7,7 @@ title: Python to check the given string is alphanumeric
 <span><pre>
 godarda@gd:~$ <mark>python3</mark>
 ...
+<comment># Check if all characters are alphabetic</comment>
 >>> <mark>s="Hello World!"</mark>
 >>> <mark>s.isalpha()</mark>
 False
@@ -22,6 +23,7 @@ True
 
 <div class="terminalcard">String isalnum() method</div>
 <span><pre>
+<comment># Check if all characters are alphanumeric</comment>
 >>> <mark>s="Hello World!"</mark>
 >>> <mark>s.isalnum()</mark>
 False
@@ -37,6 +39,7 @@ True
 
 <div class="terminalcard">String isdigit() method</div>
 <span><pre>
+<comment># Check if all characters are digits</comment>
 >>> <mark>s="13HelloWorld13"</mark>
 >>> <mark>s.isdigit()</mark>
 False
@@ -49,6 +52,7 @@ True
 >>> <mark>s.isdigit()</mark>
 False
 
+<comment># Check if unicode superscript is a digit</comment>
 >>> <mark>s="\u00B2"</mark>
 >>> <mark>s.isdigit()</mark>
 True
@@ -56,14 +60,17 @@ True
 
 <div class="terminalcard">String isdecimal() method</div>
 <span><pre>
+<comment># Check if unicode superscript is a decimal</comment>
 >>> <mark>s="\u00B2"</mark>    <comment># to the power 2</comment>
 >>> <mark>s.isdecimal()</mark>
 False
 
+<comment># Check if characters are decimals</comment>
 >>> <mark>s="0123456789"</mark>
 >>> <mark>s.isdecimal()</mark>
 True
 
+<comment># Check if unicode fraction is a decimal</comment>
 >>> <mark>s="\u00BD"</mark>    <comment># 1/2</comment>
 >>> <mark>s.isdecimal()</mark>
 False
@@ -71,18 +78,22 @@ False
 
 <div class="terminalcard">String isnumeric() method</div>
 <span><pre>
+<comment># Check if unicode superscript is numeric</comment>
 >>> <mark>s="\u00B2"</mark>
 >>> <mark>s.isnumeric()</mark>
 True
 
+<comment># Check if digits are numeric</comment>
 >>> <mark>s="0123456789"</mark>
 >>> <mark>s.isnumeric()</mark>
 True
 
+<comment># Check if string representation of fraction is numeric</comment>
 >>> <mark>s="1/2"</mark>
 >>> <mark>s.isnumeric()</mark>
 False
 
+<comment># Check if unicode fraction is numeric</comment>
 >>> <mark>s="\u00BD"</mark>    <comment># 1/2</comment>
 >>> <mark>s.isnumeric()</mark>
 True
@@ -90,6 +101,7 @@ True
 
 <div class="terminalcard">String isspace() method</div>
 <span><pre>
+<comment># Check if string contains only whitespace</comment>
 >>> <mark>s="Hello World!"</mark>
 >>> <mark>s.isspace()</mark>
 False
@@ -101,6 +113,7 @@ True
 
 <div class="terminalcard">String istitle() method</div>
 <span><pre>
+<comment># Check if string is title cased</comment>
 >>> <mark>s="Hello World!"</mark>
 >>> <mark>s.istitle()</mark>
 True
@@ -112,14 +125,17 @@ False
 
 <div class="terminalcard">String islower() and isupper() methods</div>
 <span><pre>
+<comment># Check if string is lowercase</comment>
 >>> <mark>s="hello world!"</mark>
 >>> <mark>s.islower()</mark>
 True
 
+<comment># Check if string is uppercase</comment>
 >>> <mark>s="HELLO, WORLD!"</mark>
 >>> <mark>s.isupper()</mark>
 True
 
+<comment># Check mixed case</comment>
 >>> <mark>s="Hello, World!"</mark>
 >>> <mark>s.islower()</mark>
 False

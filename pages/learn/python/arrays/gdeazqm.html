@@ -10,6 +10,7 @@ title: Python NumPy Multi-dimensional Arrays
 >>> <mark>arr</mark>
 array([ 1,  3,  5,  7,  9, 11, 13, 15, 17, 19, 21, 23])
 
+<comment># Reshaping the array</comment>
 >>> <mark>arr.reshape(3, 3)</mark>
 <error>Traceback (most recent call last):
   File "&lt;stdin>", line 1, in &lt;module>
@@ -25,7 +26,7 @@ array([[ 1,  3,  5],
        [ 7,  9, 11],
        [13, 15, 17],
        [19, 21, 23]])
-       
+
 >>> <mark>arr = arr.reshape(4, 3)</mark>
 >>> <mark>arr</mark>
 array([[ 1,  3,  5],
@@ -33,12 +34,14 @@ array([[ 1,  3,  5],
        [13, 15, 17],
        [19, 21, 23]])
 
+<comment># Accessing elements</comment>
 >>> <mark>arr[1]</mark>
 array([ 7,  9, 11])
 
 >>> <mark>arr[1, 1]</mark>
 9
 
+<comment># Array dimensions and shape</comment>
 >>> <mark>arr.ndim</mark>
 2
 
@@ -56,6 +59,7 @@ array([[ 1,  3,  5],
        [13, 15, 17],
        [19, 21, 23]])
 
+<comment># Slicing multi-dimensional arrays</comment>
 >>> <mark>arr[0,:]</mark>
 array([1, 3, 5])
 
@@ -77,14 +81,17 @@ array([[19, 21, 23],
        [13, 15, 17],
        [ 7,  9, 11],
        [ 1,  3,  5]])
-       
+
+<comment># Flattening the array</comment>
 >>> <mark>arr = arr.flatten()</mark>
 >>> <mark>arr</mark>
 array([ 1,  3,  5,  7,  9, 11, 13, 15, 17, 19, 21, 23])
 
 >>> <mark>arr.ndim</mark>
 1
-<hr>>>> <mark>zeros((4, 3), int)</mark>
+<hr>
+<comment># Creating matrices</comment>
+>>> <mark>zeros((4, 3), int)</mark>
 array([[0, 0, 0],
        [0, 0, 0],
        [0, 0, 0],

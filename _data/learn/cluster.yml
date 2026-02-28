@@ -1,4 +1,138 @@
 grandparent:
+- parent: Assembly Programming
+  subtree: ASM
+  url: cluster/asm
+  children:
+  - url: cluster/asm/gdvxqaz
+    title: ALP to print Hello World (32-bit)
+  - url: cluster/asm/gdbhdky
+    title: ALP to print Hello World using times directive (32-bit)
+  - url: cluster/asm/gdaeavq
+    title: ALP to print the stars using macro (32-bit)
+  - url: cluster/asm/gdbqeza
+    title: ALP to print the stars using times directive (32-bit)
+  - url: cluster/asm/gdzkizy
+    title: ALP to print the ASCII hex to hexadecimal number (32-bit)
+  - url: cluster/asm/gdqnwvz
+    title: ALP to print the given alphanumeric characters (32-bit)
+  - url: cluster/asm/gdvvdud
+    title: ALP to print the length of a given string (32-bit)
+  - url: cluster/asm/gdvakeg
+    title: ALP to identify the Central Processing Unit (CPU) type (32-bit)
+  - url: cluster/asm/gddmaee
+    title: ALP to print the values of registers in protected mode (32-bit)
+  - url: cluster/asm/gdatnak
+    title: ALP to print Hello World without using macro (64-bit)
+  - url: cluster/asm/gdsgpyl
+    title: ALP to print Hello World using macro (64-bit)
+  - url: cluster/asm/gdwagtz
+    title: ALP to print the given string using macro (64-bit)
+  - url: cluster/asm/gdcgame
+    title: ALP to print the length of a given string (64-bit)
+  - url: cluster/asm/gdwdwaz
+    title: ALP to reverse a given string (64-bit)
+  - url: cluster/asm/gdwzqyk
+    title: ALP to check whether a given string is palindrome (64-bit)
+  - url: cluster/asm/gdvyzpn
+    title: ALP menu-driven program to perform the string operations (64-bit)
+  - url: cluster/asm/gdvnyvi
+    title: ALP to convert the hexadecimal to BCD number (64-bit)
+  - url: cluster/asm/gdvthab
+    title: ALP to convert the Binary Coded Decimal (BCD) to hexadecimal number (64-bit)
+  - url: cluster/asm/gdgywzg
+    title: ALP to print the addition of N hexadecimal number (64-bit)
+- parent: F# Programming
+  subtree: FSharp
+  url: cluster/fsharp
+  children:
+  - url: cluster/fsharp/gdegsem
+    title: F# Hello World program
+  - url: cluster/fsharp/gdwpkzv
+    title: F# program to perform the arithmetic operations
+  - url: cluster/fsharp/gdewzhw
+    title: F# program to perform the boolean operations
+  - url: cluster/fsharp/gdxmvyy
+    title: F# program to calculate the area and circumference of a circle
+  - url: cluster/fsharp/gdzegce
+    title: F# program to check the given number is even or odd
+  - url: cluster/fsharp/gdhadwu
+    title: F# program to check the given number is positive or negative
+- parent: LISP Programming
+  subtree: LISP
+  url: cluster/lisp
+  children:
+  - url: cluster/lisp/gdggdyw
+    title: CLISP Command Line Interface (CLI)
+  - url: cluster/lisp/gdggadz
+    title: Maxima Command Line Interface (CLI)
+  - url: cluster/lisp/gdydkmw
+    title: LISP Hello World program
+  - url: cluster/lisp/gdvwwue
+    title: LISP program to perform the arithmetic operations
+  - url: cluster/lisp/gdmalgp
+    title: LISP program to perform the bitwise operations
+  - url: cluster/lisp/gdzedbg
+    title: LISP program to demonstrate the use of trigonometric functions
+  - url: cluster/lisp/gdvagvz
+    title: LISP program to demonstrate the use of numeric conversion functions
+  - url: cluster/lisp/gdiewcv
+    title: LISP program to calculate the square and cube of numbers
+  - url: cluster/lisp/gdddysa
+    title: LISP program to find the min and max of two numbers
+  - url: cluster/lisp/gdgoauk
+    title: LISP program to swap the given numbers
+  - url: cluster/lisp/gdkdena
+    title: LISP program for the positive-negative test of a given number
+  - url: cluster/lisp/gduepzv
+    title: LISP program for the arithmetic operations using the case statements
+  - url: cluster/lisp/gdzzzay
+    title: LISP program to print the even and odd numbers
+  - url: cluster/lisp/gdtrkke
+    title: LISP program to perform the string operations
+  - url: cluster/lisp/gdzygzo
+    title: LISP program to check whether a given string is a palindrome
+  - url: cluster/lisp/gduzcrz
+    title: LISP program to find the area of a circle using a function
+- parent: GNU Octave
+  subtree: Octave
+  url: cluster/octave
+  children:
+  - url: cluster/octave/gdfxzpq
+    title: Octave Arithmetic Operations
+  - url: cluster/octave/gdeezgn
+    title: Octave Logical Operations
+  - url: cluster/octave/gddggad
+    title: How to generate random numbers in Octave
+  - url: cluster/octave/gdgeiev
+    title: Octave Exponents and Logarithms
+  - url: cluster/octave/gdazzam
+    title: Octave Trigonometric Functions
+  - url: cluster/octave/gduaulz
+    title: Octave basic string operations
+  - url: cluster/octave/gdeceiw
+    title: Octave string indexing
+  - url: cluster/octave/gdawdqp
+    title: Octave strings comparison
+  - url: cluster/octave/gdcvyzd
+    title: Octave to check the given string is alphanumeric
+- parent: Ranorex
+  subtree: Ranorex
+  url: cluster/ranorex
+  children:
+  - url: cluster/ranorex/gdwryqa
+    title: How to open and close a browser using the Process class in Ranorex
+  - url: cluster/ranorex/gdgvzyw
+    title: How to get a browser details using the WebDocument class in Ranorex
+  - url: cluster/ranorex/gdewwzv
+    title: How to select the Chrome context menu option in Ranorex
+  - url: cluster/ranorex/gdfzznc
+    title: How to compare the Excel sheets using Interop objects in Ranorex
+  - url: cluster/ranorex/gdcewwv
+    title: How to create, insert and save the Excel in Ranorex
+  - url: cluster/ranorex/gdgyvzz
+    title: How to read the Excel specific row and column data in Ranorex
+  - url: cluster/ranorex/gdwwilz
+    title: How to format the Excel sheet in Ranorex
 - parent: VBScript
   subtree: VBScript
   url: cluster/vbscript
@@ -51,29 +185,4 @@ grandparent:
     title: VBScript to create an Excel in one folder and paste into another folder
   - url: cluster/vbscript/gdyueyg
     title: VBScript to read the data from an Excel sheet using ADODB object
-- parent: Ranorex
-  subtree: Ranorex
-  url: cluster/ranorex
-  children:
-  - url: cluster/ranorex/gdwryqa
-    title: How to open and close a browser using the Process class in Ranorex
-  - url: cluster/ranorex/gdgvzyw
-    title: How to get a browser details using the WebDocument class in Ranorex
-  - url: cluster/ranorex/gdewwzv
-    title: How to select the Chrome context menu option in Ranorex
-  - url: cluster/ranorex/gdfzznc
-    title: How to compare the Excel sheets using Interop objects in Ranorex
-  - url: cluster/ranorex/gdcewwv
-    title: How to create, insert and save the Excel in Ranorex
-  - url: cluster/ranorex/gdgyvzz
-    title: How to read the Excel specific row and column data in Ranorex
-  - url: cluster/ranorex/gdwwilz
-    title: How to format the Excel sheet in Ranorex
-sidenav:
-- parent: Cluster
-  url: cluster
-  children:
-  - title: VBScript
-    url: cluster/vbscript
-  - title: Ranorex
-    url: cluster/ranorex
+

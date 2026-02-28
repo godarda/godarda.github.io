@@ -18,15 +18,18 @@ array([[ 1,  3,  5],
        [ 7,  9, 11],
        [13, 15, 17]])
 
+<comment># Create a matrix from an array</comment>
 >>> <mark>m = matrix(arr)</mark>
 >>> <mark>m</mark>
 matrix([[ 1,  3,  5],
         [ 7,  9, 11],
         [13, 15, 17]])
 
+<comment># Get diagonal elements</comment>
 >>> <mark>diagonal(m)</mark>
 array([ 1,  9, 17])
 
+<comment># Aggregate functions</comment>
 >>> <mark>m.max()</mark>
 17
 
@@ -39,18 +42,21 @@ array([ 1,  9, 17])
 >>> <mark>m.mean()</mark>
 9.0
 
+<comment># Modifying matrix elements</comment>
 >>> <mark>m[0,0] = 99</mark>
 >>> <mark>m</mark>
 matrix([[99,  3,  5],
         [ 7,  9, 11],
         [13, 15, 17]])
 
+<comment># Sorting the matrix</comment>
 >>> <mark>m = sort(m)</mark>
 >>> <mark>m</mark>
 matrix([[ 3,  5, 99],
         [ 7,  9, 11],
         [13, 15, 17]])
 
+<comment># Transpose of the matrix</comment>
 >>> <mark>m.transpose()</mark>
 matrix([[ 3,  7, 13],
         [ 5,  9, 15],

@@ -157,25 +157,3 @@ grandparent:
     title: Python MongoDB to connect, create database, and collection
   - url: python/dbc/gdgulma
     title: Python MongoDB to insert and retrieve the documents from a collection
-sidenav:
-- parent: Python Programming
-  url: python
-  children:
-  - title: Python Fundamentals
-    url: python/fundamentals
-  - title: Python Control Statements
-    url: python/controls
-  - title: Python Loops
-    url: python/loops
-  - title: Python Strings
-    url: python/strings
-  - title: Python Data Structures
-    url: python/ds
-  - title: Python Arrays
-    url: python/arrays
-  - title: Python File Handling
-    url: python/fileio
-  - title: Python Networking
-    url: python/networking
-  - title: Python Database Connectivity
-    url: python/dbc

@@ -6,16 +6,16 @@ title: How to create multiline strings using Java text blocks
 <div class="codecard">{{ page.title }}</div>
 <div class="card">{{ site.javafile }}</div>
 <pre class="code">{%- highlight java -%}
-class GD 
+class GD
 {
     @SuppressWarnings("preview")
-    public static void main(String[] args) 
+    public static void main(String[] args)
     {
         String s1 = """
                 Welcome
                 to
                 GoDarda""";
-        String s2 = "Welcome\nto\nKodingWindow";
+        String s2 = "Welcome\nto\nGoDarda";
         System.out.println(s1);     //text block string
         System.out.println("———————————————————————");
         System.out.println(s2);     //normal string
@@ -38,5 +38,5 @@ GoDarda
 ———————————————————————
 true
 true
-godarda@gd:~$ 
+godarda@gd:~$
 </pre></span>

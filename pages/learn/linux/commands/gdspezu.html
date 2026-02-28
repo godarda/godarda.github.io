@@ -6,61 +6,80 @@ title: Linux commands to change the text cases and number systems
 <div class="titlecard">{{ page.title }}</div>
 <div class="terminalcard">conversion of text format</div>
 <span><pre>
+<comment># Convert to uppercase</comment>
 godarda@gd:~$ <mark>echo 'Hello, World!' | tr "[:lower:]" "[:upper:]"</mark>
 HELLO, WORLD!
 
+<comment># Convert to lowercase</comment>
 godarda@gd:~$ <mark>echo 'HeLLo, WORLD!' | tr "[:upper:]" "[:lower:]"</mark>
 hello, world!
-<hr>godarda@gd:~$ <mark>typeset -l lcase</mark>
+<hr>
+<comment># Declare lowercase variable</comment>
+godarda@gd:~$ <mark>typeset -l lcase</mark>
 godarda@gd:~$ <mark>lcase="Hello, World!"</mark>
 godarda@gd:~$ <mark>echo $lcase</mark>
 hello, world!
 
+<comment># Declare uppercase variable</comment>
 godarda@gd:~$ <mark>typeset -u ucase</mark>
 godarda@gd:~$ <mark>ucase="Hello, World!"</mark>
 godarda@gd:~$ <mark>echo $ucase</mark>
 HELLO, WORLD!
-<hr>godarda@gd:~$ <mark>s1="HeLLo, WORLD!"</mark>
+<hr>
+godarda@gd:~$ <mark>s1="HeLLo, WORLD!"</mark>
 godarda@gd:~$ <mark>echo $s1</mark>
 HeLLo, WORLD!
 
+<comment># Convert to lowercase</comment>
 godarda@gd:~$ <mark>echo ${s1,,}</mark>
 hello, world!
 
+<comment># Convert to uppercase</comment>
 godarda@gd:~$ <mark>echo ${s1^^}</mark>
 HELLO, WORLD!
 </pre></span>
 
 <div class="terminalcard">conversion of number systems</div>
 <span><pre>
+<comment># Convert decimal to octal</comment>
 godarda@gd:~$ <mark>printf "Octal of 65535 = %o\n" 65535</mark>
 Octal of 65535 = 177777
 
+<comment># Convert decimal to hexadecimal</comment>
 godarda@gd:~$ <mark>printf "Hexadecimal of 65535 = %x\n" 65535</mark>
 Hexadecimal of 65535 = ffff
 
+<comment># Convert decimal to float</comment>
 godarda@gd:~$ <mark>printf "Floating point in 65535 = %f\n" 65535</mark>
 Floating point in 65535 = 65535.000000
-<hr>godarda@gd:~$ <mark>D2B=({0..1}{0..1}{0..1}{0..1}{0..1}{0..1}{0..1}{0..1})</mark>
+<hr>
+<comment># Convert decimal to binary using array</comment>
+godarda@gd:~$ <mark>D2B=({0..1}{0..1}{0..1}{0..1}{0..1}{0..1}{0..1}{0..1})</mark>
 godarda@gd:~$ <mark>echo "Binary of 255 = "${D2B[255]}</mark>
 Binary of 255 = 11111111
 
+<comment># Convert hexadecimal to decimal</comment>
 godarda@gd:~$ <mark>echo "Decimal of 01AE = "$((0x01AE))</mark>
 Decimal of 01AE = 430
 
+<comment># Convert binary to decimal</comment>
 godarda@gd:~$ <mark>echo "Decimal of 11111111 = "$((2#11111111))</mark>
 Decimal of 11111111 = 255
 
+<comment># Convert decimal to binary using bc</comment>
 godarda@gd:~$ <mark>echo "obase=2;255" | bc</mark>
 11111111
 
+<comment># Convert binary to decimal using bc</comment>
 godarda@gd:~$ <mark>echo "ibase=2;11111111" | bc</mark>
 255
 
+<comment># Convert decimal to base 7 using bc</comment>
 godarda@gd:~$ <mark>echo "obase=7;255" | bc</mark>
 513
 
+<comment># Convert decimal to hexadecimal using bc</comment>
 godarda@gd:~$ <mark>echo "obase=16;255" | bc</mark>
 FF
-godarda@gd:~$ 
+godarda@gd:~$
 </pre></span>

@@ -7,6 +7,7 @@ title: MySQL ORDER BY Clause
 
 <div class="terminalcard">Filtering the records</div>
 <span><pre>
+<comment># List all databases</comment>
 mysql> <mark>SHOW DATABASES;</mark>
 +--------------------+
 | Database           |
@@ -19,9 +20,11 @@ mysql> <mark>SHOW DATABASES;</mark>
 +--------------------+
 5 rows in set (0.00 sec)
 
+<comment># Switch to the DB database</comment>
 mysql> <mark>USE DB;</mark>
 Database changed
 
+<comment># List all tables</comment>
 mysql> <mark>SHOW TABLES;</mark>
 +--------------+
 | Tables_in_DB |
@@ -30,6 +33,7 @@ mysql> <mark>SHOW TABLES;</mark>
 +--------------+
 1 row in set (0.01 sec)
 
+<comment># Retrieve records ordered by name</comment>
 mysql> <mark>SELECT * FROM holders ORDER BY name;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 | account_no  | name          | city    | dob        | bank     | amount |
@@ -44,6 +48,7 @@ mysql> <mark>SELECT * FROM holders ORDER BY name;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 7 rows in set (0.00 sec)
 
+<comment># Retrieve records ordered by amount</comment>
 mysql> <mark>SELECT * FROM holders ORDER BY amount;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 | account_no  | name          | city    | dob        | bank     | amount |
@@ -61,6 +66,7 @@ mysql> <mark>SELECT * FROM holders ORDER BY amount;</mark>
 
 <div class="terminalcard">Using DESC</div>
 <span><pre>
+<comment># Retrieve records ordered by name descending</comment>
 mysql> <mark>SELECT * FROM holders ORDER BY name DESC;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 | account_no  | name          | city    | dob        | bank     | amount |
@@ -75,6 +81,7 @@ mysql> <mark>SELECT * FROM holders ORDER BY name DESC;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 7 rows in set (0.00 sec)
 
+<comment># Retrieve records ordered by amount descending</comment>
 mysql> <mark>SELECT * FROM holders ORDER BY amount DESC;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 | account_no  | name          | city    | dob        | bank     | amount |
@@ -92,6 +99,7 @@ mysql> <mark>SELECT * FROM holders ORDER BY amount DESC;</mark>
 
 <div class="terminalcard">Using ASC and DESC</div>
 <span><pre>
+<comment># Retrieve records ordered by city descending and amount ascending</comment>
 mysql> <mark>SELECT * FROM holders ORDER BY city DESC, amount ASC;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 | account_no  | name          | city    | dob        | bank     | amount |
@@ -106,6 +114,7 @@ mysql> <mark>SELECT * FROM holders ORDER BY city DESC, amount ASC;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 7 rows in set (0.00 sec)
 
+<comment># Retrieve records ordered by name ascending and amount descending</comment>
 mysql> <mark>SELECT * FROM holders ORDER BY name ASC, amount DESC;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 | account_no  | name          | city    | dob        | bank     | amount |
@@ -120,6 +129,7 @@ mysql> <mark>SELECT * FROM holders ORDER BY name ASC, amount DESC;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 7 rows in set (0.00 sec)
 
+<comment># Retrieve records ordered by name ascending and bank descending</comment>
 mysql> <mark>SELECT * FROM holders ORDER BY name ASC, bank DESC;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 | account_no  | name          | city    | dob        | bank     | amount |

@@ -8,30 +8,38 @@ title: Python Tuples
 godarda@gd:~$ <mark>python3</mark>
 ...
 >>> <mark>days = ('Sunday','Monday','Tuesday','Wednesday','Thursday','Sunday','Friday','Saturday')</mark>
+<comment># Accessing elements using index</comment>
 >>> <mark>days[0]</mark>
 'Sunday'
 
+<comment># Slicing the tuple</comment>
 >>> <mark>days[0:3]</mark>
 ('Sunday', 'Monday', 'Tuesday', 'Wednesday')
 
+<comment># Negative indexing</comment>
 >>> <mark>days[-1]</mark>
 'Saturday'
 
+<comment># Sorting the tuple</comment>
 >>> <mark>sorted(days)</mark>
 ['Friday', 'Monday', 'Saturday', 'Sunday', 'Sunday', 'Thursday', 'Tuesday', 'Wednesday']
 
+<comment># Min and Max values</comment>
 >>> <mark>max(days)</mark>
 'Wednesday'
 
 >>> <mark>min(days)</mark>
 'Friday'
 
+<comment># Length of the tuple</comment>
 >>> <mark>len(days)</mark>
 8
 
+<comment># Count occurrences</comment>
 >>> <mark>days.count('Sunday')</mark>
 2
 
+<comment># Index of element</comment>
 >>> <mark>days.index('Sunday')</mark>
 0
 
@@ -41,6 +49,7 @@ godarda@gd:~$ <mark>python3</mark>
 >>> <mark>days.index('Sunday',1,)</mark>
 5
 
+<comment># Deleting the tuple</comment>
 >>> <mark>del days</mark>
 
 >>> <mark>days</mark>
@@ -103,10 +112,12 @@ AttributeError: 'tuple' object has no attribute 'append'</error>
 >>> <mark>KV['s1']</mark>
 'Linus'
 
+<comment># Convert dictionary keys to tuple</comment>
 >>> <mark>KVtuple = tuple(KV)</mark>
 >>> <mark>KVtuple</mark>
 ('s1', 's2', 's3')
 
+<comment># Convert dictionary items to tuple</comment>
 >>> <mark>KVtuple = tuple(KV.items())</mark>
 >>> <mark>KVtuple</mark>
 (('s1', 'Linus'), ('s2', 'Thomson'), ('s3', 'Edison'))

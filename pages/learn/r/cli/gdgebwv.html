@@ -7,55 +7,72 @@ title: R Strings
 <span><pre>
 godarda@gd:~$ <mark>R</mark>
 ...
+<comment># Create a string</comment>
 > <mark>"GoDarda"</mark>
 [1] "GoDarda"
 
+<comment># Print a string</comment>
 > <mark>print("Hello World")</mark>
 [1] "Hello World"
 
+<comment># Print a string</comment>
 > <mark>cat("Hello World\n")</mark>
 Hello World
 
+<comment># Length of vector</comment>
 > <mark>length("GoDarda")</mark>
 [1] 1
 
+<comment># Number of characters</comment>
 > <mark>nchar("GoDarda")</mark>
-[1] 12
+[1] 7
 
+<comment># Convert to uppercase</comment>
 > <mark>toupper("GoDarda")</mark>
-[1] "KODINGWINDOW"
+[1] "GODARDA"
 
-> <mark>tolower("KODINGWINDOW")</mark>
+<comment># Convert to lowercase</comment>
+> <mark>tolower("GODARDA")</mark>
 [1] "godarda"
 
-> <mark>substring("GoDarda",7,12)</mark>
-[1] "Window"
+<comment># Extract substring</comment>
+> <mark>substring("GoDarda",3,7)</mark>
+[1] "Darda"
 
-> <mark>paste("Koding","Window")</mark>
-[1] "Koding Window"
+<comment># Concatenate strings</comment>
+> <mark>paste("Go","Darda")</mark>
+[1] "Go Darda"
 
-> <mark>paste("Koding","Window",sep="")</mark>
+<comment># Concatenate strings with separator</comment>
+> <mark>paste("Go","Darda",sep="")</mark>
 [1] "GoDarda"
 
-> <mark>paste("Koding","Window",sep="@@@")</mark>
-[1] "Koding@@@Window"
+<comment># Concatenate strings with separator</comment>
+> <mark>paste("Go","Darda",sep="@@@")</mark>
+[1] "Go@@@Darda"
 <hr>
+<comment># Format string with width</comment>
 > <mark>format("GoDarda",width=20)</mark>
-[1] "GoDarda        "
+[1] "GoDarda             "
 
+<comment># Format string with justify</comment>
 > <mark>format("GoDarda",width=20,justify="")</mark>
-<error>Error in match.arg(justify) : 
+<error>Error in match.arg(justify) :
   'arg' should be one of “left”, “right”, “centre”, “none”</error>
 
+<comment># Format string with justify left</comment>
 > <mark>format("GoDarda",width=20,justify="l")</mark>
-[1] "GoDarda        "
+[1] "GoDarda             "
 
+<comment># Format string with justify center</comment>
 > <mark>format("GoDarda",width=20,justify="c")</mark>
-[1] "    GoDarda    "
+[1] "      GoDarda       "
 
+<comment># Format string with justify right</comment>
 > <mark>format("GoDarda",width=20,justify="r")</mark>
-[1] "        GoDarda"
+[1] "             GoDarda"
 
+<comment># Format string with justify none</comment>
 > <mark>format("GoDarda",width=20,justify="n")</mark>
 [1] "GoDarda"
 </pre></span>

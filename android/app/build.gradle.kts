@@ -3,6 +3,11 @@ plugins {
     alias(libs.plugins.kotlin.android)
 }
 
+// Set the base name for all generated artifacts
+base {
+    archivesName.set("godarda")
+}
+
 extensions.configure<com.android.build.api.dsl.ApplicationExtension> {
     namespace = "com.godarda"
     compileSdk = 36
@@ -12,6 +17,7 @@ extensions.configure<com.android.build.api.dsl.ApplicationExtension> {
         minSdk = 30
         targetSdk = 36
         versionCode = 1
+        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -26,9 +32,21 @@ extensions.configure<com.android.build.api.dsl.ApplicationExtension> {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+    }
+}
+
+// Fixed way to rename the output APK in AGP 9.0+
+androidComponents {
+    onVariants { variant ->
+        variant.outputs.forEach { output ->
+            if (output is com.android.build.api.variant.impl.VariantOutputImpl) {
+                output.outputFileName.set("godarda.apk")
+            }
+        }
     }
 }
 
@@ -40,6 +58,7 @@ kotlin {
 
 dependencies {
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)

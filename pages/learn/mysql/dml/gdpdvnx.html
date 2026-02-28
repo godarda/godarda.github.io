@@ -10,6 +10,7 @@ title: MySQL INSERT the VALUES into a TABLE
 
 <div class="terminalcard">Show databases and tables</div>
 <span><pre>
+<comment># List all databases</comment>
 mysql> <mark>SHOW DATABASES;</mark>
 +--------------------+
 | Database           |
@@ -22,11 +23,13 @@ mysql> <mark>SHOW DATABASES;</mark>
 +--------------------+
 5 rows in set (0.07 sec)
 
+<comment># Switch to the DB database</comment>
 mysql> <mark>USE DB;</mark>
 Reading table information for completion of table and column names
 You can turn off this feature to get a quicker startup with -A
 
 Database changed
+<comment># List all tables</comment>
 mysql> <mark>SHOW TABLES;</mark>
 +--------------+
 | Tables_in_DB |
@@ -39,7 +42,8 @@ mysql> <mark>SHOW TABLES;</mark>
 
 <div class="terminalcard">Database tables preview</div>
 <span><pre>
-mysql> <mark>DESC holders;</mark>                                                          
+<comment># Show table structure</comment>
+mysql> <mark>DESC holders;</mark>
 +------------+-------------+------+-----+---------+-------+
 | Field      | Type        | Null | Key | Default | Extra |
 +------------+-------------+------+-----+---------+-------+
@@ -52,6 +56,7 @@ mysql> <mark>DESC holders;</mark>
 +------------+-------------+------+-----+---------+-------+
 6 rows in set (0.00 sec)
 
+<comment># Show table structure</comment>
 mysql> <mark>DESC loans;</mark>
 +-------------+-------------+------+-----+---------+----------------+
 | Field       | Type        | Null | Key | Default | Extra          |
@@ -66,6 +71,7 @@ mysql> <mark>DESC loans;</mark>
 
 <div class="terminalcard">Inserting multiple records in a parent table</div>
 <span><pre>
+<comment># Insert multiple records into holders</comment>
 mysql> <mark>INSERT INTO holders(account_no, name, city, dob, bank, amount) VALUES
     -> (2562348989, 'James Moore', 'Phoenix', '1985-05-26', 'Barclays', 5000),
     -> (2562348990, 'Donald Taylor', 'Irvine', '1990-08-20', 'Citi', 7000),
@@ -77,6 +83,7 @@ mysql> <mark>INSERT INTO holders(account_no, name, city, dob, bank, amount) VALU
 Query OK, 6 rows affected (0.17 sec)
 Records: 6  Duplicates: 0  Warnings: 0
 
+<comment># Retrieve all records from holders</comment>
 mysql> <mark>SELECT * FROM holders;</mark>
 +------------+---------------+---------+------------+----------+--------+
 | account_no | name          | city    | dob        | bank     | amount |
@@ -93,9 +100,11 @@ mysql> <mark>SELECT * FROM holders;</mark>
 
 <div class="terminalcard">Inserting a single record in a parent table</div>
 <span><pre>
+<comment># Insert a single record into holders</comment>
 mysql> <mark>INSERT INTO holders VALUES(25622348995, 'James Moore', NULL, '1978-06-26', 'Citi', 97800);</mark>
 Query OK, 1 row affected (0.23 sec)
-                                            
+
+<comment># Retrieve all records from holders</comment>
 mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 | account_no  | name          | city    | dob        | bank     | amount |
@@ -113,6 +122,7 @@ mysql> <mark>SELECT * FROM holders;</mark>
 
 <div class="terminalcard">Inserting records in a child table</div>
 <span><pre>
+<comment># Insert multiple records into loans</comment>
 mysql> <mark>INSERT INTO loans(loan_type,loan_amount,account_no) VALUES
     -> ("Personal",5660,25622348989),
     -> ("Home",450000,25622348992),
@@ -121,6 +131,7 @@ mysql> <mark>INSERT INTO loans(loan_type,loan_amount,account_no) VALUES
 Query OK, 4 rows affected (0.20 sec)
 Records: 4  Duplicates: 0  Warnings: 0
 
+<comment># Retrieve all records from loans</comment>
 mysql> <mark>SELECT * FROM loans;</mark>
 +---------+-----------+-------------+-------------+
 | loan_id | loan_type | loan_amount | account_no  |

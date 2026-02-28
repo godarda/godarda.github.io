@@ -53,11 +53,3 @@ grandparent:
   - url: linux/bash/gdzzdvl
     title: Bash shell script to convert all uppercase letters in a file to lowercase
       letters
-sidenav:
-- parent: Linux Commands and Scripting
-  url: linux
-  children:
-  - title: Linux Commands
-    url: linux/commands
-  - title: Bash Shell Scripting
-    url: linux/bash

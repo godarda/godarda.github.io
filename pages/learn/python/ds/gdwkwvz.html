@@ -11,59 +11,72 @@ godarda@gd:~$ <mark>python3</mark>
 >>> <mark>KV</mark>
 {'s3': 'Edison', 's2': 'Thomson', 's1': 'Linus'}
 
+<comment># Accessing value using key</comment>
 >>> <mark>KV['s2']</mark>
 'Thomson'
 
+<comment># Length of dictionary</comment>
 >>> <mark>len(KV)</mark>
 3
 
+<comment># Max and Min keys</comment>
 >>> <mark>max(KV)</mark>
 's3'
 
 >>> <mark>min(KV)</mark>
 's1'
 
+<comment># Copying dictionary</comment>
 >>> <mark>Dict=KV.copy()</mark>
 >>> <mark>Dict</mark>
 {'s1': 'Linus', 's2': 'Thomson', 's3': 'Edison'}
 
+<comment># Adding/Modifying elements</comment>
 >>> <mark>KV['s4']='Neil'</mark>
 >>> <mark>KV</mark>
 {'s3': 'Edison', 's2': 'Thomson', 's1': 'Linus', 's4': 'Neil'}
 
+<comment># Updating dictionary</comment>
 >>> <mark>KV.update(s5='John')</mark>
 >>> <mark>KV</mark>
 {'s1': 'Linus', 's2': 'Thomson', 's3': 'Edison', 's4': 'Neil', 's5': 'John'}
 
+<comment># Deleting element</comment>
 >>> <mark>del KV['s5']</mark>
 >>> <mark>KV</mark>
 {'s1': 'Linus', 's2': 'Thomson', 's3': 'Edison', 's4': 'Neil'}
 
+<comment># Get keys</comment>
 >>> <mark>KV.keys()</mark>
 dict_keys(['s1', 's2', 's3', 's4'])
 
+<comment># Get values</comment>
 >>> <mark>KV.values()</mark>
 dict_values(['Linus', 'Thomson', 'Edison', 'Neil'])
 
+<comment># Get items (key-value pairs)</comment>
 >>> <mark>KV.items()</mark>
 dict_items([('s1', 'Linus'), ('s2', 'Thomson'), ('s3', 'Edison'), ('s4', 'Neil')])
 
+<comment># Iterating over items</comment>
 >>> <mark>for(a,b) in KV.items():</mark>
 ...     <mark>print(b,a)</mark>
-... 
+...
 Linus s1
 Thomson s2
 Edison s3
 Neil s4
 
+<comment># Iterating over values</comment>
 >>> <mark>for(a) in KV.values():</mark>
 ...     <mark>print(a)</mark>
-... 
+...
 Linus
 Thomson
 Edison
 Neil
 
+<comment># Clearing dictionary</comment>
 >>> <mark>KV.clear()</mark>
 >>> <mark>KV</mark>
 {}

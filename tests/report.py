@@ -15,7 +15,8 @@ Key Features:
 
 import subprocess
 import platform
-from utilities import STATS, CONFIG
+from stats import STATS
+from config import CONFIG
 
 
 def get_version(cmd: str) -> str:
@@ -49,7 +50,6 @@ def get_all_versions(os_name: str) -> dict:
         "Java": "javac --version",
         "Python": "python3 --version",
         "Ruby": "ruby -v",
-        "Gem": "gem -v",
         "Bundler": "bundler -v",
         "Jekyll": "bundle exec jekyll -v",
     }
@@ -60,18 +60,18 @@ def get_all_versions(os_name: str) -> dict:
 
 
 def print_report(
-    matched: int, unmatched: int, passed: int, failed: int
+    matched: int, unmatched: int, passed: int, failed: int, interrupted: bool = False
 ) -> None:
     """
     Generates and prints the final test execution report.
     """
-    total_urls = matched + unmatched
-    total_files = passed + failed
+    processed_urls = matched + unmatched
+    processed_files = passed + failed
 
     # --------------------------------------------------------------------------
     # Title Verification Report
     # --------------------------------------------------------------------------
-    if total_urls:
+    if STATS.total_urls > 0 or processed_urls > 0:
         print("\nTitle Verification Report")
         print("-" * 100)
 
@@ -81,17 +81,20 @@ def print_report(
             for url, title in STATS.unmatched_entries:
                 print(f"\033[91m{'Unmatched':<10}\033[0m {url:<32} {title}")
             print("-" * 100)
-        else:
-            print("All page titles matched expected values.")
 
-        print(f"{'Total URLs Checked':<25}: {total_urls}")
+        print(f"{'Total URLs':<25}: {STATS.total_urls}")
+        print(f"{'URLs Processed':<25}: {processed_urls}")
         print(f"{'Titles Matched':<25}: \033[92m{STATS.matched}\033[0m")
         print(f"{'Titles Unmatched':<25}: \033[91m{STATS.unmatched}\033[0m")
+        if processed_urls != STATS.total_urls:
+            print("\033[93mExecution interrupted. Partial verification completed.\033[0m")
+        elif processed_urls == STATS.matched:
+            print("\033[92mAll page titles matched successfully.\033[0m")
 
     # --------------------------------------------------------------------------
     # Code Compilation Report
     # --------------------------------------------------------------------------
-    if total_files:
+    if STATS.total_files > 0 or processed_files > 0:
         print("\nCode Compilation Report")
         print("-" * 100)
 
@@ -101,12 +104,15 @@ def print_report(
             for src in STATS.uncompiled_entries:
                 print(f"\033[91m{'Uncompiled':<10}\033[0m {src:<10}")
             print("-" * 100)
-        else:
-            print("All source files compiled successfully.")
 
-        print(f"{'Total Files Processed':<25}: {total_files}")
+        print(f"{'Total Files Expected':<25}: {STATS.total_files}")
+        print(f"{'Files Processed':<25}: {processed_files}")
         print(f"{'Compilation Passed':<25}: \033[92m{passed}\033[0m")
         print(f"{'Compilation Failed':<25}: \033[91m{failed}\033[0m")
+        if processed_files != STATS.total_files:
+            print("\033[93mExecution interrupted. Partial compilation completed.\033[0m")
+        elif processed_files == STATS.compiled:
+            print("\033[92mAll source files compiled successfully.\033[0m")
 
     # --------------------------------------------------------------------------
     # Toolchain Version Report

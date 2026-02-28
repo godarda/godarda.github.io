@@ -16,38 +16,50 @@ Key Features:
 import os
 import requests
 import unittest
-import sys
 import concurrent.futures
 import urllib.parse
 from requests.adapters import HTTPAdapter
 from bs4 import BeautifulSoup
-from utilities import CONFIG, STATS, load_expected_data
+from config import CONFIG
+from utilities import load_expected_data
+from stats import STATS
 
 
-def fetch_page_title(
-    session: requests.Session, base_url: str, relative_url: str, timeout: int = 5
-):
+def fetch_and_verify_title(
+    session: requests.Session, base_url: str, expected_entry: dict, timeout: int = 5
+) -> None:
     """
-    Fetches the page title for a given URL using a shared session.
-
-    Returns:
-        A tuple containing the relative URL and the extracted title string (or None if failed).
+    Fetches a page title, compares it with the expected title, and updates
+    the global STATS object. This function is designed to be run in a worker thread.
     """
-    # Construct the absolute URL.
+    if STATS.aborted:
+        return
+
+    relative_url = expected_entry["url"]
+    expected_title = expected_entry["title"]
     full_url = urllib.parse.urljoin(base_url, relative_url.lstrip("/"))
+
     try:
-        # Perform the GET request.
         resp = session.get(full_url, timeout=timeout)
         resp.raise_for_status()
-        # Parse the response content to extract the <title> tag.
         soup = BeautifulSoup(resp.text, "html.parser")
-        title_text = (
-            soup.title.string.strip() if soup.title and soup.title.string else None
-        )
-        return relative_url, title_text
-    except requests.RequestException:
+        actual_title = soup.title.string.strip() if soup.title and soup.title.string else ""
+
+        is_match = actual_title == expected_title
+        STATS.add_title_result(is_match, (relative_url, expected_title))
+
+    except requests.RequestException as e:
         # Treat network or HTTP errors as a missing title.
-        return relative_url, None
+        STATS.add_title_result(False, (relative_url, f"Error: {e}"), is_error=True)
+
+    # Abort early if a significant number of mismatches occur.
+    if STATS.unmatched > 10:
+        with STATS._lock:
+            if not STATS.aborted:
+                STATS.aborted = True
+                print("\n\033[91mToo many unmatched titles.\033[0m")
+                print("This likely indicates a server down, broken selectors, or bad input.")
+                os._exit(1)
 
 
 class TitleVerificationTest(unittest.TestCase):
@@ -58,9 +70,10 @@ class TitleVerificationTest(unittest.TestCase):
     def test_site_titles(self):
         # Load expected URL/title pairs from the data directory.
         expected_data = load_expected_data(CONFIG.DATAPATH)
+        STATS.total_urls = len(expected_data)
         if not expected_data:
             self.skipTest("No expected data loaded; skipping title verification test.")
-        
+
         # Initialize a session with connection pooling.
         session = requests.Session()
         session.headers.update({"User-Agent": "GoDarda-TitleChecker/1.0"})
@@ -69,36 +82,18 @@ class TitleVerificationTest(unittest.TestCase):
         session.mount("https://", adapter)
 
         # Calculate an appropriate thread pool size.
-        max_workers = min(20, (os.cpu_count() or 4) * 5)
+        max_workers = min(20, CONFIG.CPU_COUNT * 5)
 
-        futures = {}
-
-        # Execute requests concurrently.
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
-            for expected_entry in expected_data:
-                future = executor.submit(
-                    fetch_page_title, session, CONFIG.BASE_URL, expected_entry["url"], 5
-                )
-                futures[future] = expected_entry
+            # Create a list of arguments for each task.
+            tasks = [(session, CONFIG.BASE_URL, entry, 5) for entry in expected_data]
 
-            # Process results as they become available.
-            for future in concurrent.futures.as_completed(futures):
-                expected_entry = futures[future]
-                rel_url, actual_title = future.result()
-                
-                if actual_title == expected_entry["title"]:
-                    STATS.matched += 1
-                else:
-                    STATS.unmatched += 1
-                    STATS.unmatched_entries.append((rel_url, expected_entry["title"]))
-                    
-                    # Abort early if a significant number of mismatches occur.
-                    if STATS.unmatched > 10:
-                        print("\n\033[91mToo many unmatched titles.\033[0m")
-                        print(
-                            "This likely indicates a server down, broken selectors, or bad input."
-                        )
-                        sys.exit(1)
+            # Use a lambda to pass arguments to the worker function via map.
+            # list() consumes the iterator, ensuring all tasks complete before proceeding.
+            try:
+                list(executor.map(lambda p: fetch_and_verify_title(*p), tasks))
+            except Exception as exc:
+                # Exceptions from workers are raised here by executor.map.
+                print(f"A worker thread generated an exception: {exc}")
 
-            # Clean up session resources.
-            session.close()
+        session.close()

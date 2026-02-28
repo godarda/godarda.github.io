@@ -13,18 +13,24 @@ godarda@gd:~$ <mark>python3</mark>
   File "&lt;stdin>", line 1, in &lt;module>
 ValueError: bad typecode (must be b, B, u, h, H, i, I, l, L, q, Q, f or d)</error>
 
+<comment># Create integer array</comment>
 >>> <mark>arr = array("i", [40, 96, 24, 55, 78, -111])</mark>
 >>> <mark>arr</mark>
 array('i', [40, 96, 24, 55, 78, -111])
+
+<comment># Access element</comment>
 >>> <mark>arr[0]</mark>
 40
 
+<comment># Length of array</comment>
 >>> <mark>len(arr)</mark>
 6
 
+<comment># Maximum value</comment>
 >>> <mark>max(arr)</mark>
 96
 
+<comment># Minimum value</comment>
 >>> <mark>min(arr)</mark>
 -111
 
@@ -33,16 +39,20 @@ array('i', [40, 96, 24, 55, 78, -111])
 
 >>> <mark>arr.typecode</mark>
 'i'
-<hr>>>> <mark>for i in arr:</mark>
+<hr>
+<comment># Iterate over array</comment>
+>>> <mark>for i in arr:</mark>
 ...     <mark>print(i)</mark>
-... 
+...
 40
 96
 24
 55
 78
 -111
-<hr>>>> <mark>arr = array("u", ['x', 'y', 'z'])</mark>
+<hr>
+<comment># Create unicode character array</comment>
+>>> <mark>arr = array("u", ['x', 'y', 'z'])</mark>
 >>> <mark>arr</mark>
 array('u', 'xyz')
 
@@ -51,7 +61,7 @@ array('u', 'xyz')
 
 >>> <mark>for ch in arr:</mark>
 ...     <mark>print(ch)</mark>
-... 
+...
 x
 y
 z
@@ -64,13 +74,16 @@ z
 >>> <mark>arr1</mark>
 array('i', [40, 96, 24, 55, 78, -111])
 
+<comment># Append element</comment>
 >>> <mark>arr1.append(-111)</mark>
 >>> <mark>arr1</mark>
 array('i', [40, 96, 24, 55, 78, -111, -111])
 
+<comment># Count occurrences</comment>
 >>> <mark>arr1.count(-111)</mark>
 2
 
+<comment># Extend array</comment>
 >>> <mark>arr1.extend(arr2)</mark>
 <error>Traceback (most recent call last):
   File "&lt;stdin>", line 1, in &lt;module>
@@ -81,17 +94,21 @@ TypeError: can only extend with array of same kind</error>
 >>> <mark>arr1</mark>
 array('i', [40, 96, 24, 55, 78, -111, -111, 314, 984])
 
+<comment># Index of element</comment>
 >>> <mark>arr1.index(-111)</mark>
 5
 
+<comment># Insert element</comment>
 >>> <mark>arr2.insert(0, 169)</mark>
 >>> <mark>arr2</mark>
 array('i', [169, 314, 984])
 
+<comment># Reverse array</comment>
 >>> <mark>arr2.reverse()</mark>
 >>> <mark>arr2</mark>
 array('i', [984, 314, 169])
 
+<comment># Pop element</comment>
 >>> <mark>arr2.pop()</mark>
 169
 
@@ -104,10 +121,16 @@ array('i', [314])
 >>> <mark>arr1</mark>
 array('i', [40, 96, 24, 55, 78, -111, -111, 314, 984])
 
+<comment># Remove element</comment>
 >>> <mark>arr1.remove(-111)</mark>
 >>> <mark>arr1</mark>
 array('i', [40, 96, 24, 55, 78, -111, 314, 984])
 
+<comment># Convert to list</comment>
 >>> <mark>arr1.tolist()</mark>
 [40, 96, 24, 55, 78, -111, 314, 984]
+
+<comment># Buffer info (address, length)</comment>
+>>> <mark>arr1.buffer_info()</mark>
+(140543086364528, 8)
 </pre></span>

@@ -10,13 +10,13 @@ class GD
 {
     public static void main(String args[])
     {
-        String s = "KODINGWINDOW";
+        String s = "GoDarda";
         int length=0;
         for(char c: s.toCharArray())
         {
-            length++;    
-        } 
-        System.out.println("Length of a string is: "+length);  
+            length++;
+        }
+        System.out.println("Length of a string is: "+length);
     }
 }
 {%- endhighlight -%}</pre>
@@ -27,13 +27,13 @@ class GD
 {
     public static void main(String args[])
     {
-        String s = "KODINGWINDOW\0";
+        String s = "GoDarda\0";
         int length=0;
         for(int i=0; s.charAt(i)!='\0';i++)
         {
-            length++;    
-        } 
-        System.out.println("Length of a string is: "+length);  
+            length++;
+        }
+        System.out.println("Length of a string is: "+length);
     }
 }
 {%- endhighlight -%}</pre>
@@ -44,13 +44,13 @@ class GD
 {
     public static void main(String args[])
     {
-        String s1="KODINGWINDOW";
+        String s1="GoDarda";
         int length=0;
         for(String s2:s1.split(""))
         {
             length++;
         }
-        System.out.println("Length of a string is: "+length);  
+        System.out.println("Length of a string is: "+length);
     }
 }
 {%- endhighlight -%}</pre>
@@ -62,21 +62,21 @@ class GD
 {
     public static void main(String args[])
     {
-        String s="KODINGWINDOW";
+        String s="GoDarda";
         int length=0;
         CharacterIterator it=new StringCharacterIterator(s);
-        while(it.current()!=CharacterIterator.DONE) 
+        while(it.current()!=CharacterIterator.DONE)
         {
             it.next();
             length++;
         }
-        System.out.println("Length of a string is: "+length);  
+        System.out.println("Length of a string is: "+length);
     }
 }
 {%- endhighlight -%}</pre>
 <div class="card">{{ site.output }}</div>
 <span><pre>
 {{ site.runjava }}
-Length of a string is: 12
-godarda@gd:~$ 
+Length of a string is: 7
+godarda@gd:~$
 </pre></span>

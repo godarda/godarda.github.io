@@ -8,6 +8,7 @@ title: MongoDB user-defined function to find the factorial of a given number
 godarda@gd:~$ <mark>mongosh</mark>
 ...
 
+<comment># Define a function</comment>
 test> <mark>function factorial(n){
 ... if(n<=-1)
 ... return 'Enter Positive Integer';
@@ -16,21 +17,26 @@ test> <mark>function factorial(n){
 ... return n*factorial(n-1);
 ... }</mark>
 
+<comment># Factorial of 0</comment>
 test> <mark>factorial(0);</mark>
 1
 
+<comment># Factorial of 10</comment>
 test> <mark>factorial(10);</mark>
 3628800
 
+<comment># Factorial of -10</comment>
 test> <mark>factorial(-10);</mark>
 Enter Positive Integer
 
+<comment># Factorial of 170</comment>
 test> <mark>factorial(170);</mark>
 7.257415615307994e+306
 
+<comment># Factorial of 171</comment>
 test> <mark>factorial(171);</mark>
 Infinity
 
 test> <mark>quit()</mark>
-godarda@gd:~$ 
+godarda@gd:~$
 </pre></span>

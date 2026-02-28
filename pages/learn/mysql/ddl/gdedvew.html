@@ -7,6 +7,7 @@ title: MySQL DROP a TABLE and DATABASE
 <div class="terminalcard">Showing existing databases</div>
 <div class="infocard">The SHOW DATABASES statement used to retrieve the existing databases. This statement returns the databases that are currently in the MySQL server, and the results are useful to avoid the conflicts while creating a new database.</div>
 <span><pre>
+<comment># List all databases</comment>
 mysql> <mark>SHOW DATABASES;</mark>
 +--------------------+
 | Database           |
@@ -23,11 +24,13 @@ mysql> <mark>SHOW DATABASES;</mark>
 <div class="terminalcard">Use database and show tables</div>
 <div class="infocard">The USE statement notifies MySQL to use the mentioned database for subsequent database and table operations.</div>
 <span><pre>
+<comment># Switch to the DB database</comment>
 mysql> <mark>USE DB;</mark>
 Reading table information for completion of table and column names
 You can turn off this feature to get a quicker startup with -A
 
 Database changed
+<comment># List all tables</comment>
 mysql> <mark>SHOW TABLES;</mark>
 +--------------+
 | Tables_in_DB |
@@ -36,6 +39,7 @@ mysql> <mark>SHOW TABLES;</mark>
 +--------------+
 1 row in set (0.01 sec)
 
+<comment># Retrieve all records from holders</comment>
 mysql> <mark>SELECT * FROM holders;</mark>
 +-------------+---------------+---------+------------+----------+--------+
 | account_no  | name          | city    | dob        | bank     | amount |
@@ -53,6 +57,7 @@ mysql> <mark>SELECT * FROM holders;</mark>
 <div class="terminalcard">Drop table</div>
 <div class="infocard">The DESCRIBE statement used to obtain information about the table structure. The DROP TABLE statement drops a specified table and its data permanently.</div>
 <span><pre>
+<comment># Show table structure</comment>
 mysql> <mark>DESC holders;</mark>
 +------------+-------------+------+-----+---------+-------+
 | Field      | Type        | Null | Key | Default | Extra |
@@ -66,15 +71,19 @@ mysql> <mark>DESC holders;</mark>
 +------------+-------------+------+-----+---------+-------+
 6 rows in set (0.01 sec)
 
+<comment># Drop the holders table</comment>
 mysql> <mark>DROP TABLE holders;</mark>
 Query OK, 0 rows affected (0.42 sec)
 
+<comment># Attempt to drop non-existent table</comment>
 mysql> <mark>DROP TABLE holders;</mark>
 ERROR 1051 (42S02): Unknown table 'DB.holders'
 
+<comment># Drop table if it exists</comment>
 mysql> <mark>DROP TABLE IF EXISTS holders;</mark>
 Query OK, 0 rows affected, 1 warning (0.37 sec)
 
+<comment># Show warnings</comment>
 mysql> <mark>SHOW WARNINGS;</mark>
 +-------+------+----------------------------+
 | Level | Code | Message                    |
@@ -86,9 +95,11 @@ mysql> <mark>SHOW WARNINGS;</mark>
 
 <div class="terminalcard">Drop database</div>
 <span><pre>
+<comment># Drop the DB database</comment>
 mysql> <mark>DROP DATABASE DB;</mark>
 Query OK, 0 rows affected (0.20 sec)
 
+<comment># List all databases</comment>
 mysql> <mark>SHOW DATABASES;</mark>
 +--------------------+
 | Database           |

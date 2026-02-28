@@ -9,6 +9,8 @@ godarda@gd:~$ <mark>python3</mark>
 ...
 >>> <mark>from numpy import *</mark>
 >>> <mark>arr1 = array([1, 2, 3, 4, 5])</mark>
+
+<comment># Create a view of the array</comment>
 >>> <mark>arr2 = arr1.view()</mark>
 >>> <mark>arr1</mark>
 array([1, 2, 3, 4, 5])
@@ -23,6 +25,8 @@ array([100,   2,   3,   4,   5])
 >>> <mark>arr1</mark>
 array([100,   2,   3,   4,   5])
 <hr>>>> <mark>arr1 = array([1, 2, 3, 4, 5])</mark>
+
+<comment># Create a copy of the array</comment>
 >>> <mark>arr2 = arr1.copy()</mark>
 >>> <mark>arr1</mark>
 array([1, 2, 3, 4, 5])

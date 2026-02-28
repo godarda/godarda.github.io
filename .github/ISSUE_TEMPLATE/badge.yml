@@ -3,7 +3,7 @@ name: 🏅 Badge Request
 description: Request a contributor badge for your meaningful work on GoDarda
 labels: [recognition, needs-review]
 assignees:
-  - shubham-dev
+  - shubhamrdarda
 body:
   - type: markdown
     attributes:

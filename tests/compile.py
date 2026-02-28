@@ -18,7 +18,9 @@ import re
 import sys
 import subprocess
 from typing import Tuple, Optional
-from utilities import CONFIG, STATS, load_expected_data
+from utilities import load_expected_data
+from stats import STATS
+from config import CONFIG
 
 # Configuration mapping for supported file extensions.
 # Defines the comment syntax and the command to retrieve the compiler version.
@@ -185,52 +187,77 @@ def compile_snippets(source: str, destination: str) -> Optional[Tuple[int, int]]
     paths = load_expected_data(CONFIG.DATAPATH)
     original_cwd = os.getcwd()
 
+    tasks = []
+
+    # Discovery Phase: Identify files with compilable code
+    for entry in paths:
+        url = entry.get("url")
+        if not url or url.count("/") != 2:
+            continue
+
+        path = url.split("/")
+        # Create absolute output directory path
+        output_dir = os.path.join(destination_path, path[0], path[1])
+
+        source_file = None
+        # Locate the corresponding HTML file in the source directory structure.
+        for folder in os.listdir(source):
+            sub_source_dir = os.path.join(source, folder)
+            if os.path.isdir(sub_source_dir):
+                potential_path = os.path.join(sub_source_dir, url + ".html")
+                if os.path.exists(potential_path):
+                    source_file = potential_path
+                    break
+        if not source_file:
+            continue
+
+        with open(source_file, "r", encoding="utf-8") as f:
+            html_content = f.read()
+
+        for lang, ext in {
+                "c": ".c",
+                "cpp": ".cpp",
+                "java": ".java",
+                "nasm": ".asm",
+                "python": ".py",
+                "rust": ".rs",
+                "shell": ".sh"
+            }.items():
+
+            if f'<pre class="code">{{%- highlight {lang} -%}}' in html_content:
+                if ext == ".java" and path[0] != "java":
+                    continue
+                if ext == ".java" and path[1] == "jdbc":
+                    continue
+                if ext == ".cpp" and path[0] == "cg" and path[1] != "opengl":
+                    continue
+
+                compiler, args = get_compiler(ext, path)
+                tasks.append({
+                    "source_file": source_file,
+                    "html_content": html_content,
+                    "compiler": compiler,
+                    "output_dir": output_dir,
+                    "file_name": path[2],
+                    "extension": ext,
+                    "args": args
+                })
+                break
+
+    STATS.total_files = len(tasks)
+
     try:
         os.chdir(destination_path)
-        for entry in paths:
-            url = entry.get("url")
-            if not url or url.count("/") != 2:
-                continue
-
-            path = url.split("/")
-            # Create absolute output directory path
-            output_dir = os.path.join(destination_path, path[0], path[1])
-            os.makedirs(output_dir, exist_ok=True)
-
-            source_file = None
-            # Locate the corresponding HTML file in the source directory structure.
-            for folder in os.listdir(source):
-                sub_source_dir = os.path.join(source, folder)
-                if os.path.isdir(sub_source_dir):
-                    potential_path = os.path.join(sub_source_dir, url + ".html")
-                    if os.path.exists(potential_path):
-                        source_file = potential_path
-                        break
-            if not source_file:
-                continue
-            with open(source_file, "r", encoding="utf-8") as f:
-                html_content = f.read()
-
-            for lang, ext in {
-                    "c": ".c",
-                    "cpp": ".cpp",
-                    "java": ".java",
-                    "nasm": ".asm",
-                    "python": ".py",
-                    "rust": ".rs",
-                    "shell": ".sh"
-                }.items():
-
-                if f'<pre class="code">{{%- highlight {lang} -%}}' in html_content:
-                    if ext == ".java" and path[0] != "java":
-                        continue
-                    if ext == ".java" and path[1] == "jdbc":
-                        continue
-                    if ext == ".cpp" and path[0] == "cg" and path[1] != "opengl":
-                        continue
-                    compiler, args = get_compiler(ext, path)
-                    attempt_compilation(source_file, html_content, compiler, output_dir, path[2], ext, args)
-                    break
+        for task in tasks:
+            attempt_compilation(
+                task["source_file"],
+                task["html_content"],
+                task["compiler"],
+                task["output_dir"],
+                task["file_name"],
+                task["extension"],
+                task["args"]
+            )
     finally:
         os.chdir(original_cwd)
 
