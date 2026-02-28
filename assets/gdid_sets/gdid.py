@@ -53,6 +53,9 @@ GITIGNORE_FILE = REPO_ROOT / ".gitignore"
 INVALID_FILE = SETS_DIR / "invalid.txt"
 URL_YML_FILE = REPO_ROOT / "_data" / "url.yml"
 
+# Global cache for directory titles from index.html files
+PERMALINK_DIR_TITLES: Dict[str, str] = {}
+
 
 def load_gitignore() -> Set[str]:
     """
@@ -71,6 +74,24 @@ def load_gitignore() -> Set[str]:
     return ignored
 
 
+def build_permalink_dir_cache(files_to_scan: List[Path]):
+    """
+    Scans HTML files to build a cache of directory permalinks to their titles.
+    This is used to automatically create new categories in YAML navigation.
+    """
+    if PERMALINK_DIR_TITLES:  # Avoid rebuilding
+        return
+
+    for file in files_to_scan:
+        if file.name == 'index.html':
+            try:
+                permalink, title = extract_metadata_from_html(file)
+                if permalink.endswith('/'):
+                    PERMALINK_DIR_TITLES[permalink.strip('/')] = title
+            except (ValueError, FileNotFoundError):
+                continue
+
+
 def collect_all_files(ignored: Set[str]) -> Tuple[List[Path], List[Path]]:
     """
     Collects all relevant files in a single pass.
@@ -80,7 +101,7 @@ def collect_all_files(ignored: Set[str]) -> Tuple[List[Path], List[Path]]:
     other_files = []
     for root, dirs, files in os.walk(REPO_ROOT):
         # Prune ignored directories
-        dirs[:] = [d for d in dirs if d not in ignored and d != ".git" and d != "_site"]
+        dirs[:] = [d for d in dirs if d not in ignored and d not in {".git", "_site", ".vendor"}]
         for filename in files:
             if filename in ignored:
                 continue
@@ -189,17 +210,17 @@ def scan_url_yml(all_gdids: Set[str]) -> Dict[str, List[str]]:
 
 def scan_repo_files(all_gdids: Set[str], files_to_scan: List[Path]) -> Dict[str, List[str]]:
     """
-    Scans repository files for GDID usage and non-standard filenames.
-    This scan looks for GDIDs in filenames and identifies page files that
-    do not follow the standard `gdid.html` naming convention. Non-standard
-    filenames are written to `invalid.txt`.
+    Scans repository filenames for GDID usage and identifies non-standard filenames.
+    This scan specifically looks for GDIDs within filenames. It also identifies
+    page files that do not follow the standard `gdid.html` naming convention,
+    writing any findings to `invalid.txt`.
 
     Args:
         all_gdids: A set of all known GDIDs to validate against.
         files_to_scan: List of files to scan.
 
     Returns:
-        A dictionary mapping each found GDID to a list of file paths.
+        A dictionary mapping each found GDID to a list of file paths where it was found in the name.
     """
     usage = defaultdict(list)
     nonstandard_ids = []
@@ -297,6 +318,37 @@ class YamlManager:
         except (ValueError, FileNotFoundError):
             return
 
+        data_dir = REPO_ROOT / "_data"
+        yml_path = None
+        permalink_parts = permalink.lstrip('/').split('/')
+
+        try:
+            # Strategy 1: Use file path structure to find the YAML file.
+            # e.g., pages/learn/cpp/* + permalink cpp/* -> _data/learn/cpp.yml
+            rel_path_from_pages = html_path.relative_to(REPO_ROOT / "pages")
+            master_folder = rel_path_from_pages.parts[0]
+
+            if permalink_parts:
+                yaml_filename_key = permalink_parts[0]
+                master_data_dir = data_dir / master_folder
+                if master_data_dir.is_dir():
+                    candidates = list(master_data_dir.glob(f"**/{yaml_filename_key}.yml"))
+                    if candidates:
+                        yml_path = candidates[0]
+
+        except (ValueError, IndexError):
+            # Not in pages dir or path/permalink is malformed.
+            pass
+
+        # Strategy 2: Fallback to global search if structured search fails.
+        if not yml_path and permalink_parts:
+            candidates = list(data_dir.rglob(f"{permalink_parts[0]}.yml"))
+            if candidates:
+                yml_path = candidates[0]
+
+        if not yml_path:
+            return  # Could not determine YAML file.
+
         normalized_permalink = permalink.rstrip('.html')
         parts = normalized_permalink.lstrip('/').split('/')
 
@@ -304,25 +356,18 @@ class YamlManager:
             return
 
         section_key, subsection_key = parts[0], parts[1]
-        data_dir = REPO_ROOT / "_data"
 
         with self.lock:
-            yml_path = data_dir / f"{section_key}.yml"
-            if not yml_path.exists():
-                candidates = list(data_dir.rglob(f"{section_key}.yml"))
-                if candidates:
-                    yml_path = candidates[0]
-                else:
-                    return
-
             if yml_path not in self.cache:
                 try:
                     self.cache[yml_path] = yaml.load(yml_path.read_text(encoding='utf-8'), Loader=Loader) or {}
-                except Exception:
+                except (yaml.YAMLError, FileNotFoundError) as e:
                     self.cache[yml_path] = {}
+                    logger.error(f"Could not load or parse {yml_path.name}, skipping: {e}")
 
             data = self.cache[yml_path]
             updated = False
+            found_section = False
             for section in data.get('grandparent', []):
                 if not isinstance(section, dict):
                     continue
@@ -333,12 +378,35 @@ class YamlManager:
                         children = []
                         section['children'] = children
 
-                    if any(child.get('url', '').rstrip('.html') == normalized_permalink for child in children):
+                    if any(child.get('url', '').strip('/') == permalink.strip('/') for child in children):
                         continue
 
-                    children.append({'title': title, 'url': permalink})
+                    children.append({'url': permalink, 'title': title})
                     updated = True
+                    found_section = True
                     break
+
+            if not found_section:
+                parent_url = f"{section_key}/{subsection_key}"
+                parent_title = PERMALINK_DIR_TITLES.get(parent_url)
+
+                if parent_title:
+                    logger.info(f"Creating new category '{parent_title}' in {yml_path.name}...")
+                    new_section = {
+                        'parent': parent_title,
+                        'subtree': subsection_key.replace('-', ' ').title(),
+                        'url': parent_url,
+                        'children': [
+                            {'url': permalink, 'title': title}
+                        ]
+                    }
+
+                    if 'grandparent' not in data:
+                        data['grandparent'] = []
+                    data['grandparent'].append(new_section)
+                    updated = True
+                else:
+                    logger.warning(f"Could not find index.html with permalink '{parent_url}/' to create new category in {yml_path.name}")
 
             if updated:
                 self.dirty.add(yml_path)
@@ -440,6 +508,7 @@ def main():
     gdid_map = load_gdids_by_file()
     all_gdids = {gid for gid_list in gdid_map.values() for gid in gid_list}
     md_files, repo_files = collect_all_files(ignored)
+    build_permalink_dir_cache(repo_files)
 
     with ThreadPoolExecutor() as executor:
         future_md = executor.submit(scan_markdown_files, all_gdids, md_files)
