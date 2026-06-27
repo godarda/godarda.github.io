@@ -144,8 +144,13 @@ def install_python_dependencies():
         venv_python = venv_dir / "Scripts" / "python.exe"
         venv_playwright = venv_dir / "Scripts" / "playwright.exe"
     else:
-        venv_python = venv_dir / "bin" / "python"
+        venv_python = venv_dir / "bin" / "python3"
+        if not venv_python.exists():
+            venv_python = venv_dir / "bin" / "python"
         venv_playwright = venv_dir / "bin" / "playwright"
+
+    if not venv_python.exists():
+        raise FileNotFoundError(f"Virtual environment Python executable not found at {venv_python}")
 
     run_command(f'"{venv_python}" -m pip install --upgrade pip')
     pip_cmd = f'"{venv_python}" -m pip install --upgrade -r tests/requirements.txt'
@@ -252,8 +257,18 @@ def install_ubuntu_packages():
         # Install Julia via snap if not present
         subprocess.run("sudo snap install julia --classic", shell=True, check=True)
 
-    # Install apt packages (best-effort). Use --ignore-missing to reduce failures.
-    subprocess.run(f"sudo apt-get -y --ignore-missing install {' '.join(packages)}", shell=True, check=True)
+    # Attempt to install all packages in bulk; if any fail, install them individually.
+    bulk_cmd = f"sudo apt-get -y --ignore-missing install {' '.join(packages)}"
+    bulk = subprocess.run(bulk_cmd, shell=True)
+    if bulk.returncode != 0:
+        for pkg in packages:
+            try:
+                print(f"Installing package: {pkg}")
+                res = subprocess.run(f"sudo apt-get -y --ignore-missing install {pkg}", shell=True)
+                if res.returncode != 0:
+                    print(f"Warning: installation of package '{pkg}' failed (exit {res.returncode}). Continuing.")
+            except Exception as e:
+                print(f"Exception while installing '{pkg}': {e}. Continuing.")
 
 
 def install_macos_packages():
