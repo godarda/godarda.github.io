@@ -10,14 +10,14 @@ base {
 
 extensions.configure<com.android.build.api.dsl.ApplicationExtension> {
     namespace = "com.godarda"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.godarda"
         minSdk = 30
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 1
-        versionName = "1.0"
+        versionName = "2026.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
