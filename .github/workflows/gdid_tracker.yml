@@ -22,7 +22,7 @@ jobs:
     steps:
       # Checkout the repository content
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       # Execute a dummy check to verify workflow initiation
       - name: Run dummy check
@@ -41,13 +41,13 @@ jobs:
     steps:
       # Checkout the repository content with full history
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       # Set up the Python 3.13 environment
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: '3.13'
 
