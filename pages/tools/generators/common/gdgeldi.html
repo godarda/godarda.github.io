@@ -5,7 +5,7 @@ description: "Generate a random number of a specified length."
 ---
 
 {% capture tools_inputs %}
-<div class="input-group mb-2">
+<div class="input-group mb-3">
     <span class="input-group-text" style="min-width: 60px;">Length</span>
     <input type="number" id="inputLength" class="form-control" placeholder="e.g., 10" value="10" max="2500">
 </div>
@@ -40,7 +40,7 @@ description: "Generate a random number of a specified length."
             const lengthText = values.inputLength;
             const resEl = stats.randomNumber.valElement;
 
-            if (resEl) resEl.classList.remove('text-danger');
+            if (resEl) resEl.classList.remove('fg-danger');
 
             if (lengthText.trim() === '') {
                 return { randomNumber: '-' };
@@ -49,7 +49,7 @@ description: "Generate a random number of a specified length."
             const length = parseInt(lengthText, 10);
 
             if (isNaN(length) || length <= 0 || length > 2500) {
-                if (resEl) resEl.classList.add('text-danger');
+                if (resEl) resEl.classList.add('fg-danger');
                 if (length <= 0) {
                     return { randomNumber: '-' };
                 }
@@ -85,7 +85,7 @@ description: "Generate a random number of a specified length."
     if (btnClear) {
         const col = document.createElement('div');
         col.className = 'col-auto';
-        col.innerHTML = '<button id="btnRegenerate" class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-repeat"></i> Regenerate</button>';
+        col.innerHTML = '<button id="btnRegenerate" class="btn-outline theme-secondary btn-sm"><i class="bi bi-arrow-repeat"></i> Regenerate</button>';
 
         btnClear.parentNode.after(col);
 

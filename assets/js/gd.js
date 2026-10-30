@@ -84,7 +84,7 @@ const handleTouchMove = (evt) => {
 
 const handleTouchEnd = () => {
     // Prevent swipe actions if a modal is open
-    if ($('body').hasClass('modal-open')) {
+    if ($('html').hasClass('dialog-open')) {
         xDown = null;
         yDown = null;
         return;
@@ -129,8 +129,14 @@ $(() => {
     // Ensure input fields and textareas still show the text cursor for editing.
     $('input, textarea').css('cursor', 'text');
 
+    $(document).on('keydown', '[data-bs-toggle="collapse"][role="button"]', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        event.currentTarget.click();
+    });
+
     // Remove focus from buttons after click to prevent persistent hover/focus states
-    $(document).on('click', '.btn, a.card, .wvnav-item, #global-action-pill a', (event) => {
+    $(document).on('click', '.btn-solid, .btn-outline, .btn-subtle, .btn-text, .btn-styled, .btn-link, a.card, .wvnav-item, #global-action-pill a', (event) => {
         const $btn = $(event.currentTarget);
         setTimeout(() => $btn.blur(), 50);
     });
@@ -171,10 +177,12 @@ $(() => {
     // --------------------------------------------------------------------------
     // Scroll-based Behaviors
     // --------------------------------------------------------------------------
+    const backToTopDuration = 600;
+
     // Smooth scroll to top
     $('.back-to-top').on('click', (e) => {
         e.preventDefault();
-        $('html, body').animate({ scrollTop: 0 }, 100);
+        $('html, body').animate({ scrollTop: 0 }, backToTopDuration);
     });
 
     // Scroll active sidebar item into view on page load.
@@ -186,7 +194,7 @@ $(() => {
 
     const $leftSidebar = $('.leftsidebar-collapse');
     const $rightSidebar = $('.rightsidebar-collapse');
-    const $staticBackdrop = $('#staticBackdrop');
+    const staticBackdrop = document.getElementById('staticBackdrop');
     const $globalPill = $("#global-action-pill");
     const $pillShare = $("#pill-share-button");
     const $pillTop = $("#pill-back-to-top");
@@ -210,7 +218,7 @@ $(() => {
     $pillTop.on('click', (e) => {
         e.preventDefault();
         isScrollingToTop = true;
-        $('html, body').animate({ scrollTop: 0 }, 100).promise().then(() => { isScrollingToTop = false; });
+        $('html, body').animate({ scrollTop: 0 }, backToTopDuration).promise().then(() => { isScrollingToTop = false; });
     });
 
     let ticking = false;
@@ -225,8 +233,8 @@ $(() => {
         if (scrollPercent >= 50 && !isScrollingToTop) {
             const currentDate = new Date().toLocaleDateString();
             const lastShownDate = localStorage.getItem('status');
-            if (lastShownDate !== currentDate) {
-                $staticBackdrop.modal('show');
+            if (lastShownDate !== currentDate && staticBackdrop) {
+                window.bootstrap.Dialog.getOrCreateInstance(staticBackdrop).show();
                 localStorage.setItem('status', currentDate);
             }
         }
@@ -291,7 +299,7 @@ $(() => {
         const svgOfActiveBtn = $btnToActive.find('i').attr('class');
         $('[data-bs-theme-value]').removeClass('active').attr('aria-pressed', 'false');
         $btnToActive.addClass('active').attr('aria-pressed', 'true');
-        $activeThemeIcon.attr('class', svgOfActiveBtn);
+        $activeThemeIcon.attr('class', svgOfActiveBtn.replace(/\s+me-3\b/, ''));
         const themeSwitcherLabel = `${$themeSwitcherText.text()} (${$btnToActive.data('bs-theme-value')})`;
         $themeSwitcher.attr('aria-label', themeSwitcherLabel);
 
@@ -301,11 +309,11 @@ $(() => {
     };
 
     // Initialize theme on DOM load.
-    const storedTheme = getStoredTheme() || 'auto';
+    const storedTheme = getStoredTheme() || 'light';
     showActiveTheme(storedTheme);
 
     // Handle theme switching from the dropdown menu
-    $('.dropdown-menu [data-bs-theme-value]').on('click', (event) => {
+    $('.menu [data-bs-theme-value]').on('click', (event) => {
         event.preventDefault();
         const theme = $(event.currentTarget).data('bs-theme-value');
         setStoredTheme(theme);
@@ -388,23 +396,23 @@ $(() => {
     // --------------------------------------------------------------------------
     // Modal Back Button Support
     // --------------------------------------------------------------------------
-    $(document).on('shown.bs.modal', '.modal', () => {
-        history.pushState({ modalOpen: true }, '', window.location.href);
+    $(document).on('shown.bs.dialog', '.dialog', () => {
+        history.pushState({ dialogOpen: true }, '', window.location.href);
     });
 
-    $(document).on('hidden.bs.modal', '.modal', function() {
+    $(document).on('hidden.bs.dialog', '.dialog', function() {
         if ($(this).data('is-popstate')) {
             $(this).removeData('is-popstate');
-        } else if (history.state && history.state.modalOpen) {
+        } else if (history.state && history.state.dialogOpen) {
             history.back();
         }
     });
 
     $(window).on('popstate', () => {
-        const $openModal = $('.modal.show');
-        if ($openModal.length) {
-            $openModal.data('is-popstate', true);
-            $openModal.modal('hide');
+        const $openDialog = $('.dialog[open]');
+        if ($openDialog.length) {
+            $openDialog.data('is-popstate', true);
+            window.bootstrap.Dialog.getOrCreateInstance($openDialog[0]).hide();
         }
     });
 });

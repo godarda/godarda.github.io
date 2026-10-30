@@ -23,12 +23,29 @@ import subprocess
 import sys
 import socket
 import shutil
+import importlib.util
 from pathlib import Path
-from config import CONFIG
 
 
 REPO_NAME = "godarda.github.io"
 PERFORM_FULL_SETUP = any(arg.lower() in ("full", "-full", "--full") for arg in sys.argv[1:])
+MAX_TESTED_PYTHON = (3, 15)
+
+if sys.version_info[:2] > MAX_TESTED_PYTHON:
+    current_version = f"{sys.version_info.major}.{sys.version_info.minor}"
+    tested_version = ".".join(map(str, MAX_TESTED_PYTHON))
+    print(
+        f"Python {current_version} is newer than the project's tested Python "
+        f"{tested_version}. Install Python {tested_version} and run "
+        f"'py -{tested_version} tests\\setup.py --full' on Windows."
+    )
+    sys.exit(1)
+
+if importlib.util.find_spec("psutil") is None:
+    print("Installing setup prerequisite: psutil...")
+    subprocess.run([sys.executable, "-m", "pip", "install", "psutil"], check=True)
+
+from config import CONFIG
 
 
 def is_internet_available():
@@ -126,6 +143,15 @@ def install_python_dependencies():
     venv_dir = Path.cwd() / ".venv"
     python_exe = sys.executable
 
+    if CONFIG.SYSTEM_NAME == "Windows":
+        venv_python = venv_dir / "Scripts" / "python.exe"
+        venv_playwright = venv_dir / "Scripts" / "playwright.exe"
+    else:
+        venv_python = venv_dir / "bin" / "python3"
+        if not venv_python.exists():
+            venv_python = venv_dir / "bin" / "python"
+        venv_playwright = venv_dir / "bin" / "playwright"
+
     if CONFIG.SYSTEM_NAME == "Darwin":
         # On macOS, ensure we use the Homebrew-installed Python for the venv
         try:
@@ -136,18 +162,13 @@ def install_python_dependencies():
         except (subprocess.CalledProcessError, FileNotFoundError):
             print("Warning: Homebrew not found or 'brew --prefix' failed. Using current python for venv.")
 
-    if not venv_dir.exists():
+    if (
+        not venv_dir.exists()
+        or not (venv_dir / "pyvenv.cfg").is_file()
+        or not venv_python.is_file()
+    ):
         print(f"Creating virtual environment in {venv_dir} using {python_exe}...")
         subprocess.run([python_exe, "-m", "venv", str(venv_dir)], check=True)
-
-    if CONFIG.SYSTEM_NAME == "Windows":
-        venv_python = venv_dir / "Scripts" / "python.exe"
-        venv_playwright = venv_dir / "Scripts" / "playwright.exe"
-    else:
-        venv_python = venv_dir / "bin" / "python3"
-        if not venv_python.exists():
-            venv_python = venv_dir / "bin" / "python"
-        venv_playwright = venv_dir / "bin" / "playwright"
 
     if not venv_python.exists():
         raise FileNotFoundError(f"Virtual environment Python executable not found at {venv_python}")

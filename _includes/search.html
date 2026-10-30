@@ -21,48 +21,86 @@
         font-size: 15px;
     }
 
+    #GDSInput:focus {
+        outline: none;
+        border-color: var(--color1);
+        box-shadow: none;
+    }
+
+    #GDSInput:focus-visible {
+        outline: none !important;
+    }
+
+    .search-input-group,
+    .search-input-group > .input-group-text,
+    .search-input-group > .form-control {
+        height: 48px;
+        box-sizing: border-box;
+    }
+
+    .search-input-group {
+        overflow: hidden;
+        border: 1px solid var(--surface-border);
+        border-radius: 50rem;
+        background-color: var(--search-field-bg);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        transition: border-color .18s ease, box-shadow .18s ease;
+    }
+
+    .search-input-group:focus-within {
+        border-color: var(--search-focus);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--search-focus) 14%, transparent);
+    }
+
+    .search-input-group > .input-group-text,
+    .search-input-group > .form-control {
+        border: 0;
+        background-color: var(--search-field-bg);
+    }
+
     #mic_icon {
-        border-top-right-radius: 50rem;
-        border-bottom-right-radius: 50rem;
-        border: 1px solid var(--color1);
-        border-left: none;
+        border: 0;
         color: #999;
+        font-size: 20px;
         padding-left: 10px;
         padding-right: 15px;
-        background-color: var(--bs-body-bg);
+        background-color: var(--search-field-bg);
         cursor: pointer;
         display: flex;
         align-items: center;
     }
 
     #search_icon {
-        border-top-left-radius: 50rem;
-        border-bottom-left-radius: 50rem;
-        border: 1px solid var(--color1);
-        border-right: none;
+        border: 0;
         color: #999;
         padding-left: 15px;
         padding-right: 10px;
-        background-color: var(--bs-body-bg);
+        background-color: var(--search-field-bg);
         display: flex;
         align-items: center;
         font-size: 16px;
     }
 
     #close_icon {
-        border: 1px solid var(--color1);
-        border-left: none;
-        border-right: none;
+        border: 0;
         color: #999;
         padding-left: 0px;
         padding-right: 0px;
-        background-color: var(--bs-body-bg);
+        background-color: var(--search-field-bg);
         cursor: pointer;
     }
 
-    #search-hints .btn-outline-secondary.active,
-    #search-hints .btn-outline-secondary:focus {
+    #search-hints .btn-outline.theme-secondary.active,
+    #search-hints .btn-outline.theme-secondary:focus {
         box-shadow: none;
+    }
+
+    #search-hints .btn-outline.theme-secondary {
+        border-radius: 50rem;
+        padding: 4px 8px;
+        line-height: 1.3;
+        min-height: 0;
+        height: auto;
     }
 
     .search-loading {
@@ -124,10 +162,10 @@
         z-index: 1019;
     }
 </style>
-<div class="container" {% if home %}style="min-height: 80vh; display: flex; flex-direction: column; justify-content: center;"{% endif %}>
+<div class="container search-page-container" {% if home %}style="min-height: 80vh; display: flex; flex-direction: column; justify-content: center;"{% endif %}>
     <div id="search-backdrop"></div>
     <center>
-        <div class="col-xs-12 col-sm-11 col-md-9 col-lg-7 col-xl-6 col-xxl-6" style="margin-bottom: 25px;">
+        <div class="col-12 sm:col-11 md:col-9 lg:col-7 xl:col-6 2xl:col-6" style="margin-bottom: 25px;">
             {%- if home -%}
             <!-- Display site title and tagline only on the home page -->
             <h2 id="fc-{{ path[1] }}">GoDarda</h2>
@@ -135,7 +173,7 @@
             {%- endif -%}
 
             <!-- Main search input group -->
-            <div id="GDS_input-{{ path[1] | default: 'search' }}" class="input-group input-group-lg">
+            <div id="GDS_input-{{ path[1] | default: 'search' }}" class="input-group input-group-lg search-input-group">
                 <!-- Search icon (visible by default) -->
                 <span id="search_icon" class="input-group-text"><i class="bi bi-search"></i></span>
                 <input id="GDSInput" class="form-control" type="text" tabindex="1"
@@ -147,16 +185,16 @@
             </div>
             <!-- Container for search suggestions -->
             <div id="hints-container" style="margin-top: 10px; text-align: center; min-height: 35px;">
-                <span class="text-muted" style="margin-right: 5px;"><i id="hint-icon"
+                <span class="fg-secondary" style="margin-right: 5px;"><i id="hint-icon"
                         class="bi bi-lightbulb"></i> Hints:</span>
                 <span id="search-hints"></span>
             </div>
             <!-- Container for displaying the number of search results -->
-            <div id="matchCount" class="text-muted small" style="margin-top:8px; display:none; text-align:center"></div>
+            <div id="matchCount" class="fg-secondary small" style="margin-top:8px; display:none; text-align:center"></div>
         </div>
 
         <!-- Main container where search results are rendered -->
-        <div id="{{ path[1] | default: 'search' }}" class="col-xs-12 col-sm-12 col-md-10 col-lg-8 col-xl-7 col-xxl-7"
+        <div id="{{ path[1] | default: 'search' }}" class="col-12 sm:col-12 md:col-10 lg:col-8 xl:col-7 2xl:col-7"
             style="text-align: left; margin-bottom: 30px;"></div>
     </center>
 </div>

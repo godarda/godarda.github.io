@@ -22,7 +22,7 @@ grandparent:
   - url: c/fundamentals/gdvgrag
     title: C program to find the range of data types
   - url: c/fundamentals/gdwgvrq
-    title: Find the output of C programs
+    title: Find the output of C Fundamentals programs
 - parent: C Control Statements
   subtree: Controls
   url: c/controls
@@ -36,7 +36,7 @@ grandparent:
   - url: c/controls/gdecgzz
     title: C program to demonstrate the use of break and continue statements
   - url: c/controls/gdebyay
-    title: Find the output of C programs
+    title: Find the output of C Control Statements programs
 - parent: C Loops
   subtree: Loops
   url: c/loops
@@ -62,7 +62,7 @@ grandparent:
   - url: c/loops/gddrnhk
     title: C program to demonstrate the static and local variables
   - url: c/loops/gdwevzk
-    title: Find the output of C programs
+    title: Find the output of C Loops programs
 - parent: C Strings
   subtree: Strings
   url: c/strings
@@ -96,7 +96,7 @@ grandparent:
   - url: c/arrays/gdmqyew
     title: C program to find the min and max number from a given array
   - url: c/arrays/gdaazcg
-    title: Find the output of C programs
+    title: Find the output of C Arrays programs
 - parent: C Functions
   subtree: Functions
   url: c/functions

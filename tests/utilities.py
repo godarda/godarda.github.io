@@ -12,11 +12,11 @@ Key Features:
 """
 
 import os
-import yaml
 
 from pathlib import Path
 from typing import List, Union
 from concurrent.futures import ThreadPoolExecutor
+from ruamel.yaml import YAML
 
 
 def load_expected_data(folder_path: Union[str, Path]) -> List[dict]:
@@ -41,7 +41,7 @@ def load_expected_data(folder_path: Union[str, Path]) -> List[dict]:
         # Attempt to load YAML content safely.
         try:
             with path.open("r", encoding="utf-8") as fh:
-                data = yaml.safe_load(fh) or {}
+                data = YAML(typ="safe", pure=True).load(fh) or {}
         except Exception as e:
             print(f"Warning: failed to read {path}: {e}")
             return []

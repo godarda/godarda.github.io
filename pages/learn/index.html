@@ -7,7 +7,7 @@ description: "Welcome to GoDarda, your ultimate destination for programming. Our
 <div class="row">
     {%- assign learn_data = site.data.learn.learn -%}
     {%- for segment in learn_data.segments -%}
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-3">
+    <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-3 2xl:col-3">
         <a href="{{ segment.url }}"><div class="{{ segment.url | split: '/' }} procard">{{ segment.title }}</div></a>
     </div>
     {%- endfor -%}

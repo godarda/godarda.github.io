@@ -12,14 +12,14 @@
 <script src="/assets/js/tools.js"></script>
 
 <div class="calc-panel">
-    <div class="row g-4">
+    <div class="row g-7">
         <div class="col-12">
             <!--
               Results Container:
               Populated dynamically by tools.js based on the tool's configuration.
               Displays calculation results or conversion outputs in a grid.
             -->
-            <div id="resultsContainer" class="row row-cols-1 row-cols-md-2 g-2 mb-3" data-category="{% if tool_urls contains path[1] %}{{ path[1] }}{% endif %}"></div>
+            <div id="resultsContainer" class="row row-cols-1 md:row-cols-2 g-3 mb-5" data-category="{% if tool_urls contains path[1] %}{{ path[1] }}{% endif %}"></div>
 
             <!--
               Inputs Section:
@@ -27,23 +27,23 @@
               Otherwise, render the default input group used for standard unit converters.
             -->
             {% if tools_inputs %}
-            <div class="mb-2">
+            <div class="mb-3">
                 {{ tools_inputs }}
             </div>
             {% else %}
             <!-- Default Converter Inputs: Numeric input + Unit dropdown -->
-            <div class="input-group mb-2">
+            <div class="input-group mb-3">
                 <input type="number" id="inputValue" class="form-control" placeholder="Enter value..." aria-label="Input value">
-                <select class="form-select" id="inputUnit" aria-label="Select unit">
+                <select class="form-control" id="inputUnit" aria-label="Select unit">
                     <!-- Options will be injected here by tools.js -->
                 </select>
             </div>
             {% endif %}
 
             <!-- Control Buttons: Clear, Select Tiles (Dropdown), Help -->
-            <div class="row g-2 mt-2">
+            <div class="row g-3 mt-3">
                 <div class="col-auto">
-                    <button id="btnClear" class="btn btn-sm btn-outline-secondary">Clear</button>
+                    <button id="btnClear" class="btn-outline theme-secondary btn-sm">Clear</button>
                 </div>
                 <div class="col-auto">
                     <!--
@@ -51,17 +51,15 @@
                       Allows users to toggle visibility of specific result tiles.
                       Options are generated dynamically based on the tool's stats.
                     -->
-                    <div class="dropdown">
-                        <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button" id="viewOptionsBtn" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                    <div class="menu-container">
+                        <button class="btn-outline theme-secondary btn-sm" type="button" id="viewOptionsBtn" aria-controls="viewOptionsMenu" data-bs-toggle="menu" aria-expanded="false" data-bs-auto-close="outside">
                             {{ select_button_text | default: "Select Tiles" }}
                         </button>
-                        <ul class="dropdown-menu" id="viewOptionsMenu" aria-labelledby="viewOptionsBtn" style="min-width: 220px;">
-                            <!-- Options will be injected here by tools.js -->
-                        </ul>
+                        <div class="menu" id="viewOptionsMenu" aria-labelledby="viewOptionsBtn" style="min-width: 220px;"></div>
                     </div>
                 </div>
                 <div class="col-auto">
-                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#helpModal">
+                    <button type="button" class="btn-outline theme-secondary btn-sm" data-bs-toggle="dialog" data-bs-target="#helpModal">
                         Help
                     </button>
                 </div>
@@ -74,16 +72,12 @@
   Help Modal:
   Displays context-specific help content passed via the 'help_content' variable.
 -->
-<div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="helpModalLabel"><span id="fc-{{ path[1] }}"><i class="bi bi-info-circle"></i> {{ page.title }} Help</span></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                {{ help_content }}
-            </div>
-        </div>
+<dialog class="dialog" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel">
+    <div class="dialog-header">
+        <h5 class="dialog-title" id="helpModalLabel"><span id="fc-{{ path[1] }}"><i class="bi bi-info-circle"></i> {{ page.title }} Help</span></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="dialog" aria-label="Close"></button>
     </div>
-</div>
+    <div class="dialog-body">
+        {{ help_content }}
+    </div>
+</dialog>

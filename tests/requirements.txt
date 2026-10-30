@@ -7,7 +7,7 @@ pandas
 pymongo
 PyMySQL
 pytest
-PyYAML
+ruamel.yaml
 requests
 scipy
 toml

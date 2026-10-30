@@ -2,7 +2,7 @@
     border-radius: 5px;
     border: 1px solid var(--color1);
     background: var(--color4);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
     padding: 1rem;
     margin-bottom: 30px;
 }
@@ -11,8 +11,8 @@
     align-items: stretch;
 }
 
-.calc-panel .col-lg-8,
-.calc-panel .col-lg-4 {
+.calc-panel .lg\:col-8,
+.calc-panel .lg\:col-4 {
     display: flex;
     flex-direction: column;
 }
@@ -49,7 +49,7 @@
     border-radius: 5px;
     background: var(--color3);
     border: 1px solid var(--color1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
     overflow: visible;
     display: flex;
     flex-direction: column;
@@ -81,7 +81,7 @@
 
 .calc-panel .stat {
     border-left: 5px solid var(--other);
-    box-shadow: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.045);
 }
 .calc-panel .stat::before { display: none; }
 
@@ -99,4 +99,25 @@
 #unitDropdownMenu {
     max-height: 280px;
     overflow-y: auto;
+}
+
+.calc-panel .tool-menu-actions {
+    align-items: stretch;
+    flex-direction: column;
+}
+
+.calc-panel .tool-menu-action-row {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.calc-panel .tool-menu-action-row button {
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
+}
+
+.calc-panel .tool-menu-actions > button {
+    width: 100%;
 }

@@ -13,13 +13,13 @@ description: "Instantly convert currencies between USD, EUR, GBP, JPY, and more.
     <li><strong>Customize Results:</strong> Use the "Select Tiles" dropdown to choose which target currencies to display.</li>
 </ul><hr>
 <h6><i class="bi bi-cash-coin"></i> Supported Currencies</h6>
-<p class="small text-muted">This tool supports conversion between the following currencies:</p>
+<p class="small fg-secondary">This tool supports conversion between the following currencies:</p>
 <ul>
     <li><strong>Americas:</strong> US Dollar (USD), Canadian Dollar (CAD)</li>
     <li><strong>Europe:</strong> Euro (EUR), British Pound (GBP), Swiss Franc (CHF), Russian Ruble (RUB)</li>
     <li><strong>Asia/Pacific:</strong> Indian Rupee (INR), Japanese Yen (JPY), Chinese Yuan (CNY), Australian Dollar (AUD)</li>
 </ul>
-<p class="small text-muted mt-2"><em>Note: Exchange rates are sourced from open-source APIs and updated daily.</em></p>
+<p class="small fg-secondary mt-3"><em>Note: Exchange rates are sourced from open-source APIs and updated daily.</em></p>
 {% endcapture %}
 
 {% include tools.html %}
@@ -45,7 +45,7 @@ description: "Instantly convert currencies between USD, EUR, GBP, JPY, and more.
 
     // Show loading state
     const resultsContainer = document.getElementById('resultsContainer');
-    resultsContainer.innerHTML = '<div class="text-center py-4"><div class="spinner-border text-secondary" role="status"></div><div class="mt-2 small text-muted">Fetching latest rates...</div></div>';
+    resultsContainer.innerHTML = '<div class="text-center py-7"><div class="spinner-border fg-secondary" role="status"></div><div class="small fg-secondary mt-3">Fetching latest rates...</div></div>';
 
     // Initialize converter after attempting to fetch live rates
     // Source: https://github.com/fawazahmed0/exchange-api (Open Source, Free)
@@ -78,7 +78,7 @@ description: "Instantly convert currencies between USD, EUR, GBP, JPY, and more.
         })
         .catch(e => {
             console.error('Currency fetch failed', e);
-            resultsContainer.innerHTML = '<div class="alert alert-warning small">Unable to load exchange rates. Please check your connection.</div>';
+            resultsContainer.innerHTML = '<div class="alert alerttheme-warning small">Unable to load exchange rates. Please check your connection.</div>';
         });
 })();
 </script>

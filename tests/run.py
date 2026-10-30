@@ -22,7 +22,7 @@ from pathlib import Path
 repo_root = Path(__file__).resolve().parent.parent
 venv_dir = repo_root / ".venv"
 
-if venv_dir.exists():
+if (venv_dir / "pyvenv.cfg").is_file():
     python_exe = venv_dir / ("Scripts/python.exe" if sys.platform == "win32" else "bin/python")
 
     # If not running from the venv, re-execute using the venv's interpreter
