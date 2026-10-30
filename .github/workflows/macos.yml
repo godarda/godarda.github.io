@@ -22,13 +22,13 @@ jobs:
     steps:
       # Checkout the repository content
       - name: Checkout develop branch
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: develop
 
       # Set up the Python 3.14 environment
       - name: Setup Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: '3.14'
           cache: 'pip'
@@ -48,7 +48,7 @@ jobs:
 
       # Set up the Oracle Java 24 environment
       - name: Setup Java
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v5.6.0
         with:
           distribution: 'oracle'
           java-version: '24'
