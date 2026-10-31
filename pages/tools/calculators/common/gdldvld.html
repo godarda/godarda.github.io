@@ -61,7 +61,7 @@ description: "Evaluate mathematical expressions instantly. Supports basic arithm
             const text = values.inputText.trim();
             const resEl = stats.result.valElement;
 
-            if (resEl) resEl.classList.remove('text-danger');
+            if (resEl) resEl.classList.remove('fg-danger');
 
             if (text === '') return { result: '-' };
 
@@ -69,7 +69,7 @@ description: "Evaluate mathematical expressions instantly. Supports basic arithm
                 const res = safeEval(text);
                 return { result: res };
             } catch (e) {
-                if (resEl) resEl.classList.add('text-danger');
+                if (resEl) resEl.classList.add('fg-danger');
                 return { result: 'Invalid expression' };
             }
         }
@@ -80,7 +80,7 @@ description: "Evaluate mathematical expressions instantly. Supports basic arithm
     if (btnClear) {
         const col = document.createElement('div');
         col.className = 'col-auto';
-        col.innerHTML = '<button id="btnTrim" class="btn btn-sm btn-outline-secondary">Trim</button>';
+        col.innerHTML = '<button id="btnTrim" class="btn-outline theme-secondary btn-sm">Trim</button>';
         btnClear.parentNode.after(col);
 
         const btnTrim = document.getElementById('btnTrim');

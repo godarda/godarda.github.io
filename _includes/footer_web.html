@@ -4,25 +4,25 @@
     <div class="footer">
         <div class="container">
             <div class="row">
-                <div class="col-6 col-md-3" style="padding-bottom: 50px;">
+                <div class="col-6 md:col-3" style="padding-bottom: 50px;">
                     <h6>What's new</h6>
                     <a href="learn"><div><i class="bi-journal-code"></i> Learn</div></a>
                     <a href="tools"><div><i class="bi bi-tools"></i> Tools</div></a>
-                    <a href="#" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#appmodal"><div><i class="navsvg bi bi-android2"></i> Android App</div></a>
+                    <a href="#" style="cursor: pointer;" data-bs-toggle="dialog" data-bs-target="#appmodal"><div><i class="navsvg bi bi-android2"></i> Android App</div></a>
                 </div>
-                <div class="col-6 col-md-3" style="padding-bottom: 50px;">
+                <div class="col-6 md:col-3" style="padding-bottom: 50px;">
                     <h6>Contribute</h6>
                     <a href="{{ site.data.url.teams }}" target="_blank" rel="noopener noreferrer"><div><i class="bi bi-people"></i> Join Teams</div></a>
                     <a href="{{ site.data.url.issues }}" target="_blank" rel="noopener noreferrer"><div><i class="bi bi-bug"></i> Report Bug</div></a>
                     <a href="{{ site.data.url.releases }}" target="_blank" rel="noopener noreferrer"><div><i class="bi bi-box-seam"></i> Releases</div></a>
                 </div>
-                <div class="col-6 col-md-3" style="padding-bottom: 50px;">
+                <div class="col-6 md:col-3" style="padding-bottom: 50px;">
                     <h6>GoDarda</h6>
                     <a href="about"><div><i class="bi bi-question-circle"></i> About</div></a>
                     <a href="about/faqs"><div><i class="bi bi-star"></i> FAQs</div></a>
                     <a href="shubhamrdarda"><div><i class="bi bi-person-square"></i> Meet Architect</div></a>
                 </div>
-                <div class="col-6 col-md-3" style="padding-bottom: 50px;">
+                <div class="col-6 md:col-3" style="padding-bottom: 50px;">
                     <h6>Social Handles</h6>
                     <a href="{{ site.data.url.linkedin }}" target="_blank" rel="noopener noreferrer"><div><i class="bi bi-linkedin"></i> LinkedIn</div></a>
                     <a href="{{ site.data.url.github }}" target="_blank" rel="noopener noreferrer"><div><i class="bi bi-github"></i> GitHub</div></a>
@@ -37,31 +37,26 @@
         <div class="d-flex justify-content-between copyright-footer">
             <small>&copy; {% assign current_year = 'now' | date: '%Y' %}{{ current_year }} {{ site.title }}.</small>
             <div>
-                <a href="about/terms" class="me-3"><small>Terms</small></a><a href="about/privacy"><small>Privacy</small></a>
+                <a href="about/terms" class="me-5"><small>Terms</small></a><a href="about/privacy"><small>Privacy</small></a>
             </div>
         </div>
     </footer>
 </div>
 
-<div class="modal fade" id="appmodal" data-bs-backdrop="static" data-bs-keyboard="false"
-    aria-labelledby="appmodalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="appmodalLabel"><i class="bi bi-android2"></i> GoDarda Android App</h5>
-            </div>
-            <div class="modal-body">Thank you for your interest in the GoDarda Android app!<br>We're preparing for our
-                official launch on the Google Play Store, but you can get early access now by installing the app
-                manually. Would you like to download the APK?<br><b>Minimum Requirement:</b> Android 11<br><b>Note:</b>
-                The app requires microphone access for voice search.</div>
-            <div class="modal-footer justify-content-center">
-                <a style="cursor: pointer;" class="btn btn-sm btn-outline-danger" data-bs-dismiss="modal"><i class="bi bi-cloud-slash"></i> No</a>
-                <a href="{{ site.data.url.android_app }}" class="btn btn-sm btn-outline-success"
-                    onclick="$('#appmodal').modal('hide');"><i class="bi bi-cloud-arrow-down"></i> Yes</a>
-            </div>
-        </div>
+<dialog class="dialog" id="appmodal" data-bs-backdrop="static" data-bs-keyboard="false"
+    aria-labelledby="appmodalLabel">
+    <div class="dialog-header">
+        <h5 class="dialog-title" id="appmodalLabel"><i class="bi bi-android2"></i> GoDarda Android App</h5>
     </div>
-</div>
+    <div class="dialog-body">Thank you for your interest in the GoDarda Android app!<br>We're preparing for our
+        official launch on the Google Play Store, but you can get early access now by installing the app
+        manually. Would you like to download the APK?<br><b>Minimum Requirement:</b> Android 11<br><b>Note:</b>
+        The app requires microphone access for voice search.</div>
+    <div class="dialog-footer justify-content-center">
+        <a style="cursor: pointer;" class="btn-outline theme-danger btn-sm" data-bs-dismiss="dialog"><i class="bi bi-cloud-slash"></i> No</a>
+        <a id="downloadAndroidApp" href="{{ site.data.url.android_app }}" class="btn-outline theme-success btn-sm"><i class="bi bi-cloud-arrow-down"></i> Yes</a>
+    </div>
+</dialog>
 
 <script>
 function setupWebAppView() {
@@ -75,4 +70,9 @@ function setupWebAppView() {
         if (webfooter && webfooter.classList.contains("block_webfooter")) { webfooter.style.display = "none"; }
     }
 }
+
+document.getElementById("downloadAndroidApp").addEventListener("click", () => {
+    const appDialog = document.getElementById("appmodal");
+    window.bootstrap.Dialog.getOrCreateInstance(appDialog).hide();
+});
 </script>

@@ -7,6 +7,10 @@ layout: none
 [data-bs-theme="dark"]
 {
     color-scheme: dark;
+    --bs-bg-body: var(--infocard);
+    --bs-fg-body: var(--textcolor);
+    --bs-link-color: var(--hlink);
+    --bs-link-hover-color: var(--hlink);
     --c:                   #0080ff; /* Blue for C programming language */
     --calculators:         #66b3ff; /* Light blue for calculators */
     --cg:                  #ff6699; /* Pink for computer graphics */
@@ -32,7 +36,7 @@ layout: none
 
     --bg_jumbotron:        #050514; /* Background color for jumbotron */
     --bnw:                 #ffffff; /* Black and white color */
-    --board-bc:            #21252c; /* Board background color */
+    --board-bc:            #101317; /* Board background color */
     --board-tc:            #d9d9d9; /* Board text color */
     --color1:              #373d49; /* First color variable */
     --color2:              #2c313a; /* Second color variable */
@@ -40,11 +44,11 @@ layout: none
     --color4:              #16181d; /* Fourth color variable */
     --hlink:               #4d94ff; /* Hyperlink color */
     --hover_jumbotron:     #000000; /* Hover color for jumbotron */
-    --hover_sideitem:      #16181d; /* Hover color for sidebar items */
-    --infocard:            #0b0c0e; /* Info card background color */
+    --hover_sideitem:      #171b21; /* Hover color for sidebar items */
+    --infocard:            #14171b; /* Info card background color */
     --pre-bg:              #0b0c0f; /* Preformatted text background color */
     --rightsidebar-bc:     #21252c; /* Right sidebar background color */
-    --sidebar-bc:          #21252c; /* Sidebar background color */
+    --sidebar-bc:          var(--bs-bg-body); /* Sidebar background color */
     --sidebar-tc:          #d9d9d9; /* Sidebar text color */
     --svgicon:             #f2f2f2; /* SVG icon color */
     --textcolor:           #e6e6e6; /* General text color */
@@ -55,6 +59,12 @@ layout: none
     --navbar-shadow:       rgba(0, 0, 0, 0.4);
     --navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.55)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
     --search-backdrop-color: rgba(0, 0, 0, 0.5);
+    --search-field-bg:      #12161a;
+    --board-header-bg:      #151a20;
+    --surface-border:       #252b34;
+    --search-focus:         #55a47c;
+    --footer-bg:            #101317;
+    --focus-ring:           #76aa8d;
 
     --code-literal:        #79c0ff; /* Literal code color for code literals and elements */
     --code-special:        #1f6feb; /* Special code color for special code elements */
@@ -78,6 +88,10 @@ layout: none
 [data-bs-theme="light"]
 {
     color-scheme: light;
+    --bs-bg-body: #f5f7fa;
+    --bs-fg-body: var(--textcolor);
+    --bs-link-color: var(--hlink);
+    --bs-link-hover-color: var(--hlink);
     --c:                   #007acc; /* Blue for C programming language */
     --calculators:         #0073e6; /* Strong blue for calculators */
     --cg:                  #e65c7d; /* Pink for computer graphics */
@@ -103,7 +117,7 @@ layout: none
 
     --bg_jumbotron:        #c5cbd3; /* Background color for jumbotron */
     --bnw:                 #000000; /* Black and white color */
-    --board-bc:            #e2e5e9; /* Board background color */
+    --board-bc:            #ffffff; /* Board background color */
     --board-tc:            #424b57; /* Board text color */
     --color1:              #8b98a7; /* First color variable */
     --color2:              #c5cbd3; /* Second color variable */
@@ -111,12 +125,12 @@ layout: none
     --color4:              #c5cbd3; /* Fourth color variable */
     --hlink:               #1a75ff; /* Hyperlink color */
     --hover_jumbotron:     #99a4b2; /* Hover color for jumbotron */
-    --hover_sideitem:      #c5cbd3; /* Hover color for sidebar items */
+    --hover_sideitem:      #e7edf3; /* Hover color for sidebar items */
     --infocard:            #b6bfc8; /* Info card background color */
     --pre-bg:              #e2e6e9; /* Preformatted text background color */
     --rightsidebar-bc:     #e2e5e9; /* Right sidebar background color */
     --rightsidebar-tc:     #424b57; /* Right sidebar text color */
-    --sidebar-bc:          #e2e5e9; /* Sidebar background color */
+    --sidebar-bc:          var(--bs-bg-body); /* Sidebar background color */
     --sidebar-tc:          #424b57; /* Sidebar text color */
     --svgicon:             #424b57; /* SVG icon color */
     --textcolor:           #000000; /* General text color */
@@ -127,6 +141,12 @@ layout: none
     --navbar-shadow:       rgba(0, 0, 0, 0.3);
     --navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0, 0, 0, 0.55)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
     --search-backdrop-color: rgba(255, 255, 255, 0.5);
+    --search-field-bg:      #ffffff;
+    --board-header-bg:      #edf1f6;
+    --surface-border:       #e1e6ed;
+    --search-focus:         #438b68;
+    --footer-bg:            #eef2f6;
+    --focus-ring:           #5f9278;
 
     --code-literal:        #043a7c; /* Literal code color for code literals and elements */
     --code-special:        #0550ae; /* Special code color for special code elements */
@@ -154,7 +174,7 @@ layout: none
 /* Generic highlight color fallback */
 a.card.codecard[data-category]:hover,
 a.card.codecard[data-category]:focus {
-    border-left: 5px solid var(--other);
+    border-left: 3px solid var(--other);
 }
 
 .codecard[data-category] mark {
@@ -170,20 +190,98 @@ a.card.codecard[data-category]:focus {
         {%- assign color_var = "var(--other)" -%}
     {%- endif -%}
 
-    .procard.{{ s }}, .nav-link.sidebar-item-active.{{ s }}
-    { border-left: 5px solid {{ color_var }}; }
+    body.category-{{ s }}
+    {
+        --section-accent: {{ color_var }};
+        --section-border: color-mix(in srgb, {{ color_var }} 24%, var(--surface-border));
+        --section-detail-border: color-mix(in srgb, {{ color_var }} 42%, var(--surface-border));
+        --section-card-bg: color-mix(in srgb, {{ color_var }} 3%, var(--board-bc));
+        --section-card-hover-bg: color-mix(in srgb, {{ color_var }} 7%, var(--board-bc));
+        --section-card-header-bg: color-mix(in srgb, {{ color_var }} 12%, var(--board-bc));
+    }
 
-    #fc-{{ s }}, #fc-{{ s }}:hover, .wvnav-item-active-{{ s }}
-    { color: {{ color_var }}; }
+    .procard.{{ s }}, .nav-link.sidebar-item-active.{{ s }}
+    {
+        border: 1px solid color-mix(in srgb, {{ color_var }} 30%, var(--surface-border));
+        border-left: 3px solid color-mix(in srgb, {{ color_var }} 58%, var(--sidebar-bc));
+        background-image: linear-gradient(100deg, color-mix(in srgb, {{ color_var }} 7%, var(--board-bc)), var(--board-bc) 78%);
+    }
+
+    .procard.{{ s }}:hover,
+    .procard.{{ s }}:focus-visible
+    {
+        border-color: color-mix(in srgb, {{ color_var }} 38%, var(--surface-border));
+        border-left-color: color-mix(in srgb, {{ color_var }} 68%, var(--surface-border));
+        background-color: color-mix(in srgb, {{ color_var }} 5%, var(--board-bc));
+        background-image: linear-gradient(100deg, color-mix(in srgb, {{ color_var }} 14%, var(--board-bc)), color-mix(in srgb, {{ color_var }} 4%, var(--board-bc)));
+        box-shadow: 0 3px 8px color-mix(in srgb, {{ color_var }} 8%, transparent);
+        transform: none;
+    }
+
+    .nav-link.sidebar-item-active.{{ s }}
+    {
+        background-image: linear-gradient(100deg, color-mix(in srgb, {{ color_var }} 13%, var(--sidebar-bc)), color-mix(in srgb, {{ color_var }} 5%, var(--sidebar-bc)));
+    }
+
+    .category-{{ s }} .navbar-brand > a[id^="fc-"]
+    {
+        color: color-mix(in srgb, {{ color_var }} 86%, var(--bnw));
+    }
+
+    .category-{{ s }} .calc-panel
+    {
+        border-color: color-mix(in srgb, {{ color_var }} 30%, var(--surface-border));
+        background-color: color-mix(in srgb, {{ color_var }} 4%, var(--board-bc));
+    }
+
+    .category-{{ s }} .calc-panel .stat
+    {
+        border-color: color-mix(in srgb, {{ color_var }} 28%, var(--surface-border));
+        border-left-color: color-mix(in srgb, {{ color_var }} 62%, var(--surface-border));
+        background-color: color-mix(in srgb, {{ color_var }} 8%, var(--board-bc));
+    }
+
+    .category-{{ s }} .calc-panel .form-control:focus
+    {
+        border-color: var(--surface-border);
+        box-shadow: none;
+        outline: none;
+    }
+
+    .category-{{ s }} .calc-panel .form-control:focus-visible
+    {
+        outline: none;
+    }
+
+    .category-{{ s }} .calc-panel .btn-outline.theme-secondary
+    {
+        background-color: color-mix(in srgb, {{ color_var }} 10%, var(--board-bc));
+        border-color: color-mix(in srgb, {{ color_var }} 48%, var(--surface-border));
+        color: var(--textcolor);
+        transition: background-color .18s ease, border-color .18s ease, color .18s ease;
+    }
+
+    .category-{{ s }} .calc-panel .btn-outline.theme-secondary:hover,
+    .category-{{ s }} .calc-panel .btn-outline.theme-secondary:focus-visible
+    {
+        border-color: color-mix(in srgb, {{ color_var }} 68%, var(--surface-border));
+        background-color: color-mix(in srgb, {{ color_var }} 16%, var(--board-bc));
+        color: var(--textcolor);
+    }
 
     div#GDS_input-{{ s }}
     {
-        border-bottom: 1px solid {{ color_var }};
+        border-bottom: 1px solid color-mix(in srgb, {{ color_var }} 45%, var(--surface-border));
         border-radius: 50rem;
     }
     #GDS_input-{{ s }}
     {
-        box-shadow: 0px 0px 20px -13px {{ color_var }};
+        box-shadow: 0px 3px 14px -11px color-mix(in srgb, {{ color_var }} 42%, transparent);
+    }
+    #GDS_input-{{ s }}:focus-within
+    {
+        border-bottom-color: color-mix(in srgb, {{ color_var }} 65%, var(--surface-border));
+        box-shadow: 0 0 0 3px color-mix(in srgb, {{ color_var }} 14%, transparent);
     }
     div#GDS_input-{{ s }}.search-loading::after
     {
@@ -200,23 +298,37 @@ a.card.codecard[data-category]:focus {
     }
 
     /* Specific highlight color based on category */
+    a.card.codecard[data-category="{{ segment.url }}"] {
+        border-left: 3px solid color-mix(in srgb, {{ color_var }} 55%, var(--surface-border));
+        background-image: linear-gradient(100deg, color-mix(in srgb, {{ color_var }} 7%, var(--board-bc)), var(--board-bc) 78%);
+    }
+
     a.card.codecard[data-category="{{ segment.url }}"]:hover,
     a.card.codecard[data-category="{{ segment.url }}"]:focus {
-        border-left: 5px solid {{ color_var }};
+        border-left: 3px solid {{ color_var }};
     }
     .codecard[data-category="{{ segment.url }}"] mark {
         color: {{ color_var }};
     }
 {%- endfor -%}
 
+.navbar-brand > a[id^="fc-"] {
+    color: var(--other);
+}
+
 div#GDS_input-, div#GDS_input-search
 {
-    border-bottom: 1px solid var(--other);
+    border-bottom: 1px solid color-mix(in srgb, var(--other) 45%, var(--surface-border));
     border-radius: 50rem;
 }
 #GDS_input-, #GDS_input-search
 {
-    box-shadow: 0px 0px 20px -13px var(--other);
+    box-shadow: 0px 3px 14px -11px color-mix(in srgb, var(--other) 42%, transparent);
+}
+#GDS_input-:focus-within, #GDS_input-search:focus-within
+{
+    border-bottom-color: color-mix(in srgb, var(--other) 65%, var(--surface-border));
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--other) 14%, transparent);
 }
 div#GDS_input-.search-loading::after, div#GDS_input-search.search-loading::after
 {
@@ -232,11 +344,24 @@ div#GDS_input-.search-loading.indeterminate::after, div#GDS_input-search.search-
     color: var(--other);
 }
 
-#other > a:hover, #other > a:focus, .nav-link.sidebar-item-active.about, a.about:hover, a.about:focus
-{ border-left: 5px solid var(--other); }
+#other > a:hover,
+#other > a:focus,
+.nav-link.sidebar-item-active.about {
+    border-left: 3px solid var(--other);
+}
 
-#fc-, #fc-search, #fc-about, #fc-shubhamrdarda, .wvnav-item-active-, .wvnav-item-active-search, .wvnav-item-active-about, #fc-:hover, #fc-search:hover, #fc-about:hover, #fc-shubhamrdarda:hover
-{ color: var(--other); }
+body:not(.category-page) .search-page-container h2#fc- {
+    color: var(--other);
+}
+
+body:not(.category-page) .search-page-container h6 {
+    color: var(--bnw);
+}
+
+.sidebar-scroll > a.about:not(.sidebar-item-active):hover,
+.sidebar-scroll > a.about:not(.sidebar-item-active):focus {
+    border-left-color: transparent;
+}
 
 #settings { color: #999; }
 #settings.active { color: var(--settings); }

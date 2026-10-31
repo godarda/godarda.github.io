@@ -14,10 +14,10 @@ description: "A simple stopwatch utility for tracking elapsed time."
 </style>
 
 {% capture tools_inputs %}
-<div class="d-flex justify-content-center flex-wrap gap-2 mb-2">
-    <button id="btnStartStop" class="btn btn-lg btn-outline-secondary px-4">Start</button>
-    <button id="btnLap" class="btn btn-lg btn-outline-secondary px-4" disabled style="display: none;">Lap</button>
-    <button id="btnReset" class="btn btn-lg btn-outline-secondary px-4">Reset</button>
+<div class="d-flex justify-content-center flex-wrap gap-3 mb-3">
+    <button id="btnStartStop" class="btn-outline theme-secondary btn-lg px-7">Start</button>
+    <button id="btnLap" class="btn-outline theme-secondary btn-lg px-7" disabled style="display: none;">Lap</button>
+    <button id="btnReset" class="btn-outline theme-secondary btn-lg px-7">Reset</button>
 </div>
 
 <div class="board" id="lapsCard" style="display: none; margin-top: 20px;">
@@ -85,8 +85,8 @@ description: "A simple stopwatch utility for tracking elapsed time."
             const li = document.createElement('li');
             li.className = 'list-group-item bg-transparent d-flex justify-content-between align-items-center lap-item';
             li.innerHTML = `
-                <span class="fw-bold text-secondary">#${this.lapCount}</span>
-                <span class="fs-5">${this.format(Date.now() - this.startTime)}</span>
+                <span class="fw-bold fg-secondary">#${this.lapCount}</span>
+                <span class="fs-lg">${this.format(Date.now() - this.startTime)}</span>
             `;
             document.getElementById('lapsList').prepend(li);
         },

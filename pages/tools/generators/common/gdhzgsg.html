@@ -5,10 +5,10 @@ description: "Generate random strings based on specified criteria."
 ---
 
 {% capture tools_inputs %}
-<div class="input-group mb-2">
+<div class="input-group mb-3">
     <span class="input-group-text" style="min-width: 80px;">Length</span>
     <input type="number" id="inputLength" class="form-control" placeholder="e.g., 16" value="16" min="1" max="2500">
-    <select id="inputType" class="form-select">
+    <select id="inputType" class="form-control">
         <option value="upper_lower_number" selected>Uppercase + Lowercase + Numbers</option>
         <option value="upper_lower">Uppercase + Lowercase</option>
         <option value="lower_number">Lowercase + Numbers</option>
@@ -56,7 +56,7 @@ description: "Generate random strings based on specified criteria."
             const type = values.inputType;
             const resEl = stats.randomString.valElement;
 
-            if (resEl) resEl.classList.remove('text-danger');
+            if (resEl) resEl.classList.remove('fg-danger');
 
             if (lengthText.trim() === '') {
                 return { randomString: '-' };
@@ -65,7 +65,7 @@ description: "Generate random strings based on specified criteria."
             const length = parseInt(lengthText, 10);
 
             if (isNaN(length) || length < 1 || length > 2500) {
-                if (resEl) resEl.classList.add('text-danger');
+                if (resEl) resEl.classList.add('fg-danger');
                 const errorMsg = (length < 1) ? 'Length must be >= 1' : (length > 2500) ? 'Length must be <= 2500' : 'Invalid length';
                 return { randomString: errorMsg };
             }
@@ -96,7 +96,7 @@ description: "Generate random strings based on specified criteria."
     if (btnClear) {
         const col = document.createElement('div');
         col.className = 'col-auto';
-        col.innerHTML = '<button id="btnRegenerate" class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-repeat"></i> Regenerate</button>';
+        col.innerHTML = '<button id="btnRegenerate" class="btn-outline theme-secondary btn-sm"><i class="bi bi-arrow-repeat"></i> Regenerate</button>';
 
         btnClear.parentNode.after(col);
 

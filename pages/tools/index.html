@@ -7,7 +7,7 @@ description: "A collection of online tools for calculations, text analysis, and 
 <div class="row">
     {%- assign tools_data = site.data.tools.tools -%}
     {%- for segment in tools_data.segments -%}
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-3">
+    <div class="col-12 sm:col-12 md:col-6 lg:col-6 xl:col-3 2xl:col-3">
         <a href="{{ segment.url }}"><div class="{{ segment.url | split: '/' }} procard">{{ segment.title }}</div></a>
     </div>
     {%- endfor -%}

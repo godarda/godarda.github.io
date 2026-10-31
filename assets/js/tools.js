@@ -181,30 +181,30 @@
         const init = () => {
             // Create "Select All", "Clear All", and "Reset" actions in the dropdown
             if (viewOptionsMenu) {
-                const liActions = document.createElement('li');
-                liActions.innerHTML = `
-            <div class="dropdown-item-text">
-                <div class="d-flex gap-2 mb-2">
-                    <button type="button" class="btn btn-sm btn-outline-primary w-50" id="btn_calc_select_all">Select All</button>
-                    <button type="button" class="btn btn-sm btn-outline-danger w-50" id="btn_calc_clear_all">Clear All</button>
+                const menuActions = document.createElement('div');
+                menuActions.innerHTML = `
+            <div class="menu-item tool-menu-actions">
+                <div class="tool-menu-action-row">
+                    <button type="button" class="btn-outline theme-primary btn-sm" id="btn_calc_select_all">Select All</button>
+                    <button type="button" class="btn-outline theme-danger btn-sm" id="btn_calc_clear_all">Clear All</button>
                 </div>
-                <button type="button" class="btn btn-sm btn-outline-secondary w-100" id="btn_calc_reset">Reset to Default</button>
+                <button type="button" class="btn-outline theme-secondary btn-sm" id="btn_calc_reset">Reset to Default</button>
             </div>
-            <li><hr class="dropdown-divider"></li>
+            <hr class="menu-divider">
         `;
-                liActions.addEventListener('click', e => e.stopPropagation());
-                viewOptionsMenu.appendChild(liActions);
+                menuActions.addEventListener('click', e => e.stopPropagation());
+                viewOptionsMenu.appendChild(menuActions);
 
                 // Bind Action Buttons
-                liActions.querySelector('#btn_calc_select_all').addEventListener('click', () => {
+                menuActions.querySelector('#btn_calc_select_all').addEventListener('click', () => {
                     selectedStats = new Set(Object.keys(stats));
                     updateVisibility();
                 });
-                liActions.querySelector('#btn_calc_clear_all').addEventListener('click', () => {
+                menuActions.querySelector('#btn_calc_clear_all').addEventListener('click', () => {
                     selectedStats.clear();
                     updateVisibility();
                 });
-                liActions.querySelector('#btn_calc_reset').addEventListener('click', () => {
+                menuActions.querySelector('#btn_calc_reset').addEventListener('click', () => {
                     selectedStats = new Set(defaultStats);
                     updateVisibility();
                 });
@@ -218,7 +218,7 @@
 
             // Hide the view options dropdown if there are insufficient options to toggle
             if (viewOptionsMenu && statKeys.length <= 1) {
-                const dropdown = viewOptionsMenu.closest('.dropdown');
+                const dropdown = viewOptionsMenu.closest('.menu-container');
                 if (dropdown) {
                     dropdown.style.display = 'none';
                     const col = dropdown.closest('.col-auto');
@@ -240,8 +240,8 @@
             <div class="stat position-relative text-center" style="color: var(--bnw); ${borderStyle}">
                 <div class="small">${s.name}</div>
                 <div class="res-val mb-0" id="res_${key}" style="padding-right: 2rem; padding-left: 2rem;">-</div>
-                <div class="small text-primary mt-1" id="sub_${key}" style="display:none"></div>
-                <button class="btn btn-sm btn-link text-secondary position-absolute top-50 end-0 translate-middle-y me-2 p-0"
+                <div class="small fg-primary mt-1" id="sub_${key}" style="display:none"></div>
+                <button class="btn-link btn-sm fg-secondary position-absolute top-50 end-0 translate-middle-y me-3 p-0"
                         id="btn_copy_${key}"
                         style="display:none; z-index: 5; text-decoration: none; border: 0;"
                         data-bs-toggle="tooltip"
@@ -301,23 +301,23 @@
 
                 // Create the dropdown toggle item
                 if (dropdownFrag) {
-                    const li = document.createElement('li');
-                    li.innerHTML = `
-                <div class="dropdown-item">
+                    const item = document.createElement('div');
+                    item.innerHTML = `
+                <div class="menu-item">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="${key}" id="chk_${key}" ${selectedStats.has(key) ? 'checked' : ''}>
                         <label class="form-check-label w-100" for="chk_${key}">${s.name}</label>
                     </div>
                 </div>
             `;
-                    li.addEventListener('click', e => e.stopPropagation());
-                    const chk = li.querySelector('input');
+                    item.addEventListener('click', e => e.stopPropagation());
+                    const chk = item.querySelector('input');
                     chk.addEventListener('change', () => {
                         if (chk.checked) selectedStats.add(key);
                         else selectedStats.delete(key);
                         updateVisibility();
                     });
-                    dropdownFrag.appendChild(li);
+                    dropdownFrag.appendChild(item);
                     s.checkbox = chk;
                 }
             });
@@ -346,7 +346,7 @@
             });
 
             // Dynamically adjust the grid layout based on the number of visible cards
-            resultsContainer.className = 'row g-2 mb-3';
+            resultsContainer.className = 'row g-3 mb-5';
             if (visibleCount <= 1) {
                 resultsContainer.classList.add('row-cols-1');
             } else {

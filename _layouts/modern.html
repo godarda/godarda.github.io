@@ -29,11 +29,7 @@
 
     const getPreferredTheme = () => {
         const storedTheme = getStoredTheme();
-        if (storedTheme) {
-            return storedTheme;
-        }
-        setStoredTheme('auto');
-        return 'auto';
+        return storedTheme || 'light';
     };
 
     const setTheme = theme => {
@@ -44,13 +40,24 @@
     setTheme(getPreferredTheme());
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
         const storedTheme = getStoredTheme();
-        if (storedTheme !== 'light' && storedTheme !== 'dark') {
+        if (storedTheme === 'auto') {
             setTheme(getPreferredTheme());
         }
     });
     </script>
     <script defer src="{{ site.jquery }}"></script>
-    <script defer src="{{ site.bs_js }}" integrity="{{ site.bs_jsi }}" crossorigin="anonymous"></script>
+    <link rel="modulepreload" href="{{ site.bs_js }}" integrity="{{ site.bs_jsi }}" crossorigin="anonymous">
+    <script type="importmap">
+    {
+        "imports": {
+            "bootstrap": "{{ site.bs_js }}"
+        }
+    }
+    </script>
+    <script type="module">
+        import * as bootstrap from 'bootstrap';
+        window.bootstrap = bootstrap;
+    </script>
     <script defer src="{{ site.gd_js | relative_url }}"></script>
     <script async src="{{ site.analytics }}"></script>
     <link rel="preconnect" href="https://www.googletagmanager.com">
@@ -108,34 +115,34 @@
     {%- endif -%}
 {%- endunless -%}
 
-<body>
+{%- assign category_urls = site.data.gd.segments | map: "url" -%}
+{%- assign category_class = "" -%}
+{%- if category_urls contains path[1] -%}
+    {%- assign category_class = "category-page category-" | append: path[1] -%}
+{%- endif -%}
+<body class="{{ category_class }}">
 {%- assign main_pages = "settings,shubhamrdarda,testapp,learn,tools" | split: ',' -%}
 {%- if home or main_pages contains path[1] -%}{%- assign is_sidebar_page = false -%}
 {%- else -%}{%- assign is_sidebar_page = true -%}{%- endif -%}
 
-<nav class="navbar navbar-expand-md fixed-top">
+<nav class="navbar lg:navbar-expand fixed-top{% if is_sidebar_page or path[1] == 'learn' or path[1] == 'tools' or path[1] == 'settings' %} navbar-jumbotron{% endif %}">
     <div class="container-fluid">
         {%- unless is_sidebar_page -%}
         <div class="navbar-brand" style="margin-left: 0px;">
-            <a {% unless home %}href=""{% endunless %}><img id="logo" alt="Logo" width="30" height="30" src="{{ site.icon | relative_url }}"></a>
+            <a {% unless home %}href="{{ site.url }}"{% endunless %}><img id="logo" alt="Logo" width="30" height="30" src="{{ site.icon | relative_url }}"></a>
             <a id="fc-{{ path[1] }}"> {%- if path[1] != nil %}<i class="bi bi-chevron-compact-right"></i>{%- endif -%} {{ parent }} </a>
         </div>
         {%- else -%}
         <div id="navbar-brand" class="navbar-brand">
-            {%- assign home_url = "" -%}
-            {%- assign learn_data = site.data.learn.learn | default: site.data.learn -%}
-            {%- assign tools_data = site.data.tools.tools | default: site.data.tools -%}
-            {%- assign learn_matches = learn_data.segments | where: "url", path[1] -%}
-            {%- assign tools_matches = tools_data.segments | where: "url", path[1] -%}
-            {%- if learn_matches.size > 0 -%}{%- assign home_url = "learn" -%}{%- elsif tools_matches.size > 0 -%}{%- assign home_url = "tools" -%}{%- else -%}{%- assign home_url = "/" -%}{%- endif -%}
-            <a href="{{ home_url | relative_url }}" aria-label="{{ site.title }}"><img id="logo" alt="{{ site.title }} Logo" width="30" height="30" src="{{ site.icon | relative_url }}"></a>
+            <a href="{{ site.url }}" aria-label="{{ site.title }}"><img id="logo" alt="{{ site.title }} Logo" width="30" height="30" src="{{ site.icon | relative_url }}"></a>
             <a id="fc-{{ path[1] }}" href="{{ path[1] }}"><i class="bi bi-chevron-compact-right"></i> {{ parent }} <i class="bi bi-chevron-compact-right"></i></a>
             {%- if path[2] != nil -%}
                 <a id="fc-{{ path[1] }}" href="{{ path[1] }}/{{ path[2] }}" class="d-inline-flex align-items-center"><span class="d-inline-block text-truncate" style="max-width: 20ch;">{{ child }}</span><i class="bi bi-chevron-compact-right ms-1"></i></a>
             {%- endif -%}
         </div>
         <button id="lsidebar" class="navbar-toggler p-0" type="button" data-bs-toggle="leftsidebar" data-bs-target="#leftsidebar" aria-label="lsidebar"><span class="navbar-toggler-icon"></span></button>
-        <div id="leftsidebar" class="sidebar leftsidebar-collapse col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-2 col-xxl-2">
+        <div id="leftsidebar" class="sidebar leftsidebar-collapse col-3 sm:col-3 md:col-3 lg:col-3 xl:col-2 2xl:col-2">
+            <div class="sidebar-scroll">
             {%- assign root_title = seg_obj.title | default: segment -%}
             {%- assign root_url = seg_obj.url | default: path[1] -%}
             {%- assign active_root = "" -%}
@@ -147,32 +154,33 @@
                 {%- if path[2] == item_parts[1] -%}{%- assign active_item = "sidebar-item-active" -%}{%- endif -%}
                 <a class="nav-link {{ active_item }} {{ path[1] }}" href="{{ item.url }}">{{ item.parent }}</a>
             {%- endfor -%}
+            </div>
         </div>
         {%- endunless -%}
 
         <a id="settings" href="settings" style="display: none; font-size: 20px;" class="ms-auto bi bi-gear{% if path[1] == 'settings' %} active{% endif %}"></a>
         <button id="rsidebar" class="ms-auto navbar-toggler p-0" type="button" data-bs-toggle="rightsidebar" data-bs-target="#rightsidebar" aria-label="rsidebar" style="display: none;"><span class="navbar-toggler-icon"></span></button>
-        <div id="rightsidebar" class="rightsidebar-collapse navbar-collapse justify-content-end">
-            <ul class="navbar-nav mr-auto">
+        <div id="rightsidebar" class="rightsidebar-collapse justify-content-end">
+            <ul class="navbar-nav">
                 {%- if path[1] != nil -%}
-                    <li class="nav-item"><a class="nav-link" href="{{ site.url }}"><i class="navsvg bi bi-house-heart"></i> Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ site.url }}"><i class="navsvg bi bi-house-heart"></i> Home</a></li>
                 {%- endif -%}
                 {%- if path[1] != "learn" -%}
-                    <li class="nav-item"><a class="nav-link" href="learn"><i class="navsvg bi-journal-code"></i> Learn</a></li>
+                <li class="nav-item"><a class="nav-link" href="learn"><i class="navsvg bi-journal-code"></i> Learn</a></li>
                 {%- endif -%}
                 {%- if path[1] != "tools" -%}
-                    <li class="nav-item"><a class="nav-link" href="tools"><i class="navsvg bi bi-tools"></i> Tools</a></li>
+                <li class="nav-item"><a class="nav-link" href="tools"><i class="navsvg bi bi-tools"></i> Tools</a></li>
                 {%- endif -%}
                 {%- if path[1] != "about" -%}
-                    <li class="nav-item"><a class="nav-link" href="about"><i class="navsvg bi bi-info-circle"></i> About</a></li>
+                <li class="nav-item"><a class="nav-link" href="about"><i class="navsvg bi bi-info-circle"></i> About</a></li>
                 {%- endif -%}
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="bd-theme" href="#" aria-expanded="false" data-bs-toggle="dropdown" aria-label="theme (dark)"><i class="bi bi-moon-stars me-2" id="bd-theme-icon"></i><span id="bd-theme-text">Theme</span></a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme" style="top: 45px;">
-                        <li><button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto" aria-pressed="false"><i class="bi bi-circle-half me-2"></i>System Default</button></li>
-                        <li><button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="true"><i class="bi bi-moon-stars me-2"></i>Dark</button></li>
-                        <li><button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false"><i class="bi bi-sun me-2"></i>Light</button></li>
-                    </ul>
+                <li class="nav-item">
+                    <a class="nav-link" id="bd-theme" href="#" role="button" aria-expanded="false" aria-controls="bd-theme-menu" data-bs-toggle="menu" data-bs-placement="bottom-end" data-bs-offset="0,10" aria-label="theme (dark)"><i class="bi bi-moon-stars" id="bd-theme-icon"></i><span id="bd-theme-text">Theme</span><i class="bi bi-chevron-down ms-1 theme-menu-indicator" aria-hidden="true"></i></a>
+                    <div class="menu" id="bd-theme-menu" aria-labelledby="bd-theme">
+                        <button type="button" class="menu-item d-flex align-items-center" data-bs-theme-value="auto" aria-pressed="false"><i class="bi bi-circle-half me-3"></i>System Default</button>
+                        <button type="button" class="menu-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false"><i class="bi bi-moon-stars me-3"></i>Dark</button>
+                        <button type="button" class="menu-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="true"><i class="bi bi-sun me-3"></i>Light</button>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -194,7 +202,7 @@
     <main class="flex-grow-1"><div class="container">{{ content }}</div></main>
 
     {%- else -%}
-    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-xxl-10 ms-sm-auto px-md-4 jumbotron text-center">
+    <div class="col-12 sm:col-12 md:col-9 lg:col-9 xl:col-10 2xl:col-10 sm:ms-auto md:px-7 jumbotron text-center">
         <h3>{{ site.title }}</h3>
         {%- assign tool_urls = site.data.tools.tools.segments | map: "url" -%}
         {%- if tool_urls contains path[1] -%}<h6 id="fc-{{ path[1] }}">{{ page.title }}</h6>
@@ -202,7 +210,7 @@
         {%- if path[2] == nil and path[1] != "settings" -%}{%- include search.html -%}{%- endif -%}
     </div>
 
-    <main class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-xxl-10 ms-sm-auto px-md-4 flex-grow-1" role="main">
+    <main class="col-12 sm:col-12 md:col-9 lg:col-9 xl:col-10 2xl:col-10 sm:ms-auto md:px-7 flex-grow-1" role="main">
         <div class="container">
             {{ content }}
             {%- for parent in gd.grandparent -%}
@@ -227,7 +235,7 @@
     </main>
     {%- endunless -%}
 
-    {%- if is_sidebar_page -%}{%- assign footer_class = "col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 col-xxl-10 ms-sm-auto footer-no-padding" -%}{%- else -%}{%- assign footer_class = "" -%}{%- endif -%}
+    {%- if is_sidebar_page -%}    {%- assign footer_class = "col-12 sm:col-12 md:col-9 lg:col-9 xl:col-10 2xl:col-10 sm:ms-auto footer-no-padding" -%}{%- else -%}{%- assign footer_class = "" -%}{%- endif -%}
     <div class="{{ footer_class }}">{%- include footer_app.html -%}{%- include footer_web.html -%}</div>
 </div>
 
@@ -246,25 +254,21 @@
 </div>
 
 {%- if path[3] != nil -%}
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel"><i class="bi bi-clipboard-heart"></i> Thank You</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p class="h6">Thank you for visiting GoDarda!</p>
-                <p>If you've found GoDarda helpful, please consider supporting our mission by starring our repo and following us. Your support helps us provide free, high-quality content for developers!</p>
-            </div>
-            <div class="modal-footer justify-content-center">
-                <a class="btn btn-sm btn-outline-secondary" href="{{ site.data.url.repo }}" title="GitHub Star" target="_blank" rel="noopener noreferrer"><i class="bi bi-star"></i> Star</a>
-                <a href="{{ site.data.url.linkedin }}" class="btn btn-sm btn-outline-secondary" title="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin"></i> LinkedIn</a>
-            </div>
-        </div>
+<dialog class="dialog" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+    aria-labelledby="staticBackdropLabel">
+    <div class="dialog-header">
+        <h5 class="dialog-title" id="staticBackdropLabel"><i class="bi bi-clipboard-heart"></i> Thank You</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="dialog" aria-label="Close"></button>
     </div>
-</div>
+    <div class="dialog-body">
+        <p class="h6">Thank you for visiting GoDarda!</p>
+        <p>If you've found GoDarda helpful, please consider supporting our mission by starring our repo and following us. Your support helps us provide free, high-quality content for developers!</p>
+    </div>
+    <div class="dialog-footer justify-content-center">
+        <a class="btn-outline theme-secondary btn-sm" href="{{ site.data.url.repo }}" title="GitHub Star" target="_blank" rel="noopener noreferrer"><i class="bi bi-star"></i> Star</a>
+        <a href="{{ site.data.url.linkedin }}" class="btn-outline theme-secondary btn-sm" title="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin"></i> LinkedIn</a>
+    </div>
+</dialog>
 {%- endif -%}
 
 </body>

@@ -614,7 +614,7 @@
 
                 recognition.onstart = () => {
                     isListening = true;
-                    $micIconI.removeClass('bi-mic').addClass('bi-mic-fill text-success');
+                    $micIconI.removeClass('bi-mic').addClass('bi-mic-fill fg-success');
                 };
 
                 recognition.onresult = (event) => {
@@ -629,7 +629,7 @@
 
                 recognition.onend = () => {
                     isListening = false;
-                    $micIconI.removeClass('bi-mic-fill text-success').addClass('bi-mic');
+                    $micIconI.removeClass('bi-mic-fill fg-success').addClass('bi-mic');
                 };
             } else {
                 $micIcon.hide();
@@ -703,7 +703,7 @@
                 return;
             }
 
-            const $activeBtn = $hintsContainer.find('a.btn.active');
+            const $activeBtn = $hintsContainer.find('a.btn-outline.active');
             const activeText = $activeBtn.length ? $activeBtn.text() : null;
             let pool = hints.slice();
 
@@ -718,7 +718,7 @@
 
             let selected = pool.slice(0, 3);
             if (activeText) {
-                const activeIndex = Math.max(0, $hintsContainer.children('a.btn').not('#refresh-hints').index($activeBtn));
+                const activeIndex = Math.max(0, $hintsContainer.children('a.btn-outline').not('#refresh-hints').index($activeBtn));
                 selected = pool.slice(0, 2);
                 selected.splice(activeIndex, 0, activeText);
             }
@@ -726,11 +726,11 @@
             const hintsHtml = selected.map(hint => {
                 const sanitizedHint = $('<div>').text(hint).html();
                 const activeClass = (hint === activeText) ? ' active' : '';
-                return `<a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary rounded-pill${activeClass}" style="margin: 2px; font-size: 12px;">${sanitizedHint}</a>`;
+                return `<a href="javascript:void(0);" class="btn-outline theme-secondary btn-sm rounded-pill${activeClass}" style="margin: 2px; font-size: 12px;">${sanitizedHint}</a>`;
             }).join(' ');
 
             const spinClass = spin ? 'spin-animation' : '';
-            const refreshBtn = `<a href="javascript:void(0);" id="refresh-hints" class="btn btn-sm btn-outline-secondary rounded-pill" style="margin: 2px; font-size: 12px;" title="Refresh hints"><i class="bi bi-arrow-clockwise ${spinClass}"></i></a>`;
+            const refreshBtn = `<a href="javascript:void(0);" id="refresh-hints" class="btn-outline theme-secondary btn-sm rounded-pill" style="margin: 2px; font-size: 12px;" title="Refresh hints"><i class="bi bi-arrow-clockwise ${spinClass}"></i></a>`;
 
             $hintsContainer.html(hintsHtml + refreshBtn);
 
@@ -743,7 +743,7 @@
             $hintsParentContainer.show();
         };
 
-        $hintsContainer.on('click', 'a.btn', function(event) {
+        $hintsContainer.on('click', 'a.btn-outline', function(event) {
             if (this.id === 'refresh-hints') return;
             event.preventDefault();
             const text = $(this).text();
