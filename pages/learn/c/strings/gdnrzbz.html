@@ -6,6 +6,7 @@ title: C program to check whether a given string is a palindrome
 <div class="codecard">{{ page.title }}</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Copies the input, reverses the original with two indices, then compares both strings for a palindrome.
 #include <stdio.h>
 #include <string.h>
 int main()
@@ -16,7 +17,9 @@ int main()
     printf("\n———————————————————————————————————————————");
     printf("\nEnter the string ");
     scanf("%s", s);
+    // Save the original before the next loop reverses s in place.
     strcpy(reverse, s);
+    // Two indices move inward while the characters at their positions are swapped.
     for (int i = 0, j = strlen(s) - 1; i < j; i++, j--)
     {
         temp = s[i];

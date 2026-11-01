@@ -6,6 +6,7 @@ title: C Hello World program without using a semicolon
 <div class="codecard">{{ page.title }}</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Shows that printf returns a positive character count, affecting each control expression.
 #include <stdio.h>
 int main()
 {
@@ -13,6 +14,7 @@ int main()
     {
     }
 
+    // printf returns a positive character count, so its negation is false here.
     while (!printf("Hello, World!\n"))
     {
     }

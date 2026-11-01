@@ -4,119 +4,513 @@ permalink: shubhamrdarda/
 description: Architect of GoDarda
 ---
 
-<div class="d-flex flex-column min-vh-100 profile-page-container" style="padding-top: 85px;">
-    <main class="flex-grow-1 d-flex py-12">
-        <div class="card profile-card border-0 shadow-lg">
-            <div class="row g-0">
-                <div class="md:col-4 profile-sidebar fg-white text-center">
-                    <div class="d-flex flex-column justify-content-center h-100 p-7">
-                        <img src="../../assets/images/photo.jpg" class="img-fluid rounded-circle mx-auto profile-picture mb-5" alt="Shubham Darda">
-                        <h1 class="h4 fw-bold mb-1">{{ site.architect }}</h1>
-                        <p class="fs-lg fw-light text-center mb-7" style="color: #fff;">Architect of GoDarda</p>
-                        <div class="d-flex justify-content-center flex-wrap gap-5">
-                            <a href="https://linkedin.com/in/shubhamrdarda" target="_blank" title="LinkedIn" class="social-icon"><i class="bi bi-linkedin"></i></a>
-                            <a href="https://github.com/shubhamrdarda" target="_blank" title="GitHub" class="social-icon"><i class="bi bi-github"></i></a>
-                            <a href="https://x.com/shubhamrdarda" target="_blank" title="X" class="social-icon"><i class="bi bi-twitter-x"></i></a>
-                            <a href="https://www.youtube.com/@shubhamrdarda" target="_blank" title="YouTube" class="social-icon"><i class="bi bi-youtube"></i></a>
-                            <a href="https://instagram.com/shubhamrdarda" target="_blank" title="Instagram" class="social-icon"><i class="bi bi-instagram"></i></a>
-                            <a href="https://facebook.com/shubhamrdarda" target="_blank" title="Facebook" class="social-icon"><i class="bi bi-facebook"></i></a>
-                        </div>
-                        <hr class="my-7" style="color: var(--color2);">
-                        <div class="d-flex justify-content-center flex-nowrap gap-3">
-                            <a href="{{ site.url }}" class="btn-solid theme-secondary btn-sidebar"><i class="bi bi-briefcase-fill me-3"></i>Work</a>
-                            <a href="{{ site.data.url.sd_resume }}" target="_blank" class="btn-solid theme-secondary btn-sidebar" download><i class="bi bi-file-earmark-arrow-down-fill me-3"></i>Resume</a>
-                            <a href="mailto:shubhamrdarda@outlook.com" class="btn-solid theme-secondary btn-sidebar"><i class="bi bi-envelope-fill me-3"></i>Email</a>
-                        </div>
+<div class="profile-page-container">
+    <main class="profile-main">
+        <article class="profile-page" aria-label="Shubham Darda's profile">
+            <header class="profile-hero">
+                <img src="../../assets/images/photo.jpg" class="profile-picture" alt="Shubham Darda">
+                <div class="profile-intro">
+                    <p class="profile-eyebrow"><span aria-hidden="true"></span>Software Engineer <span aria-hidden="true">·</span> Architect of GoDarda</p>
+                    <h1>{{ site.architect }}</h1>
+                    <p class="profile-summary">Building practical, maintainable software and programming resources for the tech community.</p>
+                    <div class="profile-actions" aria-label="Contact and resume">
+                        <a href="{{ site.url }}" class="profile-action"><i class="bi bi-briefcase-fill" aria-hidden="true"></i>Explore GoDarda</a>
+                        <a href="{{ site.data.url.sd_resume }}" target="_blank" rel="noopener noreferrer" class="profile-action" download><i class="bi bi-file-earmark-arrow-down-fill" aria-hidden="true"></i>Resume</a>
+                        <a href="mailto:shubhamrdarda@outlook.com" class="profile-action"><i class="bi bi-envelope-fill" aria-hidden="true"></i>Email</a>
                     </div>
                 </div>
-                <div class="md:col-8">
-                    <div class="card-body p-7">
-                        <h2 class="h5 fg-primary fw-bold text-uppercase mb-3">About Me</h2>
-                        <p class="text-justify">Shubham Darda is a Software Engineer who specializes in designing solutions for complex business problems. He is a strong advocate for writing clear and maintainable code, guided by the principle from Harold Abelson: "Programs must be written for people to read, and only incidentally for machines to execute." He enjoys the process of turning an idea into a finished product and works effectively in disciplined, deadline-oriented environments.</p>
-                        <p class="text-justify">He is also the Architect of GoDarda, a platform he built to provide practical programming resources for the tech community. For GoDarda, he handles everything from the ground up, including web application architecture, UI/UX design, development, and testing.</p>
-                        <hr class="my-7">
-                        <h3 class="h5 fg-primary fw-bold text-uppercase mb-5">Work Experience</h3>
-                        <ul class="list-unstyled mb-7">
-                            <li class="position-relative mb-3 ps-7"><i class="bi bi-briefcase-fill fg-primary position-absolute top-0 start-0"></i><strong>Senior Software Engineer</strong><br><small class="fg-secondary">Emerson Innovation Center, Pune</small></li>
-                            <li class="position-relative mb-3 ps-7"><i class="bi bi-briefcase-fill fg-primary position-absolute top-0 start-0"></i><strong>Software Consultant</strong><br><small class="fg-secondary">Capgemini Technology Services, Mumbai</small></li>
-                        </ul>
-                        <hr class="my-7">
-                        <h3 class="h5 fg-primary fw-bold text-uppercase mb-5">Education</h3>
-                        <ul class="list-unstyled mb-0">
-                            <li class="position-relative mb-3 ps-7"><i class="bi bi-mortarboard-fill fg-primary position-absolute top-0 start-0"></i><strong>M.Tech. in Data Science & Engineering</strong><br><small class="fg-secondary">Birla Institute of Technology and Science, Pilani</small></li>
-                            <li class="position-relative mb-3 ps-7"><i class="bi bi-mortarboard-fill fg-primary position-absolute top-0 start-0"></i><strong>B.E. in Computer Engineering</strong><br><small class="fg-secondary">Savitribai Phule Pune University</small></li>
-                        </ul>
-                        <p class="text-justify mt-3">Beyond his formal education, he is a self-development enthusiast and passionate about lifelong learning.</p>
+                <nav class="profile-socials" aria-label="Social profiles">
+                    <a href="https://linkedin.com/in/shubhamrdarda" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn"><i class="bi bi-linkedin" aria-hidden="true"></i></a>
+                    <a href="https://github.com/shubhamrdarda" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub"><i class="bi bi-github" aria-hidden="true"></i></a>
+                    <a href="https://x.com/shubhamrdarda" target="_blank" rel="noopener noreferrer" aria-label="X" title="X"><i class="bi bi-twitter-x" aria-hidden="true"></i></a>
+                    <a href="https://www.youtube.com/@shubhamrdarda" target="_blank" rel="noopener noreferrer" aria-label="YouTube" title="YouTube"><i class="bi bi-youtube" aria-hidden="true"></i></a>
+                    <a href="https://instagram.com/shubhamrdarda" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><i class="bi bi-instagram" aria-hidden="true"></i></a>
+                    <a href="https://facebook.com/shubhamrdarda" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook"><i class="bi bi-facebook" aria-hidden="true"></i></a>
+                </nav>
+            </header>
+
+            <div class="profile-sections">
+                <section class="profile-panel profile-about">
+                    <div class="profile-section-heading">
+                        <span class="profile-section-icon"><i class="bi bi-person-lines-fill" aria-hidden="true"></i></span>
+                        <div>
+                            <p>Profile</p>
+                            <h2>About me</h2>
+                        </div>
                     </div>
+                    <div class="profile-about-copy">
+                        <p>Shubham Darda is a Software Engineer who specializes in designing solutions for complex business problems. He is a strong advocate for writing clear and maintainable code, guided by the principle from Harold Abelson: "Programs must be written for people to read, and only incidentally for machines to execute." He enjoys the process of turning an idea into a finished product and works effectively in disciplined, deadline-oriented environments.</p>
+                        <p>He is also the Architect of GoDarda, a platform he built to provide practical programming resources for the tech community. For GoDarda, he handles everything from the ground up, including web application architecture, UI/UX design, development, and testing.</p>
+                    </div>
+                </section>
+
+                <div class="profile-detail-grid">
+                    <section class="profile-panel">
+                        <div class="profile-section-heading">
+                            <span class="profile-section-icon"><i class="bi bi-briefcase-fill" aria-hidden="true"></i></span>
+                            <div>
+                                <p>Career</p>
+                                <h2>Work experience</h2>
+                            </div>
+                        </div>
+                        <ul class="profile-list">
+                            <li>
+                                <span class="profile-list-marker" aria-hidden="true"></span>
+                                <div><strong>Senior Software Engineer</strong><small>Emerson Innovation Center <span>·</span> Pune</small></div>
+                            </li>
+                            <li>
+                                <span class="profile-list-marker" aria-hidden="true"></span>
+                                <div><strong>Software Consultant</strong><small>Capgemini Technology Services <span>·</span> Mumbai</small></div>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section class="profile-panel">
+                        <div class="profile-section-heading">
+                            <span class="profile-section-icon"><i class="bi bi-mortarboard-fill" aria-hidden="true"></i></span>
+                            <div>
+                                <p>Learning</p>
+                                <h2>Education</h2>
+                            </div>
+                        </div>
+                        <ul class="profile-list">
+                            <li>
+                                <span class="profile-list-marker" aria-hidden="true"></span>
+                                <div><strong>M.Tech. in Data Science &amp; Engineering</strong><small>Birla Institute of Technology and Science, Pilani</small></div>
+                            </li>
+                            <li>
+                                <span class="profile-list-marker" aria-hidden="true"></span>
+                                <div><strong>B.E. in Computer Engineering</strong><small>Savitribai Phule Pune University</small></div>
+                            </li>
+                        </ul>
+                        <p class="profile-note">A self-development enthusiast with a passion for lifelong learning.</p>
+                    </section>
                 </div>
             </div>
-        </div>
+        </article>
     </main>
 </div>
 
-<style type="text/css">
-.profile-page-container .profile-card {
-    border-radius: 15px;
-    overflow: hidden;
-    background-color: var(--color2);
-}
-.profile-page-container .profile-sidebar {
-    background: linear-gradient(to top, #3a6186, #89253e);
-}
-@media (min-width: 768px) {
-    .profile-page-container .profile-sidebar {
-        border-top-left-radius: 15px;
-        border-bottom-left-radius: 15px;
+<style>
+    .profile-page p {
+        padding: 0;
     }
-}
-@media (max-width: 767.98px) {
-    .profile-page-container .profile-sidebar {
-        border-top-left-radius: 15px;
-        border-top-right-radius: 15px;
+
+    .profile-page-container {
+        padding-top: 76px;
     }
-}
-.profile-page-container .profile-picture {
-    width: 170px;
-    height: 170px;
-    object-fit: cover;
-    border: 4px solid var(--color2);
-}
-.profile-page-container .card-body p {
-    line-height: 1.7;
-    color: var(--board-tc);
-}
-.profile-page-container .text-justify {
-    text-align: justify;
-}
-.profile-page-container .social-icon {
-    font-size: 1.6rem;
-    color: rgba(255, 255, 255, 0.8);
-    transition: all 0.3s ease;
-}
-.profile-page-container .social-icon i {
-    color: rgba(255, 255, 255, 0.8);
-}
-.profile-page-container .btn-solid {
-    border-radius: 30px;
-    padding-left: 1.2rem;
-    padding-right: 1.2rem;
-}
-.profile-page-container .btn-sidebar {
-    background-color: var(--board-bc);
-    border-color: transparent;
-    color: var(--hlink);
-    font-size: 0.8rem;
-    padding: 0.5rem 0.8rem;
-    transition: all 0.2s ease-in-out;
-}
-.profile-page-container .btn-sidebar:hover {
-    background-color: var(--color2);
-    color: var(--hlink);
-}
-.profile-page-container .btn-sidebar i {
-    color: var(--hlink);
-}
-.profile-page-container .fg-primary {
-    color: var(--hlink) !important;
-}
+
+    .profile-main {
+        padding: clamp(1.25rem, 3vw, 2.5rem) 0;
+    }
+
+    .profile-page {
+        width: 100%;
+        max-width: 1180px;
+        margin: 0 auto;
+        color: var(--textcolor);
+    }
+
+    .profile-hero {
+        position: relative;
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        align-items: center;
+        gap: clamp(1.25rem, 3vw, 2.5rem);
+        overflow: hidden;
+        padding: clamp(1.5rem, 4vw, 3rem);
+        border: 1px solid color-mix(in srgb, var(--hlink) 25%, var(--surface-border));
+        border-radius: 24px;
+        background:
+            radial-gradient(ellipse at 100% 0%, color-mix(in srgb, var(--hlink) 15%, transparent), transparent 45%),
+            linear-gradient(120deg, color-mix(in srgb, var(--hlink) 8%, var(--board-header-bg)), var(--board-header-bg) 70%);
+        box-shadow: 0 16px 40px color-mix(in srgb, var(--textcolor) 8%, transparent);
+    }
+
+    .profile-picture {
+        display: block;
+        width: clamp(112px, 13vw, 156px);
+        aspect-ratio: 1;
+        border: 4px solid color-mix(in srgb, var(--hlink) 45%, var(--surface-border));
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0 8px 26px color-mix(in srgb, var(--textcolor) 16%, transparent);
+    }
+
+    .profile-intro {
+        min-width: 0;
+    }
+
+    .profile-eyebrow {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: .45rem;
+        margin: 0 0 .5rem;
+        color: var(--hlink);
+        font-size: .82rem;
+        font-weight: 700;
+        letter-spacing: .09em;
+        text-transform: uppercase;
+    }
+
+    .profile-eyebrow > span:first-child {
+        width: .5rem;
+        height: .5rem;
+        border-radius: 50%;
+        background: var(--hlink);
+        box-shadow: 0 0 0 4px color-mix(in srgb, var(--hlink) 15%, transparent);
+    }
+
+    .profile-intro h1 {
+        margin: 0;
+        color: var(--textcolor);
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+        font-weight: 750;
+        letter-spacing: -.035em;
+        line-height: 1.15;
+    }
+
+    .profile-summary {
+        max-width: 650px;
+        margin: .65rem 0 0;
+        color: var(--board-tc);
+        font-size: clamp(.98rem, 1.4vw, 1.1rem);
+        line-height: 1.6;
+    }
+
+    .profile-actions {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: .65rem;
+        margin-top: 1.25rem;
+    }
+
+    .profile-page a.profile-action {
+        display: inline-flex;
+        min-height: 42px;
+        flex: 0 1 auto;
+        align-items: center;
+        justify-content: center;
+        gap: .5rem;
+        padding: .55rem .95rem;
+        border: 1px solid var(--surface-border);
+        border-radius: 999px;
+        background: var(--board-bc);
+        color: var(--textcolor);
+        font-size: .9rem;
+        font-weight: 600;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: none;
+    }
+
+    .profile-action:hover {
+        border-color: var(--surface-border);
+        background: var(--board-bc);
+        color: var(--textcolor);
+    }
+
+    .profile-socials {
+        display: grid;
+        grid-template-columns: repeat(3, 2.65rem);
+        gap: .55rem;
+        border-bottom: 0;
+    }
+
+    .profile-socials a {
+        display: inline-flex;
+        width: 2.65rem;
+        height: 2.65rem;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--surface-border);
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--board-bc) 82%, transparent);
+        color: var(--board-tc);
+        font-size: 1.1rem;
+        text-decoration: none;
+        transition: none;
+    }
+
+    .profile-socials a:hover {
+        border-color: var(--surface-border);
+        background: color-mix(in srgb, var(--board-bc) 82%, transparent);
+        color: var(--board-tc);
+    }
+
+    .profile-sections {
+        display: grid;
+        gap: 1.1rem;
+        margin-top: 1.1rem;
+    }
+
+    .profile-detail-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.1rem;
+    }
+
+    .profile-panel {
+        min-width: 0;
+        padding: clamp(1.25rem, 2.5vw, 2rem);
+        border: 1px solid var(--surface-border);
+        border-radius: 20px;
+        background: var(--board-bc);
+        box-shadow: 0 10px 28px color-mix(in srgb, var(--textcolor) 5%, transparent);
+    }
+
+    .profile-section-heading {
+        display: flex;
+        align-items: center;
+        gap: .85rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .profile-section-icon {
+        display: inline-flex;
+        width: 2.75rem;
+        height: 2.75rem;
+        flex: 0 0 auto;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid color-mix(in srgb, var(--hlink) 22%, var(--surface-border));
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--hlink) 10%, var(--board-bc));
+        color: var(--hlink);
+        font-size: 1.15rem;
+    }
+
+    .profile-section-heading p {
+        margin: 0 0 .12rem;
+        color: var(--hlink);
+        font-size: .72rem;
+        font-weight: 700;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+    }
+
+    .profile-section-heading h2 {
+        margin: 0;
+        color: var(--textcolor);
+        font-size: clamp(1.1rem, 1.7vw, 1.3rem);
+        font-weight: 700;
+        line-height: 1.3;
+    }
+
+    .profile-about-copy {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.25rem;
+    }
+
+    .profile-about-copy p,
+    .profile-note {
+        margin: 0;
+        color: var(--board-tc);
+        font-size: .98rem;
+        line-height: 1.75;
+        overflow-wrap: anywhere;
+    }
+
+    .profile-list {
+        display: grid;
+        gap: 1.15rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .profile-list li {
+        display: grid;
+        min-width: 0;
+        grid-template-columns: 12px minmax(0, 1fr);
+        align-items: start;
+        gap: .8rem;
+    }
+
+    .profile-list-marker {
+        width: 10px;
+        height: 10px;
+        margin-top: .42rem;
+        border: 2px solid var(--hlink);
+        border-radius: 50%;
+        background: var(--board-bc);
+        box-shadow: 0 0 0 4px color-mix(in srgb, var(--hlink) 12%, transparent);
+    }
+
+    .profile-list li strong,
+    .profile-list li small {
+        display: block;
+        overflow-wrap: anywhere;
+    }
+
+    .profile-list li strong {
+        color: var(--textcolor);
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    .profile-list li small {
+        margin-top: .2rem;
+        color: var(--board-tc);
+        font-size: .9rem;
+        line-height: 1.55;
+    }
+
+    .profile-list li small span {
+        color: var(--hlink);
+    }
+
+    .profile-note {
+        margin-top: 1.2rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--surface-border);
+        font-size: .92rem;
+    }
+
+    .profile-socials a:focus-visible,
+    .profile-action:focus-visible {
+        outline: 3px solid var(--focus-ring);
+        outline-offset: 3px;
+    }
+
+    @media (max-width: 767.98px) {
+        .profile-page-container {
+            padding-top: 68px;
+        }
+
+        .profile-hero {
+            grid-template-columns: auto minmax(0, 1fr);
+        }
+
+        .profile-picture {
+            width: clamp(92px, 22vw, 132px);
+        }
+
+        .profile-actions {
+            width: 100%;
+            gap: .45rem;
+        }
+
+        .profile-page a.profile-action {
+            flex: 1 1 0;
+            min-width: 0;
+            padding: .5rem .45rem;
+            font-size: .78rem;
+        }
+
+        .profile-socials {
+            grid-column: 1 / -1;
+            grid-template-columns: repeat(6, 2.5rem);
+            justify-content: center;
+            margin-top: .25rem;
+        }
+
+        .profile-about-copy {
+            grid-template-columns: minmax(0, 1fr);
+            gap: .9rem;
+        }
+    }
+
+    @media (max-width: 520px) {
+        .profile-page-container {
+            padding-top: 62px;
+        }
+
+        .profile-main {
+            padding: 1rem 0;
+        }
+
+        .profile-hero {
+            grid-template-columns: minmax(0, 1fr);
+            justify-items: center;
+            gap: 1rem;
+            padding: 1.4rem 1rem;
+            border-radius: 18px;
+            text-align: center;
+        }
+
+        .profile-picture {
+            width: 116px;
+        }
+
+        .profile-intro {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-eyebrow {
+            justify-content: center;
+            font-size: .72rem;
+        }
+
+        .profile-intro h1 {
+            font-size: clamp(1.8rem, 8vw, 2.3rem);
+        }
+
+        .profile-actions {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: .4rem;
+        }
+
+        .profile-page a.profile-action {
+            width: 100%;
+            gap: .35rem;
+            padding: .5rem .45rem;
+            font-size: .75rem;
+        }
+
+        .profile-action:last-child {
+            grid-column: 1 / -1;
+            justify-self: center;
+            width: calc(50% - .2rem);
+        }
+
+        .profile-socials {
+            grid-column: auto;
+            margin-top: .25rem;
+        }
+
+        .profile-socials a {
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+
+        .profile-detail-grid {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .profile-panel {
+            padding: 1.2rem 1rem;
+            border-radius: 16px;
+        }
+    }
+
+    @media (max-width: 350px) {
+        .profile-page a.profile-action {
+            gap: .2rem;
+            padding: .35rem .2rem;
+            font-size: .67rem;
+            line-height: 1.15;
+            white-space: normal;
+        }
+
+        .profile-socials {
+            grid-template-columns: repeat(6, 2.25rem);
+            gap: .4rem;
+        }
+
+        .profile-socials a {
+            width: 2.25rem;
+            height: 2.25rem;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .profile-socials a,
+        .profile-action { transition: none; }
+    }
 </style>

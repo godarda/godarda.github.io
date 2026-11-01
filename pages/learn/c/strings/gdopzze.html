@@ -6,6 +6,7 @@ title: C program to convert uppercase to a lowercase string
 <div class="codecard">{{ page.title }} using ASCII values</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Adds the ASCII case offset to values 65 through 92, including [ and backslash.
 #include <stdio.h>
 #include <string.h>
 int main()
@@ -19,6 +20,7 @@ int main()
     scanf("%s", s);
     for (i = 0; i <= strlen(s); i++)
     {
+        // Values 65 through 92 include uppercase letters plus [ and backslash.
         if (s[i] >= 65 && s[i] <= 92)
             s[i] = s[i] + 32;
     }
@@ -43,6 +45,7 @@ godarda@gd:~$
 <div class="codecard">{{ page.title }} using tolower() function</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Converts each character to lowercase with tolower until the string terminator.
 #include <stdio.h>
 int main()
 {
@@ -53,6 +56,7 @@ int main()
     printf("\n———————————————————————————————————————————");
     printf("\nEnter the string ");
     scanf("%s", s);
+    // A C string loop ends when it reaches the null character.
     for (i = 0; s[i]; i++)
         s[i] = tolower(s[i]);
     printf("\nThe lowercase string is %s", s);

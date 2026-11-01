@@ -48,8 +48,8 @@
     }
 
     .search-input-group:focus-within {
-        border-color: var(--search-focus);
-        box-shadow: 0 0 0 3px color-mix(in srgb, var(--search-focus) 14%, transparent);
+        border-color: var(--section-accent, var(--search-focus));
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--section-accent, var(--search-focus)) 14%, transparent);
     }
 
     .search-input-group > .input-group-text,
@@ -124,6 +124,12 @@
         transform: translateX(-100%);
         animation: loading-slide 1.5s infinite;
     }
+    .search-input-content {
+        margin-bottom: 25px;
+    }
+    .jumbotron .search-input-content {
+        margin-bottom: 0;
+    }
 
     @keyframes loading-slide {
         0% {
@@ -165,7 +171,7 @@
 <div class="container search-page-container" {% if home %}style="min-height: 80vh; display: flex; flex-direction: column; justify-content: center;"{% endif %}>
     <div id="search-backdrop"></div>
     <center>
-        <div class="col-12 sm:col-11 md:col-9 lg:col-7 xl:col-6 2xl:col-6" style="margin-bottom: 25px;">
+        <div class="col-12 sm:col-11 md:col-9 lg:col-7 xl:col-6 2xl:col-6 search-input-content">
             {%- if home -%}
             <!-- Display site title and tagline only on the home page -->
             <h2 id="fc-{{ path[1] }}">GoDarda</h2>

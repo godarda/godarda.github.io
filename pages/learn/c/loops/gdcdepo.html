@@ -6,10 +6,12 @@ title: C program to print alphabets using the ASCII values
 <div class="codecard">C program to print uppercase alphabets using the ASCII values</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Prints uppercase alphabet characters by iterating over their character codes.
 #include <stdio.h>
 int main()
 {
     int i;
+    // These character codes span uppercase A through Z.
     for (i = 65; i < 91; i++)
     {
         printf("%c ", i);
@@ -28,10 +30,12 @@ godarda@gd:~$
 <div class="codecard">C program to print lowercase alphabets using the ASCII values</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Prints lowercase alphabet characters by iterating over their character codes.
 #include <stdio.h>
 int main()
 {
     int i;
+    // These character codes span lowercase a through z.
     for (i = 97; i < 123; i++)
     {
         printf("%c ", i);

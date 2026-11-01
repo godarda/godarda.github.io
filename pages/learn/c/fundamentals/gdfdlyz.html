@@ -21,6 +21,7 @@ Step 9: End
 
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Reads a circle's radius and applies the area and circumference formulas.
 #include <stdio.h>
 #define PI 3.14
 int main()
@@ -31,6 +32,7 @@ int main()
     printf("\n———————————————————————————————————————————");
     printf("\nEnter the radius of a circle ");
     scanf("%f", &R);
+    // Area uses pi times radius squared; the next expression computes circumference.
     A = PI * R * R;
     printf("\nThe area of a circle is %f ", A);
 

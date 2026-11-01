@@ -132,6 +132,7 @@ body:not(.is-webview) {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    min-height: 100dvh;
 }
 
 body {
@@ -278,7 +279,7 @@ span.nav-link:hover {
 }
 
 .jumbotron {
-    padding: 82px 0px 28px;
+    padding: 99px 0px 13px;
     margin-bottom: 0;
     border-radius: 0px;
     border-bottom: 0;
@@ -286,8 +287,16 @@ span.nav-link:hover {
     color: var(--bnw);
 }
 
+.jumbotron-no-search {
+    padding-bottom: 37px;
+}
+
 body.category-page .jumbotron {
-    background-image: linear-gradient(180deg, var(--bs-bg-body), color-mix(in srgb, var(--section-accent) 2%, var(--bs-bg-body)));
+    background-image: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--section-accent) 2%, var(--bs-bg-body)),
+        color-mix(in srgb, var(--section-accent) 6%, var(--bs-bg-body))
+    );
 }
 
 .category-page div.boardtitle,
@@ -302,6 +311,26 @@ body.category-page .jumbotron {
         color-mix(in srgb, var(--section-accent) 16%, var(--board-bc)),
         color-mix(in srgb, var(--section-accent) 5%, var(--board-bc))
     );
+}
+
+.category-page div.board {
+    border-color: var(--section-border);
+}
+
+.category-page div.boardtitle {
+    border-bottom-color: var(--section-border);
+}
+
+.category-page div.boardtitle ~ a {
+    background-color: var(--section-card-bg);
+    background-image: none;
+    border-bottom-color: var(--section-border);
+}
+
+.category-page div.boardtitle ~ a:focus,
+.category-page div.boardtitle ~ a:hover {
+    background-color: var(--section-card-hover-bg);
+    background-image: none;
 }
 
 .category-page .jumbotron h6[id^="fc-"] {
@@ -329,7 +358,11 @@ body.category-page .jumbotron {
 }
 
 .jumbotron + main > .container {
-    padding-top: 28px;
+    padding-top: 43px;
+}
+
+.jumbotron + main > .container > .board {
+    margin-bottom: 43px;
 }
 
 div.procard {
@@ -569,22 +602,18 @@ div.collapsed[aria-expanded="false"] {
 }
 
 .category-page div.boardtitle ~ a {
-    background-color: var(--section-card-bg);
-    background-image: linear-gradient(
-        100deg,
-        color-mix(in srgb, var(--section-accent) 8%, var(--board-bc)),
-        color-mix(in srgb, var(--section-accent) 2%, var(--board-bc))
-    );
+    border-bottom-color: var(--section-border);
 }
 
 .category-page div.boardtitle ~ a:focus,
 .category-page div.boardtitle ~ a:hover {
     background-color: var(--section-card-hover-bg);
-    background-image: linear-gradient(
-        100deg,
-        color-mix(in srgb, var(--section-accent) 12%, var(--board-bc)),
-        color-mix(in srgb, var(--section-accent) 5%, var(--board-bc))
-    );
+}
+
+.category-page div.boardtitle ~ a,
+.category-page div.boardtitle ~ a:focus,
+.category-page div.boardtitle ~ a:hover {
+    border-left-color: transparent;
 }
 
 .category-page div.boardtitle,
@@ -594,7 +623,7 @@ div.collapsed[aria-expanded="false"] {
 .category-page div.box.card-header {
     border-top-color: var(--section-border);
     border-right-color: var(--section-border);
-    border-bottom-color: var(--section-border    );
+    border-bottom-color: var(--section-border);
 }
 
 .category-page div.terminalcard {
@@ -654,11 +683,15 @@ div.collapsed[aria-expanded="false"] {
     border-radius: 0 0 8px 8px;
 }
 
-.category-page div.boardtitle ~ a,
 .category-page div.box.card-footer,
 .category-page div.infocard,
 .category-page pre.editorcard {
     border-color: var(--section-detail-border);
+}
+
+.category-page div.boardtitle ~ a {
+    border-color: var(--section-border);
+    border-left-color: transparent;
 }
 
 .category-page div.infocard {
@@ -669,8 +702,9 @@ div.collapsed[aria-expanded="false"] {
     display: block;
     width: 100%;
     min-width: 0;
-    padding: 10px 12px;
-    margin: 2px 0;
+    min-height: 43px;
+    padding: 9px 12px;
+    margin: 0;
     color: var(--sidebar-tc);
     border-radius: 8px;
     border-left: 3px solid transparent;
@@ -712,12 +746,12 @@ div.board {
     border-radius: 8px;
     border: 1px solid var(--surface-border);
     box-shadow: 0 2px 6px rgba(30, 45, 65, 0.04);
-    margin-bottom: 30px;
+    margin-bottom: 43px;
 }
 
 div.boardtitle {
     border-bottom: 1px solid var(--surface-border);
-    padding: 11px 14px;
+    padding: 9px 14px;
     font-weight: 600;
     font-size: 1rem;
     color: var(--bnw);
@@ -1026,7 +1060,7 @@ textarea:focus-visible,
     color: var(--bnw);
     display: flex;
     align-items: center;
-    padding: 8px 14px;
+    padding: 5.5px 14px;
     border-radius: 25px;
     transition: background-color .2s ease-in-out;
 }

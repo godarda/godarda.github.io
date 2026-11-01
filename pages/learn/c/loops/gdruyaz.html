@@ -6,10 +6,12 @@ title: C program to find the min and max of given numbers
 <div class="codecard">{{ page.title }} without using array</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Tracks the running minimum and maximum as each entered number is read.
 #include <stdio.h>
 int main()
 {
     int i, n, num, min, max = 0;
+    // Starting max at zero assumes the inputs include a nonnegative value.
     printf("———————————————————————————————————————————");
     printf("\nProgram to find the min/max of given numbers");
     printf("\n———————————————————————————————————————————");
@@ -17,6 +19,7 @@ int main()
     scanf("%d", &n);
     printf("\nEnter %d numbers\n", n);
     scanf("%d", &num);
+    // The first input initializes the minimum; later inputs update the bounds.
     min = num;
     if (num >= max)
         max = num;
@@ -58,6 +61,7 @@ godarda@gd:~$
 <div class="codecard">{{ page.title }} using array</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Stores inputs in an array, then scans it to find the minimum and maximum.
 #include <stdio.h>
 #define N 10
 int main()
@@ -71,6 +75,7 @@ int main()
     {
         scanf("%d", &a[i]);
     }
+    // Initialize both bounds from actual data before scanning the array.
     max = a[0];
     min = max;
     for (int i = 0; i < N; i++)

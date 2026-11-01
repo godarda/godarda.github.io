@@ -6,6 +6,7 @@ title: C program to copy the given string
 <div class="codecard">{{ page.title }}</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Copies a source string into a separate destination array with strcpy.
 #include <stdio.h>
 #include <string.h>
 int main()
@@ -16,6 +17,7 @@ int main()
     printf("\nProgram to copy the given string");
     printf("\n———————————————————————————————————————————");
     printf("\nInput string %s ", s1);
+    // Copy the source string, including its terminator, into the destination buffer.
     strcpy(s2, s1);
 
     printf("\n\nThe copied string is %s ", s2);

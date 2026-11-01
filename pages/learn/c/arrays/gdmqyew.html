@@ -6,12 +6,15 @@ title: C program to find the min and max number from a given array
 <div class="codecard">{{ page.title }}</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Finds the largest and smallest values while traversing an array.
 #include <stdio.h>
 int main()
 {
     int min, max;
     int arr[5] = {100, 15, 8, 45, 93};
+    // Initialize both bounds from data so arrays containing only negative values are handled.
     min = max = arr[0];
+    // Compare each element with the current minimum and maximum.
     for (int i = 0; i < 5; i++)
     {
         if (arr[i] > max)

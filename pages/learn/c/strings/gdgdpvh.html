@@ -6,6 +6,7 @@ title: C program to compare the given strings
 <div class="codecard">{{ page.title }}</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Compares two input strings with strcmp; a zero result means their contents match.
 #include <stdio.h>
 #include <string.h>
 int main()
@@ -18,6 +19,7 @@ int main()
     scanf("%s", a);
     printf("\nEnter the 2nd string ");
     scanf("%s", b);
+    // strcmp returns zero only when both strings have matching contents.
     int c = strcmp(a, b);
     if (c == 0)
     {

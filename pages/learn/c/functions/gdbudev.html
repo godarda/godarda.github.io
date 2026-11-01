@@ -6,6 +6,7 @@ title: C program to find the factorial of a given number
 <div class="codecard">{{ page.title }}</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Validates the input, then calls an iterative helper to calculate the factorial.
 #include <stdio.h>
 int facto(int);
 int main()
@@ -35,6 +36,7 @@ int main()
 int facto(int n)
 {
     int i, factorial = 1;
+    // Multiply the accumulator by each integer from one through n.
     for (i = 1; i <= n; i++)
     {
         factorial = factorial * i;

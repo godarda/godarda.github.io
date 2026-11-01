@@ -6,10 +6,12 @@ title: C program to print the star pyramid patterns
 <div class="codecard">C program to print the right half star pyramid pattern</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Prints a left-aligned increasing star triangle.
 #include <stdio.h>
 int main()
 {
     int i, j;
+    // The outer loop controls row width; the inner loop prints that many stars.
     for (i = 1; i <= 10; i++)
     {
         for (j = 1; j <= i; j++)
@@ -39,12 +41,14 @@ godarda@gd:~$
 <div class="codecard">C program to print the left half star pyramid pattern</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Adds leading spaces to right-align an increasing star triangle.
 #include <stdio.h>
 int main()
 {
     int i, j;
     for (i = 1; i <= 10; i++)
     {
+        // Leading spaces shift rows right as the star count increases.
         for (j = 1; j <= 10 - i; j++)
             printf(" ");
         for (j = 1; j <= i; j++)
@@ -75,10 +79,12 @@ godarda@gd:~$
 <div class="codecard">C program to print the inverted right half star pyramid pattern</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Prints a left-aligned decreasing star triangle.
 #include <stdio.h>
 int main()
 {
     int i, j;
+    // Decreasing the outer-loop bound shortens each successive row.
     for (i = 10; i >= 1; i--)
     {
         for (j = 1; j <= i; j++)
@@ -109,12 +115,14 @@ godarda@gd:~$
 <div class="codecard">C program to print the inverted left half star pyramid pattern</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Adds leading spaces to right-align a decreasing star triangle.
 #include <stdio.h>
 int main()
 {
     int i, j;
     for (i = 10; i >= 1; i--)
     {
+        // Increasing indentation as rows shrink right-aligns the pattern.
         for (j = 1; j <= 10 - i; j++)
             printf(" ");
         for (j = 1; j <= i; j++)

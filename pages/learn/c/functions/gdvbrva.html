@@ -6,6 +6,7 @@ title: C program to perform the Set operations (Union and Intersection)
 <div class="codecard">{{ page.title }}</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Represents sets as arrays with the element count in slot zero, then computes their union and intersection.
 #include <stdio.h>
 #define SIZE 50
 int S1[SIZE], S2[SIZE], S3[SIZE];
@@ -14,6 +15,7 @@ void accept(int S[], int n)
     int i;
     for (i = 1; i <= n; i++)
         scanf("%d", &S[i]);
+    // Slot zero records the count; set elements occupy slots one onward.
     S[0] = n;
 }
 
@@ -45,6 +47,7 @@ void set_union(int S1[], int S2[])
         S3[i] = S1[i];
     m = S2[0];
     for (i = 1; i <= m; i++)
+        // Append only values not already present in the first set.
         if (!ele_pre(S1, S2[i]))
             S3[++n] = S2[i];
     S3[0] = n;
@@ -55,6 +58,7 @@ void intersection(int S1[], int S2[])
     int n, i, j = 0;
     n = S1[0];
     for (i = 1; i <= n; i++)
+        // Keep an element only if the membership helper finds it in both sets.
         if (ele_pre(S2, S1[i]))
             S3[++j] = S1[i];
     S3[0] = j;

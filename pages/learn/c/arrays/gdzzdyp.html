@@ -6,10 +6,12 @@ title: C program to print the length of a given array
 <div class="codecard">{{ page.title }}</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Calculates the number of array elements from the total and per-element sizes.
 #include <stdio.h>
 int main()
 {
     int arr[] = {1, 2, 3, 4, 5};
+    // Divide the array's byte size by the size of one element to get its length.
     printf("Length of an array is %ld \n", (sizeof(arr) / sizeof(int)));
     return 0;
 }

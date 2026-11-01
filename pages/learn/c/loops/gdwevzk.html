@@ -7,12 +7,15 @@ title: Find the output of C Loops programs
 <div class="codecard">Program 1</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Illustrates repeated increments in one expression and function arguments; these unsequenced modifications of the same scalar have undefined behavior in C.
 #include <stdio.h>
 int main()
 {
     int a = 5;
+    // These unsequenced modifications of a make this expression undefined behavior in C.
     printf("%d\n", ++a + ++a + ++a);
     int b = 5;
+    // Argument evaluation order is unspecified; these unsequenced modifications are undefined behavior.
     printf("%d %d %d\n", ++b, ++b, ++b);
     return 0;
 }

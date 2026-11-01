@@ -6,6 +6,7 @@ title: C program to find the length of a given string
 <div class="codecard">{{ page.title }}</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Uses strlen to count the characters before the string terminator.
 #include <stdio.h>
 #include <string.h>
 int main()
@@ -16,6 +17,7 @@ int main()
     printf("\n———————————————————————————————————————————");
     printf("\nEnter the string ");
     scanf("%s", s);
+    // strlen excludes the terminating null character from its count.
     int l = strlen(s);
     printf("\nLength of string is %d", l);
     printf("\n———————————————————————————————————————————\n");

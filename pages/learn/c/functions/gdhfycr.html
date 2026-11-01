@@ -6,6 +6,7 @@ title: C program to find the factorial of a given number using recursion
 <div class="codecard">{{ page.title }}</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Calculates factorial recursively, with one as the base case for zero and one.
 #include <stdio.h>
 long facto(long x);
 int main()
@@ -34,8 +35,10 @@ int main()
 }
 long facto(long n)
 {
+    // Each call reduces n until the base case returns one.
     if (n >= 1)
     {
+        // The products form n factorial as recursive calls return.
         return n * facto(n - 1);
     }
     else

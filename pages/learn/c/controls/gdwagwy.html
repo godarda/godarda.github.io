@@ -6,12 +6,14 @@ title: C program to demonstrate the use of goto statement
 <div class="codecard">{{ page.title }}</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Branches to labeled output sections with goto after testing the number's parity.
 #include <stdio.h>
 int main()
 {
     int n, a;
     printf("Enter a number ");
     scanf("%d", &n);
+    // The remainder test chooses which labeled block the goto enters.
     if (n % 2 == 0)
     {
         goto EVEN;

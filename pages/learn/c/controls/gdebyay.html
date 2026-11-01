@@ -7,10 +7,12 @@ title: Find the output of C Control Statements programs
 <div class="codecard">Program 1</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Shows how equality tests and logical negation determine an if/else branch.
 #include <stdio.h>
 int main()
 {
     int x = 5;
+    // This tests equality; !x prints the logical negation of x.
     if (x == 5)
         printf("%d\n", !x);
     else
@@ -30,10 +32,12 @@ godarda@gd:~$
 <div class="codecard">Program 2</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Shows that zero is false and !0 evaluates to true in a condition.
 #include <stdio.h>
 int main()
 {
     int x = 0;
+    // Because x is zero, !x evaluates to true.
     if (!x)
         printf("%d\n", !x);
     else
@@ -53,10 +57,12 @@ godarda@gd:~$
 <div class="codecard">Program 3</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Shows that a nonzero integer is true while its logical negation is false.
 #include <stdio.h>
 int main()
 {
     int x = 5;
+    // A nonzero integer is true in a condition.
     if (x)
         printf("%d\n", !x);
     else

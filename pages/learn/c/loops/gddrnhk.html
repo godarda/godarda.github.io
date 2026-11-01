@@ -6,12 +6,15 @@ title: C program to demonstrate the static and local variables
 <div class="codecard">{{ page.title }}</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Contrasts a static local that retains its value with an automatic local reset each iteration.
 #include <stdio.h>
 int main()
 {
     for (int i = 0; i < 5; i++)
     {
+        // The static local retains its value across loop iterations.
         static int a = 0;
+        // This automatic local is initialized again on every iteration.
         int b = 0;
         a++;
         b++;

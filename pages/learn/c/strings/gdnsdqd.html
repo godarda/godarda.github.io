@@ -6,6 +6,7 @@ title: C program to reverse a given string
 <div class="codecard">{{ page.title }}</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Swaps characters from the two ends inward to reverse the input string in place.
 #include <stdio.h>
 #include <string.h>
 int main()
@@ -16,6 +17,7 @@ int main()
     printf("\n———————————————————————————————————————————");
     printf("\nEnter the string ");
     scanf("%s", s);
+    // Swap matching characters from the ends, moving toward the middle.
     for (int i = 0, j = strlen(s) - 1; i < j; i++, j--)
     {
         temp = s[i];

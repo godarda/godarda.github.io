@@ -16,6 +16,7 @@ Step 5: End
 
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Compares bitwise operators on bits with logical operators on truth values.
 #include <stdio.h>
 int main()
 {
@@ -25,6 +26,7 @@ int main()
     printf("\n———————————————————————————————————————————");
     printf("\nValue of a     | %d ", a);
     printf("\nValue of b     | %d ", b);
+    // Bitwise operators combine integer bits; logical operators combine truth values.
     printf("\nValue of %d | %d | %d ", a, b, (a | b));
     printf("\nValue of %d & %d | %d ", a, b, (a & b));
     printf("\nValue of %d ^ %d | %d ", a, b, (a ^ b));

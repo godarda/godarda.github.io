@@ -3,44 +3,307 @@ title: GoDarda's TestApp
 permalink: testapp/
 ---
 
-<div class="mx-auto w-100" style="max-width:520px; padding-top: 25vh;">
-    <div class="box card-header d-flex justify-content-center">
-        <h5>GoDarda Login</h5>
-    </div>
-    <form name="gdlogin" action="shubhamrdarda">
-        <div class="box card-body">
-            <div class="mb-5">
-                <input id="username" name="username" type="text" class="form-control" placeholder="Username"
-                    autocomplete="off" maxlength="15" minlength="3" required>
-            </div>
-            <div class="mb-5">
-                <input id="password" name="password" type="password" class="form-control" placeholder="Password"
-                    autocomplete="off" maxlength="15" minlength="3" required>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <select class="form-control" name="country" title="Country">
-                        <option value="1" selected>India</option>
-                        <option value="2">United States</option>
-                        <option value="3">United Kingdom</option>
-                        <option value="canada">Canada</option>
-                        <option value="germany">Germany</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                <div class="col-6">
-                    <input class="form-check-input" type="radio" name="usertype" id="local"
-                        title="User Type: Local" checked><label class="form-check-label" for="local">Local</label>
-                    <span style="padding-right: 10px;"></span>
-                    <input class="form-check-input" type="radio" name="usertype" id="admin"
-                        title="User Type: Admin"><label class="form-check-label" for="admin">Admin</label>
-                </div>
-            </div>
-            <div style="padding-top: 10px;"><u>Credentials:</u> godarda</div>
+<style>
+    .testapp-page {
+        width: min(100%, 560px);
+        min-height: calc(100dvh - 106px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        margin: 56px auto 50px;
+        padding: 24px 16px;
+    }
+
+    .testapp-card {
+        overflow: hidden;
+        width: 100%;
+        border: 1px solid color-mix(in srgb, var(--hlink) 30%, var(--surface-border));
+        border-radius: 16px;
+        background: var(--board-bc);
+        box-shadow: 0 16px 40px color-mix(in srgb, var(--hlink) 10%, transparent);
+    }
+
+    .testapp-card-header {
+        padding: 22px 26px;
+        border-bottom: 1px solid color-mix(in srgb, var(--hlink) 24%, var(--surface-border));
+        border-left: 4px solid var(--hlink);
+        background: linear-gradient(
+            110deg,
+            color-mix(in srgb, var(--hlink) 14%, var(--board-header-bg)),
+            var(--board-header-bg) 82%
+        );
+    }
+
+    .testapp-card-header h1 {
+        margin: 0;
+        color: var(--bnw);
+        font-size: 1.35rem;
+        font-weight: 600;
+        line-height: 1.3;
+        letter-spacing: .04em;
+    }
+
+    .testapp-card-body {
+        display: grid;
+        gap: 18px;
+        padding: 26px;
+    }
+
+    .testapp-field {
+        display: grid;
+        gap: 7px;
+        color: var(--board-tc);
+        font-size: .9rem;
+        font-weight: 500;
+    }
+
+    .testapp-field .form-control {
+        min-height: 44px;
+        border-color: var(--surface-border);
+        border-radius: 9px;
+        background-color: var(--search-field-bg);
+        color: var(--textcolor);
+    }
+
+    .testapp-field .form-control:focus {
+        border-color: var(--hlink);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--hlink) 16%, transparent);
+    }
+
+    .testapp-options {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 18px;
+    }
+
+    .testapp-field select.form-control {
+        appearance: none;
+        background-image:
+            linear-gradient(45deg, transparent 50%, var(--board-tc) 50%),
+            linear-gradient(135deg, var(--board-tc) 50%, transparent 50%);
+        background-position:
+            calc(100% - 17px) center,
+            calc(100% - 12px) center;
+        background-repeat: no-repeat;
+        background-size: 5px 5px;
+        padding-right: 36px;
+    }
+
+    .testapp-user-types {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 14px;
+        transform: translateY(14px);
+    }
+
+    .testapp-user-types label {
+        color: var(--textcolor);
+    }
+
+    .testapp-user-types .form-check-input {
+        accent-color: var(--hlink);
+    }
+
+    .testapp-user-types input[type="radio"].form-check-input:checked {
+        border-color: var(--hlink);
+        background-color: var(--hlink);
+    }
+
+    .testapp-credentials {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 4px 8px;
+        padding: 12px 14px;
+        border: 1px solid color-mix(in srgb, var(--hlink) 22%, var(--surface-border));
+        border-radius: 9px;
+        background: color-mix(in srgb, var(--hlink) 5%, var(--board-bc));
+        color: var(--board-tc);
+        font-size: .9rem;
+    }
+
+    .testapp-credentials strong {
+        color: var(--textcolor);
+    }
+
+    .testapp-card-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        padding: 18px 26px;
+        border-top: 1px solid var(--surface-border);
+        background: linear-gradient(
+            110deg,
+            color-mix(in srgb, var(--hlink) 7%, var(--board-header-bg)),
+            var(--board-header-bg) 82%
+        );
+    }
+
+    .testapp-button {
+        min-height: 42px;
+        padding: 8px 18px;
+        border: 1px solid transparent;
+        border-radius: 9px;
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color .18s ease, border-color .18s ease, transform .18s ease;
+    }
+
+    .testapp-button:focus-visible {
+        outline: 3px solid color-mix(in srgb, var(--hlink) 42%, transparent);
+        outline-offset: 2px;
+    }
+
+    .testapp-button-reset {
+        border-color: var(--surface-border);
+        background: var(--board-bc);
+        color: var(--textcolor);
+    }
+
+    .testapp-button-reset:hover {
+        border-color: color-mix(in srgb, var(--hlink) 48%, var(--surface-border));
+        background: color-mix(in srgb, var(--hlink) 7%, var(--board-bc));
+    }
+
+    .testapp-button-login {
+        background: var(--hlink);
+        color: #fff;
+    }
+
+    .testapp-button-login:hover {
+        background: color-mix(in srgb, var(--hlink) 82%, #000);
+        transform: translateY(-1px);
+    }
+
+    @media (max-width: 480px) {
+        .testapp-page {
+            padding-right: 12px;
+            padding-left: 12px;
+        }
+
+        .testapp-card-header,
+        .testapp-card-body {
+            padding: 20px;
+        }
+
+        .testapp-options {
+            grid-template-columns: 1fr;
+            gap: 14px;
+        }
+
+        .testapp-user-types {
+            transform: none;
+        }
+
+        .testapp-card-footer {
+            padding: 16px 20px;
+        }
+    }
+
+    @media (max-height: 650px) {
+        .testapp-page {
+            min-height: calc(100dvh - 106px);
+            margin-top: 56px;
+            margin-bottom: 50px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+
+        @media (max-width: 480px) and (max-height: 650px) {
+            .testapp-page {
+                padding-right: 12px;
+                padding-left: 12px;
+            }
+        }
+
+        .testapp-card-header {
+            padding: 10px 20px;
+        }
+
+        .testapp-card-body {
+            gap: 7px;
+            padding: 10px 12px;
+        }
+
+        .testapp-field {
+            gap: 2px;
+        }
+
+        .testapp-field .form-control {
+            min-height: 34px;
+        }
+
+        .testapp-credentials {
+            padding: 6px 10px;
+        }
+
+        .testapp-card-footer {
+            padding: 8px 18px;
+        }
+
+        .testapp-button {
+            min-height: 34px;
+            padding: 4px 16px;
+        }
+    }
+</style>
+
+<div class="testapp-page">
+    <section class="testapp-card" aria-labelledby="testapp-title">
+        <div class="testapp-card-header">
+            <h1 id="testapp-title">GoDarda Login</h1>
         </div>
-        <div class="box card-footer d-flex justify-content-center">
-            <button id="reset" name="reset" class="btn-solid theme-secondary" type="reset" style="margin-right: 10px;">Reset</button>
-            <button id="login" name="login" class="btn-solid theme-secondary" type="submit">Login</button>
-        </div>
-    </form>
+        <form name="gdlogin" action="shubhamrdarda">
+            <div class="testapp-card-body">
+                <label class="testapp-field" for="username">
+                    Username
+                    <input id="username" name="username" type="text" class="form-control" placeholder="Enter your username"
+                        autocomplete="off" maxlength="15" minlength="3" required>
+                </label>
+                <label class="testapp-field" for="password">
+                    Password
+                    <input id="password" name="password" type="password" class="form-control" placeholder="Enter your password"
+                        autocomplete="off" maxlength="15" minlength="3" required>
+                </label>
+                <div class="testapp-options">
+                    <label class="testapp-field" for="country">
+                        Country
+                        <select id="country" class="form-control" name="country" title="Country">
+                            <option value="1" selected>India</option>
+                            <option value="2">United States</option>
+                            <option value="3">United Kingdom</option>
+                            <option value="canada">Canada</option>
+                            <option value="germany">Germany</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </label>
+                    <fieldset class="testapp-user-types border-0 p-0 m-0">
+                        <legend class="visually-hidden">User type</legend>
+                        <div>
+                            <input class="form-check-input" type="radio" name="usertype" id="local"
+                                title="User Type: Local" checked>
+                            <label class="form-check-label" for="local">Local</label>
+                        </div>
+                        <div>
+                            <input class="form-check-input" type="radio" name="usertype" id="admin"
+                                title="User Type: Admin">
+                            <label class="form-check-label" for="admin">Admin</label>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="testapp-credentials">
+                    <strong>Demo credentials</strong>
+                    <span>Username and password: godarda</span>
+                </div>
+            </div>
+            <div class="testapp-card-footer">
+                <button id="reset" name="reset" class="testapp-button testapp-button-reset" type="reset">Reset</button>
+                <button id="login" name="login" class="testapp-button testapp-button-login" type="submit">Login</button>
+            </div>
+        </form>
+    </section>
 </div>

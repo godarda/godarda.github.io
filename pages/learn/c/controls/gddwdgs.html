@@ -6,6 +6,7 @@ title: C program to check the equality of given numbers
 <div class="codecard">{{ page.title }}</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Reads two floating-point values and selects the matching comparison result.
 #include <stdio.h>
 int main()
 {
@@ -17,6 +18,7 @@ int main()
     scanf("%f", &a);
     printf("\nEnter the 2nd number ");
     scanf("%f", &b);
+    // The else-if chain selects exactly one comparison outcome.
     if (a < b)
     {
         printf("\n%f is less than %f", a, b);

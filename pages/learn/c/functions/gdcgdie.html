@@ -13,6 +13,7 @@ title: C program for the Tower of Hanoi
 <div class="codecard">{{ page.title }}</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Solves Tower of Hanoi recursively by moving smaller disk stacks around each largest disk.
 #include <stdio.h>
 int main()
 {
@@ -29,11 +30,13 @@ int main()
 }
 void towers(int n, char source, char destination, char auxiliary)
 {
+    // One disk is the recursion base case: move it directly to the destination.
     if (n == 1)
     {
         printf("\nMove disk 1 from peg %c to peg %c", source, destination);
         return;
     }
+    // Move the smaller stack aside, move the largest disk, then move the stack onto it.
     towers(n - 1, source, auxiliary, destination);
     printf("\nMove disk %d from peg %c to peg %c", n, source, destination);
     towers(n - 1, auxiliary, destination, source);

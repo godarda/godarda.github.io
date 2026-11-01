@@ -6,9 +6,11 @@ title: C program to demonstrate the use of functions
 <div class="codecard">Example 1: {{ page.title }}</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Passes two arguments to a function that returns their sum.
 #include <stdio.h>
 float add(float a, float b)
 {
+    // Return the sum for the caller to use.
     return a + b;
 }
 int main()
@@ -27,6 +29,7 @@ godarda@gd:~$
 <div class="codecard">Example 2: {{ page.title }}</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Uses a no-argument function to read, add, and print two values.
 #include <stdio.h>
 void add()
 {
@@ -56,6 +59,7 @@ godarda@gd:~$
 <div class="codecard">Example 3: {{ page.title }}</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Separates input from four arithmetic functions that each return a result.
 #include <stdio.h>
 float a, b, c;
 void accept()
@@ -86,6 +90,7 @@ float division(float a, float b)
 }
 int main()
 {
+    // The input helper fills the global operands used by the arithmetic functions.
     accept();
     printf("\nAddition      | %f\n", add(a, b));
     printf("Subtraction   | %f\n", sub(a, b));

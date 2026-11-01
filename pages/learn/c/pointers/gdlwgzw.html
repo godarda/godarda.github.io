@@ -6,11 +6,13 @@ title: C program to print the length of a given array without using sizeof
 <div class="codecard">{{ page.title }}</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Subtracts the array's first-element pointer from its one-past-the-end pointer to get its length.
 #include <stdio.h>
 int main()
 {
     int min, max;
     int arr[5] = {100, 15, 8, 45, 93};
+    // &arr + 1 points one whole array past arr; pointer subtraction counts its elements.
     int length = *(&arr + 1) - arr;
     printf("Length of a given array is %d", length);
     return 0;

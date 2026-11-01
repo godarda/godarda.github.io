@@ -6,10 +6,12 @@ title: C program to print the given array
 <div class="codecard">{{ page.title }}</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Prints each array element in order using its index.
 #include <stdio.h>
 int main()
 {
     int arr[5] = {1, 2, 3, 4, 5};
+    // The loop index selects each element in order.
     for (int i = 0; i < 5; i++)
     {
         printf("%d ", arr[i]);

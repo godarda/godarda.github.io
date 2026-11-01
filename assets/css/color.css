@@ -223,6 +223,15 @@ a.card.codecard[data-category]:focus {
         background-image: linear-gradient(100deg, color-mix(in srgb, {{ color_var }} 13%, var(--sidebar-bc)), color-mix(in srgb, {{ color_var }} 5%, var(--sidebar-bc)));
     }
 
+    .sidebar-scroll > .nav-link.{{ s }}:not(.sidebar-item-active):hover,
+    .sidebar-scroll > .nav-link.{{ s }}:not(.sidebar-item-active):focus-visible
+    {
+        border-left-color: color-mix(in srgb, {{ color_var }} 68%, var(--sidebar-bc));
+        background-color: color-mix(in srgb, {{ color_var }} 12%, var(--sidebar-bc));
+        background-image: linear-gradient(100deg, color-mix(in srgb, {{ color_var }} 14%, var(--sidebar-bc)), color-mix(in srgb, {{ color_var }} 5%, var(--sidebar-bc)));
+        color: var(--bnw);
+    }
+
     .category-{{ s }} .navbar-brand > a[id^="fc-"]
     {
         color: color-mix(in srgb, {{ color_var }} 86%, var(--bnw));
@@ -304,8 +313,13 @@ a.card.codecard[data-category]:focus {
     }
 
     a.card.codecard[data-category="{{ segment.url }}"]:hover,
-    a.card.codecard[data-category="{{ segment.url }}"]:focus {
+    a.card.codecard[data-category="{{ segment.url }}"]:focus,
+    a.card.codecard[data-category="{{ segment.url }}"]:focus-visible {
+        border-color: color-mix(in srgb, {{ color_var }} 38%, var(--surface-border));
         border-left: 3px solid {{ color_var }};
+        background-color: color-mix(in srgb, {{ color_var }} 5%, var(--board-bc));
+        background-image: linear-gradient(100deg, color-mix(in srgb, {{ color_var }} 14%, var(--board-bc)), color-mix(in srgb, {{ color_var }} 4%, var(--board-bc)));
+        box-shadow: 0 3px 8px color-mix(in srgb, {{ color_var }} 8%, transparent);
     }
     .codecard[data-category="{{ segment.url }}"] mark {
         color: {{ color_var }};

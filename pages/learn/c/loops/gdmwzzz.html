@@ -6,6 +6,7 @@ title: C program to convert a binary number to an equivalent decimal number
 <div class="codecard">{{ page.title }}</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Extracts binary digits from right to left and accumulates their decimal place values.
 #include <stdio.h>
 int main()
 {
@@ -18,8 +19,10 @@ int main()
     scanf("%ld", &n);
     while (n != 0)
     {
+        // Extract the rightmost binary digit and apply its current place value.
         r = n % 10;
         dn = dn + r * i;
+        // Double the place value before processing the next digit.
         i = i * 2;
         n = n / 10;
     }

@@ -6,6 +6,7 @@ title: C menu-driven program for the arithmetic operations
 <div class="codecard">{{ page.title }}</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Repeats a menu until exit; switch cases call input and arithmetic helper functions.
 #include <stdio.h>
 #include <stdlib.h>
 int a, b, c;
@@ -35,6 +36,7 @@ float division(float a, float b)
 int main()
 {
     int ch;
+    // A do-while menu runs once before checking whether the user chose exit.
     do
     {
         printf("\n———————————————————————————————————————————");
@@ -44,6 +46,7 @@ int main()
         printf("\n———————————————————————————————————————————");
         printf("\nEnter your choice ");
         scanf("%d", &ch);
+        // Each case handles one choice; break prevents fall-through.
         switch (ch)
         {
         case 1:

@@ -6,6 +6,7 @@ title: C program to reverse a given number
 <div class="codecard">{{ page.title }}</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Reverses a number by printing each remainder digit as repeated division removes it.
 #include <stdio.h>
 int main()
 {
@@ -24,6 +25,7 @@ int main()
         printf("\nThe reverse number is ");
         while (n / 10 != 0)
         {
+            // Remainder extracts the last digit; division removes it for the next pass.
             temp = n % 10;
             n = n / 10;
             printf("%d", temp);

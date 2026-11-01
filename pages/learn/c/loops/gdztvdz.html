@@ -6,6 +6,7 @@ title: C program for the addition of N natural numbers
 <div class="codecard">{{ page.title }} using if else statements</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Uses the arithmetic-series formula to sum the first n natural numbers.
 #include <stdio.h>
 int main()
 {
@@ -17,6 +18,7 @@ int main()
     scanf("%d", &n);
     if (n > 0)
     {
+        // The arithmetic-series formula avoids an explicit accumulation loop.
         sum = (n * (n + 1) / 2);
         printf("\nSum of %d natural numbers = %d", n, sum);
     }
@@ -53,6 +55,7 @@ godarda@gd:~$
 <div class="codecard">{{ page.title }} using while loop</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Reads values until zero is entered and accumulates the preceding values.
 #include <stdio.h>
 int main()
 {
@@ -61,6 +64,7 @@ int main()
     printf("\nProgram for the addition of N numbers");
     printf("\n———————————————————————————————————————————");
     printf("\nEnter the numbers\n");
+    // Zero is the sentinel; the initial 1 is removed from the total after input ends.
     while (n != 0)
     {
         sum += n;

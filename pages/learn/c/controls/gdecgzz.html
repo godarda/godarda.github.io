@@ -6,11 +6,13 @@ title: C program to demonstrate the use of break and continue statements
 <div class="codecard">C program to demonstrate the use of break statement</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Stops the loop when i reaches five, so that value is not printed.
 #include <stdio.h>
 int main()
 {
     for (int i = 0; i < 10; i++)
     {
+        // break exits the nearest loop immediately.
         if (i == 5)
         {
             break;
@@ -34,11 +36,13 @@ godarda@gd:~$
 <div class="codecard">C program to demonstrate the use of continue statement</div>
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Skips only the iteration where i is five; the loop continues afterward.
 #include <stdio.h>
 int main()
 {
     for (int i = 0; i < 10; i++)
     {
+        // continue skips the rest of this iteration, then the loop proceeds.
         if (i == 5)
         {
             continue;

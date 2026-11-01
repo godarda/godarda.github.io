@@ -16,6 +16,7 @@ Step 5: End
 
 <div class="card">{{ site.cfile }}</div>
 <pre class="code">{%- highlight c -%}
+// Displays integer arithmetic results and contrasts post-increment with pre-increment.
 #include <stdio.h>
 int main()
 {
@@ -29,7 +30,9 @@ int main()
     printf("\nValue of %d+%d | %d ", a, b, (a + b));
     printf("\nValue of %d-%d | %d ", a, b, (a - b));
     printf("\nValue of %d*%d | %d ", a, b, (a * b));
+    // Post-increment prints the old value before increasing a.
     printf("\nValue of a++ | %d ", a++);
+    // Pre-increment increases a before the new value is printed.
     printf("\nValue of ++a | %d ", ++a);
     printf("\n———————————————————————————————————————————\n");
     return 0;

@@ -227,7 +227,7 @@ $(() => {
     const checkScrollDependentUI = () => {
         const scrollTop = $(window).scrollTop();
         const scrollableHeight = $(document).height() - $(window).height();
-        const scrollPercent = scrollableHeight > 0 ? (scrollTop / scrollableHeight) * 100 : 0;
+        const scrollPercent = scrollableHeight > 4 ? (scrollTop / scrollableHeight) * 100 : 0;
 
         // Show modal once per day when user scrolls past 50% of the page
         if (scrollPercent >= 50 && !isScrollingToTop) {
