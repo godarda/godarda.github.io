@@ -105,10 +105,17 @@ description: Architect of GoDarda
     }
 
     .profile-page {
+        --hlink: #7650b5;
+        --focus-ring: #7650b5;
         width: 100%;
         max-width: 1180px;
         margin: 0 auto;
         color: var(--textcolor);
+    }
+
+    :root[data-bs-theme="dark"] .profile-page {
+        --hlink: #b7a2ff;
+        --focus-ring: #b7a2ff;
     }
 
     .profile-hero {
@@ -129,7 +136,7 @@ description: Architect of GoDarda
 
     .profile-picture {
         display: block;
-        width: clamp(112px, 13vw, 156px);
+        width: clamp(124px, 14vw, 172px);
         aspect-ratio: 1;
         border: 4px solid color-mix(in srgb, var(--hlink) 45%, var(--surface-border));
         border-radius: 50%;
@@ -202,13 +209,13 @@ description: Architect of GoDarda
         font-weight: 600;
         text-decoration: none;
         white-space: nowrap;
-        transition: none;
+        transition: border-color .2s ease, background-color .2s ease, color .2s ease;
     }
 
-    .profile-action:hover {
-        border-color: var(--surface-border);
-        background: var(--board-bc);
-        color: var(--textcolor);
+    .profile-page a.profile-action:hover {
+        border-color: color-mix(in srgb, var(--hlink) 25%, var(--surface-border));
+        background: color-mix(in srgb, var(--hlink) 9%, var(--board-bc));
+        color: var(--hlink);
     }
 
     .profile-socials {
@@ -230,13 +237,13 @@ description: Architect of GoDarda
         color: var(--board-tc);
         font-size: 1.1rem;
         text-decoration: none;
-        transition: none;
+        transition: border-color .2s ease, background-color .2s ease, color .2s ease;
     }
 
     .profile-socials a:hover {
-        border-color: var(--surface-border);
-        background: color-mix(in srgb, var(--board-bc) 82%, transparent);
-        color: var(--board-tc);
+        border-color: color-mix(in srgb, var(--hlink) 25%, var(--surface-border));
+        background: color-mix(in srgb, var(--hlink) 12%, var(--board-bc));
+        color: var(--hlink);
     }
 
     .profile-sections {
@@ -385,7 +392,7 @@ description: Architect of GoDarda
         }
 
         .profile-picture {
-            width: clamp(92px, 22vw, 132px);
+            width: clamp(104px, 24vw, 144px);
         }
 
         .profile-actions {
@@ -432,7 +439,7 @@ description: Architect of GoDarda
         }
 
         .profile-picture {
-            width: 116px;
+            width: 128px;
         }
 
         .profile-intro {

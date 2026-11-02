@@ -271,13 +271,6 @@ $(() => {
     // Check scroll state on load to handle pages that load at the bottom (e.g., from bfcache)
     checkScrollDependentUI();
 
-    // Also specifically handle pageshow for bfcache
-    $(window).on('pageshow', (event) => {
-        if (event.originalEvent && event.originalEvent.persisted) {
-            checkScrollDependentUI();
-        }
-    });
-
     // --------------------------------------------------------------------------
     // Theme Management (Dark/Light Mode)
     // --------------------------------------------------------------------------
@@ -308,9 +301,35 @@ $(() => {
         }
     };
 
+    const syncStoredTheme = () => {
+        const theme = getStoredTheme() || 'light';
+        const resolvedTheme = theme === 'auto'
+            ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+            : theme;
+
+        if (document.documentElement.getAttribute('data-bs-theme') !== resolvedTheme) {
+            setTheme(theme);
+        }
+        showActiveTheme(theme);
+    };
+
+    // Reapply saved preferences when a page is restored from the back/forward cache.
+    $(window).on('pageshow', (event) => {
+        syncStoredTheme();
+        if (event.originalEvent && event.originalEvent.persisted) {
+            checkScrollDependentUI();
+        }
+    });
+
     // Initialize theme on DOM load.
-    const storedTheme = getStoredTheme() || 'light';
-    showActiveTheme(storedTheme);
+    syncStoredTheme();
+
+    // Keep an open tab in sync when the preference changes in another tab.
+    $(window).on('storage', (event) => {
+        const storageEvent = event.originalEvent;
+        if (!storageEvent || storageEvent.key !== 'theme') return;
+        syncStoredTheme();
+    });
 
     // Handle theme switching from the dropdown menu
     $('.menu [data-bs-theme-value]').on('click', (event) => {
