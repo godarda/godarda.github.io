@@ -4,9 +4,14 @@ title: MySQL (Relational Database)
 description: Discover MySQL, the world's most popular open-source database. Learn the essentials of database management, query optimization, and secure data storage.
 ---
 
-<div class="board"><div class="boardtitle">MySQL Introduction</div>
-    <p>MySQL is an open-source database management system. A database is a structured collection of data. Since MySQL stores data in tables, it is classified as a Relational Database Management System (RDBMS). It runs on various platforms, including Linux, Windows, and macOS.</p><hr>
-    <p>To follow this tutorial sequentially, start with <a href="mysql/ddl/gddwgvc" class="hlink">MySQL: CREATE a DATABASE and TABLE</a>, and then follow the recommended links at the bottom of each page. Throughout this tutorial, we use MySQL on the Ubuntu Linux distribution.<br><b>Prerequisite: </b>Ensure MySQL is installed and running. If not, refer to <a href="mysql/fundamentals/gddayxg" class="hlink">How to setup, install, and start MySQL on Ubuntu</a>.</p>
+<div class="board learn-intro">
+    <div class="boardtitle">Introduction to {{ page.title | escape }}</div>
+    <div class="learn-intro-copy">
+        <p>MySQL is a relational database management system: software that stores information in tables and helps applications find and update it. A table has rows for individual records and columns for details such as a name, date, or price. SQL, or Structured Query Language, is used to create tables and work with their data. Related tables can be connected so information is organized without repeating the same details everywhere.</p>
+        <p>MySQL is used by websites, online stores, content systems, and business applications to store information that must still be available after an application restarts. An online store might use it for products, customers, and orders, then retrieve the details needed for a checkout. Developers and database administrators use MySQL to manage these records, control access, and keep related changes consistent when several parts of an application use the same data.</p>
+        <p>Start by creating databases and tables, choosing column types, and defining keys. You will add, find, change, and remove records, then use filters, joins, and calculations to answer questions across tables. Later lessons cover indexes, transactions, users, and permissions. Examples use MySQL on Ubuntu.</p>
+        <p>For a guided path, begin with <a href="mysql/ddl/gddwgvc" class="hlink">MySQL: CREATE a DATABASE and TABLE</a>, then follow the links at the bottom of each page. Before starting, install and run MySQL with <a href="mysql/fundamentals/gddayxg" class="hlink">How to set up, install, and start MySQL on Ubuntu</a>.</p>
+    </div>
 </div>
 
 <div class="terminalcard">How to start MySQL on Ubuntu</div>

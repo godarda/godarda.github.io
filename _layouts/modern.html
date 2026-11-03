@@ -66,6 +66,10 @@
 
 {%- assign path = page.url | split: '/' -%}
 {%- if path[1] == nil -%}{%- assign home = true -%}{%- endif -%}
+{%- assign is_learn_topic_page = false -%}
+{%- if page.path contains 'pages/learn/' and path[1] != 'learn' and path[2] == nil -%}
+    {%- assign is_learn_topic_page = true -%}
+{%- endif -%}
 {%- assign seg_key = path[1] | default: '' -%}
 {%- assign seg_obj = site.data.gd.segments | where: 'url', seg_key | first -%}
 
@@ -212,6 +216,16 @@
 
     <main class="col-12 sm:col-12 md:col-9 lg:col-9 xl:col-10 2xl:col-10 sm:ms-auto md:px-7 flex-grow-1" role="main">
         <div class="container">
+            {%- if is_learn_topic_page and page.introduction -%}
+            <div class="board learn-intro">
+                <div class="boardtitle">Introduction to {{ page.title | escape }}</div>
+                <div class="learn-intro-copy">
+                    {%- for paragraph in page.introduction -%}
+                    <p>{{ paragraph | escape }}</p>
+                    {%- endfor -%}
+                </div>
+            </div>
+            {%- endif -%}
             {{ content }}
             {%- for parent in gd.grandparent -%}
             {% if path[1] != "about" and path[2] == nil %}
